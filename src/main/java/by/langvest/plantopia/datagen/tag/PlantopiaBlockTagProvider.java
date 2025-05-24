@@ -74,7 +74,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 			if(type.isStoneLike()) MINEABLE_WITH_PICKAXE.add(block);
 			if(type == MetaType.POTTED) FLOWER_POTS.add(block);
 
-			if(type == MetaType.PLANT) {
+			if(type.isPlantLike()) {
 				MINEABLE_WITH_AXE.add(block);
 				if(material == Material.REPLACEABLE_PLANT) REPLACEABLE_PLANTS.add(block);
 			}

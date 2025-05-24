@@ -74,6 +74,8 @@ public class PlantopiaBlockLootTables extends BlockLoot {
 		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlockLootTables::createCobblestoneShardDrops);
 		add(PlantopiaBlocks.BUSH.get(), PlantopiaBlockLootTables::createBushDrops);
 		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTables::createPollinatedDandelionDrops);
+		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTables::createBranchingShrubDrops);
+		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTables::createBranchingShrubDrops);
 	}
 
 	private void generateAll() {
@@ -249,6 +251,21 @@ public class PlantopiaBlockLootTables extends BlockLoot {
 
 	private static LootTable.@NotNull Builder createPollinatedDandelionDrops(Block block) {
 		return createSurvivedExplosionBlockTable(block, item(Blocks.DANDELION));
+	}
+
+	private static LootTable.@NotNull Builder createBranchingShrubDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = item(PlantopiaBlocks.BRANCHING_SHRUB.get())
+			.when(HAS_SHEARS)
+			.otherwise(
+				withExplosionDecayFunction(
+					block,
+					withSurvivesExplosionCondition(block, item(Items.STICK))
+						.when(randomChance(SEEDS_CHANCE * 1.75F))
+						.apply(setCount(1, 2))
+				)
+			);
+
+		return createBlockTable(block, lootEntry);
 	}
 
 	/* HELPER METHODS ******************************************/

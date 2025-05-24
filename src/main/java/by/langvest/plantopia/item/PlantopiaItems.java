@@ -34,7 +34,7 @@ public class PlantopiaItems {
 		if(!blockMeta.hasItem()) return;
 		CreativeModeTab group = Objects.requireNonNull(blockMeta.getGroup());
 		Properties properties = new Properties().tab(group);
-		registerItem(blockMeta.getName(), PlantopiaBlockItemHelper.getBlockItemSupplier(blockMeta, properties), MetaProperties.of(MetaType.BLOCK));
+		registerItem(blockMeta.getName(), PlantopiaBlockItemHelper.getBlockItemSupplier(blockMeta, properties), MetaProperties.of(MetaType.BLOCK).customBurnTime(blockMeta.getBurnTime()));
 	}
 
 	public static void setup(IEventBus bus) {

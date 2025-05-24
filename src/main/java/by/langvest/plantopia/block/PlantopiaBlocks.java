@@ -51,6 +51,8 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> POLLINATED_DANDELION = registerBlock("pollinated_dandelion", () -> new PlantopiaPollinatedDandelionBlock(Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS)), MetaProperties.of(MetaType.FLOWER).customModel().customDrop().noGroup());
 	public static final RegistryObject<Block> FLUFFY_DANDELION = registerBlock("fluffy_dandelion", () -> new PlantopiaFluffyDandelionBlock(() -> MobEffects.SLOW_FALLING, 7, Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS)), MetaProperties.of(MetaType.FLOWER).ignoredByBees().noDye());
 	public static final RegistryObject<Block> HOGWEED = registerBlock("hogweed", () -> new PlantopiaHogweedBlock(Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.GRASS)), MetaProperties.of(MetaType.PLANT).tripleHigh().doubleWide().customModel().compostable(Compostability.PLANT_3 * 1.5F));
+	public static final RegistryObject<Block> BRANCHING_SHRUB = registerBlock("branching_shrub", () -> new PlantopiaBranchingShrubBlock(Properties.of(Material.PLANT).instabreak().strength(0.8F).sound(SoundType.GRASS).noOcclusion().dynamicShape()), MetaProperties.of(MetaType.WOODY_PLANT).customDrop().pottable());
+	public static final RegistryObject<Block> BRANCHING_SHRUB_PLANT = registerBlock("branching_shrub_plant", () -> new PlantopiaBranchingShrubPlantBlock(Properties.of(Material.PLANT).instabreak().strength(0.8F).sound(SoundType.GRASS).noOcclusion().dynamicShape()), MetaProperties.of(MetaType.WOODY_PLANT).customDrop().noGroup());
 
 	static {
 		registerPottedBlocks();

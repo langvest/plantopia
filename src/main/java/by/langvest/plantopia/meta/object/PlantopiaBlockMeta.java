@@ -33,6 +33,7 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 	private final boolean isPreferredByBees;
 	private final boolean hasTintedParticles;
 	private final Item dye;
+	private final int burnTime;
 
 	public PlantopiaBlockMeta(String name, RegistryObject<? extends Block> registryObject, @NotNull PlantopiaBlockMeta.MetaProperties metaProperties) {
 		super(name, registryObject);
@@ -54,6 +55,7 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		isPreferredByBees = metaProperties.isPreferredByBees;
 		hasTintedParticles = metaProperties.hasTintedParticles;
 		dye = metaProperties.dye;
+		burnTime = metaProperties.burnTime;
 	}
 
 	public Block getBlock() {
@@ -182,8 +184,17 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		return hasItem() && compostability > 0.0F;
 	}
 
+	public int getBurnTime() {
+		return this.burnTime;
+	}
+
+	public boolean isBurnable() {
+		return this.burnTime > 0;
+	}
+
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
 		public static final MetaType PLANT = new MetaProperties().cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().group(PlantopiaCreativeModeTabs.TAB_PLANTOPIA).makeType("plant");
+		public static final MetaType WOODY_PLANT = MetaProperties.of(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
 		public static final MetaType FLOWER = MetaProperties.of(PLANT).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
 		public static final MetaType SAPLING = MetaProperties.of(PLANT).pottable().notTintedParticles().makeType("sapling");
 		public static final MetaType MUSHROOM = MetaProperties.of(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM).makeType("mushroom");
@@ -203,7 +214,12 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 
 		public boolean isPlantLike() {
 			return type == PLANT
-				|| type == MUSHROOM
+				|| type == WOODY_PLANT;
+		}
+
+		public boolean isVegetationLike() {
+			return type == MUSHROOM
+				|| isPlantLike()
 				|| isSaplingLike()
 				|| isFlowerLike();
 		}
@@ -227,7 +243,7 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		}
 
 		public boolean isAbleToBePotted() {
-			return isPlantLike();
+			return isVegetationLike();
 		}
 	}
 
@@ -249,6 +265,7 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		private boolean isPreferredByBees = false;
 		private boolean hasTintedParticles = false;
 		private Item dye = null;
+		private int burnTime = -1;
 
 		private MetaProperties() {}
 
@@ -261,6 +278,21 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 			PlantopiaMetaAccessor.setRecursiveMetaType(metaType);
 			type = metaType;
 			return metaType;
+		}
+
+		public MetaProperties generatedBurnTime() {
+			this.burnTime = -1;
+			return this;
+		}
+
+		public MetaProperties noBurnTime() {
+			this.burnTime = 0;
+			return this;
+		}
+
+		public MetaProperties customBurnTime(int ticks) {
+			this.burnTime = ticks;
+			return this;
 		}
 
 		public MetaProperties noDye() {
