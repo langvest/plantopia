@@ -111,7 +111,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		ModelFile model = cubeAllModel(baseName, texture);
 
-		blockItemModel(baseName, model);
+		if(blockMeta.hasItem()) blockItemModel(baseName, model);
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 
@@ -141,7 +141,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		ModelFile topModel = crossModel(baseName + "_top", topTexture, isTinted);
 		ModelFile bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
-		generatedItemModel(baseName, topTexture);
+		if(blockMeta.hasItem()) generatedItemModel(baseName, topTexture);
 		doubleHighBlock(blockMeta.getBlock(), topModel, bottomModel);
 	}
 
@@ -157,7 +157,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		ModelFile middleModel = crossModel(baseName + "_middle", middleTexture, isTinted);
 		ModelFile bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
-		generatedItemModel(baseName, topTexture);
+		if(blockMeta.hasItem()) generatedItemModel(baseName, topTexture);
 		tripleHighBlock(blockMeta.getBlock(), topModel, middleModel, bottomModel);
 	}
 
@@ -169,7 +169,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		ModelFile model = crossModel(baseName, texture, isTinted);
 
-		generatedItemModel(baseName, texture);
+		if(blockMeta.hasItem()) generatedItemModel(baseName, texture);
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 

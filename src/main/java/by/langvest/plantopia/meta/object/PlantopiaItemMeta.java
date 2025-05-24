@@ -15,11 +15,13 @@ import org.jetbrains.annotations.Nullable;
 public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? extends Item>> {
 	private final MetaType type;
 	private final PlantopiaModelType modelType;
+	private final int burnTime;
 
 	public PlantopiaItemMeta(String name, RegistryObject<? extends Item> object, @NotNull MetaProperties metaProperties) {
 		super(name, object);
 		type = PlantopiaMetaAccessor.getMetaType(metaProperties);
 		modelType = metaProperties.modelType;
+		burnTime = metaProperties.burnTime;
 	}
 
 	public Item getItem() {
@@ -43,6 +45,14 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 		return type != MetaType.BLOCK && modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
 	}
 
+	public int getBurnTime() {
+		return this.burnTime;
+	}
+
+	public boolean isBurnable() {
+		return this.burnTime > 0;
+	}
+
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
 		public static final MetaType BLOCK = new MetaProperties().makeType("block");
 		public static final MetaType ICON = new MetaProperties().makeType("icon");
@@ -54,6 +64,7 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 
 	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
+		private int burnTime = -1;
 
 		private MetaProperties() {}
 
@@ -66,6 +77,21 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 			PlantopiaMetaAccessor.setRecursiveMetaType(metaType);
 			type = metaType;
 			return metaType;
+		}
+
+		public MetaProperties generatedBurnTime() {
+			this.burnTime = -1;
+			return this;
+		}
+
+		public MetaProperties noBurnTime() {
+			this.burnTime = 0;
+			return this;
+		}
+
+		public MetaProperties customBurnTime(int ticks) {
+			this.burnTime = ticks;
+			return this;
 		}
 
 		public MetaProperties noModel() {

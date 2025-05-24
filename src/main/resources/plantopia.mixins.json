@@ -9,6 +9,7 @@
 		"PlantopiaBeeMixin",
 		"PlantopiaBlockBehaviour$BlockStateBaseMixin",
 		"PlantopiaDoublePlantBlockMixin",
+		"PlantopiaItemMixin",
 		"PlantopiaSeaPickleBlockMixin",
 		"PlantopiaSugarCaneBlockMixin",
 		"PlantopiaTemptGoalMixin"
