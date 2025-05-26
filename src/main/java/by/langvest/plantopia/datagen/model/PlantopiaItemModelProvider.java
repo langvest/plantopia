@@ -3,7 +3,7 @@ package by.langvest.plantopia.datagen.model;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

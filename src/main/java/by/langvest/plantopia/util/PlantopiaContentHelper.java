@@ -4,7 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancementTab;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import net.minecraft.resources.ResourceKey;

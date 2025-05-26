@@ -2,7 +2,7 @@ package by.langvest.plantopia.tab;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;

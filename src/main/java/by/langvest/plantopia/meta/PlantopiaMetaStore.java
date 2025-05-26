@@ -1,4 +1,4 @@
-package by.langvest.plantopia.meta.store;
+package by.langvest.plantopia.meta;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta;

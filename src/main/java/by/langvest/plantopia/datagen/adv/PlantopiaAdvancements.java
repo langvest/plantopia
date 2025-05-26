@@ -1,7 +1,7 @@
 package by.langvest.plantopia.datagen.adv;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.util.PlantopiaContentHelper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;

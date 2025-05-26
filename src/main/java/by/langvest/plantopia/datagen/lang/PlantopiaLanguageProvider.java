@@ -4,7 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.PlantopiaStringHelper;
 import net.minecraft.data.PackOutput;

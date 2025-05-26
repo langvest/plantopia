@@ -1,6 +1,6 @@
 package by.langvest.plantopia.client.render;
 
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.meta.property.PlantopiaRenderType;
 import com.google.common.collect.Sets;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;

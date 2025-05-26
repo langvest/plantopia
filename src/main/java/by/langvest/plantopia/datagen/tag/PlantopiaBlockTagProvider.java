@@ -2,7 +2,7 @@ package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaContentHelper;
 import by.langvest.plantopia.util.PlantopiaTagSet;

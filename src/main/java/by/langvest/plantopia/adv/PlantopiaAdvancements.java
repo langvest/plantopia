@@ -4,7 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta.MetaType;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;

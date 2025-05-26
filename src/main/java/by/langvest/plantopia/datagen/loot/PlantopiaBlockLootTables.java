@@ -8,7 +8,7 @@ import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.meta.property.PlantopiaBlockDropType;
 import by.langvest.plantopia.meta.property.PlantopiaBlockHeightType;
 import com.google.common.collect.Sets;

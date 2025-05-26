@@ -5,7 +5,7 @@ import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaProperties;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.util.PlantopiaBlockItemHelper;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

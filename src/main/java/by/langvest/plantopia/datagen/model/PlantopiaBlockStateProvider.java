@@ -10,7 +10,7 @@ import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import by.langvest.plantopia.block.special.PlantopiaWideTriplePlantBlock;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Direction;

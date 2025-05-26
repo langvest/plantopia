@@ -4,7 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.block.PlantopiaCompats.Compostability;
 import by.langvest.plantopia.item.PlantopiaItems;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
