@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaOffsettableBlock;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -29,8 +30,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-import static by.langvest.plantopia.util.PlantopiaFluidHelper.copyWaterloggedFrom;
-import static by.langvest.plantopia.util.PlantopiaFluidHelper.getFluidBlockState;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
 public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsettableBlock {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> HALF = PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF;
@@ -197,12 +198,11 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	@Override
 	@SuppressWarnings("deprecation")
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
-		return Mth.getSeed(getBaseBlockPos(state, pos));
+		return PlantopiaMathHelper.getSeed(getBaseBlockPos(state, pos));
 	}
 
-	@SuppressWarnings("deprecation")
 	public long getOffsetSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
-		return Mth.getSeed(getBaseBlockPos(state, pos).atY(0));
+		return PlantopiaMathHelper.getSeed(getBaseBlockPos(state, pos).atY(0));
 	}
 
 	@Override

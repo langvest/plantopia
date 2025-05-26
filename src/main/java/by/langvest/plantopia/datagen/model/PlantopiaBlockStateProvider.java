@@ -29,7 +29,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private static final ExistingFileHelper.ResourceType TEXTURE = new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
@@ -422,12 +423,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private @NotNull ModelFile existingModel(String name) {
-		return models().getExistingFile(plantopia(name));
+		return models().getExistingFile(plantopiaLocationFrom(name));
 	}
 
 	private ModelFile blockModel(@NotNull Block block) {
 		ResourceLocation location = locationOf(block);
-		return models().getExistingFile(location(location.getNamespace(), ModelProvider.BLOCK_FOLDER, location.getPath()));
+		return models().getExistingFile(locationFrom(location.getNamespace(), ModelProvider.BLOCK_FOLDER, location.getPath()));
 	}
 
 	private ModelFile cubeAllModel(String name, ResourceLocation texture) {
@@ -560,16 +561,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return plantopia(ModelProvider.BLOCK_FOLDER, name);
+		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation itemTexture(String name) {
-		return plantopia(ModelProvider.ITEM_FOLDER, name);
+		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation parent(String name) {
-		return plantopia(ModelProvider.BLOCK_FOLDER, name);
+		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
 	}
 }

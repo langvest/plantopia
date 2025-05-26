@@ -6,7 +6,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaProperties;
 import by.langvest.plantopia.meta.PlantopiaMetaStore;
-import by.langvest.plantopia.util.PlantopiaBlockItemHelper;
+import by.langvest.plantopia.util.helper.PlantopiaItemHelper;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
@@ -33,7 +33,7 @@ public class PlantopiaItems {
 		if(!blockMeta.hasItem()) return;
 
 		Properties properties = new Properties();
-		Supplier<BlockItem> supplier = PlantopiaBlockItemHelper.getBlockItemSupplier(blockMeta, properties);
+		Supplier<BlockItem> supplier = PlantopiaItemHelper.getBlockItemSupplier(blockMeta, properties);
 
 		registerItem(blockMeta.getName(), supplier, MetaProperties.of(MetaType.BLOCK).group(blockMeta.getGroups()).customBurnTime(blockMeta.getBurnTime()));
 	}

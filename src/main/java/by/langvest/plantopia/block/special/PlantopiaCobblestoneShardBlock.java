@@ -1,7 +1,6 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
-import by.langvest.plantopia.util.PlantopiaFluidHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,6 +23,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
 public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWaterloggedBlock {
 	public static final int MIN_SHARDS = 1;
@@ -55,7 +56,7 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 		if(!Block.canSupportCenter(level, posBelow, Direction.UP)) return null;
 		BlockState newState = super.getStateForPlacement(context);
 		if(newState == null) return null;
-		return PlantopiaFluidHelper.copyWaterloggedFrom(level, pos, newState);
+		return copyWaterloggedFrom(level, pos, newState);
 	}
 
 	@Override

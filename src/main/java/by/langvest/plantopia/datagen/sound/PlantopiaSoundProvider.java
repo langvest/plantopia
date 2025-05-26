@@ -9,7 +9,7 @@ import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.plantopia;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
 public class PlantopiaSoundProvider extends SoundDefinitionsProvider {
 	public PlantopiaSoundProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -25,11 +25,11 @@ public class PlantopiaSoundProvider extends SoundDefinitionsProvider {
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound sound(String name) {
-		return Sound.sound(plantopia(name), SoundType.SOUND);
+		return Sound.sound(plantopiaLocationFrom(name), SoundType.SOUND);
 	}
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound event(String name) {
-		return Sound.sound(plantopia(name), SoundType.EVENT);
+		return Sound.sound(plantopiaLocationFrom(name), SoundType.EVENT);
 	}
 }

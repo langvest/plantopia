@@ -1,8 +1,9 @@
 package by.langvest.plantopia.datagen.adv;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
+import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.meta.PlantopiaMetaStore;
-import by.langvest.plantopia.util.PlantopiaContentHelper;
+import by.langvest.plantopia.util.helper.PlantopiaContentHelper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.RequirementsStrategy;
@@ -23,18 +24,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.idOf;
-import static by.langvest.plantopia.util.PlantopiaContentHelper.nameOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.idOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
-public class PlantopiaAdvancements implements AdvancementGenerator {
-	private static final List<Block> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowersOrderedById();
+public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
+	private static final List<Block> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
 	private Consumer<Advancement> consumer;
 
 	@Override
 	public void generate(HolderLookup.@NotNull Provider registries, @NotNull Consumer<Advancement> consumer, @NotNull ExistingFileHelper existingFileHelper) {
 		setConsumer(consumer);
 
-		by.langvest.plantopia.adv.PlantopiaAdvancements.ROOT
+		PlantopiaAdvancements.ROOT
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
 			.addCriterion(getHasName(ItemTags.DIRT), has(ItemTags.DIRT))
@@ -43,8 +44,8 @@ public class PlantopiaAdvancements implements AdvancementGenerator {
 			.addCriterion(getHasName(ItemTags.FLOWERS), has(ItemTags.FLOWERS))
 			.addCriterion(getHasName(Items.GRAVEL), has(Items.GRAVEL));
 
-		by.langvest.plantopia.adv.PlantopiaAdvancements.COLLECT_ALL_FLOWERS
-			.apply(PlantopiaAdvancements::addFlowersToCollect)
+		PlantopiaAdvancements.COLLECT_ALL_FLOWERS
+			.apply(PlantopiaAdvancementSubProvider::addFlowersToCollect)
 			.getBuilder()
 			.rewards(experience(100));
 

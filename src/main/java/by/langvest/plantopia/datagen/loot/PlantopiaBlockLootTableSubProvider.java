@@ -48,8 +48,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class PlantopiaBlockLootTables extends BlockLootSubProvider {
-	protected PlantopiaBlockLootTables() {
+public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
+	protected PlantopiaBlockLootTableSubProvider() {
 		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
 	}
 
@@ -74,13 +74,13 @@ public class PlantopiaBlockLootTables extends BlockLootSubProvider {
 
 		add(PlantopiaBlocks.GIANT_GRASS.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.GRASS, Items.WHEAT_SEEDS));
 		add(PlantopiaBlocks.GIANT_FERN.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.FERN, Items.WHEAT_SEEDS));
-		add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTables::createCloverDrops);
-		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlockLootTables::createCobblestoneShardDrops);
-		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlockLootTables::createCobblestoneShardDrops);
-		add(PlantopiaBlocks.BUSH.get(), PlantopiaBlockLootTables::createBushDrops);
-		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTables::createPollinatedDandelionDrops);
-		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTables::createBranchingShrubDrops);
-		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTables::createBranchingShrubDrops);
+		add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTableSubProvider::createCloverDrops);
+		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
+		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
+		add(PlantopiaBlocks.BUSH.get(), PlantopiaBlockLootTableSubProvider::createBushDrops);
+		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTableSubProvider::createPollinatedDandelionDrops);
+		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
+		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
 	}
 
 	private void generateAll() {

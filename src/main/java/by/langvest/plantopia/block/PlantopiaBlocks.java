@@ -23,7 +23,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.FLOWER_POT_BLOCK;
+import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedNameOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaBlocks {
 	private static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, Plantopia.MOD_ID);

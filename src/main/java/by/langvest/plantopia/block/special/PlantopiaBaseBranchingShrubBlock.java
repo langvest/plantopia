@@ -1,6 +1,7 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -101,9 +102,8 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 		return 0.4375f; // 7.0F / 16.0F
 	}
 
-	@SuppressWarnings("deprecation")
 	protected Vec3 getCollisionOffset(int x, int z) {
-		long seed = Mth.getSeed(x, 0, z);
+		long seed = PlantopiaMathHelper.getSeed(x, 0, z);
 		float maxHorizontalOffset = getMaxHorizontalCollisionOffset();
 		double d0 = Mth.clamp(((double)((float)(seed & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
 		double d2 = Mth.clamp(((double)((float)(seed >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);

@@ -2,8 +2,8 @@ package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -16,8 +16,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.minecraft;
-import static by.langvest.plantopia.util.PlantopiaContentHelper.plantopia;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.minecraftLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
 public class PlantopiaItemModelProvider extends ItemModelProvider {
 	private static ModelFile builtinEntityModelCache = null;
@@ -82,14 +82,14 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return plantopia(ModelProvider.ITEM_FOLDER, name);
+		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract(" -> new")
 	private static @NotNull ModelFile getBuiltInEntityModel() {
 		if(builtinEntityModelCache != null) return builtinEntityModelCache;
 
-		return builtinEntityModelCache = new ModelFile(minecraft("builtin/entity")) {
+		return builtinEntityModelCache = new ModelFile(minecraftLocationFrom("builtin/entity")) {
 			@Override
 			protected boolean exists() {
 				return true;

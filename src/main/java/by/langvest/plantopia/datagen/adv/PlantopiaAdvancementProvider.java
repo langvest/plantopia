@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 public class PlantopiaAdvancementProvider extends ForgeAdvancementProvider {
 	public PlantopiaAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, existingFileHelper, List.of(
-			new PlantopiaAdvancements()
+			new PlantopiaAdvancementSubProvider()
 		));
 	}
 }

@@ -1,6 +1,6 @@
 package by.langvest.plantopia.mixin;
 
-import by.langvest.plantopia.util.PlantopiaTickHelper;
+import by.langvest.plantopia.util.helper.PlantopiaTickHelper;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

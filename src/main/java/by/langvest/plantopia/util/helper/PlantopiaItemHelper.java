@@ -1,17 +1,17 @@
-package by.langvest.plantopia.util;
+package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.item.PlantopiaTripleHighBlockItem;
 import by.langvest.plantopia.item.PlantopiaWideTripleHighBlockItem;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class PlantopiaBlockItemHelper {
-	public static @NotNull Supplier<BlockItem> getBlockItemSupplier(@NotNull PlantopiaBlockMeta blockMeta, Properties properties) {
+public final class PlantopiaItemHelper {
+	public static @NotNull Supplier<BlockItem> getBlockItemSupplier(@NotNull PlantopiaBlockMeta blockMeta, Item.Properties properties) {
 		int height = blockMeta.getBlockHeightType().getBaseHeight();
 		int width = blockMeta.getBlockWidthType().getBaseWidth();
 

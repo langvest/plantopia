@@ -1,8 +1,8 @@
 package by.langvest.plantopia.meta.core;
 
 public abstract class PlantopiaObjectMeta<T> {
-	private final String name;
-	private final T object;
+	protected final String name;
+	protected final T object;
 
 	public PlantopiaObjectMeta(String name, T object) {
 		this.name = name;

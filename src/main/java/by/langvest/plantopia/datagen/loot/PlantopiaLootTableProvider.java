@@ -10,7 +10,7 @@ import java.util.Set;
 public class PlantopiaLootTableProvider extends LootTableProvider {
 	public PlantopiaLootTableProvider(PackOutput output) {
 		super(output, Set.of(), List.of(
-			new LootTableProvider.SubProviderEntry(PlantopiaBlockLootTables::new, LootContextParamSets.BLOCK)
+			new LootTableProvider.SubProviderEntry(PlantopiaBlockLootTableSubProvider::new, LootContextParamSets.BLOCK)
 		));
 	}
 }

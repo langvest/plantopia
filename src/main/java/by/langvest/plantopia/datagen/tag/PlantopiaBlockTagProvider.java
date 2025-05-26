@@ -1,11 +1,11 @@
 package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
-import by.langvest.plantopia.util.PlantopiaContentHelper;
 import by.langvest.plantopia.util.PlantopiaTagSet;
+import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -129,8 +129,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		var tags = tagSet.getTags();
 		var blocks = tagSet.getElements();
 
-		tags.sort(Comparator.comparing(PlantopiaContentHelper::idOf));
-		blocks.sort(Comparator.comparing(PlantopiaContentHelper::idOf));
+		tags.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
+		blocks.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
 
 		for(var tag : tags) targetTag.addTag(tag);
 		for(var block : blocks) targetTag.add(block);

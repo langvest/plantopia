@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 @Mod(Plantopia.MOD_ID)
-public class Plantopia {
+public final class Plantopia {
 	public static final String MOD_ID = "plantopia";
 
 	@SuppressWarnings("unused")

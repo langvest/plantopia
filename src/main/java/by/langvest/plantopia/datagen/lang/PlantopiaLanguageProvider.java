@@ -3,12 +3,11 @@ package by.langvest.plantopia.datagen.lang;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
-import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta;
 import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
-import by.langvest.plantopia.util.PlantopiaStringHelper;
+import by.langvest.plantopia.util.helper.PlantopiaStringHelper;
+import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.data.PackOutput;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
@@ -19,8 +18,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.nameOf;
-import static by.langvest.plantopia.util.PlantopiaTemplateHelper.creativeModeTabTitle;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaLanguageProvider extends LanguageProvider {
 	public PlantopiaLanguageProvider(PackOutput output) {
@@ -39,16 +37,16 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 	@SuppressWarnings("SameParameterValue")
 	private void add(@NotNull ResourceKey<CreativeModeTab> tab, String name) {
-		add(creativeModeTabTitle(nameOf(tab)), name);
+		var key = PlantopiaTemplateHelper.getCreativeModeTabTitleKey(nameOf(tab));
+
+		add(key, name);
 	}
 
 	private void add(@NotNull PlantopiaAdvancement advancement, String title, String description) {
-		PlantopiaAdvancementMeta advancementMeta = Objects.requireNonNull(PlantopiaMetaStore.getAdvancement(advancement));
-		TranslatableContents titleContents = (TranslatableContents)advancementMeta.getTitle().getContents();
-		TranslatableContents descriptionContents = (TranslatableContents)advancementMeta.getDescription().getContents();
+		var advancementMeta = Objects.requireNonNull(PlantopiaMetaStore.getAdvancement(advancement));
 
-		add(titleContents.getKey(), title);
-		add(descriptionContents.getKey(), description);
+		add(advancementMeta.getTitleKey(), title);
+		add(advancementMeta.getDescriptionKey(), description);
 	}
 
 	private void generateAll() {

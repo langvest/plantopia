@@ -1,4 +1,4 @@
-package by.langvest.plantopia.util;
+package by.langvest.plantopia.util.helper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
-public class PlantopiaTickHelper {
+public final class PlantopiaTickHelper {
 	private static int clientTick = 0;
 	private static int inGameTick = 0;
 
@@ -21,12 +21,17 @@ public class PlantopiaTickHelper {
 	}
 
 	public static int getPlayerTick() {
-		return Objects.requireNonNull(Minecraft.getInstance().player).tickCount;
+		var instance = Minecraft.getInstance();
+
+		return Objects.requireNonNull(instance.player).tickCount;
 	}
 
 	public static void tick() {
 		clientTick++;
-		boolean isPaused = Minecraft.getInstance().screen instanceof PauseScreen && Minecraft.getInstance().isPaused();
+
+		var instance = Minecraft.getInstance();
+		boolean isPaused = instance.screen instanceof PauseScreen && instance.isPaused();
+
 		if(!isPaused) inGameTick++;
 	}
 }

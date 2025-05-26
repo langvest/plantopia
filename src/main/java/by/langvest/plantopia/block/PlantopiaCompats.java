@@ -10,7 +10,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
 
 public class PlantopiaCompats {
 	public static void setup() {
@@ -58,7 +59,6 @@ public class PlantopiaCompats {
 		BrewingRecipeRegistry.addRecipe(new PlantopiaBrewingRecipe(result, ingredient, precursor));
 	}
 
-	@SuppressWarnings("unused")
 	public static final class Compostability {
 		public static final float CHANCE_30 = 0.3F;
 		public static final float CHANCE_50 = 0.5F;
@@ -76,12 +76,10 @@ public class PlantopiaCompats {
 		public static final float HAS_FLOWERS = 0.05F;
 	}
 
-	@SuppressWarnings("unused")
 	public static final class Encouragement {
 		public static final int PLANT = 60;
 	}
 
-	@SuppressWarnings("unused")
 	public static final class Flammability {
 		public static final int PLANT = 100;
 	}

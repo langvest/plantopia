@@ -1,9 +1,9 @@
 package by.langvest.plantopia.datagen.recipe;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
@@ -15,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
 public class PlantopiaRecipeProvider extends RecipeProvider implements IConditionBuilder {
 	private Consumer<FinishedRecipe> consumer;
@@ -66,7 +67,7 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 			.requires(ingredient)
 			.group(group)
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopia(getConversionRecipeName(result, ingredient)));
+			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient)));
 	}
 
 	private void fullBlockRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient) {
@@ -76,12 +77,12 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 			.pattern("###")
 			.pattern("###")
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopia(getSimpleRecipeName(result)));
+			.save(consumer, plantopiaLocationFrom(getSimpleRecipeName(result)));
 	}
 
 	private void stonecutterRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, int resultAmount) {
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingredient), category, result, resultAmount)
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopia(getConversionRecipeName(result, ingredient) + "_stonecutting"));
+			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient) + "_stonecutting"));
 	}
 }

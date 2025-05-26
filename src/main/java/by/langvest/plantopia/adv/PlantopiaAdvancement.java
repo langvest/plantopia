@@ -1,7 +1,6 @@
 package by.langvest.plantopia.adv;
 
 import by.langvest.plantopia.meta.PlantopiaMetaStore;
-import by.langvest.plantopia.util.PlantopiaContentHelper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -10,8 +9,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationFrom;
+
 public class PlantopiaAdvancement {
-	private ResourceLocation location = null;
+	private ResourceLocation id = null;
 	private Advancement instance = null;
 	private final Advancement.Builder builder;
 
@@ -28,22 +29,21 @@ public class PlantopiaAdvancement {
 		return instance;
 	}
 
-	protected PlantopiaAdvancement bindLocation(ResourceLocation location) {
-		this.location = location;
+	protected PlantopiaAdvancement bindId(ResourceLocation id) {
+		if(this.id != null) return this;
+
+		this.id = id;
 		return this;
 	}
 
-	@Nullable
-	public PlantopiaAdvancementTab getGroup() {
-		var advancementMeta = PlantopiaMetaStore.getAdvancement(this);
-
-		if(advancementMeta == null) return null;
+	public @NotNull ResourceLocation getGroup() {
+		var advancementMeta = Objects.requireNonNull(PlantopiaMetaStore.getAdvancement(this));
 
 		return advancementMeta.getGroup();
 	}
 
-	public ResourceLocation location() {
-		return Objects.requireNonNull(this.location);
+	public @NotNull ResourceLocation getId() {
+		return Objects.requireNonNull(id);
 	}
 
 	public PlantopiaAdvancement apply(@NotNull Consumer<PlantopiaAdvancement> consumer) {
@@ -52,8 +52,9 @@ public class PlantopiaAdvancement {
 	}
 
 	public void save(@NotNull Consumer<Advancement> consumer) {
+		var id = getId();
 		var group = getGroup();
-		ResourceLocation location = PlantopiaContentHelper.location(location().getNamespace(), group.location().getPath(), location().getPath());
+		var location = locationFrom(id.getNamespace(), group.getPath(), id.getPath());
 		instance = builder.build(location);
 		consumer.accept(instance);
 	}

@@ -1,8 +1,8 @@
 package by.langvest.plantopia.client.render;
 
 import by.langvest.plantopia.item.PlantopiaItems;
-import by.langvest.plantopia.util.PlantopiaContentHelper;
-import by.langvest.plantopia.util.PlantopiaTickHelper;
+import by.langvest.plantopia.util.helper.PlantopiaContentHelper;
+import by.langvest.plantopia.util.helper.PlantopiaTickHelper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;

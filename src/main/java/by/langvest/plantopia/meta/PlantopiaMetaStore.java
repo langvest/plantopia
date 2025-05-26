@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.idOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.idOf;
 
 @SuppressWarnings("unused")
 public class PlantopiaMetaStore {
