@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
-public class PlantopiaRenderLayers {
+public class PlantopiaRenderTypes {
 	private static final Set<Block> CUTOUT = Sets.newHashSet();
 	private static final Set<Block> CUTOUT_MIPPED = Sets.newHashSet();
 	private static final Set<Block> TRANSLUCENT = Sets.newHashSet();

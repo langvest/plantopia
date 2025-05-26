@@ -108,9 +108,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void simpleBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
 
-		ResourceLocation texture = texture(baseName);
+		var texture = texture(baseName);
 
-		ModelFile model = cubeAllModel(baseName, texture);
+		var model = cubeAllModel(baseName, texture);
 
 		if(blockMeta.hasItem()) blockItemModel(baseName, model);
 		simpleBlock(blockMeta.getBlock(), model);
@@ -118,16 +118,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private void flowerPotBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
-		FlowerPotBlock block = (FlowerPotBlock)blockMeta.getBlock();
-		Block plant = block.getContent();
-		PlantopiaBlockMeta plantMeta = PlantopiaMetaStore.getBlock(plant);
+		var block = (FlowerPotBlock)blockMeta.getBlock();
+		var plant = block.getContent();
+		var plantMeta = PlantopiaMetaStore.getBlock(plant);
 
 		if(plantMeta != null && plantMeta.getModelType() == PlantopiaModelType.CUSTOM) return;
 
-		ResourceLocation pottedPlantTexture = texture("potted_" + nameOf(plant));
-		ResourceLocation plantTexture = isTextureExists(pottedPlantTexture) ? pottedPlantTexture : blockTexture(plant);
+		var pottedPlantTexture = texture(pottedNameOf(plant));
+		var plantTexture = isTextureExists(pottedPlantTexture) ? pottedPlantTexture : blockTexture(plant);
 
-		ModelFile model = flowerPotCrossModel(baseName, plantTexture, blockMeta.isTinted());
+		var model = flowerPotCrossModel(baseName, plantTexture, blockMeta.isTinted());
 
 		simpleBlock(block, model);
 	}
@@ -136,11 +136,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = blockMeta.getName();
 		boolean isTinted = blockMeta.isTinted();
 
-		ResourceLocation topTexture = texture(baseName + "_top");
-		ResourceLocation bottomTexture = texture(baseName + "_bottom");
+		var topTexture = texture(baseName + "_top");
+		var bottomTexture = texture(baseName + "_bottom");
 
-		ModelFile topModel = crossModel(baseName + "_top", topTexture, isTinted);
-		ModelFile bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
+		var topModel = crossModel(baseName + "_top", topTexture, isTinted);
+		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
 		if(blockMeta.hasItem()) generatedItemModel(baseName, topTexture);
 		doubleHighBlock(blockMeta.getBlock(), topModel, bottomModel);
@@ -150,13 +150,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = blockMeta.getName();
 		boolean isTinted = blockMeta.isTinted();
 
-		ResourceLocation topTexture = texture(baseName + "_top");
-		ResourceLocation middleTexture = texture(baseName + "_middle");
-		ResourceLocation bottomTexture = texture(baseName + "_bottom");
+		var topTexture = texture(baseName + "_top");
+		var middleTexture = texture(baseName + "_middle");
+		var bottomTexture = texture(baseName + "_bottom");
 
-		ModelFile topModel = crossModel(baseName + "_top", topTexture, isTinted);
-		ModelFile middleModel = crossModel(baseName + "_middle", middleTexture, isTinted);
-		ModelFile bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
+		var topModel = crossModel(baseName + "_top", topTexture, isTinted);
+		var middleModel = crossModel(baseName + "_middle", middleTexture, isTinted);
+		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
 		if(blockMeta.hasItem()) generatedItemModel(baseName, topTexture);
 		tripleHighBlock(blockMeta.getBlock(), topModel, middleModel, bottomModel);
@@ -166,9 +166,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = blockMeta.getName();
 		boolean isTinted = blockMeta.isTinted();
 
-		ResourceLocation texture = texture(baseName);
+		var texture = texture(baseName);
 
-		ModelFile model = crossModel(baseName, texture, isTinted);
+		var model = crossModel(baseName, texture, isTinted);
 
 		if(blockMeta.hasItem()) generatedItemModel(baseName, texture);
 		simpleBlock(blockMeta.getBlock(), model);
@@ -179,12 +179,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void fireweedBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation topTexture = texture(baseName + "_top");
-		ResourceLocation flowersTexture = texture(baseName + "_top_flowers");
-		ResourceLocation bottomTexture = texture(baseName + "_bottom");
+		var topTexture = texture(baseName + "_top");
+		var flowersTexture = texture(baseName + "_top_flowers");
+		var bottomTexture = texture(baseName + "_bottom");
 
-		ModelFile topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, flowersTexture);
-		ModelFile bottomModel = tintedCrossModel(baseName + "_bottom", bottomTexture);
+		var topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, flowersTexture);
+		var bottomModel = tintedCrossModel(baseName + "_bottom", bottomTexture);
 
 		generatedItemModel(baseName, topTexture, flowersTexture);
 		doubleHighBlock(block, topModel, bottomModel);
@@ -193,13 +193,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void giantFernBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation topTexture = texture(baseName + "_top");
-		ResourceLocation middleTexture = texture(baseName + "_middle");
-		ResourceLocation bottomTexture = texture(baseName + "_bottom");
+		var topTexture = texture(baseName + "_top");
+		var middleTexture = texture(baseName + "_middle");
+		var bottomTexture = texture(baseName + "_bottom");
 
-		ModelFile topModel = giantFernTemplateModel(baseName + "_top", topTexture);
-		ModelFile middleModel = giantFernTemplateModel(baseName + "_middle", middleTexture);
-		ModelFile bottomModel = giantFernTemplateModel(baseName + "_bottom", bottomTexture);
+		var topModel = giantFernTemplateModel(baseName + "_top", topTexture);
+		var middleModel = giantFernTemplateModel(baseName + "_middle", middleTexture);
+		var bottomModel = giantFernTemplateModel(baseName + "_bottom", bottomTexture);
 
 		generatedItemModel(baseName, topTexture);
 		tripleHighBlock(block, topModel, middleModel, bottomModel);
@@ -207,50 +207,60 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private void cloverBlock(Block block) {
 		String baseName = nameOf(block);
+
 		generatedItemModel(baseName, itemTexture(baseName));
 		directionalMultipartBlock(block, PlantopiaCloverBlock.AMOUNT);
 	}
 
 	private void bigCloverBlock(Block block) {
 		String baseName = nameOf(block);
+
 		generatedItemModel(baseName, texture(baseName));
 		simpleBlock(block, existingModel(baseName));
 
-		Block pottedBlock = pottedBlockOf(block);
-		if(pottedBlock != null) simpleBlock(pottedBlock, existingModel(nameOf(pottedBlock)));
+		var pottedBlock = pottedBlockOf(block);
+
+		if(pottedBlock != null) {
+			simpleBlock(pottedBlock, existingModel(nameOf(pottedBlock)));
+		}
 	}
 
 	private void pottedFernBlock(Block block) {
 		if(!(block instanceof FlowerPotBlock flowerPotBlock)) return;
-		Block plant = flowerPotBlock.getContent();
+
+		var plant = flowerPotBlock.getContent();
+
 		tintedFlowerPotCrossModel(idOf(flowerPotBlock), blockTexture(plant));
 	}
 
 	private void cloverBlossomBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation blossomTexture = texture(baseName);
-		ResourceLocation stemItemTexture = itemTexture("clover_blossom_stem");
+		var blossomTexture = texture(baseName);
+		var stemItemTexture = itemTexture("clover_blossom_stem");
 
-		ModelFile model = cloverBlossomTemplateModel(baseName, blossomTexture);
+		var model = cloverBlossomTemplateModel(baseName, blossomTexture);
 
 		generatedItemModel(baseName, blossomTexture, stemItemTexture);
 		simpleBlock(block, model);
 
-		Block pottedBlock = pottedBlockOf(block);
-		if(pottedBlock != null) simpleBlock(pottedBlock, pottedCloverBlossomTemplateModel(nameOf(pottedBlock), blossomTexture));
+		var pottedBlock = pottedBlockOf(block);
+
+		if(pottedBlock != null) {
+			simpleBlock(pottedBlock, pottedCloverBlossomTemplateModel(nameOf(pottedBlock), blossomTexture));
+		}
 	}
 
 	private void cobblestoneShardBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation shardsTexture = texture(baseName + "s");
-		ResourceLocation itemTexture = itemTexture(baseName);
+		var shardsTexture = texture(baseName + "s");
+		var itemTexture = itemTexture(baseName);
 
-		ModelFile oneShardModel = oneCobblestoneShardTemplateModel("one_" + baseName, shardsTexture);
-		ModelFile twoShardsModel = twoCobblestoneShardsTemplateModel("two_" + baseName + "s", shardsTexture);
-		ModelFile threeShardsModel = threeCobblestoneShardsTemplateModel("three_" + baseName + "s", shardsTexture);
-		ModelFile fourShardsModel = fourCobblestoneShardsTemplateModel("four_" + baseName + "s", shardsTexture);
+		var oneShardModel = oneCobblestoneShardTemplateModel("one_" + baseName, shardsTexture);
+		var twoShardsModel = twoCobblestoneShardsTemplateModel("two_" + baseName + "s", shardsTexture);
+		var threeShardsModel = threeCobblestoneShardsTemplateModel("three_" + baseName + "s", shardsTexture);
+		var fourShardsModel = fourCobblestoneShardsTemplateModel("four_" + baseName + "s", shardsTexture);
 
 		generatedItemModel(baseName, itemTexture);
 		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.SHARDS, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
@@ -259,27 +269,30 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void bushBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation bushTexture = texture(baseName);
-		ResourceLocation stemTexture = texture(baseName + "_stem");
+		var bushTexture = texture(baseName);
+		var stemTexture = texture(baseName + "_stem");
 
-		ModelFile model = tintedCrossWithOverlayModel(baseName, bushTexture, stemTexture);
+		var model = tintedCrossWithOverlayModel(baseName, bushTexture, stemTexture);
 
 		generatedItemModel(baseName, bushTexture, stemTexture);
 		simpleBlock(block, model);
 
-		Block pottedBlock = pottedBlockOf(block);
-		if(pottedBlock != null) simpleBlock(pottedBlock, tintedFlowerPotCrossWithOverlayModel(nameOf(pottedBlock), bushTexture, stemTexture));
+		var pottedBlock = pottedBlockOf(block);
+
+		if(pottedBlock != null) {
+			simpleBlock(pottedBlock, tintedFlowerPotCrossWithOverlayModel(nameOf(pottedBlock), bushTexture, stemTexture));
+		}
 	}
 
 	private void foxgloveBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation topTexture = texture("foxglove_top");
-		ResourceLocation bottomTexture = texture("foxglove_bottom");
-		ResourceLocation flowersTexture = texture(baseName + "_flowers");
+		var topTexture = texture("foxglove_top");
+		var bottomTexture = texture("foxglove_bottom");
+		var flowersTexture = texture(baseName + "_flowers");
 
-		ModelFile topModel = foxgloveTopTemplateModel(baseName + "_top", topTexture, flowersTexture);
-		ModelFile bottomModel = crossModel(baseName + "_bottom", bottomTexture);
+		var topModel = foxgloveTopTemplateModel(baseName + "_top", topTexture, flowersTexture);
+		var bottomModel = crossModel(baseName + "_bottom", bottomTexture);
 
 		generatedItemModel(baseName, flowersTexture);
 		doubleHighBlock(block, topModel, bottomModel);
@@ -288,20 +301,20 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void hollyhockBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation topTexture = texture("hollyhock_top");
-		ResourceLocation bottomTexture = texture("hollyhock_bottom");
-		ResourceLocation flowersTopTexture = texture(baseName + "_flowers_top");
-		ResourceLocation flowersBottomTexture = texture(baseName + "_flowers_bottom");
+		var topTexture = texture("hollyhock_top");
+		var bottomTexture = texture("hollyhock_bottom");
+		var flowersTopTexture = texture(baseName + "_flowers_top");
+		var flowersBottomTexture = texture(baseName + "_flowers_bottom");
 
-		ModelFile topModel = hollyhockTopTemplateModel(baseName + "_top", topTexture, flowersTopTexture);
-		ModelFile bottomModel = hollyhockBottomTemplateModel(baseName + "_bottom", bottomTexture, flowersBottomTexture);
+		var topModel = hollyhockTopTemplateModel(baseName + "_top", topTexture, flowersTopTexture);
+		var bottomModel = hollyhockBottomTemplateModel(baseName + "_bottom", bottomTexture, flowersBottomTexture);
 
 		generatedItemModel(baseName, flowersTopTexture);
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 
 	private void pollinatedDandelionBlock(Block block) {
-		ModelFile model = blockModel(Blocks.DANDELION);
+		var model = blockModel(Blocks.DANDELION);
 
 		simpleBlock(block, model);
 	}
@@ -309,33 +322,36 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void hogweedBlock(Block block) {
 		String baseName = nameOf(block);
 
-		ResourceLocation topLeftTexture = texture(baseName + "_top_left");
-		ResourceLocation topRightTexture = texture(baseName + "_top_right");
-		ResourceLocation middleLeftTexture = texture(baseName + "_middle_left");
-		ResourceLocation middleRightTexture = texture(baseName + "_middle_right");
-		ResourceLocation bottomLeftTexture = texture(baseName + "_bottom_left");
-		ResourceLocation bottomRightTexture = texture(baseName + "_bottom_right");
+		var topLeftTexture = texture(baseName + "_top_left");
+		var topRightTexture = texture(baseName + "_top_right");
+		var middleLeftTexture = texture(baseName + "_middle_left");
+		var middleRightTexture = texture(baseName + "_middle_right");
+		var bottomLeftTexture = texture(baseName + "_bottom_left");
+		var bottomRightTexture = texture(baseName + "_bottom_right");
 
-		ModelFile topModel = wideCrossLeafModel(baseName + "_top", topLeftTexture, topRightTexture);
-		ModelFile middleModel = wideCrossLeafModel(baseName + "_middle", middleLeftTexture, middleRightTexture);
-		ModelFile bottomModel = wideCrossLeafModel(baseName + "_bottom", bottomLeftTexture, bottomRightTexture);
+		var topModel = wideCrossLeafModel(baseName + "_top", topLeftTexture, topRightTexture);
+		var middleModel = wideCrossLeafModel(baseName + "_middle", middleLeftTexture, middleRightTexture);
+		var bottomModel = wideCrossLeafModel(baseName + "_bottom", bottomLeftTexture, bottomRightTexture);
 
 		generatedItemModel(baseName, topRightTexture);
 
 		getVariantBuilder(block).forAllStates(state -> {
 			PlantopiaTripleBlockHalf half = state.getValue(PlantopiaWideTriplePlantBlock.HALF);
 			PlantopiaQuarter quarter = state.getValue(PlantopiaWideTriplePlantBlock.QUARTER);
-			ModelFile modelFile = switch(half) {
+
+			var modelFile = switch(half) {
 				case UPPER -> topModel;
 				case CENTRAL -> middleModel;
 				case LOWER -> bottomModel;
 			};
+
 			int rotation = switch(quarter) {
 				case SOUTH_WEST -> 0;
 				case WEST_NORTH -> 90;
 				case NORTH_EAST -> 180;
 				case EAST_SOUTH -> 270;
 			};
+
 			return ConfiguredModel.builder().modelFile(modelFile).rotationY(rotation).build();
 		});
 	}
@@ -345,10 +361,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void doubleHighBlock(Block block, ModelFile topModel, ModelFile bottomModel) {
 		getVariantBuilder(block).forAllStates(state -> {
 			DoubleBlockHalf half = state.getValue(DoublePlantBlock.HALF);
-			ModelFile modelFile = switch(half) {
+
+			var modelFile = switch(half) {
 				case UPPER -> topModel;
 				case LOWER -> bottomModel;
 			};
+
 			return ConfiguredModel.builder().modelFile(modelFile).build();
 		});
 	}
@@ -356,11 +374,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void tripleHighBlock(Block block, ModelFile topModel, ModelFile middleModel, ModelFile bottomModel) {
 		getVariantBuilder(block).forAllStates(state -> {
 			PlantopiaTripleBlockHalf half = state.getValue(PlantopiaTriplePlantBlock.HALF);
-			ModelFile modelFile = switch(half) {
+
+			var modelFile = switch(half) {
 				case UPPER -> topModel;
 				case CENTRAL -> middleModel;
 				case LOWER -> bottomModel;
 			};
+
 			return ConfiguredModel.builder().modelFile(modelFile).build();
 		});
 	}
@@ -372,9 +392,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		property.getPossibleValues().forEach(value -> {
 			ArrayList<Integer> values = Lists.newArrayList();
+
 			for(int i = value; i <= maxValue; i++) values.add(i);
 
-			ModelFile model = existingModel(baseName + "_" + value);
+			var model = existingModel(baseName + "_" + value);
 
 			HORIZONTAL_DIRECTIONS.forEach(direction ->
 				builder.part()
@@ -388,11 +409,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private <T extends Comparable<T>> void rotatedVariableBlock(Block block, @NotNull Property<T> property, ModelFile ...modelFiles) {
 		int modelFileIndex = 0;
-		VariantBlockStateBuilder builder = getVariantBuilder(block);
+		var builder = getVariantBuilder(block);
 
 		for(T value : property.getPossibleValues()) {
 			if(modelFileIndex == modelFiles.length) break;
-			ModelFile modelFile = modelFiles[modelFileIndex++];
+
+			var modelFile = modelFiles[modelFileIndex++];
 
 			builder
 				.partialState().with(property, value).modelForState()
@@ -411,7 +433,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		VariantBlockStateBuilder builder = getVariantBuilder(block);
 
 		for(T value : property.getPossibleValues()) {
-			ModelFile modelFile = resolver.getModelFile(value);
+			var modelFile = resolver.getModelFile(value);
 
 			builder
 				.partialState().with(property, value).modelForState()
@@ -422,120 +444,121 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	/* BLOCK MODELS ******************************************/
 
 	@Contract("_ -> new")
-	private @NotNull ModelFile existingModel(String name) {
+	private @NotNull ModelFile.ExistingModelFile existingModel(String name) {
 		return models().getExistingFile(plantopiaLocationFrom(name));
 	}
 
-	private ModelFile blockModel(@NotNull Block block) {
-		ResourceLocation location = locationOf(block);
-		return models().getExistingFile(locationFrom(location.getNamespace(), ModelProvider.BLOCK_FOLDER, location.getPath()));
+	private ModelFile.ExistingModelFile blockModel(@NotNull Block block) {
+		var blockLocation = locationOf(block);
+		var modelLocation = locationFrom(blockLocation.getNamespace(), ModelProvider.BLOCK_FOLDER, blockLocation.getPath());
+		return models().getExistingFile(modelLocation);
 	}
 
-	private ModelFile cubeAllModel(String name, ResourceLocation texture) {
+	private BlockModelBuilder cubeAllModel(String name, ResourceLocation texture) {
 		return models().cubeAll(name, texture);
 	}
 
-	private ModelFile crossModel(String name, ResourceLocation crossTexture, boolean tinted) {
+	private BlockModelBuilder crossModel(String name, ResourceLocation crossTexture, boolean tinted) {
 		if(tinted) return tintedCrossModel(name, crossTexture);
 		return crossModel(name, crossTexture);
 	}
 
-	private ModelFile crossModel(String name, ResourceLocation crossTexture) {
+	private BlockModelBuilder crossModel(String name, ResourceLocation crossTexture) {
 		return models().cross(name, crossTexture);
 	}
 
-	private ModelFile tintedCrossModel(String name, ResourceLocation crossTexture) {
+	private BlockModelBuilder tintedCrossModel(String name, ResourceLocation crossTexture) {
 		return models().withExistingParent(name, "tinted_cross")
 			.texture("cross", crossTexture);
 	}
 
-	private ModelFile flowerPotCrossModel(String name, ResourceLocation plantTexture, boolean tinted) {
+	private BlockModelBuilder flowerPotCrossModel(String name, ResourceLocation plantTexture, boolean tinted) {
 		if(tinted) return tintedFlowerPotCrossModel(name, plantTexture);
 		return flowerPotCrossModel(name, plantTexture);
 	}
 
-	private ModelFile flowerPotCrossModel(String name, ResourceLocation plantTexture) {
+	private BlockModelBuilder flowerPotCrossModel(String name, ResourceLocation plantTexture) {
 		return models().withExistingParent(name, "flower_pot_cross")
 			.texture("plant", plantTexture);
 	}
 
-	private ModelFile tintedFlowerPotCrossModel(String name, ResourceLocation plantTexture) {
+	private BlockModelBuilder tintedFlowerPotCrossModel(String name, ResourceLocation plantTexture) {
 		return models().withExistingParent(name, parent("tinted_flower_pot_cross"))
 			.texture("plant", plantTexture);
 	}
 
-	private ModelFile tintedFlowerPotCrossWithOverlayModel(String name, ResourceLocation plantTexture, ResourceLocation overlayTexture) {
+	private BlockModelBuilder tintedFlowerPotCrossWithOverlayModel(String name, ResourceLocation plantTexture, ResourceLocation overlayTexture) {
 		return models().withExistingParent(name, parent("tinted_flower_pot_cross_with_overlay"))
 			.texture("plant", plantTexture)
 			.texture("overlay", overlayTexture);
 	}
 
-	private ModelFile tintedCrossWithOverlayModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
+	private BlockModelBuilder tintedCrossWithOverlayModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
 		return models().withExistingParent(name, parent("tinted_cross_with_overlay"))
 			.texture("cross", crossTexture)
 			.texture("overlay", overlayTexture);
 	}
 
-	private ModelFile giantFernTemplateModel(String name, ResourceLocation crossTexture) {
+	private BlockModelBuilder giantFernTemplateModel(String name, ResourceLocation crossTexture) {
 		return models().withExistingParent(name, parent("template_giant_fern"))
 			.texture("cross", crossTexture);
 	}
 
-	private ModelFile invertedTintedCrossWithOverlayModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
+	private BlockModelBuilder invertedTintedCrossWithOverlayModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
 		return models().withExistingParent(name, parent("inverted_tinted_cross_with_overlay"))
 			.texture("cross", crossTexture)
 			.texture("overlay", overlayTexture);
 	}
 
-	private ModelFile wideCrossLeafModel(String name, ResourceLocation leftTexture, ResourceLocation rightTexture) {
+	private BlockModelBuilder wideCrossLeafModel(String name, ResourceLocation leftTexture, ResourceLocation rightTexture) {
 		return models().withExistingParent(name, parent("wide_cross_leaf"))
 			.texture("right", rightTexture)
 			.texture("left", leftTexture);
 	}
 
-	private ModelFile cloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {
+	private BlockModelBuilder cloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {
 		return models().withExistingParent(name, parent("template_clover_blossom"))
 			.texture("blossom", blossomTexture);
 	}
 
-	private ModelFile pottedCloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {
+	private BlockModelBuilder pottedCloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {
 		return models().withExistingParent(name, parent("template_potted_clover_blossom"))
 			.texture("blossom", blossomTexture);
 	}
 
-	private ModelFile oneCobblestoneShardTemplateModel(String name, ResourceLocation shardsTexture) {
+	private BlockModelBuilder oneCobblestoneShardTemplateModel(String name, ResourceLocation shardsTexture) {
 		return models().withExistingParent(name, parent("template_one_cobblestone_shard"))
 			.texture("shards", shardsTexture);
 	}
 
-	private ModelFile twoCobblestoneShardsTemplateModel(String name, ResourceLocation shardsTexture) {
+	private BlockModelBuilder twoCobblestoneShardsTemplateModel(String name, ResourceLocation shardsTexture) {
 		return models().withExistingParent(name, parent("template_two_cobblestone_shards"))
 			.texture("shards", shardsTexture);
 	}
 
-	private ModelFile threeCobblestoneShardsTemplateModel(String name, ResourceLocation shardsTexture) {
+	private BlockModelBuilder threeCobblestoneShardsTemplateModel(String name, ResourceLocation shardsTexture) {
 		return models().withExistingParent(name, parent("template_three_cobblestone_shards"))
 			.texture("shards", shardsTexture);
 	}
 
-	private ModelFile fourCobblestoneShardsTemplateModel(String name, ResourceLocation shardsTexture) {
+	private BlockModelBuilder fourCobblestoneShardsTemplateModel(String name, ResourceLocation shardsTexture) {
 		return models().withExistingParent(name, parent("template_four_cobblestone_shards"))
 			.texture("shards", shardsTexture);
 	}
 
-	private ModelFile foxgloveTopTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
+	private BlockModelBuilder foxgloveTopTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
 		return models().withExistingParent(name, parent("template_foxglove_top"))
 			.texture("cross", crossTexture)
 			.texture("flowers", flowersTexture);
 	}
 
-	private ModelFile hollyhockTopTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
+	private BlockModelBuilder hollyhockTopTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
 		return models().withExistingParent(name, parent("template_hollyhock_top"))
 			.texture("cross", crossTexture)
 			.texture("flowers", flowersTexture);
 	}
 
-	private ModelFile hollyhockBottomTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
+	private BlockModelBuilder hollyhockBottomTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
 		return models().withExistingParent(name, parent("template_hollyhock_bottom"))
 			.texture("cross", crossTexture)
 			.texture("flowers", flowersTexture);
