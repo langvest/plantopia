@@ -1,7 +1,7 @@
 package by.langvest.plantopia.item.special;
 
 import by.langvest.plantopia.client.render.PlantopiaItemRenderProperties;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -12,7 +12,7 @@ public class PlantopiaRenderedIconItem extends PlantopiaIconItem {
 	}
 
 	@Override
-	public void initializeClient(@NotNull Consumer<IItemRenderProperties> consumer) {
+	public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
 		consumer.accept(PlantopiaItemRenderProperties.getInstance());
 	}
 }

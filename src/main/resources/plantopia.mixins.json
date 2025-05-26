@@ -7,7 +7,7 @@
 	"mixins": [
 		"PlantopiaBee$BeePollinateGoalMixin",
 		"PlantopiaBeeMixin",
-		"PlantopiaBlockBehaviour$BlockStateBaseMixin",
+		"PlantopiaBlockBehaviour$PropertiesMixin",
 		"PlantopiaDoublePlantBlockMixin",
 		"PlantopiaItemMixin",
 		"PlantopiaSeaPickleBlockMixin",

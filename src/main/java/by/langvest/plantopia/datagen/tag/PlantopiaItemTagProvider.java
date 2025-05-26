@@ -6,9 +6,9 @@ import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
 import by.langvest.plantopia.util.PlantopiaContentHelper;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -18,11 +18,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.CompletableFuture;
 
-public class PlantopiaItemTagProvider extends ItemTagsProvider {
+public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 	private final PlantopiaTagSet<Item> TALL_FLOWERS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> SMALL_FLOWERS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> LEAVES = PlantopiaTagSet.newTagSet();
@@ -30,12 +30,12 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider {
 	private final PlantopiaTagSet<Item> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
 
-	public PlantopiaItemTagProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, PlantopiaBlockTagProvider.getInstance(), Plantopia.MOD_ID, existingFileHelper);
+	public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+		super(output, lookupProvider, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		generateAll();
 
 		add(IGNORED_BY_BEES, Blocks.WITHER_ROSE);
@@ -87,15 +87,15 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider {
 	private void save(TagKey<Item> key, @NotNull PlantopiaTagSet<Item> tagSet) {
 		if(tagSet.isEmpty()) return;
 
-		TagsProvider.TagAppender<Item> targetTag = tag(key);
+		var targetTag = tag(key);
 
-		ArrayList<TagKey<Item>> tags = tagSet.getTags();
-		ArrayList<Item> items = tagSet.getElements();
+		var tags = tagSet.getTags();
+		var items = tagSet.getElements();
 
 		tags.sort(Comparator.comparing(PlantopiaContentHelper::idOf));
 		items.sort(Comparator.comparing(PlantopiaContentHelper::idOf));
 
-		for(TagKey<Item> tag : tags) targetTag.addTag(tag);
-		for(Item item : items) targetTag.add(item);
+		for(var tag : tags) targetTag.addTag(tag);
+		for(var item : items) targetTag.add(item);
 	}
 }

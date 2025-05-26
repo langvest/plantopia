@@ -7,7 +7,7 @@ import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaProperties;
 import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
 import by.langvest.plantopia.util.PlantopiaBlockItemHelper;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -16,7 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public class PlantopiaItems {
@@ -32,9 +31,11 @@ public class PlantopiaItems {
 
 	public static void registerBlockItem(@NotNull PlantopiaBlockMeta blockMeta) {
 		if(!blockMeta.hasItem()) return;
-		CreativeModeTab group = Objects.requireNonNull(blockMeta.getGroup());
-		Properties properties = new Properties().tab(group);
-		registerItem(blockMeta.getName(), PlantopiaBlockItemHelper.getBlockItemSupplier(blockMeta, properties), MetaProperties.of(MetaType.BLOCK).customBurnTime(blockMeta.getBurnTime()));
+
+		Properties properties = new Properties();
+		Supplier<BlockItem> supplier = PlantopiaBlockItemHelper.getBlockItemSupplier(blockMeta, properties);
+
+		registerItem(blockMeta.getName(), supplier, MetaProperties.of(MetaType.BLOCK).group(blockMeta.getGroups()).customBurnTime(blockMeta.getBurnTime()));
 	}
 
 	public static void setup(IEventBus bus) {

@@ -1,26 +1,7 @@
 {
 	"parent": "plantopia:plantopia/root",
-	"display": {
-		"icon": {
-			"item": "plantopia:flowers_icon"
-		},
-		"title": {
-			"translate": "advancements.plantopia.collect_all_flowers.title"
-		},
-		"description": {
-			"translate": "advancements.plantopia.collect_all_flowers.description"
-		},
-		"frame": "challenge",
-		"show_toast": true,
-		"announce_to_chat": true,
-		"hidden": false
-	},
-	"rewards": {
-		"experience": 100
-	},
 	"criteria": {
 		"minecraft:allium": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -29,10 +10,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:azure_bluet": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -41,10 +22,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:blue_orchid": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -53,10 +34,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:chorus_flower": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -65,10 +46,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:cornflower": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -77,10 +58,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:dandelion": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -89,10 +70,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:flowering_azalea": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -101,10 +82,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:flowering_azalea_leaves": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -113,10 +94,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:lilac": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -125,10 +106,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:lily_of_the_valley": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -137,10 +118,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:orange_tulip": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -149,10 +130,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:oxeye_daisy": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -161,10 +142,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:peony": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -173,10 +154,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:pink_tulip": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -185,10 +166,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:poppy": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -197,10 +178,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:red_tulip": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -209,10 +190,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:rose_bush": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -221,10 +202,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:spore_blossom": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -233,10 +214,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:sunflower": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -245,10 +226,22 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"minecraft:torchflower": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:torchflower"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:white_tulip": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -257,10 +250,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"minecraft:wither_rose": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -269,10 +262,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:fluffy_dandelion": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -281,10 +274,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:magenta_foxglove": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -293,10 +286,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:magenta_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -305,10 +298,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:orange_foxglove": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -317,10 +310,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:orange_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -329,10 +322,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:pink_clover_blossom": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -341,10 +334,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:pink_foxglove": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -353,10 +346,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:pink_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -365,10 +358,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:red_foxglove": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -377,10 +370,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:red_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -389,10 +382,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:white_clover_blossom": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -401,10 +394,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:white_foxglove": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -413,10 +406,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:white_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -425,10 +418,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:yellow_foxglove": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -437,10 +430,10 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"plantopia:yellow_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -449,7 +442,23 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"announce_to_chat": true,
+		"description": {
+			"translate": "advancements.plantopia.collect_all_flowers.description"
+		},
+		"frame": "challenge",
+		"hidden": false,
+		"icon": {
+			"item": "plantopia:flowers_icon"
+		},
+		"show_toast": true,
+		"title": {
+			"translate": "advancements.plantopia.collect_all_flowers.title"
 		}
 	},
 	"requirements": [
@@ -511,6 +520,9 @@
 			"minecraft:sunflower"
 		],
 		[
+			"minecraft:torchflower"
+		],
+		[
 			"minecraft:white_tulip"
 		],
 		[
@@ -561,5 +573,9 @@
 		[
 			"plantopia:yellow_hollyhock"
 		]
-	]
+	],
+	"rewards": {
+		"experience": 100
+	},
+	"sends_telemetry_event": true
 }

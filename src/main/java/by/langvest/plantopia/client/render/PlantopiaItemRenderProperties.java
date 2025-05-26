@@ -3,12 +3,10 @@ package by.langvest.plantopia.client.render;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 @OnlyIn(Dist.CLIENT)
-public class PlantopiaItemRenderProperties implements IItemRenderProperties {
+public class PlantopiaItemRenderProperties implements IClientItemExtensions {
 	private static PlantopiaItemRenderProperties instance = null;
 
 	private PlantopiaItemRenderProperties() {}
@@ -18,8 +16,8 @@ public class PlantopiaItemRenderProperties implements IItemRenderProperties {
 		return instance;
 	}
 
-	@Contract(" -> new")
-	public @NotNull BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+	@Override
+	public BlockEntityWithoutLevelRenderer getCustomRenderer() {
 		return PlantopiaItemStuckRenderer.getInstance();
 	}
 }

@@ -4,9 +4,8 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
-import by.langvest.plantopia.util.PlantopiaIdentifier;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -17,11 +16,14 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaItemModelProvider extends ItemModelProvider {
-	private static ModelFile BUILTIN_ENTITY_MODEL = null;
+import static by.langvest.plantopia.util.PlantopiaContentHelper.minecraft;
+import static by.langvest.plantopia.util.PlantopiaContentHelper.plantopia;
 
-	public PlantopiaItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, Plantopia.MOD_ID, existingFileHelper);
+public class PlantopiaItemModelProvider extends ItemModelProvider {
+	private static ModelFile builtinEntityModelCache = null;
+
+	public PlantopiaItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+		super(output, Plantopia.MOD_ID, existingFileHelper);
 	}
 
 	@Override
@@ -80,13 +82,14 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return new PlantopiaIdentifier(ModelProvider.ITEM_FOLDER + "/" + name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract(" -> new")
 	private static @NotNull ModelFile getBuiltInEntityModel() {
-		if(BUILTIN_ENTITY_MODEL != null) return BUILTIN_ENTITY_MODEL;
-		return BUILTIN_ENTITY_MODEL = new ModelFile(new ResourceLocation("builtin/entity")) {
+		if(builtinEntityModelCache != null) return builtinEntityModelCache;
+
+		return builtinEntityModelCache = new ModelFile(minecraft("builtin/entity")) {
 			@Override
 			protected boolean exists() {
 				return true;

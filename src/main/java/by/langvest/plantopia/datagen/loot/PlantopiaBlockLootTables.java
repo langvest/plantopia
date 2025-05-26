@@ -18,8 +18,9 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -47,7 +48,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class PlantopiaBlockLootTables extends BlockLoot {
+public class PlantopiaBlockLootTables extends BlockLootSubProvider {
+	protected PlantopiaBlockLootTables() {
+		super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+	}
+
 	private static final LootItemConditionalFunction.Builder<?> EXPLOSION_DECAY = ApplyExplosionDecay.explosionDecay();
 	private static final LootItemCondition.Builder SURVIVES_EXPLOSION = ExplosionCondition.survivesExplosion();
 	private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
@@ -64,7 +69,7 @@ public class PlantopiaBlockLootTables extends BlockLoot {
 	private static final Set<Block> EXPLOSION_RESISTANT_BLOCKS = Sets.newHashSet();
 
 	@Override
-	protected void addTables() {
+	protected void generate() {
 		generateAll();
 
 		add(PlantopiaBlocks.GIANT_GRASS.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.GRASS, Items.WHEAT_SEEDS));
@@ -318,11 +323,11 @@ public class PlantopiaBlockLootTables extends BlockLoot {
 		return new BlockPos(0, offset, 0);
 	}
 
-	private static <T> T withExplosionDecayFunction(@NotNull Block block, FunctionUserBuilder<T>  function) {
+	private static <T extends FunctionUserBuilder<T>> T withExplosionDecayFunction(@NotNull Block block, FunctionUserBuilder<T> function) {
 		return EXPLOSION_RESISTANT_BLOCKS.contains(block) ? function.unwrap() : function.apply(EXPLOSION_DECAY);
 	}
 
-	private static <T> T withSurvivesExplosionCondition(@NotNull Block block, ConditionUserBuilder<T> condition) {
+	private static <T extends ConditionUserBuilder<T>> T withSurvivesExplosionCondition(@NotNull Block block, ConditionUserBuilder<T> condition) {
 		return EXPLOSION_RESISTANT_BLOCKS.contains(block) ? condition.unwrap() : condition.when(SURVIVES_EXPLOSION);
 	}
 

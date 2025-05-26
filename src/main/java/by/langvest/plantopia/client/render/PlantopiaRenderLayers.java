@@ -52,6 +52,7 @@ public class PlantopiaRenderLayers {
 		});
 	}
 
+	@SuppressWarnings("removal")
 	private static void setAll() {
 		RenderType cutout = RenderType.cutout();
 		RenderType cutoutMipped = RenderType.cutoutMipped();

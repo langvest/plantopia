@@ -166,11 +166,6 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	}
 
 	@Override
-	public @NotNull OffsetType getOffsetType() {
-		return OffsetType.XZ;
-	}
-
-	@Override
 	public float getMaxHorizontalOffset() {
 		return super.getMaxHorizontalOffset() * 2;
 	}
@@ -202,6 +197,7 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public long getOffsetSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
 		return Mth.getSeed(getBaseBlockPos(state, pos).atY(0));
 	}

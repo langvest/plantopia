@@ -1,22 +1,18 @@
 package by.langvest.plantopia.adv;
 
-import by.langvest.plantopia.Plantopia;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
-public enum PlantopiaAdvancementTab {
-	TAB_PLANTOPIA(Plantopia.MOD_ID);
+import java.util.Objects;
 
-	private final String name;
+public class PlantopiaAdvancementTab {
+	private final ResourceLocation location;
 
-	PlantopiaAdvancementTab(String name) {
-		this.name = name;
+	PlantopiaAdvancementTab(ResourceLocation location) {
+		this.location = location;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String toString() {
-		return getName();
+	public @NotNull ResourceLocation location() {
+		return Objects.requireNonNull(this.location);
 	}
 }

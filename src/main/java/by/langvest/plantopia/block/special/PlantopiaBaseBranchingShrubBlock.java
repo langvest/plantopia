@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -28,8 +29,6 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements SimpleWaterloggedBlock, IPlantable {
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 16.0D, 9.0D);
@@ -102,6 +101,7 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 		return 0.4375f; // 7.0F / 16.0F
 	}
 
+	@SuppressWarnings("deprecation")
 	protected Vec3 getCollisionOffset(int x, int z) {
 		long seed = Mth.getSeed(x, 0, z);
 		float maxHorizontalOffset = getMaxHorizontalCollisionOffset();
@@ -149,7 +149,7 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Random random) {
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if(!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
 		}

@@ -1,7 +1,7 @@
 {
 	"parent": "plantopia:block/wide_cross_leaf",
 	"textures": {
-		"right": "plantopia:block/hogweed_middle_right",
-		"left": "plantopia:block/hogweed_middle_left"
+		"left": "plantopia:block/hogweed_middle_left",
+		"right": "plantopia:block/hogweed_middle_right"
 	}
 }

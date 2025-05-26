@@ -2,59 +2,18 @@
 	"type": "minecraft:block",
 	"pools": [
 		{
-			"rolls": 1.0,
 			"bonus_rolls": 0.0,
-			"entries": [
-				{
-					"type": "minecraft:alternatives",
-					"children": [
-						{
-							"type": "minecraft:item",
-							"conditions": [
-								{
-									"condition": "minecraft:match_tool",
-									"predicate": {
-										"items": [
-											"minecraft:shears"
-										]
-									}
-								}
-							],
-							"functions": [
-								{
-									"function": "minecraft:set_count",
-									"count": 3.0,
-									"add": false
-								}
-							],
-							"name": "minecraft:grass"
-						},
-						{
-							"type": "minecraft:item",
-							"conditions": [
-								{
-									"condition": "minecraft:survives_explosion"
-								},
-								{
-									"condition": "minecraft:random_chance",
-									"chance": 0.125
-								}
-							],
-							"name": "minecraft:wheat_seeds"
-						}
-					]
-				}
-			],
 			"conditions": [
 				{
-					"condition": "minecraft:block_state_property",
 					"block": "plantopia:giant_grass",
+					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "lower"
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
+					"offsetY": 1,
 					"predicate": {
 						"block": {
 							"blocks": [
@@ -64,11 +23,11 @@
 								"half": "central"
 							}
 						}
-					},
-					"offsetY": 1
+					}
 				},
 				{
 					"condition": "minecraft:location_check",
+					"offsetY": 2,
 					"predicate": {
 						"block": {
 							"blocks": [
@@ -78,14 +37,9 @@
 								"half": "upper"
 							}
 						}
-					},
-					"offsetY": 2
+					}
 				}
-			]
-		},
-		{
-			"rolls": 1.0,
-			"bonus_rolls": 0.0,
+			],
 			"entries": [
 				{
 					"type": "minecraft:alternatives",
@@ -104,9 +58,9 @@
 							],
 							"functions": [
 								{
-									"function": "minecraft:set_count",
+									"add": false,
 									"count": 3.0,
-									"add": false
+									"function": "minecraft:set_count"
 								}
 							],
 							"name": "minecraft:grass"
@@ -118,8 +72,8 @@
 									"condition": "minecraft:survives_explosion"
 								},
 								{
-									"condition": "minecraft:random_chance",
-									"chance": 0.125
+									"chance": 0.125,
+									"condition": "minecraft:random_chance"
 								}
 							],
 							"name": "minecraft:wheat_seeds"
@@ -127,16 +81,21 @@
 					]
 				}
 			],
+			"rolls": 1.0
+		},
+		{
+			"bonus_rolls": 0.0,
 			"conditions": [
 				{
-					"condition": "minecraft:block_state_property",
 					"block": "plantopia:giant_grass",
+					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "central"
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
+					"offsetY": -1,
 					"predicate": {
 						"block": {
 							"blocks": [
@@ -146,11 +105,11 @@
 								"half": "lower"
 							}
 						}
-					},
-					"offsetY": -1
+					}
 				},
 				{
 					"condition": "minecraft:location_check",
+					"offsetY": 1,
 					"predicate": {
 						"block": {
 							"blocks": [
@@ -160,14 +119,9 @@
 								"half": "upper"
 							}
 						}
-					},
-					"offsetY": 1
+					}
 				}
-			]
-		},
-		{
-			"rolls": 1.0,
-			"bonus_rolls": 0.0,
+			],
 			"entries": [
 				{
 					"type": "minecraft:alternatives",
@@ -186,9 +140,9 @@
 							],
 							"functions": [
 								{
-									"function": "minecraft:set_count",
+									"add": false,
 									"count": 3.0,
-									"add": false
+									"function": "minecraft:set_count"
 								}
 							],
 							"name": "minecraft:grass"
@@ -200,8 +154,8 @@
 									"condition": "minecraft:survives_explosion"
 								},
 								{
-									"condition": "minecraft:random_chance",
-									"chance": 0.125
+									"chance": 0.125,
+									"condition": "minecraft:random_chance"
 								}
 							],
 							"name": "minecraft:wheat_seeds"
@@ -209,16 +163,21 @@
 					]
 				}
 			],
+			"rolls": 1.0
+		},
+		{
+			"bonus_rolls": 0.0,
 			"conditions": [
 				{
-					"condition": "minecraft:block_state_property",
 					"block": "plantopia:giant_grass",
+					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "upper"
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
+					"offsetY": -2,
 					"predicate": {
 						"block": {
 							"blocks": [
@@ -228,11 +187,11 @@
 								"half": "lower"
 							}
 						}
-					},
-					"offsetY": -2
+					}
 				},
 				{
 					"condition": "minecraft:location_check",
+					"offsetY": -1,
 					"predicate": {
 						"block": {
 							"blocks": [
@@ -242,10 +201,52 @@
 								"half": "central"
 							}
 						}
-					},
-					"offsetY": -1
+					}
 				}
-			]
+			],
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:match_tool",
+									"predicate": {
+										"items": [
+											"minecraft:shears"
+										]
+									}
+								}
+							],
+							"functions": [
+								{
+									"add": false,
+									"count": 3.0,
+									"function": "minecraft:set_count"
+								}
+							],
+							"name": "minecraft:grass"
+						},
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								},
+								{
+									"chance": 0.125,
+									"condition": "minecraft:random_chance"
+								}
+							],
+							"name": "minecraft:wheat_seeds"
+						}
+					]
+				}
+			],
+			"rolls": 1.0
 		}
-	]
+	],
+	"random_sequence": "plantopia:blocks/giant_grass"
 }

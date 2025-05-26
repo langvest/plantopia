@@ -9,13 +9,12 @@ import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import by.langvest.plantopia.block.special.PlantopiaWideTriplePlantBlock;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
-import by.langvest.plantopia.util.PlantopiaIdentifier;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.*;
@@ -37,8 +36,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private static final Set<Direction> HORIZONTAL_DIRECTIONS = ImmutableSet.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
 	private final ExistingFileHelper existingFileHelper;
 
-	public PlantopiaBlockStateProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, Plantopia.MOD_ID, existingFileHelper);
+	public PlantopiaBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+		super(output, Plantopia.MOD_ID, existingFileHelper);
 		this.existingFileHelper = existingFileHelper;
 	}
 
@@ -76,7 +75,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateModel()) return;
 
-			Block block = blockMeta.getBlock();
+			var block = blockMeta.getBlock();
+			var type = blockMeta.getType();
 
 			if(block instanceof FlowerPotBlock) {
 				flowerPotBlock(blockMeta);
@@ -93,7 +93,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 				return;
 			}
 
-			if(block instanceof BushBlock) {
+			if(block instanceof BushBlock || type.isPlantLike()) {
 				bushBlock(blockMeta);
 				return;
 			}
@@ -422,12 +422,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private @NotNull ModelFile existingModel(String name) {
-		return models().getExistingFile(new PlantopiaIdentifier(name));
+		return models().getExistingFile(plantopia(name));
 	}
 
 	private ModelFile blockModel(@NotNull Block block) {
 		ResourceLocation location = locationOf(block);
-		return models().getExistingFile(new ResourceLocation(location.getNamespace(), ModelProvider.BLOCK_FOLDER + "/" + location.getPath()));
+		return models().getExistingFile(location(location.getNamespace(), ModelProvider.BLOCK_FOLDER, location.getPath()));
 	}
 
 	private ModelFile cubeAllModel(String name, ResourceLocation texture) {
@@ -560,16 +560,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return new PlantopiaIdentifier(ModelProvider.BLOCK_FOLDER + "/" + name);
+		return plantopia(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation itemTexture(String name) {
-		return new PlantopiaIdentifier(ModelProvider.ITEM_FOLDER + "/" + name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation parent(String name) {
-		return new PlantopiaIdentifier(ModelProvider.BLOCK_FOLDER + "/" + name);
+		return plantopia(ModelProvider.BLOCK_FOLDER, name);
 	}
 }

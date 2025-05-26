@@ -27,11 +27,6 @@ public class PlantopiaCloverBlossomBlock extends FlowerBlock {
 	}
 
 	@Override
-	public @NotNull OffsetType getOffsetType() {
-		return OffsetType.XYZ;
-	}
-
-	@Override
 	public float getMaxVerticalOffset() {
 		return 0.01F;
 	}

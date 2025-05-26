@@ -1,63 +1,26 @@
 {
-	"display": {
-		"icon": {
-			"item": "plantopia:fireweed"
-		},
-		"title": {
-			"translate": "advancements.plantopia.root.title"
-		},
-		"description": {
-			"translate": "advancements.plantopia.root.description"
-		},
-		"frame": "task",
-		"show_toast": false,
-		"announce_to_chat": false,
-		"hidden": false,
-		"background": "plantopia:textures/gui/advancements/backgrounds/dirt.png"
-	},
 	"criteria": {
 		"has_dirt": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
 						"tag": "minecraft:dirt"
 					}
 				]
-			}
-		},
-		"has_sand": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"tag": "minecraft:sand"
-					}
-				]
-			}
-		},
-		"has_logs": {
-			"trigger": "minecraft:inventory_changed",
-			"conditions": {
-				"items": [
-					{
-						"tag": "minecraft:logs"
-					}
-				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"has_flowers": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
 						"tag": "minecraft:flowers"
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"has_gravel": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -66,7 +29,44 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_logs": {
+			"conditions": {
+				"items": [
+					{
+						"tag": "minecraft:logs"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_sand": {
+			"conditions": {
+				"items": [
+					{
+						"tag": "minecraft:sand"
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"announce_to_chat": false,
+		"background": "plantopia:textures/gui/advancements/backgrounds/dirt.png",
+		"description": {
+			"translate": "advancements.plantopia.root.description"
+		},
+		"frame": "task",
+		"hidden": false,
+		"icon": {
+			"item": "plantopia:fireweed"
+		},
+		"show_toast": false,
+		"title": {
+			"translate": "advancements.plantopia.root.title"
 		}
 	},
 	"requirements": [
@@ -77,5 +77,6 @@
 			"has_flowers",
 			"has_gravel"
 		]
-	]
+	],
+	"sends_telemetry_event": true
 }

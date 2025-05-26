@@ -103,11 +103,6 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 	}
 
 	@Override
-	public @NotNull OffsetType getOffsetType() {
-		return OffsetType.XZ;
-	}
-
-	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(HALF);
 	}

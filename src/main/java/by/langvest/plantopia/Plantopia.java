@@ -6,7 +6,7 @@ import by.langvest.plantopia.client.color.PlantopiaColors;
 import by.langvest.plantopia.client.render.PlantopiaRenderLayers;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
-import by.langvest.plantopia.sound.PlantopiaSoundEvents;
+import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -24,16 +24,17 @@ public class Plantopia {
 	@SuppressWarnings("unused")
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-	public Plantopia() {
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+	public Plantopia(@NotNull FMLJavaModLoadingContext context) {
+		IEventBus bus = context.getModEventBus();
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
 		bus.addListener(this::loadComplete);
 
+		PlantopiaParticleTypes.setup(bus);
+		PlantopiaCreativeModeTabs.setup(bus);
 		PlantopiaBlocks.setup(bus);
 		PlantopiaItems.setup(bus);
-		PlantopiaParticleTypes.setup(bus);
-		PlantopiaSoundEvents.setup(bus);
+		// PlantopiaSoundEvents.setup(bus);
 	}
 
 	private void commonSetup(final @NotNull FMLCommonSetupEvent event) {

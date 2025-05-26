@@ -42,7 +42,7 @@ public abstract class PlantopiaBeeMixin {
 	)
 	private void isFlowerValid(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
 		Bee that = (Bee)(Object)this;
-		Level level = that.level;
+		Level level = that.level();
 		if(!level.isLoaded(pos)) return;
 		BlockState state = level.getBlockState(pos);
 		if(state.is(PlantopiaBlockTags.IGNORED_BY_BEES)) cir.setReturnValue(false);
