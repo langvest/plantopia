@@ -1,8 +1,8 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
-import by.langvest.plantopia.block.PlantopiaOffsetSeedAccessor;
 import by.langvest.plantopia.block.PlantopiaQuarter;
+import by.langvest.plantopia.block.PlantopiaOffsettableBlock;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,17 +18,21 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 import static by.langvest.plantopia.util.PlantopiaFluidHelper.copyWaterloggedFrom;
 import static by.langvest.plantopia.util.PlantopiaFluidHelper.getFluidBlockState;
 
-public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsetSeedAccessor {
+public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsettableBlock {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> HALF = PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF;
 	public static final EnumProperty<PlantopiaQuarter> QUARTER = PlantopiaBlockStateProperties.QUARTER;
 
@@ -196,9 +200,21 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		return Mth.getSeed(getBaseBlockPos(state, pos));
 	}
 
-	@Override
 	@SuppressWarnings("deprecation")
 	public long getOffsetSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
 		return Mth.getSeed(getBaseBlockPos(state, pos).atY(0));
+	}
+
+	@Override
+	public Optional<OffsetFunction> getOffsetFunction(Optional<BlockBehaviour.OffsetFunction> defaultOffsetFunction) {
+		OffsetFunction offsetFunction = (state, level, pos) -> {
+			long seed = getOffsetSeed(state, pos);
+			float maxHorizontalOffset = getMaxHorizontalOffset();
+			double d0 = Mth.clamp(((double)((float)(seed & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
+			double d1 = Mth.clamp(((double)((float)(seed >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
+			return new Vec3(d0, 0.0D, d1);
+		};
+
+		return Optional.of(offsetFunction);
 	}
 }
