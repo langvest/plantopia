@@ -4,8 +4,9 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -16,17 +17,15 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-import java.util.Random;
-
 @Mixin(DoublePlantBlock.class)
 public abstract class PlantopiaDoublePlantBlockMixin implements BonemealableBlock {
 	@Override
-	public boolean isValidBonemealTarget(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
+	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
 		return state.is(Blocks.TALL_GRASS) || state.is(Blocks.LARGE_FERN);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(@NotNull Level level, @NotNull Random random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return true;
 	}
 
@@ -48,7 +47,7 @@ public abstract class PlantopiaDoublePlantBlockMixin implements BonemealableBloc
 	}
 
 	@Override
-	public void performBonemeal(@NotNull ServerLevel level, @NotNull Random random, @NotNull BlockPos pos, @NotNull BlockState state) {
+	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		PlantopiaTriplePlantBlock triplePlantBlock = plantopia$getTriplePlantVersion(state);
 		if(triplePlantBlock == null) return;
 		BlockPos basePos = plantopia$getDoublePlantBaseBlockPos(state, pos);

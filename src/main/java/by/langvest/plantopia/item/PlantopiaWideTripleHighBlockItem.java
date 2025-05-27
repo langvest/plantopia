@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaFluidHelper.getFluidBlockState;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
 public class PlantopiaWideTripleHighBlockItem extends BlockItem {
 	public PlantopiaWideTripleHighBlockItem(Block block, Properties properties) {

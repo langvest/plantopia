@@ -1,29 +1,10 @@
-buildscript {
-	repositories {
-		maven {
-			name = "Forge"
-			url = "https://maven.minecraftforge.net"
-		}
-		maven {
-			name = "Spongepowered"
-			url = "https://repo.spongepowered.org/repository/maven-public"
-		}
-		maven {
-			name = "Parchment"
-			url = "https://maven.parchmentmc.org"
-		}
-		mavenCentral()
-	}
-	dependencies {
-		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: forge_gradle_version, changing: true
-		classpath group: "org.spongepowered", name: "mixingradle", version: mixin_gradle_version
-		classpath group: "org.parchmentmc", name: "librarian", version: parchment_gradle_version
-	}
+plugins {
+    id "idea"
+    id "maven-publish"
+    id "net.minecraftforge.gradle" version "$forge_gradle_version"
+    id "org.spongepowered.mixin" version "$mixin_gradle_version"
+	id "org.parchmentmc.librarian.forgegradle" version "$parchment_gradle_version"
 }
-
-apply plugin: "net.minecraftforge.gradle"
-apply plugin: "org.spongepowered.mixin"
-apply plugin: "org.parchmentmc.librarian.forgegradle"
 
 JavaLanguageVersion JAVA_VERSION = JavaLanguageVersion.of(java_version)
 SourceSet MAIN_SOURCE_SET = sourceSets.main
@@ -41,14 +22,17 @@ ext {
 	java_vm_vendor = System.getProperty("java.vm.vendor")
 }
 
+version = minecraft_version + "-" + mod_version
+group = mod_group_id
+
+base {
+    archivesName = "$mod_archives_base_name-forge"
+}
+
 println "$mod_name: $mod_version"
 println "Forge: $forge_version"
 println "Minecraft: $minecraft_version"
 println "Java: $java_vm_version ($java_vm_vendor)"
-
-version = mod_version
-group = mod_maven_group
-archivesBaseName = "$mod_archives_base_name-forge-$minecraft_version"
 
 dependencies {
 	minecraft "net.minecraftforge:forge:$minecraft_version-$forge_version"
@@ -72,21 +56,24 @@ mixin {
 minecraft {
 	mappings channel: parchment_channel, version: parchment_version
 
-	accessTransformer = file(ACCESS_TRANSFORMER_PATH)
+	copyIdeResources = true
 
-	runs.configureEach {
-		workingDirectory file("run")
-		property "forge.logging.markers", "REGISTRIES"
-		property "forge.logging.console.level", "info"
-		args "-mixin.config", mixin_config
-		mods {
-			"$mod_id" {
-				source MAIN_SOURCE_SET
-			}
-		}
-	}
+	accessTransformer file(ACCESS_TRANSFORMER_PATH)
 
 	runs {
+		configureEach {
+			workingDirectory file("run")
+			property "forge.logging.markers", "REGISTRIES"
+			property "forge.logging.console.level", "info"
+			args "-mixin.config", mixin_config
+
+			mods {
+				"$mod_id" {
+					source MAIN_SOURCE_SET
+				}
+			}
+		}
+
 		client {
 			taskName "runClient"
 			property "forge.enabledGameTestNamespaces", mod_id
@@ -147,9 +134,14 @@ processResources {
 	}
 }
 
+idea.module {
+	downloadJavadoc = true
+	downloadSources = true
+}
+
 tasks.withType(JavaCompile).configureEach {
 	options.encoding = "UTF-8"
-	options.release.set(JAVA_VERSION.asInt())
+	options.release = JAVA_VERSION.asInt()
 }
 
 tasks.withType(GenerateModuleMetadata).configureEach {

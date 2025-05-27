@@ -1,26 +1,27 @@
 package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
-import by.langvest.plantopia.util.PlantopiaContentHelper;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
+import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.concurrent.CompletableFuture;
 
-public class PlantopiaBlockTagProvider extends BlockTagsProvider {
-	private final PlantopiaTagSet<Block> REPLACEABLE_PLANTS = PlantopiaTagSet.newTagSet();
+public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
+	private final PlantopiaTagSet<Block> REPLACEABLE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> TALL_FLOWERS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> SMALL_FLOWERS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> LEAVES = PlantopiaTagSet.newTagSet();
@@ -32,10 +33,12 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> FLOWER_POTS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> REPLACEABLE_BY_TREES = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> SWORD_EFFICIENT = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
-	public PlantopiaBlockTagProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, Plantopia.MOD_ID, existingFileHelper);
+	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
 		instance = this;
 	}
 
@@ -44,7 +47,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	@Override
-	protected void addTags() {
+	protected void addTags(HolderLookup.Provider provider) {
 		generateAll();
 
 		add(IGNORED_BY_BEES, Blocks.WITHER_ROSE);
@@ -66,7 +69,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
 			Block block = blockMeta.getBlock();
 			MetaType type = blockMeta.getType();
-			Material material = blockMeta.getMaterial();
+			boolean replaceable = block.properties.replaceable;
+
+			// Material material = blockMeta.getMaterial();
 			int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
 
 			if(blockMeta.isIgnoredByBees()) IGNORED_BY_BEES.add(block);
@@ -76,16 +81,23 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 
 			if(type.isPlantLike()) {
 				MINEABLE_WITH_AXE.add(block);
-				if(material == Material.REPLACEABLE_PLANT) REPLACEABLE_PLANTS.add(block);
+				if(replaceable) {
+					REPLACEABLE.add(block);
+					REPLACEABLE_BY_TREES.add(block);
+				}
 			}
 
 			if(type.isFlowerLike()) {
 				if(baseHeight > 1) {
 					TALL_FLOWERS.add(block);
-					REPLACEABLE_PLANTS.add(block);
+					REPLACEABLE_BY_TREES.add(block);
 				} else {
 					SMALL_FLOWERS.add(block);
 				}
+			}
+
+			if(type.isVegetationLike()) {
+				SWORD_EFFICIENT.add(block);
 			}
 
 			if(type.isLeavesLike()) {
@@ -106,7 +118,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private void saveAll() {
-		save(BlockTags.REPLACEABLE_PLANTS, REPLACEABLE_PLANTS);
+		save(BlockTags.REPLACEABLE, REPLACEABLE);
+		save(BlockTags.SWORD_EFFICIENT, SWORD_EFFICIENT);
+		save(BlockTags.REPLACEABLE_BY_TREES, REPLACEABLE_BY_TREES);
 		save(BlockTags.TALL_FLOWERS, TALL_FLOWERS);
 		save(BlockTags.SMALL_FLOWERS, SMALL_FLOWERS);
 		save(BlockTags.LEAVES, LEAVES);
@@ -123,15 +137,15 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private void save(TagKey<Block> key, @NotNull PlantopiaTagSet<Block> tagSet) {
 		if(tagSet.isEmpty()) return;
 
-		TagsProvider.TagAppender<Block> targetTag = tag(key);
+		var targetTag = tag(key);
 
-		ArrayList<TagKey<Block>> tags = tagSet.getTags();
-		ArrayList<Block> blocks = tagSet.getElements();
+		var tags = tagSet.getTags();
+		var blocks = tagSet.getElements();
 
-		tags.sort(Comparator.comparing(PlantopiaContentHelper::idOf));
-		blocks.sort(Comparator.comparing(PlantopiaContentHelper::idOf));
+		tags.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
+		blocks.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
 
-		for(TagKey<Block> tag : tags) targetTag.addTag(tag);
-		for(Block block : blocks) targetTag.add(block);
+		for(var tag : tags) targetTag.addTag(tag);
+		for(var block : blocks) targetTag.add(block);
 	}
 }

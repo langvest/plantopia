@@ -5,6 +5,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaPollinableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -21,8 +22,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class PlantopiaPollinatedDandelionBlock extends BushBlock implements PlantopiaPollinableBlock {
 	protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
 	public static final IntegerProperty COUNT = PlantopiaBlockStateProperties.POLLINATION_COUNT;
@@ -36,7 +35,7 @@ public class PlantopiaPollinatedDandelionBlock extends BushBlock implements Plan
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Random random) {
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		super.randomTick(state, level, pos, random);
 		int pollinationCount = state.getValue(COUNT);
 		if(pollinationCount != MAX_POLLINATES) return;
@@ -60,11 +59,6 @@ public class PlantopiaPollinatedDandelionBlock extends BushBlock implements Plan
 	public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		Vec3 vec3 = state.getOffset(level, pos);
 		return SHAPE.move(vec3.x, vec3.y, vec3.z);
-	}
-
-	@Override
-	public @NotNull OffsetType getOffsetType() {
-		return OffsetType.XZ;
 	}
 
 	@Override

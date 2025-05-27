@@ -5,21 +5,29 @@ import by.langvest.plantopia.meta.core.PlantopiaObjectMeta;
 import by.langvest.plantopia.meta.core.PlantopiaObjectMetaProperties;
 import by.langvest.plantopia.meta.core.PlantopiaObjectMetaType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
+import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? extends Item>> {
 	private final MetaType type;
+	private final List<ResourceKey<CreativeModeTab>> groups;
 	private final PlantopiaModelType modelType;
 	private final int burnTime;
 
 	public PlantopiaItemMeta(String name, RegistryObject<? extends Item> object, @NotNull MetaProperties metaProperties) {
 		super(name, object);
 		type = PlantopiaMetaAccessor.getMetaType(metaProperties);
+		groups = metaProperties.groups;
 		modelType = metaProperties.modelType;
 		burnTime = metaProperties.burnTime;
 	}
@@ -32,9 +40,8 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 		return type;
 	}
 
-	@Nullable
-	public CreativeModeTab getGroup() {
-		return getItem().getItemCategory();
+	public List<ResourceKey<CreativeModeTab>> getGroups() {
+		return groups;
 	}
 
 	public PlantopiaModelType getModelType() {
@@ -54,8 +61,8 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 	}
 
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
-		public static final MetaType BLOCK = new MetaProperties().makeType("block");
-		public static final MetaType ICON = new MetaProperties().makeType("icon");
+		public static final MetaType BLOCK = MetaProperties.of().makeType("block");
+		public static final MetaType ICON = MetaProperties.of().noGroup().makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("item", name, properties);
@@ -63,12 +70,17 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 	}
 
 	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
+		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private int burnTime = -1;
 
 		private MetaProperties() {}
 
-		public static @NotNull MetaProperties of(@NotNull MetaType metaType) {
+		private static @NotNull MetaProperties of() {
+			return new MetaProperties();
+		}
+
+		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
 			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
 		}
 
@@ -91,6 +103,22 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 
 		public MetaProperties customBurnTime(int ticks) {
 			this.burnTime = ticks;
+			return this;
+		}
+
+		public MetaProperties group(@NotNull Collection<ResourceKey<CreativeModeTab>> groups) {
+			this.groups = groups.stream().toList();
+			return this;
+		}
+
+		@SafeVarargs
+		public final MetaProperties group(ResourceKey<CreativeModeTab>... groups) {
+			this.groups = Arrays.stream(groups).toList();
+			return this;
+		}
+
+		public MetaProperties noGroup() {
+			this.groups = Collections.emptyList();
 			return this;
 		}
 

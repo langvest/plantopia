@@ -2,6 +2,7 @@ package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -9,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class PlantopiaFluffyDandelionBlock extends FlowerBlock {
@@ -18,7 +18,7 @@ public class PlantopiaFluffyDandelionBlock extends FlowerBlock {
 	}
 
 	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Random random) {
+	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		super.animateTick(state, level, pos, random);
 		if(random.nextFloat() > 0.1F) return;
 		if(level.isRainingAt(pos)) return;

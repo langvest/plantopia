@@ -2,7 +2,6 @@
 	"type": "minecraft:block",
 	"pools": [
 		{
-			"rolls": 1.0,
 			"bonus_rolls": 0.0,
 			"entries": [
 				{
@@ -22,46 +21,46 @@
 							],
 							"functions": [
 								{
-									"function": "minecraft:set_count",
+									"add": false,
 									"conditions": [
 										{
-											"condition": "minecraft:block_state_property",
 											"block": "plantopia:clover",
+											"condition": "minecraft:block_state_property",
 											"properties": {
 												"plant_amount": "2"
 											}
 										}
 									],
 									"count": 2.0,
-									"add": false
+									"function": "minecraft:set_count"
 								},
 								{
-									"function": "minecraft:set_count",
+									"add": false,
 									"conditions": [
 										{
-											"condition": "minecraft:block_state_property",
 											"block": "plantopia:clover",
+											"condition": "minecraft:block_state_property",
 											"properties": {
 												"plant_amount": "3"
 											}
 										}
 									],
 									"count": 3.0,
-									"add": false
+									"function": "minecraft:set_count"
 								},
 								{
-									"function": "minecraft:set_count",
+									"add": false,
 									"conditions": [
 										{
-											"condition": "minecraft:block_state_property",
 											"block": "plantopia:clover",
+											"condition": "minecraft:block_state_property",
 											"properties": {
 												"plant_amount": "4"
 											}
 										}
 									],
 									"count": 4.0,
-									"add": false
+									"function": "minecraft:set_count"
 								}
 							],
 							"name": "plantopia:clover"
@@ -73,15 +72,17 @@
 									"condition": "minecraft:survives_explosion"
 								},
 								{
-									"condition": "minecraft:random_chance",
-									"chance": 0.09375
+									"chance": 0.09375,
+									"condition": "minecraft:random_chance"
 								}
 							],
 							"name": "minecraft:wheat_seeds"
 						}
 					]
 				}
-			]
+			],
+			"rolls": 1.0
 		}
-	]
+	],
+	"random_sequence": "plantopia:blocks/clover"
 }

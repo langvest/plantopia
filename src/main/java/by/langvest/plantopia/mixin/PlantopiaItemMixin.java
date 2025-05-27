@@ -1,7 +1,7 @@
 package by.langvest.plantopia.mixin;
 
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;

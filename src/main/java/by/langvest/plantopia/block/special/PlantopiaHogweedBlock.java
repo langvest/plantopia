@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,8 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	public PlantopiaHogweedBlock(Properties properties) {
 		super(properties);
@@ -23,7 +22,7 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Random random) {
+	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		super.randomTick(state, level, pos, random);
 	}
 

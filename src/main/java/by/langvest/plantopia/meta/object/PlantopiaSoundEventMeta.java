@@ -23,11 +23,11 @@ public class PlantopiaSoundEventMeta extends PlantopiaObjectMeta<RegistryObject<
 	}
 
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
-		public static final MetaType BLOCK_BRAKE = new MetaProperties().makeType("block_break");
-		public static final MetaType BLOCK_FOOTSTEPS = new MetaProperties().makeType("block_footsteps");
-		public static final MetaType BLOCK_HIT = new MetaProperties().makeType("block_hit");
-		public static final MetaType BLOCK_PLACE = new MetaProperties().makeType("block_place");
-		public static final MetaType BLOCK_FALL = new MetaProperties().makeType("block_fall");
+		public static final MetaType BLOCK_BRAKE = MetaProperties.of().makeType("block_break");
+		public static final MetaType BLOCK_FOOTSTEPS = MetaProperties.of().makeType("block_footsteps");
+		public static final MetaType BLOCK_HIT = MetaProperties.of().makeType("block_hit");
+		public static final MetaType BLOCK_PLACE = MetaProperties.of().makeType("block_place");
+		public static final MetaType BLOCK_FALL = MetaProperties.of().makeType("block_fall");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("sound_event", name, properties);
@@ -37,7 +37,11 @@ public class PlantopiaSoundEventMeta extends PlantopiaObjectMeta<RegistryObject<
 	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
 		private MetaProperties() {}
 
-		public static @NotNull MetaProperties of(@NotNull MetaType metaType) {
+		private static @NotNull MetaProperties of() {
+			return new MetaProperties();
+		}
+
+		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
 			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
 		}
 

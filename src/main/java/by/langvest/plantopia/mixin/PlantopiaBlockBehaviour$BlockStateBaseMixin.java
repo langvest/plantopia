@@ -1,28 +1,35 @@
 package by.langvest.plantopia.mixin;
 
-import by.langvest.plantopia.block.PlantopiaOffsetSeedAccessor;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.BlockGetter;
+import by.langvest.plantopia.block.PlantopiaOffsettableBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.spongepowered.asm.mixin.Mixin;
+import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.util.Optional;
+
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class PlantopiaBlockBehaviour$BlockStateBaseMixin {
+	@Mutable
+	@Final
+	@Shadow
+	private Optional<BlockBehaviour.OffsetFunction> offsetFunction;
+
 	@Redirect(
-		method = "getOffset(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/Vec3;",
+		method = "<init>(Lnet/minecraft/world/level/block/Block;Lcom/google/common/collect/ImmutableMap;Lcom/mojang/serialization/MapCodec;)V",
 		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/Mth;getSeed(III)J"
+			value = "FIELD",
+			target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase;offsetFunction:Ljava/util/Optional;",
+			opcode = Opcodes.PUTFIELD
 		)
 	)
-	private long getOffset(int x, int y, int z, BlockGetter level, BlockPos pos) {
-		BlockBehaviour.BlockStateBase that = (BlockBehaviour.BlockStateBase)(Object)this;
-		Block block = that.getBlock();
-		if(block instanceof PlantopiaOffsetSeedAccessor accessor) return accessor.getOffsetSeed(level.getBlockState(pos), pos);
-		return Mth.getSeed(x, y, z);
+	private void setOffsetFunction(BlockBehaviour.BlockStateBase instance, Optional<BlockBehaviour.OffsetFunction> value, Block owner) {
+		if(owner instanceof PlantopiaOffsettableBlock offsettableBlock) {
+			this.offsetFunction = offsettableBlock.getOffsetFunction(value);
+		} else {
+			this.offsetFunction = value;
+		}
 	}
 }

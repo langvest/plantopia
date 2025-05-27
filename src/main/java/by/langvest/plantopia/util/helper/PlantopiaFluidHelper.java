@@ -1,4 +1,4 @@
-package by.langvest.plantopia.util;
+package by.langvest.plantopia.util.helper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaFluidHelper {
+public final class PlantopiaFluidHelper {
 	public static @NotNull BlockState getFluidBlockState(@NotNull LevelAccessor level, BlockPos pos) {
 		return level.getFluidState(pos).createLegacyBlock().getBlock().defaultBlockState();
 	}

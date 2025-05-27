@@ -1,10 +1,10 @@
 {
 	"variants": {
-		"half=upper": {
-			"model": "plantopia:block/yellow_hollyhock_top"
-		},
 		"half=lower": {
 			"model": "plantopia:block/yellow_hollyhock_bottom"
+		},
+		"half=upper": {
+			"model": "plantopia:block/yellow_hollyhock_top"
 		}
 	}
 }

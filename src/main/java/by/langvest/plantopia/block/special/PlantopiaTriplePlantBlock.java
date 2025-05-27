@@ -2,9 +2,9 @@ package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,8 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static by.langvest.plantopia.util.PlantopiaFluidHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
 public class PlantopiaTriplePlantBlock extends BushBlock {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> HALF = PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF;
@@ -103,11 +104,6 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 	}
 
 	@Override
-	public @NotNull OffsetType getOffsetType() {
-		return OffsetType.XZ;
-	}
-
-	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(HALF);
 	}
@@ -123,6 +119,6 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 	@Override
 	@SuppressWarnings("deprecation")
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {
-		return Mth.getSeed(getBaseBlockPos(state, pos));
+		return PlantopiaMathHelper.getSeed(getBaseBlockPos(state, pos));
 	}
 }

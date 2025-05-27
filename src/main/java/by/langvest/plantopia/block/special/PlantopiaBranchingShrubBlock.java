@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static by.langvest.plantopia.util.PlantopiaFluidHelper.copyWaterloggedFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
 public class PlantopiaBranchingShrubBlock extends PlantopiaBaseBranchingShrubBlock {
 	public PlantopiaBranchingShrubBlock(Properties properties) {

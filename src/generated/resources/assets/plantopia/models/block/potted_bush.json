@@ -1,7 +1,7 @@
 {
 	"parent": "plantopia:block/tinted_flower_pot_cross_with_overlay",
 	"textures": {
-		"plant": "plantopia:block/bush",
-		"overlay": "plantopia:block/bush_stem"
+		"overlay": "plantopia:block/bush_stem",
+		"plant": "plantopia:block/bush"
 	}
 }

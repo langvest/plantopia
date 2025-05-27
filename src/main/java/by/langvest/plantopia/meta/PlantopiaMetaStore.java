@@ -1,13 +1,11 @@
-package by.langvest.plantopia.meta.store;
+package by.langvest.plantopia.meta;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.object.PlantopiaSoundEventMeta;
-import by.langvest.plantopia.util.PlantopiaIdentifier;
 import by.langvest.plantopia.util.PlantopiaStoreSet;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,10 +13,11 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
-import static by.langvest.plantopia.util.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.idOf;
 
 @SuppressWarnings("unused")
 public class PlantopiaMetaStore {
@@ -81,8 +80,6 @@ public class PlantopiaMetaStore {
 		Objects.requireNonNull(object);
 		Objects.requireNonNull(metaProperties);
 		PlantopiaAdvancementMeta advancementMeta = new PlantopiaAdvancementMeta(name, object, metaProperties);
-		ResourceLocation location = new PlantopiaIdentifier(advancementMeta.getPath());
-		advancementMeta.getAdvancement().setRegistryName(location);
 		advancements.add(idOf(object), advancementMeta);
 		return advancementMeta;
 	}

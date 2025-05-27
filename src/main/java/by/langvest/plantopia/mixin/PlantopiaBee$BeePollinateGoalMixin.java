@@ -61,8 +61,8 @@ public abstract class PlantopiaBee$BeePollinateGoalMixin implements PlantopiaCon
 		if(plantopia$pollinationTargetPos == null) return;
 		assert plantopia$bee != null;
 		boolean successfully = plantopia$bee.hasNectar();
-		BlockState state = plantopia$bee.level.getBlockState(plantopia$pollinationTargetPos);
-		Level level = plantopia$bee.level;
+		Level level = plantopia$bee.level();
+		BlockState state = level.getBlockState(plantopia$pollinationTargetPos);
 		BlockPos pos = plantopia$pollinationTargetPos;
 		if(successfully && state.is(Blocks.DANDELION)) {
 			PlantopiaPollinatedDandelionBlock.placeAt(level, pos, PlantopiaBlocks.POLLINATED_DANDELION.get().defaultBlockState(), 27);
@@ -93,7 +93,7 @@ public abstract class PlantopiaBee$BeePollinateGoalMixin implements PlantopiaCon
 	private boolean findNearestBlock(Predicate<BlockState> predicate, Object object) {
 		if(plantopia$nextPollinationTargetPos == null) return false;
 		assert plantopia$bee != null;
-		Level level = plantopia$bee.level;
+		Level level = plantopia$bee.level();
 		BlockState state = level.getBlockState(plantopia$nextPollinationTargetPos);
 		if(state.is(PlantopiaBlockTags.IGNORED_BY_BEES)) return false;
 		if(state.is(Blocks.SUNFLOWER) && state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) return false;

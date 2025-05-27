@@ -1,16 +1,18 @@
 {
 	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"###",
-		"###",
-		"###"
-	],
+	"category": "building",
 	"key": {
 		"#": {
 			"item": "plantopia:mossy_cobblestone_shard"
 		}
 	},
+	"pattern": [
+		"###",
+		"###",
+		"###"
+	],
 	"result": {
 		"item": "minecraft:mossy_cobblestone"
-	}
+	},
+	"show_notification": true
 }

@@ -1,13 +1,7 @@
 {
 	"parent": "minecraft:recipes/root",
-	"rewards": {
-		"recipes": [
-			"plantopia:pink_dye_from_pink_hollyhock"
-		]
-	},
 	"criteria": {
 		"has_pink_hollyhock": {
-			"trigger": "minecraft:inventory_changed",
 			"conditions": {
 				"items": [
 					{
@@ -16,13 +10,14 @@
 						]
 					}
 				]
-			}
+			},
+			"trigger": "minecraft:inventory_changed"
 		},
 		"has_the_recipe": {
-			"trigger": "minecraft:recipe_unlocked",
 			"conditions": {
 				"recipe": "plantopia:pink_dye_from_pink_hollyhock"
-			}
+			},
+			"trigger": "minecraft:recipe_unlocked"
 		}
 	},
 	"requirements": [
@@ -30,5 +25,11 @@
 			"has_pink_hollyhock",
 			"has_the_recipe"
 		]
-	]
+	],
+	"rewards": {
+		"recipes": [
+			"plantopia:pink_dye_from_pink_hollyhock"
+		]
+	},
+	"sends_telemetry_event": false
 }

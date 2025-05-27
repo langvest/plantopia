@@ -1,10 +1,12 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -28,8 +30,6 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements SimpleWaterloggedBlock, IPlantable {
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 16.0D, 9.0D);
@@ -103,7 +103,7 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 	}
 
 	protected Vec3 getCollisionOffset(int x, int z) {
-		long seed = Mth.getSeed(x, 0, z);
+		long seed = PlantopiaMathHelper.getSeed(x, 0, z);
 		float maxHorizontalOffset = getMaxHorizontalCollisionOffset();
 		double d0 = Mth.clamp(((double)((float)(seed & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
 		double d2 = Mth.clamp(((double)((float)(seed >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
@@ -149,7 +149,7 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Random random) {
+	public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if(!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
 		}

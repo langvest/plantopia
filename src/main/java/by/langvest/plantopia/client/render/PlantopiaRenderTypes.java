@@ -1,6 +1,6 @@
 package by.langvest.plantopia.client.render;
 
-import by.langvest.plantopia.meta.store.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaStore;
 import by.langvest.plantopia.meta.property.PlantopiaRenderType;
 import com.google.common.collect.Sets;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @OnlyIn(Dist.CLIENT)
-public class PlantopiaRenderLayers {
+public class PlantopiaRenderTypes {
 	private static final Set<Block> CUTOUT = Sets.newHashSet();
 	private static final Set<Block> CUTOUT_MIPPED = Sets.newHashSet();
 	private static final Set<Block> TRANSLUCENT = Sets.newHashSet();
@@ -52,6 +52,7 @@ public class PlantopiaRenderLayers {
 		});
 	}
 
+	@SuppressWarnings("removal")
 	private static void setAll() {
 		RenderType cutout = RenderType.cutout();
 		RenderType cutoutMipped = RenderType.cutoutMipped();
