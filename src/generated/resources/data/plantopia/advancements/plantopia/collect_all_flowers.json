@@ -157,12 +157,36 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"minecraft:pink_petals": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:pink_petals"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"minecraft:pink_tulip": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
 							"minecraft:pink_tulip"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"minecraft:pitcher_plant": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:pitcher_plant"
 						]
 					}
 				]
@@ -502,7 +526,13 @@
 			"minecraft:peony"
 		],
 		[
+			"minecraft:pink_petals"
+		],
+		[
 			"minecraft:pink_tulip"
+		],
+		[
+			"minecraft:pitcher_plant"
 		],
 		[
 			"minecraft:poppy"

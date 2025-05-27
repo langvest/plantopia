@@ -12,6 +12,7 @@ import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.MapColor;
@@ -54,7 +55,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> MAGENTA_HOLLYHOCK = registerBlock("magenta_hollyhock", () -> new TallFlowerBlock(Properties.copy(Blocks.ROSE_BUSH)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.MAGENTA_DYE));
 	public static final RegistryObject<Block> POLLINATED_DANDELION = registerBlock("pollinated_dandelion", () -> new PlantopiaPollinatedDandelionBlock(Properties.copy(Blocks.DANDELION)), MetaProperties.copy(MetaType.FLOWER).customModel().customDrop().noGroup());
 	public static final RegistryObject<Block> FLUFFY_DANDELION = registerBlock("fluffy_dandelion", () -> new PlantopiaFluffyDandelionBlock(() -> MobEffects.SLOW_FALLING, 7, Properties.copy(Blocks.DANDELION)), MetaProperties.copy(MetaType.FLOWER).ignoredByBees().noDye());
-	public static final RegistryObject<Block> HOGWEED = registerBlock("hogweed", () -> new PlantopiaHogweedBlock(Properties.copy(Blocks.TALL_GRASS)), MetaProperties.copy(MetaType.PLANT).tripleHigh().doubleWide().customModel().compostable(Compostability.PLANT_3 * 1.5F));
+	public static final RegistryObject<Block> HOGWEED = registerBlock("hogweed", () -> new PlantopiaHogweedBlock(Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).ignitedByLava().pushReaction(PushReaction.DESTROY)), MetaProperties.copy(MetaType.PLANT).tripleHigh().doubleWide().customModel().compostable(Compostability.PLANT_3 * 1.5F));
 	public static final RegistryObject<Block> BRANCHING_SHRUB = registerBlock("branching_shrub", () -> new PlantopiaBranchingShrubBlock(Properties.of().mapColor(MapColor.WOOD).noCollission().instabreak().ignitedByLava().pushReaction(PushReaction.DESTROY).strength(0.8F).dynamicShape().sound(SoundType.MANGROVE_ROOTS)), MetaProperties.copy(MetaType.WOODY_PLANT).customDrop().pottable());
 	public static final RegistryObject<Block> BRANCHING_SHRUB_PLANT = registerBlock("branching_shrub_plant", () -> new PlantopiaBranchingShrubPlantBlock(Properties.of().mapColor(MapColor.WOOD).noCollission().instabreak().ignitedByLava().pushReaction(PushReaction.DESTROY).strength(0.8F).dynamicShape().sound(SoundType.MANGROVE_ROOTS)), MetaProperties.copy(MetaType.WOODY_PLANT).customDrop().noGroup());
 

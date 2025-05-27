@@ -21,7 +21,7 @@ import java.util.Comparator;
 import java.util.concurrent.CompletableFuture;
 
 public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
-	private final PlantopiaTagSet<Block> REPLACEABLE_PLANTS = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> REPLACEABLE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> TALL_FLOWERS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> SMALL_FLOWERS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> LEAVES = PlantopiaTagSet.newTagSet();
@@ -33,6 +33,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> FLOWER_POTS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> REPLACEABLE_BY_TREES = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> SWORD_EFFICIENT = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -67,6 +69,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
 			Block block = blockMeta.getBlock();
 			MetaType type = blockMeta.getType();
+			boolean replaceable = block.properties.replaceable;
+
 			// Material material = blockMeta.getMaterial();
 			int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
 
@@ -77,16 +81,23 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 
 			if(type.isPlantLike()) {
 				MINEABLE_WITH_AXE.add(block);
-				// if(material == Material.REPLACEABLE_PLANT) REPLACEABLE_PLANTS.add(block);
+				if(replaceable) {
+					REPLACEABLE.add(block);
+					REPLACEABLE_BY_TREES.add(block);
+				}
 			}
 
 			if(type.isFlowerLike()) {
 				if(baseHeight > 1) {
 					TALL_FLOWERS.add(block);
-					REPLACEABLE_PLANTS.add(block);
+					REPLACEABLE_BY_TREES.add(block);
 				} else {
 					SMALL_FLOWERS.add(block);
 				}
+			}
+
+			if(type.isVegetationLike()) {
+				SWORD_EFFICIENT.add(block);
 			}
 
 			if(type.isLeavesLike()) {
@@ -107,7 +118,9 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private void saveAll() {
-		// save(BlockTags.REPLACEABLE_PLANTS, REPLACEABLE_PLANTS);
+		save(BlockTags.REPLACEABLE, REPLACEABLE);
+		save(BlockTags.SWORD_EFFICIENT, SWORD_EFFICIENT);
+		save(BlockTags.REPLACEABLE_BY_TREES, REPLACEABLE_BY_TREES);
 		save(BlockTags.TALL_FLOWERS, TALL_FLOWERS);
 		save(BlockTags.SMALL_FLOWERS, SMALL_FLOWERS);
 		save(BlockTags.LEAVES, LEAVES);
