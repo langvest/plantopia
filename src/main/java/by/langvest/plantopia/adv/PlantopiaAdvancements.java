@@ -13,8 +13,8 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
 public class PlantopiaAdvancements {
-	public static final PlantopiaAdvancement ROOT = registerAdvancement("root", PlantopiaAdvancement::new, MetaProperties.of(MetaType.ROOT).group(Plantopia.MOD_ID).background("dirt").icon(PlantopiaBlocks.FIREWEED));
-	public static final PlantopiaAdvancement COLLECT_ALL_FLOWERS = registerAdvancement("collect_all_flowers", PlantopiaAdvancement::new, MetaProperties.of(MetaType.CHALLENGE).parent(ROOT).icon(PlantopiaItems.FLOWERS_ICON));
+	public static final PlantopiaAdvancement ROOT = registerAdvancement("root", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.ROOT).group(Plantopia.MOD_ID).background("dirt").icon(PlantopiaBlocks.FIREWEED));
+	public static final PlantopiaAdvancement COLLECT_ALL_FLOWERS = registerAdvancement("collect_all_flowers", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHALLENGE).parent(ROOT).icon(PlantopiaItems.FLOWERS_ICON));
 
 	public static @NotNull PlantopiaAdvancement registerAdvancement(String name, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
 		var id = plantopiaLocationFrom(name);

@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
 public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvancement> {
@@ -111,11 +110,11 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 	}
 
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
-		public static final MetaType ROOT = new MetaProperties().doNotShowToast().doNotAnnounceToChat().makeType("root");
-		public static final MetaType CHILD = new MetaProperties().makeType("child");
-		public static final MetaType TASK = MetaProperties.of(CHILD).taskFrame().makeType("task");
-		public static final MetaType GOAL = MetaProperties.of(CHILD).goalFrame().makeType("goal");
-		public static final MetaType CHALLENGE = MetaProperties.of(CHILD).challengeFrame().makeType("challenge");
+		public static final MetaType ROOT = MetaProperties.of().doNotShowToast().doNotAnnounceToChat().makeType("root");
+		public static final MetaType CHILD = MetaProperties.of().makeType("child");
+		public static final MetaType TASK = MetaProperties.copy(CHILD).taskFrame().makeType("task");
+		public static final MetaType GOAL = MetaProperties.copy(CHILD).goalFrame().makeType("goal");
+		public static final MetaType CHALLENGE = MetaProperties.copy(CHILD).challengeFrame().makeType("challenge");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("advancement", name, properties);
@@ -134,7 +133,11 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 
 		private MetaProperties() {}
 
-		public static @NotNull MetaProperties of(@NotNull MetaType metaType) {
+		private static @NotNull MetaProperties of() {
+			return new MetaProperties();
+		}
+
+		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
 			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
 		}
 

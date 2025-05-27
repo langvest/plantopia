@@ -196,16 +196,16 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 	}
 
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
-		public static final MetaType PLANT = new MetaProperties().cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().makeType("plant");
-		public static final MetaType WOODY_PLANT = MetaProperties.of(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
-		public static final MetaType FLOWER = MetaProperties.of(PLANT).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
-		public static final MetaType SAPLING = MetaProperties.of(PLANT).pottable().notTintedParticles().makeType("sapling");
-		public static final MetaType MUSHROOM = MetaProperties.of(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM).makeType("mushroom");
-		public static final MetaType MUSHROOM_STEM = new MetaProperties().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
-		public static final MetaType MUSHROOM_BLOCK = MetaProperties.of(MUSHROOM_STEM).compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
-		public static final MetaType POTTED = new MetaProperties().cutoutRender().noGroup().makeType("potted");
-		public static final MetaType LEAVES = new MetaProperties().cutoutMippedRender().tintedParticles().makeType("leaves");
-		public static final MetaType STONE = new MetaProperties().makeType("stone");
+		public static final MetaType PLANT = MetaProperties.of().cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().makeType("plant");
+		public static final MetaType WOODY_PLANT = MetaProperties.copy(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
+		public static final MetaType FLOWER = MetaProperties.copy(PLANT).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
+		public static final MetaType SAPLING = MetaProperties.copy(PLANT).pottable().notTintedParticles().makeType("sapling");
+		public static final MetaType MUSHROOM = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM).makeType("mushroom");
+		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
+		public static final MetaType MUSHROOM_BLOCK = MetaProperties.copy(MUSHROOM_STEM).compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
+		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noGroup().makeType("potted");
+		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().tintedParticles().makeType("leaves");
+		public static final MetaType STONE = MetaProperties.of().makeType("stone");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("block", name, properties);
@@ -272,7 +272,11 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 
 		private MetaProperties() {}
 
-		public static @NotNull MetaProperties of(@NotNull MetaType metaType) {
+		private static @NotNull MetaProperties of() {
+			return new MetaProperties();
+		}
+
+		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
 			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
 		}
 

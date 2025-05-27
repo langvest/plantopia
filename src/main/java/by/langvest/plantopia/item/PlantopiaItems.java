@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 public class PlantopiaItems {
 	private static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, Plantopia.MOD_ID);
 
-	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", () -> new PlantopiaRenderedIconItem(new Properties()), MetaProperties.of(MetaType.ICON));
+	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", () -> new PlantopiaRenderedIconItem(new Properties()), MetaProperties.copy(MetaType.ICON));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		RegistryObject<T> registryObject = ITEM_REGISTER.register(name, supplier);
@@ -35,7 +35,7 @@ public class PlantopiaItems {
 		Properties properties = new Properties();
 		Supplier<BlockItem> supplier = PlantopiaItemHelper.getBlockItemSupplier(blockMeta, properties);
 
-		registerItem(blockMeta.getName(), supplier, MetaProperties.of(MetaType.BLOCK).group(blockMeta.getGroups()).customBurnTime(blockMeta.getBurnTime()));
+		registerItem(blockMeta.getName(), supplier, MetaProperties.copy(MetaType.BLOCK).group(blockMeta.getGroups()).customBurnTime(blockMeta.getBurnTime()));
 	}
 
 	public static void setup(IEventBus bus) {

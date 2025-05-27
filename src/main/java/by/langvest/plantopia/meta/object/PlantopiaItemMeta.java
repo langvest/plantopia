@@ -61,8 +61,8 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 	}
 
 	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
-		public static final MetaType BLOCK = new MetaProperties().makeType("block");
-		public static final MetaType ICON = new MetaProperties().noGroup().makeType("icon");
+		public static final MetaType BLOCK = MetaProperties.of().makeType("block");
+		public static final MetaType ICON = MetaProperties.of().noGroup().makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("item", name, properties);
@@ -76,7 +76,11 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 
 		private MetaProperties() {}
 
-		public static @NotNull MetaProperties of(@NotNull MetaType metaType) {
+		private static @NotNull MetaProperties of() {
+			return new MetaProperties();
+		}
+
+		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
 			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
 		}
 
