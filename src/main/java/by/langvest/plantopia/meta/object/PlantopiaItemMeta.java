@@ -1,9 +1,9 @@
 package by.langvest.plantopia.meta.object;
 
 import by.langvest.plantopia.meta.core.PlantopiaMetaAccessor;
-import by.langvest.plantopia.meta.core.PlantopiaObjectMeta;
-import by.langvest.plantopia.meta.core.PlantopiaObjectMetaProperties;
-import by.langvest.plantopia.meta.core.PlantopiaObjectMetaType;
+import by.langvest.plantopia.meta.core.PlantopiaMetaObject;
+import by.langvest.plantopia.meta.core.PlantopiaMetaProperties;
+import by.langvest.plantopia.meta.core.PlantopiaMetaType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import net.minecraft.resources.ResourceKey;
@@ -17,23 +17,28 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("unused")
-public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? extends Item>> {
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+
+public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? extends Item>> {
 	private final MetaType type;
 	private final List<ResourceKey<CreativeModeTab>> groups;
 	private final PlantopiaModelType modelType;
 	private final int burnTime;
 
-	public PlantopiaItemMeta(String name, RegistryObject<? extends Item> object, @NotNull MetaProperties metaProperties) {
-		super(name, object);
-		type = PlantopiaMetaAccessor.getMetaType(metaProperties);
-		groups = metaProperties.groups;
-		modelType = metaProperties.modelType;
-		burnTime = metaProperties.burnTime;
+	public PlantopiaItemMeta(RegistryObject<? extends Item> target, @NotNull MetaProperties properties) {
+		super(target);
+		type = PlantopiaMetaAccessor.getMetaTypeFrom(properties);
+		groups = properties.groups;
+		modelType = properties.modelType;
+		burnTime = properties.burnTime;
+	}
+
+	public String getName() {
+		return nameOf(target);
 	}
 
 	public Item getItem() {
-		return getObject().get();
+		return target.get();
 	}
 
 	public MetaType getType() {
@@ -60,7 +65,7 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 		return this.burnTime > 0;
 	}
 
-	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
+	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
 		public static final MetaType BLOCK = MetaProperties.of().makeType("block");
 		public static final MetaType ICON = MetaProperties.of().noGroup().makeType("icon");
 
@@ -69,7 +74,7 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 		}
 	}
 
-	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
+	public static final class MetaProperties extends PlantopiaMetaProperties<MetaType, MetaProperties> {
 		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private int burnTime = -1;
@@ -80,15 +85,12 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 			return new MetaProperties();
 		}
 
-		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
-			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
+		public static @NotNull MetaProperties copy(@NotNull MetaType type) {
+			return MetaProperties.fromType(type);
 		}
 
 		private @NotNull MetaType makeType(String name) {
-			MetaType metaType = new MetaType(name, this);
-			PlantopiaMetaAccessor.setRecursiveMetaType(metaType);
-			type = metaType;
-			return metaType;
+			return new MetaType(name, this);
 		}
 
 		public MetaProperties generatedBurnTime() {
@@ -135,15 +137,6 @@ public class PlantopiaItemMeta extends PlantopiaObjectMeta<RegistryObject<? exte
 		public MetaProperties generatedModel() {
 			this.modelType = PlantopiaModelType.GENERATED;
 			return this;
-		}
-
-		@Override
-		public MetaProperties clone() {
-			try {
-				return (MetaProperties)super.clone();
-			} catch(CloneNotSupportedException e) {
-				throw new AssertionError();
-			}
 		}
 	}
 }

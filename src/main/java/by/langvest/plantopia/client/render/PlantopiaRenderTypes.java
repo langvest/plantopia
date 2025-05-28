@@ -1,6 +1,6 @@
 package by.langvest.plantopia.client.render;
 
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaRenderType;
 import com.google.common.collect.Sets;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -30,7 +30,7 @@ public class PlantopiaRenderTypes {
 	}
 
 	private static void registerAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldApplyRenderLayer()) return;
 
 			Block block = blockMeta.getBlock();

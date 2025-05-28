@@ -1,7 +1,6 @@
 package by.langvest.plantopia.mixin;
 
-import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class PlantopiaItemMixin implements IForgeItem {
 	@Override
 	public int getBurnTime(@NotNull ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
-		@Nullable PlantopiaItemMeta itemMeta = PlantopiaMetaStore.getItem(itemStack.getItem());
+		var itemMeta = PlantopiaMetaRegistries.ITEMS.getValue(itemStack.getItem());
 
 		if(itemMeta == null) return -1;
 

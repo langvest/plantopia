@@ -1,7 +1,7 @@
 package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
@@ -12,7 +12,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BushBlock;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -66,28 +65,27 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
-			Block block = blockMeta.getBlock();
-			MetaType type = blockMeta.getType();
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+			var block = blockMeta.getBlock();
+			var type = blockMeta.getType();
 			boolean replaceable = block.properties.replaceable;
-
-			// Material material = blockMeta.getMaterial();
 			int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
 
 			if(blockMeta.isIgnoredByBees()) IGNORED_BY_BEES.add(block);
 			if(blockMeta.isPreferredByBees()) PREFERRED_BY_BEES.add(block);
-			if(type.isStoneLike()) MINEABLE_WITH_PICKAXE.add(block);
-			if(type == MetaType.POTTED) FLOWER_POTS.add(block);
+			if(type.instanceOf(MetaType.STONE)) MINEABLE_WITH_PICKAXE.add(block);
+			if(type.instanceOf(MetaType.POTTED)) FLOWER_POTS.add(block);
 
-			if(type.isPlantLike()) {
+			if(type.isSimplePlantLike()) {
 				MINEABLE_WITH_AXE.add(block);
+
 				if(replaceable) {
 					REPLACEABLE.add(block);
 					REPLACEABLE_BY_TREES.add(block);
 				}
 			}
 
-			if(type.isFlowerLike()) {
+			if(type.instanceOf(MetaType.FLOWER)) {
 				if(baseHeight > 1) {
 					TALL_FLOWERS.add(block);
 					REPLACEABLE_BY_TREES.add(block);
@@ -96,23 +94,23 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 				}
 			}
 
-			if(type.isVegetationLike()) {
+			if(type.instanceOf(MetaType.PLANT)) {
 				SWORD_EFFICIENT.add(block);
 			}
 
-			if(type.isLeavesLike()) {
+			if(type.instanceOf(MetaType.LEAVES)) {
 				LEAVES.add(block);
 				MINEABLE_WITH_HOE.add(block);
 			}
 
-			if(type.isSaplingLike()) {
+			if(type.instanceOf(MetaType.SAPLING)) {
 				SAPLINGS.add(block);
 				MINEABLE_WITH_AXE.add(block);
 			}
 
 			if(type.isMushroomLike()) {
 				MINEABLE_WITH_AXE.add(block);
-				if(block instanceof BushBlock) ENDERMAN_HOLDABLE.add(block);
+				if(type.instanceOf(MetaType.MUSHROOM_PLANT)) ENDERMAN_HOLDABLE.add(block);
 			}
 		});
 	}

@@ -3,7 +3,7 @@ package by.langvest.plantopia.client.color;
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
@@ -61,7 +61,7 @@ public class PlantopiaColors {
 	}
 
 	private static void registerAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldApplyTint()) return;
 
 			Block block = blockMeta.getBlock();

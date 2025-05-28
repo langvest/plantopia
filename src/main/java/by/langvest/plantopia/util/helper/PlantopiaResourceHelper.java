@@ -4,6 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -67,6 +68,10 @@ public final class PlantopiaResourceHelper {
 
 	public static @NotNull ResourceLocation locationOf(@NotNull ItemLike itemLike) {
 		return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemLike.asItem()));
+	}
+
+	public static @NotNull ResourceLocation locationOf(@NotNull SoundEvent soundEvent) {
+		return Objects.requireNonNull(ForgeRegistries.SOUND_EVENTS.getKey(soundEvent));
 	}
 
 	public static @NotNull ResourceLocation locationOf(@NotNull PlantopiaAdvancement advancement) {

@@ -1,6 +1,6 @@
 package by.langvest.plantopia.adv;
 
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +37,7 @@ public class PlantopiaAdvancement {
 	}
 
 	public @NotNull ResourceLocation getGroup() {
-		var advancementMeta = Objects.requireNonNull(PlantopiaMetaStore.getAdvancement(this));
+		var advancementMeta = PlantopiaMetaRegistries.ADVANCEMENTS.getValueOrThrow(this);
 
 		return advancementMeta.getGroup();
 	}

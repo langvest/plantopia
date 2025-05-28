@@ -2,7 +2,7 @@ package by.langvest.plantopia.tab;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -29,7 +29,7 @@ public class PlantopiaCreativeModeTabs {
 		CREATIVE_MODE_TAB_REGISTER.register(name, () -> CreativeModeTab.builder()
 			.icon(iconSupplier)
 			.title(Component.translatable(PlantopiaTemplateHelper.getCreativeModeTabTitleKey(name)))
-			.displayItems((parameters, output) -> PlantopiaMetaStore.getItems()
+			.displayItems((parameters, output) -> PlantopiaMetaRegistries.ITEMS
 				.forEach(itemMeta -> {
 					List<ResourceKey<CreativeModeTab>> groups = itemMeta.getGroups();
 

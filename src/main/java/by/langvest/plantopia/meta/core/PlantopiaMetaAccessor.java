@@ -5,15 +5,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaMetaAccessor {
 	@Contract(pure = true)
-	public static <T extends PlantopiaObjectMetaType<T, P>, P extends PlantopiaObjectMetaProperties<T>> T getMetaType(@NotNull P metaProperties) {
-		return metaProperties.type;
+	public static <T extends PlantopiaMetaType<T, P>, P extends PlantopiaMetaProperties<T, P>> T getMetaTypeFrom(@NotNull P properties) {
+		return properties.type;
 	}
 
-	public static <T extends PlantopiaObjectMetaType<T, P>, P extends PlantopiaObjectMetaProperties<T>> P getMetaProperties(@NotNull T metaType) {
-		return metaType.properties;
-	}
-
-	public static <T extends PlantopiaObjectMetaType<T, P>, P extends PlantopiaObjectMetaProperties<T>> void setRecursiveMetaType(@NotNull T metaType) {
-		metaType.type = metaType;
+	@Contract(pure = true)
+	public static <T extends PlantopiaMetaType<T, P>, P extends PlantopiaMetaProperties<T, P>> P getMetaPropertiesFrom(@NotNull T type) {
+		return type.properties;
 	}
 }

@@ -8,13 +8,13 @@ public class PlantopiaMetaException extends RuntimeException {
 	}
 
 	public static class UnableToSet extends RuntimeException {
-		public UnableToSet(String propertyName, @NotNull PlantopiaObjectMetaType<?, ?> type) {
+		public UnableToSet(String propertyName, @NotNull PlantopiaMetaType<?, ?> type) {
 			super(String.format("Unable to set '%s' property to '%s' meta type properties.", propertyName, type.getId()));
 		}
 	}
 
 	public static class Required extends RuntimeException {
-		public Required(String propertyName, @NotNull PlantopiaObjectMetaType<?, ?> type) {
+		public Required(String propertyName, @NotNull PlantopiaMetaType<?, ?> type) {
 			super(String.format("'%s' property is required for '%s' meta type properties.", propertyName, type.getId()));
 		}
 	}
