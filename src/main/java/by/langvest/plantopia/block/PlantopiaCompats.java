@@ -1,6 +1,6 @@
 package by.langvest.plantopia.block;
 
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.util.PlantopiaBrewingRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
@@ -33,7 +33,7 @@ public class PlantopiaCompats {
 	}
 
 	private static void registerAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			Block block = blockMeta.getBlock();
 
 			if(blockMeta.isFlammable()) registerFlammable(block, blockMeta.getEncouragement(), blockMeta.getFlammability());
@@ -70,7 +70,7 @@ public class PlantopiaCompats {
 		public static final float PLANT_2 = CHANCE_50;
 		public static final float PLANT_3 = CHANCE_60;
 		public static final float FLOWER = CHANCE_65;
-		public static final float MUSHROOM = CHANCE_65;
+		public static final float MUSHROOM_PLANT = CHANCE_65;
 		public static final float MUSHROOM_STEM = CHANCE_65;
 		public static final float MUSHROOM_BLOCK = CHANCE_85;
 		public static final float HAS_FLOWERS = 0.05F;

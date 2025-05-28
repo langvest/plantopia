@@ -17,8 +17,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("unused")
-public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? extends Block>> {
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+
+public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? extends Block>> {
 	private final MetaType type;
 	private final List<ResourceKey<CreativeModeTab>> groups;
 	private final PlantopiaBlockHeightType blockHeightType;
@@ -39,36 +40,36 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 	private final Item dye;
 	private final int burnTime;
 
-	public PlantopiaBlockMeta(String name, RegistryObject<? extends Block> registryObject, @NotNull PlantopiaBlockMeta.MetaProperties metaProperties) {
-		super(name, registryObject);
-		type = PlantopiaMetaAccessor.getMetaType(metaProperties);
-		groups = metaProperties.groups;
-		blockHeightType = metaProperties.blockHeightType;
-		blockWidthType = metaProperties.blockWidthType;
-		renderType = metaProperties.renderType;
-		modelType = metaProperties.modelType;
-		dropType = metaProperties.dropType;
-		recipeType = metaProperties.recipeType;
-		displayNameType = metaProperties.displayNameType;
-		tintType = metaProperties.tintType;
-		encouragement = metaProperties.encouragement;
-		flammability = metaProperties.flammability;
-		compostability = metaProperties.compostability;
-		isPottable = metaProperties.isPottable;
-		isIgnoredByBees = metaProperties.isIgnoredByBees;
-		isPreferredByBees = metaProperties.isPreferredByBees;
-		hasTintedParticles = metaProperties.hasTintedParticles;
-		dye = metaProperties.dye;
-		burnTime = metaProperties.burnTime;
+	public PlantopiaBlockMeta(RegistryObject<? extends Block> target, @NotNull MetaProperties properties) {
+		super(target);
+		type = PlantopiaMetaAccessor.getMetaTypeFrom(properties);
+		groups = properties.groups;
+		blockHeightType = properties.blockHeightType;
+		blockWidthType = properties.blockWidthType;
+		renderType = properties.renderType;
+		modelType = properties.modelType;
+		dropType = properties.dropType;
+		recipeType = properties.recipeType;
+		displayNameType = properties.displayNameType;
+		tintType = properties.tintType;
+		encouragement = properties.encouragement;
+		flammability = properties.flammability;
+		compostability = properties.compostability;
+		isPottable = properties.isPottable;
+		isIgnoredByBees = properties.isIgnoredByBees;
+		isPreferredByBees = properties.isPreferredByBees;
+		hasTintedParticles = properties.hasTintedParticles;
+		dye = properties.dye;
+		burnTime = properties.burnTime;
+	}
+
+	public String getName() {
+		return nameOf(target);
 	}
 
 	public Block getBlock() {
-		return getObject().get();
+		return target.get();
 	}
-
-	// public Material getMaterial() {
-	// 	return getBlock().defaultBlockState().getMaterial();
-	// }
 
 	public MetaType getType() {
 		return type;
@@ -195,62 +196,42 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		return this.burnTime > 0;
 	}
 
-	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
+	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
 		public static final MetaType PLANT = MetaProperties.of().cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().makeType("plant");
 		public static final MetaType WOODY_PLANT = MetaProperties.copy(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
 		public static final MetaType FLOWER = MetaProperties.copy(PLANT).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
 		public static final MetaType SAPLING = MetaProperties.copy(PLANT).pottable().notTintedParticles().makeType("sapling");
-		public static final MetaType MUSHROOM = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM).makeType("mushroom");
+		public static final MetaType MUSHROOM_PLANT = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM_PLANT).makeType("mushroom_plant");
 		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
-		public static final MetaType MUSHROOM_BLOCK = MetaProperties.copy(MUSHROOM_STEM).compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
+		public static final MetaType MUSHROOM_BLOCK = MetaProperties.of().compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
 		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noGroup().makeType("potted");
 		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().tintedParticles().makeType("leaves");
 		public static final MetaType STONE = MetaProperties.of().makeType("stone");
+		public static final MetaType WOOD = MetaProperties.of().makeType("wood");
+		public static final MetaType LOG = MetaProperties.copy(WOOD).makeType("log");
+		public static final MetaType PLANKS = MetaProperties.copy(WOOD).makeType("planks");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("block", name, properties);
 		}
 
-		public boolean isStoneLike() {
-			return type == STONE;
-		}
-
-		public boolean isPlantLike() {
-			return type == PLANT
-				|| type == WOODY_PLANT;
-		}
-
-		public boolean isVegetationLike() {
-			return type == MUSHROOM
-				|| isPlantLike()
-				|| isSaplingLike()
-				|| isFlowerLike();
-		}
-
-		public boolean isSaplingLike() {
-			return type == SAPLING;
-		}
-
-		public boolean isFlowerLike() {
-			return type == FLOWER;
-		}
-
-		public boolean isLeavesLike() {
-			return type == LEAVES;
+		public boolean isSimplePlantLike() {
+			return equals(PLANT)
+				|| equals(WOODY_PLANT);
 		}
 
 		public boolean isMushroomLike() {
-			return type == MUSHROOM
-				|| type == MUSHROOM_STEM
-				|| type == MUSHROOM_BLOCK;
+			return instanceOf(MUSHROOM_PLANT)
+				|| instanceOf(MUSHROOM_STEM)
+				|| instanceOf(MUSHROOM_BLOCK);
 		}
 
 		public boolean isAbleToBePotted() {
-			return isVegetationLike();
+			return instanceOf(PLANT);
 		}
 	}
 
-	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
+	public static final class MetaProperties extends PlantopiaMetaProperties<MetaType, MetaProperties> {
 		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
 		private PlantopiaBlockHeightType blockHeightType = PlantopiaBlockHeightType.SINGLE;
 		private PlantopiaBlockWidthType blockWidthType = PlantopiaBlockWidthType.SINGLE;
@@ -276,15 +257,12 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 			return new MetaProperties();
 		}
 
-		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
-			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
+		public static @NotNull MetaProperties copy(@NotNull MetaType type) {
+			return MetaProperties.fromType(type);
 		}
 
 		private @NotNull MetaType makeType(String name) {
-			MetaType metaType = new MetaType(name, this);
-			PlantopiaMetaAccessor.setRecursiveMetaType(metaType);
-			type = metaType;
-			return metaType;
+			return new MetaType(name, this);
 		}
 
 		public MetaProperties generatedBurnTime() {
@@ -308,7 +286,7 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		}
 
 		public MetaProperties dye(Item dye) {
-			if(type != null && !type.isFlowerLike()) throw new PlantopiaMetaException.UnableToSet("dye", type);
+			if(type != null && !type.instanceOf(MetaType.FLOWER)) throw new PlantopiaMetaException.UnableToSet("dye", type);
 			this.dye = dye;
 			return this;
 		}
@@ -513,7 +491,7 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		}
 
 		public MetaProperties pottedTint(PlantopiaTintType tintType) {
-			if(type != null && type != MetaType.POTTED) throw new PlantopiaMetaException.UnableToSet("pottedTint", type);
+			if(type != null && !type.instanceOf(MetaType.POTTED)) throw new PlantopiaMetaException.UnableToSet("pottedTint", type);
 			this.tintType = tintType;
 			return this;
 		}
@@ -531,15 +509,6 @@ public class PlantopiaBlockMeta extends PlantopiaObjectMeta<RegistryObject<? ext
 		public MetaProperties rainbowTint() {
 			this.tintType = PlantopiaTintType.RAINBOW;
 			return this;
-		}
-
-		@Override
-		public MetaProperties clone() {
-			try {
-				return (MetaProperties)super.clone();
-			} catch(CloneNotSupportedException e) {
-				throw new AssertionError();
-			}
 		}
 	}
 }

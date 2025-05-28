@@ -2,7 +2,7 @@ package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
@@ -32,7 +32,7 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getItems().forEach(itemMeta -> {
+		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
 			if(!itemMeta.shouldGenerateModel()) return;
 
 			Item item = itemMeta.getItem();

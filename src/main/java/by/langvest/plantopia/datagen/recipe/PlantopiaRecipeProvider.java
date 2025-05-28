@@ -1,7 +1,7 @@
 package by.langvest.plantopia.datagen.recipe;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import net.minecraft.data.PackOutput;
@@ -41,12 +41,12 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateRecipe()) return;
 
-			MetaType type = blockMeta.getType();
+			var type = blockMeta.getType();
 
-			if(type.isFlowerLike()) {
+			if(type.instanceOf(MetaType.FLOWER)) {
 				dyeFromFlower(blockMeta);
 			}
 		});

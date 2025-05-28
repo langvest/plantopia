@@ -2,7 +2,7 @@ package by.langvest.plantopia.datagen.adv;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.util.helper.PlantopiaContentHelper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -57,10 +57,10 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 	}
 
 	private void saveAll() {
-		PlantopiaMetaStore.getAdvancements().forEach(advancementMeta -> {
-			PlantopiaAdvancement advancement = advancementMeta.getAdvancement();
-			PlantopiaAdvancement parent = advancementMeta.getParent();
-			Advancement.Builder builder = advancement.getBuilder();
+		PlantopiaMetaRegistries.ADVANCEMENTS.forEach(advancementMeta -> {
+			var advancement = advancementMeta.getAdvancement();
+			var parent = advancementMeta.getParent();
+			var builder = advancement.getBuilder();
 
 			builder.display(
 				advancementMeta.getIcon(),

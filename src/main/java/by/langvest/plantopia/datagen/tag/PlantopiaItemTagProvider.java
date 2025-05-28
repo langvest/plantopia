@@ -1,7 +1,7 @@
 package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
@@ -13,7 +13,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -54,24 +53,24 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.hasItem()) return;
 
-			Block block = blockMeta.getBlock();
-			Item item = block.asItem();
-			PlantopiaBlockMeta.MetaType type = blockMeta.getType();
+			var block = blockMeta.getBlock();
+			var item = block.asItem();
+			var type = blockMeta.getType();
 			int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
 
 			if(blockMeta.isIgnoredByBees()) IGNORED_BY_BEES.add(item);
 			if(blockMeta.isPreferredByBees()) PREFERRED_BY_BEES.add(item);
 
-			if(type.isFlowerLike()) {
+			if(type.instanceOf(PlantopiaBlockMeta.MetaType.FLOWER)) {
 				if(baseHeight > 1) TALL_FLOWERS.add(item);
 				else SMALL_FLOWERS.add(item);
 			}
 
-			if(type.isLeavesLike()) LEAVES.add(item);
-			if(type.isSaplingLike()) SAPLINGS.add(item);
+			if(type.instanceOf(PlantopiaBlockMeta.MetaType.LEAVES)) LEAVES.add(item);
+			if(type.instanceOf(PlantopiaBlockMeta.MetaType.SAPLING)) SAPLINGS.add(item);
 		});
 	}
 

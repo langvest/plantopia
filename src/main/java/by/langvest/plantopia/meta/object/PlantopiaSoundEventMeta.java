@@ -5,24 +5,29 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
-public class PlantopiaSoundEventMeta extends PlantopiaObjectMeta<RegistryObject<? extends SoundEvent>> {
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+
+public class PlantopiaSoundEventMeta extends PlantopiaMetaObject<RegistryObject<? extends SoundEvent>> {
 	private final MetaType type;
 
-	public PlantopiaSoundEventMeta(String name, RegistryObject<? extends SoundEvent> registryObject, @NotNull MetaProperties metaProperties) {
-		super(name, registryObject);
-		type = PlantopiaMetaAccessor.getMetaType(metaProperties);
+	public PlantopiaSoundEventMeta(RegistryObject<? extends SoundEvent> target, @NotNull MetaProperties properties) {
+		super(target);
+		type = PlantopiaMetaAccessor.getMetaTypeFrom(properties);
+	}
+
+	public String getName() {
+		return nameOf(target);
 	}
 
 	public SoundEvent getSoundEvent() {
-		return getObject().get();
+		return target.get();
 	}
 
 	public MetaType getType() {
 		return type;
 	}
 
-	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
+	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
 		public static final MetaType BLOCK_BRAKE = MetaProperties.of().makeType("block_break");
 		public static final MetaType BLOCK_FOOTSTEPS = MetaProperties.of().makeType("block_footsteps");
 		public static final MetaType BLOCK_HIT = MetaProperties.of().makeType("block_hit");
@@ -34,31 +39,19 @@ public class PlantopiaSoundEventMeta extends PlantopiaObjectMeta<RegistryObject<
 		}
 	}
 
-	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
+	public static final class MetaProperties extends PlantopiaMetaProperties<MetaType, MetaProperties> {
 		private MetaProperties() {}
 
 		private static @NotNull MetaProperties of() {
 			return new MetaProperties();
 		}
 
-		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
-			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
+		public static @NotNull MetaProperties copy(@NotNull MetaType type) {
+			return MetaProperties.fromType(type);
 		}
 
 		private @NotNull MetaType makeType(String name) {
-			MetaType metaType = new MetaType(name, this);
-			PlantopiaMetaAccessor.setRecursiveMetaType(metaType);
-			type = metaType;
-			return metaType;
-		}
-
-		@Override
-		public MetaProperties clone() {
-			try {
-				return (MetaProperties)super.clone();
-			} catch(CloneNotSupportedException e) {
-				throw new AssertionError();
-			}
+			return new MetaType(name, this);
 		}
 	}
 }

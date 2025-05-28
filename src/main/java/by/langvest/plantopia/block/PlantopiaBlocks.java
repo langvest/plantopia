@@ -4,7 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaCompats.Compostability;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.item.PlantopiaItems;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -12,7 +12,6 @@ import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.MapColor;
@@ -64,9 +63,11 @@ public class PlantopiaBlocks {
 	}
 
 	public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> supplier, MetaProperties metaProperties) {
-		RegistryObject<T> registryObject = BLOCK_REGISTER.register(name, supplier);
-		PlantopiaBlockMeta blockMeta = PlantopiaMetaStore.add(name, registryObject, metaProperties);
+		var registryObject = BLOCK_REGISTER.register(name, supplier);
+		var blockMeta = PlantopiaMetaRegistries.BLOCKS.associate(name, new PlantopiaBlockMeta(registryObject, metaProperties));
+
 		PlantopiaItems.registerBlockItem(blockMeta);
+
 		return registryObject;
 	}
 
@@ -78,8 +79,8 @@ public class PlantopiaBlocks {
 	private static void registerPottedBlocks() {
 		registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
 
-		PlantopiaMetaStore.getBlocks(PlantopiaBlockMeta::isPottable).forEach(blockMeta ->
-			registerPottedBlock(blockMeta.getName(), blockMeta.getObject(), blockMeta.getTintType())
+		PlantopiaMetaRegistries.BLOCKS.findAll(PlantopiaBlockMeta::isPottable).forEach(blockMeta ->
+			registerPottedBlock(blockMeta.getName(), blockMeta.getTarget(), blockMeta.getTintType())
 		);
 	}
 

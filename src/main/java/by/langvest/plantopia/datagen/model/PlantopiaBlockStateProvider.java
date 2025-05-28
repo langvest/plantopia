@@ -8,9 +8,9 @@ import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import by.langvest.plantopia.block.special.PlantopiaWideTriplePlantBlock;
-import by.langvest.plantopia.meta.property.PlantopiaModelType;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Direction;
@@ -27,9 +27,12 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
 
-import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedBlockOf;
+import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedNameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public class PlantopiaBlockStateProvider extends BlockStateProvider {
@@ -73,7 +76,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateModel()) return;
 
 			var block = blockMeta.getBlock();
@@ -94,7 +97,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 				return;
 			}
 
-			if(block instanceof BushBlock || type.isPlantLike()) {
+			if(block instanceof BushBlock || type.isSimplePlantLike()) {
 				bushBlock(blockMeta);
 				return;
 			}
@@ -120,7 +123,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = blockMeta.getName();
 		var block = (FlowerPotBlock)blockMeta.getBlock();
 		var plant = block.getContent();
-		var plantMeta = PlantopiaMetaStore.getBlock(plant);
+		var plantMeta = PlantopiaMetaRegistries.BLOCKS.getValue(plant);
 
 		if(plantMeta != null && plantMeta.getModelType() == PlantopiaModelType.CUSTOM) return;
 

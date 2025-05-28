@@ -1,6 +1,7 @@
 package by.langvest.plantopia.util.helper;
 
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import net.minecraft.world.level.ItemLike;
@@ -39,10 +40,10 @@ public final class PlantopiaContentHelper {
 			.stream()
 			.filter(blockEntry -> {
 				var block = blockEntry.getValue();
-				var blockMeta = PlantopiaMetaStore.getBlock(block);
+				var blockMeta = PlantopiaMetaRegistries.BLOCKS.getValue(block);
 
 				if(blockMeta != null) {
-					return blockMeta.hasItem() && blockMeta.getType().isFlowerLike();
+					return blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.FLOWER);
 				}
 
 				return block instanceof FlowerBlock || block instanceof TallFlowerBlock;
@@ -66,7 +67,7 @@ public final class PlantopiaContentHelper {
 			return supplier.get();
 		}
 
-		@Nullable var pottedBlockMeta = PlantopiaMetaStore.getBlock(blockMeta -> {
+		var pottedBlockMeta = PlantopiaMetaRegistries.BLOCKS.findValue(blockMeta -> {
 			Block block = blockMeta.getBlock();
 
 			if(!(block instanceof FlowerPotBlock flowerPotBlock)) return false;

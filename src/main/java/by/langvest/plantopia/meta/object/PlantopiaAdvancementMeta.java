@@ -14,9 +14,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
-public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvancement> {
+public class PlantopiaAdvancementMeta extends PlantopiaMetaObject<PlantopiaAdvancement> {
 	private final MetaType type;
 	private final FrameType frameType;
 	private final ItemStack icon;
@@ -27,36 +28,36 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 	private final boolean announceToChat;
 	private final boolean isHidden;
 
-	public PlantopiaAdvancementMeta(String name, PlantopiaAdvancement object, @NotNull MetaProperties metaProperties) {
-		super(name, object);
-		type = PlantopiaMetaAccessor.getMetaType(metaProperties);
-		frameType = metaProperties.frameType;
-		showToast = metaProperties.showToast;
-		announceToChat = metaProperties.announceToChat;
-		isHidden = metaProperties.isHidden;
-		icon = metaProperties.icon;
-		parent = metaProperties.parent;
-		background = metaProperties.background;
+	public PlantopiaAdvancementMeta(PlantopiaAdvancement target, @NotNull MetaProperties properties) {
+		super(target);
+		type = PlantopiaMetaAccessor.getMetaTypeFrom(properties);
+		frameType = properties.frameType;
+		showToast = properties.showToast;
+		announceToChat = properties.announceToChat;
+		isHidden = properties.isHidden;
+		icon = properties.icon;
+		parent = properties.parent;
+		background = properties.background;
 
 		if(icon == null) throw new PlantopiaMetaException.Required("icon", type);
 		if(type != MetaType.ROOT && parent == null) throw new PlantopiaMetaException.Required("parent", type);
 
-		group = type == MetaType.ROOT ? metaProperties.group : parent.getGroup();
+		group = type == MetaType.ROOT ? properties.group : parent.getGroup();
 
 		if(group == null) throw new PlantopiaMetaException.Required("group", type);
 		if(type == MetaType.ROOT && background == null) throw new PlantopiaMetaException.Required("background", type);
 	}
 
+	public String getName() {
+		return nameOf(target);
+	}
+
 	public PlantopiaAdvancement getAdvancement() {
-		return getObject();
+		return target;
 	}
 
 	public MetaType getType() {
 		return type;
-	}
-
-	public String getPath() {
-		return group + "/" + getName();
 	}
 
 	@Nullable
@@ -73,11 +74,11 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 	}
 
 	public String getTitleKey() {
-		return PlantopiaTemplateHelper.getAdvancementTitleKey(group.getPath(), name);
+		return PlantopiaTemplateHelper.getAdvancementTitleKey(group.getPath(), getName());
 	}
 
 	public String getDescriptionKey() {
-		return PlantopiaTemplateHelper.getAdvancementDescriptionKey(group.getPath(), name);
+		return PlantopiaTemplateHelper.getAdvancementDescriptionKey(group.getPath(), getName());
 	}
 
 	public MutableComponent getTitle() {
@@ -109,7 +110,7 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 		return isHidden;
 	}
 
-	public static final class MetaType extends PlantopiaObjectMetaType<MetaType, MetaProperties> {
+	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
 		public static final MetaType ROOT = MetaProperties.of().doNotShowToast().doNotAnnounceToChat().makeType("root");
 		public static final MetaType CHILD = MetaProperties.of().makeType("child");
 		public static final MetaType TASK = MetaProperties.copy(CHILD).taskFrame().makeType("task");
@@ -121,7 +122,7 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 		}
 	}
 
-	public static final class MetaProperties extends PlantopiaObjectMetaProperties<MetaType> implements Cloneable {
+	public static final class MetaProperties extends PlantopiaMetaProperties<MetaType, MetaProperties> {
 		private FrameType frameType = FrameType.TASK;
 		private ItemStack icon = null;
 		private ResourceLocation background = null;
@@ -137,30 +138,27 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 			return new MetaProperties();
 		}
 
-		public static @NotNull MetaProperties copy(@NotNull MetaType metaType) {
-			return PlantopiaMetaAccessor.getMetaProperties(metaType).clone();
+		public static @NotNull MetaProperties copy(@NotNull MetaType type) {
+			return MetaProperties.fromType(type);
 		}
 
 		private @NotNull MetaType makeType(String name) {
-			MetaType metaType = new MetaType(name, this);
-			PlantopiaMetaAccessor.setRecursiveMetaType(metaType);
-			type = metaType;
-			return metaType;
+			return new MetaType(name, this);
 		}
 
 		public MetaProperties group(String groupName) {
-			if(type != null && type != MetaType.ROOT) throw new PlantopiaMetaException.UnableToSet("group", type);
+			if(type != null && !type.equals(MetaType.ROOT)) throw new PlantopiaMetaException.UnableToSet("group", type);
 			return group(plantopiaLocationFrom(groupName));
 		}
 
 		public MetaProperties group(ResourceLocation groupLocation) {
-			if(type != null && type != MetaType.ROOT) throw new PlantopiaMetaException.UnableToSet("group", type);
+			if(type != null && !type.equals(MetaType.ROOT)) throw new PlantopiaMetaException.UnableToSet("group", type);
 			this.group = groupLocation;
 			return this;
 		}
 
 		public MetaProperties parent(PlantopiaAdvancement parent) {
-			if(type != null && type == MetaType.ROOT) throw new PlantopiaMetaException.UnableToSet("parent", type);
+			if(type != null && type.equals(MetaType.ROOT)) throw new PlantopiaMetaException.UnableToSet("parent", type);
 			this.parent = parent;
 			return this;
 		}
@@ -200,7 +198,7 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 		}
 
 		public MetaProperties background(ResourceLocation backgroundLocation) {
-			if(type != null && type != MetaType.ROOT) throw new PlantopiaMetaException.UnableToSet("background", type);
+			if(type != null && !type.equals(MetaType.ROOT)) throw new PlantopiaMetaException.UnableToSet("background", type);
 			this.background = backgroundLocation;
 			return this;
 		}
@@ -233,15 +231,6 @@ public class PlantopiaAdvancementMeta extends PlantopiaObjectMeta<PlantopiaAdvan
 		public MetaProperties notHidden() {
 			this.isHidden = false;
 			return this;
-		}
-
-		@Override
-		public MetaProperties clone() {
-			try {
-				return (MetaProperties)super.clone();
-			} catch(CloneNotSupportedException e) {
-				throw new AssertionError();
-			}
 		}
 	}
 }

@@ -3,19 +3,17 @@ package by.langvest.plantopia.datagen.lang;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.helper.PlantopiaStringHelper;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
@@ -43,17 +41,17 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 	}
 
 	private void add(@NotNull PlantopiaAdvancement advancement, String title, String description) {
-		var advancementMeta = Objects.requireNonNull(PlantopiaMetaStore.getAdvancement(advancement));
+		var advancementMeta = PlantopiaMetaRegistries.ADVANCEMENTS.getValueOrThrow(advancement);
 
 		add(advancementMeta.getTitleKey(), title);
 		add(advancementMeta.getDescriptionKey(), description);
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateTranslation()) return;
 
-			Block block = blockMeta.getBlock();
+			var block = blockMeta.getBlock();
 
 			add(block, getDisplayNameById(blockMeta.getName()));
 		});

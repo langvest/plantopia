@@ -8,7 +8,7 @@ import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaBlockDropType;
 import by.langvest.plantopia.meta.property.PlantopiaBlockHeightType;
 import com.google.common.collect.Sets;
@@ -84,10 +84,10 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaStore.getBlocks().forEach(blockMeta -> {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateLootTable()) return;
 
-			PlantopiaBlockDropType dropType = blockMeta.getDropType();
+			var dropType = blockMeta.getDropType();
 
 			if(dropType == PlantopiaBlockDropType.SELF) {
 				dropSelf(blockMeta);
@@ -105,7 +105,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
 	@Override
 	protected @NotNull Iterable<Block> getKnownBlocks() {
-		return PlantopiaMetaStore.getBlocks().stream().filter(PlantopiaBlockMeta::hasDrop).map(PlantopiaBlockMeta::getBlock)::iterator;
+		return PlantopiaMetaRegistries.BLOCKS.getAll().stream().filter(PlantopiaBlockMeta::hasDrop).map(PlantopiaBlockMeta::getBlock)::iterator;
 	}
 
 	/* DROPS GENERATION ******************************************/

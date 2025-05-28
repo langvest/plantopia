@@ -3,7 +3,8 @@ package by.langvest.plantopia.adv;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.item.PlantopiaItems;
-import by.langvest.plantopia.meta.PlantopiaMetaStore;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta.MetaType;
 import org.jetbrains.annotations.NotNull;
@@ -18,8 +19,8 @@ public class PlantopiaAdvancements {
 
 	public static @NotNull PlantopiaAdvancement registerAdvancement(String name, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
 		var id = plantopiaLocationFrom(name);
-		PlantopiaAdvancement advancement = supplier.get().bindId(id);
-		PlantopiaMetaStore.add(name, advancement, metaProperties);
+		var advancement = supplier.get().bindId(id);
+		PlantopiaMetaRegistries.ADVANCEMENTS.associate(name, new PlantopiaAdvancementMeta(advancement, metaProperties));
 		return advancement;
 	}
 }
