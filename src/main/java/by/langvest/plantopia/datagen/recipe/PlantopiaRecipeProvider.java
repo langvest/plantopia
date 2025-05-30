@@ -34,6 +34,8 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 		fullBlockRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.MOSSY_COBBLESTONE, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get());
 		stonecutterRecipe(RecipeCategory.MISC, PlantopiaBlocks.COBBLESTONE_SHARD.get(), Blocks.COBBLESTONE, 9);
 		stonecutterRecipe(RecipeCategory.MISC, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), Blocks.MOSSY_COBBLESTONE, 9);
+
+		woodFromLogs(consumer, PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
 	}
 
 	private void setConsumer(@NotNull Consumer<FinishedRecipe> consumer) {

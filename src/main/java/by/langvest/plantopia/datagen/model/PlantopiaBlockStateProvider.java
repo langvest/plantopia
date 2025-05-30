@@ -10,6 +10,7 @@ import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import by.langvest.plantopia.block.special.PlantopiaWideTriplePlantBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
@@ -59,6 +60,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		cobblestoneShardBlock(PlantopiaBlocks.COBBLESTONE_SHARD.get());
 		cobblestoneShardBlock(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get());
 		bushBlock(PlantopiaBlocks.BUSH.get());
+		birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_LOG.get());
+		birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_WOOD.get());
 		foxgloveBlock(PlantopiaBlocks.RED_FOXGLOVE.get());
 		foxgloveBlock(PlantopiaBlocks.ORANGE_FOXGLOVE.get());
 		foxgloveBlock(PlantopiaBlocks.YELLOW_FOXGLOVE.get());
@@ -285,6 +288,24 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		if(pottedBlock != null) {
 			simpleBlock(pottedBlock, tintedFlowerPotCrossWithOverlayModel(nameOf(pottedBlock), bushTexture, stemTexture));
 		}
+	}
+
+	private void birchBaseBlock(Block block) {
+		String baseName = nameOf(block);
+		var blockMeta = PlantopiaMetaRegistries.BLOCKS.getValue(block);
+
+		var topTexture = minecraftTexture("birch_log_top");
+		var sideTexture = texture("birch_base_log");
+		var bottomTexture = texture(baseName + "_bottom");
+
+		if(blockMeta != null && blockMeta.getType().equals(MetaType.WOOD)) {
+			topTexture = minecraftTexture("birch_log");
+		}
+
+		var model = cubeBottomTopModel(baseName, topTexture, sideTexture, bottomTexture);
+
+		blockItemModel(baseName, model);
+		directionalBlock(block, model);
 	}
 
 	private void foxgloveBlock(Block block) {
@@ -567,6 +588,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.texture("flowers", flowersTexture);
 	}
 
+	private BlockModelBuilder cubeBottomTopModel(String name, ResourceLocation topTexture, ResourceLocation sideTexture, ResourceLocation bottomTexture) {
+		return models().withExistingParent(name, "cube_bottom_top")
+			.texture("top", topTexture)
+			.texture("side", sideTexture)
+			.texture("bottom", bottomTexture);
+	}
+
 	/* ITEM MODELS ******************************************/
 
 	public void generatedItemModel(String name, ResourceLocation... layers) {
@@ -588,6 +616,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
 		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+	}
+
+	@Contract("_ -> new")
+	private static @NotNull ResourceLocation minecraftTexture(String name) {
+		return minecraftLocationFrom(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract("_ -> new")

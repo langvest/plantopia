@@ -1,6 +1,7 @@
 package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
@@ -28,6 +29,7 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 	private final PlantopiaTagSet<Item> SAPLINGS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Item> BIRCH_LOGS = PlantopiaTagSet.newTagSet();
 
 	public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
@@ -38,6 +40,7 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 		generateAll();
 
 		add(IGNORED_BY_BEES, Blocks.WITHER_ROSE);
+		add(BIRCH_LOGS, PlantopiaBlocks.BIRCH_BASE_LOG.get(), PlantopiaBlocks.BIRCH_BASE_WOOD.get());
 
 		saveAll();
 	}
@@ -75,6 +78,7 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 	}
 
 	private void saveAll() {
+		save(ItemTags.BIRCH_LOGS, BIRCH_LOGS);
 		save(ItemTags.TALL_FLOWERS, TALL_FLOWERS);
 		save(ItemTags.SMALL_FLOWERS, SMALL_FLOWERS);
 		save(ItemTags.LEAVES, LEAVES);

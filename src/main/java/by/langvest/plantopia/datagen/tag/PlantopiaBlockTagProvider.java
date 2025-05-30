@@ -1,6 +1,7 @@
 package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -34,6 +35,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> REPLACEABLE_BY_TREES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> SWORD_EFFICIENT = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> BIRCH_LOGS = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> OVERWORLD_NATURAL_LOGS = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -50,6 +53,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		generateAll();
 
 		add(IGNORED_BY_BEES, Blocks.WITHER_ROSE);
+		add(BIRCH_LOGS, PlantopiaBlocks.BIRCH_BASE_LOG.get(), PlantopiaBlocks.BIRCH_BASE_WOOD.get());
+		add(OVERWORLD_NATURAL_LOGS, PlantopiaBlocks.BIRCH_BASE_LOG.get());
 
 		saveAll();
 	}
@@ -112,10 +117,16 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 				MINEABLE_WITH_AXE.add(block);
 				if(type.instanceOf(MetaType.MUSHROOM_PLANT)) ENDERMAN_HOLDABLE.add(block);
 			}
+
+			// if(type.instanceOf(MetaType.WOOD)) {
+			// 	MINEABLE_WITH_AXE.add(block);
+			// }
 		});
 	}
 
 	private void saveAll() {
+		save(BlockTags.OVERWORLD_NATURAL_LOGS, OVERWORLD_NATURAL_LOGS);
+		save(BlockTags.BIRCH_LOGS, BIRCH_LOGS);
 		save(BlockTags.REPLACEABLE, REPLACEABLE);
 		save(BlockTags.SWORD_EFFICIENT, SWORD_EFFICIENT);
 		save(BlockTags.REPLACEABLE_BY_TREES, REPLACEABLE_BY_TREES);
