@@ -13,7 +13,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 
 public class PlantopiaMetaRegistry<Target, Meta extends PlantopiaMetaObject<?>> {
 	protected final ResourceLocation id;
-	protected final HashMap<ResourceLocation, Meta> storage = Maps.newHashMap();
+	protected final HashMap<ResourceLocation, Meta> storage = Maps.newLinkedHashMap();
 	protected final LocationExtractor<Target> locationExtractor;
 
 	public PlantopiaMetaRegistry(ResourceLocation id, LocationExtractor<Target> locationExtractor) {
