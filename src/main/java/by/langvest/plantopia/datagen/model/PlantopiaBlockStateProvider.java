@@ -59,7 +59,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		cloverBlossomBlock(PlantopiaBlocks.PINK_CLOVER_BLOSSOM.get());
 		cobblestoneShardBlock(PlantopiaBlocks.COBBLESTONE_SHARD.get());
 		cobblestoneShardBlock(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get());
-		bushBlock(PlantopiaBlocks.BUSH.get());
 		birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_LOG.get());
 		birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_WOOD.get());
 		foxgloveBlock(PlantopiaBlocks.RED_FOXGLOVE.get());
@@ -270,24 +269,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, itemTexture);
 		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.SHARDS, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
-	}
-
-	private void bushBlock(Block block) {
-		String baseName = nameOf(block);
-
-		var bushTexture = texture(baseName);
-		var stemTexture = texture(baseName + "_stem");
-
-		var model = tintedCrossWithOverlayModel(baseName, bushTexture, stemTexture);
-
-		generatedItemModel(baseName, bushTexture, stemTexture);
-		simpleBlock(block, model);
-
-		var pottedBlock = pottedBlockOf(block);
-
-		if(pottedBlock != null) {
-			simpleBlock(pottedBlock, tintedFlowerPotCrossWithOverlayModel(nameOf(pottedBlock), bushTexture, stemTexture));
-		}
 	}
 
 	private void birchBaseBlock(Block block) {
