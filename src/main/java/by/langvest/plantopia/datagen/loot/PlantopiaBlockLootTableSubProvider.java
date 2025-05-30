@@ -77,7 +77,6 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTableSubProvider::createCloverDrops);
 		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
 		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
-		add(PlantopiaBlocks.BUSH.get(), PlantopiaBlockLootTableSubProvider::createBushDrops);
 		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTableSubProvider::createPollinatedDandelionDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
@@ -237,21 +236,6 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		LootPoolEntryContainer.Builder<?> lootEntry = withExplosionDecayFunction(block, createPartialLootEntry(block, PlantopiaCobblestoneShardBlock.SHARDS));
 
 		return createSurvivedExplosionBlockTable(block, lootEntry);
-	}
-
-	private static LootTable.@NotNull Builder createBushDrops(Block block) {
-		LootPoolEntryContainer.Builder<?> lootEntry = item(block)
-			.when(HAS_SHEARS)
-			.otherwise(
-				withExplosionDecayFunction(
-					block,
-					withSurvivesExplosionCondition(block, item(Items.STICK))
-						.when(randomChance(SEEDS_CHANCE))
-						.apply(setCount(1, 2))
-				)
-			);
-
-		return createBlockTable(block, lootEntry);
 	}
 
 	private static LootTable.@NotNull Builder createPollinatedDandelionDrops(Block block) {
