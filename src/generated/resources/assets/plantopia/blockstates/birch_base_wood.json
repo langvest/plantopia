@@ -1,0 +1,30 @@
+{
+	"variants": {
+		"facing=down": {
+			"model": "plantopia:block/birch_base_wood",
+			"x": 180
+		},
+		"facing=east": {
+			"model": "plantopia:block/birch_base_wood",
+			"x": 90,
+			"y": 90
+		},
+		"facing=north": {
+			"model": "plantopia:block/birch_base_wood",
+			"x": 90
+		},
+		"facing=south": {
+			"model": "plantopia:block/birch_base_wood",
+			"x": 90,
+			"y": 180
+		},
+		"facing=up": {
+			"model": "plantopia:block/birch_base_wood"
+		},
+		"facing=west": {
+			"model": "plantopia:block/birch_base_wood",
+			"x": 90,
+			"y": 270
+		}
+	}
+}

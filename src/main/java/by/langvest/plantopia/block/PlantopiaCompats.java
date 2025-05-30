@@ -34,7 +34,7 @@ public class PlantopiaCompats {
 
 	private static void registerAll() {
 		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
-			Block block = blockMeta.getBlock();
+			var block = blockMeta.getBlock();
 
 			if(blockMeta.isFlammable()) registerFlammable(block, blockMeta.getEncouragement(), blockMeta.getFlammability());
 			if(blockMeta.isCompostable()) registerCompostable(block, blockMeta.getCompostability());
@@ -78,9 +78,15 @@ public class PlantopiaCompats {
 
 	public static final class Encouragement {
 		public static final int PLANT = 60;
+		public static final int WOOD = 5;
+		public static final int PLANKS = WOOD;
+		public static final int LEAVES = 30;
 	}
 
 	public static final class Flammability {
 		public static final int PLANT = 100;
+		public static final int WOOD = 5;
+		public static final int PLANKS = 20;
+		public static final int LEAVES = 60;
 	}
 }
