@@ -7,7 +7,6 @@ import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -248,9 +246,7 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		OffsetFunction offsetFunction = (state, level, pos) -> {
 			long seed = getOffsetSeed(state, pos);
 			float maxHorizontalOffset = getMaxHorizontalOffset();
-			double d0 = Mth.clamp(((double)((float)(seed & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
-			double d1 = Mth.clamp(((double)((float)(seed >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
-			return new Vec3(d0, 0.0D, d1);
+			return PlantopiaMathHelper.getXZOffset(seed, maxHorizontalOffset);
 		};
 
 		return Optional.of(offsetFunction);

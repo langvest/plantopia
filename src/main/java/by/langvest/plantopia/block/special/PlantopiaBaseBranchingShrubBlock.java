@@ -5,7 +5,6 @@ import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -99,15 +99,13 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 	}
 
 	protected float getMaxHorizontalCollisionOffset() {
-		return 0.4375f; // 7.0F / 16.0F
+		return 0.4375f; // (7.0F / 16.0F)
 	}
 
 	protected Vec3 getCollisionOffset(int x, int z) {
 		long seed = PlantopiaMathHelper.getSeed(x, 0, z);
 		float maxHorizontalOffset = getMaxHorizontalCollisionOffset();
-		double d0 = Mth.clamp(((double)((float)(seed & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
-		double d2 = Mth.clamp(((double)((float)(seed >> 8 & 15L) / 15.0F) - 0.5D) * 0.5D, -maxHorizontalOffset, maxHorizontalOffset);
-		return new Vec3(d0, 0.0D, d2);
+		return PlantopiaMathHelper.getXZOffset(seed, maxHorizontalOffset);
 	}
 
 	@Override
