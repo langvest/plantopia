@@ -36,45 +36,72 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		BlockPos pos = context.getClickedPos();
-		Level level = context.getLevel();
+		var pos = context.getClickedPos();
+		var level = context.getLevel();
+
 		if(pos.getY() > level.getMaxBuildHeight() - 3) return null;
+
 		if(!level.getBlockState(pos.above(1)).canBeReplaced(context)) return null;
 		if(!level.getBlockState(pos.above(2)).canBeReplaced(context)) return null;
+
 		return super.getStateForPlacement(context);
 	}
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		PlantopiaTripleBlockHalf half = state.getValue(HALF);
-		if(half == PlantopiaTripleBlockHalf.LOWER) return super.canSurvive(state, level, pos);
-		BlockState stateBelow = level.getBlockState(pos.below());
+		var half = state.getValue(HALF);
+
+		if(half == PlantopiaTripleBlockHalf.LOWER) {
+			return super.canSurvive(state, level, pos);
+		}
+
+		var stateBelow = level.getBlockState(pos.below());
+
 		return stateBelow.is(this) && stateBelow.getValue(HALF) != PlantopiaTripleBlockHalf.UPPER;
 	}
 
 	public static void placeAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, int flags) {
-		BlockPos posAbove1 = pos.above(1);
-		BlockPos posAbove2 = pos.above(2);
+		var posAbove1 = pos.above(1);
+		var posAbove2 = pos.above(2);
+
 		level.setBlock(pos, copyWaterloggedFrom(level, pos, state.setValue(HALF, PlantopiaTripleBlockHalf.LOWER)), flags);
 		level.setBlock(posAbove1, copyWaterloggedFrom(level, posAbove1, state.setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL)), flags);
 		level.setBlock(posAbove2, copyWaterloggedFrom(level, posAbove2, state.setValue(HALF, PlantopiaTripleBlockHalf.UPPER)), flags);
 	}
 
+	/**
+	 * Called by BlockItem after this block has been placed.
+	 */
 	@Override
 	public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-		BlockPos posAbove1 = pos.above(1);
-		BlockPos posAbove2 = pos.above(2);
+		var posAbove1 = pos.above(1);
+		var posAbove2 = pos.above(2);
+
 		level.setBlock(posAbove1, copyWaterloggedFrom(level, posAbove1, defaultBlockState().setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL)), 3);
 		level.setBlock(posAbove2, copyWaterloggedFrom(level, posAbove2, defaultBlockState().setValue(HALF, PlantopiaTripleBlockHalf.UPPER)), 3);
 	}
 
+	/**
+	 * Update the provided state given the provided neighbor facing and neighbor state, returning a new state.
+	 * For example, fences make their connections to the passed in state if possible, and wet concrete powder immediately
+	 * returns its solidified counterpart.
+	 * Note that this method should ideally consider only the specific facing passed in.
+	 */
 	@Override
-	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
-		PlantopiaTripleBlockHalf half = state.getValue(HALF);
-		if(half != PlantopiaTripleBlockHalf.UPPER && direction == Direction.UP && (!neighborState.is(this) || neighborState.getValue(HALF) == half)) return Blocks.AIR.defaultBlockState();
-		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
+		var half = state.getValue(HALF);
+
+		if(half != PlantopiaTripleBlockHalf.UPPER && facing == Direction.UP && (!neighborState.is(this) || neighborState.getValue(HALF) == half)) {
+			return getFluidBlockState(level, pos);
+		}
+
+		return super.updateShape(state, facing, neighborState, level, pos, neighborPos);
 	}
 
+	/**
+	 * Called before the Block is set to air in the world. Called regardless of if the player's tool can actually collect
+	 * this block
+	 */
 	@Override
 	public void playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
 		if(!level.isClientSide()) {
@@ -84,20 +111,32 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 				dropResources(state, level, pos, null, player, player.getMainHandItem());
 			}
 		}
+
 		super.playerWillDestroy(level, pos, state, player);
 	}
 
 	protected static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
-		PlantopiaTripleBlockHalf half = state.getValue(HALF);
-		if(half == PlantopiaTripleBlockHalf.LOWER) return;
-		BlockPos baseBlockPos = getBaseBlockPos(state, pos);
-		BlockState baseBlockState = level.getBlockState(baseBlockPos);
-		if(!baseBlockState.is(state.getBlock())) return;
-		if(baseBlockState.getValue(HALF) != PlantopiaTripleBlockHalf.LOWER) return;
-		level.setBlock(baseBlockPos, getFluidBlockState(level, baseBlockPos), 35);
-		level.levelEvent(player, 2001, baseBlockPos, Block.getId(baseBlockState));
+		var baseBlockPos = getBaseBlockPos(state, pos);
+
+		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
 	}
 
+	protected static void preventCreativeDropFromPos(Level level, BlockPos pos, @NotNull BlockState originalState, Player player, BlockPos skippedPos) {
+		if(pos == skippedPos) return;
+
+		var state = level.getBlockState(pos);
+
+		if(!state.is(originalState.getBlock())) return;
+		if(state.getValue(HALF) != PlantopiaTripleBlockHalf.LOWER) return;
+
+		level.setBlock(pos, getFluidBlockState(level, pos), 35);
+		level.levelEvent(player, 2001, pos, Block.getId(state));
+	}
+
+	/**
+	 * Called after a player has successfully harvested this block. This method will only be called if the player has
+	 * used the correct tool and drops should be spawned.
+	 */
 	@Override
 	public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack tool) {
 		super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
@@ -116,6 +155,10 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 		};
 	}
 
+	/**
+	 * Return a random long to be passed to {@link net.minecraft.client.resources.model.BakedModel#getQuads}, used for
+	 * random model rotations
+	 */
 	@Override
 	@SuppressWarnings("deprecation")
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {

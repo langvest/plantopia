@@ -8,33 +8,33 @@
 					"block": "plantopia:hogweed",
 					"condition": "minecraft:block_state_property",
 					"properties": {
-						"half": "lower"
+						"quarter": "south_west"
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
-					"offsetY": 1,
+					"offsetZ": -1,
 					"predicate": {
 						"block": {
 							"blocks": [
 								"plantopia:hogweed"
 							],
 							"state": {
-								"half": "central"
+								"quarter": "west_north"
 							}
 						}
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
-					"offsetY": 2,
+					"offsetX": 1,
 					"predicate": {
 						"block": {
 							"blocks": [
 								"plantopia:hogweed"
 							],
 							"state": {
-								"half": "upper"
+								"quarter": "east_south"
 							}
 						}
 					}
@@ -42,13 +42,157 @@
 			],
 			"entries": [
 				{
-					"type": "minecraft:item",
-					"conditions": [
+					"type": "minecraft:alternatives",
+					"children": [
 						{
-							"condition": "minecraft:survives_explosion"
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
 						}
 					],
-					"name": "plantopia:hogweed"
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "lower"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "central"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "upper"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						}
+					]
 				}
 			],
 			"rolls": 1.0
@@ -60,33 +204,33 @@
 					"block": "plantopia:hogweed",
 					"condition": "minecraft:block_state_property",
 					"properties": {
-						"half": "central"
+						"quarter": "west_north"
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
-					"offsetY": -1,
+					"offsetX": 1,
 					"predicate": {
 						"block": {
 							"blocks": [
 								"plantopia:hogweed"
 							],
 							"state": {
-								"half": "lower"
+								"quarter": "north_east"
 							}
 						}
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
-					"offsetY": 1,
+					"offsetZ": 1,
 					"predicate": {
 						"block": {
 							"blocks": [
 								"plantopia:hogweed"
 							],
 							"state": {
-								"half": "upper"
+								"quarter": "south_west"
 							}
 						}
 					}
@@ -94,13 +238,157 @@
 			],
 			"entries": [
 				{
-					"type": "minecraft:item",
-					"conditions": [
+					"type": "minecraft:alternatives",
+					"children": [
 						{
-							"condition": "minecraft:survives_explosion"
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
 						}
 					],
-					"name": "plantopia:hogweed"
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "lower"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "central"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "upper"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						}
+					]
 				}
 			],
 			"rolls": 1.0
@@ -112,33 +400,33 @@
 					"block": "plantopia:hogweed",
 					"condition": "minecraft:block_state_property",
 					"properties": {
-						"half": "upper"
+						"quarter": "north_east"
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
-					"offsetY": -2,
+					"offsetZ": 1,
 					"predicate": {
 						"block": {
 							"blocks": [
 								"plantopia:hogweed"
 							],
 							"state": {
-								"half": "lower"
+								"quarter": "east_south"
 							}
 						}
 					}
 				},
 				{
 					"condition": "minecraft:location_check",
-					"offsetY": -1,
+					"offsetX": -1,
 					"predicate": {
 						"block": {
 							"blocks": [
 								"plantopia:hogweed"
 							],
 							"state": {
-								"half": "central"
+								"quarter": "west_north"
 							}
 						}
 					}
@@ -146,13 +434,353 @@
 			],
 			"entries": [
 				{
-					"type": "minecraft:item",
-					"conditions": [
+					"type": "minecraft:alternatives",
+					"children": [
 						{
-							"condition": "minecraft:survives_explosion"
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
 						}
 					],
-					"name": "plantopia:hogweed"
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "lower"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "central"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "upper"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						}
+					]
+				}
+			],
+			"rolls": 1.0
+		},
+		{
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"block": "plantopia:hogweed",
+					"condition": "minecraft:block_state_property",
+					"properties": {
+						"quarter": "east_south"
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetX": -1,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:hogweed"
+							],
+							"state": {
+								"quarter": "south_west"
+							}
+						}
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetZ": -1,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:hogweed"
+							],
+							"state": {
+								"quarter": "north_east"
+							}
+						}
+					}
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "lower"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "central"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "upper"
+									}
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"conditions": [
+								{
+									"condition": "minecraft:survives_explosion"
+								}
+							],
+							"name": "plantopia:hogweed"
+						}
+					],
+					"conditions": [
+						{
+							"block": "plantopia:hogweed",
+							"condition": "minecraft:block_state_property",
+							"properties": {
+								"half": "upper"
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -2,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "lower"
+									}
+								}
+							}
+						},
+						{
+							"condition": "minecraft:location_check",
+							"offsetY": -1,
+							"predicate": {
+								"block": {
+									"blocks": [
+										"plantopia:hogweed"
+									],
+									"state": {
+										"half": "central"
+									}
+								}
+							}
+						}
+					]
 				}
 			],
 			"rolls": 1.0
