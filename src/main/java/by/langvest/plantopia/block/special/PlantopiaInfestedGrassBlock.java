@@ -1,8 +1,8 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.placement.PlantopiaVegetationPlacements;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.server.level.ServerLevel;
@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
@@ -48,8 +47,9 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
 		var poseAbove = pos.above();
-		var grassBonemealFeature = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
-		var hogweedBonemealFeature = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
+		var placedFeatures = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE);
+		var grassBonemealFeature = placedFeatures.getHolder(VegetationPlacements.GRASS_BONEMEAL);
+		var hogweedBonemealFeature = placedFeatures.getHolder(PlantopiaVegetationPlacements.HOGWEED_BONEMEAL);
 
 		label49: for(int i = 0; i < 128; i++) {
 			var candidatePos = poseAbove;
@@ -87,20 +87,14 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 				}
 			}
 
-			if(candidateState.isAir()) {
-				Holder<PlacedFeature> holder;
+			var successfullyGrownHogweed = false;
 
-				if(random.nextInt(3) == 0) {
-					if(hogweedBonemealFeature.isEmpty()) continue;
+			if(candidateState.canBeReplaced() && random.nextInt(1) == 0 && hogweedBonemealFeature.isPresent()) {
+				successfullyGrownHogweed = hogweedBonemealFeature.get().value().place(level, level.getChunkSource().getGenerator(), random, candidatePos);
+			}
 
-					holder = hogweedBonemealFeature.get();
-				} else {
-					if(grassBonemealFeature.isEmpty()) continue;
-
-					holder = grassBonemealFeature.get();
-				}
-
-				holder.value().place(level, level.getChunkSource().getGenerator(), random, candidatePos);
+			if(candidateState.isAir() && !successfullyGrownHogweed && grassBonemealFeature.isPresent()) {
+				grassBonemealFeature.get().value().place(level, level.getChunkSource().getGenerator(), random, candidatePos);
 			}
 		}
 	}

@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -51,14 +52,38 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		};
 	}
 
-	private boolean canPlaceQuarterColumnAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos, BlockPos skippedPos) {
-		Level level = context.getLevel();
-		BlockPos posAbove1 = pos.above(1);
-		BlockPos posAbove2 = pos.above(2);
+	private static boolean canPlaceQuarterColumnAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
+		var skippedPos = context.getClickedPos();
+		var level = context.getLevel();
+		var posAbove1 = pos.above(1);
+		var posAbove2 = pos.above(2);
 
 		return (skippedPos == pos || level.getBlockState(pos).canBeReplaced(context))
 			&& (skippedPos == posAbove1 || level.getBlockState(posAbove1).canBeReplaced(context))
 			&& (skippedPos == posAbove2 || level.getBlockState(posAbove2).canBeReplaced(context));
+	}
+
+	private static boolean canPlaceQuarterColumnAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
+		var posAbove1 = pos.above(1);
+		var posAbove2 = pos.above(2);
+
+		return level.getBlockState(pos).canBeReplaced()
+			&& level.getBlockState(posAbove1).canBeReplaced()
+			&& level.getBlockState(posAbove2).canBeReplaced();
+	}
+
+	public static boolean canPlaceAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
+		return canPlaceQuarterColumnAt(context, pos)
+			&& canPlaceQuarterColumnAt(context, pos.north())
+			&& canPlaceQuarterColumnAt(context, pos.north().east())
+			&& canPlaceQuarterColumnAt(context, pos.east());
+	}
+
+	public static boolean canPlaceAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
+		return canPlaceQuarterColumnAt(level, pos)
+			&& canPlaceQuarterColumnAt(level, pos.north())
+			&& canPlaceQuarterColumnAt(level, pos.north().east())
+			&& canPlaceQuarterColumnAt(level, pos.east());
 	}
 
 	@Nullable
@@ -73,12 +98,7 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		var newState = defaultBlockState().setValue(QUARTER, quarter);
 		var baseBlockPos = getBaseBlockPos(newState, pos);
 
-		boolean canPlaceAllQuarterColumns = canPlaceQuarterColumnAt(context, baseBlockPos, pos)
-			&& canPlaceQuarterColumnAt(context, baseBlockPos.north(), pos)
-			&& canPlaceQuarterColumnAt(context, baseBlockPos.north().east(), pos)
-			&& canPlaceQuarterColumnAt(context, baseBlockPos.east(), pos);
-
-		return canPlaceAllQuarterColumns ? newState : null;
+		return canPlaceAt(context, baseBlockPos) ? newState : null;
 	}
 
 	@Override
