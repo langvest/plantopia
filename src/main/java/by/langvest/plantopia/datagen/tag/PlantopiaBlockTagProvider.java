@@ -50,6 +50,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> VALID_SPAWN = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_GROWABLE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> INFESTED_DIRT_CAN_SPREAD_TO = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -71,6 +72,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		add(CONVERTABLE_TO_MUD, PlantopiaBlocks.INFESTED_DIRT.get());
 		add(BONEMEAL_SPREAD_GROWABLE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN, PlantopiaBlocks.CLOVER.get());
 		add(BONEMEAL_SPREAD_ON, Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
+		add(INFESTED_DIRT_CAN_SPREAD_TO, Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
 
 		saveAll();
 	}
@@ -182,6 +184,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		save(PlantopiaBlockTags.PREFERRED_BY_BEES, PREFERRED_BY_BEES);
 		save(PlantopiaBlockTags.BONEMEAL_SPREAD_GROWABLE, BONEMEAL_SPREAD_GROWABLE);
 		save(PlantopiaBlockTags.BONEMEAL_SPREAD_ON, BONEMEAL_SPREAD_ON);
+		save(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO, INFESTED_DIRT_CAN_SPREAD_TO);
 	}
 
 	private void save(TagKey<Block> key, @NotNull PlantopiaTagSet<Block> tagSet) {

@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import net.minecraft.core.BlockPos;
@@ -23,7 +24,14 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		super.randomTick(state, level, pos, random);
+		if(random.nextInt(3) == 0) {
+			var posBelow = pos.below();
+			var stateBelow = level.getBlockState(posBelow);
+
+			if(!stateBelow.is(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get())) {
+				level.setBlockAndUpdate(posBelow, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get().defaultBlockState());
+			}
+		}
 	}
 
 	@Override
