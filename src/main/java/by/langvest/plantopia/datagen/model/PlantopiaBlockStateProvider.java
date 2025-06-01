@@ -4,10 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
-import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
-import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
-import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
-import by.langvest.plantopia.block.special.PlantopiaWideTriplePlantBlock;
+import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -75,6 +72,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		hollyhockBlock(PlantopiaBlocks.MAGENTA_HOLLYHOCK.get());
 		pollinatedDandelionBlock(PlantopiaBlocks.POLLINATED_DANDELION.get());
 		hogweedBlock(PlantopiaBlocks.HOGWEED.get());
+		infestedDirtBlock(PlantopiaBlocks.INFESTED_DIRT.get());
+		infestedGrassBlock(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
 	}
 
 	private void generateAll() {
@@ -324,6 +323,41 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		simpleBlock(block, model);
 	}
 
+	private void infestedDirtBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var texture = texture(baseName);
+
+		var model = cubeAllModel(baseName, texture);
+
+		blockItemModel(baseName, model);
+		rotatedBlock(block, model);
+	}
+
+	private void infestedGrassBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var topTexture = minecraftTexture(nameOf(Blocks.GRASS_BLOCK) + "_top");
+		var snowySideTexture = texture(baseName + "_snow");
+		var bottomTexture = texture(nameOf(PlantopiaBlocks.INFESTED_DIRT));
+
+		var model = existingModel(baseName);
+
+		var snowyModel = cubeBottomTopModel(baseName + "_snow", topTexture, snowySideTexture, bottomTexture)
+			.texture("particle", bottomTexture);
+
+		blockItemModel(baseName, model);
+
+		getVariantBuilder(block)
+			.partialState().with(PlantopiaInfestedGrassBlock.SNOWY, false).modelForState()
+			.modelFile(model).nextModel()
+			.modelFile(model).rotationY(90).nextModel()
+			.modelFile(model).rotationY(180).nextModel()
+			.modelFile(model).rotationY(270).addModel()
+			.partialState().with(PlantopiaInfestedGrassBlock.SNOWY, true).modelForState()
+			.modelFile(snowyModel).addModel();
+	}
+
 	private void hogweedBlock(Block block) {
 		String baseName = nameOf(block);
 
@@ -410,6 +444,15 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 					.end()
 			);
 		});
+	}
+
+	private void rotatedBlock(Block block, ModelFile modelFile) {
+		getVariantBuilder(block)
+			.partialState().modelForState()
+			.modelFile(modelFile).nextModel()
+			.modelFile(modelFile).rotationY(90).nextModel()
+			.modelFile(modelFile).rotationY(180).nextModel()
+			.modelFile(modelFile).rotationY(270).addModel();
 	}
 
 	private <T extends Comparable<T>> void rotatedVariableBlock(Block block, @NotNull Property<T> property, ModelFile ...modelFiles) {

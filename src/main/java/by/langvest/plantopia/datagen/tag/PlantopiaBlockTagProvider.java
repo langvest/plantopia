@@ -29,6 +29,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> MINEABLE_WITH_AXE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> MINEABLE_WITH_HOE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> MINEABLE_WITH_PICKAXE = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> MINEABLE_WITH_SHOVEL = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> ENDERMAN_HOLDABLE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> FLOWER_POTS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
@@ -37,6 +38,18 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> SWORD_EFFICIENT = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> BIRCH_LOGS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> OVERWORLD_NATURAL_LOGS = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> DIRT = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> SNIFFER_DIGGABLE_BLOCK = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> CONVERTABLE_TO_MUD = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> WOLVES_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> ANIMALS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> FOXES_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> FROGS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> PARROTS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> RABBITS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> VALID_SPAWN = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_GROWABLE = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_ON = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -55,6 +68,9 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		add(IGNORED_BY_BEES, Blocks.WITHER_ROSE);
 		add(BIRCH_LOGS, PlantopiaBlocks.BIRCH_BASE_LOG.get(), PlantopiaBlocks.BIRCH_BASE_WOOD.get());
 		add(OVERWORLD_NATURAL_LOGS, PlantopiaBlocks.BIRCH_BASE_LOG.get());
+		add(CONVERTABLE_TO_MUD, PlantopiaBlocks.INFESTED_DIRT.get());
+		add(BONEMEAL_SPREAD_GROWABLE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN, PlantopiaBlocks.CLOVER.get());
+		add(BONEMEAL_SPREAD_ON, Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
 
 		saveAll();
 	}
@@ -118,13 +134,36 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 				if(type.instanceOf(MetaType.MUSHROOM_PLANT)) ENDERMAN_HOLDABLE.add(block);
 			}
 
-			// if(type.instanceOf(MetaType.WOOD)) {
-			// 	MINEABLE_WITH_AXE.add(block);
-			// }
+			if(type.instanceOf(MetaType.DIRT)) {
+				SNIFFER_DIGGABLE_BLOCK.add(block);
+				DIRT.add(block);
+				MINEABLE_WITH_SHOVEL.add(block);
+			}
+
+			if(type.instanceOf(MetaType.GRASS_BLOCK)) {
+				VALID_SPAWN.add(block);
+				RABBITS_SPAWNABLE_ON.add(block);
+				PARROTS_SPAWNABLE_ON.add(block);
+				FROGS_SPAWNABLE_ON.add(block);
+				FOXES_SPAWNABLE_ON.add(block);
+				ANIMALS_SPAWNABLE_ON.add(block);
+				WOLVES_SPAWNABLE_ON.add(block);
+			}
 		});
 	}
 
 	private void saveAll() {
+		save(BlockTags.VALID_SPAWN, VALID_SPAWN);
+		save(BlockTags.RABBITS_SPAWNABLE_ON, RABBITS_SPAWNABLE_ON);
+		save(BlockTags.PARROTS_SPAWNABLE_ON, PARROTS_SPAWNABLE_ON);
+		save(BlockTags.FROGS_SPAWNABLE_ON, FROGS_SPAWNABLE_ON);
+		save(BlockTags.FOXES_SPAWNABLE_ON, FOXES_SPAWNABLE_ON);
+		save(BlockTags.ANIMALS_SPAWNABLE_ON, ANIMALS_SPAWNABLE_ON);
+		save(BlockTags.WOLVES_SPAWNABLE_ON, WOLVES_SPAWNABLE_ON);
+		save(BlockTags.CONVERTABLE_TO_MUD, CONVERTABLE_TO_MUD);
+		save(BlockTags.SNIFFER_DIGGABLE_BLOCK, SNIFFER_DIGGABLE_BLOCK);
+		save(BlockTags.MINEABLE_WITH_SHOVEL, MINEABLE_WITH_SHOVEL);
+		save(BlockTags.DIRT, DIRT);
 		save(BlockTags.OVERWORLD_NATURAL_LOGS, OVERWORLD_NATURAL_LOGS);
 		save(BlockTags.BIRCH_LOGS, BIRCH_LOGS);
 		save(BlockTags.REPLACEABLE, REPLACEABLE);
@@ -141,6 +180,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		save(BlockTags.FLOWER_POTS, FLOWER_POTS);
 		save(PlantopiaBlockTags.IGNORED_BY_BEES, IGNORED_BY_BEES);
 		save(PlantopiaBlockTags.PREFERRED_BY_BEES, PREFERRED_BY_BEES);
+		save(PlantopiaBlockTags.BONEMEAL_SPREAD_GROWABLE, BONEMEAL_SPREAD_GROWABLE);
+		save(PlantopiaBlockTags.BONEMEAL_SPREAD_ON, BONEMEAL_SPREAD_ON);
 	}
 
 	private void save(TagKey<Block> key, @NotNull PlantopiaTagSet<Block> tagSet) {

@@ -79,6 +79,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTableSubProvider::createPollinatedDandelionDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
+		add(PlantopiaBlocks.INFESTED_DIRT.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
+		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
 	}
 
 	private void generateAll() {
@@ -256,19 +258,14 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		return createBlockTable(block, lootEntry);
 	}
 
-	private static LootTable.@NotNull Builder createTestDrops(Block block) {
-		// LootPoolEntryContainer.Builder<?> lootEntry = item(PlantopiaBlocks.BRANCHING_SHRUB.get())
-		// 	.when(HAS_SHEARS)
-		// 	.otherwise(
-		// 		withExplosionDecayFunction(
-		// 			block,
-		// 			withSurvivesExplosionCondition(block, item(Items.STICK))
-		// 				.when(randomChance(SEEDS_CHANCE * 1.75F))
-		// 				.apply(setCount(1, 2))
-		// 		)
-		// 	);
+	private static LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+			.when(HAS_SILK_TOUCH)
+			.otherwise(
+				withSurvivesExplosionCondition(block, item(Blocks.DIRT))
+			);
 
-		return createBlockTable(block, withSurvivesExplosionCondition(block, item(block)));
+		return createBlockTable(block, lootEntry);
 	}
 
 	/* HELPER METHODS ******************************************/

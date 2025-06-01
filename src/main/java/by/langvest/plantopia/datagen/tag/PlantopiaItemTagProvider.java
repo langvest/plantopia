@@ -30,6 +30,7 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 	private final PlantopiaTagSet<Item> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Item> BIRCH_LOGS = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Item> DIRT = PlantopiaTagSet.newTagSet();
 
 	public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
@@ -74,10 +75,12 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 
 			if(type.instanceOf(PlantopiaBlockMeta.MetaType.LEAVES)) LEAVES.add(item);
 			if(type.instanceOf(PlantopiaBlockMeta.MetaType.SAPLING)) SAPLINGS.add(item);
+			if(type.instanceOf(PlantopiaBlockMeta.MetaType.DIRT)) DIRT.add(item);
 		});
 	}
 
 	private void saveAll() {
+		save(ItemTags.DIRT, DIRT);
 		save(ItemTags.BIRCH_LOGS, BIRCH_LOGS);
 		save(ItemTags.TALL_FLOWERS, TALL_FLOWERS);
 		save(ItemTags.SMALL_FLOWERS, SMALL_FLOWERS);

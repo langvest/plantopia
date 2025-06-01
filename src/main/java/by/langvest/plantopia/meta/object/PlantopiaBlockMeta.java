@@ -210,6 +210,8 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType WOOD = MetaProperties.of().flammable(Encouragement.WOOD, Flammability.WOOD).makeType("wood");
 		public static final MetaType LOG = MetaProperties.copy(WOOD).makeType("log");
 		public static final MetaType PLANKS = MetaProperties.copy(WOOD).flammable(Encouragement.PLANKS, Flammability.PLANKS).makeType("planks");
+		public static final MetaType DIRT = MetaProperties.of().makeType("dirt");
+		public static final MetaType GRASS_BLOCK = MetaProperties.copy(DIRT).cutoutMippedRender().grassTint().notTintedParticles().makeType("grass_block");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("block", name, properties);
