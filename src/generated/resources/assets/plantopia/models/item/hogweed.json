@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "plantopia:block/hogweed_top_right"
+		"layer0": "plantopia:item/hogweed"
 	}
 }

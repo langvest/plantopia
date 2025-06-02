@@ -368,11 +368,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomLeftTexture = texture(baseName + "_bottom_left");
 		var bottomRightTexture = texture(baseName + "_bottom_right");
 
+		var itemTexture = itemTexture(baseName);
+
 		var topModel = wideCrossLeafModel(baseName + "_top", topLeftTexture, topRightTexture);
 		var middleModel = wideCrossLeafModel(baseName + "_middle", middleLeftTexture, middleRightTexture);
 		var bottomModel = wideCrossLeafModel(baseName + "_bottom", bottomLeftTexture, bottomRightTexture);
 
-		generatedItemModel(baseName, topRightTexture);
+		generatedItemModel(baseName, itemTexture);
 
 		getVariantBuilder(block).forAllStates(state -> {
 			PlantopiaTripleBlockHalf half = state.getValue(PlantopiaWideTriplePlantBlock.HALF);
