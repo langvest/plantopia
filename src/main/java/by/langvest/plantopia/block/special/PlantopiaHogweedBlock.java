@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
@@ -35,6 +36,16 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 
 	public static @NotNull Block getGrassBlock() {
 		return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get();
+	}
+
+	@Override
+	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+		return true;
+	}
+
+	@Override
+	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+		return true;
 	}
 
 	/**

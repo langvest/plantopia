@@ -13,7 +13,8 @@
 		"PlantopiaItemMixin",
 		"PlantopiaSeaPickleBlockMixin",
 		"PlantopiaSugarCaneBlockMixin",
-		"PlantopiaTemptGoalMixin"
+		"PlantopiaTemptGoalMixin",
+		"PlantopiaZombieMixin"
 	],
 	"client": [
 		"PlantopiaMinecraftMixin"
