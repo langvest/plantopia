@@ -4,7 +4,9 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -33,6 +35,32 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 
 	public static @NotNull Block getGrassBlock() {
 		return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get();
+	}
+
+	/**
+	 * Called periodically clientside on blocks near the player to show effects (like furnace fire particles).
+	 */
+	@Override
+	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+		var baseBlockPos = getBaseBlockPos(state, pos);
+
+		if(pos != baseBlockPos) return;
+		if(random.nextInt(16) != 0) return;
+
+		var offset = state.getOffset(level, pos);
+		double x = baseBlockPos.getX() + 1.0D + offset.x;
+		double y = baseBlockPos.getY() + 1.5D + offset.y;
+		double z = baseBlockPos.getZ() + 0.0D + offset.z;
+
+		level.addParticle(
+			ParticleTypes.SPORE_BLOSSOM_AIR,
+			x + Mth.nextDouble(random, -0.25D, 0.25D),
+			y + Mth.nextDouble(random, -1.0D, 1.0D),
+			z + Mth.nextDouble(random, -0.25D, 0.25D),
+			0.0D,
+			0.0D,
+			0.0D
+		);
 	}
 
 	@Override
