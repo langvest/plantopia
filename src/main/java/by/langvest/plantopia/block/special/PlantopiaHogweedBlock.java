@@ -52,8 +52,7 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 
 	@Override
 	public boolean isRandomlyTicking(@NotNull BlockState state) {
-		return state.getValue(HALF) == PlantopiaTripleBlockHalf.LOWER
-			&& state.getValue(QUARTER) == PlantopiaQuarter.SOUTH_WEST;
+		return state.getValue(HALF) == PlantopiaTripleBlockHalf.LOWER;
 	}
 
 	@Override
