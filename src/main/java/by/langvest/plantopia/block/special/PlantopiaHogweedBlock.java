@@ -12,6 +12,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -61,6 +64,17 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 		if(!(entity instanceof LivingEntity livingEntity)) return;
 		if(livingEntity.isInvulnerable()) return;
 		if(livingEntity instanceof Player player && player.isCreative()) return;
-		livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 500));
+
+		if(livingEntity instanceof Zombie || livingEntity instanceof ZombieHorse) {
+			var random = livingEntity.getRandom();
+
+			if(random.nextInt(3) == 0 && livingEntity.getHealth() < livingEntity.getMaxHealth()) {
+				livingEntity.heal(0.02F);
+			}
+		} else {
+			if(livingEntity instanceof Enemy) return;
+
+			livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 500));
+		}
 	}
 }
