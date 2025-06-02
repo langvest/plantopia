@@ -78,11 +78,12 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 		if(!level.isAreaLoaded(pos, 3)) return; // Forge: Prevent loading unloaded chunks when checking neighbor's light and spreading.
 
 		for(int i = 0; i < 4; i++) {
-			var candidatePos = pos.offset(PlantopiaMathHelper.getRandomXYZOffsetAlongFaces(random));
+			var candidatePos = pos.offset(PlantopiaMathHelper.getRandomXYZOffsetInArea(random, 1));
 			var candidateState = level.getBlockState(candidatePos);
 			boolean isBrightnessEnough = level.getMaxLocalRawBrightness(pos.above()) >= 9;
 			int currentAge = state.getValue(AGE);
 			boolean isAgeCanSpread = currentAge < MAX_AGE;
+			boolean isCandidateCloseNeighbour = PlantopiaMathHelper.isCloseNeighbours(pos, candidatePos);
 
 			if(candidateState.is(getDirtBlock())) {
 				// LanGvest: If the environment permits, we spread like infested grass block into infested dirt.
@@ -91,17 +92,17 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 				if(isBrightnessEnough && canPropagateGrass(newCandidateState, level, candidatePos)) {
 					level.setBlockAndUpdate(candidatePos, copySnowyAboveFrom(level, candidatePos, newCandidateState));
 				}
-			} else if(isAgeCanSpread && candidateState.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO)) {
+			} else if(isAgeCanSpread && isCandidateCloseNeighbour && candidateState.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO)) {
 				// LanGvest: If age permits, we spread like infested dirt into normal dirt.
 				var newCandidateState = getDirtBlock().defaultBlockState().setValue(AGE, PlantopiaInfestedDirtBlock.increaseAge(random, currentAge));
 
 				level.setBlockAndUpdate(candidatePos, newCandidateState);
-			} else if(isAgeCanSpread && candidateState.is(Blocks.GRASS_BLOCK)) {
+			} else if(isAgeCanSpread && isCandidateCloseNeighbour && candidateState.is(Blocks.GRASS_BLOCK)) {
 				// LanGvest: If age permits, we spread like infested grass block into normal grass block.
 				var newCandidateState = defaultBlockState().setValue(AGE, PlantopiaInfestedDirtBlock.increaseAge(random, currentAge));
 
 				level.setBlockAndUpdate(candidatePos, copySnowyAboveFrom(level, candidatePos, newCandidateState));
-			} else if(!isAgeCanSpread && candidateState.is(Blocks.DIRT)) {
+			} else if(candidateState.is(Blocks.DIRT)) {
 				// LanGvest: If age does not permit but the environment permits, we spread like normal grass block into normal dirt.
 				var newCandidateState = Blocks.GRASS_BLOCK.defaultBlockState();
 

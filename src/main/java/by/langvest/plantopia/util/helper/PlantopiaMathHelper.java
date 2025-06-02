@@ -1,6 +1,7 @@
 package by.langvest.plantopia.util.helper;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -45,5 +46,13 @@ public final class PlantopiaMathHelper {
 			case 6 -> BlockPos.ZERO.east();
 			default -> BlockPos.ZERO;
 		};
+	}
+
+	public static boolean isCloseNeighbours(@NotNull BlockPos pos1, @NotNull BlockPos pos2) {
+		for(var direction : Direction.values()) {
+			if(pos1.relative(direction).equals(pos2)) return true;
+		}
+
+		return false;
 	}
 }
