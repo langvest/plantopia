@@ -1,7 +1,6 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.animal.horse.ZombieHorse;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -33,6 +33,14 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 
 	public static @NotNull Block getGrassBlock() {
 		return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get();
+	}
+
+	@Override
+	protected boolean canNaturallyPlaceQuarterColumnAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
+		var posAbove2 = pos.above(2);
+
+		return super.canNaturallyPlaceQuarterColumnAt(level, pos)
+			&& level.getBlockState(posAbove2).isAir();
 	}
 
 	@Override

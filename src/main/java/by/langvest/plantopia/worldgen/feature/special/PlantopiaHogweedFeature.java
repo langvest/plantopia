@@ -21,11 +21,12 @@ public class PlantopiaHogweedFeature extends Feature<NoneFeatureConfiguration> {
 	 */
 	@Override
 	public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> context) {
+		PlantopiaHogweedBlock hogweedBlock = (PlantopiaHogweedBlock)PlantopiaBlocks.HOGWEED.get();
 		var level = context.level();
 		var pos = context.origin();
 
-		if(PlantopiaHogweedBlock.canPlaceAt(level, pos)) {
-			PlantopiaHogweedBlock.placeAt(level, pos, PlantopiaBlocks.HOGWEED.get().defaultBlockState(), 2);
+		if(hogweedBlock.canNaturallyPlaceAt(level, pos)) {
+			PlantopiaHogweedBlock.placeAt(level, pos, hogweedBlock.defaultBlockState(), 19);
 			return true;
 		}
 
