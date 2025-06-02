@@ -5,13 +5,17 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaBlockHelper.copySnowyAboveFrom;
@@ -74,6 +78,22 @@ public class PlantopiaInfestedDirtBlock extends Block {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean onDestroyedByPlayer(BlockState state, @NotNull Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluidState) {
+		if(!level.isClientSide() && !player.isCreative()) {
+			for(var direction : Direction.values()) {
+				var neighbourPos = pos.relative(direction);
+				var neighbourState = level.getBlockState(neighbourPos);
+
+				if(!neighbourState.is(this) && !neighbourState.is(getGrassBlock())) continue;
+
+				level.setBlock(neighbourPos, neighbourState.setValue(AGE, 0), 54);
+			}
+		}
+
+		return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluidState);
 	}
 
 	@Override

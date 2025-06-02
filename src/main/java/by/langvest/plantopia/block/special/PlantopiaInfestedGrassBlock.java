@@ -12,6 +12,7 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.lighting.LightEngine;
+import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaBlockHelper.copySnowyAboveFrom;
@@ -119,6 +121,22 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 
 			hogweedFeature.ifPresent(placedFeatureReference -> placedFeatureReference.value().place(level, level.getChunkSource().getGenerator(), random, pos.above()));
 		}
+	}
+
+	@Override
+	public boolean onDestroyedByPlayer(BlockState state, @NotNull Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluidState) {
+		if(!level.isClientSide() && !player.isCreative()) {
+			for(var direction : Direction.values()) {
+				var neighbourPos = pos.relative(direction);
+				var neighbourState = level.getBlockState(neighbourPos);
+
+				if(!neighbourState.is(this) && !neighbourState.is(getDirtBlock())) continue;
+
+				level.setBlock(neighbourPos, neighbourState.setValue(AGE, 0), 54);
+			}
+		}
+
+		return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluidState);
 	}
 
 	@Override
