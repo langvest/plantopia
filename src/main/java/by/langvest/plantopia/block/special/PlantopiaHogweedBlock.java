@@ -3,6 +3,7 @@ package by.langvest.plantopia.block.special;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -13,12 +14,22 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	public PlantopiaHogweedBlock(Properties properties) {
 		super(properties);
+	}
+
+	public static @NotNull Block getDirtBlock() {
+		return PlantopiaBlocks.INFESTED_DIRT.get();
+	}
+
+	public static @NotNull Block getGrassBlock() {
+		return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get();
 	}
 
 	@Override
@@ -28,8 +39,10 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 			var posBelow = pos.below();
 			var stateBelow = level.getBlockState(posBelow);
 
-			if(!stateBelow.is(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get())) {
-				level.setBlockAndUpdate(posBelow, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get().defaultBlockState());
+			if(stateBelow.is(Blocks.GRASS_BLOCK)) {
+				level.setBlockAndUpdate(posBelow, getGrassBlock().defaultBlockState());
+			} else if(stateBelow.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO)) {
+				level.setBlockAndUpdate(posBelow, getDirtBlock().defaultBlockState());
 			}
 		}
 	}
