@@ -1,5 +1,6 @@
 package by.langvest.plantopia.util.helper;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import com.google.common.collect.Sets;
@@ -35,6 +36,7 @@ public final class PlantopiaContentHelper {
 		allFlowers.add(Blocks.TORCHFLOWER);
 		allFlowers.add(Blocks.PINK_PETALS);
 		allFlowers.add(Blocks.PITCHER_PLANT);
+		allFlowers.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
 
 		ForgeRegistries.BLOCKS.getEntries()
 			.stream()

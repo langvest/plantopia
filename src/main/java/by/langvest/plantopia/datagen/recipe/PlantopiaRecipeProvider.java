@@ -7,6 +7,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -32,8 +33,12 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 
 		fullBlockRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.COBBLESTONE, PlantopiaBlocks.COBBLESTONE_SHARD.get());
 		fullBlockRecipe(RecipeCategory.BUILDING_BLOCKS, Blocks.MOSSY_COBBLESTONE, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get());
+
 		stonecutterRecipe(RecipeCategory.MISC, PlantopiaBlocks.COBBLESTONE_SHARD.get(), Blocks.COBBLESTONE, 9);
 		stonecutterRecipe(RecipeCategory.MISC, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), Blocks.MOSSY_COBBLESTONE, 9);
+
+		smeltingRecipe(RecipeCategory.MISC, Items.GREEN_DYE, PlantopiaBlocks.TINY_CACTUS.get(), 1.0F, 200);
+		smeltingRecipe(RecipeCategory.MISC, Items.MAGENTA_DYE, PlantopiaBlocks.FLOWERING_TINY_CACTUS.get(), 1.0F, 200);
 
 		woodFromLogs(consumer, PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
 	}
@@ -86,5 +91,11 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingredient), category, result, resultAmount)
 			.unlockedBy(getHasName(ingredient), has(ingredient))
 			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient) + "_stonecutting"));
+	}
+
+	private void smeltingRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, float experience, int cookingTime) {
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), category, result, experience, cookingTime)
+			.unlockedBy(getHasName(ingredient), has(ingredient))
+			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient) + "_smelting"));
 	}
 }
