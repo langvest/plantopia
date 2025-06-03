@@ -27,4 +27,20 @@ public final class PlantopiaTemplateHelper {
 	public static @NotNull String getCreativeModeTabTitleKey(String groupName) {
 		return "itemGroup." + groupName;
 	}
+
+	/* DAMAGE TYPE *****************************************************************/
+
+	@Contract(pure = true)
+	public static @NotNull String getDamageTypeTitleKey(String messageId) {
+		return getDamageTypeTitleKey(messageId, null);
+	}
+
+	@Contract(pure = true)
+	public static @NotNull String getDamageTypeTitleKey(String messageId, String qualifier) {
+		String key = "death.attack." + messageId;
+
+		if(qualifier != null) key += "." + qualifier;
+
+		return key;
+	}
 }

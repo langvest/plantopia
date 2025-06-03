@@ -28,10 +28,13 @@
 	"block.plantopia.pink_hollyhock": "Розовая мальва",
 	"block.plantopia.red_foxglove": "Красная наперстянка",
 	"block.plantopia.red_hollyhock": "Красная мальва",
+	"block.plantopia.thorny_shrub": "Колючий кустарник",
 	"block.plantopia.white_clover_blossom": "Белый цветущий клевер",
 	"block.plantopia.white_foxglove": "Белая наперстянка",
 	"block.plantopia.white_hollyhock": "Белая мальва",
 	"block.plantopia.yellow_foxglove": "Жёлтая наперстянка",
 	"block.plantopia.yellow_hollyhock": "Жёлтая мальва",
+	"death.attack.thornyShrub": "%1$s искололся до смерти в колючем кустарнике",
+	"death.attack.thornyShrub.player": "%1$s искололся до смерти в колючем кустарнике, пытаясь сбежать от %2$s",
 	"itemGroup.plantopia": "Plantopia"
 }

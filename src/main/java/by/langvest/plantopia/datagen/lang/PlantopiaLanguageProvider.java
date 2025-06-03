@@ -3,12 +3,14 @@ package by.langvest.plantopia.datagen.lang;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
+import by.langvest.plantopia.entity.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.helper.PlantopiaStringHelper;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
@@ -27,25 +29,38 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 	protected void addTranslations() {
 		generateAll();
 
-		add(PlantopiaCreativeModeTabs.PLANTOPIA, "Plantopia");
+		tab(PlantopiaCreativeModeTabs.PLANTOPIA, "Plantopia");
 
-		add(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
-		add(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
-		add(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the hogweed take over more and more territories");
+		advancement(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
+		advancement(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
+		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the hogweed take over more and more territories");
+
+		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
+		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");
 	}
 
 	@SuppressWarnings("SameParameterValue")
-	private void add(@NotNull ResourceKey<CreativeModeTab> tab, String name) {
+	private void tab(@NotNull ResourceKey<CreativeModeTab> tab, String name) {
 		var key = PlantopiaTemplateHelper.getCreativeModeTabTitleKey(nameOf(tab));
 
 		add(key, name);
 	}
 
-	private void add(@NotNull PlantopiaAdvancement advancement, String title, String description) {
+	private void advancement(@NotNull PlantopiaAdvancement advancement, String title, String description) {
 		var advancementMeta = PlantopiaMetaRegistries.ADVANCEMENTS.getValueOrThrow(advancement);
 
 		add(advancementMeta.getTitleKey(), title);
 		add(advancementMeta.getDescriptionKey(), description);
+	}
+
+	private void damageType(@NotNull ResourceKey<DamageType> damageType, String title) {
+		damageType(damageType, null, title);
+	}
+
+	private void damageType(@NotNull ResourceKey<DamageType> damageType, String qualifier, String title) {
+		String messageId = PlantopiaStringHelper.toCamelCase(nameOf(damageType));
+
+		add(PlantopiaTemplateHelper.getDamageTypeTitleKey(messageId, qualifier), title);
 	}
 
 	private void generateAll() {
