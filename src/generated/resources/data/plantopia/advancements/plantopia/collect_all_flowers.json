@@ -289,6 +289,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:flowering_tiny_cactus": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:flowering_tiny_cactus"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:fluffy_dandelion": {
 			"conditions": {
 				"items": [
@@ -557,6 +569,9 @@
 		],
 		[
 			"minecraft:wither_rose"
+		],
+		[
+			"plantopia:flowering_tiny_cactus"
 		],
 		[
 			"plantopia:fluffy_dandelion"

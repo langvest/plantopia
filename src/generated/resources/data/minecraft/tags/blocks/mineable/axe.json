@@ -5,9 +5,11 @@
 		"plantopia:branching_shrub_plant",
 		"plantopia:clover",
 		"plantopia:fireweed",
+		"plantopia:flowering_tiny_cactus",
 		"plantopia:giant_fern",
 		"plantopia:giant_grass",
 		"plantopia:hogweed",
-		"plantopia:thorny_shrub"
+		"plantopia:thorny_shrub",
+		"plantopia:tiny_cactus"
 	]
 }

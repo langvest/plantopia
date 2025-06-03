@@ -75,7 +75,7 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if(state.getValue(AMOUNT) == MAX_LEAFS) return level.random.nextFloat() < 0.45D;
+		if(state.getValue(AMOUNT) == MAX_LEAFS) return level.random.nextFloat() < 0.45F;
 		return true;
 	}
 
