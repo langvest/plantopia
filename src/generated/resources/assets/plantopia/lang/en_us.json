@@ -28,10 +28,13 @@
 	"block.plantopia.pink_hollyhock": "Pink Hollyhock",
 	"block.plantopia.red_foxglove": "Red Foxglove",
 	"block.plantopia.red_hollyhock": "Red Hollyhock",
+	"block.plantopia.thorny_shrub": "Thorny Shrub",
 	"block.plantopia.white_clover_blossom": "White Clover Blossom",
 	"block.plantopia.white_foxglove": "White Foxglove",
 	"block.plantopia.white_hollyhock": "White Hollyhock",
 	"block.plantopia.yellow_foxglove": "Yellow Foxglove",
 	"block.plantopia.yellow_hollyhock": "Yellow Hollyhock",
+	"death.attack.thornyShrub": "%1$s was poked to death by a thorny shrub",
+	"death.attack.thornyShrub.player": "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s",
 	"itemGroup.plantopia": "Plantopia"
 }

@@ -35,6 +35,11 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 16.0D, 9.0D);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
+	public PlantopiaBaseBranchingShrubBlock(Properties properties) {
+		super(properties);
+		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
+	}
+
 	protected static boolean isBranchingShrubLikeBlock(@NotNull BlockState state) {
 		return state.is(getHeadBlock()) || state.is(getBodyBlock());
 	}
@@ -112,11 +117,6 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 	@SuppressWarnings("deprecation")
 	public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
 		return new ItemStack(getHeadBlock());
-	}
-
-	public PlantopiaBaseBranchingShrubBlock(Properties properties) {
-		super(properties);
-		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
 	}
 
 	protected boolean isValidEnvironment(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {

@@ -74,6 +74,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		hogweedBlock(PlantopiaBlocks.HOGWEED.get());
 		infestedDirtBlock(PlantopiaBlocks.INFESTED_DIRT.get());
 		infestedGrassBlock(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
+		thornyShrubBlock(PlantopiaBlocks.THORNY_SHRUB.get());
 	}
 
 	private void generateAll() {
@@ -358,6 +359,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.modelFile(snowyModel).addModel();
 	}
 
+	private void thornyShrubBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var texture = texture(baseName);
+
+		var model = cubeCrossModel(baseName, texture);
+
+		generatedItemModel(baseName, texture);
+		simpleBlock(block, model);
+	}
+
 	private void hogweedBlock(Block block) {
 		String baseName = nameOf(block);
 
@@ -515,6 +527,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private BlockModelBuilder crossModel(String name, ResourceLocation crossTexture) {
 		return models().cross(name, crossTexture);
+	}
+
+	private BlockModelBuilder cubeCrossModel(String name, ResourceLocation crossTexture) {
+		return models().withExistingParent(name, parent("cube_cross"))
+			.texture("cross", crossTexture);
 	}
 
 	private BlockModelBuilder tintedCrossModel(String name, ResourceLocation crossTexture) {
