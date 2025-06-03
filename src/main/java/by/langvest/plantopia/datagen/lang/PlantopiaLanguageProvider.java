@@ -31,6 +31,7 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 		add(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
 		add(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
+		add(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the hogweed take over more and more territories");
 	}
 
 	@SuppressWarnings("SameParameterValue")

@@ -9,10 +9,12 @@
 		"PlantopiaBeeMixin",
 		"PlantopiaBlockBehaviour$BlockStateBaseMixin",
 		"PlantopiaDoublePlantBlockMixin",
+		"PlantopiaGrassBlockMixin",
 		"PlantopiaItemMixin",
 		"PlantopiaSeaPickleBlockMixin",
 		"PlantopiaSugarCaneBlockMixin",
-		"PlantopiaTemptGoalMixin"
+		"PlantopiaTemptGoalMixin",
+		"PlantopiaZombieMixin"
 	],
 	"client": [
 		"PlantopiaMinecraftMixin"

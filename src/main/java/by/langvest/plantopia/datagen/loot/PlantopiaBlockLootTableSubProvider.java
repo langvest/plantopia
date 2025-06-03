@@ -33,9 +33,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
@@ -46,6 +44,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Set;
 
 public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
@@ -80,6 +79,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTableSubProvider::createPollinatedDandelionDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
+		add(PlantopiaBlocks.INFESTED_DIRT.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
+		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
 	}
 
 	private void generateAll() {
@@ -121,22 +122,22 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private void dropSelf(@NotNull PlantopiaBlockMeta blockMeta) {
-		Block block = blockMeta.getBlock();
-		MetaType type = blockMeta.getType();
-		PlantopiaBlockHeightType blockHeightType = blockMeta.getBlockHeightType();
-		int baseHeight = blockHeightType.getBaseHeight();
+		var block = blockMeta.getBlock();
+		var type = blockMeta.getType();
+		int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
+		int baseWidth = blockMeta.getBlockWidthType().getBaseWidth();
 
-		if(baseHeight == 1) {
+		if(baseHeight == 1 && baseWidth == 1) {
 			dropSelf(block);
 			return;
 		}
 
-		if(type != MetaType.PLANT) {
-			dropSelfIf(block, hasLowerHalfProperty(block, blockHeightType));
+		if(!type.isSimplePlantLike()) {
+			dropSelfIf(block, hasLowerHalfProperty(block, blockMeta.getBlockHeightType()));
 			return;
 		}
 
-		LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, LootItem.lootTableItem(block));
+		LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(block));
 
 		add(block, createTable(blockMeta, lootEntry));
 	}
@@ -257,6 +258,16 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		return createBlockTable(block, lootEntry);
 	}
 
+	private static LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+			.when(HAS_SILK_TOUCH)
+			.otherwise(
+				withSurvivesExplosionCondition(block, item(Blocks.DIRT))
+			);
+
+		return createBlockTable(block, lootEntry);
+	}
+
 	/* HELPER METHODS ******************************************/
 
 	private static LootPoolSingletonContainer.@NotNull Builder<?> item(ItemLike item) {
@@ -303,8 +314,18 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	@Contract(value = "_ -> new", pure = true)
+	private static @NotNull BlockPos x(int offset) {
+		return new BlockPos(offset, 0, 0);
+	}
+
+	@Contract(value = "_ -> new", pure = true)
 	private static @NotNull BlockPos y(int offset) {
 		return new BlockPos(0, offset, 0);
+	}
+
+	@Contract(value = "_ -> new", pure = true)
+	private static @NotNull BlockPos z(int offset) {
+		return new BlockPos(0, 0, offset);
 	}
 
 	private static <T extends FunctionUserBuilder<T>> T withExplosionDecayFunction(@NotNull Block block, FunctionUserBuilder<T> function) {
@@ -333,23 +354,23 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	/* LOOT TABLE PATTERNS ******************************************/
 
 	private static LootTable.@NotNull Builder createTable(@NotNull PlantopiaBlockMeta blockMeta, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
-		Block block = blockMeta.getBlock();
-		MetaType type = blockMeta.getType();
-		int height = blockMeta.getBlockHeightType().getBaseHeight();
-		int width = blockMeta.getBlockWidthType().getBaseWidth();
+		var block = blockMeta.getBlock();
+		var type = blockMeta.getType();
+		int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
+		int baseWidth = blockMeta.getBlockWidthType().getBaseWidth();
 
-		if(height == 3 && width == 1) {
-			if(type == MetaType.PLANT) return createTripleHighPlantTable(block, lootEntries);
+		if(baseHeight == 3 && baseWidth == 1) {
+			if(type.instanceOf(MetaType.PLANT)) return createTripleHighPlantTable(block, lootEntries);
 			return createTripleHighBlockTable(block, lootEntries);
 		}
 
-		if(height == 3 && width == 2) {
-			if(type == MetaType.PLANT) return createWideTripleHighPlantTable(block, lootEntries);
+		if(baseHeight == 3 && baseWidth == 2) {
+			if(type.instanceOf(MetaType.PLANT)) return createWideTripleHighPlantTable(block, lootEntries);
 			// return createWideTripleHighBlockTable(block, lootEntries);
 		}
 
-		if(height == 2) {
-			if(type == MetaType.PLANT) return createDoubleHighPlantTable(block, lootEntries);
+		if(baseHeight == 2 && baseWidth == 1) {
+			if(type.instanceOf(MetaType.PLANT)) return createDoubleHighPlantTable(block, lootEntries);
 			return createDoubleHighBlockTable(block, lootEntries);
 		}
 
@@ -437,75 +458,58 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private static LootTable.@NotNull Builder createWideTripleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
-		LootPool.Builder lowerLootPool = LootPool.lootPool();
-		LootPool.Builder centralLootPool = LootPool.lootPool();
-		LootPool.Builder upperLootPool = LootPool.lootPool();
+		LootPool.Builder southWestLootPool = LootPool.lootPool();
+		LootPool.Builder westNorthLootPool = LootPool.lootPool();
+		LootPool.Builder northEastLootPool = LootPool.lootPool();
+		LootPool.Builder eastSouthLootPool = LootPool.lootPool();
 
-		for(LootPoolEntryContainer.Builder<?> lootEntry : lootEntries) {
-			lowerLootPool.add(lootEntry);
-			centralLootPool.add(lootEntry);
-			upperLootPool.add(lootEntry);
-		}
-
-		return LootTable.lootTable()
-			.withPool(
-				lowerLootPool
+		List.of(southWestLootPool, westNorthLootPool, northEastLootPool, eastSouthLootPool).forEach(quarterLootPool -> {
+			quarterLootPool.add(
+				AlternativesEntry.alternatives(lootEntries)
 					.when(hasProperty(block, TRIPLE_BLOCK_HALF_LOWER))
 					.when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_CENTRAL, y(1)))
 					.when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_UPPER, y(2)))
-			)
-			.withPool(
-				centralLootPool
+			);
+
+			quarterLootPool.add(
+				AlternativesEntry.alternatives(lootEntries)
 					.when(hasProperty(block, TRIPLE_BLOCK_HALF_CENTRAL))
 					.when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_LOWER, y(-1)))
 					.when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_UPPER, y(1)))
-			)
-			.withPool(
-				upperLootPool
+			);
+
+			quarterLootPool.add(
+				AlternativesEntry.alternatives(lootEntries)
 					.when(hasProperty(block, TRIPLE_BLOCK_HALF_UPPER))
 					.when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_LOWER, y(-2)))
 					.when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_CENTRAL, y(-1)))
 			);
+		});
 
-
-
-
-		// LootPool.Builder southWestLootPool = LootPool.lootPool();
-		// LootPool.Builder westNorthLootPool = LootPool.lootPool();
-		// LootPool.Builder northEastLootPool = LootPool.lootPool();
-		// LootPool.Builder eastSouthLootPool = LootPool.lootPool();
-		//
-		// for(LootPoolEntryContainer.Builder<?> lootEntry : lootEntries) {
-		// 	southWestLootPool.add(lootEntry);
-		// 	westNorthLootPool.add(lootEntry);
-		// 	northEastLootPool.add(lootEntry);
-		// 	eastSouthLootPool.add(lootEntry);
-		// }
-		//
-		// return LootTable.lootTable()
-		// 	.withPool(
-		// 		southWestLootPool
-		// 			.when(hasProperty(block, QUARTER_SOUTH_WEST))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_CENTRAL, y(1)))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_UPPER, y(2)))
-		// 	)
-		// 	.withPool(
-		// 		westNorthLootPool
-		// 			.when(hasProperty(block, QUARTER_WEST_NORTH))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_LOWER, y(-1)))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_UPPER, y(1)))
-		// 	)
-		// 	.withPool(
-		// 		northEastLootPool
-		// 			.when(hasProperty(block, QUARTER_NORTH_EAST))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_LOWER, y(-2)))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_CENTRAL, y(-1)))
-		// 	)
-		// 	.withPool(
-		// 		eastSouthLootPool
-		// 			.when(hasProperty(block, QUARTER_EAST_SOUTH))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_LOWER, y(-2)))
-		// 			// .when(checkPropertyAt(block, TRIPLE_BLOCK_HALF_CENTRAL, y(-1)))
-		// 	);
+		return LootTable.lootTable()
+			.withPool(
+				southWestLootPool
+					.when(hasProperty(block, QUARTER_SOUTH_WEST))
+					.when(checkPropertyAt(block, QUARTER_WEST_NORTH, z(-1)))
+					.when(checkPropertyAt(block, QUARTER_EAST_SOUTH, x(1)))
+			)
+			.withPool(
+				westNorthLootPool
+					.when(hasProperty(block, QUARTER_WEST_NORTH))
+					.when(checkPropertyAt(block, QUARTER_NORTH_EAST, x(1)))
+					.when(checkPropertyAt(block, QUARTER_SOUTH_WEST, z(1)))
+			)
+			.withPool(
+				northEastLootPool
+					.when(hasProperty(block, QUARTER_NORTH_EAST))
+					.when(checkPropertyAt(block, QUARTER_EAST_SOUTH, z(1)))
+					.when(checkPropertyAt(block, QUARTER_WEST_NORTH, x(-1)))
+			)
+			.withPool(
+				eastSouthLootPool
+					.when(hasProperty(block, QUARTER_EAST_SOUTH))
+					.when(checkPropertyAt(block, QUARTER_SOUTH_WEST, x(-1)))
+					.when(checkPropertyAt(block, QUARTER_NORTH_EAST, z(-1)))
+			);
 	}
 }

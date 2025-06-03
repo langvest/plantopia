@@ -1,6 +1,8 @@
 {
 	"advancements.plantopia.collect_all_flowers.description": "Collect one of every flower",
 	"advancements.plantopia.collect_all_flowers.title": "Real Gardener",
+	"advancements.plantopia.place_hogweed.description": "Let the hogweed take over more and more territories",
+	"advancements.plantopia.place_hogweed.title": "Ecological Disaster",
 	"advancements.plantopia.root.description": "What a wonderful world!",
 	"advancements.plantopia.root.title": "Plantopia",
 	"block.plantopia.big_clover": "Big Clover",
@@ -14,6 +16,8 @@
 	"block.plantopia.giant_fern": "Giant Fern",
 	"block.plantopia.giant_grass": "Giant Grass",
 	"block.plantopia.hogweed": "Hogweed",
+	"block.plantopia.infested_dirt": "Infested Dirt",
+	"block.plantopia.infested_grass_block": "Infested Grass Block",
 	"block.plantopia.magenta_foxglove": "Magenta Foxglove",
 	"block.plantopia.magenta_hollyhock": "Magenta Hollyhock",
 	"block.plantopia.mossy_cobblestone_shard": "Mossy Cobblestone Shard",

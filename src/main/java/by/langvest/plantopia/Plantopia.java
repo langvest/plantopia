@@ -7,6 +7,7 @@ import by.langvest.plantopia.client.render.PlantopiaRenderTypes;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaTreeDecoratorTypes;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -34,6 +35,7 @@ public final class Plantopia {
 		PlantopiaParticleTypes.setup(bus);
 		PlantopiaCreativeModeTabs.setup(bus);
 		PlantopiaBlocks.setup(bus);
+		PlantopiaFeatureTypes.setup(bus);
 		PlantopiaTreeDecoratorTypes.setup(bus);
 		PlantopiaItems.setup(bus);
 		// PlantopiaSoundEvents.setup(bus);

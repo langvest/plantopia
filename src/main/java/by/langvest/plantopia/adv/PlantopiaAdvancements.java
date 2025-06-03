@@ -15,7 +15,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 
 public class PlantopiaAdvancements {
 	public static final PlantopiaAdvancement ROOT = registerAdvancement("root", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.ROOT).group(Plantopia.MOD_ID).background("dirt").icon(PlantopiaBlocks.FIREWEED));
-	public static final PlantopiaAdvancement COLLECT_ALL_FLOWERS = registerAdvancement("collect_all_flowers", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHALLENGE).parent(ROOT).icon(PlantopiaItems.FLOWERS_ICON));
+	public static final PlantopiaAdvancement COLLECT_ALL_FLOWERS = registerAdvancement("collect_all_flowers", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHALLENGE).parent(ROOT).hidden().icon(PlantopiaItems.FLOWERS_ICON));
+	public static final PlantopiaAdvancement PLACE_HOGWEED = registerAdvancement("place_hogweed", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(PlantopiaBlocks.HOGWEED));
 
 	public static @NotNull PlantopiaAdvancement registerAdvancement(String name, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
 		var id = plantopiaLocationFrom(name);

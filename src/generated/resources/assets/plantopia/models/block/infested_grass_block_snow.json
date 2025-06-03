@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"bottom": "plantopia:block/infested_dirt",
+		"particle": "plantopia:block/infested_dirt",
+		"side": "plantopia:block/infested_grass_block_snow",
+		"top": "minecraft:block/grass_block_top"
+	}
+}
