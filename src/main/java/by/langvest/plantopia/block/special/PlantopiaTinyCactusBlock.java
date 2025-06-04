@@ -20,7 +20,7 @@ import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaTinyCactusBlock extends BushBlock implements BonemealableBlock {
-	protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
+	protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D);
 
 	public PlantopiaTinyCactusBlock(Properties properties) {
 		super(properties);
@@ -57,7 +57,7 @@ public class PlantopiaTinyCactusBlock extends BushBlock implements BonemealableB
 
 	@Override
 	public float getMaxHorizontalOffset() {
-		return super.getMaxHorizontalOffset() * 0.8F;
+		return super.getMaxHorizontalOffset() * 0.6F;
 	}
 
 	@Override
