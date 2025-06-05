@@ -77,16 +77,19 @@ public class PlantopiaThornyShrubBlock extends Block implements SimpleWaterlogge
 	@Override
 	@SuppressWarnings("deprecation")
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if(!(entity instanceof LivingEntity livingEntity)) return;
+		if(!(entity instanceof LivingEntity)) return;
 
-		livingEntity.makeStuckInBlock(state, new Vec3(0.8F, 0.75D, 0.8F));
+		entity.makeStuckInBlock(state, new Vec3(0.8F, 0.75D, 0.8F));
 
-		if(!level.isClientSide && (livingEntity.xOld != livingEntity.getX() || livingEntity.zOld != livingEntity.getZ())) {
-			double dx = Math.abs(livingEntity.getX() - livingEntity.xOld);
-			double dz = Math.abs(livingEntity.getZ() - livingEntity.zOld);
+		if(!level.isClientSide && (entity.xOld != entity.getX() || entity.zOld != entity.getZ() || entity.yOld != entity.getY())) {
+			double dx = Math.abs(entity.getX() - entity.xOld);
+			double dz = Math.abs(entity.getZ() - entity.zOld);
+			double dy = Math.abs(entity.getY() - entity.yOld);
+			double xzThreshold = 0.003D;
+			double yThreshold = 0.05D;
 
-			if(dx >= (double)0.003F || dz >= (double)0.003F) {
-				livingEntity.hurt(level.damageSources().source(PlantopiaDamageTypes.THORNY_SHRUB), 1.0F);
+			if(dx >= xzThreshold || dz >= xzThreshold || dy >= yThreshold) {
+				entity.hurt(level.damageSources().source(PlantopiaDamageTypes.THORNY_SHRUB), 1.0F);
 			}
 		}
 	}
