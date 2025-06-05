@@ -155,12 +155,10 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-		if(!state.canSurvive(level, currentPos)) {
-			level.scheduleTick(currentPos, this, 1);
-		}
-
-		return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos facingPos) {
+		if(!state.canSurvive(level, pos)) level.scheduleTick(pos, this, 1);
+		if(state.getValue(WATERLOGGED)) level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, facing, facingState, level, pos, facingPos);
 	}
 
 	@Override

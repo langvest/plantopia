@@ -488,7 +488,7 @@
 			"translate": "advancements.plantopia.collect_all_flowers.description"
 		},
 		"frame": "challenge",
-		"hidden": true,
+		"hidden": false,
 		"icon": {
 			"item": "plantopia:flowers_icon"
 		},

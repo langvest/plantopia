@@ -2,8 +2,10 @@ package by.langvest.plantopia;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaCompats;
+import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
 import by.langvest.plantopia.client.color.PlantopiaColors;
 import by.langvest.plantopia.client.render.PlantopiaRenderTypes;
+import by.langvest.plantopia.entity.PlantopiaEntities;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
@@ -38,7 +40,8 @@ public final class Plantopia {
 		PlantopiaFeatureTypes.setup(bus);
 		PlantopiaTreeDecoratorTypes.setup(bus);
 		PlantopiaItems.setup(bus);
-		// PlantopiaSoundEvents.setup(bus);
+		PlantopiaBlockEntities.setup(bus);
+		PlantopiaEntities.setup(bus);
 	}
 
 	private void commonSetup(final @NotNull FMLCommonSetupEvent event) {

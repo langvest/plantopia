@@ -1,4 +1,4 @@
-package by.langvest.plantopia.item;
+package by.langvest.plantopia.item.special;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;

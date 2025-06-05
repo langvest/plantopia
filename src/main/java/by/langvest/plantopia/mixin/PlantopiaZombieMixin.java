@@ -1,7 +1,7 @@
 package by.langvest.plantopia.mixin;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.entity.goal.PlantopiaZombieFindHogweedGoal;
+import by.langvest.plantopia.entity.ai.goal.PlantopiaZombieFindHogweedGoal;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Zombie;

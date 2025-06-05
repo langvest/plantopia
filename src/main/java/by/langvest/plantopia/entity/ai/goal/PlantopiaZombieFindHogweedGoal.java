@@ -1,4 +1,4 @@
-package by.langvest.plantopia.entity.goal;
+package by.langvest.plantopia.entity.ai.goal;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import net.minecraft.core.BlockPos;

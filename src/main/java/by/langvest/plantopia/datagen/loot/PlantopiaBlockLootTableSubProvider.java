@@ -6,6 +6,7 @@ import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
+import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardPetBlock;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
@@ -73,14 +74,16 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
 		add(PlantopiaBlocks.GIANT_GRASS.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.GRASS, Items.WHEAT_SEEDS));
 		add(PlantopiaBlocks.GIANT_FERN.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.FERN, Items.WHEAT_SEEDS));
-		add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTableSubProvider::createCloverDrops);
-		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
-		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
-		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTableSubProvider::createPollinatedDandelionDrops);
-		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
-		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
-		add(PlantopiaBlocks.INFESTED_DIRT.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
-		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
+		add(PlantopiaBlocks.CLOVER.get(), this::createCloverDrops);
+		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
+		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
+		add(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
+		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
+		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), this::createPollinatedDandelionDrops);
+		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), this::createBranchingShrubDrops);
+		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), this::createBranchingShrubDrops);
+		add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);
+		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
 	}
 
 	private void generateAll() {
@@ -222,7 +225,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		return createTripleHighPlantTable(block, lootEntry);
 	}
 
-	private static LootTable.@NotNull Builder createCloverDrops(Block block) {
+	private LootTable.@NotNull Builder createCloverDrops(Block block) {
 		LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaCloverBlock.AMOUNT)
 			.when(HAS_SHEARS)
 			.otherwise(
@@ -233,17 +236,23 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		return createBlockTable(block, lootEntry);
 	}
 
-	private static LootTable.@NotNull Builder createCobblestoneShardDrops(Block block) {
+	private LootTable.@NotNull Builder createCobblestoneShardDrops(Block block) {
 		LootPoolEntryContainer.Builder<?> lootEntry = withExplosionDecayFunction(block, createPartialLootEntry(block, PlantopiaCobblestoneShardBlock.SHARDS));
 
 		return createSurvivedExplosionBlockTable(block, lootEntry);
 	}
 
-	private static LootTable.@NotNull Builder createPollinatedDandelionDrops(Block block) {
+	private LootTable.@NotNull Builder createCobblestoneShardPetDrops(Block block) {
+		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginalBlock();
+
+		return createNameableBlockEntityTable(originalBlock);
+	}
+
+	private LootTable.@NotNull Builder createPollinatedDandelionDrops(Block block) {
 		return createSurvivedExplosionBlockTable(block, item(Blocks.DANDELION));
 	}
 
-	private static LootTable.@NotNull Builder createBranchingShrubDrops(Block block) {
+	private LootTable.@NotNull Builder createBranchingShrubDrops(Block block) {
 		LootPoolEntryContainer.Builder<?> lootEntry = item(PlantopiaBlocks.BRANCHING_SHRUB.get())
 			.when(HAS_SHEARS)
 			.otherwise(
@@ -258,7 +267,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		return createBlockTable(block, lootEntry);
 	}
 
-	private static LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
+	private LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
 		LootPoolEntryContainer.Builder<?> lootEntry = item(block)
 			.when(HAS_SILK_TOUCH)
 			.otherwise(

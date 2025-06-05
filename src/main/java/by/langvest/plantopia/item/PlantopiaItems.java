@@ -1,6 +1,8 @@
 package by.langvest.plantopia.item;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.item.special.PlantopiaCobblestoneShardBlockItem;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
@@ -22,6 +24,8 @@ public class PlantopiaItems {
 	private static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, Plantopia.MOD_ID);
 
 	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", () -> new PlantopiaRenderedIconItem(new Properties()), MetaProperties.copy(MetaType.ICON));
+	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK));
+	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		var registryObject = ITEM_REGISTER.register(name, supplier);
@@ -30,7 +34,7 @@ public class PlantopiaItems {
 	}
 
 	public static void registerBlockItem(@NotNull PlantopiaBlockMeta blockMeta) {
-		if(!blockMeta.hasItem()) return;
+		if(!blockMeta.shouldRegisterBlockItem()) return;
 
 		var properties = new Properties();
 		var supplier = PlantopiaItemHelper.getBlockItemSupplier(blockMeta, properties);

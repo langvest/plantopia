@@ -58,6 +58,12 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 			.addCriterion(getPlaceName(PlantopiaBlocks.INFESTED_DIRT.get()), place(PlantopiaBlocks.INFESTED_DIRT.get()))
 			.addCriterion(getPlaceName(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()), place(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()));
 
+		PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET
+			.getBuilder()
+			.requirements(RequirementsStrategy.OR)
+			.addCriterion(getPlaceName(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()))
+			.addCriterion(getPlaceName(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()));
+
 		saveAll();
 	}
 

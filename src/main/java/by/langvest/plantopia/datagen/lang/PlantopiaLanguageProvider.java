@@ -34,6 +34,7 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		advancement(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
 		advancement(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
 		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the hogweed take over more and more territories");
+		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A stone is a man's best friend", "Get yourself the most devoted friend!");
 
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");
