@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=east": {
+			"model": "plantopia:block/cobblestone_shard_pet",
+			"y": 90
+		},
+		"facing=north": {
+			"model": "plantopia:block/cobblestone_shard_pet"
+		},
+		"facing=south": {
+			"model": "plantopia:block/cobblestone_shard_pet",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "plantopia:block/cobblestone_shard_pet",
+			"y": 270
+		}
+	}
+}

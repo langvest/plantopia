@@ -24,6 +24,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	private final List<ResourceKey<CreativeModeTab>> groups;
 	private final PlantopiaBlockHeightType blockHeightType;
 	private final PlantopiaBlockWidthType blockWidthType;
+	private final PlantopiaBlockItemType itemType;
 	private final PlantopiaRenderType renderType;
 	private final PlantopiaModelType modelType;
 	private final PlantopiaBlockDropType dropType;
@@ -46,6 +47,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		groups = properties.groups;
 		blockHeightType = properties.blockHeightType;
 		blockWidthType = properties.blockWidthType;
+		itemType = properties.itemType;
 		renderType = properties.renderType;
 		modelType = properties.modelType;
 		dropType = properties.dropType;
@@ -93,7 +95,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	}
 
 	public boolean hasItem() {
-		return !groups.isEmpty();
+		return itemType != PlantopiaBlockItemType.NONE;
 	}
 
 	public PlantopiaBlockHeightType getBlockHeightType() {
@@ -164,6 +166,10 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		return renderType != PlantopiaRenderType.NONE;
 	}
 
+	public boolean shouldRegisterBlockItem() {
+		return itemType != PlantopiaBlockItemType.NONE && itemType != PlantopiaBlockItemType.CUSTOM;
+	}
+
 	public int getEncouragement() {
 		return encouragement;
 	}
@@ -204,7 +210,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType MUSHROOM_PLANT = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM_PLANT).makeType("mushroom_plant");
 		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
 		public static final MetaType MUSHROOM_BLOCK = MetaProperties.of().compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
-		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noGroup().makeType("potted");
+		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noItem().makeType("potted");
 		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().tintedParticles().flammable(Encouragement.LEAVES, Flammability.LEAVES).makeType("leaves");
 		public static final MetaType STONE = MetaProperties.of().makeType("stone");
 		public static final MetaType WOOD = MetaProperties.of().flammable(Encouragement.WOOD, Flammability.WOOD).makeType("wood");
@@ -237,6 +243,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
 		private PlantopiaBlockHeightType blockHeightType = PlantopiaBlockHeightType.SINGLE;
 		private PlantopiaBlockWidthType blockWidthType = PlantopiaBlockWidthType.SINGLE;
+		private PlantopiaBlockItemType itemType = PlantopiaBlockItemType.GENERATED;
 		private PlantopiaRenderType renderType = PlantopiaRenderType.NONE;
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private PlantopiaBlockDropType dropType = PlantopiaBlockDropType.GENERATED;
@@ -361,6 +368,21 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 
 		public MetaProperties noGroup() {
 			this.groups = Collections.emptyList();
+			return this;
+		}
+
+		public MetaProperties generatedItem() {
+			this.itemType = PlantopiaBlockItemType.GENERATED;
+			return this;
+		}
+
+		public MetaProperties customItem() {
+			this.itemType = PlantopiaBlockItemType.CUSTOM;
+			return this;
+		}
+
+		public MetaProperties noItem() {
+			this.itemType = PlantopiaBlockItemType.NONE;
 			return this;
 		}
 

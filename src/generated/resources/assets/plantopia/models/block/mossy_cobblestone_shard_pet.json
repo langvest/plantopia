@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_cobblestone_shard_pet",
+	"textures": {
+		"shards": "plantopia:block/mossy_cobblestone_shards"
+	}
+}

@@ -1,7 +1,7 @@
 package by.langvest.plantopia.util.helper;
 
-import by.langvest.plantopia.item.PlantopiaTripleHighBlockItem;
-import by.langvest.plantopia.item.PlantopiaWideTripleHighBlockItem;
+import by.langvest.plantopia.item.special.PlantopiaTripleHighBlockItem;
+import by.langvest.plantopia.item.special.PlantopiaWideTripleHighBlockItem;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;

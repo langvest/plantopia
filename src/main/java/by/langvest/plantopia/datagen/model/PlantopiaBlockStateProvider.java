@@ -56,6 +56,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		cloverBlossomBlock(PlantopiaBlocks.PINK_CLOVER_BLOSSOM.get());
 		cobblestoneShardBlock(PlantopiaBlocks.COBBLESTONE_SHARD.get());
 		cobblestoneShardBlock(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get());
+		cobblestoneShardPetBlock(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get());
+		cobblestoneShardPetBlock(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get());
 		birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_LOG.get());
 		birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_WOOD.get());
 		foxgloveBlock(PlantopiaBlocks.RED_FOXGLOVE.get());
@@ -269,6 +271,27 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, itemTexture);
 		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.SHARDS, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
+	}
+
+	private void cobblestoneShardPetBlock(Block block) {
+		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginalBlock();
+		String baseName = nameOf(block);
+		String originalBaseName = nameOf(originalBlock);
+
+		var shardsTexture = texture(originalBaseName + "s");
+
+		var model = cobblestoneShardPetTemplateModel(baseName, shardsTexture);
+
+		getVariantBuilder(block).forAllStatesExcept(state -> {
+			var facing = state.getValue(PlantopiaCobblestoneShardPetBlock.FACING);
+
+			return ConfiguredModel.builder()
+				.modelFile(model)
+				.rotationY(((int) facing.toYRot() + 180) % 360)
+				.build();
+			},
+			PlantopiaCobblestoneShardPetBlock.WATERLOGGED
+		);
 	}
 
 	private void birchBaseBlock(Block block) {
@@ -591,6 +614,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private BlockModelBuilder pottedCloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {
 		return models().withExistingParent(name, parent("template_potted_clover_blossom"))
 			.texture("blossom", blossomTexture);
+	}
+
+	private BlockModelBuilder cobblestoneShardPetTemplateModel(String name, ResourceLocation shardsTexture) {
+		return models().withExistingParent(name, parent("template_cobblestone_shard_pet"))
+			.texture("shards", shardsTexture);
 	}
 
 	private BlockModelBuilder oneCobblestoneShardTemplateModel(String name, ResourceLocation shardsTexture) {

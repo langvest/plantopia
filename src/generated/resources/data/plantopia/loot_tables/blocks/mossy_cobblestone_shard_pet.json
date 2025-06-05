@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"functions": [
+						{
+							"function": "minecraft:copy_name",
+							"source": "block_entity"
+						}
+					],
+					"name": "plantopia:mossy_cobblestone_shard"
+				}
+			],
+			"rolls": 1.0
+		}
+	],
+	"random_sequence": "plantopia:blocks/mossy_cobblestone_shard_pet"
+}

@@ -2,11 +2,13 @@ package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.entity.PlantopiaDamageTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,6 +43,13 @@ public class PlantopiaThornyShrubBlock extends Block implements SimpleWaterlogge
 		var pos = context.getClickedPos();
 
 		return copyWaterloggedFrom(level, pos, superState);
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
+		if(state.getValue(WATERLOGGED)) level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
 	}
 
 	@Override
