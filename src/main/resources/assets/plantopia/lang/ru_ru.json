@@ -7,6 +7,8 @@
 	"advancements.plantopia.place_hogweed.title": "Экологическая катастрофа",
 	"advancements.plantopia.root.description": "Что за дивный мир!",
 	"advancements.plantopia.root.title": "Plantopia",
+	"advancements.plantopia.walk_on_quicksand_with_leather_boots.description": "Пройдитесь по зыбучему песку, как если бы это был всего лишь обычный песок",
+	"advancements.plantopia.walk_on_quicksand_with_leather_boots.title": "Лёгкий как песчинка",
 	"block.plantopia.big_clover": "Большой клевер",
 	"block.plantopia.birch_base_log": "Бревно основания берёзы",
 	"block.plantopia.birch_base_wood": "Основание берёзы",
@@ -38,7 +40,9 @@
 	"block.plantopia.white_hollyhock": "Белая мальва",
 	"block.plantopia.yellow_foxglove": "Жёлтая наперстянка",
 	"block.plantopia.yellow_hollyhock": "Жёлтая мальва",
+	"death.attack.quicksand": "%1$s утонул в зыбучих песках",
 	"death.attack.thornyShrub": "%1$s искололся до смерти в колючем кустарнике",
 	"death.attack.thornyShrub.player": "%1$s искололся до смерти в колючем кустарнике, пытаясь сбежать от %2$s",
+	"item.plantopia.quicksand_bucket": "Ведро с зыбучим песком",
 	"itemGroup.plantopia": "Plantopia"
 }

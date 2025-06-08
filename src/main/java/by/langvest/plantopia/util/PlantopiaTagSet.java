@@ -2,7 +2,6 @@ package by.langvest.plantopia.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +17,7 @@ public class PlantopiaTagSet<T> {
 	}
 
 	@Contract(" -> new")
-	public static <T extends ItemLike> @NotNull PlantopiaTagSet<T> newTagSet() {
+	public static <T> @NotNull PlantopiaTagSet<T> newTagSet() {
 		return new PlantopiaTagSet<>();
 	}
 

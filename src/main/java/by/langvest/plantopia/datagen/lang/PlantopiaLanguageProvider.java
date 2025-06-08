@@ -33,11 +33,13 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 		advancement(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
 		advancement(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
-		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the hogweed take over more and more territories");
-		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A stone is a man's best friend", "Get yourself the most devoted friend!");
+		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the Hogweed take over more and more territories");
+		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A Stone is a Man's Best Friend", "Get yourself the most devoted friend!");
+		advancement(PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS, "Light as a Grain of Sand", "Walk on Quicksand as if it were just ordinary Sand");
 
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");
+		damageType(PlantopiaDamageTypes.QUICKSAND, "%1$s drowned in quicksand");
 	}
 
 	@SuppressWarnings("SameParameterValue")
@@ -71,6 +73,14 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 			var block = blockMeta.getBlock();
 
 			add(block, getDisplayNameById(blockMeta.getName()));
+		});
+
+		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
+			if(!itemMeta.shouldGenerateTranslation()) return;
+
+			var item = itemMeta.getItem();
+
+			add(item, getDisplayNameById(itemMeta.getName()));
 		});
 	}
 

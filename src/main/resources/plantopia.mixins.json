@@ -17,6 +17,8 @@
 		"PlantopiaZombieMixin"
 	],
 	"client": [
+		"PlantopiaCameraMixin",
+		"PlantopiaGuiMixin",
 		"PlantopiaMinecraftMixin"
 	],
 	"injectors": {

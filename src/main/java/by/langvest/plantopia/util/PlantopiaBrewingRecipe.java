@@ -35,7 +35,7 @@ public class PlantopiaBrewingRecipe implements IBrewingRecipe {
 		if(!isInput(input)) return ItemStack.EMPTY;
 		if(!isIngredient(ingredient)) return ItemStack.EMPTY;
 
-		ItemStack result = new ItemStack(input.getItem());
+		ItemStack result = input.getItem().getDefaultInstance();
 		result.setTag(new CompoundTag());
 		PotionUtils.setPotion(result, output);
 		return result;

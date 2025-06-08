@@ -1,0 +1,21 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "plantopia:block/quicksand"
+			},
+			{
+				"model": "plantopia:block/quicksand",
+				"y": 90
+			},
+			{
+				"model": "plantopia:block/quicksand",
+				"y": 180
+			},
+			{
+				"model": "plantopia:block/quicksand",
+				"y": 270
+			}
+		]
+	}
+}

@@ -10,8 +10,10 @@ import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.util.helper.PlantopiaItemHelper;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.SolidBucketItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,6 +28,7 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", () -> new PlantopiaRenderedIconItem(new Properties()), MetaProperties.copy(MetaType.ICON));
 	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK));
 	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK));
+	public static final RegistryObject<Item> QUICKSAND_BUCKET = registerItem("quicksand_bucket", () -> new SolidBucketItem(PlantopiaBlocks.QUICKSAND.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, new Properties().stacksTo(1)), MetaProperties.copy(MetaType.ITEM));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		var registryObject = ITEM_REGISTER.register(name, supplier);
@@ -34,7 +37,7 @@ public class PlantopiaItems {
 	}
 
 	public static void registerBlockItem(@NotNull PlantopiaBlockMeta blockMeta) {
-		if(!blockMeta.shouldRegisterBlockItem()) return;
+		if(!blockMeta.shouldGenerateItem()) return;
 
 		var properties = new Properties();
 		var supplier = PlantopiaItemHelper.getBlockItemSupplier(blockMeta, properties);

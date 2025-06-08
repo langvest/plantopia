@@ -4,6 +4,7 @@ import by.langvest.plantopia.meta.core.PlantopiaMetaAccessor;
 import by.langvest.plantopia.meta.core.PlantopiaMetaObject;
 import by.langvest.plantopia.meta.core.PlantopiaMetaProperties;
 import by.langvest.plantopia.meta.core.PlantopiaMetaType;
+import by.langvest.plantopia.meta.property.PlantopiaDisplayNameType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import net.minecraft.resources.ResourceKey;
@@ -23,6 +24,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 	private final MetaType type;
 	private final List<ResourceKey<CreativeModeTab>> groups;
 	private final PlantopiaModelType modelType;
+	private final PlantopiaDisplayNameType displayNameType;
 	private final int burnTime;
 
 	public PlantopiaItemMeta(RegistryObject<? extends Item> target, @NotNull MetaProperties properties) {
@@ -30,6 +32,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 		type = PlantopiaMetaAccessor.getMetaTypeFrom(properties);
 		groups = properties.groups;
 		modelType = properties.modelType;
+		displayNameType = properties.displayNameType;
 		burnTime = properties.burnTime;
 	}
 
@@ -57,6 +60,10 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 		return type != MetaType.BLOCK && modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
 	}
 
+	public boolean shouldGenerateTranslation() {
+		return type.instanceOf(MetaType.ITEM) && displayNameType != PlantopiaDisplayNameType.NONE && displayNameType != PlantopiaDisplayNameType.CUSTOM;
+	}
+
 	public int getBurnTime() {
 		return this.burnTime;
 	}
@@ -66,6 +73,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 	}
 
 	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
+		public static final MetaType ITEM = MetaProperties.of().makeType("item");
 		public static final MetaType BLOCK = MetaProperties.of().makeType("block");
 		public static final MetaType ICON = MetaProperties.of().noGroup().makeType("icon");
 
@@ -77,6 +85,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 	public static final class MetaProperties extends PlantopiaMetaProperties<MetaType, MetaProperties> {
 		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
+		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
 		private int burnTime = -1;
 
 		private MetaProperties() {}
@@ -136,6 +145,21 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 
 		public MetaProperties generatedModel() {
 			this.modelType = PlantopiaModelType.GENERATED;
+			return this;
+		}
+
+		public MetaProperties noDisplayName() {
+			this.displayNameType = PlantopiaDisplayNameType.NONE;
+			return this;
+		}
+
+		public MetaProperties customDisplayName() {
+			this.displayNameType = PlantopiaDisplayNameType.CUSTOM;
+			return this;
+		}
+
+		public MetaProperties generatedDisplayName() {
+			this.displayNameType = PlantopiaDisplayNameType.GENERATED;
 			return this;
 		}
 	}

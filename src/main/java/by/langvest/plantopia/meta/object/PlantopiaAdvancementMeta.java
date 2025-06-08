@@ -168,7 +168,7 @@ public class PlantopiaAdvancementMeta extends PlantopiaMetaObject<PlantopiaAdvan
 		}
 
 		public MetaProperties icon(@NotNull ItemLike icon) {
-			return icon(new ItemStack(icon.asItem()));
+			return icon(icon.asItem().getDefaultInstance());
 		}
 
 		public MetaProperties icon(ItemStack icon) {

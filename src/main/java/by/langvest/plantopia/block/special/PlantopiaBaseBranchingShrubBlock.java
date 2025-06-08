@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -73,6 +74,7 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 			Entity entity = entityCollisionContext.getEntity();
 
 			if(entity == null) return shape;
+			if(!(entity instanceof LivingEntity)) return shape;
 
 			if(entity.position().y >= pos.getY() + 0.5D) {
 				return Shapes.empty();
@@ -116,7 +118,7 @@ public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements 
 	@Override
 	@SuppressWarnings("deprecation")
 	public @NotNull ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
-		return new ItemStack(getHeadBlock());
+		return getHeadBlock().asItem().getDefaultInstance();
 	}
 
 	protected boolean isValidEnvironment(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {

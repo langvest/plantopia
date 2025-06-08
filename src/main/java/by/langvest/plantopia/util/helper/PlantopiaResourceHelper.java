@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -78,6 +79,10 @@ public final class PlantopiaResourceHelper {
 		return advancement.getId();
 	}
 
+	public static @NotNull ResourceLocation locationOf(@NotNull EntityType<?> entity) {
+		return Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity));
+	}
+
 	/* ID OF ***********************************************************************/
 
 	public static @NotNull String idOf(@NotNull RegistryObject<?> registryObject) {
@@ -98,6 +103,10 @@ public final class PlantopiaResourceHelper {
 
 	public static @NotNull String idOf(@NotNull ItemLike itemLike) {
 		return locationOf(itemLike).toString();
+	}
+
+	public static @NotNull String idOf(@NotNull EntityType<?> entity) {
+		return locationOf(entity).toString();
 	}
 
 	public static @NotNull String idOf(@NotNull PlantopiaAdvancement advancement) {

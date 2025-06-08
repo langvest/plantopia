@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.idOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+import static net.minecraft.advancements.critereon.PlayerTrigger.TriggerInstance.walkOnBlockWithEquipment;
 
 public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 	private static final List<Block> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
@@ -63,6 +64,10 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 			.requirements(RequirementsStrategy.OR)
 			.addCriterion(getPlaceName(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()))
 			.addCriterion(getPlaceName(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()));
+
+		PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS
+			.getBuilder()
+			.addCriterion(getWalkOnBlockWithEquipmentName(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS), walkOnBlockWithEquipment(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS));
 
 		saveAll();
 	}
@@ -112,6 +117,10 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 
 	private static @NotNull String getHasName(@NotNull TagKey<Item> tag) {
 		return "has_" + nameOf(tag);
+	}
+
+	private static @NotNull String getWalkOnBlockWithEquipmentName(@NotNull Block block, @NotNull Item item) {
+		return "walk_on_" + nameOf(block) + "_with_" + nameOf(item);
 	}
 
 	private static InventoryChangeTrigger.@NotNull TriggerInstance has(ItemLike... items) {

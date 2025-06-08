@@ -45,7 +45,7 @@ public class PlantopiaCobblestoneShardPetBlock extends BaseEntityBlock implement
 
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, @NotNull BlockGetter level, BlockPos pos, Player player) {
-		var itemStack = new ItemStack(getOriginalBlock());
+		var itemStack = getOriginalBlock().asItem().getDefaultInstance();
 		var blockEntity = level.getBlockEntity(pos);
 
 		if(blockEntity instanceof PlantopiaCobblestoneShardPetBlockEntity petBlockEntity) {
