@@ -78,6 +78,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		infestedGrassBlock(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
 		thornyShrubBlock(PlantopiaBlocks.THORNY_SHRUB.get());
 		quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
+		quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
 	}
 
 	private void generateAll() {
@@ -400,6 +401,25 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var model = existingModel(baseName);
 
 		rotatedBlock(block, model);
+	}
+
+	private void quicksandCauldronBlock(Block block) {
+		var contentBlock = ((PlantopiaQuicksandCauldronBlock)block).getContentBlock();
+		String baseName = nameOf(block);
+
+		var contentTexture = texture(nameOf(contentBlock));
+
+		variableBlock(block, LayeredCauldronBlock.LEVEL, level -> {
+			BlockModelBuilder model;
+
+			if(level == LayeredCauldronBlock.MAX_FILL_LEVEL) {
+				model = models().withExistingParent(baseName + "_full", "template_cauldron_full");
+			} else {
+				model = models().withExistingParent(baseName + "_level" + level, "template_cauldron_level" + level);
+			}
+
+			return model.texture("content", contentTexture);
+		});
 	}
 
 	private void hogweedBlock(Block block) {

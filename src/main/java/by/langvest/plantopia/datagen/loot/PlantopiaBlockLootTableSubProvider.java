@@ -25,6 +25,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -114,10 +115,15 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	/* DROPS GENERATION ******************************************/
 
 	private void dropGenerated(@NotNull PlantopiaBlockMeta blockMeta) {
-		Block block = blockMeta.getBlock();
+		var block = blockMeta.getBlock();
 
 		if(block instanceof FlowerPotBlock) {
 			dropPottedContents(block);
+			return;
+		}
+
+		if(block instanceof AbstractCauldronBlock) {
+			dropCauldron(blockMeta);
 			return;
 		}
 
@@ -140,15 +146,15 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			return;
 		}
 
-		LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(block));
+		var lootEntry = withSurvivesExplosionCondition(block, item(block));
 
 		add(block, createTable(blockMeta, lootEntry));
 	}
 
 	private void dropSelfByShears(@NotNull PlantopiaBlockMeta blockMeta) {
-		Block block = blockMeta.getBlock();
-		MetaType type = blockMeta.getType();
-		PlantopiaBlockHeightType blockHeightType = blockMeta.getBlockHeightType();
+		var block = blockMeta.getBlock();
+		var type = blockMeta.getType();
+		var blockHeightType = blockMeta.getBlockHeightType();
 		int baseHeight = blockHeightType.getBaseHeight();
 
 		if(baseHeight == 1) {
@@ -161,7 +167,14 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			return;
 		}
 
-		LootPoolEntryContainer.Builder<?> lootEntry = LootItem.lootTableItem(block).when(HAS_SHEARS);
+		var lootEntry = LootItem.lootTableItem(block).when(HAS_SHEARS);
+
+		add(block, createTable(blockMeta, lootEntry));
+	}
+
+	private void dropCauldron(@NotNull PlantopiaBlockMeta blockMeta) {
+		var block = blockMeta.getBlock();
+		var lootEntry = withSurvivesExplosionCondition(block, item(Items.CAULDRON));
 
 		add(block, createTable(blockMeta, lootEntry));
 	}

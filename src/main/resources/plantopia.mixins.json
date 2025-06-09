@@ -8,10 +8,12 @@
 		"PlantopiaBee$BeePollinateGoalMixin",
 		"PlantopiaBeeMixin",
 		"PlantopiaBlockBehaviour$BlockStateBaseMixin",
+		"PlantopiaCauldronBlockMixin",
 		"PlantopiaDoublePlantBlockMixin",
 		"PlantopiaGrassBlockMixin",
 		"PlantopiaItemMixin",
 		"PlantopiaSeaPickleBlockMixin",
+		"PlantopiaServerLevelMixin",
 		"PlantopiaSugarCaneBlockMixin",
 		"PlantopiaTemptGoalMixin",
 		"PlantopiaZombieMixin"
