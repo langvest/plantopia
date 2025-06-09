@@ -5,14 +5,17 @@ import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.entity.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.helper.PlantopiaStringHelper;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -40,6 +43,9 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");
 		damageType(PlantopiaDamageTypes.QUICKSAND, "%1$s drowned in quicksand");
+
+		soundEvent(PlantopiaSoundEvents.DROWNED_CONVERTED_TO_ZOMBIE, "Drowned converts to Zombie");
+		soundEvent(PlantopiaSoundEvents.ZOMBIE_CONVERTED_TO_HUSK, "Zombie converts to Husk");
 	}
 
 	@SuppressWarnings("SameParameterValue")
@@ -64,6 +70,10 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		String messageId = PlantopiaStringHelper.toCamelCase(nameOf(damageType));
 
 		add(PlantopiaTemplateHelper.getDamageTypeTitleKey(messageId, qualifier), title);
+	}
+
+	private void soundEvent(@NotNull RegistryObject<SoundEvent> soundEvent, String subtitle) {
+		add(PlantopiaTemplateHelper.getSoundEventSubtitleKey(nameOf(soundEvent)), subtitle);
 	}
 
 	private void generateAll() {

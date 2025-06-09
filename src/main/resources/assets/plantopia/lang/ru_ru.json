@@ -44,5 +44,7 @@
 	"death.attack.thornyShrub": "%1$s искололся до смерти в колючем кустарнике",
 	"death.attack.thornyShrub.player": "%1$s искололся до смерти в колючем кустарнике, пытаясь сбежать от %2$s",
 	"item.plantopia.quicksand_bucket": "Ведро с зыбучим песком",
-	"itemGroup.plantopia": "Plantopia"
+	"itemGroup.plantopia": "Plantopia",
+	"subtitles.plantopia.entity.drowned.converted_to_zombie": "Утопленник превратился в зомби",
+	"subtitles.plantopia.entity.zombie.converted_to_husk": "Зомби превратился в кадавра"
 }

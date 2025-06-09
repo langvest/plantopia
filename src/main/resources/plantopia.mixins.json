@@ -28,6 +28,7 @@
 		"PlantopiaZombieMixin"
 	],
 	"client": [
+		"PlantopiaAbstractZombieRendererMixin",
 		"PlantopiaCameraMixin",
 		"PlantopiaGuiMixin",
 		"PlantopiaMinecraftMixin"

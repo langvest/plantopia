@@ -3,6 +3,7 @@ package by.langvest.plantopia.block.special;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.entity.PlantopiaDamageTypes;
 import by.langvest.plantopia.extension.PlantopiaEntityQuicksandExtension;
+import by.langvest.plantopia.extension.PlantopiaZombieQuicksandExtension;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.tag.PlantopiaEntityTypeTags;
@@ -108,7 +109,13 @@ public class PlantopiaQuicksandBlock extends SandBlock implements BucketPickup {
 		}
 
 		if(!level.isClientSide() && !isEntityImmuneToQuicksand(entity) && isEntityDrownsInQuicksand(entity)) {
-			entity.hurt(entity.damageSources().source(PlantopiaDamageTypes.QUICKSAND), 1.0F);
+			float damage = 1.0F;
+
+			if(entity instanceof PlantopiaZombieQuicksandExtension zombieQuicksandExtension) {
+				if(zombieQuicksandExtension.plantopia$isInQuicksandConverting()) damage /= 2.0F;
+			}
+
+			entity.hurt(entity.damageSources().source(PlantopiaDamageTypes.QUICKSAND), damage);
 		}
 
 		if(entity instanceof PlantopiaEntityQuicksandExtension quicksandExtension) {
