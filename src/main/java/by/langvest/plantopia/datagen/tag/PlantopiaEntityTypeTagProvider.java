@@ -26,8 +26,8 @@ public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		add(QUICKSAND_WALKABLE_MOBS, EntityType.HUSK, EntityType.RABBIT);
-		add(QUICKSAND_IMMUNE_ENTITY_TYPES, EntityType.HUSK, EntityType.IRON_GOLEM);
+		add(QUICKSAND_WALKABLE_MOBS, EntityType.RABBIT, EntityType.ENDERMITE, EntityType.SILVERFISH);
+		add(QUICKSAND_IMMUNE_ENTITY_TYPES, EntityType.HUSK, EntityType.SKELETON, EntityType.SKELETON_HORSE, EntityType.WITHER_SKELETON, EntityType.IRON_GOLEM, EntityType.WITHER, EntityType.SILVERFISH, EntityType.ENDERMITE);
 
 		saveAll();
 	}

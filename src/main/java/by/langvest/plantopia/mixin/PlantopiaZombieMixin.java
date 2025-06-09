@@ -13,9 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Zombie.class)
 public abstract class PlantopiaZombieMixin {
-	@Unique
-	private int plantopia$tickCount = 0;
-
 	@Inject(
 		method = "registerGoals()V",
 		at = @At("TAIL")
@@ -31,13 +28,11 @@ public abstract class PlantopiaZombieMixin {
 		at = @At("HEAD")
 	)
 	private void tick(CallbackInfo ci) {
-		plantopia$tickCount++;
-
 		Zombie mob = (Zombie)(Object)this;
 		var level = mob.level();
 		var random = mob.getRandom();
 
-		if(level.isClientSide() && plantopia$isTreating() && plantopia$tickCount % 40 == 0) {
+		if(level.isClientSide() && plantopia$isTreating() && mob.tickCount % 40 == 0) {
 			var particleAmount = Mth.nextInt(random, 2, 5);
 
 			for(int i = 0; i < particleAmount; i++) {

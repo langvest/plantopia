@@ -1,7 +1,9 @@
 package by.langvest.plantopia.mixin;
 
+import by.langvest.plantopia.block.special.PlantopiaQuicksandBlock;
 import by.langvest.plantopia.extension.PlantopiaEntityQuicksandExtension;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.extensions.IForgeEntity;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class PlantopiaEntityMixin implements PlantopiaEntityQuicksandExtension, IForgeEntity {
@@ -59,5 +62,14 @@ public abstract class PlantopiaEntityMixin implements PlantopiaEntityQuicksandEx
 	)
 	private boolean isInPowderSnow(@NotNull Entity entity) {
 		return entity.isInPowderSnow || plantopia$isInQuicksand;
+	}
+
+	@Inject(
+		method = "isStateClimbable(Lnet/minecraft/world/level/block/state/BlockState;)Z",
+		at = @At("RETURN"),
+		cancellable = true
+	)
+	private void isStateClimbable(BlockState state, @NotNull CallbackInfoReturnable<Boolean> cir) {
+		cir.setReturnValue(cir.getReturnValue() || state.getBlock() instanceof PlantopiaQuicksandBlock);
 	}
 }

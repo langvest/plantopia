@@ -15,6 +15,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -76,7 +78,10 @@ public class PlantopiaQuicksandBlock extends SandBlock implements BucketPickup {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if(!(entity instanceof LivingEntity) || entity.getFeetBlockState().is(this)) {
+		boolean flag1 = entity instanceof Silverfish || entity instanceof Endermite;
+		boolean flag2 = !(entity instanceof LivingEntity) || entity.getFeetBlockState().is(this);
+
+		if(!flag1 && flag2) {
 			double xzSpeed = 0.5F;
 
 			if(entity.xOld != entity.getX() || entity.zOld != entity.getZ()) {
