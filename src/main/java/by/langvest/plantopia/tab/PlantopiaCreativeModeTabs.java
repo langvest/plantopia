@@ -21,7 +21,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaCreativeModeTabs {
 	private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Plantopia.MOD_ID);
 
-	public static final ResourceKey<CreativeModeTab> PLANTOPIA = registerTab(Plantopia.MOD_ID, () -> new ItemStack(PlantopiaBlocks.FIREWEED.get()));
+	public static final ResourceKey<CreativeModeTab> PLANTOPIA = registerTab(Plantopia.MOD_ID, () -> PlantopiaBlocks.FIREWEED.get().asItem().getDefaultInstance());
 
 	private static @NotNull ResourceKey<CreativeModeTab> registerTab(String name, Supplier<ItemStack> iconSupplier) {
 		var key = ResourceKey.create(Registries.CREATIVE_MODE_TAB, plantopiaLocationFrom(name));

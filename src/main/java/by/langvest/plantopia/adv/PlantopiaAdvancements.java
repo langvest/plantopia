@@ -7,6 +7,7 @@ import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaAdvancementMeta.MetaType;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -18,6 +19,7 @@ public class PlantopiaAdvancements {
 	public static final PlantopiaAdvancement COLLECT_ALL_FLOWERS = registerAdvancement("collect_all_flowers", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHALLENGE).parent(ROOT).icon(PlantopiaItems.FLOWERS_ICON));
 	public static final PlantopiaAdvancement PLACE_HOGWEED = registerAdvancement("place_hogweed", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(PlantopiaBlocks.HOGWEED));
 	public static final PlantopiaAdvancement PLACE_COBBLESTONE_SHARD_PET = registerAdvancement("place_cobblestone_shard_pet", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(PlantopiaBlocks.COBBLESTONE_SHARD));
+	public static final PlantopiaAdvancement WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS = registerAdvancement("walk_on_quicksand_with_leather_boots", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(() -> Items.LEATHER_BOOTS));
 
 	public static @NotNull PlantopiaAdvancement registerAdvancement(String name, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
 		var id = plantopiaLocationFrom(name);

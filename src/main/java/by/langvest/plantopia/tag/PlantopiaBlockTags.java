@@ -1,6 +1,6 @@
 package by.langvest.plantopia.tag;
 
-import net.minecraft.tags.BlockTags;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +17,6 @@ public class PlantopiaBlockTags {
 	private PlantopiaBlockTags() {}
 
 	public static @NotNull TagKey<Block> createBlockTag(String name) {
-		return BlockTags.create(plantopiaLocationFrom(name));
+		return TagKey.create(Registries.BLOCK, plantopiaLocationFrom(name));
 	}
 }

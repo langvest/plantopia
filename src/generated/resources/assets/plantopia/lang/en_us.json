@@ -2,11 +2,13 @@
 	"advancements.plantopia.collect_all_flowers.description": "Collect one of every flower",
 	"advancements.plantopia.collect_all_flowers.title": "Real Gardener",
 	"advancements.plantopia.place_cobblestone_shard_pet.description": "Get yourself the most devoted friend!",
-	"advancements.plantopia.place_cobblestone_shard_pet.title": "A stone is a man's best friend",
-	"advancements.plantopia.place_hogweed.description": "Let the hogweed take over more and more territories",
+	"advancements.plantopia.place_cobblestone_shard_pet.title": "A Stone is a Man's Best Friend",
+	"advancements.plantopia.place_hogweed.description": "Let the Hogweed take over more and more territories",
 	"advancements.plantopia.place_hogweed.title": "Ecological Disaster",
 	"advancements.plantopia.root.description": "What a wonderful world!",
 	"advancements.plantopia.root.title": "Plantopia",
+	"advancements.plantopia.walk_on_quicksand_with_leather_boots.description": "Walk on Quicksand as if it were just ordinary Sand",
+	"advancements.plantopia.walk_on_quicksand_with_leather_boots.title": "Light as a Grain of Sand",
 	"block.plantopia.big_clover": "Big Clover",
 	"block.plantopia.birch_base_log": "Birch Base Log",
 	"block.plantopia.birch_base_wood": "Birch Base Wood",
@@ -38,7 +40,11 @@
 	"block.plantopia.white_hollyhock": "White Hollyhock",
 	"block.plantopia.yellow_foxglove": "Yellow Foxglove",
 	"block.plantopia.yellow_hollyhock": "Yellow Hollyhock",
+	"death.attack.quicksand": "%1$s drowned in quicksand",
 	"death.attack.thornyShrub": "%1$s was poked to death by a thorny shrub",
 	"death.attack.thornyShrub.player": "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s",
-	"itemGroup.plantopia": "Plantopia"
+	"item.plantopia.quicksand_bucket": "Quicksand Bucket",
+	"itemGroup.plantopia": "Plantopia",
+	"subtitles.plantopia.entity.drowned.converted_to_zombie": "Drowned converts to Zombie",
+	"subtitles.plantopia.entity.zombie.converted_to_husk": "Zombie converts to Husk"
 }

@@ -42,7 +42,7 @@ public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer 
 		if(itemStack.is(PlantopiaItems.FLOWERS_ICON.get())) {
 			poseStack.translate(0.5F, 0.5f, 0.5f);
 			int index = (inGameTick / 20) % ALL_FLOWERS.size();
-			ItemStack flowerItem = new ItemStack(ALL_FLOWERS.get(index));
+			ItemStack flowerItem = ALL_FLOWERS.get(index).asItem().getDefaultInstance();
 			Minecraft.getInstance().getItemRenderer().renderStatic(flowerItem, displayContext, packedLight, packedOverlay, poseStack, buffer, level, 0);
 		}
 	}

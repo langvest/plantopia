@@ -77,6 +77,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		infestedDirtBlock(PlantopiaBlocks.INFESTED_DIRT.get());
 		infestedGrassBlock(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
 		thornyShrubBlock(PlantopiaBlocks.THORNY_SHRUB.get());
+		quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
+		quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
 	}
 
 	private void generateAll() {
@@ -119,7 +121,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		var model = cubeAllModel(baseName, texture);
 
-		if(blockMeta.hasItem()) blockItemModel(baseName, model);
+		if(blockMeta.shouldGenerateItem()) blockItemModel(baseName, model);
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 
@@ -149,7 +151,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var topModel = crossModel(baseName + "_top", topTexture, isTinted);
 		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
-		if(blockMeta.hasItem()) generatedItemModel(baseName, topTexture);
+		if(blockMeta.shouldGenerateItem()) generatedItemModel(baseName, topTexture);
 		doubleHighBlock(blockMeta.getBlock(), topModel, bottomModel);
 	}
 
@@ -165,7 +167,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var middleModel = crossModel(baseName + "_middle", middleTexture, isTinted);
 		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
-		if(blockMeta.hasItem()) generatedItemModel(baseName, topTexture);
+		if(blockMeta.shouldGenerateItem()) generatedItemModel(baseName, topTexture);
 		tripleHighBlock(blockMeta.getBlock(), topModel, middleModel, bottomModel);
 	}
 
@@ -177,7 +179,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		var model = crossModel(baseName, texture, isTinted);
 
-		if(blockMeta.hasItem()) generatedItemModel(baseName, texture);
+		if(blockMeta.shouldGenerateItem()) generatedItemModel(baseName, texture);
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 
@@ -391,6 +393,33 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, texture);
 		simpleBlock(block, model);
+	}
+
+	private void quicksandBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var model = existingModel(baseName);
+
+		rotatedBlock(block, model);
+	}
+
+	private void quicksandCauldronBlock(Block block) {
+		var contentBlock = ((PlantopiaQuicksandCauldronBlock)block).getContentBlock();
+		String baseName = nameOf(block);
+
+		var contentTexture = texture(nameOf(contentBlock));
+
+		variableBlock(block, LayeredCauldronBlock.LEVEL, level -> {
+			BlockModelBuilder model;
+
+			if(level == LayeredCauldronBlock.MAX_FILL_LEVEL) {
+				model = models().withExistingParent(baseName + "_full", "template_cauldron_full");
+			} else {
+				model = models().withExistingParent(baseName + "_level" + level, "template_cauldron_level" + level);
+			}
+
+			return model.texture("content", contentTexture);
+		});
 	}
 
 	private void hogweedBlock(Block block) {

@@ -142,6 +142,10 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		return modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
 	}
 
+	public boolean shouldGenerateItem() {
+		return itemType != PlantopiaBlockItemType.NONE && itemType != PlantopiaBlockItemType.CUSTOM;
+	}
+
 	public boolean shouldGenerateLootTable() {
 		return dropType != PlantopiaBlockDropType.NONE && dropType != PlantopiaBlockDropType.CUSTOM;
 	}
@@ -164,10 +168,6 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 
 	public boolean shouldApplyRenderLayer() {
 		return renderType != PlantopiaRenderType.NONE;
-	}
-
-	public boolean shouldRegisterBlockItem() {
-		return itemType != PlantopiaBlockItemType.NONE && itemType != PlantopiaBlockItemType.CUSTOM;
 	}
 
 	public int getEncouragement() {
@@ -213,10 +213,12 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noItem().makeType("potted");
 		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().tintedParticles().flammable(Encouragement.LEAVES, Flammability.LEAVES).makeType("leaves");
 		public static final MetaType STONE = MetaProperties.of().makeType("stone");
+		public static final MetaType SAND = MetaProperties.of().makeType("sand");
 		public static final MetaType WOOD = MetaProperties.of().flammable(Encouragement.WOOD, Flammability.WOOD).makeType("wood");
 		public static final MetaType LOG = MetaProperties.copy(WOOD).makeType("log");
 		public static final MetaType PLANKS = MetaProperties.copy(WOOD).flammable(Encouragement.PLANKS, Flammability.PLANKS).makeType("planks");
 		public static final MetaType DIRT = MetaProperties.of().makeType("dirt");
+		public static final MetaType IRON = MetaProperties.of().makeType("iron");
 		public static final MetaType GRASS_BLOCK = MetaProperties.copy(DIRT).cutoutMippedRender().grassTint().notTintedParticles().makeType("grass_block");
 
 		private MetaType(String name, MetaProperties properties) {

@@ -5,14 +5,17 @@ import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.entity.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.helper.PlantopiaStringHelper;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -33,11 +36,16 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 		advancement(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
 		advancement(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
-		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the hogweed take over more and more territories");
-		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A stone is a man's best friend", "Get yourself the most devoted friend!");
+		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the Hogweed take over more and more territories");
+		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A Stone is a Man's Best Friend", "Get yourself the most devoted friend!");
+		advancement(PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS, "Light as a Grain of Sand", "Walk on Quicksand as if it were just ordinary Sand");
 
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");
+		damageType(PlantopiaDamageTypes.QUICKSAND, "%1$s drowned in quicksand");
+
+		soundEvent(PlantopiaSoundEvents.DROWNED_CONVERTED_TO_ZOMBIE, "Drowned converts to Zombie");
+		soundEvent(PlantopiaSoundEvents.ZOMBIE_CONVERTED_TO_HUSK, "Zombie converts to Husk");
 	}
 
 	@SuppressWarnings("SameParameterValue")
@@ -64,6 +72,10 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		add(PlantopiaTemplateHelper.getDamageTypeTitleKey(messageId, qualifier), title);
 	}
 
+	private void soundEvent(@NotNull RegistryObject<SoundEvent> soundEvent, String subtitle) {
+		add(PlantopiaTemplateHelper.getSoundEventSubtitleKey(nameOf(soundEvent)), subtitle);
+	}
+
 	private void generateAll() {
 		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateTranslation()) return;
@@ -71,6 +83,14 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 			var block = blockMeta.getBlock();
 
 			add(block, getDisplayNameById(blockMeta.getName()));
+		});
+
+		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
+			if(!itemMeta.shouldGenerateTranslation()) return;
+
+			var item = itemMeta.getItem();
+
+			add(item, getDisplayNameById(itemMeta.getName()));
 		});
 	}
 

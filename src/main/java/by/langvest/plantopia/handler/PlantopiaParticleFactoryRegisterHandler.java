@@ -4,6 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.particle.special.PlantopiaBreakingItemParticle;
 import by.langvest.plantopia.particle.special.PlantopiaFluffyDandelionSeedParticle;
+import by.langvest.plantopia.particle.special.PlantopiaQuicksandParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,6 +17,7 @@ public class PlantopiaParticleFactoryRegisterHandler {
 	@SubscribeEvent
 	public static void registerParticleFactories(@NotNull RegisterParticleProvidersEvent event) {
 		event.registerSpriteSet(PlantopiaParticleTypes.FLUFFY_DANDELION_SEED.get(), PlantopiaFluffyDandelionSeedParticle.Provider::new);
+		event.registerSpriteSet(PlantopiaParticleTypes.QUICKSAND.get(), PlantopiaQuicksandParticle.Provider::new);
 		event.registerSpriteSet(PlantopiaParticleTypes.BREAKING_ITEM.get(), PlantopiaBreakingItemParticle.PlantopiaProvider::new);
 	}
 }

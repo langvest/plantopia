@@ -1,5 +1,6 @@
 package by.langvest.plantopia.util.helper;
 
+import by.langvest.plantopia.Plantopia;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,5 +43,12 @@ public final class PlantopiaTemplateHelper {
 		if(qualifier != null) key += "." + qualifier;
 
 		return key;
+	}
+
+	/* SOUND EVENT *******************************************************************/
+
+	@Contract(pure = true)
+	public static @NotNull String getSoundEventSubtitleKey(String name) {
+		return "subtitles." + Plantopia.MOD_ID + "." + name;
 	}
 }

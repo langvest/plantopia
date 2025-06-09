@@ -9,17 +9,22 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -65,6 +70,8 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> FLUFFY_DANDELION = registerBlock("fluffy_dandelion", () -> new PlantopiaFluffyDandelionBlock(() -> MobEffects.SLOW_FALLING, 7, Properties.copy(Blocks.DANDELION)), MetaProperties.copy(MetaType.FLOWER).ignoredByBees().noDye());
 	public static final RegistryObject<Block> TINY_CACTUS = registerBlock("tiny_cactus", () -> new PlantopiaTinyCactusBlock(Properties.of().mapColor(MapColor.PLANT).instabreak().noCollission().sound(SoundType.WOOL).offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY)), MetaProperties.copy(MetaType.PLANT).noTint().pottable());
 	public static final RegistryObject<Block> FLOWERING_TINY_CACTUS = registerBlock("flowering_tiny_cactus", () -> new PlantopiaTinyCactusBlock(Properties.of().mapColor(MapColor.PLANT).instabreak().noCollission().sound(SoundType.WOOL).offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY)), MetaProperties.copy(MetaType.PLANT).noTint().pottable());
+	public static final RegistryObject<Block> QUICKSAND = registerBlock("quicksand", () -> new PlantopiaQuicksandBlock(Properties.copy(Blocks.SAND).dynamicShape().forceSolidOn().isRedstoneConductor(PlantopiaBlocks::never)), MetaProperties.copy(MetaType.SAND).noItem().noDrop().customModel());
+	public static final RegistryObject<Block> QUICKSAND_CAULDRON = registerBlock("quicksand_cauldron", () -> new PlantopiaQuicksandCauldronBlock(PlantopiaBlocks.QUICKSAND, Properties.copy(Blocks.CAULDRON)), MetaProperties.copy(MetaType.IRON).noItem().customModel());
 
 	static {
 		registerPottedBlocks();
@@ -94,5 +101,12 @@ public class PlantopiaBlocks {
 
 	public static void setup(IEventBus bus) {
 		BLOCK_REGISTER.register(bus);
+	}
+
+	/* HELPER METHODS *****************************************************************************************/
+
+	@Contract(pure = true)
+	private static @NotNull Boolean never(BlockState state, BlockGetter level, BlockPos pos) {
+		return false;
 	}
 }

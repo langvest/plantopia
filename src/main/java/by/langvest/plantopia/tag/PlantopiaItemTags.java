@@ -1,6 +1,6 @@
 package by.langvest.plantopia.tag;
 
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +14,6 @@ public class PlantopiaItemTags {
 	private PlantopiaItemTags() {}
 
 	public static @NotNull TagKey<Item> createItemTag(String name) {
-		return ItemTags.create(plantopiaLocationFrom(name));
+		return TagKey.create(Registries.ITEM, plantopiaLocationFrom(name));
 	}
 }

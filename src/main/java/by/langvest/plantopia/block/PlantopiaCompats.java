@@ -30,6 +30,8 @@ public class PlantopiaCompats {
 		registerFlammable(Blocks.MOSS_CARPET, Encouragement.PLANT, Flammability.PLANT);
 
 		registerBrewable(Potions.LUCK, PlantopiaBlocks.BIG_CLOVER.get(), Potions.AWKWARD);
+
+		PlantopiaCauldronInteraction.setup();
 	}
 
 	private static void registerAll() {
