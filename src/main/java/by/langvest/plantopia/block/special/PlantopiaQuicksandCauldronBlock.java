@@ -2,6 +2,7 @@ package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaCauldronInteraction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -42,5 +43,12 @@ public class PlantopiaQuicksandCauldronBlock extends LayeredCauldronBlock {
 		var newState = state.cycle(LEVEL);
 		level.setBlockAndUpdate(pos, newState);
 		level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newState));
+	}
+
+	@Override
+	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+		if(!level.isClientSide() && entity.isOnFire() && isEntityInsideContent(state, pos, entity)) {
+			entity.clearFire();
+		}
 	}
 }
