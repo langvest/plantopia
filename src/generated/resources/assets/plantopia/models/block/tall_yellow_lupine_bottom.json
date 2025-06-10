@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_tall_lupine",
+	"textures": {
+		"cross": "plantopia:block/tall_yellow_lupine_bottom"
+	}
+}

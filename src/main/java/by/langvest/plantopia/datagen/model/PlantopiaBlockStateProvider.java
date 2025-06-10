@@ -72,6 +72,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		hollyhockBlock(PlantopiaBlocks.WHITE_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.PINK_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.MAGENTA_HOLLYHOCK.get());
+		tallLupineBlock(PlantopiaBlocks.TALL_RED_LUPINE.get());
+		tallLupineBlock(PlantopiaBlocks.TALL_YELLOW_LUPINE.get());
+		tallLupineBlock(PlantopiaBlocks.TALL_WHITE_LUPINE.get());
+		tallLupineBlock(PlantopiaBlocks.TALL_PINK_LUPINE.get());
+		tallLupineBlock(PlantopiaBlocks.TALL_PURPLE_LUPINE.get());
+		tallLupineBlock(PlantopiaBlocks.TALL_BLUE_LUPINE.get());
 		pollinatedDandelionBlock(PlantopiaBlocks.POLLINATED_DANDELION.get());
 		hogweedBlock(PlantopiaBlocks.HOGWEED.get());
 		infestedDirtBlock(PlantopiaBlocks.INFESTED_DIRT.get());
@@ -340,6 +346,19 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomModel = hollyhockBottomTemplateModel(baseName + "_bottom", bottomTexture, flowersBottomTexture);
 
 		generatedItemModel(baseName, flowersTopTexture);
+		doubleHighBlock(block, topModel, bottomModel);
+	}
+
+	private void tallLupineBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var topTexture = texture(baseName + "_top");
+		var bottomTexture = texture(baseName + "_bottom");
+
+		var topModel = tallLupineTemplateModel(baseName + "_top", topTexture);
+		var bottomModel = tallLupineTemplateModel(baseName + "_bottom", bottomTexture);
+
+		generatedItemModel(baseName, topTexture);
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 
@@ -686,6 +705,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		return models().withExistingParent(name, parent("template_hollyhock_bottom"))
 			.texture("cross", crossTexture)
 			.texture("flowers", flowersTexture);
+	}
+
+	private BlockModelBuilder tallLupineTemplateModel(String name, ResourceLocation crossTexture) {
+		return models().withExistingParent(name, parent("template_tall_lupine"))
+			.texture("cross", crossTexture);
 	}
 
 	private BlockModelBuilder cubeBottomTopModel(String name, ResourceLocation topTexture, ResourceLocation sideTexture, ResourceLocation bottomTexture) {
