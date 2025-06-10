@@ -1,6 +1,7 @@
 {
 	"values": [
 		"plantopia:big_clover",
+		"plantopia:blue_lupine",
 		"plantopia:branching_shrub",
 		"plantopia:branching_shrub_plant",
 		"plantopia:clover",
@@ -17,21 +18,20 @@
 		"plantopia:pink_clover_blossom",
 		"plantopia:pink_foxglove",
 		"plantopia:pink_hollyhock",
+		"plantopia:pink_lupine",
 		"plantopia:pollinated_dandelion",
+		"plantopia:purple_lupine",
 		"plantopia:red_foxglove",
 		"plantopia:red_hollyhock",
-		"plantopia:tall_blue_lupine",
-		"plantopia:tall_pink_lupine",
-		"plantopia:tall_purple_lupine",
-		"plantopia:tall_red_lupine",
-		"plantopia:tall_white_lupine",
-		"plantopia:tall_yellow_lupine",
+		"plantopia:red_lupine",
 		"plantopia:thorny_shrub",
 		"plantopia:tiny_cactus",
 		"plantopia:white_clover_blossom",
 		"plantopia:white_foxglove",
 		"plantopia:white_hollyhock",
+		"plantopia:white_lupine",
 		"plantopia:yellow_foxglove",
-		"plantopia:yellow_hollyhock"
+		"plantopia:yellow_hollyhock",
+		"plantopia:yellow_lupine"
 	]
 }

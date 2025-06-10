@@ -72,12 +72,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		hollyhockBlock(PlantopiaBlocks.WHITE_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.PINK_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.MAGENTA_HOLLYHOCK.get());
-		tallLupineBlock(PlantopiaBlocks.TALL_RED_LUPINE.get());
-		tallLupineBlock(PlantopiaBlocks.TALL_YELLOW_LUPINE.get());
-		tallLupineBlock(PlantopiaBlocks.TALL_WHITE_LUPINE.get());
-		tallLupineBlock(PlantopiaBlocks.TALL_PINK_LUPINE.get());
-		tallLupineBlock(PlantopiaBlocks.TALL_PURPLE_LUPINE.get());
-		tallLupineBlock(PlantopiaBlocks.TALL_BLUE_LUPINE.get());
+		lupineBlock(PlantopiaBlocks.RED_LUPINE.get());
+		lupineBlock(PlantopiaBlocks.YELLOW_LUPINE.get());
+		lupineBlock(PlantopiaBlocks.WHITE_LUPINE.get());
+		lupineBlock(PlantopiaBlocks.PINK_LUPINE.get());
+		lupineBlock(PlantopiaBlocks.PURPLE_LUPINE.get());
+		lupineBlock(PlantopiaBlocks.BLUE_LUPINE.get());
 		pollinatedDandelionBlock(PlantopiaBlocks.POLLINATED_DANDELION.get());
 		hogweedBlock(PlantopiaBlocks.HOGWEED.get());
 		infestedDirtBlock(PlantopiaBlocks.INFESTED_DIRT.get());
@@ -349,14 +349,14 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 
-	private void tallLupineBlock(Block block) {
+	private void lupineBlock(Block block) {
 		String baseName = nameOf(block);
 
 		var topTexture = texture(baseName + "_top");
 		var bottomTexture = texture(baseName + "_bottom");
 
-		var topModel = tallLupineTemplateModel(baseName + "_top", topTexture);
-		var bottomModel = tallLupineTemplateModel(baseName + "_bottom", bottomTexture);
+		var topModel = lupineTemplateModel(baseName + "_top", topTexture);
+		var bottomModel = lupineTemplateModel(baseName + "_bottom", bottomTexture);
 
 		generatedItemModel(baseName, topTexture);
 		doubleHighBlock(block, topModel, bottomModel);
@@ -707,8 +707,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.texture("flowers", flowersTexture);
 	}
 
-	private BlockModelBuilder tallLupineTemplateModel(String name, ResourceLocation crossTexture) {
-		return models().withExistingParent(name, parent("template_tall_lupine"))
+	private BlockModelBuilder lupineTemplateModel(String name, ResourceLocation crossTexture) {
+		return models().withExistingParent(name, parent("template_lupine"))
 			.texture("cross", crossTexture);
 	}
 

@@ -72,12 +72,12 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> WHITE_HOLLYHOCK = registerBlock("white_hollyhock", () -> new TallFlowerBlock(Properties.copy(Blocks.ROSE_BUSH)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.WHITE_DYE));
 	public static final RegistryObject<Block> PINK_HOLLYHOCK = registerBlock("pink_hollyhock", () -> new TallFlowerBlock(Properties.copy(Blocks.ROSE_BUSH)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PINK_DYE));
 	public static final RegistryObject<Block> MAGENTA_HOLLYHOCK = registerBlock("magenta_hollyhock", () -> new TallFlowerBlock(Properties.copy(Blocks.ROSE_BUSH)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.MAGENTA_DYE));
-	public static final RegistryObject<Block> TALL_RED_LUPINE = registerBlock("tall_red_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.RED_DYE));
-	public static final RegistryObject<Block> TALL_YELLOW_LUPINE = registerBlock("tall_yellow_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.YELLOW_DYE));
-	public static final RegistryObject<Block> TALL_WHITE_LUPINE = registerBlock("tall_white_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.WHITE_DYE));
-	public static final RegistryObject<Block> TALL_PINK_LUPINE = registerBlock("tall_pink_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PINK_DYE));
-	public static final RegistryObject<Block> TALL_PURPLE_LUPINE = registerBlock("tall_purple_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PURPLE_DYE));
-	public static final RegistryObject<Block> TALL_BLUE_LUPINE = registerBlock("tall_blue_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.BLUE_DYE));
+	public static final RegistryObject<Block> RED_LUPINE = registerBlock("red_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.RED_DYE));
+	public static final RegistryObject<Block> YELLOW_LUPINE = registerBlock("yellow_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.YELLOW_DYE));
+	public static final RegistryObject<Block> WHITE_LUPINE = registerBlock("white_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.WHITE_DYE));
+	public static final RegistryObject<Block> PINK_LUPINE = registerBlock("pink_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PINK_DYE));
+	public static final RegistryObject<Block> PURPLE_LUPINE = registerBlock("purple_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PURPLE_DYE));
+	public static final RegistryObject<Block> BLUE_LUPINE = registerBlock("blue_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.BLUE_DYE));
 
 	static {
 		registerPottedBlocks();
