@@ -1,12 +1,12 @@
 {
 	"parent": "minecraft:recipes/root",
 	"criteria": {
-		"has_orange_hollyhock": {
+		"has_purple_hollyhock": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
-							"plantopia:orange_hollyhock"
+							"plantopia:purple_hollyhock"
 						]
 					}
 				]
@@ -15,20 +15,20 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "plantopia:orange_dye_from_orange_hollyhock"
+				"recipe": "plantopia:purple_dye_from_purple_hollyhock"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
 	},
 	"requirements": [
 		[
-			"has_orange_hollyhock",
+			"has_purple_hollyhock",
 			"has_the_recipe"
 		]
 	],
 	"rewards": {
 		"recipes": [
-			"plantopia:orange_dye_from_orange_hollyhock"
+			"plantopia:purple_dye_from_purple_hollyhock"
 		]
 	},
 	"sends_telemetry_event": false

@@ -67,7 +67,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		foxgloveBlock(PlantopiaBlocks.PINK_FOXGLOVE.get());
 		foxgloveBlock(PlantopiaBlocks.MAGENTA_FOXGLOVE.get());
 		hollyhockBlock(PlantopiaBlocks.RED_HOLLYHOCK.get());
-		hollyhockBlock(PlantopiaBlocks.ORANGE_HOLLYHOCK.get());
+		hollyhockBlock(PlantopiaBlocks.PURPLE_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.YELLOW_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.WHITE_HOLLYHOCK.get());
 		hollyhockBlock(PlantopiaBlocks.PINK_HOLLYHOCK.get());

@@ -13,18 +13,18 @@
 					"type": "minecraft:item",
 					"conditions": [
 						{
-							"block": "plantopia:orange_hollyhock",
+							"block": "plantopia:purple_hollyhock",
 							"condition": "minecraft:block_state_property",
 							"properties": {
 								"half": "lower"
 							}
 						}
 					],
-					"name": "plantopia:orange_hollyhock"
+					"name": "plantopia:purple_hollyhock"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "plantopia:blocks/orange_hollyhock"
+	"random_sequence": "plantopia:blocks/purple_hollyhock"
 }

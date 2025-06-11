@@ -361,18 +361,6 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:orange_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:orange_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:pink_clover_blossom": {
 			"conditions": {
 				"items": [
@@ -415,6 +403,18 @@
 					{
 						"items": [
 							"plantopia:pink_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:purple_hollyhock": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:purple_hollyhock"
 						]
 					}
 				]
@@ -661,9 +661,6 @@
 			"plantopia:orange_foxglove"
 		],
 		[
-			"plantopia:orange_hollyhock"
-		],
-		[
 			"plantopia:pink_clover_blossom"
 		],
 		[
@@ -674,6 +671,9 @@
 		],
 		[
 			"plantopia:pink_lupine"
+		],
+		[
+			"plantopia:purple_hollyhock"
 		],
 		[
 			"plantopia:purple_lupine"

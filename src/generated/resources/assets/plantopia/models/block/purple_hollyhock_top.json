@@ -2,6 +2,6 @@
 	"parent": "plantopia:block/template_hollyhock_top",
 	"textures": {
 		"cross": "plantopia:block/hollyhock_top",
-		"flowers": "plantopia:block/orange_hollyhock_flowers_top"
+		"flowers": "plantopia:block/purple_hollyhock_flowers_top"
 	}
 }
