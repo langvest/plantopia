@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedBlockOf;
 import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedNameOf;
@@ -120,6 +121,20 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	/* MODELS GENERATION ******************************************/
 
+	private void generatedBlockItem(@NotNull PlantopiaBlockMeta blockMeta, Supplier<ItemModelBuilder> fallbackModel) {
+		if(!blockMeta.shouldGenerateItem()) return;
+
+		String baseName = blockMeta.getName();
+
+		var customItemTexture = itemTexture(baseName);
+
+		if(isTextureExists(customItemTexture)) {
+			generatedItemModel(baseName, customItemTexture);
+		} else {
+			fallbackModel.get();
+		}
+	}
+
 	private void simpleBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
 
@@ -127,7 +142,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		var model = cubeAllModel(baseName, texture);
 
-		if(blockMeta.shouldGenerateItem()) blockItemModel(baseName, model);
+		generatedBlockItem(blockMeta, () -> blockItemModel(baseName, model));
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 
@@ -157,7 +172,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var topModel = crossModel(baseName + "_top", topTexture, isTinted);
 		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
-		if(blockMeta.shouldGenerateItem()) generatedItemModel(baseName, topTexture);
+		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, topTexture));
 		doubleHighBlock(blockMeta.getBlock(), topModel, bottomModel);
 	}
 
@@ -173,7 +188,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var middleModel = crossModel(baseName + "_middle", middleTexture, isTinted);
 		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
-		if(blockMeta.shouldGenerateItem()) generatedItemModel(baseName, topTexture);
+		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, topTexture));
 		tripleHighBlock(blockMeta.getBlock(), topModel, middleModel, bottomModel);
 	}
 
@@ -185,7 +200,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		var model = crossModel(baseName, texture, isTinted);
 
-		if(blockMeta.shouldGenerateItem()) generatedItemModel(baseName, texture);
+		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, texture));
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 
@@ -721,14 +736,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	/* ITEM MODELS ******************************************/
 
-	public void generatedItemModel(String name, ResourceLocation... layers) {
-		ItemModelBuilder itemModel = itemModels().withExistingParent(name, "generated");
+	public ItemModelBuilder generatedItemModel(String name, ResourceLocation... layers) {
+		var itemModel = itemModels().withExistingParent(name, "generated");
+
 		int layerIndex = 0;
 		if(layers != null) for(ResourceLocation layeredTexture : layers) itemModel.texture("layer" + layerIndex++, layeredTexture);
+
+		return  itemModel;
 	}
 
-	public void blockItemModel(String name, @NotNull ModelFile modelFile) {
-		itemModels().withExistingParent(name, modelFile.getLocation());
+	public ItemModelBuilder blockItemModel(String name, @NotNull ModelFile modelFile) {
+		return itemModels().withExistingParent(name, modelFile.getLocation());
 	}
 
 	/* HELPER METHODS ******************************************/
