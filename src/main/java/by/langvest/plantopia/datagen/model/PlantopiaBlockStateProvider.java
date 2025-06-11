@@ -50,6 +50,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		pottedFernBlock(Blocks.POTTED_FERN);
 		fireweedBlock(PlantopiaBlocks.FIREWEED.get());
+		cattailBlock(PlantopiaBlocks.CATTAIL.get());
 		giantFernBlock(PlantopiaBlocks.GIANT_FERN.get());
 		cloverBlock(PlantopiaBlocks.CLOVER.get());
 		bigCloverBlock(PlantopiaBlocks.BIG_CLOVER.get());
@@ -217,6 +218,22 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomModel = tintedCrossModel(baseName + "_bottom", bottomTexture);
 
 		generatedItemModel(baseName, topTexture, flowersTexture);
+		doubleHighBlock(block, topModel, bottomModel);
+	}
+
+	private void cattailBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var itemTexture = itemTexture(baseName);
+		var topTexture = texture(baseName + "_top");
+		var topOverlayTexture = texture(baseName + "_top_overlay");
+		var bottomTexture = texture(baseName + "_bottom");
+		var bottomOverlayTexture = texture(baseName + "_bottom_overlay");
+
+		var topModel = tintedCrossWithOverlayModel(baseName + "_top", topTexture, topOverlayTexture);
+		var bottomModel = tintedCrossWithOverlayModel(baseName + "_bottom", bottomTexture, bottomOverlayTexture);
+
+		generatedItemModel(baseName, itemTexture);
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 

@@ -79,8 +79,9 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> PINK_LUPINE = registerBlock("pink_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PINK_DYE));
 	public static final RegistryObject<Block> PURPLE_LUPINE = registerBlock("purple_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.PURPLE_DYE));
 	public static final RegistryObject<Block> BLUE_LUPINE = registerBlock("blue_lupine", () -> new TallFlowerBlock(Properties.copy(Blocks.LILAC)), MetaProperties.copy(MetaType.FLOWER).doubleHigh().customModel().dye(Items.BLUE_DYE));
-	public static final RegistryObject<Block> SEA_OATS = registerBlock("sea_oats", () -> new PlantopiaSeaOatsBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.SAND)), MetaProperties.copy(MetaType.PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears());
+	public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", () -> new PlantopiaWaterloggedDoublePlantBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.PLANT)), MetaProperties.copy(MetaType.PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears().customModel().grassTint().notTintedItem());
 	public static final RegistryObject<Block> REEDS = registerBlock("reeds", () -> new PlantopiaReedsBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.WOOD)), MetaProperties.copy(MetaType.PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears());
+	public static final RegistryObject<Block> SEA_OATS = registerBlock("sea_oats", () -> new PlantopiaSeaOatsBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.SAND)), MetaProperties.copy(MetaType.PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears());
 
 	static {
 		registerPottedBlocks();

@@ -38,7 +38,8 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	private final boolean isPottable;
 	private final boolean isIgnoredByBees;
 	private final boolean isPreferredByBees;
-	private final boolean hasTintedParticles;
+	private final boolean shouldTintParticles;
+	private final boolean shouldTintItem;
 	private final Item dye;
 	private final int burnTime;
 
@@ -62,7 +63,8 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		isPottable = properties.isPottable;
 		isIgnoredByBees = properties.isIgnoredByBees;
 		isPreferredByBees = properties.isPreferredByBees;
-		hasTintedParticles = properties.hasTintedParticles;
+		shouldTintParticles = properties.shouldTintParticles;
+		shouldTintItem = properties.shouldTintItem;
 		dye = properties.dye;
 		burnTime = properties.burnTime;
 	}
@@ -169,7 +171,11 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	}
 
 	public boolean shouldApplyTintToParticles() {
-		return shouldApplyTint() && hasTintedParticles;
+		return shouldApplyTint() && shouldTintParticles;
+	}
+
+	public boolean shouldApplyTintToItem() {
+		return shouldApplyTint() && hasItem() && shouldTintItem;
 	}
 
 	public boolean shouldApplyRenderLayer() {
@@ -265,7 +271,8 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		private boolean isPottable = false;
 		private boolean isIgnoredByBees = false;
 		private boolean isPreferredByBees = false;
-		private boolean hasTintedParticles = false;
+		private boolean shouldTintParticles = true;
+		private boolean shouldTintItem = true;
 		private Item dye = null;
 		private int burnTime = -1;
 
@@ -315,12 +322,22 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		}
 
 		public MetaProperties tintedParticles() {
-			this.hasTintedParticles = true;
+			this.shouldTintParticles = true;
 			return this;
 		}
 
 		public MetaProperties notTintedParticles() {
-			this.hasTintedParticles = false;
+			this.shouldTintParticles = false;
+			return this;
+		}
+
+		public MetaProperties tintedItem() {
+			this.shouldTintItem = true;
+			return this;
+		}
+
+		public MetaProperties notTintedItem() {
+			this.shouldTintItem = false;
 			return this;
 		}
 

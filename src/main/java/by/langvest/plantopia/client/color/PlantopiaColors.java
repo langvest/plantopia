@@ -67,7 +67,7 @@ public class PlantopiaColors {
 			Block block = blockMeta.getBlock();
 			PlantopiaTintType tintType = blockMeta.getTintType();
 
-			if(blockMeta.hasItem()) ITEM_INHERIT_BLOCK_COLOR.add(block.asItem());
+			if(blockMeta.shouldApplyTintToItem()) ITEM_INHERIT_BLOCK_COLOR.add(block.asItem());
 
 			if(tintType == PlantopiaTintType.GRASS) {
 				if(blockMeta.shouldApplyTintToParticles()) BLOCK_GRASS_COLOR_0.add(block);
