@@ -498,7 +498,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	/* MODEL GENERATION HELPER METHODS ******************************************/
 
 	private void doubleHighBlock(Block block, ModelFile topModel, ModelFile bottomModel) {
-		getVariantBuilder(block).forAllStates(state -> {
+		getVariantBuilder(block).forAllStatesExcept(state -> {
 			DoubleBlockHalf half = state.getValue(DoublePlantBlock.HALF);
 
 			var modelFile = switch(half) {
@@ -507,7 +507,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			};
 
 			return ConfiguredModel.builder().modelFile(modelFile).build();
-		});
+		}, BlockStateProperties.WATERLOGGED);
 	}
 
 	private void tripleHighBlock(Block block, ModelFile topModel, ModelFile middleModel, ModelFile bottomModel) {
