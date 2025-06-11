@@ -6,6 +6,7 @@ import by.langvest.plantopia.meta.core.PlantopiaMetaProperties;
 import by.langvest.plantopia.meta.core.PlantopiaMetaType;
 import by.langvest.plantopia.meta.property.PlantopiaDisplayNameType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
+import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,6 +26,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 	private final List<ResourceKey<CreativeModeTab>> groups;
 	private final PlantopiaModelType modelType;
 	private final PlantopiaDisplayNameType displayNameType;
+	private final PlantopiaOrderType orderType;
 	private final int burnTime;
 
 	public PlantopiaItemMeta(RegistryObject<? extends Item> target, @NotNull MetaProperties properties) {
@@ -33,6 +35,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 		groups = properties.groups;
 		modelType = properties.modelType;
 		displayNameType = properties.displayNameType;
+		orderType = properties.orderType;
 		burnTime = properties.burnTime;
 	}
 
@@ -72,6 +75,10 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 		return this.burnTime > 0;
 	}
 
+	public PlantopiaOrderType getOrderType() {
+		return orderType;
+	}
+
 	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
 		public static final MetaType ITEM = MetaProperties.of().makeType("item");
 		public static final MetaType BLOCK = MetaProperties.of().makeType("block");
@@ -86,6 +93,8 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
+
+		private PlantopiaOrderType orderType = PlantopiaOrderType.ITEM;
 		private int burnTime = -1;
 
 		private MetaProperties() {}
@@ -114,6 +123,11 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 
 		public MetaProperties customBurnTime(int ticks) {
 			this.burnTime = ticks;
+			return this;
+		}
+
+		public MetaProperties order(PlantopiaOrderType orderType) {
+			this.orderType = orderType;
 			return this;
 		}
 

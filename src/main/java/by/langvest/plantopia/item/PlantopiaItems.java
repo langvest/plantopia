@@ -9,6 +9,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
+import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.util.helper.PlantopiaItemHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
@@ -26,8 +27,8 @@ public class PlantopiaItems {
 	private static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, Plantopia.MOD_ID);
 
 	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", () -> new PlantopiaRenderedIconItem(new Properties()), MetaProperties.copy(MetaType.ICON));
-	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK));
-	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK));
+	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.COBBLESTONE_SHARD));
+	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.COBBLESTONE_SHARD));
 	public static final RegistryObject<Item> QUICKSAND_BUCKET = registerItem("quicksand_bucket", () -> new SolidBucketItem(PlantopiaBlocks.QUICKSAND.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, new Properties().stacksTo(1)), MetaProperties.copy(MetaType.ITEM));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
@@ -39,10 +40,15 @@ public class PlantopiaItems {
 	public static void registerBlockItem(@NotNull PlantopiaBlockMeta blockMeta) {
 		if(!blockMeta.shouldGenerateItem()) return;
 
+		var groups = blockMeta.getGroups();
+		var burnTime = blockMeta.getBurnTime();
+		var orderType = blockMeta.getOrderType();
+
 		var properties = new Properties();
 		var supplier = PlantopiaItemHelper.getBlockItemSupplier(blockMeta, properties);
+		var metaProperties = MetaProperties.copy(MetaType.BLOCK).group(groups).customBurnTime(burnTime).order(orderType);
 
-		registerItem(blockMeta.getName(), supplier, MetaProperties.copy(MetaType.BLOCK).group(blockMeta.getGroups()).customBurnTime(blockMeta.getBurnTime()));
+		registerItem(blockMeta.getName(), supplier, metaProperties);
 	}
 
 	public static void setup(IEventBus bus) {

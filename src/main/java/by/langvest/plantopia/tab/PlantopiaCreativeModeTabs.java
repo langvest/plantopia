@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -30,6 +31,9 @@ public class PlantopiaCreativeModeTabs {
 			.icon(iconSupplier)
 			.title(Component.translatable(PlantopiaTemplateHelper.getCreativeModeTabTitleKey(name)))
 			.displayItems((parameters, output) -> PlantopiaMetaRegistries.ITEMS
+				.getAll()
+				.stream()
+				.sorted(Comparator.comparingInt(itemMeta -> itemMeta.getOrderType().getOrder()))
 				.forEach(itemMeta -> {
 					List<ResourceKey<CreativeModeTab>> groups = itemMeta.getGroups();
 

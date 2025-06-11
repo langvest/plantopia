@@ -31,6 +31,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	private final PlantopiaRecipeType recipeType;
 	private final PlantopiaDisplayNameType displayNameType;
 	private final PlantopiaTintType tintType;
+	private final PlantopiaOrderType orderType;
 	private final int encouragement;
 	private final int flammability;
 	private final float compostability;
@@ -54,6 +55,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		recipeType = properties.recipeType;
 		displayNameType = properties.displayNameType;
 		tintType = properties.tintType;
+		orderType = properties.orderType;
 		encouragement = properties.encouragement;
 		flammability = properties.flammability;
 		compostability = properties.compostability;
@@ -112,6 +114,10 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 
 	public PlantopiaModelType getModelType() {
 		return modelType;
+	}
+
+	public PlantopiaOrderType getOrderType() {
+		return orderType;
 	}
 
 	public PlantopiaBlockDropType getDropType() {
@@ -203,9 +209,9 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	}
 
 	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
-		public static final MetaType PLANT = MetaProperties.of().cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().makeType("plant");
+		public static final MetaType PLANT = MetaProperties.of().order(PlantopiaOrderType.PLANT).cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().makeType("plant");
 		public static final MetaType WOODY_PLANT = MetaProperties.copy(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
-		public static final MetaType FLOWER = MetaProperties.copy(PLANT).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
+		public static final MetaType FLOWER = MetaProperties.copy(PLANT).order(PlantopiaOrderType.FLOWER).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
 		public static final MetaType SAPLING = MetaProperties.copy(PLANT).pottable().notTintedParticles().makeType("sapling");
 		public static final MetaType MUSHROOM_PLANT = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM_PLANT).makeType("mushroom_plant");
 		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
@@ -252,6 +258,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		private PlantopiaRecipeType recipeType = PlantopiaRecipeType.GENERATED;
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
 		private PlantopiaTintType tintType = PlantopiaTintType.NONE;
+		private PlantopiaOrderType orderType = PlantopiaOrderType.BLOCK;
 		private int encouragement = 0;
 		private int flammability = 0;
 		private float compostability = 0.0F;
@@ -299,6 +306,11 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public MetaProperties dye(Item dye) {
 			if(type != null && !type.instanceOf(MetaType.FLOWER)) throw new PlantopiaMetaException.UnableToSet("dye", type);
 			this.dye = dye;
+			return this;
+		}
+
+		public MetaProperties order(PlantopiaOrderType orderType) {
+			this.orderType = orderType;
 			return this;
 		}
 
