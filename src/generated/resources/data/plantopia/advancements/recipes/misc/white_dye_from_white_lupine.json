@@ -1,34 +1,34 @@
 {
 	"parent": "minecraft:recipes/root",
 	"criteria": {
-		"has_orange_hollyhock": {
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "plantopia:white_dye_from_white_lupine"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		},
+		"has_white_lupine": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
-							"plantopia:orange_hollyhock"
+							"plantopia:white_lupine"
 						]
 					}
 				]
 			},
 			"trigger": "minecraft:inventory_changed"
-		},
-		"has_the_recipe": {
-			"conditions": {
-				"recipe": "plantopia:orange_dye_from_orange_hollyhock"
-			},
-			"trigger": "minecraft:recipe_unlocked"
 		}
 	},
 	"requirements": [
 		[
-			"has_orange_hollyhock",
+			"has_white_lupine",
 			"has_the_recipe"
 		]
 	],
 	"rewards": {
 		"recipes": [
-			"plantopia:orange_dye_from_orange_hollyhock"
+			"plantopia:white_dye_from_white_lupine"
 		]
 	},
 	"sends_telemetry_event": false

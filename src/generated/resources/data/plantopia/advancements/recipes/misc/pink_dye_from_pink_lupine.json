@@ -1,0 +1,35 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_pink_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "plantopia:pink_dye_from_pink_lupine"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_pink_lupine",
+			"has_the_recipe"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"plantopia:pink_dye_from_pink_lupine"
+		]
+	},
+	"sends_telemetry_event": false
+}

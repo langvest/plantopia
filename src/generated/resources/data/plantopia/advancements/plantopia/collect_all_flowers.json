@@ -289,6 +289,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:blue_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:blue_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:flowering_tiny_cactus": {
 			"conditions": {
 				"items": [
@@ -349,18 +361,6 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:orange_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:orange_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:pink_clover_blossom": {
 			"conditions": {
 				"items": [
@@ -397,6 +397,42 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:pink_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:purple_hollyhock": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:purple_hollyhock"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:purple_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:purple_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:red_foxglove": {
 			"conditions": {
 				"items": [
@@ -415,6 +451,18 @@
 					{
 						"items": [
 							"plantopia:red_hollyhock"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:red_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:red_lupine"
 						]
 					}
 				]
@@ -457,6 +505,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:white_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:white_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:yellow_foxglove": {
 			"conditions": {
 				"items": [
@@ -475,6 +535,18 @@
 					{
 						"items": [
 							"plantopia:yellow_hollyhock"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:yellow_lupine": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:yellow_lupine"
 						]
 					}
 				]
@@ -571,6 +643,9 @@
 			"minecraft:wither_rose"
 		],
 		[
+			"plantopia:blue_lupine"
+		],
+		[
 			"plantopia:flowering_tiny_cactus"
 		],
 		[
@@ -586,9 +661,6 @@
 			"plantopia:orange_foxglove"
 		],
 		[
-			"plantopia:orange_hollyhock"
-		],
-		[
 			"plantopia:pink_clover_blossom"
 		],
 		[
@@ -598,10 +670,22 @@
 			"plantopia:pink_hollyhock"
 		],
 		[
+			"plantopia:pink_lupine"
+		],
+		[
+			"plantopia:purple_hollyhock"
+		],
+		[
+			"plantopia:purple_lupine"
+		],
+		[
 			"plantopia:red_foxglove"
 		],
 		[
 			"plantopia:red_hollyhock"
+		],
+		[
+			"plantopia:red_lupine"
 		],
 		[
 			"plantopia:white_clover_blossom"
@@ -613,10 +697,16 @@
 			"plantopia:white_hollyhock"
 		],
 		[
+			"plantopia:white_lupine"
+		],
+		[
 			"plantopia:yellow_foxglove"
 		],
 		[
 			"plantopia:yellow_hollyhock"
+		],
+		[
+			"plantopia:yellow_lupine"
 		]
 	],
 	"rewards": {

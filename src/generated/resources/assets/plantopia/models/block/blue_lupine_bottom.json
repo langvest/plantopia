@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_lupine",
+	"textures": {
+		"cross": "plantopia:block/blue_lupine_bottom"
+	}
+}

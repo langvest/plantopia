@@ -1,16 +1,22 @@
 {
 	"values": [
+		"plantopia:blue_lupine",
 		"plantopia:magenta_foxglove",
 		"plantopia:magenta_hollyhock",
 		"plantopia:orange_foxglove",
-		"plantopia:orange_hollyhock",
 		"plantopia:pink_foxglove",
 		"plantopia:pink_hollyhock",
+		"plantopia:pink_lupine",
+		"plantopia:purple_hollyhock",
+		"plantopia:purple_lupine",
 		"plantopia:red_foxglove",
 		"plantopia:red_hollyhock",
+		"plantopia:red_lupine",
 		"plantopia:white_foxglove",
 		"plantopia:white_hollyhock",
+		"plantopia:white_lupine",
 		"plantopia:yellow_foxglove",
-		"plantopia:yellow_hollyhock"
+		"plantopia:yellow_hollyhock",
+		"plantopia:yellow_lupine"
 	]
 }

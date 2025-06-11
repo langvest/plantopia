@@ -13,18 +13,18 @@
 					"type": "minecraft:item",
 					"conditions": [
 						{
-							"block": "plantopia:orange_hollyhock",
+							"block": "plantopia:yellow_lupine",
 							"condition": "minecraft:block_state_property",
 							"properties": {
 								"half": "lower"
 							}
 						}
 					],
-					"name": "plantopia:orange_hollyhock"
+					"name": "plantopia:yellow_lupine"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "plantopia:blocks/orange_hollyhock"
+	"random_sequence": "plantopia:blocks/yellow_lupine"
 }
