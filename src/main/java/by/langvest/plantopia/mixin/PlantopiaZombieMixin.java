@@ -46,7 +46,9 @@ public abstract class PlantopiaZombieMixin extends Monster implements PlantopiaZ
 
 	@Override
 	public boolean plantopia$convertsInQuicksand() {
-		return getType().equals(EntityType.ZOMBIE) || getType().equals(EntityType.DROWNED);
+		var type = getType();
+
+		return !isInWater() && (type.equals(EntityType.ZOMBIE) || type.equals(EntityType.DROWNED));
 	}
 
 	@Override
