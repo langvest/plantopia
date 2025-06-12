@@ -88,6 +88,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
 		quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
 		watergrassBlock(PlantopiaBlocks.WATERGRASS.get());
+		seaMossBlock(PlantopiaBlocks.SEA_MOSS.get());
+		seaMossBlock(PlantopiaBlocks.SEA_MOSS_PLANT.get());
 	}
 
 	private void generateAll() {
@@ -485,6 +487,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 
+	private void seaMossBlock(Block block) {
+		var blockMeta = PlantopiaMetaRegistries.BLOCKS.getValue(block);
+		String baseName = nameOf(block);
+
+		var texture = texture(baseName);
+		var model = seaMossTemplateModel(baseName, texture);
+
+		if(blockMeta != null && blockMeta.hasItem()) generatedItemModel(baseName, texture);
+		simpleBlock(block, model);
+	}
+
 	private void hogweedBlock(Block block) {
 		String baseName = nameOf(block);
 
@@ -759,6 +772,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private BlockModelBuilder lupineTemplateModel(String name, ResourceLocation crossTexture) {
 		return models().withExistingParent(name, parent("template_lupine"))
 			.texture("cross", crossTexture);
+	}
+
+	private BlockModelBuilder seaMossTemplateModel(String name, ResourceLocation texture) {
+		return models().withExistingParent(name, parent("template_sea_moss"))
+			.texture("texture", texture);
 	}
 
 	private BlockModelBuilder cubeBottomTopModel(String name, ResourceLocation topTexture, ResourceLocation sideTexture, ResourceLocation bottomTexture) {

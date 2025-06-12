@@ -215,7 +215,9 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 	}
 
 	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
-		public static final MetaType PLANT = MetaProperties.of().order(PlantopiaOrderType.PLANT).cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).tintedParticles().makeType("plant");
+		public static final MetaType PLANT = MetaProperties.of().order(PlantopiaOrderType.PLANT).cutoutRender().flammable(Encouragement.PLANT, Flammability.PLANT).compostable(Compostability.PLANT_1).makeType("plant");
+		public static final MetaType WATER_PLANT = MetaProperties.copy(PLANT).makeType("water_plant");
+		public static final MetaType UNDERWATER_PLANT = MetaProperties.copy(WATER_PLANT).makeType("underwater_plant");
 		public static final MetaType WOODY_PLANT = MetaProperties.copy(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
 		public static final MetaType FLOWER = MetaProperties.copy(PLANT).order(PlantopiaOrderType.FLOWER).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
 		public static final MetaType SAPLING = MetaProperties.copy(PLANT).pottable().notTintedParticles().makeType("sapling");
@@ -223,7 +225,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
 		public static final MetaType MUSHROOM_BLOCK = MetaProperties.of().compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
 		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noItem().makeType("potted");
-		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().tintedParticles().flammable(Encouragement.LEAVES, Flammability.LEAVES).makeType("leaves");
+		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().flammable(Encouragement.LEAVES, Flammability.LEAVES).makeType("leaves");
 		public static final MetaType STONE = MetaProperties.of().makeType("stone");
 		public static final MetaType SAND = MetaProperties.of().makeType("sand");
 		public static final MetaType WOOD = MetaProperties.of().flammable(Encouragement.WOOD, Flammability.WOOD).makeType("wood");
@@ -239,6 +241,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 
 		public boolean isSimplePlantLike() {
 			return equals(PLANT)
+				|| equals(WATER_PLANT)
 				|| equals(WOODY_PLANT);
 		}
 

@@ -117,7 +117,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 				}
 			}
 
-			if(type.instanceOf(MetaType.PLANT)) {
+			if(type.instanceOf(MetaType.PLANT) && !type.instanceOf(MetaType.UNDERWATER_PLANT)) {
 				SWORD_EFFICIENT.add(block);
 			}
 

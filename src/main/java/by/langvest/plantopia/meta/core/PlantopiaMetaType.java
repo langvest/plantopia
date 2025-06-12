@@ -28,7 +28,7 @@ public abstract class PlantopiaMetaType<T extends PlantopiaMetaType<T, P>, P ext
 	}
 
 	public boolean instanceOf(T type) {
-		var innerType = this;
+		PlantopiaMetaType<T, P> innerType = this;
 
 		do {
 			if(innerType.equals(type)) return true;

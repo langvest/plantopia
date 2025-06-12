@@ -84,6 +84,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), this::createPollinatedDandelionDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), this::createBranchingShrubDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), this::createBranchingShrubDrops);
+		add(PlantopiaBlocks.SEA_MOSS.get(), this::createSeaMossDrops);
+		add(PlantopiaBlocks.SEA_MOSS_PLANT.get(), this::createSeaMossDrops);
 		add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);
 		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
 	}
@@ -163,7 +165,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			return;
 		}
 
-		if(type != MetaType.PLANT) {
+		if(!type.instanceOf(MetaType.PLANT)) {
 			dropSelfByShearsIf(block, hasLowerHalfProperty(block, blockHeightType));
 			return;
 		}
@@ -288,6 +290,12 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 						.apply(setCount(1, 2))
 				)
 			);
+
+		return createBlockTable(block, lootEntry);
+	}
+
+	private LootTable.@NotNull Builder createSeaMossDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(PlantopiaBlocks.SEA_MOSS.get()));
 
 		return createBlockTable(block, lootEntry);
 	}

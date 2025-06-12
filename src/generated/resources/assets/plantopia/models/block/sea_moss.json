@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_sea_moss",
+	"textures": {
+		"texture": "plantopia:block/sea_moss"
+	}
+}
