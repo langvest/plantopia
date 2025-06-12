@@ -87,6 +87,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		thornyShrubBlock(PlantopiaBlocks.THORNY_SHRUB.get());
 		quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
 		quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
+		watergrassBlock(PlantopiaBlocks.WATERGRASS.get());
 	}
 
 	private void generateAll() {
@@ -473,6 +474,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		});
 	}
 
+	private void watergrassBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var itemTexture = itemTexture(baseName);
+		var topModel = minecraftExistingModel(nameOf(Blocks.TALL_GRASS) + "_top");
+		var bottomModel = minecraftExistingModel(nameOf(Blocks.TALL_GRASS) + "_bottom");
+
+		generatedItemModel(baseName, itemTexture);
+		doubleHighBlock(block, topModel, bottomModel);
+	}
+
 	private void hogweedBlock(Block block) {
 		String baseName = nameOf(block);
 
@@ -611,6 +623,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	@Contract("_ -> new")
 	private @NotNull ModelFile.ExistingModelFile existingModel(String name) {
 		return models().getExistingFile(plantopiaLocationFrom(name));
+	}
+
+	@Contract("_ -> new")
+	private @NotNull ModelFile.ExistingModelFile minecraftExistingModel(String name) {
+		return models().getExistingFile(minecraftLocationFrom(name));
 	}
 
 	private ModelFile.ExistingModelFile blockModel(@NotNull Block block) {
