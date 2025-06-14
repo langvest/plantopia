@@ -90,6 +90,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		watergrassBlock(PlantopiaBlocks.WATERGRASS.get());
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS.get());
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS_PLANT.get());
+		smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
 	}
 
 	private void generateAll() {
@@ -498,6 +499,14 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		simpleBlock(block, model);
 	}
 
+	private void smallPlatterleafBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var model = existingModel(baseName);
+
+		rotatedBlock(block, model);
+	}
+
 	private void hogweedBlock(Block block) {
 		String baseName = nameOf(block);
 
@@ -787,6 +796,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	/* ITEM MODELS ******************************************/
+
+	@Contract("_ -> new")
+	private @NotNull ModelFile.ExistingModelFile existingItemModel(String name) {
+		return itemModels().getExistingFile(plantopiaLocationFrom(name));
+	}
 
 	public ItemModelBuilder generatedItemModel(String name, ResourceLocation... layers) {
 		var itemModel = itemModels().withExistingParent(name, "generated");

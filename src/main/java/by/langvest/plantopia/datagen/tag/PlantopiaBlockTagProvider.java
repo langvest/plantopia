@@ -51,6 +51,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_GROWABLE = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_ON = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> INFESTED_DIRT_CAN_SPREAD_TO = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> FROG_PREFER_JUMP_TO = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> INSIDE_STEP_SOUND_BLOCKS = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -73,6 +75,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		add(BONEMEAL_SPREAD_GROWABLE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN, PlantopiaBlocks.CLOVER.get());
 		add(BONEMEAL_SPREAD_ON, Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
 		add(INFESTED_DIRT_CAN_SPREAD_TO, Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
+		add(FROG_PREFER_JUMP_TO, PlantopiaBlocks.SMALL_PLATTERLEAF.get());
+		add(INSIDE_STEP_SOUND_BLOCKS, PlantopiaBlocks.SMALL_PLATTERLEAF.get());
 
 		saveAll();
 	}
@@ -155,6 +159,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private void saveAll() {
+		save(BlockTags.INSIDE_STEP_SOUND_BLOCKS, INSIDE_STEP_SOUND_BLOCKS);
+		save(BlockTags.FROG_PREFER_JUMP_TO, FROG_PREFER_JUMP_TO);
 		save(BlockTags.VALID_SPAWN, VALID_SPAWN);
 		save(BlockTags.RABBITS_SPAWNABLE_ON, RABBITS_SPAWNABLE_ON);
 		save(BlockTags.PARROTS_SPAWNABLE_ON, PARROTS_SPAWNABLE_ON);

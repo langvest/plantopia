@@ -83,8 +83,9 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", () -> new PlantopiaWaterloggedDoublePlantBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.PLANT)), MetaProperties.copy(MetaType.WATER_PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears().customModel().grassTint().notTintedItem());
 	public static final RegistryObject<Block> REEDS = registerBlock("reeds", () -> new PlantopiaReedsBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.WOOD)), MetaProperties.copy(MetaType.WATER_PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears());
 	public static final RegistryObject<Block> SEA_OATS = registerBlock("sea_oats", () -> new PlantopiaSeaOatsBlock(Properties.copy(Blocks.TALL_GRASS).mapColor(MapColor.SAND)), MetaProperties.copy(MetaType.PLANT).order(PlantopiaOrderType.EXOTIC_PLANT).doubleHigh().dropSelfByShears());
-	public static final RegistryObject<Block> SEA_MOSS = registerBlock("sea_moss", () -> new PlantopiaSeaMossBlock(Properties.of().randomTicks().noCollission().instabreak().sound(SoundType.WET_GRASS)), MetaProperties.copy(MetaType.UNDERWATER_PLANT).customDrop().customModel());
+	public static final RegistryObject<Block> SEA_MOSS = registerBlock("sea_moss", () -> new PlantopiaSeaMossBlock(Properties.of().randomTicks().noCollission().instabreak().sound(SoundType.WET_GRASS)), MetaProperties.copy(MetaType.UNDERWATER_PLANT).order(PlantopiaOrderType.WET_PLANT).customDrop().customModel());
 	public static final RegistryObject<Block> SEA_MOSS_PLANT = registerBlock("sea_moss_plant", () -> new PlantopiaSeaMossPlantBlock(Properties.of().noCollission().instabreak().sound(SoundType.WET_GRASS)), MetaProperties.copy(MetaType.UNDERWATER_PLANT).customDrop().customModel().noItem());
+	public static final RegistryObject<Block> SMALL_PLATTERLEAF = registerBlock("small_platterleaf", () -> new PlantopiaSmallPlatterleafBlock(Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATER_PLANT).dropSelf().customModel().customItem());
 
 	static {
 		registerPottedBlocks();
