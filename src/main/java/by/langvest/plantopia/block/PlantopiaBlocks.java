@@ -86,6 +86,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> SEA_MOSS = registerBlock("sea_moss", () -> new PlantopiaSeaMossBlock(Properties.of().randomTicks().noCollission().instabreak().sound(SoundType.WET_GRASS)), MetaProperties.copy(MetaType.UNDERWATER_PLANT).order(PlantopiaOrderType.WET_PLANT).customDrop().customModel());
 	public static final RegistryObject<Block> SEA_MOSS_PLANT = registerBlock("sea_moss_plant", () -> new PlantopiaSeaMossPlantBlock(Properties.of().noCollission().instabreak().sound(SoundType.WET_GRASS)), MetaProperties.copy(MetaType.UNDERWATER_PLANT).customDrop().customModel().noItem());
 	public static final RegistryObject<Block> SMALL_PLATTERLEAF = registerBlock("small_platterleaf", () -> new PlantopiaSmallPlatterleafBlock(Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATER_PLANT).dropSelf().customModel().customItem());
+	public static final RegistryObject<Block> BIG_PLATTERLEAF = registerBlock("big_platterleaf", () -> new PlantopiaBigPlatterleafBlock(Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATER_PLANT).customDrop().customModel().customItem());
 
 	static {
 		registerPottedBlocks();

@@ -91,6 +91,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS.get());
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS_PLANT.get());
 		smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
+		bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
 	}
 
 	private void generateAll() {
@@ -505,6 +506,25 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var model = existingModel(baseName);
 
 		rotatedBlock(block, model);
+	}
+
+	private void bigPlatterleafBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var model = existingModel(baseName);
+
+		getVariantBuilder(block).forAllStates(state -> {
+			PlantopiaQuarter quarter = state.getValue(PlantopiaBigPlatterleafBlock.QUARTER);
+
+			int rotation = switch(quarter) {
+				case SOUTH_WEST -> 0;
+				case WEST_NORTH -> 90;
+				case NORTH_EAST -> 180;
+				case EAST_SOUTH -> 270;
+			};
+
+			return ConfiguredModel.builder().modelFile(model).rotationY(rotation).build();
+		});
 	}
 
 	private void hogweedBlock(Block block) {

@@ -4,7 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.item.special.PlantopiaCobblestoneShardBlockItem;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.item.special.PlantopiaSmallPlatterleafBlockItem;
+import by.langvest.plantopia.item.special.PlantopiaPlatterleafBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
@@ -31,7 +31,8 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.COBBLESTONE_SHARD));
 	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", () -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.COBBLESTONE_SHARD));
 	public static final RegistryObject<Item> QUICKSAND_BUCKET = registerItem("quicksand_bucket", () -> new SolidBucketItem(PlantopiaBlocks.QUICKSAND.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, new Properties().stacksTo(1)), MetaProperties.copy(MetaType.ITEM));
-	public static final RegistryObject<Item> SMALL_PLATTERLEAF = registerItem("small_platterleaf", () -> new PlantopiaSmallPlatterleafBlockItem(PlantopiaBlocks.SMALL_PLATTERLEAF.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
+	public static final RegistryObject<Item> SMALL_PLATTERLEAF = registerItem("small_platterleaf", () -> new PlantopiaPlatterleafBlockItem(PlantopiaBlocks.SMALL_PLATTERLEAF.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
+	public static final RegistryObject<Item> BIG_PLATTERLEAF = registerItem("big_platterleaf", () -> new PlantopiaPlatterleafBlockItem(PlantopiaBlocks.BIG_PLATTERLEAF.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		var registryObject = ITEM_REGISTER.register(name, supplier);
