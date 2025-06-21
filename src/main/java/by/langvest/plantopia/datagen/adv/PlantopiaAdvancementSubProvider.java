@@ -31,7 +31,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 import static net.minecraft.advancements.critereon.PlayerTrigger.TriggerInstance.walkOnBlockWithEquipment;
 
 public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
-	private static final List<Block> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
+	private static final List<ItemLike> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
 	private Consumer<Advancement> consumer;
 
 	@Override
@@ -102,7 +102,7 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 	/* CRITERIA GENERATION ******************************************/
 
 	private static void addFlowersToCollect(PlantopiaAdvancement advancement) {
-		for(Block block : ALL_FLOWERS) advancement.getBuilder().addCriterion(idOf(block), has(block));
+		for(ItemLike itemLike : ALL_FLOWERS) advancement.getBuilder().addCriterion(idOf(itemLike), has(itemLike));
 	}
 
 	/* HELPER METHODS ******************************************/

@@ -2,6 +2,7 @@ package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.block.special.*;
@@ -100,6 +101,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 			var block = blockMeta.getBlock();
 			var type = blockMeta.getType();
+
+			if(block instanceof PlantopiaFloweringWaterlilyBlock) {
+				floweringWaterlilyBlock(blockMeta);
+				return;
+			}
 
 			if(block instanceof FlowerPotBlock) {
 				flowerPotBlock(blockMeta);
@@ -208,6 +214,20 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, texture));
 		simpleBlock(blockMeta.getBlock(), model);
+	}
+
+	private void floweringWaterlilyBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+		String baseName = blockMeta.getName();
+		var floweringWaterlilyBlock = (PlantopiaFloweringWaterlilyBlock)blockMeta.getBlock();
+		var waterlilyItem = floweringWaterlilyBlock.getWaterlilyItem();
+		var originBlock = floweringWaterlilyBlock.getOriginBlock();
+
+		var flowerTexture = texture(nameOf(waterlilyItem));
+
+		var model = models().withExistingParent(baseName, parent("template_flowering_" + nameOf(originBlock)))
+			.texture("flower", flowerTexture);
+
+		rotatedBlock(blockMeta.getBlock(), model);
 	}
 
 	/* CUSTOM MODELS GENERATION ******************************************/
@@ -319,7 +339,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void cobblestoneShardPetBlock(Block block) {
-		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginalBlock();
+		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginBlock();
 		String baseName = nameOf(block);
 		String originalBaseName = nameOf(originalBlock);
 

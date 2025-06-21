@@ -1,6 +1,7 @@
 package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import com.google.common.collect.Sets;
@@ -22,12 +23,12 @@ public final class PlantopiaContentHelper {
 	public static final FlowerPotBlock FLOWER_POT_BLOCK = (FlowerPotBlock)Blocks.FLOWER_POT;
 	public static final FireBlock FIRE_BLOCK = (FireBlock)Blocks.FIRE;
 	public static final Object2FloatMap<ItemLike> COMPOSTABLES = ComposterBlock.COMPOSTABLES;
-	private static List<Block> allFlowers = null;
+	private static List<ItemLike> allFlowers = null;
 
-	public static List<Block> getAllFlowers() {
+	public static List<ItemLike> getAllFlowers() {
 		if(allFlowers != null) return allFlowers;
 
-		Set<Block> allFlowers = Sets.newHashSet();
+		Set<ItemLike> allFlowers = Sets.newHashSet();
 
 		allFlowers.add(Blocks.FLOWERING_AZALEA);
 		allFlowers.add(Blocks.FLOWERING_AZALEA_LEAVES);
@@ -51,6 +52,15 @@ public final class PlantopiaContentHelper {
 				return block instanceof FlowerBlock || block instanceof TallFlowerBlock;
 			})
 			.forEach(blockEntry -> allFlowers.add(blockEntry.getValue()));
+
+		ForgeRegistries.ITEMS.getEntries()
+			.stream()
+			.filter(itemEntry -> {
+				var item = itemEntry.getValue();
+
+				return item instanceof PlantopiaWaterlilyItem;
+			})
+			.forEach(itemEntry -> allFlowers.add(itemEntry.getValue()));
 
 		PlantopiaContentHelper.allFlowers = allFlowers.stream()
 			.sorted(Comparator.comparing(PlantopiaResourceHelper::idOf))

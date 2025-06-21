@@ -1,0 +1,35 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_pink_waterlily": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_waterlily"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "plantopia:pink_dye_from_pink_waterlily"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_pink_waterlily",
+			"has_the_recipe"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"plantopia:pink_dye_from_pink_waterlily"
+		]
+	},
+	"sends_telemetry_event": false
+}

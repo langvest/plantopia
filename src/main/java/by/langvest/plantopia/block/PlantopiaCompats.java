@@ -1,12 +1,17 @@
 package by.langvest.plantopia.block;
 
+import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.util.PlantopiaBrewingRecipe;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +46,13 @@ public class PlantopiaCompats {
 			if(blockMeta.isFlammable()) registerFlammable(block, blockMeta.getEncouragement(), blockMeta.getFlammability());
 			if(blockMeta.isCompostable()) registerCompostable(block, blockMeta.getCompostability());
 			if(block instanceof FlowerPotBlock flowerPotBlock) registerPotted(flowerPotBlock);
+
+			if(block instanceof PlantopiaFloweringWaterlilyBlock floweringWaterlilyBlock) {
+				var waterlilyItem = floweringWaterlilyBlock.getWaterlilyItem();
+				var originBlock = floweringWaterlilyBlock.getOriginBlock();
+
+				registerFloweringWaterlily(Pair.of(waterlilyItem, originBlock), block);
+			}
 		});
 	}
 
@@ -50,6 +62,10 @@ public class PlantopiaCompats {
 
 	public static void registerCompostable(@NotNull ItemLike item, float compostability) {
 		COMPOSTABLES.put(item.asItem(), compostability);
+	}
+
+	public static void registerFloweringWaterlily(Pair<Item, Block> key, @NotNull Block block) {
+		PlantopiaWaterlilyItem.addFloweringWaterlily(key, block.defaultBlockState());
 	}
 
 	public static void registerPotted(@NotNull FlowerPotBlock pottedBlock) {

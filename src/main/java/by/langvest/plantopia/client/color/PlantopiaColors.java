@@ -1,8 +1,7 @@
 package by.langvest.plantopia.client.color;
 
-import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
+import by.langvest.plantopia.block.PlantopiaBaseBlockPosGetter;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import com.google.common.collect.Sets;
@@ -38,6 +37,8 @@ public class PlantopiaColors {
 	private static final Set<Block> BLOCK_GRASS_COLOR_1 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_FOLIAGE_COLOR_0 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_FOLIAGE_COLOR_1 = Sets.newHashSet();
+	private static final Set<Block> BLOCK_LILY_PAD_COLOR_0 = Sets.newHashSet();
+	private static final Set<Block> BLOCK_LILY_PAD_COLOR_1 = Sets.newHashSet();
 	private static final Set<Item> ITEM_GRASS_COLOR_0 = Sets.newHashSet();
 	private static final Set<Item> ITEM_INHERIT_BLOCK_COLOR = Sets.newHashSet();
 
@@ -75,6 +76,12 @@ public class PlantopiaColors {
 				return;
 			}
 
+			if(tintType == PlantopiaTintType.LILY_PAD) {
+				if(blockMeta.shouldApplyTintToParticles()) BLOCK_LILY_PAD_COLOR_0.add(block);
+				else BLOCK_LILY_PAD_COLOR_1.add(block);
+				return;
+			}
+
 			if(tintType == PlantopiaTintType.FOLIAGE) {
 				if(blockMeta.shouldApplyTintToParticles()) BLOCK_FOLIAGE_COLOR_0.add(block);
 				else BLOCK_FOLIAGE_COLOR_1.add(block);
@@ -108,6 +115,18 @@ public class PlantopiaColors {
 		blockColors.register(
 			(state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 1),
 			BLOCK_FOLIAGE_COLOR_1.toArray(Block[]::new)
+		);
+
+		/* BLOCK LILY PAD COLOR 0 ******************************************/
+		blockColors.register(
+			(state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 0),
+			BLOCK_LILY_PAD_COLOR_0.toArray(Block[]::new)
+		);
+
+		/* BLOCK LILY PAD COLOR 1 ******************************************/
+		blockColors.register(
+			(state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 1),
+			BLOCK_LILY_PAD_COLOR_1.toArray(Block[]::new)
 		);
 
 		/* ITEM GRASS COLOR 0 ******************************************/
@@ -168,6 +187,11 @@ public class PlantopiaColors {
 		return BiomeColors.getAverageFoliageColor(level, pos);
 	}
 
+	private static int lilyPadColor(BlockAndTintGetter level, BlockPos pos) {
+		if(level == null || pos == null) return 7455580;
+		return 2129968;
+	}
+
 	/* TINTS ******************************************/
 
 	private static int grassTint(int tintIndex, int targetTintIndex) {
@@ -182,22 +206,28 @@ public class PlantopiaColors {
 		return tintIndex == targetTintIndex ? foliageColor(level, getBaseBlockPos(state, pos)) : noColor();
 	}
 
+	private static int lilyPadTint(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex, int targetTintIndex) {
+		return tintIndex == targetTintIndex ? lilyPadColor(level, getBaseBlockPos(state, pos)) : noColor();
+	}
+
 	/* HELPER METHODS ******************************************/
 
 	@Nullable
 	private static BlockPos getBaseBlockPos(BlockState state, BlockPos pos) {
 		if(state == null || pos == null) return null;
-		if(state.hasProperty(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF)) {
-			PlantopiaTripleBlockHalf half = state.getValue(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF);
-			if(half == PlantopiaTripleBlockHalf.UPPER) return pos.below(2);
-			if(half == PlantopiaTripleBlockHalf.CENTRAL) return pos.below(1);
-			return pos;
+
+		var block = state.getBlock();
+
+		if(block instanceof PlantopiaBaseBlockPosGetter baseBlockPosGetter) {
+			return baseBlockPosGetter.getBaseBlockPos(state, pos);
 		}
+
 		if(state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
 			DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
 			if(half == DoubleBlockHalf.UPPER) return pos.below(1);
 			return pos;
 		}
+
 		return pos;
 	}
 }

@@ -75,8 +75,6 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		add(BONEMEAL_SPREAD_GROWABLE, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN, PlantopiaBlocks.CLOVER.get());
 		add(BONEMEAL_SPREAD_ON, Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
 		add(INFESTED_DIRT_CAN_SPREAD_TO, Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
-		add(FROG_PREFER_JUMP_TO, PlantopiaBlocks.SMALL_PLATTERLEAF.get(), PlantopiaBlocks.BIG_PLATTERLEAF.get());
-		add(INSIDE_STEP_SOUND_BLOCKS, PlantopiaBlocks.SMALL_PLATTERLEAF.get(), PlantopiaBlocks.BIG_PLATTERLEAF.get());
 
 		saveAll();
 	}
@@ -154,6 +152,12 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 				FOXES_SPAWNABLE_ON.add(block);
 				ANIMALS_SPAWNABLE_ON.add(block);
 				WOLVES_SPAWNABLE_ON.add(block);
+			}
+
+			if(type.instanceOf(MetaType.WATERLILY)) {
+				MINEABLE_WITH_AXE.add(block);
+				FROG_PREFER_JUMP_TO.add(block);
+				INSIDE_STEP_SOUND_BLOCKS.add(block);
 			}
 		});
 	}

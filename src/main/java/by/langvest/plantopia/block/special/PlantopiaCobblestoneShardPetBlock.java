@@ -35,17 +35,17 @@ public class PlantopiaCobblestoneShardPetBlock extends BaseEntityBlock implement
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 4.0D, 11.0D);
-	protected final Supplier<Block> originalBlock;
+	protected final Supplier<Block> originBlock;
 
-	public PlantopiaCobblestoneShardPetBlock(Supplier<Block> originalBlock, Properties properties) {
+	public PlantopiaCobblestoneShardPetBlock(Supplier<Block> originBlock, Properties properties) {
 		super(properties);
-		this.originalBlock = originalBlock;
+		this.originBlock = originBlock;
 		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
 	}
 
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, @NotNull BlockGetter level, BlockPos pos, Player player) {
-		var itemStack = getOriginalBlock().asItem().getDefaultInstance();
+		var itemStack = getOriginBlock().asItem().getDefaultInstance();
 		var blockEntity = level.getBlockEntity(pos);
 
 		if(blockEntity instanceof PlantopiaCobblestoneShardPetBlockEntity petBlockEntity) {
@@ -72,8 +72,8 @@ public class PlantopiaCobblestoneShardPetBlock extends BaseEntityBlock implement
 		petBlockEntity.setCustomName(itemStack.getHoverName());
 	}
 
-	public Block getOriginalBlock() {
-		return this.originalBlock.get();
+	public Block getOriginBlock() {
+		return this.originBlock.get();
 	}
 
 	@Override

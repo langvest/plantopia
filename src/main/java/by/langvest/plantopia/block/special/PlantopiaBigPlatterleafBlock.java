@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaBaseBlockPosGetter;
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import net.minecraft.core.BlockPos;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
-public class PlantopiaBigPlatterleafBlock extends BushBlock {
+public class PlantopiaBigPlatterleafBlock extends BushBlock implements PlantopiaBaseBlockPosGetter {
 	public static final EnumProperty<PlantopiaQuarter> QUARTER = PlantopiaBlockStateProperties.QUARTER;
 	protected static final VoxelShape SOUTH_WEST_AABB = Block.box(2.0D, 0.0D, 0.0D, 16.0D, 2.0D, 14.0D);
 	protected static final VoxelShape WEST_NORTH_AABB = Block.box(2.0D, 0.0D, 2.0D, 16.0D, 2.0D, 16.0D);
@@ -199,7 +200,7 @@ public class PlantopiaBigPlatterleafBlock extends BushBlock {
 		level.levelEvent(player, 2001, pos, Block.getId(state));
 	}
 
-	protected static void preventCreativeDropFromBottomParts(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
+	protected void preventCreativeDropFromBottomParts(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
 		var baseBlockPos = getBaseBlockPos(state, pos);
 
 		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
@@ -226,7 +227,8 @@ public class PlantopiaBigPlatterleafBlock extends BushBlock {
 			&& super.canSurvive(eastBlockState, level, eastBlockPos);
 	}
 
-	public static BlockPos getBaseBlockPos(@NotNull BlockState state, BlockPos pos) {
+	@Override
+	public BlockPos getBaseBlockPos(@NotNull BlockState state, BlockPos pos) {
 		return switch(state.getValue(QUARTER)) {
 			case SOUTH_WEST -> pos;
 			case WEST_NORTH -> pos.south();

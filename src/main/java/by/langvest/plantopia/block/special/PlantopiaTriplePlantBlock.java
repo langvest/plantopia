@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaBaseBlockPosGetter;
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
-public class PlantopiaTriplePlantBlock extends BushBlock {
+public class PlantopiaTriplePlantBlock extends BushBlock implements PlantopiaBaseBlockPosGetter {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> HALF = PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF;
 
 	public PlantopiaTriplePlantBlock(Properties properties) {
@@ -115,7 +116,7 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 		super.playerWillDestroy(level, pos, state, player);
 	}
 
-	protected static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
+	protected void preventCreativeDropFromBottomPart(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
 		var baseBlockPos = getBaseBlockPos(state, pos);
 
 		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
@@ -147,7 +148,8 @@ public class PlantopiaTriplePlantBlock extends BushBlock {
 		builder.add(HALF);
 	}
 
-	public static BlockPos getBaseBlockPos(@NotNull BlockState state, BlockPos pos) {
+	@Override
+	public BlockPos getBaseBlockPos(@NotNull BlockState state, BlockPos pos) {
 		return switch(state.getValue(HALF)) {
 			case UPPER -> pos.below(2);
 			case CENTRAL -> pos.below(1);

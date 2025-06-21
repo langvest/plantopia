@@ -1,12 +1,7 @@
 package by.langvest.plantopia.datagen.loot;
 
-import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
-import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaQuarter;
-import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
-import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
-import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
-import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardPetBlock;
+import by.langvest.plantopia.block.*;
+import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -96,7 +91,13 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateLootTable()) return;
 
+			var block = blockMeta.getBlock();
 			var dropType = blockMeta.getDropType();
+
+			if(block instanceof PlantopiaFloweringWaterlilyBlock) {
+				add(block, this::createFloweringWaterlilyDrops);
+				return;
+			}
 
 			if(dropType == PlantopiaBlockDropType.SELF) {
 				dropSelf(blockMeta);
@@ -272,7 +273,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private LootTable.@NotNull Builder createCobblestoneShardPetDrops(Block block) {
-		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginalBlock();
+		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginBlock();
 
 		return createNameableBlockEntityTable(originalBlock);
 	}
@@ -321,6 +322,17 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			);
 
 		return createWidePlantTable(block, lootEntry);
+	}
+
+	private LootTable.@NotNull Builder createFloweringWaterlilyDrops(Block block) {
+		var floweringWaterlilyBlock = ((PlantopiaFloweringWaterlilyBlock)block);
+
+		LootPoolEntryContainer.Builder<?> flowerLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getWaterlilyItem()));
+		LootPoolEntryContainer.Builder<?> lilyPadLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getOriginBlock()));
+
+		return LootTable.lootTable()
+			.withPool(LootPool.lootPool().add(flowerLootEntry))
+			.withPool(LootPool.lootPool().add(lilyPadLootEntry));
 	}
 
 	/* HELPER METHODS ******************************************/
