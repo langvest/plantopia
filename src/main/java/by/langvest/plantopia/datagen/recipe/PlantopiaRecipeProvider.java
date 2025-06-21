@@ -1,6 +1,7 @@
 package by.langvest.plantopia.datagen.recipe;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -41,6 +42,11 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 		smeltingRecipe(RecipeCategory.MISC, Items.MAGENTA_DYE, PlantopiaBlocks.FLOWERING_TINY_CACTUS.get(), 1.0F, 200);
 
 		woodFromLogs(consumer, PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
+
+		oneToOneConversionRecipe(RecipeCategory.MISC, Items.PINK_DYE, PlantopiaItems.PINK_WATERLILY.get(), nameOf(Items.PINK_DYE), 1);
+		oneToOneConversionRecipe(RecipeCategory.MISC, Items.RED_DYE, PlantopiaItems.RED_WATERLILY.get(), nameOf(Items.RED_DYE), 1);
+		oneToOneConversionRecipe(RecipeCategory.MISC, Items.YELLOW_DYE, PlantopiaItems.YELLOW_WATERLILY.get(), nameOf(Items.YELLOW_DYE), 1);
+		oneToOneConversionRecipe(RecipeCategory.MISC, Items.WHITE_DYE, PlantopiaItems.WHITE_WATERLILY.get(), nameOf(Items.WHITE_DYE), 1);
 	}
 
 	private void setConsumer(@NotNull Consumer<FinishedRecipe> consumer) {

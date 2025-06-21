@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer {
-	private static final List<Block> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
+	private static final List<ItemLike> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
 	private static PlantopiaItemStuckRenderer instance = null;
 
 	@SuppressWarnings("DataFlowIssue")

@@ -1,9 +1,6 @@
 package by.langvest.plantopia.block.special;
 
-import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
-import by.langvest.plantopia.block.PlantopiaOffsettableBlock;
-import by.langvest.plantopia.block.PlantopiaQuarter;
-import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,7 +30,7 @@ import static by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock.prev
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
-public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsettableBlock {
+public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsettableBlock, PlantopiaBaseBlockPosGetter {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> HALF = PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF;
 	public static final EnumProperty<PlantopiaQuarter> QUARTER = PlantopiaBlockStateProperties.QUARTER;
 
@@ -204,7 +201,7 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		super.playerWillDestroy(level, pos, state, player);
 	}
 
-	protected static void preventCreativeDropFromBottomParts(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
+	protected void preventCreativeDropFromBottomParts(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
 		var baseBlockPos = getBaseBlockPos(state, pos);
 
 		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
@@ -232,7 +229,8 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		builder.add(HALF, QUARTER);
 	}
 
-	public static BlockPos getBaseBlockPos(@NotNull BlockState state, BlockPos pos) {
+	@Override
+	public BlockPos getBaseBlockPos(@NotNull BlockState state, BlockPos pos) {
 		BlockPos lowerPos = switch(state.getValue(HALF)) {
 			case UPPER -> pos.below(2);
 			case CENTRAL -> pos.below(1);

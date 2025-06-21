@@ -2,6 +2,7 @@ package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.block.special.*;
@@ -90,6 +91,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		watergrassBlock(PlantopiaBlocks.WATERGRASS.get());
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS.get());
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS_PLANT.get());
+		smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
+		bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
 	}
 
 	private void generateAll() {
@@ -98,6 +101,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 			var block = blockMeta.getBlock();
 			var type = blockMeta.getType();
+
+			if(block instanceof PlantopiaFloweringWaterlilyBlock) {
+				floweringWaterlilyBlock(blockMeta);
+				return;
+			}
 
 			if(block instanceof FlowerPotBlock) {
 				flowerPotBlock(blockMeta);
@@ -206,6 +214,20 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, texture));
 		simpleBlock(blockMeta.getBlock(), model);
+	}
+
+	private void floweringWaterlilyBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+		String baseName = blockMeta.getName();
+		var floweringWaterlilyBlock = (PlantopiaFloweringWaterlilyBlock)blockMeta.getBlock();
+		var waterlilyItem = floweringWaterlilyBlock.getWaterlilyItem();
+		var originBlock = floweringWaterlilyBlock.getOriginBlock();
+
+		var flowerTexture = texture(nameOf(waterlilyItem));
+
+		var model = models().withExistingParent(baseName, parent("template_flowering_" + nameOf(originBlock)))
+			.texture("flower", flowerTexture);
+
+		rotatedBlock(blockMeta.getBlock(), model);
 	}
 
 	/* CUSTOM MODELS GENERATION ******************************************/
@@ -317,7 +339,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void cobblestoneShardPetBlock(Block block) {
-		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginalBlock();
+		var originalBlock = ((PlantopiaCobblestoneShardPetBlock)block).getOriginBlock();
 		String baseName = nameOf(block);
 		String originalBaseName = nameOf(originalBlock);
 
@@ -496,6 +518,33 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		if(blockMeta != null && blockMeta.hasItem()) generatedItemModel(baseName, texture);
 		simpleBlock(block, model);
+	}
+
+	private void smallPlatterleafBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var model = existingModel(baseName);
+
+		rotatedBlock(block, model);
+	}
+
+	private void bigPlatterleafBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var model = existingModel(baseName);
+
+		getVariantBuilder(block).forAllStates(state -> {
+			PlantopiaQuarter quarter = state.getValue(PlantopiaBigPlatterleafBlock.QUARTER);
+
+			int rotation = switch(quarter) {
+				case SOUTH_WEST -> 0;
+				case WEST_NORTH -> 90;
+				case NORTH_EAST -> 180;
+				case EAST_SOUTH -> 270;
+			};
+
+			return ConfiguredModel.builder().modelFile(model).rotationY(rotation).build();
+		});
 	}
 
 	private void hogweedBlock(Block block) {
@@ -787,6 +836,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	/* ITEM MODELS ******************************************/
+
+	@Contract("_ -> new")
+	private @NotNull ModelFile.ExistingModelFile existingItemModel(String name) {
+		return itemModels().getExistingFile(plantopiaLocationFrom(name));
+	}
 
 	public ItemModelBuilder generatedItemModel(String name, ResourceLocation... layers) {
 		var itemModel = itemModels().withExistingParent(name, "generated");

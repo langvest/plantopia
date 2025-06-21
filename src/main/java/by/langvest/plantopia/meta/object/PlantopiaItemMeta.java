@@ -81,7 +81,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 
 	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
 		public static final MetaType ITEM = MetaProperties.of().makeType("item");
-		public static final MetaType BLOCK = MetaProperties.of().makeType("block");
+		public static final MetaType BLOCK = MetaProperties.of().order(PlantopiaOrderType.BLOCK).makeType("block");
 		public static final MetaType ICON = MetaProperties.of().noGroup().makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {

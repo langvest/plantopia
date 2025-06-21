@@ -1,0 +1,21 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "plantopia:block/yellow_flowering_small_platterleaf"
+			},
+			{
+				"model": "plantopia:block/yellow_flowering_small_platterleaf",
+				"y": 90
+			},
+			{
+				"model": "plantopia:block/yellow_flowering_small_platterleaf",
+				"y": 180
+			},
+			{
+				"model": "plantopia:block/yellow_flowering_small_platterleaf",
+				"y": 270
+			}
+		]
+	}
+}
