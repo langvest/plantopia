@@ -2,7 +2,7 @@ package by.langvest.plantopia.util.helper;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaColorHelper {
+public final class PlantopiaColorHelper {
 	public static int fromHexColor(@NotNull String hexColor) {
 		if(hexColor.startsWith("#")) {
 			hexColor = hexColor.substring(1);
