@@ -23,6 +23,7 @@
 		"plantopia:pink_foxglove",
 		"plantopia:pink_hollyhock",
 		"plantopia:pink_lupine",
+		"plantopia:pink_waterlily",
 		"plantopia:pollinated_dandelion",
 		"plantopia:purple_hollyhock",
 		"plantopia:purple_lupine",
@@ -31,6 +32,7 @@
 		"plantopia:red_foxglove",
 		"plantopia:red_hollyhock",
 		"plantopia:red_lupine",
+		"plantopia:red_waterlily",
 		"plantopia:reeds",
 		"plantopia:sea_oats",
 		"plantopia:small_platterleaf",
@@ -43,10 +45,12 @@
 		"plantopia:white_foxglove",
 		"plantopia:white_hollyhock",
 		"plantopia:white_lupine",
+		"plantopia:white_waterlily",
 		"plantopia:yellow_flowering_lily_pad",
 		"plantopia:yellow_flowering_small_platterleaf",
 		"plantopia:yellow_foxglove",
 		"plantopia:yellow_hollyhock",
-		"plantopia:yellow_lupine"
+		"plantopia:yellow_lupine",
+		"plantopia:yellow_waterlily"
 	]
 }

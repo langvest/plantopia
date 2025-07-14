@@ -3,6 +3,7 @@
 	"textures": {
 		"stem": "plantopia:block/lily_pad_stem",
 		"texture": "minecraft:block/lily_pad",
+		"overlay": "plantopia:block/lily_pad_flower_overlay",
 		"particle": "#texture"
 	},
 	"elements": [
@@ -15,8 +16,8 @@
 			}
 		},
 		{
-			"from": [1.3, 0.28, 10],
-			"to": [15.7, 16.28, 10],
+			"from": [1.3, 0.25, 10],
+			"to": [15.7, 16.25, 10],
 			"shade": false,
 			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
 			"faces": {
@@ -25,13 +26,33 @@
 			}
 		},
 		{
-			"from": [8.5, 0.28, 2.8],
-			"to": [8.5, 16.28, 17.2],
+			"from": [8.5, 0.25, 2.8],
+			"to": [8.5, 16.25, 17.2],
 			"shade": false,
 			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
 			"faces": {
 				"east": { "uv": [0, 0, 16, 16], "texture": "#flower" },
 				"west": { "uv": [0, 0, 16, 16], "texture": "#flower" }
+			}
+		},
+		{
+			"from": [1.3, 0.25, 10],
+			"to": [15.7, 16.25, 10],
+			"shade": false,
+			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
+			"faces": {
+				"north": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  },
+				"south": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  }
+			}
+		},
+		{
+			"from": [8.5, 0.25, 2.8],
+			"to": [8.5, 16.25, 17.2],
+			"shade": false,
+			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
+			"faces": {
+				"east": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  },
+				"west": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  }
 			}
 		},
 		{

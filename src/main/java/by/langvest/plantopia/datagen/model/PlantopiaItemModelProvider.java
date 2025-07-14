@@ -2,7 +2,6 @@ package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
@@ -37,11 +36,6 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 			Item item = itemMeta.getItem();
 
-			if(item instanceof PlantopiaWaterlilyItem) {
-				waterlilyItem(item);
-				return;
-			}
-
 			if(item instanceof PlantopiaRenderedIconItem) {
 				entityItem(itemMeta);
 				return;
@@ -67,16 +61,6 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 		entityItemModel(baseName);
 	}
 
-	/* CUSTOM MODELS GENERATION ******************************************/
-
-	private void waterlilyItem(Item item) {
-		String baseName = nameOf(item);
-
-		var texture = blockTexture(baseName);
-
-		waterlilyTemplateModel(baseName, texture);
-	}
-
 	/* ITEM MODELS ******************************************/
 
 	public ItemModelBuilder generatedItemModel(String name, ResourceLocation... layers) {
@@ -92,11 +76,6 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	public ItemModelBuilder entityItemModel(String name, GuiLight guiLight) {
 		return getBuilder(name).parent(getBuiltInEntityModel()).guiLight(guiLight);
-	}
-
-	private ItemModelBuilder waterlilyTemplateModel(String name, ResourceLocation texture) {
-		return withExistingParent(name, parent("template_waterlily"))
-			.texture("layer0", texture);
 	}
 
 	/* HELPER METHODS ******************************************/

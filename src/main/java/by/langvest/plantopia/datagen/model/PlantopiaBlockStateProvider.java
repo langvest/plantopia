@@ -103,6 +103,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			var block = blockMeta.getBlock();
 			var type = blockMeta.getType();
 
+			if(block instanceof PlantopiaWaterlilyFlowerBlock) {
+				waterlilyFlowerBlock(blockMeta);
+				return;
+			}
+
 			if(block instanceof PlantopiaFloweringWaterlilyBlock) {
 				floweringWaterlilyBlock(blockMeta);
 				return;
@@ -217,13 +222,26 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		simpleBlock(blockMeta.getBlock(), model);
 	}
 
+	private void waterlilyFlowerBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+		String baseName = blockMeta.getName();
+
+		var flowerTexture = texture(baseName);
+		var overlayTexture = texture("lily_pad_flower_overlay");
+
+		var model = models().withExistingParent(baseName, parent("template_waterlily"))
+			.texture("flower", flowerTexture);
+
+		waterlilyFlowerTemplateItemModel(baseName, flowerTexture, overlayTexture);
+		simpleBlock(blockMeta.getBlock(), model);
+	}
+
 	private void floweringWaterlilyBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
 		var floweringWaterlilyBlock = (PlantopiaFloweringWaterlilyBlock)blockMeta.getBlock();
-		var waterlilyItem = floweringWaterlilyBlock.getWaterlilyItem();
+		var waterlilyBlock = floweringWaterlilyBlock.getWaterlilyBlock();
 		var originBlock = floweringWaterlilyBlock.getOriginBlock();
 
-		var flowerTexture = texture(nameOf(waterlilyItem));
+		var flowerTexture = texture(nameOf(waterlilyBlock));
 
 		var model = models().withExistingParent(baseName, parent("template_flowering_" + nameOf(originBlock)))
 			.texture("flower", flowerTexture);
@@ -863,6 +881,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		return itemModels().withExistingParent(name, modelFile.getLocation());
 	}
 
+	private ItemModelBuilder waterlilyFlowerTemplateItemModel(String name, ResourceLocation flowerTexture, ResourceLocation overlayTexture) {
+		return itemModels().withExistingParent(name, itemParent("template_waterlily"))
+			.texture("layer0", flowerTexture)
+			.texture("layer1", overlayTexture);
+	}
+
 	/* HELPER METHODS ******************************************/
 
 	private boolean isTextureExists(@NotNull ResourceLocation texture) {
@@ -887,5 +911,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation parent(String name) {
 		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+	}
+
+	@Contract("_ -> new")
+	private static @NotNull ResourceLocation itemParent(String name) {
+		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
 	}
 }

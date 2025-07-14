@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_waterlily",
+	"textures": {
+		"flower": "plantopia:block/pink_waterlily"
+	}
+}

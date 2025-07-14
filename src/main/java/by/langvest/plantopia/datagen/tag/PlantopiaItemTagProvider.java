@@ -2,7 +2,6 @@ package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
@@ -77,14 +76,6 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 			if(type.instanceOf(PlantopiaBlockMeta.MetaType.LEAVES)) LEAVES.add(item);
 			if(type.instanceOf(PlantopiaBlockMeta.MetaType.SAPLING)) SAPLINGS.add(item);
 			if(type.instanceOf(PlantopiaBlockMeta.MetaType.DIRT)) DIRT.add(item);
-		});
-
-		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
-			var item = itemMeta.getItem();
-
-			if(item instanceof PlantopiaWaterlilyItem) {
-				SMALL_FLOWERS.add(item);
-			}
 		});
 	}
 

@@ -335,7 +335,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	private LootTable.@NotNull Builder createFloweringWaterlilyDrops(Block block) {
 		var floweringWaterlilyBlock = ((PlantopiaFloweringWaterlilyBlock)block);
 
-		LootPoolEntryContainer.Builder<?> flowerLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getWaterlilyItem()));
+		LootPoolEntryContainer.Builder<?> flowerLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getWaterlilyBlock()));
 		LootPoolEntryContainer.Builder<?> lilyPadLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getOriginBlock()));
 
 		return LootTable.lootTable()

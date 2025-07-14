@@ -221,6 +221,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType WOODY_PLANT = MetaProperties.copy(PLANT).notCompostable().customBurnTime(100).makeType("woody_plant");
 		public static final MetaType WATERLILY = MetaProperties.copy(WATER_PLANT).makeType("waterlily");
 		public static final MetaType FLOWER = MetaProperties.copy(PLANT).order(PlantopiaOrderType.FLOWER).pottable().notTintedParticles().compostable(Compostability.FLOWER).makeType("flower");
+		public static final MetaType WATERLILY_FLOWER = MetaProperties.copy(FLOWER).order(PlantopiaOrderType.WET_PLANT).notPottable().makeType("waterlily_flower");
 		public static final MetaType SAPLING = MetaProperties.copy(PLANT).pottable().notTintedParticles().makeType("sapling");
 		public static final MetaType MUSHROOM_PLANT = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM_PLANT).makeType("mushroom_plant");
 		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");

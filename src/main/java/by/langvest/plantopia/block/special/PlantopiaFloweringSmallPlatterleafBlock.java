@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,11 +19,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class PlantopiaFloweringSmallPlatterleafBlock extends PlantopiaSmallPlatterleafBlock implements PlantopiaFloweringWaterlilyBlock {
-	protected final Supplier<Item> waterlilyItem;
+	protected final Supplier<Block> waterlilyBlock;
 
-	public PlantopiaFloweringSmallPlatterleafBlock(Supplier<Item> waterlilyItem, Properties properties) {
+	public PlantopiaFloweringSmallPlatterleafBlock(Supplier<Block> waterlilyBlock, Properties properties) {
 		super(properties);
-		this.waterlilyItem = waterlilyItem;
+		this.waterlilyBlock = waterlilyBlock;
 	}
 
 	@Override
@@ -34,12 +33,12 @@ public class PlantopiaFloweringSmallPlatterleafBlock extends PlantopiaSmallPlatt
 
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-		return getWaterlilyItem().getDefaultInstance();
+		return getWaterlilyBlock().asItem().getDefaultInstance();
 	}
 
 	@Override
-	public Item getWaterlilyItem() {
-		return waterlilyItem.get();
+	public Block getWaterlilyBlock() {
+		return waterlilyBlock.get();
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import com.google.common.collect.Sets;
@@ -52,15 +51,6 @@ public final class PlantopiaContentHelper {
 				return block instanceof FlowerBlock || block instanceof TallFlowerBlock;
 			})
 			.forEach(blockEntry -> allFlowers.add(blockEntry.getValue()));
-
-		ForgeRegistries.ITEMS.getEntries()
-			.stream()
-			.filter(itemEntry -> {
-				var item = itemEntry.getValue();
-
-				return item instanceof PlantopiaWaterlilyItem;
-			})
-			.forEach(itemEntry -> allFlowers.add(itemEntry.getValue()));
 
 		PlantopiaContentHelper.allFlowers = allFlowers.stream()
 			.sorted(Comparator.comparing(PlantopiaResourceHelper::idOf))

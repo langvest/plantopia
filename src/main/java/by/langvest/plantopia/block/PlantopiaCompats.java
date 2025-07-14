@@ -1,11 +1,10 @@
 package by.langvest.plantopia.block;
 
-import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
+import by.langvest.plantopia.item.special.PlantopiaWaterlilyFlowerBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.util.PlantopiaBrewingRecipe;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
@@ -48,10 +47,10 @@ public class PlantopiaCompats {
 			if(block instanceof FlowerPotBlock flowerPotBlock) registerPotted(flowerPotBlock);
 
 			if(block instanceof PlantopiaFloweringWaterlilyBlock floweringWaterlilyBlock) {
-				var waterlilyItem = floweringWaterlilyBlock.getWaterlilyItem();
+				var waterlilyBlock = floweringWaterlilyBlock.getWaterlilyBlock();
 				var originBlock = floweringWaterlilyBlock.getOriginBlock();
 
-				registerFloweringWaterlily(Pair.of(waterlilyItem, originBlock), block);
+				registerFloweringWaterlily(Pair.of(waterlilyBlock, originBlock), block);
 			}
 		});
 	}
@@ -64,8 +63,8 @@ public class PlantopiaCompats {
 		COMPOSTABLES.put(item.asItem(), compostability);
 	}
 
-	public static void registerFloweringWaterlily(Pair<Item, Block> key, @NotNull Block block) {
-		PlantopiaWaterlilyItem.addFloweringWaterlily(key, block.defaultBlockState());
+	public static void registerFloweringWaterlily(Pair<Block, Block> key, @NotNull Block block) {
+		PlantopiaWaterlilyFlowerBlockItem.addFloweringWaterlily(key, block.defaultBlockState());
 	}
 
 	public static void registerPotted(@NotNull FlowerPotBlock pottedBlock) {

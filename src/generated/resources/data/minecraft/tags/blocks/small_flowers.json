@@ -2,7 +2,11 @@
 	"values": [
 		"plantopia:fluffy_dandelion",
 		"plantopia:pink_clover_blossom",
+		"plantopia:pink_waterlily",
 		"plantopia:pollinated_dandelion",
-		"plantopia:white_clover_blossom"
+		"plantopia:red_waterlily",
+		"plantopia:white_clover_blossom",
+		"plantopia:white_waterlily",
+		"plantopia:yellow_waterlily"
 	]
 }
