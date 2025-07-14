@@ -73,6 +73,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.GIANT_FERN.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.FERN, Items.WHEAT_SEEDS));
 		add(PlantopiaBlocks.WATERGRASS.get(), this::createWatergrassDrops);
 		add(PlantopiaBlocks.CLOVER.get(), this::createCloverDrops);
+		add(PlantopiaBlocks.DUCKWEED.get(), this::createDuckweedDrops);
 		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
 		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
 		add(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
@@ -251,6 +252,13 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 				withSurvivesExplosionCondition(block, item(Items.WHEAT_SEEDS))
 					.when(randomChance(SEEDS_CHANCE * 0.75F))
 			);
+
+		return createBlockTable(block, lootEntry);
+	}
+
+	private LootTable.@NotNull Builder createDuckweedDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaCloverBlock.AMOUNT)
+			.when(HAS_SHEARS);
 
 		return createBlockTable(block, lootEntry);
 	}

@@ -1,39 +1,40 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "by.langvest.plantopia.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"refmap": "plantopia.refmap.json",
-	"mixins": [
-		"PlantopiaAbstractArrowMixin",
-		"PlantopiaBee$BeePollinateGoalMixin",
-		"PlantopiaBeeMixin",
-		"PlantopiaBlockBehaviour$BlockStateBaseMixin",
-		"PlantopiaCauldronBlockMixin",
-		"PlantopiaDoublePlantBlockMixin",
-		"PlantopiaEntityMixin",
-		"PlantopiaEntityTypeMixin",
-		"PlantopiaFoxMixin",
-		"PlantopiaGrassBlockMixin",
-		"PlantopiaItemMixin",
-		"PlantopiaLandOnOwnersShoulderGoalMixin",
-		"PlantopiaLivingEntityMixin",
-		"PlantopiaMobMixin",
-		"PlantopiaPlayerMixin",
-		"PlantopiaSeaPickleBlockMixin",
-		"PlantopiaServerLevelMixin",
-		"PlantopiaSugarCaneBlockMixin",
-		"PlantopiaTemptGoalMixin",
-		"PlantopiaWalkNodeEvaluatorMixin",
-		"PlantopiaZombieMixin"
-	],
-	"client": [
-		"PlantopiaAbstractZombieRendererMixin",
-		"PlantopiaCameraMixin",
-		"PlantopiaGuiMixin",
-		"PlantopiaMinecraftMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+    "required": true,
+    "minVersion": "0.8",
+    "package": "by.langvest.plantopia.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "plantopia.refmap.json",
+    "mixins": [
+        "PlantopiaAbstractArrowMixin",
+        "PlantopiaBee$BeePollinateGoalMixin",
+        "PlantopiaBeeMixin",
+        "PlantopiaBlockBehaviour$BlockStateBaseMixin",
+        "PlantopiaBoneMealItemMixin",
+        "PlantopiaCauldronBlockMixin",
+        "PlantopiaDoublePlantBlockMixin",
+        "PlantopiaEntityMixin",
+        "PlantopiaEntityTypeMixin",
+        "PlantopiaFoxMixin",
+        "PlantopiaGrassBlockMixin",
+        "PlantopiaItemMixin",
+        "PlantopiaLandOnOwnersShoulderGoalMixin",
+        "PlantopiaLivingEntityMixin",
+        "PlantopiaMobMixin",
+        "PlantopiaPlayerMixin",
+        "PlantopiaSeaPickleBlockMixin",
+        "PlantopiaServerLevelMixin",
+        "PlantopiaSugarCaneBlockMixin",
+        "PlantopiaTemptGoalMixin",
+        "PlantopiaWalkNodeEvaluatorMixin",
+        "PlantopiaZombieMixin"
+    ],
+    "client": [
+        "PlantopiaAbstractZombieRendererMixin",
+        "PlantopiaCameraMixin",
+        "PlantopiaGuiMixin",
+        "PlantopiaMinecraftMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
 	}
 }

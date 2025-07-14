@@ -54,6 +54,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		cattailBlock(PlantopiaBlocks.CATTAIL.get());
 		giantFernBlock(PlantopiaBlocks.GIANT_FERN.get());
 		cloverBlock(PlantopiaBlocks.CLOVER.get());
+		duckweedBlock(PlantopiaBlocks.DUCKWEED.get());
 		bigCloverBlock(PlantopiaBlocks.BIG_CLOVER.get());
 		cloverBlossomBlock(PlantopiaBlocks.WHITE_CLOVER_BLOSSOM.get());
 		cloverBlossomBlock(PlantopiaBlocks.PINK_CLOVER_BLOSSOM.get());
@@ -282,6 +283,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, itemTexture(baseName));
 		directionalMultipartBlock(block, PlantopiaCloverBlock.AMOUNT);
+	}
+
+	private void duckweedBlock(Block block) {
+		String baseName = nameOf(block);
+
+		generatedItemModel(baseName, texture(baseName));
+		directionalMultipartBlock(block, PlantopiaDuckweedBlock.AMOUNT);
 	}
 
 	private void bigCloverBlock(Block block) {

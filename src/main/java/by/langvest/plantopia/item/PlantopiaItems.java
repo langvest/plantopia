@@ -2,10 +2,7 @@ package by.langvest.plantopia.item;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.item.special.PlantopiaCobblestoneShardBlockItem;
-import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.item.special.PlantopiaPlatterleafBlockItem;
-import by.langvest.plantopia.item.special.PlantopiaWaterlilyItem;
+import by.langvest.plantopia.item.special.*;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
@@ -38,6 +35,7 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> YELLOW_WATERLILY = registerItem("yellow_waterlily", () -> new PlantopiaWaterlilyItem(new Properties()), MetaProperties.copy(MetaType.ITEM).order(PlantopiaOrderType.WET_PLANT));
 	public static final RegistryObject<Item> WHITE_WATERLILY = registerItem("white_waterlily", () -> new PlantopiaWaterlilyItem(new Properties()), MetaProperties.copy(MetaType.ITEM).order(PlantopiaOrderType.WET_PLANT));
 	public static final RegistryObject<Item> PINK_WATERLILY = registerItem("pink_waterlily", () -> new PlantopiaWaterlilyItem(new Properties()), MetaProperties.copy(MetaType.ITEM).order(PlantopiaOrderType.WET_PLANT));
+	public static final RegistryObject<Item> DUCKWEED = registerItem("duckweed", () -> new PlantopiaDuckweedBlockItem(PlantopiaBlocks.DUCKWEED.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		var registryObject = ITEM_REGISTER.register(name, supplier);
