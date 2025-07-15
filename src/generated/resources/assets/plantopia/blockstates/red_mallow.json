@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=lower": {
+			"model": "plantopia:block/red_mallow_bottom"
+		},
+		"half=upper": {
+			"model": "plantopia:block/red_mallow_top"
+		}
+	}
+}

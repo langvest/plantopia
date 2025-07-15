@@ -1,0 +1,35 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_pink_mallow": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_mallow"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "plantopia:pink_dye_from_pink_mallow"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		}
+	},
+	"requirements": [
+		[
+			"has_pink_mallow",
+			"has_the_recipe"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"plantopia:pink_dye_from_pink_mallow"
+		]
+	},
+	"sends_telemetry_event": false
+}

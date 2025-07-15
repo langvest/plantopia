@@ -337,12 +337,12 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:magenta_hollyhock": {
+		"plantopia:magenta_mallow": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
-							"plantopia:magenta_hollyhock"
+							"plantopia:magenta_mallow"
 						]
 					}
 				]
@@ -385,24 +385,24 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:pink_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:pink_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:pink_lupine": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
 							"plantopia:pink_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:pink_mallow": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_mallow"
 						]
 					}
 				]
@@ -421,24 +421,24 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:purple_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:purple_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:purple_lupine": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
 							"plantopia:purple_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:purple_mallow": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:purple_mallow"
 						]
 					}
 				]
@@ -457,24 +457,24 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:red_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:red_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:red_lupine": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
 							"plantopia:red_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:red_mallow": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:red_mallow"
 						]
 					}
 				]
@@ -517,24 +517,24 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:white_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:white_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:white_lupine": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
 							"plantopia:white_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:white_mallow": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:white_mallow"
 						]
 					}
 				]
@@ -565,24 +565,24 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
-		"plantopia:yellow_hollyhock": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:yellow_hollyhock"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
 		"plantopia:yellow_lupine": {
 			"conditions": {
 				"items": [
 					{
 						"items": [
 							"plantopia:yellow_lupine"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:yellow_mallow": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:yellow_mallow"
 						]
 					}
 				]
@@ -703,7 +703,7 @@
 			"plantopia:magenta_foxglove"
 		],
 		[
-			"plantopia:magenta_hollyhock"
+			"plantopia:magenta_mallow"
 		],
 		[
 			"plantopia:orange_foxglove"
@@ -715,28 +715,28 @@
 			"plantopia:pink_foxglove"
 		],
 		[
-			"plantopia:pink_hollyhock"
+			"plantopia:pink_lupine"
 		],
 		[
-			"plantopia:pink_lupine"
+			"plantopia:pink_mallow"
 		],
 		[
 			"plantopia:pink_waterlily"
 		],
 		[
-			"plantopia:purple_hollyhock"
+			"plantopia:purple_lupine"
 		],
 		[
-			"plantopia:purple_lupine"
+			"plantopia:purple_mallow"
 		],
 		[
 			"plantopia:red_foxglove"
 		],
 		[
-			"plantopia:red_hollyhock"
+			"plantopia:red_lupine"
 		],
 		[
-			"plantopia:red_lupine"
+			"plantopia:red_mallow"
 		],
 		[
 			"plantopia:red_waterlily"
@@ -748,10 +748,10 @@
 			"plantopia:white_foxglove"
 		],
 		[
-			"plantopia:white_hollyhock"
+			"plantopia:white_lupine"
 		],
 		[
-			"plantopia:white_lupine"
+			"plantopia:white_mallow"
 		],
 		[
 			"plantopia:white_waterlily"
@@ -760,10 +760,10 @@
 			"plantopia:yellow_foxglove"
 		],
 		[
-			"plantopia:yellow_hollyhock"
+			"plantopia:yellow_lupine"
 		],
 		[
-			"plantopia:yellow_lupine"
+			"plantopia:yellow_mallow"
 		],
 		[
 			"plantopia:yellow_waterlily"

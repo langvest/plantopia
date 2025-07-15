@@ -1,7 +1,0 @@
-{
-	"parent": "plantopia:block/template_hollyhock_bottom",
-	"textures": {
-		"cross": "plantopia:block/hollyhock_bottom",
-		"flowers": "plantopia:block/magenta_hollyhock_flowers_bottom"
-	}
-}

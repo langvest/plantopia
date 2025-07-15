@@ -70,12 +70,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		foxgloveBlock(PlantopiaBlocks.WHITE_FOXGLOVE.get());
 		foxgloveBlock(PlantopiaBlocks.PINK_FOXGLOVE.get());
 		foxgloveBlock(PlantopiaBlocks.MAGENTA_FOXGLOVE.get());
-		hollyhockBlock(PlantopiaBlocks.RED_HOLLYHOCK.get());
-		hollyhockBlock(PlantopiaBlocks.PURPLE_HOLLYHOCK.get());
-		hollyhockBlock(PlantopiaBlocks.YELLOW_HOLLYHOCK.get());
-		hollyhockBlock(PlantopiaBlocks.WHITE_HOLLYHOCK.get());
-		hollyhockBlock(PlantopiaBlocks.PINK_HOLLYHOCK.get());
-		hollyhockBlock(PlantopiaBlocks.MAGENTA_HOLLYHOCK.get());
+		mallowBlock(PlantopiaBlocks.RED_MALLOW.get());
+		mallowBlock(PlantopiaBlocks.PURPLE_MALLOW.get());
+		mallowBlock(PlantopiaBlocks.YELLOW_MALLOW.get());
+		mallowBlock(PlantopiaBlocks.WHITE_MALLOW.get());
+		mallowBlock(PlantopiaBlocks.PINK_MALLOW.get());
+		mallowBlock(PlantopiaBlocks.MAGENTA_MALLOW.get());
 		lupineBlock(PlantopiaBlocks.RED_LUPINE.get());
 		lupineBlock(PlantopiaBlocks.YELLOW_LUPINE.get());
 		lupineBlock(PlantopiaBlocks.WHITE_LUPINE.get());
@@ -417,16 +417,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 
-	private void hollyhockBlock(Block block) {
+	private void mallowBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var topTexture = texture("hollyhock_top");
-		var bottomTexture = texture("hollyhock_bottom");
+		var topTexture = texture("mallow_top");
+		var bottomTexture = texture("mallow_bottom");
 		var flowersTopTexture = texture(baseName + "_flowers_top");
 		var flowersBottomTexture = texture(baseName + "_flowers_bottom");
 
-		var topModel = hollyhockTopTemplateModel(baseName + "_top", topTexture, flowersTopTexture);
-		var bottomModel = hollyhockBottomTemplateModel(baseName + "_bottom", bottomTexture, flowersBottomTexture);
+		var topModel = mallowTopTemplateModel(baseName + "_top", topTexture, flowersTopTexture);
+		var bottomModel = mallowBottomTemplateModel(baseName + "_bottom", bottomTexture, flowersBottomTexture);
 
 		generatedItemModel(baseName, flowersTopTexture);
 		doubleHighBlock(block, topModel, bottomModel);
@@ -836,14 +836,14 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.texture("flowers", flowersTexture);
 	}
 
-	private BlockModelBuilder hollyhockTopTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
-		return models().withExistingParent(name, parent("template_hollyhock_top"))
+	private BlockModelBuilder mallowTopTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
+		return models().withExistingParent(name, parent("template_mallow_top"))
 			.texture("cross", crossTexture)
 			.texture("flowers", flowersTexture);
 	}
 
-	private BlockModelBuilder hollyhockBottomTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
-		return models().withExistingParent(name, parent("template_hollyhock_bottom"))
+	private BlockModelBuilder mallowBottomTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation flowersTexture) {
+		return models().withExistingParent(name, parent("template_mallow_bottom"))
 			.texture("cross", crossTexture)
 			.texture("flowers", flowersTexture);
 	}
