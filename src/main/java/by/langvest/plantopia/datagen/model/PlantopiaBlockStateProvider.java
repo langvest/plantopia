@@ -542,7 +542,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var texture = texture(baseName);
 		var model = seaMossTemplateModel(baseName, texture);
 
-		if(blockMeta != null && blockMeta.hasItem()) generatedItemModel(baseName, texture);
+		if(blockMeta != null && blockMeta.hasItem()) {
+			var itemTexture = texture(baseName + "_plant");
+			generatedItemModel(baseName, itemTexture);
+		}
+
 		simpleBlock(block, model);
 	}
 

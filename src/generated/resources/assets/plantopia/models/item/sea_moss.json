@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "plantopia:block/sea_moss"
+		"layer0": "plantopia:block/sea_moss_plant"
 	}
 }
