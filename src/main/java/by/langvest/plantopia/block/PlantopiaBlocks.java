@@ -99,7 +99,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> YELLOW_FLOWERING_SMALL_PLATTERLEAF = registerBlock("yellow_flowering_small_platterleaf", () -> new PlantopiaFloweringSmallPlatterleafBlock(YELLOW_WATERLILY, Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATERLILY).noItem());
 	public static final RegistryObject<Block> WHITE_FLOWERING_SMALL_PLATTERLEAF = registerBlock("white_flowering_small_platterleaf", () -> new PlantopiaFloweringSmallPlatterleafBlock(WHITE_WATERLILY, Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATERLILY).noItem());
 	public static final RegistryObject<Block> PINK_FLOWERING_SMALL_PLATTERLEAF = registerBlock("pink_flowering_small_platterleaf", () -> new PlantopiaFloweringSmallPlatterleafBlock(PINK_WATERLILY, Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATERLILY).noItem());
-	public static final RegistryObject<Block> DUCKWEED = registerBlock("duckweed", () -> new PlantopiaDuckweedBlock(Properties.copy(Blocks.LILY_PAD).sound(SoundType.WET_GRASS).replaceable().noCollission()), MetaProperties.copy(MetaType.WATER_PLANT).customModel().customDrop().customItem());
+	public static final RegistryObject<Block> AZOLLA = registerBlock("azolla", () -> new PlantopiaAzollaBlock(Properties.copy(Blocks.LILY_PAD).sound(SoundType.WET_GRASS).replaceable().noCollission()), MetaProperties.copy(MetaType.WATER_PLANT).customModel().customDrop().customItem());
 
 	static {
 		registerPottedBlocks();

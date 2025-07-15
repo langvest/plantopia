@@ -21,7 +21,7 @@
 							"add": false,
 							"conditions": [
 								{
-									"block": "plantopia:duckweed",
+									"block": "plantopia:azolla",
 									"condition": "minecraft:block_state_property",
 									"properties": {
 										"plant_amount": "2"
@@ -35,7 +35,7 @@
 							"add": false,
 							"conditions": [
 								{
-									"block": "plantopia:duckweed",
+									"block": "plantopia:azolla",
 									"condition": "minecraft:block_state_property",
 									"properties": {
 										"plant_amount": "3"
@@ -49,7 +49,7 @@
 							"add": false,
 							"conditions": [
 								{
-									"block": "plantopia:duckweed",
+									"block": "plantopia:azolla",
 									"condition": "minecraft:block_state_property",
 									"properties": {
 										"plant_amount": "4"
@@ -60,11 +60,11 @@
 							"function": "minecraft:set_count"
 						}
 					],
-					"name": "plantopia:duckweed"
+					"name": "plantopia:azolla"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "plantopia:blocks/duckweed"
+	"random_sequence": "plantopia:blocks/azolla"
 }

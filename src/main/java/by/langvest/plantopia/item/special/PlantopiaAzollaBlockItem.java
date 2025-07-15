@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaDuckweedBlockItem extends BlockItem {
-	public PlantopiaDuckweedBlockItem(Block block, Properties properties) {
+public class PlantopiaAzollaBlockItem extends BlockItem {
+	public PlantopiaAzollaBlockItem(Block block, Properties properties) {
 		super(block, properties);
 	}
 

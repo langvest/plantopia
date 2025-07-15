@@ -1,7 +1,7 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"texture": "plantopia:block/duckweed",
+		"texture": "plantopia:block/azolla",
 		"particle": "#texture"
 	},
 	"elements": [

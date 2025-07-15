@@ -23,14 +23,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaDuckweedBlock extends BushBlock implements BonemealableBlock {
+public class PlantopiaAzollaBlock extends BushBlock implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 	public static final int MIN_LEAFS = 1;
 	public static final int MAX_LEAFS = 4;
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.PLANT_AMOUNT;
 
-	public PlantopiaDuckweedBlock(Properties properties) {
+	public PlantopiaAzollaBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AMOUNT, MIN_LEAFS));
 	}
@@ -99,7 +99,7 @@ public class PlantopiaDuckweedBlock extends BushBlock implements BonemealableBlo
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return true;
+		return level.getFluidState(pos.below()).isSourceOfType(Fluids.WATER);
 	}
 
 	@Override
@@ -108,6 +108,11 @@ public class PlantopiaDuckweedBlock extends BushBlock implements BonemealableBlo
 	}
 
 	protected boolean isValidBonemealCandidate(@NotNull ServerLevel level, @NotNull BlockPos pos) {
+		var posBelow = pos.below();
+		var fluidStateBelow = level.getFluidState(posBelow);
+
+		if(!fluidStateBelow.isSourceOfType(Fluids.WATER)) return false;
+
 		var state = level.getBlockState(pos);
 
 		if(state.is(this)) return true;

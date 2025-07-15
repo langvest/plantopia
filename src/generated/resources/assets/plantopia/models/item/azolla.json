@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "plantopia:block/duckweed"
+		"layer0": "plantopia:block/azolla"
 	}
 }

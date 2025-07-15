@@ -35,7 +35,7 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> YELLOW_WATERLILY = registerItem("yellow_waterlily", () -> new PlantopiaWaterlilyFlowerBlockItem(PlantopiaBlocks.YELLOW_WATERLILY.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
 	public static final RegistryObject<Item> WHITE_WATERLILY = registerItem("white_waterlily", () -> new PlantopiaWaterlilyFlowerBlockItem(PlantopiaBlocks.WHITE_WATERLILY.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
 	public static final RegistryObject<Item> PINK_WATERLILY = registerItem("pink_waterlily", () -> new PlantopiaWaterlilyFlowerBlockItem(PlantopiaBlocks.PINK_WATERLILY.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
-	public static final RegistryObject<Item> DUCKWEED = registerItem("duckweed", () -> new PlantopiaDuckweedBlockItem(PlantopiaBlocks.DUCKWEED.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
+	public static final RegistryObject<Item> AZOLLA = registerItem("azolla", () -> new PlantopiaAzollaBlockItem(PlantopiaBlocks.AZOLLA.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		var registryObject = ITEM_REGISTER.register(name, supplier);
