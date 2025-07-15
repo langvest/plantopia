@@ -39,6 +39,8 @@ public class PlantopiaColors {
 	private static final Set<Block> BLOCK_FOLIAGE_COLOR_1 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_LILY_PAD_COLOR_0 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_LILY_PAD_COLOR_1 = Sets.newHashSet();
+	private static final Set<Block> BLOCK_WATERLILY_COLOR_0 = Sets.newHashSet();
+	private static final Set<Block> BLOCK_WATERLILY_COLOR_1 = Sets.newHashSet();
 	private static final Set<Item> ITEM_GRASS_COLOR_0 = Sets.newHashSet();
 	private static final Set<Item> ITEM_INHERIT_BLOCK_COLOR = Sets.newHashSet();
 
@@ -79,6 +81,12 @@ public class PlantopiaColors {
 			if(tintType == PlantopiaTintType.LILY_PAD) {
 				if(blockMeta.shouldApplyTintToParticles()) BLOCK_LILY_PAD_COLOR_0.add(block);
 				else BLOCK_LILY_PAD_COLOR_1.add(block);
+				return;
+			}
+
+			if(tintType == PlantopiaTintType.WATERLILY) {
+				if(blockMeta.shouldApplyTintToParticles()) BLOCK_WATERLILY_COLOR_0.add(block);
+				else BLOCK_WATERLILY_COLOR_1.add(block);
 				return;
 			}
 
@@ -127,6 +135,18 @@ public class PlantopiaColors {
 		blockColors.register(
 			(state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 1),
 			BLOCK_LILY_PAD_COLOR_1.toArray(Block[]::new)
+		);
+
+		/* BLOCK WATERLILY COLOR 0 ******************************************/
+		blockColors.register(
+			(state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 0),
+			BLOCK_WATERLILY_COLOR_0.toArray(Block[]::new)
+		);
+
+		/* BLOCK WATERLILY COLOR 1 ******************************************/
+		blockColors.register(
+			(state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 1),
+			BLOCK_WATERLILY_COLOR_1.toArray(Block[]::new)
 		);
 
 		/* ITEM GRASS COLOR 0 ******************************************/
@@ -192,6 +212,10 @@ public class PlantopiaColors {
 		return 2129968;
 	}
 
+	private static int waterlilyColor(BlockAndTintGetter level, BlockPos pos) {
+		return 7779877;
+	}
+
 	/* TINTS ******************************************/
 
 	private static int grassTint(int tintIndex, int targetTintIndex) {
@@ -208,6 +232,10 @@ public class PlantopiaColors {
 
 	private static int lilyPadTint(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex, int targetTintIndex) {
 		return tintIndex == targetTintIndex ? lilyPadColor(level, getBaseBlockPos(state, pos)) : noColor();
+	}
+
+	private static int waterlilyTint(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex, int targetTintIndex) {
+		return tintIndex == targetTintIndex ? waterlilyColor(level, getBaseBlockPos(state, pos)) : noColor();
 	}
 
 	/* HELPER METHODS ******************************************/

@@ -575,5 +575,10 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 			this.tintType = PlantopiaTintType.LILY_PAD;
 			return this;
 		}
+
+		public MetaProperties waterlilyTint() {
+			this.tintType = PlantopiaTintType.WATERLILY;
+			return this;
+		}
 	}
 }

@@ -3,7 +3,6 @@ package by.langvest.plantopia.block.special;
 import by.langvest.plantopia.block.PlantopiaOffsettableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -29,15 +28,17 @@ public class PlantopiaWaterlilyFlowerBlock extends FlowerBlock implements Planto
 	@Override
 	public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		Vec3 vec3 = state.getOffset(level, pos);
-		return SHAPE.move(vec3.x, 0, vec3.z);
+		return SHAPE.move(vec3.x, vec3.y, vec3.z);
 	}
 
 	@Override
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return state.is(Blocks.FARMLAND)
 			|| state.is(Blocks.BAMBOO)
-			|| state.isFaceSturdy(level, pos, Direction.UP, SupportType.CENTER)
-			|| (state.is(BlockTags.LEAVES) && state.isCollisionShapeFullBlock(level, pos));
+			|| state.is(Blocks.CACTUS)
+			|| state.is(Blocks.POTTED_BAMBOO)
+			|| state.is(Blocks.POTTED_CACTUS)
+			|| state.isFaceSturdy(level, pos, Direction.UP, SupportType.CENTER);
 	}
 
 	@Override
@@ -48,6 +49,10 @@ public class PlantopiaWaterlilyFlowerBlock extends FlowerBlock implements Planto
 
 			if(stateBelow.is(Blocks.BAMBOO)) {
 				return stateBelow.getOffset(level, posBelow);
+			}
+
+			if(stateBelow.is(Blocks.DECORATED_POT)) {
+				return Vec3.ZERO.add(0, 4.0D / 16.0D - 0.005D, 0);
 			}
 
 			return Vec3.ZERO;
