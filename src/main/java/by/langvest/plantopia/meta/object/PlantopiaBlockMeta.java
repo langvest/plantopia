@@ -226,7 +226,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType MUSHROOM_PLANT = MetaProperties.copy(PLANT).pottable().notTintedParticles().notFlammable().compostable(Compostability.MUSHROOM_PLANT).makeType("mushroom_plant");
 		public static final MetaType MUSHROOM_STEM = MetaProperties.of().compostable(Compostability.MUSHROOM_STEM).makeType("mushroom_stem");
 		public static final MetaType MUSHROOM_BLOCK = MetaProperties.of().compostable(Compostability.MUSHROOM_BLOCK).makeType("mushroom_block");
-		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noItem().makeType("potted");
+		public static final MetaType POTTED = MetaProperties.of().cutoutRender().noItem().notTintedParticles().makeType("potted");
 		public static final MetaType LEAVES = MetaProperties.of().cutoutMippedRender().flammable(Encouragement.LEAVES, Flammability.LEAVES).makeType("leaves");
 		public static final MetaType STONE = MetaProperties.of().makeType("stone");
 		public static final MetaType SAND = MetaProperties.of().makeType("sand");
