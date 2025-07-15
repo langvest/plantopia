@@ -38,7 +38,7 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 		stonecutterRecipe(RecipeCategory.MISC, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), Blocks.MOSSY_COBBLESTONE, 9);
 
 		smeltingRecipe(RecipeCategory.MISC, Items.GREEN_DYE, PlantopiaBlocks.TINY_CACTUS.get(), 1.0F, 200);
-		smeltingRecipe(RecipeCategory.MISC, Items.MAGENTA_DYE, PlantopiaBlocks.FLOWERING_TINY_CACTUS.get(), 1.0F, 200);
+		smeltingRecipe(RecipeCategory.MISC, Items.PINK_DYE, PlantopiaBlocks.FLOWERING_TINY_CACTUS.get(), 1.0F, 200);
 
 		woodFromLogs(consumer, PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
 	}

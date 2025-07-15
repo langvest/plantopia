@@ -15,7 +15,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "plantopia:magenta_dye_from_flowering_tiny_cactus_smelting"
+				"recipe": "plantopia:pink_dye_from_flowering_tiny_cactus_smelting"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -28,7 +28,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"plantopia:magenta_dye_from_flowering_tiny_cactus_smelting"
+			"plantopia:pink_dye_from_flowering_tiny_cactus_smelting"
 		]
 	},
 	"sends_telemetry_event": false
