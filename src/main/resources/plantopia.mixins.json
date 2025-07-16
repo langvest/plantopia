@@ -10,6 +10,7 @@
         "PlantopiaBeeMixin",
         "PlantopiaBlockBehaviour$BlockStateBaseMixin",
         "PlantopiaBoneMealItemMixin",
+        "PlantopiaCarpetBlockMixin",
         "PlantopiaCauldronBlockMixin",
         "PlantopiaDoublePlantBlockMixin",
         "PlantopiaEntityMixin",
