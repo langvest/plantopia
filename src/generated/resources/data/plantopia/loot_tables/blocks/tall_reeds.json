@@ -1,0 +1,177 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"block": "plantopia:tall_reeds",
+					"condition": "minecraft:block_state_property",
+					"properties": {
+						"half": "lower"
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetY": 1,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:tall_reeds"
+							],
+							"state": {
+								"half": "central"
+							}
+						}
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetY": 2,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:tall_reeds"
+							],
+							"state": {
+								"half": "upper"
+							}
+						}
+					}
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"conditions": [
+						{
+							"condition": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:shears"
+								]
+							}
+						}
+					],
+					"name": "plantopia:tall_reeds"
+				}
+			],
+			"rolls": 1.0
+		},
+		{
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"block": "plantopia:tall_reeds",
+					"condition": "minecraft:block_state_property",
+					"properties": {
+						"half": "central"
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetY": -1,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:tall_reeds"
+							],
+							"state": {
+								"half": "lower"
+							}
+						}
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetY": 1,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:tall_reeds"
+							],
+							"state": {
+								"half": "upper"
+							}
+						}
+					}
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"conditions": [
+						{
+							"condition": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:shears"
+								]
+							}
+						}
+					],
+					"name": "plantopia:tall_reeds"
+				}
+			],
+			"rolls": 1.0
+		},
+		{
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"block": "plantopia:tall_reeds",
+					"condition": "minecraft:block_state_property",
+					"properties": {
+						"half": "upper"
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetY": -2,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:tall_reeds"
+							],
+							"state": {
+								"half": "lower"
+							}
+						}
+					}
+				},
+				{
+					"condition": "minecraft:location_check",
+					"offsetY": -1,
+					"predicate": {
+						"block": {
+							"blocks": [
+								"plantopia:tall_reeds"
+							],
+							"state": {
+								"half": "central"
+							}
+						}
+					}
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"conditions": [
+						{
+							"condition": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:shears"
+								]
+							}
+						}
+					],
+					"name": "plantopia:tall_reeds"
+				}
+			],
+			"rolls": 1.0
+		}
+	],
+	"random_sequence": "plantopia:blocks/tall_reeds"
+}

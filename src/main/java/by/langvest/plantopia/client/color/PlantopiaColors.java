@@ -1,9 +1,11 @@
 package by.langvest.plantopia.client.color;
 
-import by.langvest.plantopia.block.PlantopiaBaseBlockPosGetter;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.block.special.PlantopiaTallReedsBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
+import by.langvest.plantopia.util.helper.PlantopiaBlockHelper;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
@@ -20,7 +22,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -42,6 +43,7 @@ public class PlantopiaColors {
 	private static final Set<Block> BLOCK_WATERLILY_COLOR_0 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_WATERLILY_COLOR_1 = Sets.newHashSet();
 	private static final Set<Item> ITEM_GRASS_COLOR_0 = Sets.newHashSet();
+	private static final Set<Item> ITEM_GRASS_COLOR_1 = Sets.newHashSet();
 	private static final Set<Item> ITEM_INHERIT_BLOCK_COLOR = Sets.newHashSet();
 
 	public static void setup() {
@@ -49,6 +51,7 @@ public class PlantopiaColors {
 
 		pottedFernBlock(Blocks.POTTED_FERN);
 		fireweedBlock(PlantopiaBlocks.FIREWEED.get());
+		tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
 
 		setAll();
 	}
@@ -155,6 +158,12 @@ public class PlantopiaColors {
 			ITEM_GRASS_COLOR_0.toArray(Item[]::new)
 		);
 
+		/* ITEM GRASS COLOR 1 ******************************************/
+		itemColors.register(
+			(itemStuck, tintIndex) -> grassTint(tintIndex, 1),
+			ITEM_GRASS_COLOR_1.toArray(Item[]::new)
+		);
+
 		/* ITEM INHERIT BLOCK COLOR 0+ ******************************************/
 		itemColors.register(
 			(itemStack, tintIndex) -> {
@@ -176,10 +185,31 @@ public class PlantopiaColors {
 		/* FIREWEED BLOCK GRASS COLOR 0-1 ******************************************/
 		blockColors.register(
 			(state, level, pos, tintIndex) -> {
-				DoubleBlockHalf half = state.getValue(DoublePlantBlock.HALF);
-				BlockPos baseBlockPos = getBaseBlockPos(state, pos);
+				var half = state.getValue(DoublePlantBlock.HALF);
+				var baseBlockPos = getBaseBlockPos(state, pos);
+
 				if(half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
 				if(half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, baseBlockPos);
+				return noColor();
+			},
+			block
+		);
+	}
+
+	private static void tallReedsBlock(@NotNull Block block) {
+		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
+
+		ITEM_GRASS_COLOR_0.add(block.asItem());
+
+		/* FIREWEED BLOCK GRASS COLOR 0-1 ******************************************/
+		blockColors.register(
+			(state, level, pos, tintIndex) -> {
+				var half = state.getValue(PlantopiaTallReedsBlock.HALF);
+				var baseBlockPos = getBaseBlockPos(state, pos);
+
+				if(half == PlantopiaTripleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
+				if(half == PlantopiaTripleBlockHalf.CENTRAL && tintIndex == 0) return grassColor(level, baseBlockPos);
+				if(half == PlantopiaTripleBlockHalf.LOWER && tintIndex == 1) return grassColor(level, baseBlockPos);
 				return noColor();
 			},
 			block
@@ -244,18 +274,6 @@ public class PlantopiaColors {
 	private static BlockPos getBaseBlockPos(BlockState state, BlockPos pos) {
 		if(state == null || pos == null) return null;
 
-		var block = state.getBlock();
-
-		if(block instanceof PlantopiaBaseBlockPosGetter baseBlockPosGetter) {
-			return baseBlockPosGetter.getBaseBlockPos(state, pos);
-		}
-
-		if(state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) {
-			DoubleBlockHalf half = state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF);
-			if(half == DoubleBlockHalf.UPPER) return pos.below(1);
-			return pos;
-		}
-
-		return pos;
+		return PlantopiaBlockHelper.getBaseBlockPos(state, pos);
 	}
 }

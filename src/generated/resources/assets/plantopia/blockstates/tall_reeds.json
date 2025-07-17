@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"half=central": {
+			"model": "plantopia:block/tall_reeds_middle"
+		},
+		"half=lower": {
+			"model": "plantopia:block/tall_reeds_bottom"
+		},
+		"half=upper": {
+			"model": "plantopia:block/tall_reeds_top"
+		}
+	}
+}

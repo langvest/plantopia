@@ -1,0 +1,7 @@
+{
+	"parent": "plantopia:block/inverted_tinted_cross_with_overlay",
+	"textures": {
+		"cross": "plantopia:block/tall_reeds_top",
+		"overlay": "plantopia:block/tall_reeds_top_overlay"
+	}
+}

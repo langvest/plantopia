@@ -1,0 +1,7 @@
+{
+	"parent": "plantopia:block/tinted_cross_with_overlay",
+	"textures": {
+		"cross": "plantopia:block/tall_reeds_middle",
+		"overlay": "plantopia:block/tall_reeds_middle_overlay"
+	}
+}

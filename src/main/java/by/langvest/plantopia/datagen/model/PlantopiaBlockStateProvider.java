@@ -94,6 +94,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		seaMossBlock(PlantopiaBlocks.SEA_MOSS_PLANT.get());
 		smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
 		bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
+		tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
 	}
 
 	private void generateAll() {
@@ -293,6 +294,23 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomModel = giantFernTemplateModel(baseName + "_bottom", bottomTexture);
 
 		generatedItemModel(baseName, topTexture);
+		tripleHighBlock(block, topModel, middleModel, bottomModel);
+	}
+
+	private void tallReedsBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var topTexture = texture(baseName + "_top");
+		var topOverlayTexture = texture(baseName + "_top_overlay");
+		var middleTexture = texture(baseName + "_middle");
+		var middleOverlayTexture = texture(baseName + "_middle_overlay");
+		var bottomTexture = texture(baseName + "_bottom");
+
+		var topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, topOverlayTexture);
+		var middleModel = tintedCrossWithOverlayModel(baseName + "_middle", middleTexture, middleOverlayTexture);
+		var bottomModel = crossModel(baseName + "_bottom", bottomTexture);
+
+		generatedItemModel(baseName, topTexture, topOverlayTexture);
 		tripleHighBlock(block, topModel, middleModel, bottomModel);
 	}
 
@@ -632,7 +650,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void tripleHighBlock(Block block, ModelFile topModel, ModelFile middleModel, ModelFile bottomModel) {
-		getVariantBuilder(block).forAllStates(state -> {
+		getVariantBuilder(block).forAllStatesExcept(state -> {
 			PlantopiaTripleBlockHalf half = state.getValue(PlantopiaTriplePlantBlock.HALF);
 
 			var modelFile = switch(half) {
@@ -642,7 +660,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			};
 
 			return ConfiguredModel.builder().modelFile(modelFile).build();
-		});
+		}, BlockStateProperties.WATERLOGGED);
 	}
 
 	private void directionalMultipartBlock(Block block, @NotNull IntegerProperty property) {
