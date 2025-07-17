@@ -271,7 +271,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 					.when(randomChance(SEEDS_CHANCE))
 			);
 
-		return createBlockTable(block, lootEntry);
+		return createDoubleHighPlantTable(block, lootEntry);
 	}
 
 	private LootTable.@NotNull Builder createCobblestoneShardDrops(Block block) {
