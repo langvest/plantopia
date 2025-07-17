@@ -36,7 +36,7 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 		advancement(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
 		advancement(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
-		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Ecological Disaster", "Let the Hogweed take over more and more territories");
+		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Hogweed every day", "Do your part to help Hogweed take over the world!");
 		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A Stone is a Man's Best Friend", "Get yourself the most devoted friend!");
 		advancement(PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS, "Light as a Grain of Sand", "Walk on Quicksand as if it were just ordinary Sand");
 
