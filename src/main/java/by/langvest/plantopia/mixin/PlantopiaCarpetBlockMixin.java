@@ -3,6 +3,7 @@ package by.langvest.plantopia.mixin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -66,7 +68,17 @@ public abstract class PlantopiaCarpetBlockMixin extends Block {
 	@SuppressWarnings("deprecation")
 	public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		if(plantopia$isMossCarpet()) {
-			return Shapes.empty();
+			boolean shoudCollide = false;
+
+			if(context instanceof EntityCollisionContext entityCollisionContext) {
+				var entity = entityCollisionContext.getEntity();
+
+				shoudCollide = entity instanceof ItemEntity || entity == null;
+			}
+
+			if(!shoudCollide) {
+				return Shapes.empty();
+			}
 		}
 
 		return super.getCollisionShape(state, level, pos, context);
