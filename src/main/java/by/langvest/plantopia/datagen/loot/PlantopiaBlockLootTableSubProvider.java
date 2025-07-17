@@ -71,6 +71,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
 		add(PlantopiaBlocks.GIANT_GRASS.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.GRASS, Items.WHEAT_SEEDS));
 		add(PlantopiaBlocks.GIANT_FERN.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.FERN, Items.WHEAT_SEEDS));
+		add(PlantopiaBlocks.TALL_DUNE_GRASS.get(), block -> createDoublePlantShearedDrops(block, PlantopiaBlocks.DUNE_GRASS.get()));
 		add(PlantopiaBlocks.CLOVER.get(), this::createCloverDrops);
 		add(PlantopiaBlocks.AZOLLA.get(), this::createAzollaDrops);
 		add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
@@ -242,6 +243,14 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			);
 
 		return createTripleHighPlantTable(block, lootEntry);
+	}
+
+	private static LootTable.@NotNull Builder createDoublePlantShearedDrops(Block block, Block sheared) {
+		LootPoolEntryContainer.Builder<?> lootEntry = item(sheared)
+			.apply(setCount(2))
+			.when(HAS_SHEARS);
+
+		return createDoubleHighPlantTable(block, lootEntry);
 	}
 
 	private LootTable.@NotNull Builder createCloverDrops(Block block) {

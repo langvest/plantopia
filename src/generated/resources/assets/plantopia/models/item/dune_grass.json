@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "plantopia:block/sea_oats_top"
+		"layer0": "plantopia:block/dune_grass"
 	}
 }

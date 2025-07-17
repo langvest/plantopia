@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cross",
 	"textures": {
-		"cross": "plantopia:block/sea_oats_bottom"
+		"cross": "plantopia:block/tall_dune_grass_top"
 	}
 }

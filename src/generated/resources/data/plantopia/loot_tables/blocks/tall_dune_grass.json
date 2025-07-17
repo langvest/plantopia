@@ -5,7 +5,7 @@
 			"bonus_rolls": 0.0,
 			"conditions": [
 				{
-					"block": "plantopia:sea_oats",
+					"block": "plantopia:tall_dune_grass",
 					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "lower"
@@ -17,7 +17,7 @@
 					"predicate": {
 						"block": {
 							"blocks": [
-								"plantopia:sea_oats"
+								"plantopia:tall_dune_grass"
 							],
 							"state": {
 								"half": "upper"
@@ -39,7 +39,14 @@
 							}
 						}
 					],
-					"name": "plantopia:sea_oats"
+					"functions": [
+						{
+							"add": false,
+							"count": 2.0,
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "plantopia:dune_grass"
 				}
 			],
 			"rolls": 1.0
@@ -48,7 +55,7 @@
 			"bonus_rolls": 0.0,
 			"conditions": [
 				{
-					"block": "plantopia:sea_oats",
+					"block": "plantopia:tall_dune_grass",
 					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "upper"
@@ -60,7 +67,7 @@
 					"predicate": {
 						"block": {
 							"blocks": [
-								"plantopia:sea_oats"
+								"plantopia:tall_dune_grass"
 							],
 							"state": {
 								"half": "lower"
@@ -82,11 +89,18 @@
 							}
 						}
 					],
-					"name": "plantopia:sea_oats"
+					"functions": [
+						{
+							"add": false,
+							"count": 2.0,
+							"function": "minecraft:set_count"
+						}
+					],
+					"name": "plantopia:dune_grass"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "plantopia:blocks/sea_oats"
+	"random_sequence": "plantopia:blocks/tall_dune_grass"
 }
