@@ -1,6 +1,7 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "plantopia:item/cattail"
+		"layer0": "plantopia:block/cattail_top",
+		"layer1": "plantopia:block/cattail_top_overlay"
 	}
 }

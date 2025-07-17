@@ -269,7 +269,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void cattailBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var itemTexture = itemTexture(baseName);
 		var topTexture = texture(baseName + "_top");
 		var topOverlayTexture = texture(baseName + "_top_overlay");
 		var bottomTexture = texture(baseName + "_bottom");
@@ -278,7 +277,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var topModel = tintedCrossWithOverlayModel(baseName + "_top", topTexture, topOverlayTexture);
 		var bottomModel = tintedCrossWithOverlayModel(baseName + "_bottom", bottomTexture, bottomOverlayTexture);
 
-		generatedItemModel(baseName, itemTexture);
+		generatedItemModel(baseName, topTexture, topOverlayTexture);
 		doubleHighBlock(block, topModel, bottomModel);
 	}
 
@@ -545,7 +544,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void watergrassBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var itemTexture = itemTexture(baseName);
+		var itemTexture = minecraftTexture(nameOf(Blocks.TALL_GRASS) + "_top");
+
 		var topModel = minecraftExistingModel(nameOf(Blocks.TALL_GRASS) + "_top");
 		var bottomModel = minecraftExistingModel(nameOf(Blocks.TALL_GRASS) + "_bottom");
 
