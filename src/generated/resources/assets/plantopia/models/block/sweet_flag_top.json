@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/tinted_cross",
+	"textures": {
+		"cross": "plantopia:block/sweet_flag_top"
+	}
+}

@@ -5,7 +5,7 @@
 			"bonus_rolls": 0.0,
 			"conditions": [
 				{
-					"block": "plantopia:watergrass",
+					"block": "plantopia:sweet_flag",
 					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "lower"
@@ -17,7 +17,7 @@
 					"predicate": {
 						"block": {
 							"blocks": [
-								"plantopia:watergrass"
+								"plantopia:sweet_flag"
 							],
 							"state": {
 								"half": "upper"
@@ -39,7 +39,7 @@
 							}
 						}
 					],
-					"name": "plantopia:watergrass"
+					"name": "plantopia:sweet_flag"
 				}
 			],
 			"rolls": 1.0
@@ -48,7 +48,7 @@
 			"bonus_rolls": 0.0,
 			"conditions": [
 				{
-					"block": "plantopia:watergrass",
+					"block": "plantopia:sweet_flag",
 					"condition": "minecraft:block_state_property",
 					"properties": {
 						"half": "upper"
@@ -60,7 +60,7 @@
 					"predicate": {
 						"block": {
 							"blocks": [
-								"plantopia:watergrass"
+								"plantopia:sweet_flag"
 							],
 							"state": {
 								"half": "lower"
@@ -82,11 +82,11 @@
 							}
 						}
 					],
-					"name": "plantopia:watergrass"
+					"name": "plantopia:sweet_flag"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "plantopia:blocks/watergrass"
+	"random_sequence": "plantopia:blocks/sweet_flag"
 }

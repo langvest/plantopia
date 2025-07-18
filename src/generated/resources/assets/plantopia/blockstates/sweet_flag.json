@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=lower": {
+			"model": "plantopia:block/sweet_flag_bottom"
+		},
+		"half=upper": {
+			"model": "plantopia:block/sweet_flag_top"
+		}
+	}
+}
