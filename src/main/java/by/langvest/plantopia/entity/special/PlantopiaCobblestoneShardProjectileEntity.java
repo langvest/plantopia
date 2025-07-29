@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -72,16 +73,25 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 	protected void onHitBlock(@NotNull BlockHitResult blockHitResult) {
 		super.onHitBlock(blockHitResult);
 
-		if(!level().isClientSide()) {
+		var level = level();
+
+		if(!level.isClientSide()) {
 			var pos = blockHitResult.getBlockPos();
-			var state = level().getBlockState(pos);
+			var state = level.getBlockState(pos);
 
 			if(state.is(Tags.Blocks.GLASS) || state.is(Tags.Blocks.GLASS_PANES) || state.is(Blocks.ICE)) {
 				var blockToReplace = state.is(Blocks.ICE) ? Blocks.WATER : Blocks.AIR;
 
-				level().playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F + level().getRandom().nextFloat() * 0.4F);
-				level().levelEvent(2001, pos, Block.getId(state));
-				level().setBlockAndUpdate(pos, blockToReplace.defaultBlockState());
+				level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+				level.levelEvent(2001, pos, Block.getId(state));
+				level.setBlockAndUpdate(pos, blockToReplace.defaultBlockState());
+
+				return;
+			}
+
+			if(state.is(Blocks.TURTLE_EGG)) {
+				TurtleEggBlock turtleEggBlock = (TurtleEggBlock)Blocks.TURTLE_EGG;
+				turtleEggBlock.decreaseEggs(level, pos, state);
 			}
 		}
 	}
