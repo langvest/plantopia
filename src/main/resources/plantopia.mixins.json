@@ -27,6 +27,7 @@
 		"PlantopiaSpongeBlockMixin",
 		"PlantopiaSugarCaneBlockMixin",
 		"PlantopiaTemptGoalMixin",
+		"PlantopiaTurtleEggBlockMixin",
 		"PlantopiaWalkNodeEvaluatorMixin",
 		"PlantopiaZombieMixin"
 	],
