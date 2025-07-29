@@ -49,24 +49,29 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		};
 	}
 
+	protected boolean canPlaceInto(@NotNull BlockGetter level, BlockPos pos, @Nullable BlockPlaceContext context) {
+		var state = level.getBlockState(pos);
+		return context != null ? state.canBeReplaced(context) : state.canBeReplaced();
+	}
+
 	protected boolean canManuallyPlaceQuarterColumnAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
 		var skippedPos = context.getClickedPos();
 		var level = context.getLevel();
 		var posAbove1 = pos.above(1);
 		var posAbove2 = pos.above(2);
 
-		return (skippedPos == pos || level.getBlockState(pos).canBeReplaced(context))
-			&& (skippedPos == posAbove1 || level.getBlockState(posAbove1).canBeReplaced(context))
-			&& (skippedPos == posAbove2 || level.getBlockState(posAbove2).canBeReplaced(context));
+		return (skippedPos == pos || canPlaceInto(level, pos, context))
+			&& (skippedPos == posAbove1 || canPlaceInto(level, posAbove1, context))
+			&& (skippedPos == posAbove2 || canPlaceInto(level, posAbove2, context));
 	}
 
 	protected boolean canNaturallyPlaceQuarterColumnAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
 		var posAbove1 = pos.above(1);
 		var posAbove2 = pos.above(2);
 
-		return level.getBlockState(pos).canBeReplaced()
-			&& level.getBlockState(posAbove1).canBeReplaced()
-			&& level.getBlockState(posAbove2).canBeReplaced();
+		return canPlaceInto(level, pos, null)
+			&& canPlaceInto(level, posAbove1, null)
+			&& canPlaceInto(level, posAbove2, null);
 	}
 
 	public boolean canManuallyPlaceAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {

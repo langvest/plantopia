@@ -17,6 +17,7 @@ import net.minecraft.world.entity.animal.horse.ZombieHorse;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	public PlantopiaHogweedBlock(Properties properties) {
@@ -46,6 +48,15 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	@Override
 	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
 		return true;
+	}
+
+	@Override
+	protected boolean canPlaceInto(@NotNull BlockGetter level, BlockPos pos, @Nullable BlockPlaceContext context) {
+		var fluidState = level.getFluidState(pos);
+
+		if(!fluidState.isEmpty()) return false;
+
+		return super.canPlaceInto(level, pos, context);
 	}
 
 	/**
