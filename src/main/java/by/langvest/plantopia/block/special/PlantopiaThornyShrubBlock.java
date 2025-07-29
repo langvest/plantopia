@@ -86,7 +86,7 @@ public class PlantopiaThornyShrubBlock extends Block implements SimpleWaterlogge
 			double dz = Math.abs(entity.getZ() - entity.zOld);
 			double dy = Math.abs(entity.getY() - entity.yOld);
 			double xzThreshold = 0.003D;
-			double yThreshold = 0.05D;
+			double yThreshold = 0.04D;
 
 			if(dx >= xzThreshold || dz >= xzThreshold || dy >= yThreshold) {
 				entity.hurt(level.damageSources().source(PlantopiaDamageTypes.THORNY_SHRUB), 1.0F);
