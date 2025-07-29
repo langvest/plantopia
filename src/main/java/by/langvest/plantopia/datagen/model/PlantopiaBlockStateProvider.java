@@ -94,6 +94,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
 		bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
 		tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
+		seaweedBlock(PlantopiaBlocks.SEAWEED.get());
 	}
 
 	private void generateAll() {
@@ -465,6 +466,15 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var model = blockModel(Blocks.DANDELION);
 
 		simpleBlock(block, model);
+	}
+
+	private void seaweedBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var model = existingModel(baseName);
+
+		blockItemModel(baseName, model);
+		horizontalBlock(block, model);
 	}
 
 	private void infestedDirtBlock(Block block) {

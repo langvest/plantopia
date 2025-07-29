@@ -102,6 +102,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> WHITE_FLOWERING_SMALL_PLATTERLEAF = registerBlock("white_flowering_small_platterleaf", () -> new PlantopiaFloweringSmallPlatterleafBlock(WHITE_WATERLILY, Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATERLILY).noItem().preferredByBees());
 	public static final RegistryObject<Block> PINK_FLOWERING_SMALL_PLATTERLEAF = registerBlock("pink_flowering_small_platterleaf", () -> new PlantopiaFloweringSmallPlatterleafBlock(PINK_WATERLILY, Properties.copy(Blocks.LILY_PAD)), MetaProperties.copy(MetaType.WATERLILY).noItem().preferredByBees());
 	public static final RegistryObject<Block> AZOLLA = registerBlock("azolla", () -> new PlantopiaAzollaBlock(Properties.copy(Blocks.LILY_PAD).sound(SoundType.WET_GRASS).replaceable().noCollission()), MetaProperties.copy(MetaType.WATER_PLANT).customModel().customDrop().customItem().notFlammable().compostable(Compostability.PLANT_1 * 0.75F));
+	public static final RegistryObject<Block> SEAWEED = registerBlock("seaweed", () -> new PlantopiaSeaweedBlock(Properties.of().mapColor(MapColor.WATER).noCollission().instabreak().sound(SoundType.WET_GRASS).pushReaction(PushReaction.DESTROY)), MetaProperties.copy(MetaType.UNDERWATER_PLANT).customModel().dropSelfByShears().notFlammable());
 
 	static {
 		registerPottedBlocks();
