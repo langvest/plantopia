@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class PlantopiaSmallPlatterleafBlock extends WaterlilyBlock implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 2.0D, 14.0D);
@@ -56,7 +57,11 @@ public class PlantopiaSmallPlatterleafBlock extends WaterlilyBlock implements Bo
 
 	@Override
 	public boolean isValidBonemealTarget(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return true;
+		var candidateBasePoses = getCandidatePosesToGrowBigPlatterleaf(pos);
+
+		PlantopiaBigPlatterleafBlock bigPlatterleafBlock = (PlantopiaBigPlatterleafBlock)PlantopiaBlocks.BIG_PLATTERLEAF.get();
+
+		return candidateBasePoses.stream().anyMatch(candidateBasePos -> bigPlatterleafBlock.canNaturallyPlaceAt(level, candidateBasePos, pos));
 	}
 
 	@Override
@@ -70,12 +75,7 @@ public class PlantopiaSmallPlatterleafBlock extends WaterlilyBlock implements Bo
 	}
 
 	protected void growBigPlatterleaf(@NotNull ServerLevel level, BlockPos pos) {
-		var candidateBasePoses = Arrays.asList(
-			pos,
-			pos.south(),
-			pos.south().west(),
-			pos.west()
-		);
+		var candidateBasePoses = getCandidatePosesToGrowBigPlatterleaf(pos);
 
 		Collections.shuffle(candidateBasePoses);
 
@@ -85,5 +85,14 @@ public class PlantopiaSmallPlatterleafBlock extends WaterlilyBlock implements Bo
 			var successfullyPlaced = bigPlatterleafBlock.placeAt(level, candidateBasePos, bigPlatterleafBlock.defaultBlockState(), 3, pos);
 			if(successfullyPlaced) break;
 		}
+	}
+
+	protected List<BlockPos> getCandidatePosesToGrowBigPlatterleaf(BlockPos pos) {
+		return Arrays.asList(
+			pos,
+			pos.south(),
+			pos.south().west(),
+			pos.west()
+		);
 	}
 }

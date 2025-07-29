@@ -54,15 +54,26 @@ public class PlantopiaBigPlatterleafBlock extends BushBlock implements Plantopia
 		};
 	}
 
+	protected boolean canPlaceInto(@NotNull BlockGetter level, @NotNull BlockPos pos, @Nullable BlockPlaceContext context) {
+		var fluidState = level.getFluidState(pos);
+		var fluidStateBelow = level.getFluidState(pos.below());
+
+		if(!fluidState.isEmpty()) return false;
+		if(!fluidStateBelow.isSourceOfType(Fluids.WATER)) return false;
+
+		var state = level.getBlockState(pos);
+		return context != null ? state.canBeReplaced(context) : state.canBeReplaced();
+	}
+
 	protected boolean canManuallyPlaceQuarterAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
 		var skippedPos = context.getClickedPos();
 		var level = context.getLevel();
 
-		return pos.equals(skippedPos) || level.getBlockState(pos).canBeReplaced(context);
+		return pos.equals(skippedPos) || canPlaceInto(level, pos, context);
 	}
 
 	protected boolean canNaturallyPlaceQuarterAt(@NotNull BlockGetter level, @NotNull BlockPos pos, BlockPos skippedPos) {
-		return pos.equals(skippedPos) || level.getBlockState(pos).canBeReplaced();
+		return pos.equals(skippedPos) || canPlaceInto(level, pos, null);
 	}
 
 	public boolean canManuallyPlaceAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
