@@ -46,6 +46,8 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 		soundEvent(PlantopiaSoundEvents.DROWNED_CONVERTED_TO_ZOMBIE, "Drowned converts to Zombie");
 		soundEvent(PlantopiaSoundEvents.ZOMBIE_CONVERTED_TO_HUSK, "Zombie converts to Husk");
+
+		add(PlantopiaTemplateHelper.TOOLTIP_RANDOM_VARIANT_KEY, "Random variant");
 	}
 
 	@SuppressWarnings("SameParameterValue")

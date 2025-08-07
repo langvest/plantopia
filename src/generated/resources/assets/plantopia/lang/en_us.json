@@ -44,6 +44,7 @@
 	"block.plantopia.red_mallow": "Red Mallow",
 	"block.plantopia.red_waterlily": "Red Waterlily",
 	"block.plantopia.reeds": "Reeds",
+	"block.plantopia.round_sea_shell": "Round Sea Shell",
 	"block.plantopia.sea_moss": "Sea Moss",
 	"block.plantopia.seaweed": "Seaweed",
 	"block.plantopia.small_platterleaf": "Small Platterleaf",
@@ -52,6 +53,8 @@
 	"block.plantopia.tall_reeds": "Tall Reeds",
 	"block.plantopia.thorny_shrub": "Thorny Shrub",
 	"block.plantopia.tiny_cactus": "Tiny Cactus",
+	"block.plantopia.tube_sea_shell": "Tube Sea Shell",
+	"block.plantopia.twisty_sea_shell": "Twisty Sea Shell",
 	"block.plantopia.white_clover_blossom": "White Clover Blossom",
 	"block.plantopia.white_foxglove": "White Foxglove",
 	"block.plantopia.white_lupine": "White Lupine",
@@ -67,5 +70,6 @@
 	"item.plantopia.quicksand_bucket": "Quicksand Bucket",
 	"itemGroup.plantopia": "Plantopia",
 	"subtitles.plantopia.entity.drowned.converted_to_zombie": "Drowned converts to Zombie",
-	"subtitles.plantopia.entity.zombie.converted_to_husk": "Zombie converts to Husk"
+	"subtitles.plantopia.entity.zombie.converted_to_husk": "Zombie converts to Husk",
+	"tooltip.plantopia.random_variant": "Random variant"
 }

@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=east": {
+			"model": "plantopia:block/tube_sea_shell",
+			"y": 90
+		},
+		"facing=north": {
+			"model": "plantopia:block/tube_sea_shell"
+		},
+		"facing=south": {
+			"model": "plantopia:block/tube_sea_shell",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "plantopia:block/tube_sea_shell",
+			"y": 270
+		}
+	}
+}

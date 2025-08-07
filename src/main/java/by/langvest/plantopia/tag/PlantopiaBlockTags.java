@@ -13,6 +13,7 @@ public class PlantopiaBlockTags {
 	public static final TagKey<Block> BONEMEAL_SPREAD_GROWABLE = createBlockTag("bonemeal_spread_growable");
 	public static final TagKey<Block> BONEMEAL_SPREAD_ON = createBlockTag("bonemeal_spread_on");
 	public static final TagKey<Block> INFESTED_DIRT_CAN_SPREAD_TO = createBlockTag("infested_dirt_can_spread_to");
+	public static final TagKey<Block> SEA_SHELL = createBlockTag("sea_shell");
 
 	private PlantopiaBlockTags() {}
 

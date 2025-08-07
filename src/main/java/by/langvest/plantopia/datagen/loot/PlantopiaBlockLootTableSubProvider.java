@@ -1,11 +1,14 @@
 package by.langvest.plantopia.datagen.loot;
 
 import by.langvest.plantopia.block.*;
-import by.langvest.plantopia.block.special.*;
+import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
+import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
+import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardPetBlock;
+import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
 import by.langvest.plantopia.item.PlantopiaItems;
+import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaBlockDropType;
 import by.langvest.plantopia.meta.property.PlantopiaBlockHeightType;
 import com.google.common.collect.Sets;
@@ -31,12 +34,13 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.*;
-import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
-import net.minecraft.world.level.storage.loot.functions.FunctionUserBuilder;
-import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.Contract;
@@ -97,6 +101,11 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
 			if(block instanceof PlantopiaFloweringWaterlilyBlock) {
 				add(block, this::createFloweringWaterlilyDrops);
+				return;
+			}
+
+			if(block instanceof PlantopiaSeaShellBlock) {
+				add(block, this::createSeaShellDrops);
 				return;
 			}
 
@@ -327,6 +336,16 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			);
 
 		return createWidePlantTable(block, lootEntry);
+	}
+
+	private LootTable.@NotNull Builder createSeaShellDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+			.apply(
+				CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+					.copy("Color", "BlockEntityTag.Color")
+			);
+
+		return createBlockTable(block, lootEntry);
 	}
 
 	private LootTable.@NotNull Builder createFloweringWaterlilyDrops(Block block) {

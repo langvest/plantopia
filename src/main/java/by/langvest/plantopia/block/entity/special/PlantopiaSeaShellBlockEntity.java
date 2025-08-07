@@ -1,56 +1,57 @@
 package by.langvest.plantopia.block.entity.special;
 
 import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
+import by.langvest.plantopia.util.helper.PlantopiaColorHelper;
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Nameable;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlantopiaCobblestoneShardPetBlockEntity extends BlockEntity implements Nameable {
-	protected Component name;
+public class PlantopiaSeaShellBlockEntity extends BlockEntity {
+	public static final int DEFAULT_COLOR = 8635114; // -2181481
+	protected int color = DEFAULT_COLOR;
 
-	public PlantopiaCobblestoneShardPetBlockEntity(BlockPos pos, BlockState state) {
-		super(PlantopiaBlockEntities.COBBLESTONE_SHARD_PET.get(), pos, state);
+	public PlantopiaSeaShellBlockEntity(BlockPos pos, BlockState state) {
+		super(PlantopiaBlockEntities.SEA_SHELL.get(), pos, state);
 	}
 
-	@Override
-	public @NotNull Component getName() {
-		if(name != null) return name;
-
-		return Component.empty();
+	public int getColor() {
+		return color;
 	}
 
-	@Nullable
-	public Component getCustomName() {
-		return name;
+	public void setColor(int color) {
+		this.color = color;
+		setChanged();
 	}
 
-	public void setCustomName(Component name) {
-		this.name = name;
+	public static int generateRandomColor(@NotNull RandomSource random) {
+		var h = PlantopiaMathHelper.getRandomFloatInclusive(random, 0.0F, 1.0F);
+		var s = PlantopiaMathHelper.getRandomFloatInclusive(random, 0.22F, 0.58F);
+		var b = PlantopiaMathHelper.getRandomFloatInclusive(random, 0.72F, 0.88F);
+
+		return PlantopiaColorHelper.hsbToRgb(h, s, b);
 	}
 
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag tag) {
 		super.saveAdditional(tag);
 
-		if(name != null) {
-			tag.putString("CustomName", Component.Serializer.toJson(name));
-		}
+		tag.putInt("Color", color);
 	}
 
 	@Override
 	public void load(@NotNull CompoundTag tag) {
 		super.load(tag);
 
-		if(tag.contains("CustomName", 8)) {
-			name = Component.Serializer.fromJson(tag.getString("CustomName"));
+		if(tag.contains("Color")) {
+			color = tag.getInt("Color");
 		}
 	}
 

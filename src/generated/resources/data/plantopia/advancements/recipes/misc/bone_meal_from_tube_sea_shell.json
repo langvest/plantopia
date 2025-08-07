@@ -1,0 +1,35 @@
+{
+	"parent": "minecraft:recipes/root",
+	"criteria": {
+		"has_the_recipe": {
+			"conditions": {
+				"recipe": "plantopia:bone_meal_from_tube_sea_shell"
+			},
+			"trigger": "minecraft:recipe_unlocked"
+		},
+		"has_tube_sea_shell": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:tube_sea_shell"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"requirements": [
+		[
+			"has_tube_sea_shell",
+			"has_the_recipe"
+		]
+	],
+	"rewards": {
+		"recipes": [
+			"plantopia:bone_meal_from_tube_sea_shell"
+		]
+	},
+	"sends_telemetry_event": false
+}

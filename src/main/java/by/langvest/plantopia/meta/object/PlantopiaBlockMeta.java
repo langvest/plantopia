@@ -236,6 +236,7 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 		public static final MetaType DIRT = MetaProperties.of().makeType("dirt");
 		public static final MetaType IRON = MetaProperties.of().makeType("iron");
 		public static final MetaType GRASS_BLOCK = MetaProperties.copy(DIRT).cutoutMippedRender().grassTint().notTintedParticles().makeType("grass_block");
+		public static final MetaType SHELL = MetaProperties.of().cutoutRender().makeType("shell");
 
 		private MetaType(String name, MetaProperties properties) {
 			super("block", name, properties);

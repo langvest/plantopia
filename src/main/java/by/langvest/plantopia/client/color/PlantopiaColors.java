@@ -2,6 +2,8 @@ package by.langvest.plantopia.client.color;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
+import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
 import by.langvest.plantopia.block.special.PlantopiaTallReedsBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
@@ -48,6 +50,8 @@ public class PlantopiaColors {
 
 	public static void setup() {
 		registerAll();
+
+		seaShellBlocks();
 
 		pottedFernBlock(Blocks.POTTED_FERN);
 		fireweedBlock(PlantopiaBlocks.FIREWEED.get());
@@ -97,6 +101,45 @@ public class PlantopiaColors {
 				if(blockMeta.shouldApplyTintToParticles()) BLOCK_FOLIAGE_COLOR_0.add(block);
 				else BLOCK_FOLIAGE_COLOR_1.add(block);
 			}
+		});
+	}
+
+	private static void seaShellBlocks() {
+		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
+		ItemColors itemColors = Minecraft.getInstance().getItemColors();
+
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+			var block = blockMeta.getBlock();
+
+			if(!(block instanceof PlantopiaSeaShellBlock)) return;
+
+			blockColors.register(
+				(state, level, pos, tintIndex) -> {
+					if(tintIndex == 1 && level != null && pos != null && level.getBlockEntity(pos) instanceof PlantopiaSeaShellBlockEntity seaShellBlockEntity) {
+						return seaShellBlockEntity.getColor();
+					}
+
+					return noColor();
+				},
+				block
+			);
+
+			itemColors.register(
+				(itemStack, tintIndex) -> {
+					if(tintIndex == 1) {
+						var tag = BlockItem.getBlockEntityData(itemStack);
+
+						if(tag != null && tag.contains("Color")) {
+							return tag.getInt("Color");
+						} else {
+							return PlantopiaSeaShellBlockEntity.DEFAULT_COLOR;
+						}
+					}
+
+					return noColor();
+				},
+				block
+			);
 		});
 	}
 
@@ -201,7 +244,7 @@ public class PlantopiaColors {
 
 		ITEM_GRASS_COLOR_0.add(block.asItem());
 
-		/* FIREWEED BLOCK GRASS COLOR 0-1 ******************************************/
+		/* TALL REEDS BLOCK GRASS COLOR 0-1 ******************************************/
 		blockColors.register(
 			(state, level, pos, tintIndex) -> {
 				var half = state.getValue(PlantopiaTallReedsBlock.HALF);
