@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
@@ -19,6 +20,7 @@ public class PlantopiaCobblestoneShardPetBlockEntityRenderer implements BlockEnt
 		var hitResult = Minecraft.getInstance().hitResult;
 
 		if(!(hitResult instanceof BlockHitResult blockHitResult)) return;
+		if(blockHitResult.getType() != HitResult.Type.BLOCK) return;
 		if(!blockHitResult.getBlockPos().equals(blockEntity.getBlockPos())) return;
 
 		var customName = blockEntity.getCustomName();
