@@ -2,6 +2,7 @@ package by.langvest.plantopia.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -53,6 +54,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> INFESTED_DIRT_CAN_SPREAD_TO = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> FROG_PREFER_JUMP_TO = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> INSIDE_STEP_SOUND_BLOCKS = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> SEA_SHELL = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -159,6 +161,10 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 				FROG_PREFER_JUMP_TO.add(block);
 				INSIDE_STEP_SOUND_BLOCKS.add(block);
 			}
+
+			if(block instanceof PlantopiaSeaShellBlock) {
+				SEA_SHELL.add(block);
+			}
 		});
 	}
 
@@ -195,6 +201,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 		save(PlantopiaBlockTags.BONEMEAL_SPREAD_GROWABLE, BONEMEAL_SPREAD_GROWABLE);
 		save(PlantopiaBlockTags.BONEMEAL_SPREAD_ON, BONEMEAL_SPREAD_ON);
 		save(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO, INFESTED_DIRT_CAN_SPREAD_TO);
+		save(PlantopiaBlockTags.SEA_SHELL, SEA_SHELL);
 	}
 
 	private void save(TagKey<Block> key, @NotNull PlantopiaTagSet<Block> tagSet) {

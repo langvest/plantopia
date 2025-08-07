@@ -40,10 +40,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.fromHexColor;
+import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToRgb;
 
 public class PlantopiaQuicksandBlock extends SandBlock implements BucketPickup {
-	public static final int DUST_COLOR = fromHexColor("#DBD3A0");
+	public static final int DUST_COLOR = hexToRgb("#DBD3A0");
 	private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, 0.9D, 1.0D);
 
 	public PlantopiaQuicksandBlock(BlockBehaviour.Properties properties) {

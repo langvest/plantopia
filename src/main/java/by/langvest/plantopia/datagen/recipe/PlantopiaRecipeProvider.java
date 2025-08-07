@@ -55,11 +55,20 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 
 			if(type.instanceOf(MetaType.FLOWER)) {
 				dyeFromFlower(blockMeta);
+				return;
+			}
+
+			if(type.instanceOf(MetaType.SHELL)) {
+				boneMealFromSeaShell(blockMeta);
 			}
 		});
 	}
 
 	/* RECIPES GENERATION ******************************************/
+
+	private void boneMealFromSeaShell(@NotNull PlantopiaBlockMeta blockMeta) {
+		oneToOneConversionRecipe(RecipeCategory.MISC, Items.BONE_MEAL, blockMeta.getBlock(), nameOf(Items.BONE_MEAL), 1);
+	}
 
 	private void dyeFromFlower(@NotNull PlantopiaBlockMeta blockMeta) {
 		Item dye = blockMeta.getDye();

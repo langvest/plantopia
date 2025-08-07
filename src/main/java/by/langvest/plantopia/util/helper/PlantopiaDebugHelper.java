@@ -7,6 +7,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.*;
+
 public final class PlantopiaDebugHelper {
 	public static void logCoords(@NotNull BlockPos pos) {
 		logCoords(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
@@ -24,6 +26,13 @@ public final class PlantopiaDebugHelper {
 		for(int i = 0; i < 5; i++) {
 			player.level().addParticle(ParticleTypes.HAPPY_VILLAGER, x, y, z, 0.0D, 0.0D, 0.0D);
 		}
+	}
+
+	public static void logColor(int packedColor) {
+		var hsb = PlantopiaColorHelper.rgbToHsb(packedColor);
+		PlantopiaDebugHelper.logChat("=====> Color: " + packedColor + " <=====");
+		PlantopiaDebugHelper.logChat("R: " + red(packedColor) + "; G: " + green(packedColor) + "; B: " + blue(packedColor));
+		PlantopiaDebugHelper.logChat("H: " + hsb[0] + "; S: " + hsb[1] + "; B: " + hsb[2]);
 	}
 
 	public static void logChat(@NotNull Object object) {

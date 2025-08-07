@@ -55,4 +55,12 @@ public final class PlantopiaMathHelper {
 
 		return false;
 	}
+
+	public static float getRandomFloatInclusive(RandomSource random, float min, float max) {
+		if(min >= max) {
+			throw new IllegalArgumentException("Invalid range: min must be less than max.");
+		}
+
+		return min + random.nextFloat() * (max - min);
+	}
 }

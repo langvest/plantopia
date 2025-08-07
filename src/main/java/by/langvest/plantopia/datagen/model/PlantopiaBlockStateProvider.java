@@ -38,6 +38,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private static final ExistingFileHelper.ResourceType TEXTURE = new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
 	private static final Set<Direction> HORIZONTAL_DIRECTIONS = ImmutableSet.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
+	private static final int DEFAULT_ANGLE_OFFSET = 180;
 	private final ExistingFileHelper existingFileHelper;
 
 	public PlantopiaBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -103,6 +104,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 			var block = blockMeta.getBlock();
 			var type = blockMeta.getType();
+
+			if(block instanceof PlantopiaSeaShellBlock) {
+				seaShellBlock(blockMeta);
+				return;
+			}
 
 			if(block instanceof PlantopiaWaterlilyFlowerBlock) {
 				waterlilyFlowerBlock(blockMeta);
@@ -248,6 +254,25 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.texture("flower", flowerTexture);
 
 		rotatedBlock(blockMeta.getBlock(), model);
+	}
+
+	private void seaShellBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+		String baseName = blockMeta.getName();
+
+		var model = existingModel(baseName);
+		var itemTexture = itemTexture(baseName);
+		var itemTextureOverlay = itemTexture(baseName + "_overlay");
+
+		generatedItemModel(baseName, itemTexture, itemTextureOverlay);
+
+		getVariantBuilder(blockMeta.getBlock())
+			.forAllStatesExcept(
+				state -> ConfiguredModel.builder()
+					.modelFile(model)
+					.rotationY(((int)state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + DEFAULT_ANGLE_OFFSET) % 360)
+					.build(),
+				BlockStateProperties.WATERLOGGED
+			);
 	}
 
 	/* CUSTOM MODELS GENERATION ******************************************/
