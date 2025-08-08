@@ -75,16 +75,55 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public boolean isBonemealSuccess(@NotNull Level level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		if(state.getValue(AMOUNT) == MAX_LEAFS) return level.random.nextFloat() < 0.45F;
 		return true;
+	}
+
+	protected boolean isValidBonemealCandidate(@NotNull ServerLevel level, @NotNull BlockPos pos) {
+		var state = level.getBlockState(pos);
+
+		if(state.is(this)) return true;
+
+		return state.isAir() && canSurvive(state, level, pos);
 	}
 
 	@Override
 	public void performBonemeal(@NotNull ServerLevel level, @NotNull RandomSource random, @NotNull BlockPos pos, @NotNull BlockState state) {
-		int amount = state.getValue(AMOUNT);
-		if(amount < MAX_LEAFS) {
-			level.setBlock(pos, state.setValue(AMOUNT, amount + 1), 2);
-		} else {
+		var basePos = new BlockPos(pos);
+		boolean shouldGrowBigClover = state.getValue(AMOUNT) == MAX_LEAFS;
+
+		label49: for(int i = 0; i < 128; i++) {
+			var candidatePos = basePos;
+
+			for(int j = 0; j < i / 40; j++) {
+				var dx = random.nextInt(3) - 1;
+				var dy = random.nextInt(3) - 1;
+				var dz = random.nextInt(3) - 1;
+
+				candidatePos = candidatePos.offset(dx, dy, dz);
+
+				if(!isValidBonemealCandidate(level, candidatePos)) continue label49;
+			}
+
+			var candidateState = level.getBlockState(candidatePos);
+
+			if(candidateState.is(this) && candidateState.getValue(AMOUNT) < MAX_LEAFS && random.nextInt(10) == 0) {
+				var newState = candidateState
+					.setValue(AMOUNT, candidateState.getValue(AMOUNT) + 1);
+
+				level.setBlock(candidatePos, newState, Block.UPDATE_CLIENTS);
+				continue;
+			}
+
+			if(candidateState.isAir()) {
+				var newState = defaultBlockState()
+					.setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random))
+					.setValue(AMOUNT, MIN_LEAFS);
+
+				level.setBlock(candidatePos, newState, Block.UPDATE_ALL);
+			}
+		}
+
+		if(shouldGrowBigClover && level.random.nextFloat() < 0.45F) {
 			growBigClover(level, pos);
 		}
 	}
