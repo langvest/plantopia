@@ -1,10 +1,7 @@
 package by.langvest.plantopia.datagen.loot;
 
 import by.langvest.plantopia.block.*;
-import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
-import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
-import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardPetBlock;
-import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
+import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
@@ -90,6 +87,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);
 		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
 		add(PlantopiaBlocks.BIG_PLATTERLEAF.get(), this::createBigPlatterleafDrops);
+		add(PlantopiaBlocks.COVERED_SNOWDROP.get(), this::createCoveredSnowdropDrops);
 	}
 
 	private void generateAll() {
@@ -336,6 +334,14 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			);
 
 		return createWidePlantTable(block, lootEntry);
+	}
+
+	private LootTable.@NotNull Builder createCoveredSnowdropDrops(Block block) {
+		PlantopiaCoveredSnowdropBlock coveredSnowdropBlock = (PlantopiaCoveredSnowdropBlock)block;
+
+		LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(coveredSnowdropBlock.getFlowerBlock()));
+
+		return createBlockTable(block, lootEntry);
 	}
 
 	private LootTable.@NotNull Builder createSeaShellDrops(Block block) {

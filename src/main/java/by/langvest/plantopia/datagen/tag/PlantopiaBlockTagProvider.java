@@ -55,6 +55,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	private final PlantopiaTagSet<Block> FROG_PREFER_JUMP_TO = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> INSIDE_STEP_SOUND_BLOCKS = PlantopiaTagSet.newTagSet();
 	private final PlantopiaTagSet<Block> SEA_SHELL = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> SNOW = PlantopiaTagSet.newTagSet();
+	private final PlantopiaTagSet<Block> COMBINATION_STEP_SOUND_BLOCKS = PlantopiaTagSet.newTagSet();
 	private static PlantopiaBlockTagProvider instance;
 
 	public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -165,10 +167,18 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 			if(block instanceof PlantopiaSeaShellBlock) {
 				SEA_SHELL.add(block);
 			}
+
+			if(type.instanceOf(MetaType.SNOW)) {
+				SNOW.add(block);
+				MINEABLE_WITH_SHOVEL.add(block);
+				COMBINATION_STEP_SOUND_BLOCKS.add(block);
+			}
 		});
 	}
 
 	private void saveAll() {
+		save(BlockTags.COMBINATION_STEP_SOUND_BLOCKS, COMBINATION_STEP_SOUND_BLOCKS);
+		save(BlockTags.SNOW, SNOW);
 		save(BlockTags.INSIDE_STEP_SOUND_BLOCKS, INSIDE_STEP_SOUND_BLOCKS);
 		save(BlockTags.FROG_PREFER_JUMP_TO, FROG_PREFER_JUMP_TO);
 		save(BlockTags.VALID_SPAWN, VALID_SPAWN);

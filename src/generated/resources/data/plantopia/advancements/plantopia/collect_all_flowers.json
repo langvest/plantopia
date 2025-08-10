@@ -493,6 +493,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:snowdrop": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:snowdrop"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:white_clover_blossom": {
 			"conditions": {
 				"items": [
@@ -740,6 +752,9 @@
 		],
 		[
 			"plantopia:red_waterlily"
+		],
+		[
+			"plantopia:snowdrop"
 		],
 		[
 			"plantopia:white_clover_blossom"

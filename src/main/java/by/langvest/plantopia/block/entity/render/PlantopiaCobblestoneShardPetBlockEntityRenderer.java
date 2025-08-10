@@ -9,9 +9,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
+@OnlyIn(Dist.CLIENT)
 public class PlantopiaCobblestoneShardPetBlockEntityRenderer implements BlockEntityRenderer<PlantopiaCobblestoneShardPetBlockEntity> {
 	public PlantopiaCobblestoneShardPetBlockEntityRenderer(@SuppressWarnings("unused") BlockEntityRendererProvider.Context context) {}
 

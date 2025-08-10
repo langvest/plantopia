@@ -106,6 +106,8 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> ROUND_SEA_SHELL = registerBlock("round_sea_shell", () -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.ROUND_SHAPE, Properties.of().mapColor(MapColor.SAND).strength(0.2F).sound(SoundType.BONE_BLOCK).noOcclusion().pushReaction(PushReaction.DESTROY)), MetaProperties.copy(MetaType.SHELL).customTint().customItem());
 	public static final RegistryObject<Block> TWISTY_SEA_SHELL = registerBlock("twisty_sea_shell", () -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.TWISTY_SHAPE, Properties.copy(PlantopiaBlocks.ROUND_SEA_SHELL.get())), MetaProperties.copy(MetaType.SHELL).customTint().customItem());
 	public static final RegistryObject<Block> TUBE_SEA_SHELL = registerBlock("tube_sea_shell", () -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.TUBE_SHAPE, Properties.copy(PlantopiaBlocks.ROUND_SEA_SHELL.get())), MetaProperties.copy(MetaType.SHELL).customTint().customItem());
+	public static final RegistryObject<Block> SNOWDROP = registerBlock("snowdrop", () -> new PlantopiaSnowdropBlock(() -> MobEffects.WEAKNESS, 12, Properties.copy(Blocks.POPPY)), MetaProperties.copy(MetaType.FLOWER).dye(Items.WHITE_DYE).customModel());
+	public static final RegistryObject<Block> COVERED_SNOWDROP = registerBlock("covered_snowdrop", () -> new PlantopiaCoveredSnowdropBlock(Properties.copy(Blocks.SNOW)), MetaProperties.copy(MetaType.SNOW).noItem().customModel().customDrop().preferredByBees());
 
 	static {
 		registerPottedBlocks();

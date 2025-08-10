@@ -96,6 +96,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
 		tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
 		seaweedBlock(PlantopiaBlocks.SEAWEED.get());
+		snowdropBlock(PlantopiaBlocks.SNOWDROP.get());
+		coveredSnowdropBlock(PlantopiaBlocks.COVERED_SNOWDROP.get());
 	}
 
 	private void generateAll() {
@@ -500,6 +502,28 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		blockItemModel(baseName, model);
 		horizontalBlock(block, model);
+	}
+
+	private void snowdropBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var itemTexture = texture(baseName);
+		var model = existingModel(baseName);
+
+		generatedItemModel(baseName, itemTexture);
+		simpleBlock(block, model);
+	}
+
+	private void coveredSnowdropBlock(Block block) {
+		getVariantBuilder(block).forAllStates(state -> {
+			int layers = state.getValue(PlantopiaCoveredSnowdropBlock.LAYERS);
+
+			if(layers == PlantopiaCoveredSnowdropBlock.MAX_HEIGHT) {
+				return ConfiguredModel.builder().modelFile(blockModel(Blocks.SNOW_BLOCK)).build();
+			}
+
+			return ConfiguredModel.builder().modelFile(minecraftExistingModel(nameOf(Blocks.SNOW) + "_height" + (layers * 2))).build();
+		});
 	}
 
 	private void infestedDirtBlock(Block block) {

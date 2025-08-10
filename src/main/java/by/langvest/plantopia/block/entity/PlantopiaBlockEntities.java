@@ -4,6 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.entity.special.PlantopiaCobblestoneShardPetBlockEntity;
 import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
+import by.langvest.plantopia.block.entity.special.PlantopiaCoveredSnowdropBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,6 +22,7 @@ public class PlantopiaBlockEntities {
 
 	public static final RegistryObject<BlockEntityType<PlantopiaCobblestoneShardPetBlockEntity>> COBBLESTONE_SHARD_PET = registerType("cobblestone_shard_pet", PlantopiaCobblestoneShardPetBlockEntity::new, Set.of(PlantopiaBlocks.COBBLESTONE_SHARD_PET, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET));
 	public static final RegistryObject<BlockEntityType<PlantopiaSeaShellBlockEntity>> SEA_SHELL = registerType("sea_shell", PlantopiaSeaShellBlockEntity::new, Set.of(PlantopiaBlocks.ROUND_SEA_SHELL));
+	public static final RegistryObject<BlockEntityType<PlantopiaCoveredSnowdropBlockEntity>> COVERED_SNOWDROP = registerType("covered_snowdrop", PlantopiaCoveredSnowdropBlockEntity::new, Set.of(PlantopiaBlocks.COVERED_SNOWDROP));
 
 	public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerType(String name, BlockEntityType.BlockEntitySupplier<T> supplier, @NotNull Set<Supplier<Block>> blocks) {
 		return BLOCK_ENTITY_REGISTER.register(name, () -> {
