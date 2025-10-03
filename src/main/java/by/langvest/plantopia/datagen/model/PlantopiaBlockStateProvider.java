@@ -37,6 +37,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private static final ExistingFileHelper.ResourceType TEXTURE = new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
+	private static final ExistingFileHelper.ResourceType MODEL = new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".json", "models");
 	private static final Set<Direction> HORIZONTAL_DIRECTIONS = ImmutableSet.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
 	private static final int DEFAULT_ANGLE_OFFSET = 180;
 	private final ExistingFileHelper existingFileHelper;
@@ -98,6 +99,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		seaweedBlock(PlantopiaBlocks.SEAWEED.get());
 		snowdropBlock(PlantopiaBlocks.SNOWDROP.get());
 		coveredSnowdropBlock(PlantopiaBlocks.COVERED_SNOWDROP.get());
+
+		checkAll();
 	}
 
 	private void generateAll() {
@@ -143,6 +146,22 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			}
 
 			simpleBlock(blockMeta);
+		});
+	}
+
+	private void checkAll() {
+		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+			var name = blockMeta.getName();
+			var namespace = blockMeta.getNamespace();
+			var type = blockMeta.getType();
+
+			if(type == MetaType.POTTED) {
+				var modelLocation = locationFrom(namespace, ModelProvider.BLOCK_FOLDER, name);
+
+				if(!isModelExists(modelLocation)) {
+					throw new IllegalStateException("Model '" + modelLocation + "' is not presented!");
+				}
+			}
 		});
 	}
 
@@ -512,6 +531,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, itemTexture);
 		simpleBlock(block, model);
+
+		var pottedBlock = pottedBlockOf(block);
+
+		if(pottedBlock != null) {
+			String pottedBaseName = nameOf(pottedBlock);
+
+			var plantTexture = texture(baseName);
+			var pottedModel = flowerPotCrossModel(pottedBaseName, plantTexture);
+
+			simpleBlock(pottedBlock, pottedModel);
+		}
 	}
 
 	private void coveredSnowdropBlock(Block block) {
@@ -959,6 +989,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private boolean isTextureExists(@NotNull ResourceLocation texture) {
 		return existingFileHelper.exists(texture, TEXTURE);
+	}
+
+	private boolean isModelExists(@NotNull ResourceLocation model) {
+		return existingFileHelper.exists(model, MODEL);
 	}
 
 	@Contract("_ -> new")
