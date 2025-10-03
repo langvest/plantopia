@@ -28,7 +28,7 @@ public class PlantopiaAzollaBlock extends BushBlock implements BonemealableBlock
 	public static final int MIN_LEAFS = 1;
 	public static final int MAX_LEAFS = 4;
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.PLANT_AMOUNT;
+	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.LEAF_AMOUNT;
 
 	public PlantopiaAzollaBlock(Properties properties) {
 		super(properties);
