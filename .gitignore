@@ -9,3 +9,6 @@ out/
 
 # Data
 .cache/
+
+# TODO
+todo.md
