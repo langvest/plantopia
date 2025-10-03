@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? extends Block>> {
@@ -71,6 +72,10 @@ public class PlantopiaBlockMeta extends PlantopiaMetaObject<RegistryObject<? ext
 
 	public String getName() {
 		return nameOf(target);
+	}
+
+	public String getNamespace() {
+		return locationOf(target).getNamespace();
 	}
 
 	public Block getBlock() {

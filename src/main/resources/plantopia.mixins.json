@@ -16,6 +16,7 @@
 		"PlantopiaDoublePlantBlockMixin",
 		"PlantopiaEntityMixin",
 		"PlantopiaEntityTypeMixin",
+		"PlantopiaFlowerPotBlockMixin",
 		"PlantopiaFoxMixin",
 		"PlantopiaFriendlyByteBufMixin",
 		"PlantopiaGrassBlockMixin",

@@ -1,0 +1,7 @@
+{
+	"parent": "plantopia:block/template_lucky_daisy",
+	"textures": {
+		"particle": "plantopia:block/white_lucky_daisy_petals_8",
+		"petals": "plantopia:block/white_lucky_daisy_petals_7"
+	}
+}

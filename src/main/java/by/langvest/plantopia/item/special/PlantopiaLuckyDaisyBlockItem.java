@@ -1,0 +1,30 @@
+package by.langvest.plantopia.item.special;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
+
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+
+public class PlantopiaLuckyDaisyBlockItem extends BlockItem {
+	public static final ResourceLocation PETAL_AMOUNT_PREDICATE = plantopiaLocationFrom("petal_amount");
+
+	public PlantopiaLuckyDaisyBlockItem(Block block, Properties properties) {
+		super(block, properties);
+	}
+
+	//	@Override
+//	public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+//		super.appendHoverText(itemStack, level, tooltip, flag);
+//
+//		var tag = BlockItem.getBlockEntityData(itemStack);
+//
+//		if(tag != null && tag.contains("Color")) {
+//			if(flag.isAdvanced()) {
+//				tooltip.add(Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", tag.getInt("Color"))).withStyle(ChatFormatting.GRAY));
+//			}
+//		} else if(flag.isCreative()) {
+//			tooltip.add(Component.translatable(PlantopiaTemplateHelper.TOOLTIP_RANDOM_VARIANT_KEY).withStyle(ChatFormatting.GRAY));
+//		}
+//	}
+}

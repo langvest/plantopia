@@ -39,6 +39,8 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> ROUND_SEA_SHELL = registerItem("round_sea_shell", () -> new PlantopiaSeaShellBlockItem(PlantopiaBlocks.ROUND_SEA_SHELL.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.SEA_SHELL));
 	public static final RegistryObject<Item> TWISTY_SEA_SHELL = registerItem("twisty_sea_shell", () -> new PlantopiaSeaShellBlockItem(PlantopiaBlocks.TWISTY_SEA_SHELL.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.SEA_SHELL));
 	public static final RegistryObject<Item> TUBE_SEA_SHELL = registerItem("tube_sea_shell", () -> new PlantopiaSeaShellBlockItem(PlantopiaBlocks.TUBE_SEA_SHELL.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.SEA_SHELL));
+	public static final RegistryObject<Item> WHITE_LUCKY_DAISY = registerItem("white_lucky_daisy", () -> new PlantopiaLuckyDaisyBlockItem(PlantopiaBlocks.WHITE_LUCKY_DAISY.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.FLOWER).customModel());
+	public static final RegistryObject<Item> PINK_LUCKY_DAISY = registerItem("pink_lucky_daisy", () -> new PlantopiaLuckyDaisyBlockItem(PlantopiaBlocks.PINK_LUCKY_DAISY.get(), new Properties()), MetaProperties.copy(MetaType.BLOCK).order(PlantopiaOrderType.FLOWER).customModel());
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Supplier<T> supplier, MetaProperties metaProperties) {
 		var registryObject = ITEM_REGISTER.register(name, supplier);

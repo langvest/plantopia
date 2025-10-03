@@ -2,6 +2,7 @@ package by.langvest.plantopia.datagen.adv;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
+import by.langvest.plantopia.adv.trigger.special.PlantopiaBlockInteractTrigger;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.util.helper.PlantopiaContentHelper;
@@ -69,6 +70,12 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 			.getBuilder()
 			.addCriterion(getWalkOnBlockWithEquipmentName(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS), walkOnBlockWithEquipment(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS));
 
+		PlantopiaAdvancements.PLUCK_LUCKY_DAISY_PETAL
+			.getBuilder()
+			.requirements(RequirementsStrategy.OR)
+			.addCriterion(getInteractWithName(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()))
+			.addCriterion(getInteractWithName(PlantopiaBlocks.PINK_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.PINK_LUCKY_DAISY.get()));
+
 		saveAll();
 	}
 
@@ -107,6 +114,10 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 
 	/* HELPER METHODS ******************************************/
 
+	private static @NotNull String getInteractWithName(@NotNull Block block) {
+		return "interact_with_" + nameOf(block);
+	}
+
 	private static @NotNull String getHasName(@NotNull ItemLike item) {
 		return "has_" + nameOf(item.asItem());
 	}
@@ -135,6 +146,10 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 
 	private static ItemUsedOnLocationTrigger.@NotNull TriggerInstance place(Block block) {
 		return ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block);
+	}
+
+	private static PlantopiaBlockInteractTrigger.@NotNull TriggerInstance interactWith(Block block) {
+		return PlantopiaBlockInteractTrigger.TriggerInstance.interactedWith(block);
 	}
 
 	private static AdvancementRewards.@NotNull Builder experience(int amount) {

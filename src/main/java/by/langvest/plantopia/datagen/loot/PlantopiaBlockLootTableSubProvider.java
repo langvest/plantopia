@@ -88,6 +88,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
 		add(PlantopiaBlocks.BIG_PLATTERLEAF.get(), this::createBigPlatterleafDrops);
 		add(PlantopiaBlocks.COVERED_SNOWDROP.get(), this::createCoveredSnowdropDrops);
+		add(PlantopiaBlocks.WHITE_LUCKY_DAISY.get(), this::createLuckyDaisyDrops);
+		add(PlantopiaBlocks.PINK_LUCKY_DAISY.get(), this::createLuckyDaisyDrops);
 	}
 
 	private void generateAll() {
@@ -349,6 +351,17 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 			.apply(
 				CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
 					.copy("Color", "BlockEntityTag.Color")
+			);
+
+		return createBlockTable(block, lootEntry);
+	}
+
+
+	private LootTable.@NotNull Builder createLuckyDaisyDrops(Block block) {
+		LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+			.apply(
+				CopyBlockState.copyState(block)
+					.copy(PlantopiaLuckyDaisyBlock.AMOUNT)
 			);
 
 		return createBlockTable(block, lootEntry);

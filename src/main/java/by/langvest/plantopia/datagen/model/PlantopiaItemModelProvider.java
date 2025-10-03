@@ -1,6 +1,9 @@
 package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaLuckyDaisyBlock;
+import by.langvest.plantopia.item.special.PlantopiaLuckyDaisyBlockItem;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
 import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
@@ -8,6 +11,7 @@ import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -28,6 +32,9 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		generateAll();
+
+		luckyDaisyBlockItem(PlantopiaBlocks.WHITE_LUCKY_DAISY.get());
+		luckyDaisyBlockItem(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
 	}
 
 	private void generateAll() {
@@ -59,6 +66,37 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 		String baseName = itemMeta.getName();
 
 		entityItemModel(baseName);
+	}
+
+	/* CUSTOM MODELS GENERATION ******************************************/
+
+	private void luckyDaisyBlockItem(ItemLike item) {
+		String baseName = nameOf(item);
+
+		var stemTexture = texture("lucky_daisy_stem");
+		var level1Texture = texture(baseName + "_1");
+		var level2Texture = texture(baseName + "_2");
+		var level3Texture = texture(baseName + "_3");
+
+		var stemModel = generatedItemModel("lucky_daisy_stem", stemTexture);
+		var level1Model = generatedItemModel(baseName + "_1", level1Texture);
+		var level2Model = generatedItemModel(baseName + "_2", level2Texture);
+		var level3Model = generatedItemModel(baseName + "_3", level3Texture);
+
+		var builder = generatedItemModel(baseName, level3Texture);
+
+		for(int amount = PlantopiaLuckyDaisyBlock.MIN_PETALS; amount <= PlantopiaLuckyDaisyBlock.MAX_PETALS; amount++) {
+			ModelFile model = level3Model;
+
+			if(amount == PlantopiaLuckyDaisyBlock.MIN_PETALS) model = stemModel;
+			else if(amount <= 4) model = level1Model;
+			else if(amount < PlantopiaLuckyDaisyBlock.MAX_PETALS) model = level2Model;
+
+			builder.override()
+				.predicate(PlantopiaLuckyDaisyBlockItem.PETAL_AMOUNT_PREDICATE, amount * 0.1F)
+				.model(model)
+				.end();
+		}
 	}
 
 	/* ITEM MODELS ******************************************/
