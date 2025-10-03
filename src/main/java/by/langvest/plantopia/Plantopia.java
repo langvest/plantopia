@@ -1,5 +1,6 @@
 package by.langvest.plantopia;
 
+import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaCompats;
 import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
@@ -48,6 +49,7 @@ public final class Plantopia {
 
 	private void commonSetup(final @NotNull FMLCommonSetupEvent event) {
 		event.enqueueWork(PlantopiaCompats::setup);
+		event.enqueueWork(PlantopiaAdvancementTriggers::setup);
 	}
 
 	private void clientSetup(final @NotNull FMLClientSetupEvent event) {
