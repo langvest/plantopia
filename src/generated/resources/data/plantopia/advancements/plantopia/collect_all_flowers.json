@@ -385,6 +385,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:pink_lucky_daisy": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_lucky_daisy"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:pink_lupine": {
 			"conditions": {
 				"items": [
@@ -523,6 +535,18 @@
 					{
 						"items": [
 							"plantopia:white_foxglove"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:white_lucky_daisy": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:white_lucky_daisy"
 						]
 					}
 				]
@@ -727,6 +751,9 @@
 			"plantopia:pink_foxglove"
 		],
 		[
+			"plantopia:pink_lucky_daisy"
+		],
+		[
 			"plantopia:pink_lupine"
 		],
 		[
@@ -761,6 +788,9 @@
 		],
 		[
 			"plantopia:white_foxglove"
+		],
+		[
+			"plantopia:white_lucky_daisy"
 		],
 		[
 			"plantopia:white_lupine"

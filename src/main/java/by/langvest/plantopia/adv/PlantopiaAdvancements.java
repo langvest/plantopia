@@ -17,9 +17,10 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaAdvancements {
 	public static final PlantopiaAdvancement ROOT = registerAdvancement("root", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.ROOT).group(Plantopia.MOD_ID).background("dirt").icon(PlantopiaBlocks.FIREWEED));
 	public static final PlantopiaAdvancement COLLECT_ALL_FLOWERS = registerAdvancement("collect_all_flowers", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHALLENGE).parent(ROOT).icon(PlantopiaItems.FLOWERS_ICON));
-	public static final PlantopiaAdvancement PLACE_HOGWEED = registerAdvancement("place_hogweed", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(PlantopiaBlocks.HOGWEED));
+	public static final PlantopiaAdvancement PLACE_HOGWEED = registerAdvancement("place_hogweed", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).icon(PlantopiaBlocks.HOGWEED));
 	public static final PlantopiaAdvancement PLACE_COBBLESTONE_SHARD_PET = registerAdvancement("place_cobblestone_shard_pet", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(PlantopiaBlocks.COBBLESTONE_SHARD));
-	public static final PlantopiaAdvancement WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS = registerAdvancement("walk_on_quicksand_with_leather_boots", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).hidden().icon(() -> Items.LEATHER_BOOTS));
+	public static final PlantopiaAdvancement WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS = registerAdvancement("walk_on_quicksand_with_leather_boots", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(ROOT).icon(() -> Items.LEATHER_BOOTS));
+	public static final PlantopiaAdvancement PLUCK_LUCKY_DAISY_PETAL = registerAdvancement("pluck_lucky_daisy_petal", PlantopiaAdvancement::new, MetaProperties.copy(MetaType.CHILD).parent(COLLECT_ALL_FLOWERS).icon(PlantopiaBlocks.WHITE_LUCKY_DAISY));
 
 	public static @NotNull PlantopiaAdvancement registerAdvancement(String name, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
 		var id = plantopiaLocationFrom(name);

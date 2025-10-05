@@ -39,6 +39,7 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		advancement(PlantopiaAdvancements.PLACE_HOGWEED, "Hogweed every day", "Do your part to help Hogweed take over the world!");
 		advancement(PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET, "A Stone is a Man's Best Friend", "Get yourself the most devoted friend!");
 		advancement(PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS, "Light as a Grain of Sand", "Walk on Quicksand as if it were just ordinary Sand");
+		advancement(PlantopiaAdvancements.PLUCK_LUCKY_DAISY_PETAL, "Loves me, loves me not", "Ask the Lucky Daisy and pluck your fate!");
 
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");

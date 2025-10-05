@@ -41,7 +41,7 @@
 			"translate": "advancements.plantopia.place_hogweed.description"
 		},
 		"frame": "task",
-		"hidden": true,
+		"hidden": false,
 		"icon": {
 			"item": "plantopia:hogweed"
 		},

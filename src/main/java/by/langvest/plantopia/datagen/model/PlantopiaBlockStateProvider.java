@@ -99,6 +99,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		seaweedBlock(PlantopiaBlocks.SEAWEED.get());
 		snowdropBlock(PlantopiaBlocks.SNOWDROP.get());
 		coveredSnowdropBlock(PlantopiaBlocks.COVERED_SNOWDROP.get());
+		luckyDaisyBlock(PlantopiaBlocks.WHITE_LUCKY_DAISY.get());
+		luckyDaisyBlock(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
 
 		checkAll();
 	}
@@ -506,6 +508,42 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, topTexture);
 		doubleHighBlock(block, topModel, bottomModel);
+	}
+
+	private void luckyDaisyBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var fullPetalsTexture = texture(baseName + "_petals_" + PlantopiaLuckyDaisyBlock.MAX_PETALS);
+		var stemModel = existingModel("lucky_daisy_stem");
+
+		getVariantBuilder(block).forAllStates(state -> {
+			var amount = state.getValue(PlantopiaLuckyDaisyBlock.AMOUNT);
+
+			ModelFile model = stemModel;
+
+			if(amount > 0) {
+				var petalsTexture = texture(baseName + "_petals_" + amount);
+
+				model = luckyDaisyTemplateModel(baseName + "_" + amount, petalsTexture)
+					.texture("particle", fullPetalsTexture);
+			}
+
+			return ConfiguredModel.builder()
+				.modelFile(model).nextModel()
+				.modelFile(model).rotationY(90).nextModel()
+				.modelFile(model).rotationY(180).nextModel()
+				.modelFile(model).rotationY(270).build();
+		});
+
+		var pottedBlock = pottedBlockOf(block);
+
+		if(pottedBlock != null) {
+			var pottedBaseName = nameOf(pottedBlock);
+			var pottedPetalsTexture = texture(pottedBaseName + "_petals");
+			var pottedModel = pottedLuckyDaisyTemplateModel(pottedBaseName, pottedPetalsTexture);
+
+			simpleBlock(pottedBlock, pottedModel);
+		}
 	}
 
 	private void pollinatedDandelionBlock(Block block) {
@@ -950,6 +988,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private BlockModelBuilder seaMossTemplateModel(String name, ResourceLocation texture) {
 		return models().withExistingParent(name, parent("template_sea_moss"))
 			.texture("texture", texture);
+	}
+
+	private BlockModelBuilder luckyDaisyTemplateModel(String name, ResourceLocation petalsTexture) {
+		return models().withExistingParent(name, parent("template_lucky_daisy"))
+			.texture("petals", petalsTexture);
+	}
+
+	private BlockModelBuilder pottedLuckyDaisyTemplateModel(String name, ResourceLocation petalsTexture) {
+		return models().withExistingParent(name, parent("template_potted_lucky_daisy"))
+			.texture("petals", petalsTexture);
 	}
 
 	private BlockModelBuilder cubeBottomTopModel(String name, ResourceLocation topTexture, ResourceLocation sideTexture, ResourceLocation bottomTexture) {
