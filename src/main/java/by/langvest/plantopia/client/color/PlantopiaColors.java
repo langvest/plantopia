@@ -5,7 +5,7 @@ import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
 import by.langvest.plantopia.block.special.PlantopiaTallReedsBlock;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import by.langvest.plantopia.util.helper.PlantopiaBlockHelper;
 import com.google.common.collect.Sets;
@@ -25,8 +25,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +32,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaColors {
 	private static final Set<Block> BLOCK_GRASS_COLOR_0 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_GRASS_COLOR_1 = Sets.newHashSet();
@@ -71,11 +68,11 @@ public class PlantopiaColors {
 	}
 
 	private static void registerAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldApplyTint()) return;
 
-			Block block = blockMeta.getBlock();
-			PlantopiaTintType tintType = blockMeta.getTintType();
+			var block = blockMeta.get();
+			var tintType = blockMeta.getTintType();
 
 			if(blockMeta.shouldApplyTintToItem()) ITEM_INHERIT_BLOCK_COLOR.add(block.asItem());
 
@@ -108,8 +105,8 @@ public class PlantopiaColors {
 		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
 		ItemColors itemColors = Minecraft.getInstance().getItemColors();
 
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
-			var block = blockMeta.getBlock();
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
+			var block = blockMeta.get();
 
 			if(!(block instanceof PlantopiaSeaShellBlock)) return;
 
@@ -221,7 +218,7 @@ public class PlantopiaColors {
 	/* CUSTOM TINTS ******************************************/
 
 	private static void fireweedBlock(@NotNull Block block) {
-		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
+		var blockColors = Minecraft.getInstance().getBlockColors();
 
 		ITEM_GRASS_COLOR_0.add(block.asItem());
 
@@ -240,7 +237,7 @@ public class PlantopiaColors {
 	}
 
 	private static void tallReedsBlock(@NotNull Block block) {
-		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
+		var blockColors = Minecraft.getInstance().getBlockColors();
 
 		ITEM_GRASS_COLOR_0.add(block.asItem());
 

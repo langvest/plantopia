@@ -1,6 +1,7 @@
 package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.Plantopia;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,8 +28,8 @@ public final class PlantopiaTemplateHelper {
 	/* CREATIVE MODE TAB *****************************************************************/
 
 	@Contract(pure = true)
-	public static @NotNull String getCreativeModeTabTitleKey(String groupName) {
-		return "itemGroup." + groupName;
+	public static @NotNull String getCreativeModeTabTitleKey(@NotNull ResourceLocation identifier) {
+		return "itemGroup." + identifier.getNamespace() + "." + identifier.getPath();
 	}
 
 	/* DAMAGE TYPE *****************************************************************/

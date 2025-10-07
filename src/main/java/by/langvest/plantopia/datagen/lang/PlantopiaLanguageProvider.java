@@ -4,18 +4,18 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.entity.PlantopiaDamageTypes;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.helper.PlantopiaStringHelper;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
+import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 	protected void addTranslations() {
 		generateAll();
 
-		tab(PlantopiaCreativeModeTabs.PLANTOPIA, "Plantopia");
+		tab(PlantopiaCreativeModeTabs.MAIN, "Plantopia");
 
 		advancement(PlantopiaAdvancements.ROOT, "Plantopia", "What a wonderful world!");
 		advancement(PlantopiaAdvancements.COLLECT_ALL_FLOWERS, "Real Gardener", "Collect one of every flower");
@@ -53,13 +53,13 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 
 	@SuppressWarnings("SameParameterValue")
 	private void tab(@NotNull ResourceKey<CreativeModeTab> tab, String name) {
-		var key = PlantopiaTemplateHelper.getCreativeModeTabTitleKey(nameOf(tab));
+		var key = PlantopiaTemplateHelper.getCreativeModeTabTitleKey(tab.location());
 
 		add(key, name);
 	}
 
-	private void advancement(@NotNull PlantopiaAdvancement advancement, String title, String description) {
-		var advancementMeta = PlantopiaMetaRegistries.ADVANCEMENTS.getValueOrThrow(advancement);
+	private void advancement(@NotNull RegistryObject<PlantopiaAdvancement> advancement, String title, String description) {
+		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(advancement.getIdentifier());
 
 		add(advancementMeta.getTitleKey(), title);
 		add(advancementMeta.getDescriptionKey(), description);
@@ -80,18 +80,18 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateTranslation()) return;
 
-			var block = blockMeta.getBlock();
+			var block = blockMeta.get();
 
 			add(block, getDisplayNameById(blockMeta.getName()));
 		});
 
-		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
+		PlantopiaMetaBuckets.ITEM.forEach(itemMeta -> {
 			if(!itemMeta.shouldGenerateTranslation()) return;
 
-			var item = itemMeta.getItem();
+			var item = itemMeta.get();
 
 			add(item, getDisplayNameById(itemMeta.getName()));
 		});

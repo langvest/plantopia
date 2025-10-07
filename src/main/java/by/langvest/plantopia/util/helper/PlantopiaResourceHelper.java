@@ -2,6 +2,7 @@ package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
+import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public final class PlantopiaResourceHelper {
 	/* LOCATION OF ***********************************************************************/
 
 	public static @NotNull ResourceLocation locationOf(@NotNull RegistryObject<?> registryObject) {
-		return registryObject.getId();
+		return registryObject.getIdentifier();
 	}
 
 	public static @NotNull ResourceLocation locationOf(@NotNull TagKey<?> tag) {
@@ -76,7 +76,7 @@ public final class PlantopiaResourceHelper {
 	}
 
 	public static @NotNull ResourceLocation locationOf(@NotNull PlantopiaAdvancement advancement) {
-		return advancement.getId();
+		return advancement.getIdentifier();
 	}
 
 	public static @NotNull ResourceLocation locationOf(@NotNull EntityType<?> entity) {

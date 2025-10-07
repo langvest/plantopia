@@ -4,7 +4,7 @@ import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.adv.trigger.special.PlantopiaBlockInteractTrigger;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.util.helper.PlantopiaContentHelper;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -39,7 +39,7 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 	public void generate(HolderLookup.@NotNull Provider registries, @NotNull Consumer<Advancement> consumer, @NotNull ExistingFileHelper existingFileHelper) {
 		setConsumer(consumer);
 
-		PlantopiaAdvancements.ROOT
+		PlantopiaAdvancements.ROOT.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
 			.addCriterion(getHasName(ItemTags.DIRT), has(ItemTags.DIRT))
@@ -48,29 +48,29 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 			.addCriterion(getHasName(ItemTags.FLOWERS), has(ItemTags.FLOWERS))
 			.addCriterion(getHasName(Items.GRAVEL), has(Items.GRAVEL));
 
-		PlantopiaAdvancements.COLLECT_ALL_FLOWERS
+		PlantopiaAdvancements.COLLECT_ALL_FLOWERS.get()
 			.apply(PlantopiaAdvancementSubProvider::addFlowersToCollect)
 			.getBuilder()
 			.rewards(experience(100));
 
-		PlantopiaAdvancements.PLACE_HOGWEED
+		PlantopiaAdvancements.PLACE_HOGWEED.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
 			.addCriterion(getPlaceName(PlantopiaBlocks.HOGWEED.get()), place(PlantopiaBlocks.HOGWEED.get()))
 			.addCriterion(getPlaceName(PlantopiaBlocks.INFESTED_DIRT.get()), place(PlantopiaBlocks.INFESTED_DIRT.get()))
 			.addCriterion(getPlaceName(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()), place(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()));
 
-		PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET
+		PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
 			.addCriterion(getPlaceName(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()))
 			.addCriterion(getPlaceName(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()));
 
-		PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS
+		PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS.get()
 			.getBuilder()
 			.addCriterion(getWalkOnBlockWithEquipmentName(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS), walkOnBlockWithEquipment(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS));
 
-		PlantopiaAdvancements.PLUCK_LUCKY_DAISY_PETAL
+		PlantopiaAdvancements.PLUCK_LUCKY_DAISY_PETAL.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
 			.addCriterion(getInteractWithName(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()))
@@ -84,8 +84,8 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 	}
 
 	private void saveAll() {
-		PlantopiaMetaRegistries.ADVANCEMENTS.forEach(advancementMeta -> {
-			var advancement = advancementMeta.getAdvancement();
+		PlantopiaMetaBuckets.ADVANCEMENT.forEach(advancementMeta -> {
+			var advancement = advancementMeta.get();
 			var parent = advancementMeta.getParent();
 			var builder = advancement.getBuilder();
 

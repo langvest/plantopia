@@ -5,7 +5,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaLuckyDaisyBlock;
 import by.langvest.plantopia.item.special.PlantopiaLuckyDaisyBlockItem;
 import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
@@ -38,10 +38,10 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
+		PlantopiaMetaBuckets.ITEM.forEach(itemMeta -> {
 			if(!itemMeta.shouldGenerateModel()) return;
 
-			Item item = itemMeta.getItem();
+			Item item = itemMeta.get();
 
 			if(item instanceof PlantopiaRenderedIconItem) {
 				entityItem(itemMeta);

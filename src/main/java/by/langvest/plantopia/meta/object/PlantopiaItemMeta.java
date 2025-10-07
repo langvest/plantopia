@@ -1,50 +1,49 @@
 package by.langvest.plantopia.meta.object;
 
-import by.langvest.plantopia.meta.core.PlantopiaMetaAccessor;
-import by.langvest.plantopia.meta.core.PlantopiaMetaObject;
-import by.langvest.plantopia.meta.core.PlantopiaMetaProperties;
-import by.langvest.plantopia.meta.core.PlantopiaMetaType;
+import by.langvest.plantopia.registry.PlantopiaRegistries;
+import by.langvest.toolkit.meta.MetaAccessor;
 import by.langvest.plantopia.meta.property.PlantopiaDisplayNameType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
+import by.langvest.toolkit.meta.SimpleMetaObject;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
 
-public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? extends Item>> {
+public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	private final MetaType type;
 	private final List<ResourceKey<CreativeModeTab>> groups;
+	private final Supplier<Item.Properties> behaviourProperties;
 	private final PlantopiaModelType modelType;
 	private final PlantopiaDisplayNameType displayNameType;
 	private final PlantopiaOrderType orderType;
 	private final int burnTime;
 
-	public PlantopiaItemMeta(RegistryObject<? extends Item> target, @NotNull MetaProperties properties) {
-		super(target);
-		type = PlantopiaMetaAccessor.getMetaTypeFrom(properties);
+	public PlantopiaItemMeta(ResourceLocation identifier, @NotNull MetaProperties properties) {
+		super(identifier, PlantopiaRegistries.ITEM.supposeValue(identifier));
+		type = MetaAccessor.getMetaTypeFrom(properties);
 		groups = properties.groups;
 		modelType = properties.modelType;
 		displayNameType = properties.displayNameType;
 		orderType = properties.orderType;
 		burnTime = properties.burnTime;
+		behaviourProperties = properties.behaviourProperties;
 	}
 
-	public String getName() {
-		return nameOf(target);
-	}
-
-	public Item getItem() {
-		return target.get();
+	public Item.Properties createBehaviourProperties() {
+		return behaviourProperties.get();
 	}
 
 	public MetaType getType() {
@@ -60,7 +59,7 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 	}
 
 	public boolean shouldGenerateModel() {
-		return type != MetaType.BLOCK && modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
+		return !type.instanceOf(MetaType.BLOCK) && modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
 	}
 
 	public boolean shouldGenerateTranslation() {
@@ -79,18 +78,43 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 		return orderType;
 	}
 
-	public static final class MetaType extends PlantopiaMetaType<MetaType, MetaProperties> {
-		public static final MetaType ITEM = MetaProperties.of().makeType("item");
-		public static final MetaType BLOCK = MetaProperties.of().order(PlantopiaOrderType.BLOCK).makeType("block");
-		public static final MetaType ICON = MetaProperties.of().noGroup().makeType("icon");
+	public static class MetaType extends SimpleMetaObject.MetaType<MetaType, MetaProperties> {
+		public static final MetaType ITEM = MetaProperties.create()
+			.makeType("item");
+
+		public static final MetaType BLOCK = MetaProperties.create()
+			.order(PlantopiaOrderType.BLOCK)
+			.makeType("block");
+
+		public static final MetaType COBBLESTONE_SHARD_BLOCK = MetaProperties.of(BLOCK)
+			.order(PlantopiaOrderType.COBBLESTONE_SHARD)
+			.makeType("cobblestone_shard_block");
+
+		public static final MetaType SHELL_BLOCK = MetaProperties.of(BLOCK)
+			.order(PlantopiaOrderType.SHELL)
+			.makeType("shell_block");
+
+		public static final MetaType WATERLILY_BLOCK = MetaProperties.of(BLOCK)
+			.order(PlantopiaOrderType.WET_PLANT)
+			.makeType("waterlily_block");
+
+		public static final MetaType LUCKY_DAISY_BLOCK = MetaProperties.of(BLOCK)
+			.order(PlantopiaOrderType.FLOWER)
+			.customModel()
+			.makeType("lucky_daisy_block");
+
+		public static final MetaType ICON = MetaProperties.create()
+			.noGroup()
+			.makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {
-			super("item", name, properties);
+			super(plantopiaLocationFrom("item", name), properties);
 		}
 	}
 
-	public static final class MetaProperties extends PlantopiaMetaProperties<MetaType, MetaProperties> {
-		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.PLANTOPIA);
+	public static class MetaProperties extends SimpleMetaObject.MetaProperties<MetaType, MetaProperties> {
+		private List<ResourceKey<CreativeModeTab>> groups = List.of(PlantopiaCreativeModeTabs.MAIN);
+		private Supplier<Item.Properties> behaviourProperties = Item.Properties::new;
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
 
@@ -99,16 +123,31 @@ public class PlantopiaItemMeta extends PlantopiaMetaObject<RegistryObject<? exte
 
 		private MetaProperties() {}
 
-		private static @NotNull MetaProperties of() {
+		private static @NotNull MetaProperties create() {
 			return new MetaProperties();
 		}
 
-		public static @NotNull MetaProperties copy(@NotNull MetaType type) {
+		public static @NotNull MetaProperties of(@NotNull MetaType type) {
 			return MetaProperties.fromType(type);
 		}
 
 		private @NotNull MetaType makeType(String name) {
 			return new MetaType(name, this);
+		}
+
+		public MetaProperties behaviour(Supplier<Item.Properties> properties) {
+			this.behaviourProperties = properties;
+			return this;
+		}
+
+		public MetaProperties behaviour(Function<Item.Properties, Item.Properties> properties) {
+			var prevBehaviourProperties = this.behaviourProperties;
+			this.behaviourProperties = () -> properties.apply(prevBehaviourProperties.get());
+			return this;
+		}
+
+		public MetaProperties stacksTo(int maxStackSize) {
+			return behaviour(properties -> properties.stacksTo(maxStackSize));
 		}
 
 		public MetaProperties generatedBurnTime() {

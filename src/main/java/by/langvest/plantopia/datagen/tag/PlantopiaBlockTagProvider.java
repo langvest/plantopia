@@ -3,7 +3,7 @@ package by.langvest.plantopia.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
@@ -94,8 +94,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
-			var block = blockMeta.getBlock();
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
+			var block = blockMeta.get();
 			var type = blockMeta.getType();
 			boolean replaceable = block.properties.replaceable;
 			int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();

@@ -6,7 +6,7 @@ import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
 import by.langvest.plantopia.block.PlantopiaQuarter;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.block.special.*;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaModelType;
@@ -106,10 +106,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateModel()) return;
 
-			var block = blockMeta.getBlock();
+			var block = blockMeta.get();
 			var type = blockMeta.getType();
 
 			if(block instanceof PlantopiaSeaShellBlock) {
@@ -142,7 +142,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 				return;
 			}
 
-			if(block instanceof BushBlock || type.isSimplePlantLike()) {
+			if(block instanceof BushBlock || type.instanceOf(MetaType.PLANT)) {
 				bushBlock(blockMeta);
 				return;
 			}
@@ -152,7 +152,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void checkAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			var name = blockMeta.getName();
 			var namespace = blockMeta.getNamespace();
 			var type = blockMeta.getType();
@@ -191,14 +191,14 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var model = cubeAllModel(baseName, texture);
 
 		generatedBlockItem(blockMeta, () -> blockItemModel(baseName, model));
-		simpleBlock(blockMeta.getBlock(), model);
+		simpleBlock(blockMeta.get(), model);
 	}
 
 	private void flowerPotBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
-		var block = (FlowerPotBlock)blockMeta.getBlock();
+		var block = (FlowerPotBlock)blockMeta.get();
 		var plant = block.getContent();
-		var plantMeta = PlantopiaMetaRegistries.BLOCKS.getValue(plant);
+		var plantMeta = PlantopiaMetaBuckets.BLOCK.getValue(locationOf(plant));
 
 		if(plantMeta != null && plantMeta.getModelType() == PlantopiaModelType.CUSTOM) return;
 
@@ -221,7 +221,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
 		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, topTexture));
-		doubleHighBlock(blockMeta.getBlock(), topModel, bottomModel);
+		doubleHighBlock(blockMeta.get(), topModel, bottomModel);
 	}
 
 	private void triplePlantBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -237,7 +237,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomModel = crossModel(baseName + "_bottom", bottomTexture, isTinted);
 
 		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, topTexture));
-		tripleHighBlock(blockMeta.getBlock(), topModel, middleModel, bottomModel);
+		tripleHighBlock(blockMeta.get(), topModel, middleModel, bottomModel);
 	}
 
 	private void bushBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -249,7 +249,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var model = crossModel(baseName, texture, isTinted);
 
 		generatedBlockItem(blockMeta, () -> generatedItemModel(baseName, texture));
-		simpleBlock(blockMeta.getBlock(), model);
+		simpleBlock(blockMeta.get(), model);
 	}
 
 	private void waterlilyFlowerBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -262,12 +262,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.texture("flower", flowerTexture);
 
 		waterlilyFlowerTemplateItemModel(baseName, flowerTexture, overlayTexture);
-		simpleBlock(blockMeta.getBlock(), model);
+		simpleBlock(blockMeta.get(), model);
 	}
 
 	private void floweringWaterlilyBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
-		var floweringWaterlilyBlock = (PlantopiaFloweringWaterlilyBlock)blockMeta.getBlock();
+		var floweringWaterlilyBlock = (PlantopiaFloweringWaterlilyBlock)blockMeta.get();
 		var waterlilyBlock = floweringWaterlilyBlock.getWaterlilyBlock();
 		var originBlock = floweringWaterlilyBlock.getOriginBlock();
 
@@ -276,7 +276,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var model = models().withExistingParent(baseName, parent("template_flowering_" + nameOf(originBlock)))
 			.texture("flower", flowerTexture);
 
-		rotatedBlock(blockMeta.getBlock(), model);
+		rotatedBlock(blockMeta.get(), model);
 	}
 
 	private void seaShellBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -288,7 +288,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, itemTexture, itemTextureOverlay);
 
-		getVariantBuilder(blockMeta.getBlock())
+		getVariantBuilder(blockMeta.get())
 			.forAllStatesExcept(
 				state -> ConfiguredModel.builder()
 					.modelFile(model)
@@ -452,7 +452,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private void birchBaseBlock(Block block) {
 		String baseName = nameOf(block);
-		var blockMeta = PlantopiaMetaRegistries.BLOCKS.getValue(block);
+		var blockMeta = PlantopiaMetaBuckets.BLOCK.getValue(locationOf(block));
 
 		var topTexture = minecraftTexture("birch_log_top");
 		var sideTexture = texture("birch_base_log");
@@ -668,7 +668,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void seaMossBlock(Block block) {
-		var blockMeta = PlantopiaMetaRegistries.BLOCKS.getValue(block);
+		var blockMeta = PlantopiaMetaBuckets.BLOCK.getValue(locationOf(block));
 		String baseName = nameOf(block);
 
 		var texture = texture(baseName);

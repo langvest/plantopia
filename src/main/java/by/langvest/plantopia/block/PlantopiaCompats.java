@@ -1,7 +1,7 @@
 package by.langvest.plantopia.block;
 
 import by.langvest.plantopia.item.special.PlantopiaWaterlilyFlowerBlockItem;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.util.PlantopiaBrewingRecipe;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
@@ -39,8 +39,8 @@ public class PlantopiaCompats {
 	}
 
 	private static void registerAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
-			var block = blockMeta.getBlock();
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
+			var block = blockMeta.get();
 
 			if(blockMeta.isFlammable()) registerFlammable(block, blockMeta.getEncouragement(), blockMeta.getFlammability());
 			if(blockMeta.isCompostable()) registerCompostable(block, blockMeta.getCompostability());
@@ -105,5 +105,9 @@ public class PlantopiaCompats {
 		public static final int WOOD = 5;
 		public static final int PLANKS = 20;
 		public static final int LEAVES = 60;
+	}
+
+	public static final class BurnTime {
+		public static final int WOODY_PLANT = 100;
 	}
 }

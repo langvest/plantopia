@@ -16,18 +16,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public final class PlantopiaItemHelper {
-	public static @NotNull Supplier<BlockItem> getBlockItemSupplier(@NotNull PlantopiaBlockMeta blockMeta, Item.Properties properties) {
+	public static @NotNull Function<Item.Properties, BlockItem> getBlockItemFactory(@NotNull PlantopiaBlockMeta blockMeta) {
 		int height = blockMeta.getBlockHeightType().getBaseHeight();
 		int width = blockMeta.getBlockWidthType().getBaseWidth();
 
-		if(height == 1) return () -> new BlockItem(blockMeta.getBlock(), properties);
-		if(height == 2) return () -> new DoubleHighBlockItem(blockMeta.getBlock(), properties);
-		if(height == 3 && width == 1) return () -> new PlantopiaTripleHighBlockItem(blockMeta.getBlock(), properties);
-		if(height == 3 && width == 2) return () -> new PlantopiaWideTripleHighBlockItem(blockMeta.getBlock(), properties);
-		return () -> new BlockItem(blockMeta.getBlock(), properties);
+		if(height == 1) return properties -> new BlockItem(blockMeta.get(), properties);
+		if(height == 2) return properties -> new DoubleHighBlockItem(blockMeta.get(), properties);
+		if(height == 3 && width == 1) return properties -> new PlantopiaTripleHighBlockItem(blockMeta.get(), properties);
+		if(height == 3 && width == 2) return properties -> new PlantopiaWideTripleHighBlockItem(blockMeta.get(), properties);
+		return properties -> new BlockItem(blockMeta.get(), properties);
 	}
 
 	@Nullable

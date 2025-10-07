@@ -32,11 +32,11 @@ import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class PlantopiaBaseBranchingShrubBlock extends Block implements SimpleWaterloggedBlock, IPlantable {
+public abstract class PlantopiaAbstractBranchingShrubBlock extends Block implements SimpleWaterloggedBlock, IPlantable {
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 16.0D, 9.0D);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-	public PlantopiaBaseBranchingShrubBlock(Properties properties) {
+	public PlantopiaAbstractBranchingShrubBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
 	}

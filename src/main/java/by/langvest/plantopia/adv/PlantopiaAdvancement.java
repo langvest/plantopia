@@ -1,6 +1,6 @@
 package by.langvest.plantopia.adv;
 
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationFrom;
 
 public class PlantopiaAdvancement {
-	private ResourceLocation id = null;
+	private ResourceLocation identifier = null;
 	private Advancement instance = null;
 	private final Advancement.Builder builder;
 
@@ -30,20 +30,20 @@ public class PlantopiaAdvancement {
 	}
 
 	protected PlantopiaAdvancement bindId(ResourceLocation id) {
-		if(this.id != null) return this;
+		if(this.identifier != null) return this;
 
-		this.id = id;
+		this.identifier = id;
 		return this;
 	}
 
 	public @NotNull ResourceLocation getGroup() {
-		var advancementMeta = PlantopiaMetaRegistries.ADVANCEMENTS.getValueOrThrow(this);
+		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(identifier);
 
 		return advancementMeta.getGroup();
 	}
 
-	public @NotNull ResourceLocation getId() {
-		return Objects.requireNonNull(id);
+	public @NotNull ResourceLocation getIdentifier() {
+		return Objects.requireNonNull(identifier);
 	}
 
 	public PlantopiaAdvancement apply(@NotNull Consumer<PlantopiaAdvancement> consumer) {
@@ -52,9 +52,8 @@ public class PlantopiaAdvancement {
 	}
 
 	public void save(@NotNull Consumer<Advancement> consumer) {
-		var id = getId();
 		var group = getGroup();
-		var location = locationFrom(id.getNamespace(), group.getPath(), id.getPath());
+		var location = locationFrom(identifier.getNamespace(), group.getPath(), identifier.getPath());
 		instance = builder.build(location);
 		consumer.accept(instance);
 	}

@@ -1,27 +1,32 @@
 package by.langvest.plantopia.worldgen.feature;
 
-import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.worldgen.feature.special.PlantopiaHogweedFeature;
+import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.registry.RegistryObject;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+
 public class PlantopiaFeatureTypes {
-	private static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, Plantopia.MOD_ID);
+	public static final RegistryObject<Feature<NoneFeatureConfiguration>> HOGWEED = registerFeature("hogweed", () -> new PlantopiaHogweedFeature(NoneFeatureConfiguration.CODEC));
 
-	public static final RegistryObject<Feature<NoneFeatureConfiguration>> HOGWEED = register("hogweed", () -> new PlantopiaHogweedFeature(NoneFeatureConfiguration.CODEC));
-
-	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> register(String name, Supplier<F> supplier) {
-		return FEATURE_REGISTER.register(name, supplier);
+	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeature(String name, Supplier<F> supplier) {
+		return registerFeature(plantopiaLocationFrom(name), supplier);
 	}
 
-	public static void setup(IEventBus bus) {
-		FEATURE_REGISTER.register(bus);
+	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeature(ResourceLocation identifier, Supplier<F> supplier) {
+		return PlantopiaRegistries.FEATURE_TYPE.register(identifier, supplier);
+	}
+
+	public static void setup(@NotNull RegistryEvent event) {
+		event.registerAll(Registries.FEATURE, PlantopiaRegistries.FEATURE_TYPE);
 	}
 }

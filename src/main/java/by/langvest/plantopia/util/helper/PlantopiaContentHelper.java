@@ -1,7 +1,7 @@
 package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
@@ -41,8 +41,9 @@ public final class PlantopiaContentHelper {
 		ForgeRegistries.BLOCKS.getEntries()
 			.stream()
 			.filter(blockEntry -> {
+				var key = blockEntry.getKey();
 				var block = blockEntry.getValue();
-				var blockMeta = PlantopiaMetaRegistries.BLOCKS.getValue(block);
+				var blockMeta = PlantopiaMetaBuckets.BLOCK.getValue(key.location());
 
 				if(blockMeta != null) {
 					return blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.FLOWER);
@@ -69,8 +70,8 @@ public final class PlantopiaContentHelper {
 			return supplier.get();
 		}
 
-		var pottedBlockMeta = PlantopiaMetaRegistries.BLOCKS.findValue(blockMeta -> {
-			Block block = blockMeta.getBlock();
+		var pottedBlockMeta = PlantopiaMetaBuckets.BLOCK.findValue(blockMeta -> {
+			Block block = blockMeta.get();
 
 			if(!(block instanceof FlowerPotBlock flowerPotBlock)) return false;
 
@@ -78,7 +79,7 @@ public final class PlantopiaContentHelper {
 		});
 
 		if(pottedBlockMeta != null) {
-			return pottedBlockMeta.getBlock();
+			return pottedBlockMeta.get();
 		}
 
 		return null;
