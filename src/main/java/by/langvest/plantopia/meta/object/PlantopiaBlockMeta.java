@@ -377,6 +377,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.makeType("stone");
 
 		public static final MetaType COBBLESTONE_SHARD = MetaProperties.of(STONE)
+			.behaviour(BlockBehaviour.Properties::of)
 			.sound(SoundType.DRIPSTONE_BLOCK)
 			.strength(0.2F)
 			.pushReaction(PushReaction.DESTROY)
