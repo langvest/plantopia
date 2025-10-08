@@ -585,7 +585,6 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		public MetaProperties hasCollision() {
 			return behaviour(properties -> {
 				properties.hasCollision = true;
-				// properties.canOcclude = true;
 				return properties;
 			});
 		}

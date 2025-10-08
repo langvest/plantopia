@@ -41,8 +41,8 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> INFESTED_DIRT = registerBlock("infested_dirt", PlantopiaInfestedDirtBlock::new, MetaProperties.of(MetaType.DIRT).randomlyTicking().customModel().customDrop());
 	public static final RegistryObject<Block> HOGWEED = registerBlock("hogweed", PlantopiaHogweedBlock::new, MetaProperties.of(MetaType.PLANT).strength(0.4F).order(PlantopiaOrderType.EXOTIC_PLANT).tripleHighPlant().doubleWide().customModel());
 
-	public static final RegistryObject<Block> CLOVER = registerBlock("clover", PlantopiaCloverBlock::new, MetaProperties.of(MetaType.CLOVER).replaceable().compostable(Compostability.PLANT_1 * 0.75F).customModel().customDrop());
-	public static final RegistryObject<Block> BIG_CLOVER = registerBlock("big_clover", PlantopiaBigCloverBlock::new, MetaProperties.of(MetaType.CLOVER).customModel().pottable());
+	public static final RegistryObject<Block> CLOVER = registerBlock("clover", PlantopiaCloverBlock::new, MetaProperties.of(MetaType.CLOVER).replaceable().customModel().customDrop().compostable(Compostability.PLANT_1 * 0.75F));
+	public static final RegistryObject<Block> BIG_CLOVER = registerBlock("big_clover", PlantopiaBigCloverBlock::new, MetaProperties.of(MetaType.CLOVER).hasCollision().customModel().pottable());
 	public static final RegistryObject<Block> WHITE_CLOVER_BLOSSOM = registerBlock("white_clover_blossom", properties -> new PlantopiaCloverBlossomBlock(() -> MobEffects.LUCK, 14, properties), MetaProperties.of(MetaType.CLOVER_FLOWER).customModel().color(DyeColor.LIGHT_GRAY));
 	public static final RegistryObject<Block> PINK_CLOVER_BLOSSOM = registerBlock("pink_clover_blossom", properties -> new PlantopiaCloverBlossomBlock(() -> MobEffects.LUCK, 14, properties), MetaProperties.of(MetaType.CLOVER_FLOWER).customModel().color(DyeColor.PINK));
 
