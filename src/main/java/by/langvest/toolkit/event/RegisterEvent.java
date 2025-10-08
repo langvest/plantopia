@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class RegistryEvent extends Event {
+public class RegisterEvent extends Event {
 	protected final Registrar<?> registrar;
 
-	public RegistryEvent(Registrar<?> registrar) {
+	public RegisterEvent(Registrar<?> registrar) {
 		this.registrar = registrar;
 	}
 

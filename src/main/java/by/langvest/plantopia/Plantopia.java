@@ -1,11 +1,12 @@
 package by.langvest.plantopia;
 
+import by.langvest.plantopia.client.color.PlantopiaBlockColors;
+import by.langvest.plantopia.client.color.PlantopiaItemColors;
 import by.langvest.toolkit.forge.ForgePlatform;
 import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaCompats;
 import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
-import by.langvest.plantopia.client.color.PlantopiaColors;
 import by.langvest.plantopia.client.render.PlantopiaRenderTypes;
 import by.langvest.plantopia.entity.PlantopiaEntities;
 import by.langvest.plantopia.item.PlantopiaItems;
@@ -20,7 +21,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +39,6 @@ public final class Plantopia {
 		IEventBus bus = context.getModEventBus();
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
-		bus.addListener(this::loadComplete);
 	}
 
 	public static void init(Platform platform) {
@@ -58,6 +57,10 @@ public final class Plantopia {
 		globalEventEmitter.subscribe(PlantopiaEntities::setup);
 		globalEventEmitter.subscribe(PlantopiaBlockEntities::setup);
 		globalEventEmitter.subscribe(PlantopiaSoundEvents::setup);
+
+		// Setup colors
+		globalEventEmitter.subscribe(PlantopiaBlockColors::setup);
+		globalEventEmitter.subscribe(PlantopiaItemColors::setup);
 	}
 
 	public static Platform getPlatform() {
@@ -75,9 +78,5 @@ public final class Plantopia {
 
 	private void clientSetup(final @NotNull FMLClientSetupEvent event) {
 		event.enqueueWork(PlantopiaRenderTypes::setup);
-	}
-
-	private void loadComplete(final @NotNull FMLLoadCompleteEvent event) {
-		event.enqueueWork(PlantopiaColors::setup);
 	}
 }

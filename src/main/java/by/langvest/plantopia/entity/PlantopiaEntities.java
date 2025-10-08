@@ -2,7 +2,7 @@ package by.langvest.plantopia.entity;
 
 import by.langvest.plantopia.entity.special.PlantopiaCobblestoneShardProjectileEntity;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +26,7 @@ public class PlantopiaEntities {
 		return PlantopiaRegistries.ENTITY_TYPE.register(identifier, () -> supplier.get().build(identifier.getPath()));
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.ENTITY_TYPE, PlantopiaRegistries.ENTITY_TYPE);
 	}
 }

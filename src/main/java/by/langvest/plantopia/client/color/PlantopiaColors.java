@@ -8,10 +8,9 @@ import by.langvest.plantopia.block.special.PlantopiaTallReedsBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import by.langvest.plantopia.util.helper.PlantopiaBlockHelper;
+import by.langvest.toolkit.meta.SimpleMetaObject;
 import com.google.common.collect.Sets;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -28,46 +26,71 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static by.langvest.plantopia.client.color.PlantopiaBlockColors.registerBlockColor;
+import static by.langvest.plantopia.client.color.PlantopiaItemColors.registerItemColor;
 
 public class PlantopiaColors {
-	private static final Set<Block> BLOCK_GRASS_COLOR_0 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_GRASS_COLOR_1 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_FOLIAGE_COLOR_0 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_FOLIAGE_COLOR_1 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_LILY_PAD_COLOR_0 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_LILY_PAD_COLOR_1 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_WATERLILY_COLOR_0 = Sets.newHashSet();
-	private static final Set<Block> BLOCK_WATERLILY_COLOR_1 = Sets.newHashSet();
-	private static final Set<Item> ITEM_GRASS_COLOR_0 = Sets.newHashSet();
-	private static final Set<Item> ITEM_GRASS_COLOR_1 = Sets.newHashSet();
-	private static final Set<Item> ITEM_INHERIT_BLOCK_COLOR = Sets.newHashSet();
+	private final Set<Block> BLOCK_GRASS_COLOR_0 = Sets.newHashSet();
+	private final Set<Block> BLOCK_GRASS_COLOR_1 = Sets.newHashSet();
+	private final Set<Block> BLOCK_FOLIAGE_COLOR_0 = Sets.newHashSet();
+	private final Set<Block> BLOCK_FOLIAGE_COLOR_1 = Sets.newHashSet();
+	private final Set<Block> BLOCK_LILY_PAD_COLOR_0 = Sets.newHashSet();
+	private final Set<Block> BLOCK_LILY_PAD_COLOR_1 = Sets.newHashSet();
+	private final Set<Block> BLOCK_WATERLILY_COLOR_0 = Sets.newHashSet();
+	private final Set<Block> BLOCK_WATERLILY_COLOR_1 = Sets.newHashSet();
+	private final Set<Item> ITEM_GRASS_COLOR_0 = Sets.newHashSet();
+	private final Set<Item> ITEM_GRASS_COLOR_1 = Sets.newHashSet();
+	private final Set<Item> ITEM_INHERIT_BLOCK_COLOR = Sets.newHashSet();
 
-	public static void setup() {
-		registerAll();
+	private static PlantopiaColors instance;
 
+	private PlantopiaColors() {
+		addColors();
+	}
+
+	public static PlantopiaColors getInstance() {
+		if(instance != null) {
+			return instance;
+		}
+
+		instance = new PlantopiaColors();
+
+		return instance;
+	}
+
+	public void addColors() {
+		generateAll();
 		seaShellBlocks();
-
 		pottedFernBlock(Blocks.POTTED_FERN);
 		fireweedBlock(PlantopiaBlocks.FIREWEED.get());
 		tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
-
-		setAll();
 	}
 
-	@SuppressWarnings("unused")
-	private static void add(@NotNull Set<Block> blockSet, Block... blocks) {
-		blockSet.addAll(List.of(blocks));
+	public void addBlockColors() {
+		registerBlockColor(BLOCK_GRASS_COLOR_0, (state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, 0));
+		registerBlockColor(BLOCK_GRASS_COLOR_1, (state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, 1));
+		registerBlockColor(BLOCK_FOLIAGE_COLOR_0, (state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 0));
+		registerBlockColor(BLOCK_FOLIAGE_COLOR_1, (state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 1));
+		registerBlockColor(BLOCK_LILY_PAD_COLOR_0, (state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 0));
+		registerBlockColor(BLOCK_LILY_PAD_COLOR_1, (state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 1));
+		registerBlockColor(BLOCK_WATERLILY_COLOR_0, (state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 0));
+		registerBlockColor(BLOCK_WATERLILY_COLOR_1, (state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 1));
 	}
 
-	@SuppressWarnings("unused")
-	private static void add(@NotNull Set<Item> itemSet, ItemLike... itemLikes) {
-		itemSet.addAll(Arrays.stream(itemLikes).map(ItemLike::asItem).toList());
+	public void addItemColors(BlockColors blockColors) {
+		registerItemColor(ITEM_GRASS_COLOR_0, (itemStuck, tintIndex) -> grassTint(tintIndex, 0));
+		registerItemColor(ITEM_GRASS_COLOR_1, (itemStuck, tintIndex) -> grassTint(tintIndex, 1));
+		registerItemColor(ITEM_INHERIT_BLOCK_COLOR, (itemStack, tintIndex) -> {
+			BlockItem item = (BlockItem)itemStack.getItem();
+			BlockState state = item.getBlock().defaultBlockState();
+			return blockColors.getColor(state, null, null, tintIndex);
+		});
 	}
 
-	private static void registerAll() {
+	private void generateAll() {
 		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldApplyTint()) return;
 
@@ -101,163 +124,70 @@ public class PlantopiaColors {
 		});
 	}
 
-	private static void seaShellBlocks() {
-		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
-		ItemColors itemColors = Minecraft.getInstance().getItemColors();
+	private void seaShellBlocks() {
+		Set<Block> seaShellBlocks = PlantopiaMetaBuckets.BLOCK.stream()
+			.map(SimpleMetaObject::get)
+			.filter(block -> block instanceof PlantopiaSeaShellBlock)
+			.collect(Collectors.toSet());
 
-		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
-			var block = blockMeta.get();
+		Set<Item> seaShellItems = seaShellBlocks.stream()
+			.map(Block::asItem)
+			.collect(Collectors.toSet());
 
-			if(!(block instanceof PlantopiaSeaShellBlock)) return;
+		registerBlockColor(seaShellBlocks, (state, level, pos, tintIndex) -> {
+			if(tintIndex == 1 && level != null && pos != null && level.getBlockEntity(pos) instanceof PlantopiaSeaShellBlockEntity seaShellBlockEntity) {
+				return seaShellBlockEntity.getColor();
+			}
 
-			blockColors.register(
-				(state, level, pos, tintIndex) -> {
-					if(tintIndex == 1 && level != null && pos != null && level.getBlockEntity(pos) instanceof PlantopiaSeaShellBlockEntity seaShellBlockEntity) {
-						return seaShellBlockEntity.getColor();
-					}
-
-					return noColor();
-				},
-				block
-			);
-
-			itemColors.register(
-				(itemStack, tintIndex) -> {
-					if(tintIndex == 1) {
-						var tag = BlockItem.getBlockEntityData(itemStack);
-
-						if(tag != null && tag.contains("Color")) {
-							return tag.getInt("Color");
-						} else {
-							return PlantopiaSeaShellBlockEntity.DEFAULT_COLOR;
-						}
-					}
-
-					return noColor();
-				},
-				block
-			);
+			return noColor();
 		});
-	}
 
-	private static void setAll() {
-		BlockColors blockColors = Minecraft.getInstance().getBlockColors();
-		ItemColors itemColors = Minecraft.getInstance().getItemColors();
+		registerItemColor(seaShellItems, (itemStack, tintIndex) -> {
+			if(tintIndex == 1) {
+				var tag = BlockItem.getBlockEntityData(itemStack);
 
-		/* BLOCK GRASS COLOR 0 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, 0),
-			BLOCK_GRASS_COLOR_0.toArray(Block[]::new)
-		);
+				if(tag != null && tag.contains("Color")) {
+					return tag.getInt("Color");
+				} else {
+					return PlantopiaSeaShellBlockEntity.DEFAULT_COLOR;
+				}
+			}
 
-		/* BLOCK GRASS COLOR 1 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, 1),
-			BLOCK_GRASS_COLOR_1.toArray(Block[]::new)
-		);
-
-		/* BLOCK FOLIAGE COLOR 0 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 0),
-			BLOCK_FOLIAGE_COLOR_0.toArray(Block[]::new)
-		);
-
-		/* BLOCK FOLIAGE COLOR 1 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 1),
-			BLOCK_FOLIAGE_COLOR_1.toArray(Block[]::new)
-		);
-
-		/* BLOCK LILY PAD COLOR 0 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 0),
-			BLOCK_LILY_PAD_COLOR_0.toArray(Block[]::new)
-		);
-
-		/* BLOCK LILY PAD COLOR 1 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 1),
-			BLOCK_LILY_PAD_COLOR_1.toArray(Block[]::new)
-		);
-
-		/* BLOCK WATERLILY COLOR 0 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 0),
-			BLOCK_WATERLILY_COLOR_0.toArray(Block[]::new)
-		);
-
-		/* BLOCK WATERLILY COLOR 1 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 1),
-			BLOCK_WATERLILY_COLOR_1.toArray(Block[]::new)
-		);
-
-		/* ITEM GRASS COLOR 0 ******************************************/
-		itemColors.register(
-			(itemStuck, tintIndex) -> grassTint(tintIndex, 0),
-			ITEM_GRASS_COLOR_0.toArray(Item[]::new)
-		);
-
-		/* ITEM GRASS COLOR 1 ******************************************/
-		itemColors.register(
-			(itemStuck, tintIndex) -> grassTint(tintIndex, 1),
-			ITEM_GRASS_COLOR_1.toArray(Item[]::new)
-		);
-
-		/* ITEM INHERIT BLOCK COLOR 0+ ******************************************/
-		itemColors.register(
-			(itemStack, tintIndex) -> {
-				BlockItem item = (BlockItem)itemStack.getItem();
-				BlockState state = item.getBlock().defaultBlockState();
-				return blockColors.getColor(state, null, null, tintIndex);
-			},
-			ITEM_INHERIT_BLOCK_COLOR.toArray(Item[]::new)
-		);
+			return noColor();
+		});
 	}
 
 	/* CUSTOM TINTS ******************************************/
 
-	private static void fireweedBlock(@NotNull Block block) {
-		var blockColors = Minecraft.getInstance().getBlockColors();
-
+	private void fireweedBlock(@NotNull Block block) {
 		ITEM_GRASS_COLOR_0.add(block.asItem());
 
-		/* FIREWEED BLOCK GRASS COLOR 0-1 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> {
-				var half = state.getValue(DoublePlantBlock.HALF);
-				var baseBlockPos = getBaseBlockPos(state, pos);
+		registerBlockColor(block, (state, level, pos, tintIndex) -> {
+			var half = state.getValue(DoublePlantBlock.HALF);
+			var baseBlockPos = getBaseBlockPos(state, pos);
 
-				if(half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
-				if(half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, baseBlockPos);
-				return noColor();
-			},
-			block
-		);
+			if(half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
+			if(half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, baseBlockPos);
+			return noColor();
+		});
 	}
 
-	private static void tallReedsBlock(@NotNull Block block) {
-		var blockColors = Minecraft.getInstance().getBlockColors();
-
+	private void tallReedsBlock(@NotNull Block block) {
 		ITEM_GRASS_COLOR_0.add(block.asItem());
 
-		/* TALL REEDS BLOCK GRASS COLOR 0-1 ******************************************/
-		blockColors.register(
-			(state, level, pos, tintIndex) -> {
-				var half = state.getValue(PlantopiaTallReedsBlock.HALF);
-				var baseBlockPos = getBaseBlockPos(state, pos);
+		registerBlockColor(block, (state, level, pos, tintIndex) -> {
+			var half = state.getValue(PlantopiaTallReedsBlock.HALF);
+			var baseBlockPos = getBaseBlockPos(state, pos);
 
-				if(half == PlantopiaTripleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
-				if(half == PlantopiaTripleBlockHalf.CENTRAL && tintIndex == 0) return grassColor(level, baseBlockPos);
-				if(half == PlantopiaTripleBlockHalf.LOWER && tintIndex == 1) return grassColor(level, baseBlockPos);
-				return noColor();
-			},
-			block
-		);
+			if(half == PlantopiaTripleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
+			if(half == PlantopiaTripleBlockHalf.CENTRAL && tintIndex == 0) return grassColor(level, baseBlockPos);
+			if(half == PlantopiaTripleBlockHalf.LOWER && tintIndex == 1) return grassColor(level, baseBlockPos);
+			return noColor();
+		});
 	}
 
 	@SuppressWarnings("SameParameterValue")
-	private static void pottedFernBlock(@NotNull Block block) {
+	private void pottedFernBlock(@NotNull Block block) {
 		BLOCK_GRASS_COLOR_1.add(block);
 	}
 

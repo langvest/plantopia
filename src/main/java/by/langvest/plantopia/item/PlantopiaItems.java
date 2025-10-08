@@ -10,7 +10,7 @@ import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.util.helper.PlantopiaItemHelper;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -64,7 +64,7 @@ public class PlantopiaItems {
 		registerItem(blockMeta.getIdentifier(), factory, metaProperties);
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.ITEM, PlantopiaRegistries.ITEM);
 	}
 }

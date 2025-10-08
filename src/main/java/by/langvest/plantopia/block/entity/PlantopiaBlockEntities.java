@@ -5,7 +5,7 @@ import by.langvest.plantopia.block.entity.special.PlantopiaCobblestoneShardPetBl
 import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.block.entity.special.PlantopiaCoveredSnowdropBlockEntity;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +36,7 @@ public class PlantopiaBlockEntities {
 		});
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.BLOCK_ENTITY_TYPE, PlantopiaRegistries.BLOCK_ENTITY_TYPE);
 	}
 }

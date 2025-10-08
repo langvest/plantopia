@@ -2,7 +2,7 @@ package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.worldgen.feature.special.PlantopiaHogweedFeature;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +26,7 @@ public class PlantopiaFeatureTypes {
 		return PlantopiaRegistries.FEATURE_TYPE.register(identifier, supplier);
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.FEATURE, PlantopiaRegistries.FEATURE_TYPE);
 	}
 }

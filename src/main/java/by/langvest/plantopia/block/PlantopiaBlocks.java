@@ -1,6 +1,6 @@
 package by.langvest.plantopia.block;
 
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.block.PlantopiaCompats.Compostability;
@@ -160,7 +160,7 @@ public class PlantopiaBlocks {
 		);
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.BLOCK, PlantopiaRegistries.BLOCK);
 	}
 

@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class MetaBucket<Meta extends MetaObject<?>> {
 	protected final ResourceLocation location;
@@ -22,12 +23,16 @@ public class MetaBucket<Meta extends MetaObject<?>> {
 		return location;
 	}
 
+	public Stream<Meta> stream() {
+		return storage.values().stream();
+	}
+
 	public List<Meta> getAll() {
-		return storage.values().stream().toList();
+		return stream().toList();
 	}
 
 	public List<Meta> findAll(Predicate<Meta> predicate) {
-		return storage.values().stream().filter(predicate).toList();
+		return stream().filter(predicate).toList();
 	}
 
 	@Nullable

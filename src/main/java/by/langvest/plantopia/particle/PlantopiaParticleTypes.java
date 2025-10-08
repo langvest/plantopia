@@ -1,7 +1,7 @@
 package by.langvest.plantopia.particle;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -38,7 +38,7 @@ public class PlantopiaParticleTypes {
 		return PlantopiaRegistries.PARTICLE_TYPE.register(identifier, supplier);
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.PARTICLE_TYPE, PlantopiaRegistries.PARTICLE_TYPE);
 	}
 }

@@ -1,7 +1,7 @@
 package by.langvest.plantopia.sound;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ public class PlantopiaSoundEvents {
 		return PlantopiaRegistries.SOUND_EVENT.register(identifier, () -> SoundEvent.createVariableRangeEvent(identifier));
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.SOUND_EVENT, PlantopiaRegistries.SOUND_EVENT);
 	}
 }

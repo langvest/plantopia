@@ -4,7 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
-import by.langvest.toolkit.event.RegistryEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -48,7 +48,7 @@ public class PlantopiaCreativeModeTabs {
 		return key;
 	}
 
-	public static void setup(@NotNull RegistryEvent event) {
+	public static void setup(@NotNull RegisterEvent event) {
 		event.registerAll(Registries.CREATIVE_MODE_TAB, PlantopiaRegistries.CREATIVE_MODE_TAB);
 	}
 }

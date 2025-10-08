@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class Registry<T> {
 	protected final ResourceLocation location;
@@ -40,12 +41,16 @@ public class Registry<T> {
 		return registryObject;
 	}
 
+	public Stream<RegistryObject<T>> stream() {
+		return storage.values().stream();
+	}
+
 	public List<RegistryObject<T>> getAll() {
-		return storage.values().stream().toList();
+		return stream().toList();
 	}
 
 	public List<RegistryObject<T>> findAll(Predicate<RegistryObject<T>> predicate) {
-		return storage.values().stream().filter(predicate).toList();
+		return stream().filter(predicate).toList();
 	}
 
 	public @Nullable RegistryObject<T> findValue(Predicate<RegistryObject<T>> predicate) {
