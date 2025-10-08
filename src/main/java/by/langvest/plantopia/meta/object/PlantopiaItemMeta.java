@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	private final MetaType type;
@@ -108,7 +108,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 			.makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopiaLocationFrom("item", name), properties);
+			super(plantopia("item", name), properties);
 		}
 	}
 

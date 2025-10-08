@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancement> {
 	private final MetaType type;
@@ -132,7 +132,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 			.makeType("challenge");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopiaLocationFrom("advancement", name), properties);
+			super(plantopia("advancement", name), properties);
 		}
 	}
 
@@ -162,7 +162,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 
 		public MetaProperties group(String groupName) {
 			if(type != null && !type.equals(MetaType.ROOT)) throw new MetaException.UnableToSet("group", type);
-			return group(plantopiaLocationFrom(groupName));
+			return group(plantopia(groupName));
 		}
 
 		public MetaProperties group(ResourceLocation groupLocation) {
@@ -208,7 +208,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 		public MetaProperties background(String textureName) {
 			String backgroundPath = PlantopiaTemplateHelper.getAdvancementBackgroundPath(textureName);
 
-			return background(plantopiaLocationFrom(backgroundPath));
+			return background(plantopia(backgroundPath));
 		}
 
 		public MetaProperties background(ResourceLocation backgroundLocation) {

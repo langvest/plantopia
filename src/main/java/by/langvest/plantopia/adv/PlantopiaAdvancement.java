@@ -1,6 +1,7 @@
 package by.langvest.plantopia.adv;
 
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
+import by.langvest.toolkit.util.LocationRepresentable;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -11,8 +12,8 @@ import java.util.function.Consumer;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationFrom;
 
-public class PlantopiaAdvancement {
-	private ResourceLocation identifier = null;
+public class PlantopiaAdvancement implements LocationRepresentable {
+	private ResourceLocation location = null;
 	private Advancement instance = null;
 	private final Advancement.Builder builder;
 
@@ -29,21 +30,22 @@ public class PlantopiaAdvancement {
 		return instance;
 	}
 
-	protected PlantopiaAdvancement bindId(ResourceLocation id) {
-		if(this.identifier != null) return this;
+	protected PlantopiaAdvancement bindLocation(ResourceLocation location) {
+		if(this.location != null) return this;
 
-		this.identifier = id;
+		this.location = location;
 		return this;
 	}
 
 	public @NotNull ResourceLocation getGroup() {
-		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(identifier);
+		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(location);
 
 		return advancementMeta.getGroup();
 	}
 
-	public @NotNull ResourceLocation getIdentifier() {
-		return Objects.requireNonNull(identifier);
+	@Override
+	public ResourceLocation getLocation() {
+		return Objects.requireNonNull(location);
 	}
 
 	public PlantopiaAdvancement apply(@NotNull Consumer<PlantopiaAdvancement> consumer) {
@@ -53,8 +55,8 @@ public class PlantopiaAdvancement {
 
 	public void save(@NotNull Consumer<Advancement> consumer) {
 		var group = getGroup();
-		var location = locationFrom(identifier.getNamespace(), group.getPath(), identifier.getPath());
-		instance = builder.build(location);
+		var locationToSave = locationFrom(location.getNamespace(), group.getPath(), location.getPath());
+		instance = builder.build(locationToSave);
 		consumer.accept(instance);
 	}
 }

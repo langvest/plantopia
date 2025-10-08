@@ -120,19 +120,19 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation blockTexture(String name) {
-		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+		return plantopia(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract(" -> new")
 	private static @NotNull ModelFile getBuiltInEntityModel() {
 		if(builtinEntityModelCache != null) return builtinEntityModelCache;
 
-		return builtinEntityModelCache = new ModelFile(minecraftLocationFrom("builtin/entity")) {
+		return builtinEntityModelCache = new ModelFile(minecraft("builtin/entity")) {
 			@Override
 			protected boolean exists() {
 				return true;
@@ -142,6 +142,6 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation parent(String name) {
-		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 }

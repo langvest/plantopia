@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaSoundEventMeta extends SimpleMetaObject<SoundEvent> {
 	private final MetaType type;
@@ -29,7 +29,7 @@ public class PlantopiaSoundEventMeta extends SimpleMetaObject<SoundEvent> {
 		public static final MetaType BLOCK_FALL = MetaProperties.create().makeType("block_fall");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopiaLocationFrom("sound_event", name), properties);
+			super(plantopia("sound_event", name), properties);
 		}
 	}
 

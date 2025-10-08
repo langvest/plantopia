@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaRecipeProvider extends RecipeProvider implements IConditionBuilder {
 	private Consumer<FinishedRecipe> consumer;
@@ -84,7 +84,7 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 			.requires(ingredient)
 			.group(group)
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient)));
+			.save(consumer, plantopia(getConversionRecipeName(result, ingredient)));
 	}
 
 	private void fullBlockRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient) {
@@ -94,18 +94,18 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 			.pattern("###")
 			.pattern("###")
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopiaLocationFrom(getSimpleRecipeName(result)));
+			.save(consumer, plantopia(getSimpleRecipeName(result)));
 	}
 
 	private void stonecutterRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, int resultAmount) {
 		SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingredient), category, result, resultAmount)
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient) + "_stonecutting"));
+			.save(consumer, plantopia(getConversionRecipeName(result, ingredient) + "_stonecutting"));
 	}
 
 	private void smeltingRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, float experience, int cookingTime) {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), category, result, experience, cookingTime)
 			.unlockedBy(getHasName(ingredient), has(ingredient))
-			.save(consumer, plantopiaLocationFrom(getConversionRecipeName(result, ingredient) + "_smelting"));
+			.save(consumer, plantopia(getConversionRecipeName(result, ingredient) + "_smelting"));
 	}
 }

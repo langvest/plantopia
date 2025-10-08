@@ -7,7 +7,7 @@ import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageType;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaDamageTypes {
 	public static final ResourceKey<DamageType> THORNY_SHRUB = createKey("thorny_shrub");
@@ -19,7 +19,7 @@ public class PlantopiaDamageTypes {
 	}
 
 	protected static @NotNull ResourceKey<DamageType> createKey(String name) {
-		return ResourceKey.create(Registries.DAMAGE_TYPE, plantopiaLocationFrom(name));
+		return ResourceKey.create(Registries.DAMAGE_TYPE, plantopia(name));
 	}
 
 	protected static void register(@NotNull BootstapContext<DamageType> context, ResourceKey<DamageType> key, DamageType damageType) {

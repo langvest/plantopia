@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaAdvancements {
 	public static final RegistryObject<PlantopiaAdvancement> ROOT = registerAdvancement("root",PlantopiaAdvancement::new, MetaProperties.of(MetaType.ROOT).group(Plantopia.MOD_ID).background("dirt").icon(PlantopiaBlocks.FIREWEED));
@@ -26,11 +26,11 @@ public class PlantopiaAdvancements {
 	public static final RegistryObject<PlantopiaAdvancement> PLUCK_LUCKY_DAISY_PETAL = registerAdvancement("pluck_lucky_daisy_petal", PlantopiaAdvancement::new, MetaProperties.of(MetaType.CHILD).parent(COLLECT_ALL_FLOWERS).icon(PlantopiaBlocks.WHITE_LUCKY_DAISY));
 
 	public static RegistryObject<PlantopiaAdvancement> registerAdvancement(String name, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
-		return registerAdvancement(plantopiaLocationFrom(name), supplier, metaProperties);
+		return registerAdvancement(plantopia(name), supplier, metaProperties);
 	}
 
 	public static RegistryObject<PlantopiaAdvancement> registerAdvancement(ResourceLocation identifier, @NotNull Supplier<PlantopiaAdvancement> supplier, @NotNull MetaProperties metaProperties) {
 		PlantopiaMetaBuckets.ADVANCEMENT.associate(identifier, new PlantopiaAdvancementMeta(identifier, metaProperties));
-		return PlantopiaRegistries.ADVANCEMENT.register(identifier, () -> supplier.get().bindId(identifier));
+		return PlantopiaRegistries.ADVANCEMENT.register(identifier, () -> supplier.get().bindLocation(identifier));
 	}
 }

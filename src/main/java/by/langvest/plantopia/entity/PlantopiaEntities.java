@@ -13,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaEntities {
 	public static final RegistryObject<EntityType<PlantopiaCobblestoneShardProjectileEntity>> COBBLESTONE_SHARD = registerEntityType("cobblestone_shard", () -> EntityType.Builder.<PlantopiaCobblestoneShardProjectileEntity>of(PlantopiaCobblestoneShardProjectileEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
 
 	public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(String name, Supplier<EntityType.Builder<T>> supplier) {
-		return registerEntityType(plantopiaLocationFrom(name), supplier);
+		return registerEntityType(plantopia(name), supplier);
 	}
 
 	public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(ResourceLocation identifier, Supplier<EntityType.Builder<T>> supplier) {

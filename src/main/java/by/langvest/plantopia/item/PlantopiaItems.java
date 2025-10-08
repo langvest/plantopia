@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaItems {
 	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", PlantopiaRenderedIconItem::new, MetaProperties.of(MetaType.ICON));
@@ -43,7 +43,7 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> PINK_LUCKY_DAISY = registerItem("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlockItem(PlantopiaBlocks.PINK_LUCKY_DAISY.get(), properties), MetaProperties.of(MetaType.LUCKY_DAISY_BLOCK));
 
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Function<Properties, T> factory, MetaProperties metaProperties) {
-		return registerItem(plantopiaLocationFrom(name), factory, metaProperties);
+		return registerItem(plantopia(name), factory, metaProperties);
 	}
 
 	public static <T extends Item> RegistryObject<T> registerItem(ResourceLocation identifier, Function<Properties, T> factory, MetaProperties metaProperties) {

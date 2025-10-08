@@ -27,4 +27,8 @@ public abstract class Platform {
 	}
 
 	public abstract String getPlatformName();
+
+	public abstract ResourceHelper getResourceHelper();
+
+	public abstract RegistryHelper getRegistryHelper();
 }

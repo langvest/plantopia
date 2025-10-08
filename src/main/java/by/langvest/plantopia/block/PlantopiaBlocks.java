@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.FLOWER_POT_BLOCK;
 import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedNameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlocks {
 	public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_LOG, properties), MetaProperties.of(MetaType.LOG).mapColor(PlantopiaBirchBaseBlock::logMapColor).customModel());
@@ -136,7 +136,7 @@ public class PlantopiaBlocks {
 	}
 
 	public static <T extends Block> RegistryObject<T> registerBlock(String name, Function<Properties, T> factory, MetaProperties metaProperties) {
-		return registerBlock(plantopiaLocationFrom(name), factory, metaProperties);
+		return registerBlock(plantopia(name), factory, metaProperties);
 	}
 
 	public static <T extends Block> RegistryObject<T> registerBlock(ResourceLocation identifier, Function<Properties, T> factory, MetaProperties metaProperties) {

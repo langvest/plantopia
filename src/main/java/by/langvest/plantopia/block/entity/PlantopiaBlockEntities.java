@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlockEntities {
 	public static final RegistryObject<BlockEntityType<PlantopiaCobblestoneShardPetBlockEntity>> COBBLESTONE_SHARD_PET = registerBlockEntityType("cobblestone_shard_pet", PlantopiaCobblestoneShardPetBlockEntity::new, Set.of(PlantopiaBlocks.COBBLESTONE_SHARD_PET, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET));
@@ -25,7 +25,7 @@ public class PlantopiaBlockEntities {
 	public static final RegistryObject<BlockEntityType<PlantopiaCoveredSnowdropBlockEntity>> COVERED_SNOWDROP = registerBlockEntityType("covered_snowdrop", PlantopiaCoveredSnowdropBlockEntity::new, Set.of(PlantopiaBlocks.COVERED_SNOWDROP));
 
 	public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntityType(String name, BlockEntityType.BlockEntitySupplier<T> supplier, @NotNull Set<Supplier<Block>> blocks) {
-		return registerBlockEntityType(plantopiaLocationFrom(name), supplier, blocks);
+		return registerBlockEntityType(plantopia(name), supplier, blocks);
 	}
 
 	public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntityType(ResourceLocation identifier, BlockEntityType.BlockEntitySupplier<T> supplier, @NotNull Set<Supplier<Block>> blocks) {

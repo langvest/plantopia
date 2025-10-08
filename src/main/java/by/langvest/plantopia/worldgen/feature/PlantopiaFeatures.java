@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaFeatures {
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
@@ -17,7 +17,7 @@ public class PlantopiaFeatures {
 	}
 
 	protected static @NotNull ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
-		return ResourceKey.create(Registries.CONFIGURED_FEATURE, plantopiaLocationFrom(name));
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, plantopia(name));
 	}
 
 	protected static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {

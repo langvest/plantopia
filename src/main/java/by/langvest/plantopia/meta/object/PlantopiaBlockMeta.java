@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 	private final MetaType type;
@@ -437,7 +437,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.makeType("snow");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopiaLocationFrom("block", name), properties);
+			super(plantopia("block", name), properties);
 		}
 
 		public boolean isSimplePlantLike() {

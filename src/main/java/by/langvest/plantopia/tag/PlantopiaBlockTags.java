@@ -5,7 +5,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlockTags {
 	public static final TagKey<Block> IGNORED_BY_BEES = createBlockTag("ignored_by_bees");
@@ -18,6 +18,6 @@ public class PlantopiaBlockTags {
 	private PlantopiaBlockTags() {}
 
 	public static @NotNull TagKey<Block> createBlockTag(String name) {
-		return TagKey.create(Registries.BLOCK, plantopiaLocationFrom(name));
+		return TagKey.create(Registries.BLOCK, plantopia(name));
 	}
 }

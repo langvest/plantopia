@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public final class PlantopiaRegistries {
 	public static final Registry<Block> BLOCK = createRegistry("block");
@@ -30,6 +30,6 @@ public final class PlantopiaRegistries {
 
 	@Contract("_ -> new")
 	private static <T> @NotNull Registry<T> createRegistry(String name) {
-		return new Registry<>(plantopiaLocationFrom(name));
+		return new Registry<>(plantopia(name));
 	}
 }

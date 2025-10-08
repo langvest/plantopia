@@ -8,14 +8,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaSoundEvents {
 	public static final RegistryObject<SoundEvent> DROWNED_CONVERTED_TO_ZOMBIE = registerSoundEvent("entity.drowned.converted_to_zombie");
 	public static final RegistryObject<SoundEvent> ZOMBIE_CONVERTED_TO_HUSK = registerSoundEvent("entity.zombie.converted_to_husk");
 
 	private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-		return registerSoundEvent(plantopiaLocationFrom(name));
+		return registerSoundEvent(plantopia(name));
 	}
 
 	private static RegistryObject<SoundEvent> registerSoundEvent(ResourceLocation identifier) {

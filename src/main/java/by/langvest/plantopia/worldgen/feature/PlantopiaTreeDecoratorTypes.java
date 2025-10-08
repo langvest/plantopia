@@ -12,13 +12,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaTreeDecoratorTypes {
 	public static final RegistryObject<TreeDecoratorType<PlantopiaBirchBaseBlockDecorator>> BIRCH_BASE_BLOCK = registerTreeDecoratorType("birch_base_block", () -> new TreeDecoratorType<>(PlantopiaBirchBaseBlockDecorator.CODEC));
 
 	private static <T extends TreeDecorator> RegistryObject<TreeDecoratorType<T>> registerTreeDecoratorType(String name, Supplier<TreeDecoratorType<T>> supplier) {
-		return registerTreeDecoratorType(plantopiaLocationFrom(name), supplier);
+		return registerTreeDecoratorType(plantopia(name), supplier);
 	}
 
 	private static <T extends TreeDecorator> RegistryObject<TreeDecoratorType<T>> registerTreeDecoratorType(ResourceLocation identifier, Supplier<TreeDecoratorType<T>> supplier) {

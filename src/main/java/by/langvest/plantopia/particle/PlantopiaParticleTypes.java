@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaParticleTypes {
 	public static final RegistryObject<SimpleParticleType> FLUFFY_DANDELION_SEED = registerParticleType("fluffy_dandelion_seed", false);
@@ -23,11 +23,11 @@ public class PlantopiaParticleTypes {
 	public static final RegistryObject<ParticleType<ItemParticleOption>> BREAKING_ITEM = registerParticleType("breaking_item", false, ItemParticleOption.DESERIALIZER, ItemParticleOption::codec);
 
 	private static RegistryObject<SimpleParticleType> registerParticleType(String name, boolean overrideLimiter) {
-		return registerParticleType(plantopiaLocationFrom(name), () -> new SimpleParticleType(overrideLimiter));
+		return registerParticleType(plantopia(name), () -> new SimpleParticleType(overrideLimiter));
 	}
 
 	private static <T extends ParticleOptions> RegistryObject<ParticleType<T>> registerParticleType(String name, boolean overrideLimiter, ParticleOptions.Deserializer<T> deserializer, final Function<ParticleType<T>, Codec<T>> codecFactory) {
-		return registerParticleType(plantopiaLocationFrom(name), () -> new ParticleType<>(overrideLimiter, deserializer) {
+		return registerParticleType(plantopia(name), () -> new ParticleType<>(overrideLimiter, deserializer) {
 			public @NotNull Codec<T> codec() {
 				return codecFactory.apply(this);
 			}

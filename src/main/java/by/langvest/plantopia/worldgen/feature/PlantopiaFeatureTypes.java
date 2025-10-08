@@ -13,13 +13,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaFeatureTypes {
 	public static final RegistryObject<Feature<NoneFeatureConfiguration>> HOGWEED = registerFeature("hogweed", () -> new PlantopiaHogweedFeature(NoneFeatureConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeature(String name, Supplier<F> supplier) {
-		return registerFeature(plantopiaLocationFrom(name), supplier);
+		return registerFeature(plantopia(name), supplier);
 	}
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeature(ResourceLocation identifier, Supplier<F> supplier) {

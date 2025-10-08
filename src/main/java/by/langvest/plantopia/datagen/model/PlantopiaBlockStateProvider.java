@@ -846,12 +846,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private @NotNull ModelFile.ExistingModelFile existingModel(String name) {
-		return models().getExistingFile(plantopiaLocationFrom(name));
+		return models().getExistingFile(plantopia(name));
 	}
 
 	@Contract("_ -> new")
 	private @NotNull ModelFile.ExistingModelFile minecraftExistingModel(String name) {
-		return models().getExistingFile(minecraftLocationFrom(name));
+		return models().getExistingFile(minecraft(name));
 	}
 
 	private ModelFile.ExistingModelFile blockModel(@NotNull Block block) {
@@ -1011,7 +1011,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private @NotNull ModelFile.ExistingModelFile existingItemModel(String name) {
-		return itemModels().getExistingFile(plantopiaLocationFrom(name));
+		return itemModels().getExistingFile(plantopia(name));
 	}
 
 	public ItemModelBuilder generatedItemModel(String name, ResourceLocation... layers) {
@@ -1045,26 +1045,26 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+		return plantopia(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation minecraftTexture(String name) {
-		return minecraftLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+		return minecraft(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation itemTexture(String name) {
-		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation parent(String name) {
-		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+		return plantopia(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation itemParent(String name) {
-		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 }

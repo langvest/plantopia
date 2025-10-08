@@ -10,10 +10,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlockInteractTrigger extends SimpleCriterionTrigger<PlantopiaBlockInteractTrigger.TriggerInstance> {
-	public static final ResourceLocation ID = plantopiaLocationFrom("block_interact");
+	public static final ResourceLocation ID = plantopia("block_interact");
 	public static final PlantopiaBlockInteractTrigger INSTANCE = new PlantopiaBlockInteractTrigger();
 
 	@Override

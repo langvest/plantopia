@@ -43,17 +43,17 @@ public class PlantopiaSoundProvider extends SoundDefinitionsProvider {
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound sound(String... path) {
-		return Sound.sound(plantopiaLocationFrom(path), SoundType.SOUND);
+		return Sound.sound(plantopia(path), SoundType.SOUND);
 	}
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound minecraftSound(String... path) {
-		return Sound.sound(minecraftLocationFrom(path), SoundType.SOUND);
+		return Sound.sound(minecraft(path), SoundType.SOUND);
 	}
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound event(String name) {
-		return Sound.sound(plantopiaLocationFrom(name), SoundType.EVENT);
+		return Sound.sound(plantopia(name), SoundType.EVENT);
 	}
 
 	@Contract("_ -> new")
