@@ -10,16 +10,9 @@ import org.jetbrains.annotations.NotNull;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PlantopiaRegistryHandler {
 	@SubscribeEvent
-	public static void onRegister(@NotNull RegisterEvent superEvent) {
-		var targetRegistryKey = superEvent.getRegistryKey();
+	public static void onRegister(@NotNull RegisterEvent event) {
 		var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-		var registryEvent = new RegistryEvent((registryKey, identifier, supplier) -> {
-			if(!registryKey.equals(targetRegistryKey)) return;
-
-			superEvent.register(registryKey, identifier, supplier);
-		});
-
-		globalEventEmitter.emit(registryEvent);
+		globalEventEmitter.emit(new RegistryEvent(event::register));
 	}
 }

@@ -29,22 +29,26 @@ import java.util.Objects;
 @Mod(Plantopia.MOD_ID)
 public final class Plantopia {
 	public static final String MOD_ID = "plantopia";
-	public static Platform platform;
-
-	public static Platform getPlatform() {
-		return Objects.requireNonNull(platform);
-	}
+	private static Platform platform;
 
 	public Plantopia(@NotNull FMLJavaModLoadingContext context) {
-		platform = new ForgePlatform(MOD_ID, context);
+		var platform = new ForgePlatform(Plantopia.MOD_ID, context);
+
+		Plantopia.init(platform);
 
 		IEventBus bus = context.getModEventBus();
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
 		bus.addListener(this::loadComplete);
+	}
 
+	public static void init(Platform platform) {
 		var globalEventEmitter = EventEmitter.getDefaultInstance();
 
+		// Setup platform
+		injectPlatform(platform);
+
+		// Setup registries
 		globalEventEmitter.subscribe(PlantopiaParticleTypes::setup);
 		globalEventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
 		globalEventEmitter.subscribe(PlantopiaBlocks::setup);
@@ -56,19 +60,24 @@ public final class Plantopia {
 		globalEventEmitter.subscribe(PlantopiaSoundEvents::setup);
 	}
 
+	public static Platform getPlatform() {
+		return Objects.requireNonNull(platform);
+	}
+
+	private static void injectPlatform(Platform platform) {
+		Plantopia.platform = platform;
+	}
+
 	private void commonSetup(final @NotNull FMLCommonSetupEvent event) {
-		// тоже потом переписать на eventEmitter
 		event.enqueueWork(PlantopiaCompats::setup);
 		event.enqueueWork(PlantopiaAdvancementTriggers::setup);
 	}
 
 	private void clientSetup(final @NotNull FMLClientSetupEvent event) {
-		// тоже потом переписать на eventEmitter
 		event.enqueueWork(PlantopiaRenderTypes::setup);
 	}
 
 	private void loadComplete(final @NotNull FMLLoadCompleteEvent event) {
-		// тоже потом переписать на eventEmitter
 		event.enqueueWork(PlantopiaColors::setup);
 	}
 }

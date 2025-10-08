@@ -29,19 +29,19 @@ public class SimpleMetaObject<T> extends MetaObject<T> {
 			this.properties = properties;
 		}
 
-		public boolean instanceOfExcept(Type type, Set<MetaType<Type, Properties>> exceptions) {
+		public boolean instanceOfExcept(MetaType<Type, Properties> type, @Nullable Set<MetaType<Type, Properties>> exceptions) {
 			MetaType<Type, Properties> innerType = this;
 
 			do {
 				if(exceptions != null && exceptions.contains(innerType)) return false;
-				if(innerType.equals(type)) return true;
+				if(type.equals(innerType)) return true;
 				innerType = innerType.properties.type;
 			} while(innerType != null);
 
 			return false;
 		}
 
-		public boolean instanceOf(Type type) {
+		public boolean instanceOf(MetaType<Type, Properties> type) {
 			return instanceOfExcept(type, null);
 		}
 

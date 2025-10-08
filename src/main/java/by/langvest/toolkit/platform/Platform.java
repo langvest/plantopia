@@ -4,10 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Platform {
-	protected final String modId;
-
-	protected EventEmitter eventEmitter;
+	protected String modId;
 	protected Logger logger;
+	protected EventEmitter eventEmitter;
 
 	public Platform(String modId) {
 		this.modId = modId;

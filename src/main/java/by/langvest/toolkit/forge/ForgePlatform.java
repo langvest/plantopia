@@ -5,7 +5,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.NotNull;
 
 public class ForgePlatform extends Platform {
-	protected final FMLJavaModLoadingContext context;
+	protected static final String PLATFORM_NAME = "forge";
+	protected FMLJavaModLoadingContext context;
 
 	public ForgePlatform(String modId, @NotNull FMLJavaModLoadingContext context) {
 		super(modId);
@@ -18,6 +19,6 @@ public class ForgePlatform extends Platform {
 
 	@Override
 	public String getPlatformName() {
-		return "forge";
+		return PLATFORM_NAME;
 	}
 }
