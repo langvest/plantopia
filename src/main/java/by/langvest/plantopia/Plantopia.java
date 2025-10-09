@@ -39,24 +39,24 @@ public final class Plantopia {
 		Plantopia.injectPlatform(platform);
 
 		// Registries setup
-		globalEventEmitter.on(PlantopiaParticleTypes::setup);
-		globalEventEmitter.on(PlantopiaCreativeModeTabs::setup);
-		globalEventEmitter.on(PlantopiaBlocks::setup);
-		globalEventEmitter.on(PlantopiaFeatureTypes::setup);
-		globalEventEmitter.on(PlantopiaTreeDecoratorTypes::setup);
-		globalEventEmitter.on(PlantopiaItems::setup);
-		globalEventEmitter.on(PlantopiaEntities::setup);
-		globalEventEmitter.on(PlantopiaBlockEntities::setup);
-		globalEventEmitter.on(PlantopiaSoundEvents::setup);
+		globalEventEmitter.subscribe(PlantopiaParticleTypes::setup);
+		globalEventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
+		globalEventEmitter.subscribe(PlantopiaBlocks::setup);
+		globalEventEmitter.subscribe(PlantopiaFeatureTypes::setup);
+		globalEventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
+		globalEventEmitter.subscribe(PlantopiaItems::setup);
+		globalEventEmitter.subscribe(PlantopiaEntities::setup);
+		globalEventEmitter.subscribe(PlantopiaBlockEntities::setup);
+		globalEventEmitter.subscribe(PlantopiaSoundEvents::setup);
 
 		// Common setup
-		globalEventEmitter.on(PlantopiaCompats::setup);
-		globalEventEmitter.on(PlantopiaAdvancementTriggers::setup);
+		globalEventEmitter.subscribe(PlantopiaCompats::setup);
+		globalEventEmitter.subscribe(PlantopiaAdvancementTriggers::setup);
 
 		// Client setup
-		globalEventEmitter.on(PlantopiaBlockColors::setup);
-		globalEventEmitter.on(PlantopiaItemColors::setup);
-		globalEventEmitter.on(PlantopiaBlockRenderLayers::setup);
+		globalEventEmitter.subscribe(PlantopiaBlockColors::setup);
+		globalEventEmitter.subscribe(PlantopiaItemColors::setup);
+		globalEventEmitter.subscribe(PlantopiaBlockRenderLayers::setup);
 	}
 
 	public static Platform getPlatform() {

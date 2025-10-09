@@ -18,7 +18,7 @@ public class EventEmitter {
 		return DEFAULT_INSTANCE;
 	}
 
-	public <E extends Event> void on(Consumer<E> listener) {
+	public <E extends Event> void subscribe(Consumer<E> listener) {
 		Class<E> eventType = getEventType(listener);
 		getOrCreateListeners(eventType).add(listener);
 	}
@@ -37,7 +37,7 @@ public class EventEmitter {
 		getOrCreateListeners(eventType).add(listenerWrapper);
 	}
 
-	public <E extends Event> void off(Consumer<E> listener) {
+	public <E extends Event> void unsubscribe(Consumer<E> listener) {
 		Class<E> eventType = getEventType(listener);
 		removeListener(eventType, listener);
 	}
