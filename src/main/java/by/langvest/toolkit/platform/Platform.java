@@ -28,6 +28,10 @@ public abstract class Platform {
 
 	public abstract String getPlatformName();
 
+	public abstract boolean isClientSide();
+
+	public abstract boolean isServerSide();
+
 	public abstract ResourceHelper getResourceHelper();
 
 	public abstract RegistryHelper getRegistryHelper();

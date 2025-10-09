@@ -4,6 +4,7 @@ import by.langvest.toolkit.platform.Platform;
 import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.platform.ResourceHelper;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
 
 public class ForgePlatform extends Platform {
@@ -26,6 +27,16 @@ public class ForgePlatform extends Platform {
 	@Override
 	public String getPlatformName() {
 		return PLATFORM_NAME;
+	}
+
+	@Override
+	public boolean isClientSide() {
+		return FMLEnvironment.dist.isClient();
+	}
+
+	@Override
+	public boolean isServerSide() {
+		return FMLEnvironment.dist.isDedicatedServer();
 	}
 
 	@Override

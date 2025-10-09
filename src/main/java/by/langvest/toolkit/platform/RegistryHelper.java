@@ -4,12 +4,12 @@ import com.google.common.collect.Maps;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.*;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 public abstract class RegistryHelper extends PlatformHelper {
 	protected static Map<ResourceLocation, RegistryEntry> knownRegistries;
@@ -33,22 +33,6 @@ public abstract class RegistryHelper extends PlatformHelper {
 	}
 
 	protected void addBuiltInRegistries(Map<ResourceLocation, RegistryEntry> registries) {
-		BiConsumer<Field, Registry<?>> func = (field, registry) -> {
-			Type genericType = field.getGenericType();
-
-			if(genericType instanceof ParameterizedType registryType) {
-				Type[] registryTypeArgs = registryType.getActualTypeArguments();
-
-				if(registryTypeArgs.length == 1) {
-					var location = registry.key().location();
-					var clazz = getErasedClassFromType(registryTypeArgs[0]);
-					var adapter = new BuiltInRegistryAdapter<>(registry);
-
-					registries.put(location, new RegistryEntry(location, clazz, adapter));
-				}
-			}
-		};
-
 		for(Field field : BuiltInRegistries.class.getDeclaredFields()) {
 			try {
 				if(!Modifier.isStatic(field.getModifiers())) continue;
@@ -57,12 +41,30 @@ public abstract class RegistryHelper extends PlatformHelper {
 				var value = field.get(null);
 
 				if(value instanceof Registry<?> registry) {
-					func.accept(field, registry);
+					var location = registry.key().location();
+					var clazz = getErasedClassFromSingleDepthField(field);
+					var adapter = new BuiltInRegistryAdapter<>(registry);
+
+					registries.put(location, new RegistryEntry(location, clazz, adapter));
 				}
 			} catch(Exception e) {
 				platform.getLogger().error("Error while obtaining known vanilla registry", e);
 			}
 		}
+	}
+
+	protected static @Nullable Class<?> getErasedClassFromSingleDepthField(@NotNull Field field) {
+		Type genericType = field.getGenericType();
+
+		if(genericType instanceof ParameterizedType registryType) {
+			Type[] registryTypeArgs = registryType.getActualTypeArguments();
+
+			if(registryTypeArgs.length == 1) {
+				return getErasedClassFromType(registryTypeArgs[0]);
+			}
+		}
+
+		return null;
 	}
 
 	protected static @Nullable Class<?> getErasedClassFromType(Type type) {
@@ -97,17 +99,15 @@ public abstract class RegistryHelper extends PlatformHelper {
 		var matches = getKnownRegistries()
 			.values()
 			.stream()
-			.filter(entry -> entry.type().isInstance(object))
+			.filter(entry -> entry.type() != null && entry.type().isInstance(object))
 			.toList();
 
 		if(matches.size() != 1) return Optional.empty();
 
 		RegistryAdapter<Object> registry = (RegistryAdapter<Object>) matches.get(0).registry();
 
-		var key = registry.getKey(object);
-
-		return Optional.ofNullable(key);
+		return registry.getKey(object);
 	}
 
-	public record RegistryEntry(ResourceLocation location, Class<?> type, RegistryAdapter<?> registry) {}
+	public record RegistryEntry(ResourceLocation location, @Nullable Class<?> type, RegistryAdapter<?> registry) {}
 }

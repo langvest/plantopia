@@ -21,11 +21,11 @@ public abstract class RegisterColorsEvent<T, C> extends Event {
 		registerAll(Set.of(element), color);
 	}
 
-	public abstract T[] setToArray(Set<T> set);
+	protected abstract T[] toArray(Set<T> set);
 
 	public void registerAll(@NotNull Set<T> elements, C color) {
 		if(elements.isEmpty()) return;
-		registrar.register(color, setToArray(elements));
+		registrar.register(color, toArray(elements));
 	}
 
 	public void registerAll(@NotNull List<Pair<Set<T>, C>> list) {
@@ -48,7 +48,7 @@ public abstract class RegisterColorsEvent<T, C> extends Event {
 		}
 
 		@Override
-		public net.minecraft.world.level.block.Block[] setToArray(@NotNull Set<net.minecraft.world.level.block.Block> set) {
+		protected net.minecraft.world.level.block.Block[] toArray(@NotNull Set<net.minecraft.world.level.block.Block> set) {
 			return set.toArray(net.minecraft.world.level.block.Block[]::new);
 		}
 	}
@@ -74,7 +74,7 @@ public abstract class RegisterColorsEvent<T, C> extends Event {
 
 
 		@Override
-		public net.minecraft.world.item.Item[] setToArray(@NotNull Set<net.minecraft.world.item.Item> set) {
+		protected net.minecraft.world.item.Item[] toArray(@NotNull Set<net.minecraft.world.item.Item> set) {
 			return set.toArray(net.minecraft.world.item.Item[]::new);
 		}
 	}

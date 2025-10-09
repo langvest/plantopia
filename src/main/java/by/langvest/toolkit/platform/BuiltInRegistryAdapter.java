@@ -1,7 +1,10 @@
 package by.langvest.toolkit.platform;
 
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.Optional;
 
 public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
 	protected Registry<T> builtInRegistry;
@@ -15,12 +18,17 @@ public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
 	}
 
 	@Override
-	public ResourceLocation getLocation() {
-		return getBuiltInRegistry().key().location();
+	public ResourceKey<? extends Registry<?>> getRegistryKey() {
+		return getBuiltInRegistry().key();
 	}
 
 	@Override
-	public ResourceLocation getKey(T value) {
-		return getBuiltInRegistry().getKey(value);
+	public Optional<ResourceLocation> getKey(T value) {
+		return Optional.ofNullable(getBuiltInRegistry().getKey(value));
+	}
+
+	@Override
+	public Optional<T> getValue(ResourceLocation key) {
+		return Optional.ofNullable(getBuiltInRegistry().get(key));
 	}
 }
