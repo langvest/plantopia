@@ -12,7 +12,10 @@ public class PlantopiaItemRenderProperties implements IClientItemExtensions {
 	private PlantopiaItemRenderProperties() {}
 
 	public static PlantopiaItemRenderProperties getInstance() {
-		if(instance == null) instance = new PlantopiaItemRenderProperties();
+		if(instance == null) {
+			instance = new PlantopiaItemRenderProperties();
+		}
+
 		return instance;
 	}
 

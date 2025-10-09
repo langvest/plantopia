@@ -30,7 +30,10 @@ public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer 
 	}
 
 	public static PlantopiaItemStuckRenderer getInstance() {
-		if(instance == null) instance = new PlantopiaItemStuckRenderer(null, null);
+		if(instance == null) {
+			instance = new PlantopiaItemStuckRenderer(null, null);
+		}
+
 		return instance;
 	}
 

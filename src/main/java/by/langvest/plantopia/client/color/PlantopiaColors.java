@@ -52,11 +52,9 @@ public class PlantopiaColors {
 	}
 
 	public static PlantopiaColors getInstance() {
-		if(instance != null) {
-			return instance;
+		if(instance == null) {
+			instance = new PlantopiaColors();
 		}
-
-		instance = new PlantopiaColors();
 
 		return instance;
 	}

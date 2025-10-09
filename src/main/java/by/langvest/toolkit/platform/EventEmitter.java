@@ -18,22 +18,28 @@ public class EventEmitter {
 		return DEFAULT_INSTANCE;
 	}
 
-	public <E extends Event> void subscribe(Consumer<E> listener) {
-		Class<E> eventType = extractEventTypeFrom(listener);
-		listeners.computeIfAbsent(eventType, key -> new CopyOnWriteArrayList<>()).add(listener);
+	public <E extends Event> void on(Consumer<E> listener) {
+		Class<E> eventType = getEventType(listener);
+		getOrCreateListeners(eventType).add(listener);
 	}
 
-	public <E extends Event> void unsubscribe(Consumer<E> listener) {
-		Class<E> eventType = extractEventTypeFrom(listener);
-		List<Consumer<? extends Event>> eventListeners = listeners.get(eventType);
+	public <E extends Event> void once(Consumer<E> listener) {
+		Class<E> eventType = getEventType(listener);
 
-		if(eventListeners == null) return;
+		Consumer<E> listenerWrapper = new Consumer<>() {
+			@Override
+			public void accept(E event) {
+				removeListener(eventType, this);
+				listener.accept(event);
+			}
+		};
 
-		eventListeners.remove(listener);
+		getOrCreateListeners(eventType).add(listenerWrapper);
+	}
 
-		if(eventListeners.isEmpty()) {
-			listeners.remove(eventType);
-		}
+	public <E extends Event> void off(Consumer<E> listener) {
+		Class<E> eventType = getEventType(listener);
+		removeListener(eventType, listener);
 	}
 
 	public <E extends Event> void emit(@NotNull E event) {
@@ -52,20 +58,40 @@ public class EventEmitter {
 		}
 	}
 
-	public <E extends Event> void clearListeners(@NotNull Class<E> eventType) {
+	public void clear() {
+		listeners.clear();
+	}
+
+	public <E extends Event> void clearByEventType(@NotNull Class<E> eventType) {
 		listeners.remove(eventType);
 	}
 
-	public Set<Class<? extends Event>> getActiveEventTypes() {
+	public Set<Class<? extends Event>> getEventTypes() {
 		return Collections.unmodifiableSet(listeners.keySet());
 	}
 
+	protected List<Consumer<? extends Event>> getOrCreateListeners(Class<? extends Event> eventType) {
+		return listeners.computeIfAbsent(eventType, key -> new CopyOnWriteArrayList<>());
+	}
+
+	protected void removeListener(Class<? extends Event> eventType, Consumer<? extends Event> listener) {
+		var eventListeners = listeners.get(eventType);
+
+		if(eventListeners == null) return;
+
+		eventListeners.remove(listener);
+
+		if(eventListeners.isEmpty()) {
+			listeners.remove(eventType);
+		}
+	}
+
 	@SuppressWarnings("unchecked")
-	protected <E extends Event> Class<E> extractEventTypeFrom(@NotNull Consumer<E> listener) {
+	protected <E extends Event> Class<E> getEventType(@NotNull Consumer<E> listener) {
 		Class<E> eventType = (Class<E>)TypeResolver.resolveRawArgument(Consumer.class, listener.getClass());
 
 		if((Class<?>)eventType == TypeResolver.Unknown.class) {
-			throw new IllegalStateException("Failed to resolve event type: " + listener);
+			throw new IllegalStateException(String.format("Failed to resolve event type from listener %s", listener));
 		}
 
 		return eventType;

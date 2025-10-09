@@ -2,34 +2,28 @@ package by.langvest.plantopia.client.render;
 
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.property.PlantopiaRenderType;
+import by.langvest.toolkit.event.RegisterRenderLayersEvent;
 import com.google.common.collect.Sets;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Set;
 
-@OnlyIn(Dist.CLIENT)
-public class PlantopiaRenderTypes {
+public class PlantopiaBlockRenderLayers {
 	private static final Set<Block> CUTOUT = Sets.newHashSet();
 	private static final Set<Block> CUTOUT_MIPPED = Sets.newHashSet();
 	private static final Set<Block> TRANSLUCENT = Sets.newHashSet();
 
-	public static void setup() {
-		registerAll();
-		setAll();
+	public static void setup(RegisterRenderLayersEvent.@NotNull Block event) {
+		generateAll();
+
+		event.registerAll(CUTOUT, RenderType.cutout());
+		event.registerAll(CUTOUT_MIPPED, RenderType.cutoutMipped());
+		event.registerAll(TRANSLUCENT, RenderType.translucent());
 	}
 
-	@SuppressWarnings("unused")
-	private static void add(@NotNull Set<Block> blockSet, Block... blocks) {
-		blockSet.addAll(List.of(blocks));
-	}
-
-	private static void registerAll() {
+	private static void generateAll() {
 		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldApplyRenderLayer()) return;
 
@@ -50,16 +44,5 @@ public class PlantopiaRenderTypes {
 				TRANSLUCENT.add(block);
 			}
 		});
-	}
-
-	@SuppressWarnings("removal")
-	private static void setAll() {
-		RenderType cutout = RenderType.cutout();
-		RenderType cutoutMipped = RenderType.cutoutMipped();
-		RenderType translucent = RenderType.translucent();
-
-		for(Block block : CUTOUT) ItemBlockRenderTypes.setRenderLayer(block, cutout);
-		for(Block block : CUTOUT_MIPPED) ItemBlockRenderTypes.setRenderLayer(block, cutoutMipped);
-		for(Block block : TRANSLUCENT) ItemBlockRenderTypes.setRenderLayer(block, translucent);
 	}
 }

@@ -15,11 +15,9 @@ public class SimpleRegistryObject<T> extends RegistryObject<T> {
 
 	@Override
 	public T get() {
-		if(instance != null) {
-			return instance;
+		if(instance == null) {
+			instance = supplier.get();
 		}
-
-		instance = supplier.get();
 
 		return instance;
 	}

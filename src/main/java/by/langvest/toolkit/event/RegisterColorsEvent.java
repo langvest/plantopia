@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Set;
 
-public abstract class RegisterColorsEvent<T, C> extends Event {
+public abstract class RegisterColorsEvent<T, C> extends ClientEvent {
 	protected final Registrar<T, C> registrar;
 
 	public RegisterColorsEvent(Registrar<T, C> registrar) {

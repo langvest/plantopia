@@ -3,6 +3,7 @@ package by.langvest.plantopia.block;
 import by.langvest.plantopia.item.special.PlantopiaWaterlilyFlowerBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.util.PlantopiaBrewingRecipe;
+import by.langvest.toolkit.event.LifecycleEvent;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
@@ -18,7 +19,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
 
 public class PlantopiaCompats {
-	public static void setup() {
+	public static void setup(LifecycleEvent.CommonSetup event) {
 		registerAll();
 
 		registerFlammable(Blocks.OAK_SAPLING, Encouragement.PLANT, Flammability.PLANT);

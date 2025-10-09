@@ -7,7 +7,7 @@ import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaCompats;
 import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
-import by.langvest.plantopia.client.render.PlantopiaRenderTypes;
+import by.langvest.plantopia.client.render.PlantopiaBlockRenderLayers;
 import by.langvest.plantopia.entity.PlantopiaEntities;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
@@ -17,10 +17,7 @@ import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaTreeDecoratorTypes;
 import by.langvest.toolkit.platform.EventEmitter;
 import by.langvest.toolkit.platform.Platform;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,35 +29,34 @@ public final class Plantopia {
 	private static Platform platform;
 
 	public Plantopia(@NotNull FMLJavaModLoadingContext context) {
-		var platform = new ForgePlatform(Plantopia.MOD_ID, context);
-
-		Plantopia.init(platform);
-
-		IEventBus bus = context.getModEventBus();
-		bus.addListener(this::commonSetup);
-		bus.addListener(this::clientSetup);
+		Plantopia.init(new ForgePlatform(Plantopia.MOD_ID, context));
 	}
 
 	public static void init(Platform platform) {
 		var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-		// Setup platform
-		injectPlatform(platform);
+		// Platform setup
+		Plantopia.injectPlatform(platform);
 
-		// Setup registries
-		globalEventEmitter.subscribe(PlantopiaParticleTypes::setup);
-		globalEventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
-		globalEventEmitter.subscribe(PlantopiaBlocks::setup);
-		globalEventEmitter.subscribe(PlantopiaFeatureTypes::setup);
-		globalEventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
-		globalEventEmitter.subscribe(PlantopiaItems::setup);
-		globalEventEmitter.subscribe(PlantopiaEntities::setup);
-		globalEventEmitter.subscribe(PlantopiaBlockEntities::setup);
-		globalEventEmitter.subscribe(PlantopiaSoundEvents::setup);
+		// Registries setup
+		globalEventEmitter.on(PlantopiaParticleTypes::setup);
+		globalEventEmitter.on(PlantopiaCreativeModeTabs::setup);
+		globalEventEmitter.on(PlantopiaBlocks::setup);
+		globalEventEmitter.on(PlantopiaFeatureTypes::setup);
+		globalEventEmitter.on(PlantopiaTreeDecoratorTypes::setup);
+		globalEventEmitter.on(PlantopiaItems::setup);
+		globalEventEmitter.on(PlantopiaEntities::setup);
+		globalEventEmitter.on(PlantopiaBlockEntities::setup);
+		globalEventEmitter.on(PlantopiaSoundEvents::setup);
 
-		// Setup colors
-		globalEventEmitter.subscribe(PlantopiaBlockColors::setup);
-		globalEventEmitter.subscribe(PlantopiaItemColors::setup);
+		// Common setup
+		globalEventEmitter.on(PlantopiaCompats::setup);
+		globalEventEmitter.on(PlantopiaAdvancementTriggers::setup);
+
+		// Client setup
+		globalEventEmitter.on(PlantopiaBlockColors::setup);
+		globalEventEmitter.on(PlantopiaItemColors::setup);
+		globalEventEmitter.on(PlantopiaBlockRenderLayers::setup);
 	}
 
 	public static Platform getPlatform() {
@@ -69,14 +65,5 @@ public final class Plantopia {
 
 	private static void injectPlatform(Platform platform) {
 		Plantopia.platform = platform;
-	}
-
-	private void commonSetup(final @NotNull FMLCommonSetupEvent event) {
-		event.enqueueWork(PlantopiaCompats::setup);
-		event.enqueueWork(PlantopiaAdvancementTriggers::setup);
-	}
-
-	private void clientSetup(final @NotNull FMLClientSetupEvent event) {
-		event.enqueueWork(PlantopiaRenderTypes::setup);
 	}
 }
