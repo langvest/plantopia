@@ -1,5 +1,6 @@
 package by.langvest.toolkit.registry;
 
+import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
 import com.ibm.icu.impl.IllegalIcuArgumentException;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +13,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-public class Registry<T> {
+public class Registry<T> implements LocationLike {
 	protected final ResourceLocation location;
 	protected final HashMap<ResourceLocation, RegistryObject<T>> storage = Maps.newLinkedHashMap();
 
@@ -20,25 +21,9 @@ public class Registry<T> {
 		this.location = location;
 	}
 
-	public ResourceLocation getLocation() {
+	@Override
+	public ResourceLocation location() {
 		return location;
-	}
-
-	@SuppressWarnings("unchecked")
-	public <V extends T> RegistryObject<V> register(ResourceLocation key, Supplier<V> supplier) {
-
-		Objects.requireNonNull(key);
-		Objects.requireNonNull(supplier);
-
-		if(hasKey(key)) {
-			throw new IllegalIcuArgumentException(String.format("Cannot add a new registration for the key '%s', as it already exists in the registry '%s'.", key, getLocation()));
-		}
-
-		var registryObject = new SimpleRegistryObject<>(key, supplier);
-
-		storage.put(key, (RegistryObject<T>)registryObject);
-
-		return registryObject;
 	}
 
 	public Stream<RegistryObject<T>> stream() {
@@ -72,6 +57,22 @@ public class Registry<T> {
 
 	public @NotNull RegistryObject<T> getValueOrThrow(ResourceLocation key) {
 		return Objects.requireNonNull(getValue(key));
+	}
+
+	@SuppressWarnings("unchecked")
+	public <V extends T> RegistryObject<V> register(ResourceLocation key, Supplier<V> supplier) {
+		Objects.requireNonNull(key);
+		Objects.requireNonNull(supplier);
+
+		if(hasKey(key)) {
+			throw new IllegalIcuArgumentException(String.format("Cannot add a new registration for the key '%s', as it already exists in the registry '%s'.", key, location()));
+		}
+
+		var registryObject = new SimpleRegistryObject<>(key, supplier);
+
+		storage.put(key, (RegistryObject<T>)registryObject);
+
+		return registryObject;
 	}
 
 	public void forEach(Consumer<RegistryObject<T>> action) {

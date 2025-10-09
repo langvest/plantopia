@@ -1,7 +1,6 @@
 package by.langvest.toolkit.platform;
 
-import by.langvest.toolkit.registry.RegistryObject;
-import by.langvest.toolkit.util.LocationRepresentable;
+import by.langvest.toolkit.util.LocationLike;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -15,12 +14,11 @@ public abstract class ResourceHelper extends PlatformHelper {
 	}
 
 	public Optional<ResourceLocation> getLocation(Object object) {
-		if(object instanceof RegistryObject<?> registryObject) return Optional.of(registryObject.getIdentifier());
-		if(object instanceof LocationRepresentable representable) return Optional.of(representable.getLocation());
 		if(object instanceof ResourceLocation location) return Optional.of(location);
+		if(object instanceof LocationLike locationLike) return Optional.of(locationLike.location());
 		if(object instanceof ResourceKey<?> key) return Optional.of(key.location());
 		if(object instanceof TagKey<?> key) return Optional.of(key.location());
-		return platform.getRegistryHelper().getRegistryName(object);
+		return getPlatform().getRegistryHelper().getRegistryName(object);
 	}
 
 	@NotNull

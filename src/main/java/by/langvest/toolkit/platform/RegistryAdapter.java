@@ -1,6 +1,6 @@
 package by.langvest.toolkit.platform;
 
-import by.langvest.toolkit.util.LocationRepresentable;
+import by.langvest.toolkit.util.LocationLike;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public abstract class RegistryAdapter<T> implements LocationRepresentable {
+public abstract class RegistryAdapter<T> implements LocationLike {
 	public abstract ResourceKey<? extends Registry<?>> getRegistryKey();
 
 	public abstract Optional<ResourceLocation> getKey(T value);
@@ -19,7 +19,7 @@ public abstract class RegistryAdapter<T> implements LocationRepresentable {
 		var key = getKey(value);
 
 		if(key.isEmpty()) {
-			throw new NoSuchElementException(String.format("Cannot get key of the value '%s' as it does not exist in the registry '%s'", value, getLocation()));
+			throw new NoSuchElementException(String.format("Cannot get key of the value '%s' as it does not exist in the registry '%s'", value, location()));
 		}
 
 		return key.get();
@@ -29,14 +29,14 @@ public abstract class RegistryAdapter<T> implements LocationRepresentable {
 		var value = getValue(key);
 
 		if(value.isEmpty()) {
-			throw new NoSuchElementException(String.format("Cannot get value for the key '%s' as it does not exist in the registry '%s'", key, getLocation()));
+			throw new NoSuchElementException(String.format("Cannot get value for the key '%s' as it does not exist in the registry '%s'", key, location()));
 		}
 
 		return value.get();
 	}
 
 	@Override
-	public ResourceLocation getLocation() {
+	public ResourceLocation location() {
 		return getRegistryKey().location();
 	}
 }

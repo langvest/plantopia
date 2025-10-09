@@ -1,7 +1,7 @@
 package by.langvest.plantopia.adv;
 
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
-import by.langvest.toolkit.util.LocationRepresentable;
+import by.langvest.toolkit.util.LocationLike;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationFrom;
 
-public class PlantopiaAdvancement implements LocationRepresentable {
+public class PlantopiaAdvancement implements LocationLike {
 	private ResourceLocation location = null;
 	private Advancement instance = null;
 	private final Advancement.Builder builder;
@@ -44,7 +44,7 @@ public class PlantopiaAdvancement implements LocationRepresentable {
 	}
 
 	@Override
-	public ResourceLocation getLocation() {
+	public ResourceLocation location() {
 		return Objects.requireNonNull(location);
 	}
 
@@ -55,8 +55,9 @@ public class PlantopiaAdvancement implements LocationRepresentable {
 
 	public void save(@NotNull Consumer<Advancement> consumer) {
 		var group = getGroup();
-		var locationToSave = locationFrom(location.getNamespace(), group.getPath(), location.getPath());
-		instance = builder.build(locationToSave);
+		var ownLocation = location();
+		var saveLocation = locationFrom(ownLocation.getNamespace(), group.getPath(), ownLocation.getPath());
+		instance = builder.build(saveLocation);
 		consumer.accept(instance);
 	}
 }

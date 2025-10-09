@@ -1,5 +1,6 @@
 package by.langvest.toolkit.meta;
 
+import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
 import com.ibm.icu.impl.IllegalIcuArgumentException;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class MetaBucket<Meta extends MetaObject<?>> {
+public class MetaBucket<Meta extends MetaObject<?>> implements LocationLike {
 	protected final ResourceLocation location;
 	protected final HashMap<ResourceLocation, Meta> storage = Maps.newLinkedHashMap();
 
@@ -19,7 +20,8 @@ public class MetaBucket<Meta extends MetaObject<?>> {
 		this.location = location;
 	}
 
-	public ResourceLocation getLocation() {
+	@Override
+	public ResourceLocation location() {
 		return location;
 	}
 
@@ -60,7 +62,7 @@ public class MetaBucket<Meta extends MetaObject<?>> {
 		Objects.requireNonNull(meta);
 
 		if(hasKey(key)) {
-			throw new IllegalIcuArgumentException(String.format("Cannot add a new association for the key '%s', as it already exists in the meta bucket '%s'.", key, getLocation()));
+			throw new IllegalIcuArgumentException(String.format("Cannot add a new association for the key '%s', as it already exists in the meta bucket '%s'.", key, location()));
 		}
 
 		storage.put(key, meta);
