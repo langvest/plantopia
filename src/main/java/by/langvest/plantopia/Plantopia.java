@@ -35,35 +35,40 @@ public final class Plantopia {
 	public static void init(Platform platform) {
 		var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-		// Platform setup
-		Plantopia.injectPlatform(platform);
-
-		// Registries setup
-		globalEventEmitter.subscribe(PlantopiaParticleTypes::setup);
-		globalEventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
-		globalEventEmitter.subscribe(PlantopiaBlocks::setup);
-		globalEventEmitter.subscribe(PlantopiaFeatureTypes::setup);
-		globalEventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
-		globalEventEmitter.subscribe(PlantopiaItems::setup);
-		globalEventEmitter.subscribe(PlantopiaEntities::setup);
-		globalEventEmitter.subscribe(PlantopiaBlockEntities::setup);
-		globalEventEmitter.subscribe(PlantopiaSoundEvents::setup);
-
-		// Common setup
-		globalEventEmitter.subscribe(PlantopiaCompats::setup);
-		globalEventEmitter.subscribe(PlantopiaAdvancementTriggers::setup);
-
-		// Client setup
-		globalEventEmitter.subscribe(PlantopiaBlockColors::setup);
-		globalEventEmitter.subscribe(PlantopiaItemColors::setup);
-		globalEventEmitter.subscribe(PlantopiaBlockRenderLayers::setup);
+		Plantopia.initPlatform(platform);
+		Plantopia.initRegistries(globalEventEmitter);
+		Plantopia.initCommon(globalEventEmitter);
+		Plantopia.initClient(globalEventEmitter);
 	}
 
 	public static Platform getPlatform() {
 		return Objects.requireNonNull(platform);
 	}
 
-	private static void injectPlatform(Platform platform) {
+	private static void initPlatform(Platform platform) {
 		Plantopia.platform = platform;
+	}
+
+	private static void initRegistries(@NotNull EventEmitter eventEmitter) {
+		eventEmitter.subscribe(PlantopiaParticleTypes::setup);
+		eventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
+		eventEmitter.subscribe(PlantopiaBlocks::setup);
+		eventEmitter.subscribe(PlantopiaFeatureTypes::setup);
+		eventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
+		eventEmitter.subscribe(PlantopiaItems::setup);
+		eventEmitter.subscribe(PlantopiaEntities::setup);
+		eventEmitter.subscribe(PlantopiaBlockEntities::setup);
+		eventEmitter.subscribe(PlantopiaSoundEvents::setup);
+	}
+
+	private static void initCommon(@NotNull EventEmitter eventEmitter) {
+		eventEmitter.subscribe(PlantopiaCompats::setup);
+		eventEmitter.subscribe(PlantopiaAdvancementTriggers::setup);
+	}
+
+	private static void initClient(@NotNull EventEmitter eventEmitter) {
+		eventEmitter.subscribe(PlantopiaBlockColors::setup);
+		eventEmitter.subscribe(PlantopiaItemColors::setup);
+		eventEmitter.subscribe(PlantopiaBlockRenderLayers::setup);
 	}
 }
