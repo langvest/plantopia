@@ -5,7 +5,7 @@ import by.langvest.plantopia.client.color.PlantopiaItemColors;
 import by.langvest.toolkit.forge.ForgePlatform;
 import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaCompats;
+import by.langvest.plantopia.compat.PlantopiaCompats;
 import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
 import by.langvest.plantopia.client.render.PlantopiaBlockRenderLayers;
 import by.langvest.plantopia.entity.PlantopiaEntities;

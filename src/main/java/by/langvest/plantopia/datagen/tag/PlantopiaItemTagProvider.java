@@ -7,7 +7,7 @@ import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
+import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -20,19 +20,21 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public final class PlantopiaItemTagProvider extends ItemTagsProvider {
-	private final PlantopiaTagSet<Item> TALL_FLOWERS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> SMALL_FLOWERS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> LEAVES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> SAPLINGS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> BIRCH_LOGS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> DIRT = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Item> SEA_SHELL = PlantopiaTagSet.newTagSet();
+public final class PlantopiaItemTagProvider extends ItemTagsProvider implements PlantopiaTagProvider<Item> {
+    private final Map<TagKey<Item>, PlantopiaTagSet<Item>> tagSets = Maps.newHashMap();
+
+	private final PlantopiaTagSet<Item> TALL_FLOWERS = createTagSet(ItemTags.TALL_FLOWERS);
+	private final PlantopiaTagSet<Item> SMALL_FLOWERS = createTagSet(ItemTags.SMALL_FLOWERS);
+	private final PlantopiaTagSet<Item> LEAVES = createTagSet(ItemTags.LEAVES);
+	private final PlantopiaTagSet<Item> SAPLINGS = createTagSet(ItemTags.SAPLINGS);
+	private final PlantopiaTagSet<Item> IGNORED_BY_BEES = createTagSet(PlantopiaItemTags.IGNORED_BY_BEES);
+	private final PlantopiaTagSet<Item> PREFERRED_BY_BEES = createTagSet(PlantopiaItemTags.PREFERRED_BY_BEES);
+	private final PlantopiaTagSet<Item> BIRCH_LOGS = createTagSet(ItemTags.BIRCH_LOGS);
+	private final PlantopiaTagSet<Item> DIRT = createTagSet(ItemTags.DIRT);
+	private final PlantopiaTagSet<Item> SEA_SHELL = createTagSet(PlantopiaItemTags.SEA_SHELL);
 
 	public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
@@ -86,29 +88,17 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider {
 	}
 
 	private void saveAll() {
-		save(ItemTags.DIRT, DIRT);
-		save(ItemTags.BIRCH_LOGS, BIRCH_LOGS);
-		save(ItemTags.TALL_FLOWERS, TALL_FLOWERS);
-		save(ItemTags.SMALL_FLOWERS, SMALL_FLOWERS);
-		save(ItemTags.LEAVES, LEAVES);
-		save(ItemTags.SAPLINGS, SAPLINGS);
-		save(PlantopiaItemTags.IGNORED_BY_BEES, IGNORED_BY_BEES);
-		save(PlantopiaItemTags.PREFERRED_BY_BEES, PREFERRED_BY_BEES);
-		save(PlantopiaItemTags.SEA_SHELL, SEA_SHELL);
+		tagSets.forEach(this::save);
 	}
 
-	private void save(TagKey<Item> key, @NotNull PlantopiaTagSet<Item> tagSet) {
-		if(tagSet.isEmpty()) return;
+    private @NotNull PlantopiaTagSet<Item> createTagSet(TagKey<Item> key) {
+        PlantopiaTagSet<Item> tagSet = PlantopiaTagSet.newTagSet();
+        this.tagSets.put(key, tagSet);
+        return tagSet;
+    }
 
-		var targetTag = tag(key);
-
-		var tags = tagSet.getTags();
-		var items = tagSet.getElements();
-
-		tags.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-		items.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-
-		for(var tag : tags) targetTag.addTag(tag);
-		for(var item : items) targetTag.add(item);
+	@Override
+	public @NotNull IntrinsicTagAppender<Item> getTagAppender(TagKey<Item> key) {
+		return tag(key);
 	}
 }

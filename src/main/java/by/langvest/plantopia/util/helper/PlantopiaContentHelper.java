@@ -1,88 +1,75 @@
 package by.langvest.plantopia.util.helper;
 
+import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
+import by.langvest.toolkit.meta.SimpleMetaObject;
+import by.langvest.toolkit.platform.RegistryHelper;
 import com.google.common.collect.Sets;
-import it.unimi.dsi.fastutil.objects.Object2FloatMap;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public final class PlantopiaContentHelper {
-	public static final FlowerPotBlock FLOWER_POT_BLOCK = (FlowerPotBlock)Blocks.FLOWER_POT;
-	public static final FireBlock FIRE_BLOCK = (FireBlock)Blocks.FIRE;
-	public static final Object2FloatMap<ItemLike> COMPOSTABLES = ComposterBlock.COMPOSTABLES;
-	private static List<ItemLike> allFlowers = null;
+	private static List<ItemLike> allFlowers;
 
 	public static List<ItemLike> getAllFlowers() {
 		if(allFlowers != null) return allFlowers;
 
-		Set<ItemLike> allFlowers = Sets.newHashSet();
+		Set<ItemLike> allFlowersSet = Sets.newHashSet();
 
-		allFlowers.add(Blocks.FLOWERING_AZALEA);
-		allFlowers.add(Blocks.FLOWERING_AZALEA_LEAVES);
-		allFlowers.add(Blocks.SPORE_BLOSSOM);
-		allFlowers.add(Blocks.CHORUS_FLOWER);
-		allFlowers.add(Blocks.TORCHFLOWER);
-		allFlowers.add(Blocks.PINK_PETALS);
-		allFlowers.add(Blocks.PITCHER_PLANT);
-		allFlowers.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
+		allFlowersSet.add(Blocks.FLOWERING_AZALEA);
+		allFlowersSet.add(Blocks.FLOWERING_AZALEA_LEAVES);
+		allFlowersSet.add(Blocks.SPORE_BLOSSOM);
+		allFlowersSet.add(Blocks.CHORUS_FLOWER);
+		allFlowersSet.add(Blocks.TORCHFLOWER);
+		allFlowersSet.add(Blocks.PINK_PETALS);
+		allFlowersSet.add(Blocks.PITCHER_PLANT);
+		allFlowersSet.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
 
-		ForgeRegistries.BLOCKS.getEntries()
-			.stream()
-			.filter(blockEntry -> {
-				var key = blockEntry.getKey();
-				var block = blockEntry.getValue();
-				var blockMeta = PlantopiaMetaBuckets.BLOCK.getValue(key.location());
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
 
-				if(blockMeta != null) {
-					return blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.FLOWER);
-				}
+		blockRegistry.stream()
+			.filter(block -> metaOf(block)
+				.map(blockMeta -> blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.FLOWER))
+				.orElseGet(() -> block instanceof FlowerBlock || block instanceof TallFlowerBlock)
+			)
+			.forEach(allFlowersSet::add);
 
-				return block instanceof FlowerBlock || block instanceof TallFlowerBlock;
-			})
-			.forEach(blockEntry -> allFlowers.add(blockEntry.getValue()));
-
-		PlantopiaContentHelper.allFlowers = allFlowers.stream()
-			.sorted(Comparator.comparing(PlantopiaResourceHelper::idOf))
+		allFlowers = allFlowersSet.stream()
+			.sorted(PlantopiaResourceHelper::compareById)
 			.toList();
 
-		return PlantopiaContentHelper.allFlowers;
+		return allFlowers;
 	}
 
 	/* POTTED OF *************************************************************************************/
 
-	@Nullable
-	public static Block pottedBlockOf(Block plant) {
-		var supplier = FLOWER_POT_BLOCK.getFullPotsView().get(locationOf(plant));
+	public static Optional<Block> pottedBlockOf(Block plant) {
+		var supplier = RegistryHelper.getEmptyFlowerPotBlock().getFullPotsView().get(locationOf(plant));
 
 		if(supplier != null) {
-			return supplier.get();
+			return Optional.ofNullable(supplier.get());
 		}
 
-		var pottedBlockMeta = PlantopiaMetaBuckets.BLOCK.findValue(blockMeta -> {
-			Block block = blockMeta.get();
+		return PlantopiaMetaBuckets.BLOCK.findValue(blockMeta -> {
+			var block = blockMeta.get();
 
-			if(!(block instanceof FlowerPotBlock flowerPotBlock)) return false;
+			if(block instanceof FlowerPotBlock pottedBlock) {
+				return pottedBlock.getContent().equals(plant);
+			}
 
-			return flowerPotBlock.getContent().equals(plant);
-		});
-
-		if(pottedBlockMeta != null) {
-			return pottedBlockMeta.get();
-		}
-
-		return null;
+			return false;
+		}).map(SimpleMetaObject::get);
 	}
 
 	public static @NotNull String pottedNameOf(String baseName) {

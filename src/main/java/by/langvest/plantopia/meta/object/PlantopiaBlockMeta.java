@@ -1,6 +1,6 @@
 package by.langvest.plantopia.meta.object;
 
-import by.langvest.plantopia.block.PlantopiaCompats.*;
+import by.langvest.plantopia.compat.PlantopiaCompats.*;
 import by.langvest.plantopia.meta.property.*;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;

@@ -3,7 +3,11 @@ package by.langvest.toolkit.platform;
 import com.google.common.collect.Maps;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,6 +20,43 @@ public abstract class RegistryHelper extends PlatformHelper {
 	
 	public RegistryHelper(Platform platform) {
 		super(platform);
+	}
+
+	public static FlowerPotBlock getEmptyFlowerPotBlock() {
+		return (FlowerPotBlock) Blocks.FLOWER_POT;
+	}
+
+	public static FireBlock getFireBlock() {
+		return (FireBlock) Blocks.FIRE;
+	}
+
+	public abstract void registerBrewable(Potion inputPotion, @NotNull ItemLike ingredient, Potion outputPotion);
+
+	public void registerPottable(Block plantBlock, @NotNull FlowerPotBlock pottedBlock) {
+		getEmptyFlowerPotBlock().addPlant(getRegistryNameOrThrow(plantBlock), () -> pottedBlock);
+	}
+
+	public void registerFlammable(Block block, int encouragement, int flammability) {
+		getFireBlock().setFlammable(block, encouragement, flammability);
+	}
+
+	public void registerCompostable(@NotNull ItemLike itemLike, float compostability) {
+		ComposterBlock.COMPOSTABLES.put(itemLike.asItem(), compostability);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> Optional<RegistryAdapter<T>> getKnownRegistry(@NotNull ResourceKey<? extends Registry<T>> registryKey) {
+		var registries = getKnownRegistries();
+		var entry = registries.get(registryKey.location());
+
+		if(entry == null) return Optional.empty();
+		return Optional.of((RegistryAdapter<T>) entry.registry());
+	}
+
+	public <T> RegistryAdapter<T> getKnownRegistryOrThrow(@NotNull ResourceKey<? extends Registry<T>> registryKey) {
+		var registry = getKnownRegistry(registryKey);
+		if(registry.isPresent()) return registry.get();
+		throw new IllegalStateException("No any known registry found for key " + registryKey);
 	}
 
 	public Map<ResourceLocation, RegistryEntry> getKnownRegistries() {
@@ -107,6 +148,12 @@ public abstract class RegistryHelper extends PlatformHelper {
 		RegistryAdapter<Object> registry = (RegistryAdapter<Object>) matches.get(0).registry();
 
 		return registry.getKey(object);
+	}
+
+	public ResourceLocation getRegistryNameOrThrow(Object object) {
+		var registryName = getRegistryName(object);
+		if(registryName.isPresent()) return registryName.get();
+		throw new IllegalArgumentException(String.format("Object %s is not registered in any known registry!", object));
 	}
 
 	public record RegistryEntry(ResourceLocation location, @Nullable Class<?> type, RegistryAdapter<?> registry) {}

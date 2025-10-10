@@ -24,11 +24,7 @@ public abstract class ResourceHelper extends PlatformHelper {
 	@NotNull
 	public ResourceLocation getLocationOrThrow(Object object) {
 		var location = getLocation(object);
-
-		if(location.isEmpty()) {
-			throw new IllegalArgumentException("No location found for object " + object);
-		}
-
-		return location.get();
+		if(location.isPresent()) return location.get();
+		throw new IllegalArgumentException("No location found for object " + object);
 	}
 }

@@ -7,7 +7,7 @@ import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
+import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -18,45 +18,47 @@ import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
-	private final PlantopiaTagSet<Block> REPLACEABLE = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> TALL_FLOWERS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> SMALL_FLOWERS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> LEAVES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> SAPLINGS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> MINEABLE_WITH_AXE = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> MINEABLE_WITH_HOE = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> MINEABLE_WITH_PICKAXE = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> MINEABLE_WITH_SHOVEL = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> ENDERMAN_HOLDABLE = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> FLOWER_POTS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> IGNORED_BY_BEES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> PREFERRED_BY_BEES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> REPLACEABLE_BY_TREES = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> SWORD_EFFICIENT = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> BIRCH_LOGS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> OVERWORLD_NATURAL_LOGS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> DIRT = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> SNIFFER_DIGGABLE_BLOCK = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> CONVERTABLE_TO_MUD = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> WOLVES_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> ANIMALS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> FOXES_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> FROGS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> PARROTS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> RABBITS_SPAWNABLE_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> VALID_SPAWN = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_GROWABLE = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_ON = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> INFESTED_DIRT_CAN_SPREAD_TO = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> FROG_PREFER_JUMP_TO = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> INSIDE_STEP_SOUND_BLOCKS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> SEA_SHELL = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> SNOW = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<Block> COMBINATION_STEP_SOUND_BLOCKS = PlantopiaTagSet.newTagSet();
+public final class PlantopiaBlockTagProvider extends BlockTagsProvider implements PlantopiaTagProvider<Block> {
+    private final Map<TagKey<Block>, PlantopiaTagSet<Block>> tagSets = Maps.newHashMap();
+
+	private final PlantopiaTagSet<Block> REPLACEABLE = createTagSet(BlockTags.REPLACEABLE);
+	private final PlantopiaTagSet<Block> TALL_FLOWERS = createTagSet(BlockTags.TALL_FLOWERS);
+	private final PlantopiaTagSet<Block> SMALL_FLOWERS = createTagSet(BlockTags.SMALL_FLOWERS);
+	private final PlantopiaTagSet<Block> LEAVES = createTagSet(BlockTags.LEAVES);
+	private final PlantopiaTagSet<Block> SAPLINGS = createTagSet(BlockTags.SAPLINGS);
+	private final PlantopiaTagSet<Block> MINEABLE_WITH_AXE = createTagSet(BlockTags.MINEABLE_WITH_AXE);
+	private final PlantopiaTagSet<Block> MINEABLE_WITH_HOE = createTagSet(BlockTags.MINEABLE_WITH_HOE);
+	private final PlantopiaTagSet<Block> MINEABLE_WITH_PICKAXE = createTagSet(BlockTags.MINEABLE_WITH_PICKAXE);
+	private final PlantopiaTagSet<Block> MINEABLE_WITH_SHOVEL = createTagSet(BlockTags.MINEABLE_WITH_SHOVEL);
+	private final PlantopiaTagSet<Block> ENDERMAN_HOLDABLE = createTagSet(BlockTags.ENDERMAN_HOLDABLE);
+	private final PlantopiaTagSet<Block> FLOWER_POTS = createTagSet(BlockTags.FLOWER_POTS);
+	private final PlantopiaTagSet<Block> IGNORED_BY_BEES = createTagSet(PlantopiaBlockTags.IGNORED_BY_BEES);
+	private final PlantopiaTagSet<Block> PREFERRED_BY_BEES = createTagSet(PlantopiaBlockTags.PREFERRED_BY_BEES);
+	private final PlantopiaTagSet<Block> REPLACEABLE_BY_TREES = createTagSet(BlockTags.REPLACEABLE_BY_TREES);
+	private final PlantopiaTagSet<Block> SWORD_EFFICIENT = createTagSet(BlockTags.SWORD_EFFICIENT);
+	private final PlantopiaTagSet<Block> BIRCH_LOGS = createTagSet(BlockTags.BIRCH_LOGS);
+	private final PlantopiaTagSet<Block> OVERWORLD_NATURAL_LOGS = createTagSet(BlockTags.OVERWORLD_NATURAL_LOGS);
+	private final PlantopiaTagSet<Block> DIRT = createTagSet(BlockTags.DIRT);
+	private final PlantopiaTagSet<Block> SNIFFER_DIGGABLE_BLOCK = createTagSet(BlockTags.SNIFFER_DIGGABLE_BLOCK);
+	private final PlantopiaTagSet<Block> CONVERTABLE_TO_MUD = createTagSet(BlockTags.CONVERTABLE_TO_MUD);
+	private final PlantopiaTagSet<Block> WOLVES_SPAWNABLE_ON = createTagSet(BlockTags.WOLVES_SPAWNABLE_ON);
+	private final PlantopiaTagSet<Block> ANIMALS_SPAWNABLE_ON = createTagSet(BlockTags.ANIMALS_SPAWNABLE_ON);
+	private final PlantopiaTagSet<Block> FOXES_SPAWNABLE_ON = createTagSet(BlockTags.FOXES_SPAWNABLE_ON);
+	private final PlantopiaTagSet<Block> FROGS_SPAWNABLE_ON = createTagSet(BlockTags.FROGS_SPAWNABLE_ON);
+	private final PlantopiaTagSet<Block> PARROTS_SPAWNABLE_ON = createTagSet(BlockTags.PARROTS_SPAWNABLE_ON);
+	private final PlantopiaTagSet<Block> RABBITS_SPAWNABLE_ON = createTagSet(BlockTags.RABBITS_SPAWNABLE_ON);
+	private final PlantopiaTagSet<Block> VALID_SPAWN = createTagSet(BlockTags.VALID_SPAWN);
+	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_GROWABLE = createTagSet(PlantopiaBlockTags.BONEMEAL_SPREAD_GROWABLE);
+	private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_ON = createTagSet(PlantopiaBlockTags.BONEMEAL_SPREAD_ON);
+	private final PlantopiaTagSet<Block> INFESTED_DIRT_CAN_SPREAD_TO = createTagSet(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO);
+	private final PlantopiaTagSet<Block> FROG_PREFER_JUMP_TO = createTagSet(BlockTags.FROG_PREFER_JUMP_TO);
+	private final PlantopiaTagSet<Block> INSIDE_STEP_SOUND_BLOCKS = createTagSet(BlockTags.INSIDE_STEP_SOUND_BLOCKS);
+	private final PlantopiaTagSet<Block> SEA_SHELL = createTagSet(PlantopiaBlockTags.SEA_SHELL);
+	private final PlantopiaTagSet<Block> SNOW = createTagSet(BlockTags.SNOW);
+	private final PlantopiaTagSet<Block> COMBINATION_STEP_SOUND_BLOCKS = createTagSet(BlockTags.COMBINATION_STEP_SOUND_BLOCKS);
 
 	private static PlantopiaBlockTagProvider instance;
 
@@ -178,55 +180,17 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider {
 	}
 
 	private void saveAll() {
-		save(BlockTags.COMBINATION_STEP_SOUND_BLOCKS, COMBINATION_STEP_SOUND_BLOCKS);
-		save(BlockTags.SNOW, SNOW);
-		save(BlockTags.INSIDE_STEP_SOUND_BLOCKS, INSIDE_STEP_SOUND_BLOCKS);
-		save(BlockTags.FROG_PREFER_JUMP_TO, FROG_PREFER_JUMP_TO);
-		save(BlockTags.VALID_SPAWN, VALID_SPAWN);
-		save(BlockTags.RABBITS_SPAWNABLE_ON, RABBITS_SPAWNABLE_ON);
-		save(BlockTags.PARROTS_SPAWNABLE_ON, PARROTS_SPAWNABLE_ON);
-		save(BlockTags.FROGS_SPAWNABLE_ON, FROGS_SPAWNABLE_ON);
-		save(BlockTags.FOXES_SPAWNABLE_ON, FOXES_SPAWNABLE_ON);
-		save(BlockTags.ANIMALS_SPAWNABLE_ON, ANIMALS_SPAWNABLE_ON);
-		save(BlockTags.WOLVES_SPAWNABLE_ON, WOLVES_SPAWNABLE_ON);
-		save(BlockTags.CONVERTABLE_TO_MUD, CONVERTABLE_TO_MUD);
-		save(BlockTags.SNIFFER_DIGGABLE_BLOCK, SNIFFER_DIGGABLE_BLOCK);
-		save(BlockTags.MINEABLE_WITH_SHOVEL, MINEABLE_WITH_SHOVEL);
-		save(BlockTags.DIRT, DIRT);
-		save(BlockTags.OVERWORLD_NATURAL_LOGS, OVERWORLD_NATURAL_LOGS);
-		save(BlockTags.BIRCH_LOGS, BIRCH_LOGS);
-		save(BlockTags.REPLACEABLE, REPLACEABLE);
-		save(BlockTags.SWORD_EFFICIENT, SWORD_EFFICIENT);
-		save(BlockTags.REPLACEABLE_BY_TREES, REPLACEABLE_BY_TREES);
-		save(BlockTags.TALL_FLOWERS, TALL_FLOWERS);
-		save(BlockTags.SMALL_FLOWERS, SMALL_FLOWERS);
-		save(BlockTags.LEAVES, LEAVES);
-		save(BlockTags.SAPLINGS, SAPLINGS);
-		save(BlockTags.MINEABLE_WITH_AXE, MINEABLE_WITH_AXE);
-		save(BlockTags.MINEABLE_WITH_HOE, MINEABLE_WITH_HOE);
-		save(BlockTags.MINEABLE_WITH_PICKAXE, MINEABLE_WITH_PICKAXE);
-		save(BlockTags.ENDERMAN_HOLDABLE, ENDERMAN_HOLDABLE);
-		save(BlockTags.FLOWER_POTS, FLOWER_POTS);
-		save(PlantopiaBlockTags.IGNORED_BY_BEES, IGNORED_BY_BEES);
-		save(PlantopiaBlockTags.PREFERRED_BY_BEES, PREFERRED_BY_BEES);
-		save(PlantopiaBlockTags.BONEMEAL_SPREAD_GROWABLE, BONEMEAL_SPREAD_GROWABLE);
-		save(PlantopiaBlockTags.BONEMEAL_SPREAD_ON, BONEMEAL_SPREAD_ON);
-		save(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO, INFESTED_DIRT_CAN_SPREAD_TO);
-		save(PlantopiaBlockTags.SEA_SHELL, SEA_SHELL);
+		tagSets.forEach(this::save);
 	}
 
-	private void save(TagKey<Block> key, @NotNull PlantopiaTagSet<Block> tagSet) {
-		if(tagSet.isEmpty()) return;
+    private @NotNull PlantopiaTagSet<Block> createTagSet(TagKey<Block> key) {
+        PlantopiaTagSet<Block> tagSet = PlantopiaTagSet.newTagSet();
+        this.tagSets.put(key, tagSet);
+        return tagSet;
+    }
 
-		var targetTag = tag(key);
-
-		var tags = tagSet.getTags();
-		var blocks = tagSet.getElements();
-
-		tags.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-		blocks.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-
-		for(var tag : tags) targetTag.addTag(tag);
-		for(var block : blocks) targetTag.add(block);
+	@Override
+	public @NotNull IntrinsicTagAppender<Block> getTagAppender(TagKey<Block> key) {
+		return tag(key);
 	}
 }

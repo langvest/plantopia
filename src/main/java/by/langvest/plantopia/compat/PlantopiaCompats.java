@@ -1,26 +1,24 @@
-package by.langvest.plantopia.block;
+package by.langvest.plantopia.compat;
 
+import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaCauldronInteraction;
+import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
 import by.langvest.plantopia.item.special.PlantopiaWaterlilyFlowerBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
-import by.langvest.plantopia.util.PlantopiaBrewingRecipe;
 import by.langvest.toolkit.event.LifecycleEvent;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import org.jetbrains.annotations.NotNull;
-
-import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.*;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
 
 public class PlantopiaCompats {
 	public static void setup(LifecycleEvent.CommonSetup event) {
-		registerAll();
+		generateAll();
 
 		registerFlammable(Blocks.OAK_SAPLING, Encouragement.PLANT, Flammability.PLANT);
 		registerFlammable(Blocks.SPRUCE_SAPLING, Encouragement.PLANT, Flammability.PLANT);
@@ -34,47 +32,47 @@ public class PlantopiaCompats {
 		registerFlammable(Blocks.MOSS_BLOCK, Encouragement.PLANT, Flammability.PLANT);
 		registerFlammable(Blocks.MOSS_CARPET, Encouragement.PLANT, Flammability.PLANT);
 
-		registerBrewable(Potions.LUCK, PlantopiaBlocks.BIG_CLOVER.get(), Potions.AWKWARD);
+		registerBrewable(PlantopiaBlocks.BIG_CLOVER.get(), Potions.LUCK, Potions.AWKWARD);
 
 		PlantopiaCauldronInteraction.setup();
 	}
 
-	private static void registerAll() {
+	private static void generateAll() {
 		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			var block = blockMeta.get();
 
 			if(blockMeta.isFlammable()) registerFlammable(block, blockMeta.getEncouragement(), blockMeta.getFlammability());
 			if(blockMeta.isCompostable()) registerCompostable(block, blockMeta.getCompostability());
-			if(block instanceof FlowerPotBlock flowerPotBlock) registerPotted(flowerPotBlock);
-
-			if(block instanceof PlantopiaFloweringWaterlilyBlock floweringWaterlilyBlock) {
-				var waterlilyBlock = floweringWaterlilyBlock.getWaterlilyBlock();
-				var originBlock = floweringWaterlilyBlock.getOriginBlock();
-
-				registerFloweringWaterlily(Pair.of(waterlilyBlock, originBlock), block);
-			}
+			if(block instanceof FlowerPotBlock pottedBlock) registerPottable(pottedBlock);
+			if(block instanceof PlantopiaFloweringWaterlilyBlock waterlilyBlock) registerFloweringWaterlily(waterlilyBlock);
 		});
 	}
 
+	public static void registerFloweringWaterlily(@NotNull PlantopiaFloweringWaterlilyBlock waterlilyBlock) {
+		var flowerBlock = waterlilyBlock.getFlowerBlock();
+		var originBlock = waterlilyBlock.getOriginBlock();
+		var state = ((Block) waterlilyBlock).defaultBlockState();
+		PlantopiaWaterlilyFlowerBlockItem.addFloweringWaterlily(Pair.of(flowerBlock, originBlock), state);
+	}
+
 	private static void registerFlammable(Block block, int encouragement, int flammability) {
-		FIRE_BLOCK.setFlammable(block, encouragement, flammability);
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		registryHelper.registerFlammable(block, encouragement, flammability);
 	}
 
-	public static void registerCompostable(@NotNull ItemLike item, float compostability) {
-		COMPOSTABLES.put(item.asItem(), compostability);
+	public static void registerCompostable(@NotNull ItemLike itemLike, float compostability) {
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		registryHelper.registerCompostable(itemLike, compostability);
 	}
 
-	public static void registerFloweringWaterlily(Pair<Block, Block> key, @NotNull Block block) {
-		PlantopiaWaterlilyFlowerBlockItem.addFloweringWaterlily(key, block.defaultBlockState());
+	public static void registerPottable(@NotNull FlowerPotBlock pottedBlock) {
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		registryHelper.registerPottable(pottedBlock.getContent(), pottedBlock);
 	}
 
-	public static void registerPotted(@NotNull FlowerPotBlock pottedBlock) {
-		ResourceLocation plantLocation = locationOf(pottedBlock.getContent());
-		FLOWER_POT_BLOCK.addPlant(plantLocation, () -> pottedBlock);
-	}
-
-	public static void registerBrewable(Potion result, ItemLike ingredient, Potion precursor) {
-		BrewingRecipeRegistry.addRecipe(new PlantopiaBrewingRecipe(result, ingredient, precursor));
+	public static void registerBrewable(@NotNull ItemLike ingredient, Potion result, Potion precursor) {
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		registryHelper.registerBrewable(precursor, ingredient, result);
 	}
 
 	public static final class Compostability {

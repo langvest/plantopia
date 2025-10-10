@@ -9,7 +9,6 @@ import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.plantopia.meta.property.PlantopiaModelType;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Direction;
@@ -198,9 +197,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = blockMeta.getName();
 		var block = (FlowerPotBlock)blockMeta.get();
 		var plant = block.getContent();
-		var plantMeta = PlantopiaMetaBuckets.BLOCK.getValue(locationOf(plant));
+		var shouldGeneratePlantModel = metaOf(plant).map(PlantopiaBlockMeta::shouldGenerateModel).orElse(true);
 
-		if(plantMeta != null && plantMeta.getModelType() == PlantopiaModelType.CUSTOM) return;
+		if(!shouldGeneratePlantModel) return;
 
 		var pottedPlantTexture = texture(pottedNameOf(plant));
 		var plantTexture = isTextureExists(pottedPlantTexture) ? pottedPlantTexture : blockTexture(plant);
@@ -267,11 +266,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private void floweringWaterlilyBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
-		var floweringWaterlilyBlock = (PlantopiaFloweringWaterlilyBlock)blockMeta.get();
-		var waterlilyBlock = floweringWaterlilyBlock.getWaterlilyBlock();
-		var originBlock = floweringWaterlilyBlock.getOriginBlock();
+		var waterlilyBlock = (PlantopiaFloweringWaterlilyBlock) blockMeta.get();
+		var flowerBlock = waterlilyBlock.getFlowerBlock();
+		var originBlock = waterlilyBlock.getOriginBlock();
 
-		var flowerTexture = texture(nameOf(waterlilyBlock));
+		var flowerTexture = texture(nameOf(flowerBlock));
 
 		var model = models().withExistingParent(baseName, parent("template_flowering_" + nameOf(originBlock)))
 			.texture("flower", flowerTexture);
@@ -381,11 +380,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		generatedItemModel(baseName, texture(baseName));
 		simpleBlock(block, existingModel(baseName));
 
-		var pottedBlock = pottedBlockOf(block);
-
-		if(pottedBlock != null) {
+		pottedBlockOf(block).ifPresent(pottedBlock -> {
 			simpleBlock(pottedBlock, existingModel(nameOf(pottedBlock)));
-		}
+		});
 	}
 
 	private void pottedFernBlock(Block block) {
@@ -407,11 +404,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		generatedItemModel(baseName, blossomTexture, stemItemTexture);
 		simpleBlock(block, model);
 
-		var pottedBlock = pottedBlockOf(block);
-
-		if(pottedBlock != null) {
-			simpleBlock(pottedBlock, pottedCloverBlossomTemplateModel(nameOf(pottedBlock), blossomTexture));
-		}
+		pottedBlockOf(block).ifPresent(pottedBlock -> {
+			var pottedModel = pottedCloverBlossomTemplateModel(nameOf(pottedBlock), blossomTexture);
+			simpleBlock(pottedBlock, pottedModel);
+		});
 	}
 
 	private void cobblestoneShardBlock(Block block) {
@@ -452,13 +448,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private void birchBaseBlock(Block block) {
 		String baseName = nameOf(block);
-		var blockMeta = PlantopiaMetaBuckets.BLOCK.getValue(locationOf(block));
+		var isWood = metaOf(block).map(blockMeta -> blockMeta.getType().equals(MetaType.WOOD)).orElse(false);
 
 		var topTexture = minecraftTexture("birch_log_top");
 		var sideTexture = texture("birch_base_log");
 		var bottomTexture = texture(baseName + "_bottom");
 
-		if(blockMeta != null && blockMeta.getType().equals(MetaType.WOOD)) {
+		if(isWood) {
 			topTexture = minecraftTexture("birch_log");
 		}
 
@@ -535,15 +531,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 				.modelFile(model).rotationY(270).build();
 		});
 
-		var pottedBlock = pottedBlockOf(block);
-
-		if(pottedBlock != null) {
+		pottedBlockOf(block).ifPresent(pottedBlock -> {
 			var pottedBaseName = nameOf(pottedBlock);
 			var pottedPetalsTexture = texture(pottedBaseName + "_petals");
 			var pottedModel = pottedLuckyDaisyTemplateModel(pottedBaseName, pottedPetalsTexture);
 
 			simpleBlock(pottedBlock, pottedModel);
-		}
+		});
 	}
 
 	private void pollinatedDandelionBlock(Block block) {
@@ -564,22 +558,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void snowdropBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var itemTexture = texture(baseName);
+		var plantTexture = texture(baseName);
 		var model = existingModel(baseName);
 
-		generatedItemModel(baseName, itemTexture);
+		generatedItemModel(baseName, plantTexture);
 		simpleBlock(block, model);
 
-		var pottedBlock = pottedBlockOf(block);
-
-		if(pottedBlock != null) {
-			String pottedBaseName = nameOf(pottedBlock);
-
-			var plantTexture = texture(baseName);
-			var pottedModel = flowerPotCrossModel(pottedBaseName, plantTexture);
-
+		pottedBlockOf(block).ifPresent(pottedBlock -> {
+			var pottedModel = flowerPotCrossModel(nameOf(pottedBlock), plantTexture);
 			simpleBlock(pottedBlock, pottedModel);
-		}
+		});
 	}
 
 	private void coveredSnowdropBlock(Block block) {
@@ -668,13 +656,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	}
 
 	private void seaMossBlock(Block block) {
-		var blockMeta = PlantopiaMetaBuckets.BLOCK.getValue(locationOf(block));
 		String baseName = nameOf(block);
+		var hasItem = metaOf(block).map(PlantopiaBlockMeta::hasItem).orElse(false);
 
 		var texture = texture(baseName);
 		var model = seaMossTemplateModel(baseName, texture);
 
-		if(blockMeta != null && blockMeta.hasItem()) {
+		if(hasItem) {
 			var itemTexture = texture(baseName + "_plant");
 			generatedItemModel(baseName, itemTexture);
 		}

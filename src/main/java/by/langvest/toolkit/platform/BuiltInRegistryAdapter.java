@@ -3,7 +3,9 @@ package by.langvest.toolkit.platform;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
@@ -30,5 +32,10 @@ public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
 	@Override
 	public Optional<T> getValue(ResourceLocation key) {
 		return Optional.ofNullable(getBuiltInRegistry().get(key));
+	}
+
+	@Override
+	public @NotNull Iterator<T> iterator() {
+		return getBuiltInRegistry().iterator();
 	}
 }

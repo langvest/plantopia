@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class PlantopiaTagSet<T> {
 	private final ArrayList<TagKey<T>> tags;
-	private final ArrayList<T> elements;
+	private final ArrayList<T> values;
 
 	public PlantopiaTagSet() {
 		tags = Lists.newArrayList();
-		elements = Lists.newArrayList();
+		values = Lists.newArrayList();
 	}
 
 	@Contract(" -> new")
@@ -21,14 +21,14 @@ public class PlantopiaTagSet<T> {
 		return new PlantopiaTagSet<>();
 	}
 
-	public PlantopiaTagSet<T> add(T[] elements) {
-		if(elements != null) for(T element : elements) add(element);
+	public PlantopiaTagSet<T> add(T[] values) {
+		if(values != null) for(T value : values) add(value);
 		return this;
 	}
 
-	public PlantopiaTagSet<T> add(T element) {
-		if(this.elements.contains(element)) return this;
-		this.elements.add(element);
+	public PlantopiaTagSet<T> add(T value) {
+		if(values.contains(value)) return this;
+		values.add(value);
 		return this;
 	}
 
@@ -40,17 +40,17 @@ public class PlantopiaTagSet<T> {
 
 	@SuppressWarnings("UnusedReturnValue")
 	public PlantopiaTagSet<T> addTag(TagKey<T> tag) {
-		if(this.tags.contains(tag)) return this;
-		this.tags.add(tag);
+		if(tags.contains(tag)) return this;
+		tags.add(tag);
 		return this;
 	}
 
 	public boolean isEmpty() {
-		return tags.isEmpty() && elements.isEmpty();
+		return tags.isEmpty() && values.isEmpty();
 	}
 
-	public ArrayList<T> getElements() {
-		return elements;
+	public ArrayList<T> getValues() {
+		return values;
 	}
 
 	public ArrayList<TagKey<T>> getTags() {

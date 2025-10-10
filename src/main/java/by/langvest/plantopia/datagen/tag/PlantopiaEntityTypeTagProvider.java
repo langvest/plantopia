@@ -3,7 +3,7 @@ package by.langvest.plantopia.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.tag.PlantopiaEntityTypeTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
+import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
@@ -13,12 +13,14 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider {
-	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = PlantopiaTagSet.newTagSet();
+public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider implements PlantopiaTagProvider<EntityType<?>> {
+    private final Map<TagKey<EntityType<?>>, PlantopiaTagSet<EntityType<?>>> tagSets = Maps.newHashMap();
+
+	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS);
+	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES);
 
 	public PlantopiaEntityTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -43,22 +45,17 @@ public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider
 	}
 
 	private void saveAll() {
-		save(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS, QUICKSAND_WALKABLE_MOBS);
-		save(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES, QUICKSAND_IMMUNE_ENTITY_TYPES);
+		tagSets.forEach(this::save);
 	}
 
-	private void save(TagKey<EntityType<?>> key, @NotNull PlantopiaTagSet<EntityType<?>> tagSet) {
-		if(tagSet.isEmpty()) return;
+    private @NotNull PlantopiaTagSet<EntityType<?>> createTagSet(TagKey<EntityType<?>> key) {
+        PlantopiaTagSet<EntityType<?>> tagSet = PlantopiaTagSet.newTagSet();
+        this.tagSets.put(key, tagSet);
+        return tagSet;
+    }
 
-		var targetTag = tag(key);
-
-		var tags = tagSet.getTags();
-		var entities = tagSet.getElements();
-
-		tags.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-		entities.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-
-		for(var tag : tags) targetTag.addTag(tag);
-		for(var entity : entities) targetTag.add(entity);
+	@Override
+	public @NotNull IntrinsicTagAppender<EntityType<?>> getTagAppender(TagKey<EntityType<?>> key) {
+		return tag(key);
 	}
 }

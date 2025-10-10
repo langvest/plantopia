@@ -1,18 +1,15 @@
 package by.langvest.toolkit.meta;
 
 import by.langvest.toolkit.util.LocationLike;
+import by.langvest.toolkit.util.Streamable;
 import com.google.common.collect.Maps;
 import com.ibm.icu.impl.IllegalIcuArgumentException;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-public class MetaBucket<Meta extends MetaObject<?>> implements LocationLike {
+public class MetaBucket<Meta extends MetaObject<?>> implements LocationLike, Streamable<Meta> {
 	protected final ResourceLocation location;
 	protected final HashMap<ResourceLocation, Meta> storage = Maps.newLinkedHashMap();
 
@@ -25,36 +22,18 @@ public class MetaBucket<Meta extends MetaObject<?>> implements LocationLike {
 		return location;
 	}
 
-	public Stream<Meta> stream() {
-		return storage.values().stream();
-	}
-
-	public List<Meta> getAll() {
-		return stream().toList();
-	}
-
-	public List<Meta> findAll(Predicate<Meta> predicate) {
-		return stream().filter(predicate).toList();
-	}
-
-	@Nullable
-	public Meta findValue(Predicate<Meta> predicate) {
-		for(Meta item : storage.values()) if(predicate.test(item)) return item;
-		return null;
-	}
-
 	public boolean hasKey(ResourceLocation key) {
 		return storage.containsKey(key);
 	}
 
-	@Nullable
-	public Meta getValue(ResourceLocation key) {
-		return storage.get(key);
+	public Optional<Meta> getValue(ResourceLocation key) {
+		return Optional.ofNullable(storage.get(key));
 	}
 
-	@NotNull
-	public Meta getValueOrThrow(ResourceLocation key) {
-		return Objects.requireNonNull(getValue(key));
+	public @NotNull Meta getValueOrThrow(ResourceLocation key) {
+		var meta = getValue(key);
+		if(meta.isPresent()) return meta.get();
+		throw new NoSuchElementException(String.format("Cannot get meta for the key '%s' as it does not exist in the meta bucket %s", key, this));
 	}
 
 	public Meta associate(ResourceLocation key, Meta meta) {
@@ -62,7 +41,7 @@ public class MetaBucket<Meta extends MetaObject<?>> implements LocationLike {
 		Objects.requireNonNull(meta);
 
 		if(hasKey(key)) {
-			throw new IllegalIcuArgumentException(String.format("Cannot add a new association for the key '%s', as it already exists in the meta bucket '%s'.", key, location()));
+			throw new IllegalIcuArgumentException(String.format("Cannot add a new association for the key '%s' as it already exists in the meta bucket %s", key, this));
 		}
 
 		storage.put(key, meta);
@@ -70,7 +49,13 @@ public class MetaBucket<Meta extends MetaObject<?>> implements LocationLike {
 		return meta;
 	}
 
-	public void forEach(Consumer<Meta> action) {
-		storage.forEach((key, meta) -> action.accept(meta));
+	@Override
+	public String toString() {
+		return String.format("%s{%s}", getClass().getSimpleName(), location());
+	}
+
+	@Override
+	public @NotNull Iterator<Meta> iterator() {
+		return storage.values().iterator();
 	}
 }

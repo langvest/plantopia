@@ -1,9 +1,10 @@
 package by.langvest.plantopia.block;
 
 import by.langvest.toolkit.event.RegisterEvent;
+import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.registry.RegistryObject;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.block.PlantopiaCompats.Compostability;
+import by.langvest.plantopia.compat.PlantopiaCompats.Compostability;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
@@ -28,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.FLOWER_POT_BLOCK;
 import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedNameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
@@ -149,7 +149,7 @@ public class PlantopiaBlocks {
 
 	@SuppressWarnings("UnusedReturnValue")
 	public static RegistryObject<FlowerPotBlock> registerPottedBlock(String plantName, Supplier<? extends Block> plantSupplier, PlantopiaTintType plantTintType) {
-		return registerBlock(pottedNameOf(plantName), properties -> new FlowerPotBlock(() -> FLOWER_POT_BLOCK, plantSupplier, properties), MetaProperties.of(MetaType.POTTED).pottedTint(plantTintType));
+		return registerBlock(pottedNameOf(plantName), properties -> new FlowerPotBlock(RegistryHelper::getEmptyFlowerPotBlock, plantSupplier, properties), MetaProperties.of(MetaType.POTTED).pottedTint(plantTintType));
 	}
 
 	private static void registerPottedBlocks() {

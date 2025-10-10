@@ -19,21 +19,21 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class PlantopiaFloweringLilyPadBlock extends WaterlilyBlock implements PlantopiaFloweringWaterlilyBlock {
-	protected final Supplier<Block> waterlilyBlock;
+	protected final Supplier<Block> flowerBlock;
 
-	public PlantopiaFloweringLilyPadBlock(Supplier<Block> waterlilyBlock, Properties properties) {
+	public PlantopiaFloweringLilyPadBlock(Supplier<Block> flowerBlock, Properties properties) {
 		super(properties);
-		this.waterlilyBlock = waterlilyBlock;
+		this.flowerBlock = flowerBlock;
 	}
 
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-		return getWaterlilyBlock().asItem().getDefaultInstance();
+		return getFlowerBlock().asItem().getDefaultInstance();
 	}
 
 	@Override
-	public Block getWaterlilyBlock() {
-		return waterlilyBlock.get();
+	public Block getFlowerBlock() {
+		return flowerBlock.get();
 	}
 
 	@Override
