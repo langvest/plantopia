@@ -30,12 +30,12 @@ public class ForgePlatform extends Platform {
 	}
 
 	@Override
-	public boolean isClientSide() {
+	public boolean isClient() {
 		return FMLEnvironment.dist.isClient();
 	}
 
 	@Override
-	public boolean isServerSide() {
+	public boolean isServer() {
 		return FMLEnvironment.dist.isDedicatedServer();
 	}
 

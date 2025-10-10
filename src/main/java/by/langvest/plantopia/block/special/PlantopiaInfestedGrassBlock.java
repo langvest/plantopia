@@ -68,7 +68,7 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 	@SuppressWarnings("deprecation")
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
 		if(!canBeGrass(state, level, pos)) {
-			if(!level.isAreaLoaded(pos, 1)) return; // Forge: Prevent loading unloaded chunks when checking neighbor's light and spreading.
+			if(!level.isAreaLoaded(pos, 1)) return; // LanGvest: Prevent loading unloaded chunks when checking neighbor's light and spreading.
 
 			var currentAge = state.getValue(AGE);
 			var dirtState = getDirtBlock().defaultBlockState().setValue(AGE, currentAge);
@@ -77,7 +77,7 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 			return;
 		}
 
-		if(!level.isAreaLoaded(pos, 3)) return; // Forge: Prevent loading unloaded chunks when checking neighbor's light and spreading.
+		if(!level.isAreaLoaded(pos, 3)) return; // LanGvest: Prevent loading unloaded chunks when checking neighbor's light and spreading.
 
 		for(int i = 0; i < 4; i++) {
 			var candidatePos = pos.offset(PlantopiaMathHelper.getRandomXYZOffsetInArea(random, 1));

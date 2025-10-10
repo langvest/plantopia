@@ -1,6 +1,6 @@
 package by.langvest.plantopia.block.special;
 
-import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.util.helper.PlantopiaShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

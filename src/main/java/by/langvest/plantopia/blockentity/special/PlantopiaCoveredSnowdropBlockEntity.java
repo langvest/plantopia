@@ -1,6 +1,6 @@
-package by.langvest.plantopia.block.entity.special;
+package by.langvest.plantopia.blockentity.special;
 
-import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import by.langvest.plantopia.block.special.PlantopiaCoveredSnowdropBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;

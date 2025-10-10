@@ -1,4 +1,4 @@
-package by.langvest.plantopia.client.render;
+package by.langvest.plantopia.client.render.item;
 
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.util.helper.PlantopiaContentHelper;
@@ -13,16 +13,13 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer {
-	private static final List<ItemLike> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
-	private static PlantopiaItemStuckRenderer instance = null;
+	private final List<ItemLike> allFlowers = PlantopiaContentHelper.getAllFlowers();
+	private static PlantopiaItemStuckRenderer instance;
 
 	@SuppressWarnings("DataFlowIssue")
 	public PlantopiaItemStuckRenderer(BlockEntityRenderDispatcher dispatcher, EntityModelSet modelSet) {
@@ -44,8 +41,8 @@ public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer 
 
 		if(itemStack.is(PlantopiaItems.FLOWERS_ICON.get())) {
 			poseStack.translate(0.5F, 0.5f, 0.5f);
-			int index = (inGameTick / 20) % ALL_FLOWERS.size();
-			ItemStack flowerItem = ALL_FLOWERS.get(index).asItem().getDefaultInstance();
+			int index = (inGameTick / 20) % allFlowers.size();
+			ItemStack flowerItem = allFlowers.get(index).asItem().getDefaultInstance();
 			Minecraft.getInstance().getItemRenderer().renderStatic(flowerItem, displayContext, packedLight, packedOverlay, poseStack, buffer, level, 0);
 		}
 	}

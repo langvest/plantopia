@@ -29,6 +29,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	private final PlantopiaModelType modelType;
 	private final PlantopiaDisplayNameType displayNameType;
 	private final PlantopiaOrderType orderType;
+	private final boolean hasCustomRenderer;
 	private final int burnTime;
 
 	public PlantopiaItemMeta(ResourceLocation identifier, @NotNull MetaProperties properties) {
@@ -40,6 +41,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		orderType = properties.orderType;
 		burnTime = properties.burnTime;
 		behaviourProperties = properties.behaviourProperties;
+		hasCustomRenderer = properties.hasCustomRenderer;
 	}
 
 	public Item.Properties createBehaviourProperties() {
@@ -48,6 +50,10 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 	public MetaType getType() {
 		return type;
+	}
+
+	public boolean hasCustomRenderer() {
+		return hasCustomRenderer;
 	}
 
 	public List<ResourceKey<CreativeModeTab>> getGroups() {
@@ -105,6 +111,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 		public static final MetaType ICON = MetaProperties.create()
 			.noGroup()
+			.stacksTo(1)
 			.makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {
@@ -117,6 +124,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		private Supplier<Item.Properties> behaviourProperties = Item.Properties::new;
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
+		private boolean hasCustomRenderer = false;
 
 		private PlantopiaOrderType orderType = PlantopiaOrderType.ITEM;
 		private int burnTime = -1;
@@ -148,6 +156,16 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 		public MetaProperties stacksTo(int maxStackSize) {
 			return behaviour(properties -> properties.stacksTo(maxStackSize));
+		}
+
+		public MetaProperties hasCustomRenderer() {
+			this.hasCustomRenderer = true;
+			return this;
+		}
+
+		public MetaProperties noCustomRenderer() {
+			this.hasCustomRenderer = false;
+			return this;
 		}
 
 		public MetaProperties generatedBurnTime() {

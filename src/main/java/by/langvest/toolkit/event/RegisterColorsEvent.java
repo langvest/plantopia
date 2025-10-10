@@ -5,6 +5,8 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -34,11 +36,11 @@ public abstract class RegisterColorsEvent<T, C> extends ClientEvent {
 		}
 	}
 
-	public static class Block extends RegisterColorsEvent<net.minecraft.world.level.block.Block, BlockColor> {
+	public static class BlockEvent extends RegisterColorsEvent<Block, BlockColor> {
 		protected final BlockColors blockColors;
 
 		@SuppressWarnings("deprecation")
-		public Block(@NotNull BlockColors blockColors) {
+		public BlockEvent(@NotNull BlockColors blockColors) {
 			super(blockColors::register);
 			this.blockColors = blockColors;
 		}
@@ -48,17 +50,17 @@ public abstract class RegisterColorsEvent<T, C> extends ClientEvent {
 		}
 
 		@Override
-		protected net.minecraft.world.level.block.Block[] toArray(@NotNull Set<net.minecraft.world.level.block.Block> set) {
-			return set.toArray(net.minecraft.world.level.block.Block[]::new);
+		protected Block[] toArray(@NotNull Set<Block> set) {
+			return set.toArray(Block[]::new);
 		}
 	}
 
-	public static class Item extends RegisterColorsEvent<net.minecraft.world.item.Item, ItemColor> {
+	public static class ItemEvent extends RegisterColorsEvent<Item, ItemColor> {
 		private final ItemColors itemColors;
 		private final BlockColors blockColors;
 
 		@SuppressWarnings("deprecation")
-		public Item(@NotNull ItemColors itemColors, BlockColors blockColors) {
+		public ItemEvent(@NotNull ItemColors itemColors, BlockColors blockColors) {
 			super(itemColors::register);
 			this.itemColors = itemColors;
 			this.blockColors = blockColors;
@@ -72,10 +74,9 @@ public abstract class RegisterColorsEvent<T, C> extends ClientEvent {
 			return blockColors;
 		}
 
-
 		@Override
-		protected net.minecraft.world.item.Item[] toArray(@NotNull Set<net.minecraft.world.item.Item> set) {
-			return set.toArray(net.minecraft.world.item.Item[]::new);
+		protected Item[] toArray(@NotNull Set<Item> set) {
+			return set.toArray(Item[]::new);
 		}
 	}
 

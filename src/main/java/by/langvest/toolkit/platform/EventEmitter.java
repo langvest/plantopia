@@ -5,6 +5,7 @@ import by.langvest.toolkit.event.Event;
 import net.jodah.typetools.TypeResolver;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -90,8 +91,12 @@ public class EventEmitter {
 	protected <E extends Event> Class<E> getEventType(@NotNull Consumer<E> listener) {
 		Class<E> eventType = (Class<E>)TypeResolver.resolveRawArgument(Consumer.class, listener.getClass());
 
-		if((Class<?>)eventType == TypeResolver.Unknown.class) {
+		if((Class<?>) eventType == TypeResolver.Unknown.class) {
 			throw new IllegalStateException(String.format("Failed to resolve event type from listener %s", listener));
+		}
+
+		if(Modifier.isAbstract(eventType.getModifiers())) {
+			throw new IllegalArgumentException(String.format("Listener cannot be subscribed for abstract event %s", eventType.getName()));
 		}
 
 		return eventType;

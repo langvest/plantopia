@@ -1,6 +1,6 @@
-package by.langvest.plantopia.block.entity.special;
+package by.langvest.plantopia.blockentity.special;
 
-import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

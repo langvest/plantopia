@@ -1,9 +1,9 @@
-package by.langvest.plantopia.block.entity;
+package by.langvest.plantopia.blockentity;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.entity.special.PlantopiaCobblestoneShardPetBlockEntity;
-import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
-import by.langvest.plantopia.block.entity.special.PlantopiaCoveredSnowdropBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaCobblestoneShardPetBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaCoveredSnowdropBlockEntity;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;

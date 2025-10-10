@@ -1,4 +1,4 @@
-package by.langvest.plantopia.particle.special;
+package by.langvest.plantopia.client.particle.sprite;
 
 import by.langvest.plantopia.particle.PlantopiaParticleGroups;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaFluffyDandelionSeedParticle extends TextureSheetParticle {
 	protected int disappearanceTime = 20;
 

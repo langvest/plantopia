@@ -1,6 +1,6 @@
 package by.langvest.plantopia.block.special;
 
-import by.langvest.plantopia.block.entity.special.PlantopiaCobblestoneShardPetBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaCobblestoneShardPetBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;

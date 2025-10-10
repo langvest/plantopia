@@ -28,9 +28,9 @@ public abstract class Platform {
 
 	public abstract String getPlatformName();
 
-	public abstract boolean isClientSide();
+	public abstract boolean isClient();
 
-	public abstract boolean isServerSide();
+	public abstract boolean isServer();
 
 	public abstract ResourceHelper getResourceHelper();
 

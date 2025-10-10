@@ -1,4 +1,4 @@
-package by.langvest.plantopia.particle.special;
+package by.langvest.plantopia.client.particle.sprite;
 
 import by.langvest.plantopia.block.special.PlantopiaQuicksandBlock;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.*;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaQuicksandParticle extends SnowflakeParticle {
 	protected PlantopiaQuicksandParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet sprite) {
 		super(level, x, y, z, xSpeed, ySpeed, zSpeed, sprite);

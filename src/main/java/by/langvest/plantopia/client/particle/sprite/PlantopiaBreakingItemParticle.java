@@ -1,4 +1,4 @@
-package by.langvest.plantopia.particle.special;
+package by.langvest.plantopia.client.particle.sprite;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.BreakingItemParticle;
@@ -11,7 +11,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaBreakingItemParticle extends BreakingItemParticle {
 	protected PlantopiaBreakingItemParticle(ClientLevel level, double x, double y, double z, ItemStack itemStack) {
 		super(level, x, y, z, itemStack);

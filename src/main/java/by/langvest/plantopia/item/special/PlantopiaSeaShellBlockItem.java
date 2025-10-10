@@ -1,7 +1,7 @@
 package by.langvest.plantopia.item.special;
 
-import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
-import by.langvest.plantopia.block.entity.special.PlantopiaSeaShellBlockEntity;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.item.PlantopiaUpdateUseOnContext;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.ChatFormatting;

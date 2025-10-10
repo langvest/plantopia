@@ -25,7 +25,7 @@ import java.util.function.Function;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaItems {
-	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", PlantopiaRenderedIconItem::new, MetaProperties.of(MetaType.ICON));
+	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", PlantopiaIconItem::new, MetaProperties.of(MetaType.ICON).hasCustomRenderer());
 	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", properties -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), properties), MetaProperties.of(MetaType.COBBLESTONE_SHARD_BLOCK));
 	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", properties -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), properties), MetaProperties.of(MetaType.COBBLESTONE_SHARD_BLOCK));
 	public static final RegistryObject<Item> QUICKSAND_BUCKET = registerItem("quicksand_bucket", properties -> new SolidBucketItem(PlantopiaBlocks.QUICKSAND.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, properties), MetaProperties.of(MetaType.ITEM).stacksTo(1));

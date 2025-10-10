@@ -48,7 +48,7 @@ public class PlantopiaInfestedDirtBlock extends Block {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if(!level.isAreaLoaded(pos, 3)) return; // Forge: Prevent loading unloaded chunks when checking neighbor's light and spreading.
+		if(!level.isAreaLoaded(pos, 3)) return; // LanGvest: Prevent loading unloaded chunks when checking neighbor's light and spreading.
 
 		for(int i = 0; i < 4; i++) {
 			var candidatePos = pos.offset(PlantopiaMathHelper.getRandomXYZOffsetInArea(random, 1));

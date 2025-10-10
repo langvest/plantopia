@@ -1,19 +1,16 @@
-package by.langvest.plantopia.block.entity.render;
+package by.langvest.plantopia.client.render.blockentity;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.entity.special.PlantopiaCoveredSnowdropBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaCoveredSnowdropBlockEntity;
 import by.langvest.plantopia.client.render.PlantopiaRenderType;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaCoveredSnowdropBlockEntityRenderer implements BlockEntityRenderer<PlantopiaCoveredSnowdropBlockEntity> {
 	public PlantopiaCoveredSnowdropBlockEntityRenderer(@SuppressWarnings("unused") BlockEntityRendererProvider.Context context) {}
 

@@ -15,7 +15,7 @@ public class PlantopiaBlockRenderLayers {
 	private static final Set<Block> CUTOUT_MIPPED = Sets.newHashSet();
 	private static final Set<Block> TRANSLUCENT = Sets.newHashSet();
 
-	public static void setup(RegisterRenderLayersEvent.@NotNull Block event) {
+	public static void setup(RegisterRenderLayersEvent.@NotNull BlockEvent event) {
 		generateAll();
 
 		event.registerAll(CUTOUT, RenderType.cutout());
@@ -27,8 +27,8 @@ public class PlantopiaBlockRenderLayers {
 		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldApplyRenderLayer()) return;
 
-			Block block = blockMeta.get();
-			PlantopiaRenderType renderType = blockMeta.getRenderType();
+			var block = blockMeta.get();
+			var renderType = blockMeta.getRenderType();
 
 			if(renderType == PlantopiaRenderType.CUTOUT) {
 				CUTOUT.add(block);

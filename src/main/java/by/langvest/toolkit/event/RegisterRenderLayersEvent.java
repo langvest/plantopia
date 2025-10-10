@@ -1,6 +1,7 @@
 package by.langvest.toolkit.event;
 
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -20,9 +21,8 @@ public abstract class RegisterRenderLayersEvent<T, R> extends ClientEvent {
 		elements.forEach(element -> registrar.register(element, renderType));
 	}
 
-	public static class Block extends RegisterRenderLayersEvent<net.minecraft.world.level.block.Block, RenderType> {
-
-		public Block(Registrar<net.minecraft.world.level.block.Block, RenderType> registrar) {
+	public static class BlockEvent extends RegisterRenderLayersEvent<Block, RenderType> {
+		public BlockEvent(Registrar<Block, RenderType> registrar) {
 			super(registrar);
 		}
 	}

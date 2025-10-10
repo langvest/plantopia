@@ -2,9 +2,9 @@ package by.langvest.plantopia.handler;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
-import by.langvest.plantopia.particle.special.PlantopiaBreakingItemParticle;
-import by.langvest.plantopia.particle.special.PlantopiaFluffyDandelionSeedParticle;
-import by.langvest.plantopia.particle.special.PlantopiaQuicksandParticle;
+import by.langvest.plantopia.client.particle.sprite.PlantopiaBreakingItemParticle;
+import by.langvest.plantopia.client.particle.sprite.PlantopiaFluffyDandelionSeedParticle;
+import by.langvest.plantopia.client.particle.sprite.PlantopiaQuicksandParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaCompats {
-	public static void setup(LifecycleEvent.CommonSetup event) {
+	public static void setup(LifecycleEvent.CommonSetupEvent event) {
 		generateAll();
 
 		registerFlammable(Blocks.OAK_SAPLING, Encouragement.PLANT, Flammability.PLANT);

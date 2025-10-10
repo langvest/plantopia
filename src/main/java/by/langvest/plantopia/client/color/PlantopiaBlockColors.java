@@ -13,16 +13,18 @@ import java.util.Set;
 public class PlantopiaBlockColors {
 	private static final List<Pair<Set<Block>, BlockColor>> BLOCK_COLORS = Lists.newArrayList();
 
-	public static void registerBlockColor(Block block, BlockColor blockColor) {
-		BLOCK_COLORS.add(Pair.of(Set.of(block), blockColor));
+	public static void add(Block block, BlockColor blockColor) {
+		add(Set.of(block), blockColor);
 	}
 
-	public static void registerBlockColor(Set<Block> blocks, BlockColor blockColor) {
+	public static void add(Set<Block> blocks, BlockColor blockColor) {
 		BLOCK_COLORS.add(Pair.of(blocks, blockColor));
 	}
 
-	public static void setup(RegisterColorsEvent.@NotNull Block event) {
-		PlantopiaColors.getInstance().addBlockColors();
+	public static void setup(RegisterColorsEvent.@NotNull BlockEvent event) {
+		PlantopiaColors.setupCommonColors();
+		PlantopiaColors.setupBlockColors();
+
 		event.registerAll(BLOCK_COLORS);
 	}
 }

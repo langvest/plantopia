@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 public class PlantopiaRegisterHandler {
 	@SubscribeEvent
 	public static void onRegister(@NotNull net.minecraftforge.registries.RegisterEvent event) {
-		var globalEventEmitter = EventEmitter.getDefaultInstance();
+		var globalEmitter = EventEmitter.getDefaultInstance();
 
-		globalEventEmitter.emit(new RegisterEvent(event::register));
+		globalEmitter.emit(new RegisterEvent(event::register));
 	}
 }

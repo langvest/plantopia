@@ -1,6 +1,6 @@
-package by.langvest.plantopia.block.entity.special;
+package by.langvest.plantopia.blockentity.special;
 
-import by.langvest.plantopia.block.entity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import by.langvest.plantopia.util.helper.PlantopiaColorHelper;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
