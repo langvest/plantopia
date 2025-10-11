@@ -3,7 +3,7 @@ package by.langvest.plantopia.client.render;
 import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import by.langvest.plantopia.client.render.blockentity.PlantopiaCobblestoneShardPetBlockEntityRenderer;
 import by.langvest.plantopia.client.render.blockentity.PlantopiaCoveredSnowdropBlockEntityRenderer;
-import by.langvest.toolkit.event.RegisterRenderersEvent;
+import by.langvest.toolkit.event.client.RegisterRenderersEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaBlockEntityRenderers {

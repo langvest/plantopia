@@ -2,7 +2,7 @@ package by.langvest.plantopia.client.render;
 
 import by.langvest.plantopia.client.render.item.PlantopiaItemStuckRenderer;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
-import by.langvest.toolkit.event.RegisterRenderersEvent;
+import by.langvest.toolkit.event.client.RegisterRenderersEvent;
 import com.google.common.collect.Sets;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;

@@ -1,14 +1,9 @@
 package by.langvest.plantopia.item.special;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
-
 public class PlantopiaLuckyDaisyBlockItem extends BlockItem {
-	public static final ResourceLocation PETAL_AMOUNT_PREDICATE = plantopia("petal_amount");
-
 	public PlantopiaLuckyDaisyBlockItem(Block block, Properties properties) {
 		super(block, properties);
 	}

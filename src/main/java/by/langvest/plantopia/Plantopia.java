@@ -33,9 +33,8 @@ public final class Plantopia {
     public static void init(Platform platform) {
         var globalEmitter = EventEmitter.getDefaultInstance();
 
-        Plantopia.initPlatform(platform);
-        Plantopia.initRegistries(globalEmitter);
-        Plantopia.initCommon(globalEmitter);
+        Plantopia.injectPlatform(platform);
+        Plantopia.addListeners(globalEmitter);
 
         if(platform.isClient()) {
             PlantopiaClient.init(platform);
@@ -46,11 +45,13 @@ public final class Plantopia {
         return Objects.requireNonNull(platform);
     }
 
-    private static void initPlatform(Platform platform) {
+    private static void injectPlatform(Platform platform) {
         Plantopia.platform = platform;
     }
 
-    private static void initRegistries(@NotNull EventEmitter emitter) {
+    @SuppressWarnings("DuplicatedCode")
+    private static void addListeners(@NotNull EventEmitter emitter) {
+        // Registries
         emitter.subscribe(PlantopiaBlocks::setup);
         emitter.subscribe(PlantopiaBlockEntities::setup);
         emitter.subscribe(PlantopiaItems::setup);
@@ -60,9 +61,8 @@ public final class Plantopia {
         emitter.subscribe(PlantopiaSoundEvents::setup);
         emitter.subscribe(PlantopiaFeatureTypes::setup);
         emitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
-    }
 
-    private static void initCommon(@NotNull EventEmitter emitter) {
+        // Common
         emitter.subscribe(PlantopiaCompats::setup);
         emitter.subscribe(PlantopiaAdvancementTriggers::setup);
     }

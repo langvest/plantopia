@@ -2,7 +2,7 @@ package by.langvest.plantopia.client.render;
 
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.property.PlantopiaRenderType;
-import by.langvest.toolkit.event.RegisterRenderLayersEvent;
+import by.langvest.toolkit.event.client.RegisterRenderLayersEvent;
 import com.google.common.collect.Sets;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;

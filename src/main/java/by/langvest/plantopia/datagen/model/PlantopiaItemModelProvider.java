@@ -3,9 +3,9 @@ package by.langvest.plantopia.datagen.model;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaLuckyDaisyBlock;
-import by.langvest.plantopia.item.special.PlantopiaLuckyDaisyBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
+import by.langvest.plantopia.misc.PlantopiaItemPropertyTypes;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -89,7 +89,7 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 			else if(amount < PlantopiaLuckyDaisyBlock.MAX_PETALS) model = level2Model;
 
 			builder.override()
-				.predicate(PlantopiaLuckyDaisyBlockItem.PETAL_AMOUNT_PREDICATE, amount * 0.1F)
+				.predicate(PlantopiaItemPropertyTypes.PETAL_AMOUNT, amount * 0.1F)
 				.model(model)
 				.end();
 		}

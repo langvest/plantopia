@@ -1,4 +1,4 @@
-package by.langvest.plantopia.client.particle.sprite;
+package by.langvest.plantopia.client.particle.provider;
 
 import by.langvest.plantopia.block.special.PlantopiaQuicksandBlock;
 import net.minecraft.client.multiplayer.ClientLevel;

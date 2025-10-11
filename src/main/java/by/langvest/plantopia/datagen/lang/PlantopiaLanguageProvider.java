@@ -3,7 +3,7 @@ package by.langvest.plantopia.datagen.lang;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
-import by.langvest.plantopia.entity.PlantopiaDamageTypes;
+import by.langvest.plantopia.misc.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;

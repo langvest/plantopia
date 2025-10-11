@@ -1,6 +1,6 @@
 package by.langvest.plantopia.client.color;
 
-import by.langvest.toolkit.event.RegisterColorsEvent;
+import by.langvest.toolkit.event.client.RegisterColorsEvent;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.color.item.ItemColor;

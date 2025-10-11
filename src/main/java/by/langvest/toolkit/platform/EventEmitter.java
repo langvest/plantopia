@@ -5,7 +5,6 @@ import by.langvest.toolkit.event.Event;
 import net.jodah.typetools.TypeResolver;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,12 +19,12 @@ public class EventEmitter {
 	}
 
 	public <E extends Event> void subscribe(Consumer<E> listener) {
-		Class<E> eventType = getEventType(listener);
+		Class<E> eventType = getEventTypeFromListener(listener);
 		getOrCreateListeners(eventType).add(listener);
 	}
 
 	public <E extends Event> void once(Consumer<E> listener) {
-		Class<E> eventType = getEventType(listener);
+		Class<E> eventType = getEventTypeFromListener(listener);
 
 		Consumer<E> listenerWrapper = new Consumer<>() {
 			@Override
@@ -39,18 +38,18 @@ public class EventEmitter {
 	}
 
 	public <E extends Event> void unsubscribe(Consumer<E> listener) {
-		Class<E> eventType = getEventType(listener);
+		Class<E> eventType = getEventTypeFromListener(listener);
 		removeListener(eventType, listener);
 	}
 
 	public <E extends Event> void emit(@NotNull E event) {
-		List<Consumer<? extends Event>> eventListeners = listeners.get(event.getClass());
+		List<Consumer<? extends Event>> eventListeners = listeners.get(getEventTypeFromEvent(event));
 
 		if(eventListeners == null) return;
 
-		for(Consumer<?> listener : new ArrayList<>(eventListeners)) {
+		for(var listener : new ArrayList<>(eventListeners)) {
 			@SuppressWarnings("unchecked")
-			Consumer<E> typedListener = (Consumer<E>)listener;
+			Consumer<E> typedListener = (Consumer<E>) listener;
 			typedListener.accept(event);
 
 			if(event instanceof Cancellable cancellable && cancellable.isCancelled()) {
@@ -88,15 +87,22 @@ public class EventEmitter {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <E extends Event> Class<E> getEventType(@NotNull Consumer<E> listener) {
-		Class<E> eventType = (Class<E>)TypeResolver.resolveRawArgument(Consumer.class, listener.getClass());
+	protected <E extends Event> Class<E> getEventTypeFromListener(@NotNull Consumer<E> listener) {
+		Class<E> eventType = (Class<E>) TypeResolver.resolveRawArgument(Consumer.class, listener.getClass());
 
 		if((Class<?>) eventType == TypeResolver.Unknown.class) {
 			throw new IllegalStateException(String.format("Failed to resolve event type from listener %s", listener));
 		}
 
-		if(Modifier.isAbstract(eventType.getModifiers())) {
-			throw new IllegalArgumentException(String.format("Listener cannot be subscribed for abstract event %s", eventType.getName()));
+		return eventType;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <E extends Event> Class<? extends E> getEventTypeFromEvent(@NotNull E event) {
+		Class<? extends E> eventType = (Class<? extends E>) event.getClass();
+
+		if(eventType.isAnonymousClass()) {
+			eventType = (Class<? extends E>) eventType.getSuperclass();
 		}
 
 		return eventType;

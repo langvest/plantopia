@@ -10,17 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class RegisterEvent extends Event {
-	protected final Registrar<?> registrar;
-
-	public RegisterEvent(Registrar<?> registrar) {
-		this.registrar = registrar;
-	}
-
-	@SuppressWarnings("unchecked")
-	public <T> void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier) {
-		((Registrar<T>)registrar).register(registryKey, identifier, supplier);
-	}
+public abstract class RegisterEvent extends Event {
+	public abstract <T> void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier);
 
 	public <T> void registerAll(ResourceKey<Registry<T>> registryKey, by.langvest.toolkit.registry.@NotNull Registry<T> sourceRegistry) {
 		registerAll(registryKey, sourceRegistry.getAll());
@@ -32,13 +23,8 @@ public class RegisterEvent extends Event {
 	}
 
 	public <T> void registerAll(ResourceKey<Registry<T>> registryKey, @NotNull List<RegistryObject<T>> registryObjects) {
-		for(RegistryObject<T> registryObject : registryObjects) {
+		for(var registryObject : registryObjects) {
 			register(registryKey, registryObject.getIdentifier(), registryObject);
 		}
-	}
-
-	@FunctionalInterface
-	public interface Registrar<T> {
-		void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier);
 	}
 }

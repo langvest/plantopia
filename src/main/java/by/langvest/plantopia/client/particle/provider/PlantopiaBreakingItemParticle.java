@@ -1,4 +1,4 @@
-package by.langvest.plantopia.client.particle.sprite;
+package by.langvest.plantopia.client.particle.provider;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.BreakingItemParticle;
