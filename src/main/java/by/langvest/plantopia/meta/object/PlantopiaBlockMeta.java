@@ -43,11 +43,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 	private final PlantopiaRecipeType recipeType;
 	private final PlantopiaDisplayNameType displayNameType;
 	private final PlantopiaTintType tintType;
+	private final PlantopiaTagType tagType;
 	private final PlantopiaOrderType orderType;
+	private final PlantopiaBeePreferenceType beePreferenceType;
 	private final DyeColor color;
 	private final boolean isPottable;
-	private final boolean isIgnoredByBees;
-	private final boolean isPreferredByBees;
 	private final boolean shouldTintParticles;
 	private final boolean shouldTintItem;
 	private final float compostability;
@@ -68,13 +68,13 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		recipeType = properties.recipeType;
 		displayNameType = properties.displayNameType;
 		tintType = properties.tintType;
+		tagType = properties.tagType;
 		orderType = properties.orderType;
 		encouragement = properties.encouragement;
 		flammability = properties.flammability;
 		compostability = properties.compostability;
 		isPottable = properties.isPottable;
-		isIgnoredByBees = properties.isIgnoredByBees;
-		isPreferredByBees = properties.isPreferredByBees;
+		beePreferenceType = properties.beePreferenceType;
 		shouldTintParticles = properties.shouldTintParticles;
 		shouldTintItem = properties.shouldTintItem;
 		color = properties.color;
@@ -96,11 +96,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 	}
 
 	public boolean isIgnoredByBees() {
-		return isIgnoredByBees;
+		return beePreferenceType == PlantopiaBeePreferenceType.IGNORE;
 	}
 
 	public boolean isPreferredByBees() {
-		return isPreferredByBees;
+		return beePreferenceType == PlantopiaBeePreferenceType.PREFER;
 	}
 
 	public List<ResourceKey<CreativeModeTab>> getGroups() {
@@ -157,6 +157,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 	public boolean shouldGenerateModel() {
 		return modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
+	}
+
+	public boolean shouldGenerateTag() {
+		return tagType != PlantopiaTagType.NONE && tagType != PlantopiaTagType.CUSTOM;
 	}
 
 	public boolean shouldGenerateItem() {
@@ -285,8 +289,13 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 		public static final MetaType GRASS = MetaProperties.of(PLANT)
 			.replaceable()
-			.offsetType(BlockBehaviour.OffsetType.XYZ)
 			.makeType("grass");
+
+		public static final MetaType SMALL_GRASS = MetaProperties.of(GRASS)
+			.offsetType(BlockBehaviour.OffsetType.XYZ)
+			.dropSelfByShears()
+			.pottable()
+			.makeType("small_grass");
 
 		public static final MetaType TALL_GRASS = MetaProperties.of(GRASS)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
@@ -297,12 +306,19 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		public static final MetaType FLOWER = MetaProperties.of(PLANT)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.order(PlantopiaOrderType.FLOWER)
-			.pottable()
 			.notTintedParticles()
 			.compostable(Compostability.FLOWER)
 			.makeType("flower");
 
-		public static final MetaType LUCKY_DAISY = MetaProperties.of(FLOWER)
+		public static final MetaType SMALL_FLOWER = MetaProperties.of(FLOWER)
+			.pottable()
+			.makeType("small_flower");
+
+		public static final MetaType TALL_FLOWER = MetaProperties.of(FLOWER)
+			.doubleHigh()
+			.makeType("tall_flower");
+
+		public static final MetaType LUCKY_DAISY = MetaProperties.of(SMALL_FLOWER)
 			.offsetType(BlockBehaviour.OffsetType.XYZ)
 			.sound(SoundType.CHERRY_SAPLING)
 			.customModel()
@@ -310,25 +326,20 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.customItem()
 			.makeType("lucky_daisy");
 
-		public static final MetaType TALL_FLOWER = MetaProperties.of(FLOWER)
-			.notPottable()
-			.doubleHigh()
-			.makeType("tall_flower");
-
 		public static final MetaType CLOVER = MetaProperties.of(PLANT)
 			.sound(SoundType.AZALEA)
 			.order(PlantopiaOrderType.CLOVER)
 			.grassTint()
 			.makeType("clover");
 
-		public static final MetaType CLOVER_FLOWER = MetaProperties.of(FLOWER)
+		public static final MetaType CLOVER_FLOWER = MetaProperties.of(SMALL_FLOWER)
 			.sound(SoundType.AZALEA)
 			.order(PlantopiaOrderType.CLOVER)
 			.grassTint()
 			.offsetType(BlockBehaviour.OffsetType.XYZ)
-			.makeType("clover");
+			.makeType("clover_flower");
 
-		public static final MetaType WATERLILY_FLOWER = MetaProperties.of(FLOWER)
+		public static final MetaType WATERLILY_FLOWER = MetaProperties.of(SMALL_FLOWER)
 			.order(PlantopiaOrderType.WET_PLANT)
 			.sound(SoundType.CHERRY_LEAVES)
 			.notPottable()
@@ -421,7 +432,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.CAULDRON))
 			.makeType("cauldron");
 
-		public static final MetaType SHELL = MetaProperties.create()
+		public static final MetaType SEA_SHELL = MetaProperties.create()
 			.mapColor(MapColor.SAND)
 			.strength(0.2F)
 			.sound(SoundType.BONE_BLOCK)
@@ -430,14 +441,14 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.cutoutRender()
 			.customTint()
 			.customItem()
-			.makeType("shell");
+			.makeType("sea_shell");
 
 		public static final MetaType SNOW = MetaProperties.create()
 			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.SNOW))
 			.makeType("snow");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopia("block", name), properties);
+			super(plantopia(name), properties);
 		}
 
 		public boolean isSimplePlantLike() {
@@ -465,11 +476,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		private PlantopiaRecipeType recipeType = PlantopiaRecipeType.GENERATED;
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
 		private PlantopiaTintType tintType = PlantopiaTintType.NONE;
+		private PlantopiaTagType tagType = PlantopiaTagType.GENERATED;
 		private PlantopiaOrderType orderType = PlantopiaOrderType.BLOCK;
+		private PlantopiaBeePreferenceType beePreferenceType = PlantopiaBeePreferenceType.DEFAULT;
 		private DyeColor color = null;
 		private boolean isPottable = false;
-		private boolean isIgnoredByBees = false;
-		private boolean isPreferredByBees = false;
 		private boolean shouldTintParticles = true;
 		private boolean shouldTintItem = true;
 		private float compostability = 0.0F;
@@ -654,6 +665,21 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			return this;
 		}
 
+		public MetaProperties noTag() {
+			this.tagType = PlantopiaTagType.NONE;
+			return this;
+		}
+
+		public MetaProperties customTag() {
+			this.tagType = PlantopiaTagType.CUSTOM;
+			return this;
+		}
+
+		public MetaProperties generatedTag() {
+			this.tagType = PlantopiaTagType.GENERATED;
+			return this;
+		}
+
 		public MetaProperties noRecipe() {
 			this.recipeType = PlantopiaRecipeType.NONE;
 			return this;
@@ -685,22 +711,17 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		}
 
 		public MetaProperties ignoredByBees() {
-			this.isIgnoredByBees = true;
-			return this;
-		}
-
-		public MetaProperties notIgnoredByBees() {
-			this.isIgnoredByBees = false;
+			this.beePreferenceType = PlantopiaBeePreferenceType.IGNORE;
 			return this;
 		}
 
 		public MetaProperties preferredByBees() {
-			this.isPreferredByBees = true;
+			this.beePreferenceType = PlantopiaBeePreferenceType.PREFER;
 			return this;
 		}
 
-		public MetaProperties notPreferredByBees() {
-			this.isPreferredByBees = false;
+		public MetaProperties defaultBeePreference() {
+			this.beePreferenceType = PlantopiaBeePreferenceType.DEFAULT;
 			return this;
 		}
 

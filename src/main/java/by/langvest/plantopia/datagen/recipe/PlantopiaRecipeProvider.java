@@ -58,7 +58,7 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 				return;
 			}
 
-			if(type.instanceOf(MetaType.SHELL)) {
+			if(type.instanceOf(MetaType.SEA_SHELL)) {
 				boneMealFromSeaShell(blockMeta);
 			}
 		});

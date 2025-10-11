@@ -29,7 +29,7 @@ public class PlantopiaSoundEventMeta extends SimpleMetaObject<SoundEvent> {
 		public static final MetaType BLOCK_FALL = MetaProperties.create().makeType("block_fall");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopia("sound_event", name), properties);
+			super(plantopia(name), properties);
 		}
 	}
 

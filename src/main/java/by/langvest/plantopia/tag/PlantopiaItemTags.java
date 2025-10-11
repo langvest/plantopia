@@ -10,7 +10,6 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaItemTags {
 	public static final TagKey<Item> IGNORED_BY_BEES = createItemTag("ignored_by_bees");
 	public static final TagKey<Item> PREFERRED_BY_BEES = createItemTag("preferred_by_bees");
-	public static final TagKey<Item> SEA_SHELL = createItemTag("sea_shell");
 
 	private PlantopiaItemTags() {}
 

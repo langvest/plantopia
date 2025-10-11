@@ -1,5 +1,6 @@
 package by.langvest.plantopia.meta.object;
 
+import by.langvest.plantopia.meta.property.PlantopiaTagType;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.toolkit.meta.MetaAccessor;
 import by.langvest.plantopia.meta.property.PlantopiaDisplayNameType;
@@ -29,6 +30,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	private final PlantopiaModelType modelType;
 	private final PlantopiaDisplayNameType displayNameType;
 	private final PlantopiaOrderType orderType;
+	private final PlantopiaTagType tagType;
 	private final boolean hasCustomRenderer;
 	private final int burnTime;
 
@@ -42,6 +44,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		burnTime = properties.burnTime;
 		behaviourProperties = properties.behaviourProperties;
 		hasCustomRenderer = properties.hasCustomRenderer;
+		tagType = properties.tagType;
 	}
 
 	public Item.Properties createBehaviourProperties() {
@@ -70,6 +73,10 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 	public boolean shouldGenerateTranslation() {
 		return type.instanceOf(MetaType.ITEM) && displayNameType != PlantopiaDisplayNameType.NONE && displayNameType != PlantopiaDisplayNameType.CUSTOM;
+	}
+
+	public boolean shouldGenerateTag() {
+		return tagType != PlantopiaTagType.NONE && tagType != PlantopiaTagType.CUSTOM;
 	}
 
 	public int getBurnTime() {
@@ -115,7 +122,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 			.makeType("icon");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopia("item", name), properties);
+			super(plantopia(name), properties);
 		}
 	}
 
@@ -124,6 +131,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		private Supplier<Item.Properties> behaviourProperties = Item.Properties::new;
 		private PlantopiaModelType modelType = PlantopiaModelType.GENERATED;
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
+		private PlantopiaTagType tagType = PlantopiaTagType.GENERATED;
 		private boolean hasCustomRenderer = false;
 
 		private PlantopiaOrderType orderType = PlantopiaOrderType.ITEM;
@@ -201,6 +209,21 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 		public MetaProperties noGroup() {
 			this.groups = Collections.emptyList();
+			return this;
+		}
+
+		public MetaProperties noTag() {
+			this.tagType = PlantopiaTagType.NONE;
+			return this;
+		}
+
+		public MetaProperties customTag() {
+			this.tagType = PlantopiaTagType.CUSTOM;
+			return this;
+		}
+
+		public MetaProperties generatedTag() {
+			this.tagType = PlantopiaTagType.GENERATED;
 			return this;
 		}
 

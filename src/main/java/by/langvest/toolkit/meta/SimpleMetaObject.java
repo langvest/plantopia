@@ -1,5 +1,6 @@
 package by.langvest.toolkit.meta;
 
+import by.langvest.toolkit.util.LocationLike;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,12 +21,12 @@ public class SimpleMetaObject<T> extends MetaObject<T> {
 		return supplier.get();
 	}
 
-	public abstract static class MetaType<Type extends MetaType<Type, Properties>, Properties extends MetaProperties<Type, Properties>> {
-		protected final ResourceLocation location;
+	public abstract static class MetaType<Type extends MetaType<Type, Properties>, Properties extends MetaProperties<Type, Properties>> implements LocationLike {
+		protected final ResourceLocation identifier;
 		protected final Properties properties;
 
-		public MetaType(ResourceLocation location, @NotNull Properties properties) {
-			this.location = location;
+		public MetaType(ResourceLocation identifier, @NotNull Properties properties) {
+			this.identifier = identifier;
 			this.properties = properties;
 		}
 
@@ -45,13 +46,18 @@ public class SimpleMetaObject<T> extends MetaObject<T> {
 			return instanceOfExcept(type, null);
 		}
 
-		public ResourceLocation getLocation() {
-			return location;
+		public ResourceLocation getIdentifier() {
+			return identifier;
+		}
+
+		@Override
+		public ResourceLocation location() {
+			return getIdentifier();
 		}
 
 		@Override
 		public String toString() {
-			return String.format("%s{%s}", getClass().getSimpleName(), getLocation());
+			return String.format("%s{%s}", getClass().getSimpleName(), getIdentifier());
 		}
 	}
 
@@ -77,7 +83,7 @@ public class SimpleMetaObject<T> extends MetaObject<T> {
 
 		@Override
 		public String toString() {
-			return String.format("%s{%s}", getClass().getSimpleName(), type == null ? "root" : type.getLocation());
+			return String.format("%s{%s}", getClass().getSimpleName(), type == null ? "root" : type);
 		}
 	}
 }

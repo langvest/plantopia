@@ -3,6 +3,7 @@ package by.langvest.plantopia.entity.special;
 import by.langvest.plantopia.entity.PlantopiaEntities;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProjectile {
@@ -79,8 +79,11 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 			var pos = blockHitResult.getBlockPos();
 			var state = level.getBlockState(pos);
 
-			if(state.is(Tags.Blocks.GLASS) || state.is(Tags.Blocks.GLASS_PANES) || state.is(Blocks.ICE)) {
-				var blockToReplace = state.is(Blocks.ICE) ? Blocks.WATER : Blocks.AIR;
+			boolean breaksIntoAir = state.is(PlantopiaBlockTags.BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS);
+			boolean breaksIntoWater = state.is(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
+
+			if(breaksIntoAir || breaksIntoWater) {
+				var blockToReplace = breaksIntoWater ? Blocks.WATER : Blocks.AIR;
 
 				level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
 				level.levelEvent(2001, pos, Block.getId(state));
@@ -90,7 +93,7 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 			}
 
 			if(state.is(Blocks.TURTLE_EGG)) {
-				TurtleEggBlock turtleEggBlock = (TurtleEggBlock)Blocks.TURTLE_EGG;
+				TurtleEggBlock turtleEggBlock = (TurtleEggBlock) Blocks.TURTLE_EGG;
 				turtleEggBlock.decreaseEggs(level, pos, state);
 			}
 		}
@@ -99,9 +102,11 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 	protected void onHit(@NotNull HitResult hitResult) {
 		super.onHit(hitResult);
 
-		if(!level().isClientSide) {
-			level().broadcastEntityEvent(this, (byte)3);
-			level().playSound(null, getX(), getY(), getZ(), SoundEvents.DRIPSTONE_BLOCK_BREAK, SoundSource.NEUTRAL, 0.4F, 0.4F / level().getRandom().nextFloat() * 0.4F + 0.4F);
+		var level = level();
+
+		if(!level.isClientSide()) {
+			level.broadcastEntityEvent(this, (byte)3);
+			level.playSound(null, getX(), getY(), getZ(), SoundEvents.DRIPSTONE_BLOCK_BREAK, SoundSource.NEUTRAL, 0.4F, 0.4F / level().getRandom().nextFloat() * 0.4F + 0.4F);
 			discard();
 		}
 	}

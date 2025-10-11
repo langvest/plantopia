@@ -60,10 +60,10 @@ public class PlantopiaBlocks {
 
 	public static final RegistryObject<Block> FIREWEED = registerBlock("fireweed", PlantopiaFireweedBlock::new, MetaProperties.of(MetaType.TALL_GRASS).customModel().customTint().dropSelfByShears().preferredByBees().compostable(Compostability.PLANT_2 + Compostability.HAS_FLOWERS));
 
-	public static final RegistryObject<Block> POLLINATED_DANDELION = registerBlock("pollinated_dandelion", PlantopiaPollinatedDandelionBlock::new, MetaProperties.of(MetaType.FLOWER).customModel().customDrop().noItem());
-	public static final RegistryObject<Block> FLUFFY_DANDELION = registerBlock("fluffy_dandelion", properties -> new PlantopiaFluffyDandelionBlock(() -> MobEffects.SLOW_FALLING, 7, properties), MetaProperties.of(MetaType.FLOWER).ignoredByBees().noColor());
+	public static final RegistryObject<Block> POLLINATED_DANDELION = registerBlock("pollinated_dandelion", PlantopiaPollinatedDandelionBlock::new, MetaProperties.of(MetaType.SMALL_FLOWER).customModel().customDrop().noItem());
+	public static final RegistryObject<Block> FLUFFY_DANDELION = registerBlock("fluffy_dandelion", properties -> new PlantopiaFluffyDandelionBlock(() -> MobEffects.SLOW_FALLING, 7, properties), MetaProperties.of(MetaType.SMALL_FLOWER).ignoredByBees().noColor());
 
-	public static final RegistryObject<Block> SNOWDROP = registerBlock("snowdrop", properties -> new PlantopiaSnowdropBlock(() -> MobEffects.WEAKNESS, 12, properties), MetaProperties.of(MetaType.FLOWER).customModel().color(DyeColor.WHITE));
+	public static final RegistryObject<Block> SNOWDROP = registerBlock("snowdrop", properties -> new PlantopiaSnowdropBlock(() -> MobEffects.WEAKNESS, 12, properties), MetaProperties.of(MetaType.SMALL_FLOWER).customModel().color(DyeColor.WHITE));
 	public static final RegistryObject<Block> COVERED_SNOWDROP = registerBlock("covered_snowdrop", PlantopiaCoveredSnowdropBlock::new, MetaProperties.of(MetaType.SNOW).noItem().customModel().customDrop().preferredByBees());
 
 	public static final RegistryObject<Block> TINY_CACTUS = registerBlock("tiny_cactus", PlantopiaTinyCactusBlock::new, MetaProperties.of(MetaType.TINY_CACTUS));
@@ -98,7 +98,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> REEDS = registerBlock("reeds", PlantopiaReedsBlock::new, MetaProperties.of(MetaType.WATER_GRASS).mapColor(MapColor.WOOD).dropSelfByShears());
 	public static final RegistryObject<Block> TALL_REEDS = registerBlock("tall_reeds", PlantopiaTallReedsBlock::new, MetaProperties.of(MetaType.WATER_GRASS).mapColor(MapColor.WOOD).tripleHighPlant().customModel().customTint().dropSelfByShears());
 
-	public static final RegistryObject<Block> DUNE_GRASS = registerBlock("dune_grass", PlantopiaDuneGrassBlock::new, MetaProperties.of(MetaType.GRASS).mapColor(MapColor.SAND).dropSelfByShears().pottable());
+	public static final RegistryObject<Block> DUNE_GRASS = registerBlock("dune_grass", PlantopiaDuneGrassBlock::new, MetaProperties.of(MetaType.SMALL_GRASS).mapColor(MapColor.SAND));
 	public static final RegistryObject<Block> TALL_DUNE_GRASS = registerBlock("tall_dune_grass", PlantopiaTallDuneGrassBlock::new, MetaProperties.of(MetaType.TALL_GRASS).mapColor(MapColor.SAND).customDrop());
 
 	public static final RegistryObject<Block> SEA_MOSS = registerBlock("sea_moss", PlantopiaSeaMossBlock::new, MetaProperties.of(MetaType.UNDERWATER_PLANT).customDrop().customModel().randomlyTicking());
@@ -124,9 +124,9 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> AZOLLA = registerBlock("azolla", PlantopiaAzollaBlock::new, MetaProperties.of(MetaType.WATER_PLANT).sound(SoundType.WET_GRASS).replaceable().customModel().customDrop().customItem().compostable(Compostability.PLANT_1 * 0.75F));
 	public static final RegistryObject<Block> SEAWEED = registerBlock("seaweed", PlantopiaSeaweedBlock::new, MetaProperties.of(MetaType.UNDERWATER_PLANT).customModel().dropSelfByShears());
 
-	public static final RegistryObject<Block> ROUND_SEA_SHELL = registerBlock("round_sea_shell", properties -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.ROUND_SHAPE, properties), MetaProperties.of(MetaType.SHELL));
-	public static final RegistryObject<Block> TWISTY_SEA_SHELL = registerBlock("twisty_sea_shell", properties -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.TWISTY_SHAPE, properties), MetaProperties.of(MetaType.SHELL));
-	public static final RegistryObject<Block> TUBE_SEA_SHELL = registerBlock("tube_sea_shell", properties -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.TUBE_SHAPE, properties), MetaProperties.of(MetaType.SHELL));
+	public static final RegistryObject<Block> ROUND_SEA_SHELL = registerBlock("round_sea_shell", properties -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.ROUND_SHAPE, properties), MetaProperties.of(MetaType.SEA_SHELL));
+	public static final RegistryObject<Block> TWISTY_SEA_SHELL = registerBlock("twisty_sea_shell", properties -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.TWISTY_SHAPE, properties), MetaProperties.of(MetaType.SEA_SHELL));
+	public static final RegistryObject<Block> TUBE_SEA_SHELL = registerBlock("tube_sea_shell", properties -> new PlantopiaSeaShellBlock(PlantopiaSeaShellBlock.TUBE_SHAPE, properties), MetaProperties.of(MetaType.SEA_SHELL));
 
 	public static final RegistryObject<Block> WHITE_LUCKY_DAISY = registerBlock("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.LIGHT_GRAY));
 	public static final RegistryObject<Block> PINK_LUCKY_DAISY = registerBlock("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.PINK));

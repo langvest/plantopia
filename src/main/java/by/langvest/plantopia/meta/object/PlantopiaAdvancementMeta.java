@@ -132,7 +132,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 			.makeType("challenge");
 
 		private MetaType(String name, MetaProperties properties) {
-			super(plantopia("advancement", name), properties);
+			super(plantopia(name), properties);
 		}
 	}
 
