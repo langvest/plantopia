@@ -7,8 +7,6 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaBreakingItemParticle extends BreakingItemParticle {
@@ -16,7 +14,6 @@ public class PlantopiaBreakingItemParticle extends BreakingItemParticle {
 		super(level, x, y, z, itemStack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public static class PlantopiaProvider implements ParticleProvider<ItemParticleOption> {
 		public PlantopiaProvider(@SuppressWarnings("unused") SpriteSet sprite) {}
 

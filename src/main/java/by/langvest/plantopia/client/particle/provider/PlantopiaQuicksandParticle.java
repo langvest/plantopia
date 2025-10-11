@@ -7,8 +7,6 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.*;
@@ -18,7 +16,6 @@ public class PlantopiaQuicksandParticle extends SnowflakeParticle {
 		super(level, x, y, z, xSpeed, ySpeed, zSpeed, sprite);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet sprite;
 

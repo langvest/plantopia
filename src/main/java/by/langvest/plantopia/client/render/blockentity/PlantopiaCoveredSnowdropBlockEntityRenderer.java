@@ -1,6 +1,6 @@
 package by.langvest.plantopia.client.render.blockentity;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.blockentity.special.PlantopiaCoveredSnowdropBlockEntity;
 import by.langvest.plantopia.client.render.PlantopiaRenderType;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -8,8 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public class PlantopiaCoveredSnowdropBlockEntityRenderer implements BlockEntityRenderer<PlantopiaCoveredSnowdropBlockEntity> {
 	public PlantopiaCoveredSnowdropBlockEntityRenderer(@SuppressWarnings("unused") BlockEntityRendererProvider.Context context) {}
@@ -21,31 +22,31 @@ public class PlantopiaCoveredSnowdropBlockEntityRenderer implements BlockEntityR
 		if(level == null) return;
 		if(blockEntity.skipFlowerRendering()) return;
 
+		var renderHelper = Plantopia.getPlatform().getRenderHelper();
 		var blockRenderer = Minecraft.getInstance().getBlockRenderer();
 		var pos = blockEntity.getBlockPos();
-		var snowdropState = PlantopiaBlocks.SNOWDROP.get().defaultBlockState();
-		var snowdropModel = blockRenderer.getBlockModel(snowdropState);
+		var state = blockEntity.getFlowerBlock().defaultBlockState();
+		var model = blockRenderer.getBlockModel(state);
 		var renderType = PlantopiaRenderType.cutoutNoCrumbling();
-		var vec3 = snowdropState.getOffset(level, pos);
+		var vec3 = state.getOffset(level, pos);
 		boolean checkSides = true;
 
 		poseStack.pushPose();
-
 		poseStack.translate(vec3.x, vec3.y, vec3.z);
 
-		blockRenderer.getModelRenderer().tesselateWithoutAO(
+		renderHelper.renderBlockModel(
+			state,
+			model,
 			level,
-			snowdropModel,
-			snowdropState,
 			pos,
 			poseStack,
 			buffer.getBuffer(renderType),
 			checkSides,
 			level.getRandom(),
-			snowdropState.getSeed(pos),
+			state.getSeed(pos),
 			packedOverlay,
-			ModelData.EMPTY,
-			renderType
+			Optional.of(renderType),
+			Optional.of(false)
 		);
 
 		poseStack.popPose();

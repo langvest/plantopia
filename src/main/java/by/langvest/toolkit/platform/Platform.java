@@ -1,5 +1,6 @@
 package by.langvest.toolkit.platform;
 
+import by.langvest.toolkit.platform.client.RenderHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,4 +36,6 @@ public abstract class Platform {
 	public abstract ResourceHelper getResourceHelper();
 
 	public abstract RegistryHelper getRegistryHelper();
+
+	public abstract RenderHelper getRenderHelper();
 }

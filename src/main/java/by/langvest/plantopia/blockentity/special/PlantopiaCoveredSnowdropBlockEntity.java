@@ -1,8 +1,10 @@
 package by.langvest.plantopia.blockentity.special;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import by.langvest.plantopia.block.special.PlantopiaCoveredSnowdropBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -15,5 +17,9 @@ public class PlantopiaCoveredSnowdropBlockEntity extends BlockEntity {
 		var state = getBlockState();
 		PlantopiaCoveredSnowdropBlock block = (PlantopiaCoveredSnowdropBlock)state.getBlock();
 		return block.skipFlowerRendering(state);
+	}
+
+	public Block getFlowerBlock() {
+		return PlantopiaBlocks.SNOWDROP.get();
 	}
 }
