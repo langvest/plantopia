@@ -21,6 +21,7 @@ public class PlantopiaFluffyDandelionSeedParticle extends TextureSheetParticle {
 		this.lifetime = 100 + (int)Math.floor(Math.random() * 50);
 		this.hasPhysics = true;
 		this.gravity = -0.0188F;
+		this.setSize(quadSize * 0.85F, 0.11F);
 		double xzFactor = 1.8D;
 		double yFactor = 1.3D;
 		this.xd = xSpeed + (Math.random() * xzFactor - xzFactor / 2) * 0.4F;
@@ -35,8 +36,26 @@ public class PlantopiaFluffyDandelionSeedParticle extends TextureSheetParticle {
 
 	@Override
 	public void tick() {
-		if(age >= lifetime - disappearanceTime) setAlpha(alpha - 1.F / disappearanceTime);
+		if(age >= lifetime - disappearanceTime) {
+			setAlpha(alpha - 1.F / disappearanceTime);
+		}
+
+		double x_before = x;
+		double y_before = y;
+		double z_before = z;
+
 		super.tick();
+
+		boolean collided_x = x_before == x;
+		boolean collided_z = z_before == z;
+		boolean collided_y = y_before == y;
+
+		if(onGround || collided_x || collided_z || collided_y) {
+			xd = 0.0D;
+			yd = 0.0D;
+			zd = 0.0D;
+			gravity = 0.0F;
+		}
 	}
 
 	@Override
