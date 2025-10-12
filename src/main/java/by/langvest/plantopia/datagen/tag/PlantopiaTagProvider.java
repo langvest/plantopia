@@ -21,7 +21,6 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.location
 
 public interface PlantopiaTagProvider<T> {
     String META_TYPE_TAG_PREFIX = "type/";
-    Map<Pair<ResourceKey<? extends Registry<?>>, SimpleMetaObject.MetaType<?, ?>>, PlantopiaTagSet<?>> CACHE = Maps.newHashMap();
 
     IntrinsicHolderTagsProvider.IntrinsicTagAppender<T> getTagAppender(TagKey<T> key);
 
@@ -29,26 +28,12 @@ public interface PlantopiaTagProvider<T> {
         tagSets.forEach(this::save);
     }
 
-    @SuppressWarnings("unchecked")
     default void saveByMetaTypes(@NotNull Map<? extends SimpleMetaObject.MetaType<?, ?>, PlantopiaTagSet<T>> tagSets) {
-        for(var metaType : tagSets.keySet()) {
-            recursivelyPrepareParentTagSetFor(metaType);
-        }
+        Map<SimpleMetaObject.MetaType<?, ?>, PlantopiaTagSet<T>> cache = Maps.newHashMap();
 
-        tagSets.forEach((metaType, tagSet) -> getCachedTagSetOf(metaType).addAll(tagSet));
-
-        var registryKey = getRegistryKey();
-
-        CACHE.entrySet()
-            .stream()
-            .filter(entry -> entry.getKey().getFirst().equals(registryKey))
-            .forEach(entry -> {
-                var metaType = entry.getKey().getSecond();
-                var tagSet = (PlantopiaTagSet<T>) entry.getValue();
-                var key = getTagKeyOf(metaType);
-
-                save(key, tagSet);
-            });
+        tagSets.keySet().forEach(metaType -> recursivelyPrepareParentTagSetFor(cache, metaType));
+        tagSets.forEach((metaType, tagSet) -> getCachedTagSetOf(cache, metaType).addAll(tagSet));
+        cache.forEach((metaType, tagSet) -> save(getTagKeyOf(metaType), tagSet));
     }
 
     default void save(TagKey<T> key, @NotNull PlantopiaTagSet<T> tagSet) {
@@ -72,13 +57,13 @@ public interface PlantopiaTagProvider<T> {
         optionalValues.forEach(appender::addOptional);
     }
 
-    default void recursivelyPrepareParentTagSetFor(SimpleMetaObject.@NotNull MetaType<?, ?> metaType) {
+    default void recursivelyPrepareParentTagSetFor(Map<SimpleMetaObject.MetaType<?, ?>, PlantopiaTagSet<T>> cache, SimpleMetaObject.@NotNull MetaType<?, ?> metaType) {
         var parentMetaType = getParentMetaTypeOf(metaType);
 
         if(parentMetaType == null) return;
 
-        getCachedTagSetOf(parentMetaType).addTag(getTagKeyOf(metaType));
-        recursivelyPrepareParentTagSetFor(parentMetaType);
+        getCachedTagSetOf(cache, parentMetaType).addTag(getTagKeyOf(metaType));
+        recursivelyPrepareParentTagSetFor(cache, parentMetaType);
     }
 
     ResourceKey<? extends Registry<T>> getRegistryKey();
@@ -87,9 +72,8 @@ public interface PlantopiaTagProvider<T> {
         return TagKey.create(getRegistryKey(), metaType.getIdentifier().withPrefix(META_TYPE_TAG_PREFIX));
     }
 
-    @SuppressWarnings("unchecked")
-    default PlantopiaTagSet<T> getCachedTagSetOf(SimpleMetaObject.@NotNull MetaType<?, ?> metaType) {
-        return (PlantopiaTagSet<T>) CACHE.computeIfAbsent(Pair.of(getRegistryKey(), metaType), key -> PlantopiaTagSet.newTagSet());
+    default PlantopiaTagSet<T> getCachedTagSetOf(Map<SimpleMetaObject.MetaType<?, ?>, PlantopiaTagSet<T>> cache, SimpleMetaObject.@NotNull MetaType<?, ?> metaType) {
+        return cache.computeIfAbsent(metaType, key -> PlantopiaTagSet.newTagSet());
     }
 
     @Nullable

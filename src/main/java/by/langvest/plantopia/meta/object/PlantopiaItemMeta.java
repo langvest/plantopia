@@ -76,7 +76,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	}
 
 	public boolean shouldGenerateTag() {
-		return tagType != PlantopiaTagType.NONE && tagType != PlantopiaTagType.CUSTOM;
+		return type != MetaType.ITEM && tagType != PlantopiaTagType.NONE && tagType != PlantopiaTagType.CUSTOM;
 	}
 
 	public int getBurnTime() {
@@ -97,6 +97,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 		public static final MetaType BLOCK = MetaProperties.create()
 			.order(PlantopiaOrderType.BLOCK)
+			.noTag()
 			.makeType("block");
 
 		public static final MetaType COBBLESTONE_SHARD_BLOCK = MetaProperties.of(BLOCK)

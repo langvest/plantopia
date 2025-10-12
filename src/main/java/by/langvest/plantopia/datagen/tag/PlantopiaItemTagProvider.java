@@ -53,14 +53,14 @@ public final class PlantopiaItemTagProvider extends ItemTagsProvider implements 
     }
 
     private void generateAll() {
-//        PlantopiaMetaBuckets.ITEM.forEach(itemMeta -> {
-//            var item = itemMeta.get();
-//            var type = itemMeta.getType();
-//
-//            if(itemMeta.shouldGenerateTag()) {
-//                byItemMetaTypes.computeIfAbsent(type, key -> PlantopiaTagSet.newTagSet()).add(item);
-//            }
-//        });
+        PlantopiaMetaBuckets.ITEM.forEach(itemMeta -> {
+            var item = itemMeta.get();
+            var type = itemMeta.getType();
+
+            if(itemMeta.shouldGenerateTag()) {
+                byItemMetaTypes.computeIfAbsent(type, key -> PlantopiaTagSet.newTagSet()).add(item);
+            }
+        });
 
         PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
             if(!blockMeta.hasItem()) return;
