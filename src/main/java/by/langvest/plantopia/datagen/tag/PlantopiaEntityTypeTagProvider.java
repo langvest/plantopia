@@ -3,22 +3,26 @@ package by.langvest.plantopia.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.tag.PlantopiaEntityTypeTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
+import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider {
-	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = PlantopiaTagSet.newTagSet();
-	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = PlantopiaTagSet.newTagSet();
+public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider implements PlantopiaTagProvider<EntityType<?>> {
+    private final Map<TagKey<EntityType<?>>, PlantopiaTagSet<EntityType<?>>> byTagKeys = Maps.newHashMap();
+
+	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS);
+	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES);
 
 	public PlantopiaEntityTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -26,39 +30,29 @@ public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		add(QUICKSAND_WALKABLE_MOBS, EntityType.RABBIT, EntityType.ENDERMITE, EntityType.SILVERFISH);
-		add(QUICKSAND_IMMUNE_ENTITY_TYPES, EntityType.HUSK, EntityType.SKELETON, EntityType.SKELETON_HORSE, EntityType.WITHER_SKELETON, EntityType.IRON_GOLEM, EntityType.WITHER, EntityType.SILVERFISH, EntityType.ENDERMITE);
+		QUICKSAND_WALKABLE_MOBS.add(EntityType.RABBIT, EntityType.ENDERMITE, EntityType.SILVERFISH);
+		QUICKSAND_IMMUNE_ENTITY_TYPES.add(EntityType.HUSK, EntityType.SKELETON, EntityType.SKELETON_HORSE, EntityType.WITHER_SKELETON, EntityType.IRON_GOLEM, EntityType.WITHER, EntityType.SILVERFISH, EntityType.ENDERMITE);
 
 		saveAll();
 	}
 
-	private void add(@NotNull PlantopiaTagSet<EntityType<?>> tagSet, EntityType<?>... entities) {
-		tagSet.add(Arrays.stream(entities).toArray(EntityType[]::new));
-	}
-
-	@SafeVarargs
-	@SuppressWarnings("unused")
-	private void add(@NotNull PlantopiaTagSet<EntityType<?>> tagSet, TagKey<EntityType<?>>... tags) {
-		tagSet.addTags(tags);
-	}
-
 	private void saveAll() {
-		save(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS, QUICKSAND_WALKABLE_MOBS);
-		save(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES, QUICKSAND_IMMUNE_ENTITY_TYPES);
+		saveByTagKeys(byTagKeys);
 	}
 
-	private void save(TagKey<EntityType<?>> key, @NotNull PlantopiaTagSet<EntityType<?>> tagSet) {
-		if(tagSet.isEmpty()) return;
+    private @NotNull PlantopiaTagSet<EntityType<?>> createTagSet(TagKey<EntityType<?>> key) {
+        PlantopiaTagSet<EntityType<?>> tagSet = PlantopiaTagSet.newTagSet();
+        byTagKeys.put(key, tagSet);
+        return tagSet;
+    }
 
-		var targetTag = tag(key);
+	@Override
+	public @NotNull IntrinsicTagAppender<EntityType<?>> getTagAppender(TagKey<EntityType<?>> key) {
+		return tag(key);
+	}
 
-		var tags = tagSet.getTags();
-		var entities = tagSet.getElements();
-
-		tags.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-		entities.sort(Comparator.comparing(PlantopiaResourceHelper::idOf));
-
-		for(var tag : tags) targetTag.addTag(tag);
-		for(var entity : entities) targetTag.add(entity);
+	@Override
+	public ResourceKey<? extends Registry<EntityType<?>>> getRegistryKey() {
+		return Registries.ENTITY_TYPE;
 	}
 }

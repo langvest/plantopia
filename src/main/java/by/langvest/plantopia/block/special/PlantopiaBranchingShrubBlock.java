@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
-public class PlantopiaBranchingShrubBlock extends PlantopiaBaseBranchingShrubBlock {
+public class PlantopiaBranchingShrubBlock extends PlantopiaAbstractBranchingShrubBlock {
 	public PlantopiaBranchingShrubBlock(Properties properties) {
 		super(properties);
 	}

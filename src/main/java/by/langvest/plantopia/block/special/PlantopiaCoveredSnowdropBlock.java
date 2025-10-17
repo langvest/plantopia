@@ -2,7 +2,7 @@ package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaPollinableBlock;
-import by.langvest.plantopia.block.entity.special.PlantopiaCoveredSnowdropBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaCoveredSnowdropBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

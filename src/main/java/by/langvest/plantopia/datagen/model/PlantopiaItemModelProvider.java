@@ -3,14 +3,12 @@ package by.langvest.plantopia.datagen.model;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaLuckyDaisyBlock;
-import by.langvest.plantopia.item.special.PlantopiaLuckyDaisyBlockItem;
-import by.langvest.plantopia.item.special.PlantopiaRenderedIconItem;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
+import by.langvest.plantopia.misc.PlantopiaItemPropertyTypes;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -38,12 +36,10 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaRegistries.ITEMS.forEach(itemMeta -> {
+		PlantopiaMetaBuckets.ITEM.forEach(itemMeta -> {
 			if(!itemMeta.shouldGenerateModel()) return;
 
-			Item item = itemMeta.getItem();
-
-			if(item instanceof PlantopiaRenderedIconItem) {
+			if(itemMeta.hasCustomRenderer()) {
 				entityItem(itemMeta);
 				return;
 			}
@@ -93,7 +89,7 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 			else if(amount < PlantopiaLuckyDaisyBlock.MAX_PETALS) model = level2Model;
 
 			builder.override()
-				.predicate(PlantopiaLuckyDaisyBlockItem.PETAL_AMOUNT_PREDICATE, amount * 0.1F)
+				.predicate(PlantopiaItemPropertyTypes.PETAL_AMOUNT, amount * 0.1F)
 				.model(model)
 				.end();
 		}
@@ -120,19 +116,19 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation texture(String name) {
-		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation blockTexture(String name) {
-		return plantopiaLocationFrom(ModelProvider.BLOCK_FOLDER, name);
+		return plantopia(ModelProvider.BLOCK_FOLDER, name);
 	}
 
 	@Contract(" -> new")
 	private static @NotNull ModelFile getBuiltInEntityModel() {
 		if(builtinEntityModelCache != null) return builtinEntityModelCache;
 
-		return builtinEntityModelCache = new ModelFile(minecraftLocationFrom("builtin/entity")) {
+		return builtinEntityModelCache = new ModelFile(minecraft("builtin/entity")) {
 			@Override
 			protected boolean exists() {
 				return true;
@@ -142,6 +138,6 @@ public class PlantopiaItemModelProvider extends ItemModelProvider {
 
 	@Contract("_ -> new")
 	private static @NotNull ResourceLocation parent(String name) {
-		return plantopiaLocationFrom(ModelProvider.ITEM_FOLDER, name);
+		return plantopia(ModelProvider.ITEM_FOLDER, name);
 	}
 }

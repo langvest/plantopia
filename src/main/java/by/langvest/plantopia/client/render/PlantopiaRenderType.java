@@ -3,10 +3,7 @@ package by.langvest.plantopia.client.render;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class PlantopiaRenderType extends RenderType {
 	private static final RenderType CUTOUT_NO_CRUMBLING = create("cutout_no_crumbling", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 131072, false, false, RenderType.CompositeState.builder().setLightmapState(LIGHTMAP).setShaderState(RENDERTYPE_CUTOUT_SHADER).setTextureState(BLOCK_SHEET).createCompositeState(true));
 

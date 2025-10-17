@@ -1,24 +1,18 @@
 package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.adv.PlantopiaAdvancement;
-import net.minecraft.resources.ResourceKey;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
+import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.util.Optional;
 
 public final class PlantopiaResourceHelper {
-	/* LOCATION FROM ***********************************************************************/
-
 	@Contract("_, _ -> new")
 	public static @NotNull ResourceLocation locationFrom(String namespace, String name) {
 		return ResourceLocation.fromNamespaceAndPath(namespace, name);
@@ -30,112 +24,52 @@ public final class PlantopiaResourceHelper {
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation minecraftLocationFrom(String name) {
-		return ResourceLocation.fromNamespaceAndPath("minecraft", name);
+	public static @NotNull ResourceLocation minecraft(String name) {
+		return locationFrom("minecraft", name);
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation minecraftLocationFrom(String... path) {
-		return ResourceLocation.fromNamespaceAndPath("minecraft", String.join("/", path));
+	public static @NotNull ResourceLocation minecraft(String... path) {
+		return locationFrom("minecraft", path);
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation plantopiaLocationFrom(String name) {
-		return ResourceLocation.fromNamespaceAndPath(Plantopia.MOD_ID, name);
+	public static @NotNull ResourceLocation plantopia(String name) {
+		return locationFrom(Plantopia.MOD_ID, name);
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation plantopiaLocationFrom(String... path) {
-		return ResourceLocation.fromNamespaceAndPath(Plantopia.MOD_ID, String.join("/", path));
+	public static @NotNull ResourceLocation plantopia(String... path) {
+		return locationFrom(Plantopia.MOD_ID, path);
 	}
 
-	/* LOCATION OF ***********************************************************************/
-
-	public static @NotNull ResourceLocation locationOf(@NotNull RegistryObject<?> registryObject) {
-		return registryObject.getId();
+	public static @NotNull ResourceLocation locationOf(@NotNull Object object) {
+		var resourceHelper = Plantopia.getPlatform().getResourceHelper();
+		return resourceHelper.getLocationOrThrow(object);
 	}
 
-	public static @NotNull ResourceLocation locationOf(@NotNull TagKey<?> tag) {
-		return tag.location();
+	public static @NotNull String idOf(@NotNull Object object) {
+		var location = locationOf(object);
+		return location.getNamespace() + ":" + location.getPath();
 	}
 
-	public static @NotNull ResourceLocation locationOf(@NotNull ResourceKey<?> key) {
-		return key.location();
+	public static @NotNull String nameOf(@NotNull Object object) {
+		return locationOf(object).getPath();
 	}
 
-	public static @NotNull ResourceLocation locationOf(@NotNull Block block) {
-		return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block));
+	public static @NotNull String namespaceOf(@NotNull Object object) {
+		return locationOf(object).getNamespace();
 	}
 
-	public static @NotNull ResourceLocation locationOf(@NotNull ItemLike itemLike) {
-		return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemLike.asItem()));
+	public static Optional<PlantopiaBlockMeta> metaOf(Block block) {
+		return PlantopiaMetaBuckets.BLOCK.getValue(locationOf(block));
 	}
 
-	public static @NotNull ResourceLocation locationOf(@NotNull SoundEvent soundEvent) {
-		return Objects.requireNonNull(ForgeRegistries.SOUND_EVENTS.getKey(soundEvent));
+	public static Optional<PlantopiaItemMeta> metaOf(Item item) {
+		return PlantopiaMetaBuckets.ITEM.getValue(locationOf(item));
 	}
 
-	public static @NotNull ResourceLocation locationOf(@NotNull PlantopiaAdvancement advancement) {
-		return advancement.getId();
-	}
-
-	public static @NotNull ResourceLocation locationOf(@NotNull EntityType<?> entity) {
-		return Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity));
-	}
-
-	/* ID OF ***********************************************************************/
-
-	public static @NotNull String idOf(@NotNull RegistryObject<?> registryObject) {
-		return locationOf(registryObject).toString();
-	}
-
-	public static @NotNull String idOf(@NotNull TagKey<?> tag) {
-		return locationOf(tag).toString();
-	}
-
-	public static @NotNull String idOf(@NotNull ResourceKey<?> key) {
-		return locationOf(key).toString();
-	}
-
-	public static @NotNull String idOf(@NotNull Block block) {
-		return locationOf(block).toString();
-	}
-
-	public static @NotNull String idOf(@NotNull ItemLike itemLike) {
-		return locationOf(itemLike).toString();
-	}
-
-	public static @NotNull String idOf(@NotNull EntityType<?> entity) {
-		return locationOf(entity).toString();
-	}
-
-	public static @NotNull String idOf(@NotNull PlantopiaAdvancement advancement) {
-		return locationOf(advancement).toString();
-	}
-
-	/* NAME OF ***********************************************************************/
-
-	public static @NotNull String nameOf(@NotNull RegistryObject<?> registryObject) {
-		return locationOf(registryObject).getPath();
-	}
-
-	public static @NotNull String nameOf(@NotNull TagKey<?> tag) {
-		return locationOf(tag).getPath();
-	}
-
-	public static @NotNull String nameOf(@NotNull ResourceKey<?> key) {
-		return locationOf(key).getPath();
-	}
-
-	public static @NotNull String nameOf(@NotNull Block block) {
-		return locationOf(block).getPath();
-	}
-
-	public static @NotNull String nameOf(@NotNull ItemLike itemLike) {
-		return locationOf(itemLike).getPath();
-	}
-
-	public static @NotNull String nameOf(@NotNull PlantopiaAdvancement advancement) {
-		return locationOf(advancement).getPath();
+	public static int compareById(@NotNull Object o1, @NotNull Object o2) {
+		return idOf(o1).compareTo(idOf(o2));
 	}
 }

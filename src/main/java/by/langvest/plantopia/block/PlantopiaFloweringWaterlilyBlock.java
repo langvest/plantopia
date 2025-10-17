@@ -19,7 +19,7 @@ import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 
 public interface PlantopiaFloweringWaterlilyBlock {
-	Block getWaterlilyBlock();
+	Block getFlowerBlock();
 
 	Block getOriginBlock();
 
@@ -36,9 +36,9 @@ public interface PlantopiaFloweringWaterlilyBlock {
 			level.playSound(null, pos, SoundEvents.MOOSHROOM_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
 			level.setBlock(pos, getOriginBlock().defaultBlockState(), 11);
 
-			ItemEntity itementity = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.2D, (double)pos.getZ() + 0.5D, getWaterlilyBlock().asItem().getDefaultInstance());
-			itementity.setDeltaMovement(0.05D * (double)up.getStepX() + level.random.nextDouble() * 0.02D, 0.1D, 0.05D * (double)up.getStepZ() + level.random.nextDouble() * 0.02D);
-			level.addFreshEntity(itementity);
+			ItemEntity itemEntity = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.2D, (double)pos.getZ() + 0.5D, getFlowerBlock().asItem().getDefaultInstance());
+			itemEntity.setDeltaMovement(0.05D * (double)up.getStepX() + level.random.nextDouble() * 0.02D, 0.1D, 0.05D * (double)up.getStepZ() + level.random.nextDouble() * 0.02D);
+			level.addFreshEntity(itemEntity);
 			itemInHand.hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(hand));
 			level.gameEvent(player, GameEvent.SHEAR, pos);
 			player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));

@@ -3,7 +3,7 @@ package by.langvest.plantopia.datagen.loot;
 import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.item.PlantopiaItems;
-import by.langvest.plantopia.meta.PlantopiaMetaRegistries;
+import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaBlockDropType;
@@ -93,10 +93,10 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private void generateAll() {
-		PlantopiaMetaRegistries.BLOCKS.forEach(blockMeta -> {
+		PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
 			if(!blockMeta.shouldGenerateLootTable()) return;
 
-			var block = blockMeta.getBlock();
+			var block = blockMeta.get();
 			var dropType = blockMeta.getDropType();
 
 			if(block instanceof PlantopiaFloweringWaterlilyBlock) {
@@ -125,13 +125,13 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
 	@Override
 	protected @NotNull Iterable<Block> getKnownBlocks() {
-		return PlantopiaMetaRegistries.BLOCKS.getAll().stream().filter(PlantopiaBlockMeta::hasDrop).map(PlantopiaBlockMeta::getBlock)::iterator;
+		return PlantopiaMetaBuckets.BLOCK.getAll().stream().filter(PlantopiaBlockMeta::hasDrop).map(PlantopiaBlockMeta::get)::iterator;
 	}
 
 	/* DROPS GENERATION ******************************************/
 
 	private void dropGenerated(@NotNull PlantopiaBlockMeta blockMeta) {
-		var block = blockMeta.getBlock();
+		var block = blockMeta.get();
 
 		if(block instanceof FlowerPotBlock) {
 			dropPottedContents(block);
@@ -147,7 +147,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private void dropSelf(@NotNull PlantopiaBlockMeta blockMeta) {
-		var block = blockMeta.getBlock();
+		var block = blockMeta.get();
 		var type = blockMeta.getType();
 		int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
 		int baseWidth = blockMeta.getBlockWidthType().getBaseWidth();
@@ -168,7 +168,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private void dropSelfByShears(@NotNull PlantopiaBlockMeta blockMeta) {
-		var block = blockMeta.getBlock();
+		var block = blockMeta.get();
 		var type = blockMeta.getType();
 		var blockHeightType = blockMeta.getBlockHeightType();
 		int baseHeight = blockHeightType.getBaseHeight();
@@ -189,7 +189,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private void dropCauldron(@NotNull PlantopiaBlockMeta blockMeta) {
-		var block = blockMeta.getBlock();
+		var block = blockMeta.get();
 		var lootEntry = withSurvivesExplosionCondition(block, item(Items.CAULDRON));
 
 		add(block, createTable(blockMeta, lootEntry));
@@ -370,7 +370,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	private LootTable.@NotNull Builder createFloweringWaterlilyDrops(Block block) {
 		var floweringWaterlilyBlock = ((PlantopiaFloweringWaterlilyBlock)block);
 
-		LootPoolEntryContainer.Builder<?> flowerLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getWaterlilyBlock()));
+		LootPoolEntryContainer.Builder<?> flowerLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getFlowerBlock()));
 		LootPoolEntryContainer.Builder<?> lilyPadLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getOriginBlock()));
 
 		return LootTable.lootTable()
@@ -464,7 +464,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	/* LOOT TABLE PATTERNS ******************************************/
 
 	private static LootTable.@NotNull Builder createTable(@NotNull PlantopiaBlockMeta blockMeta, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
-		var block = blockMeta.getBlock();
+		var block = blockMeta.get();
 		var type = blockMeta.getType();
 		int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
 		int baseWidth = blockMeta.getBlockWidthType().getBaseWidth();

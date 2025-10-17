@@ -5,7 +5,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaBranchingShrubPlantBlock extends PlantopiaBaseBranchingShrubBlock {
+public class PlantopiaBranchingShrubPlantBlock extends PlantopiaAbstractBranchingShrubBlock {
 	public PlantopiaBranchingShrubPlantBlock(Properties properties) {
 		super(properties);
 	}

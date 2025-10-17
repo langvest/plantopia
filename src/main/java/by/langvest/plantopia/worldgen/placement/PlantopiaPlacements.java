@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopiaLocationFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaPlacements {
 	public static void bootstrap(@NotNull BootstapContext<PlacedFeature> context) {
@@ -19,7 +19,7 @@ public class PlantopiaPlacements {
 	}
 
 	protected static @NotNull ResourceKey<PlacedFeature> createKey(String name) {
-		return ResourceKey.create(Registries.PLACED_FEATURE, plantopiaLocationFrom(name));
+		return ResourceKey.create(Registries.PLACED_FEATURE, plantopia(name));
 	}
 
 	protected static void register(@NotNull BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration, PlacementModifier... placements) {

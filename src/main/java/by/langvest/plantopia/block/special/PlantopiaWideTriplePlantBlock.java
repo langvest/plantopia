@@ -250,10 +250,6 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		};
 	}
 
-	/**
-	 * Return a random long to be passed to {@link net.minecraft.client.resources.model.BakedModel#getQuads}, used for
-	 * random model rotations
-	 */
 	@Override
 	@SuppressWarnings("deprecation")
 	public long getSeed(@NotNull BlockState state, @NotNull BlockPos pos) {

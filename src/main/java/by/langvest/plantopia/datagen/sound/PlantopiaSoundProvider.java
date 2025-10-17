@@ -3,13 +3,13 @@ package by.langvest.plantopia.datagen.sound;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
+import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition.Sound;
 import net.minecraftforge.common.data.SoundDefinition.SoundType;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,17 +43,17 @@ public class PlantopiaSoundProvider extends SoundDefinitionsProvider {
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound sound(String... path) {
-		return Sound.sound(plantopiaLocationFrom(path), SoundType.SOUND);
+		return Sound.sound(plantopia(path), SoundType.SOUND);
 	}
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound minecraftSound(String... path) {
-		return Sound.sound(minecraftLocationFrom(path), SoundType.SOUND);
+		return Sound.sound(minecraft(path), SoundType.SOUND);
 	}
 
 	@Contract("_ -> new")
 	protected static @NotNull Sound event(String name) {
-		return Sound.sound(plantopiaLocationFrom(name), SoundType.EVENT);
+		return Sound.sound(plantopia(name), SoundType.EVENT);
 	}
 
 	@Contract("_ -> new")

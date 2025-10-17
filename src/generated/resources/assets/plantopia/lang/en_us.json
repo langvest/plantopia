@@ -73,7 +73,7 @@
 	"death.attack.thornyShrub": "%1$s was poked to death by a thorny shrub",
 	"death.attack.thornyShrub.player": "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s",
 	"item.plantopia.quicksand_bucket": "Quicksand Bucket",
-	"itemGroup.plantopia": "Plantopia",
+	"itemGroup.plantopia.main": "Plantopia",
 	"subtitles.plantopia.entity.drowned.converted_to_zombie": "Drowned converts to Zombie",
 	"subtitles.plantopia.entity.zombie.converted_to_husk": "Zombie converts to Husk",
 	"tooltip.plantopia.random_variant": "Random variant"

@@ -1,27 +1,32 @@
 package by.langvest.plantopia.entity;
 
-import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.entity.special.PlantopiaCobblestoneShardProjectileEntity;
+import by.langvest.plantopia.registry.PlantopiaRegistries;
+import by.langvest.toolkit.event.RegisterEvent;
+import by.langvest.toolkit.registry.RegistryObject;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
+
 public class PlantopiaEntities {
-	private static final DeferredRegister<EntityType<?>> ENTITY_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Plantopia.MOD_ID);
+	public static final RegistryObject<EntityType<PlantopiaCobblestoneShardProjectileEntity>> COBBLESTONE_SHARD = registerEntityType("cobblestone_shard", () -> EntityType.Builder.<PlantopiaCobblestoneShardProjectileEntity>of(PlantopiaCobblestoneShardProjectileEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
 
-	public static final RegistryObject<EntityType<PlantopiaCobblestoneShardProjectileEntity>> COBBLESTONE_SHARD = registerEntity("cobblestone_shard", () -> EntityType.Builder.<PlantopiaCobblestoneShardProjectileEntity>of(PlantopiaCobblestoneShardProjectileEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
-
-	public static <T extends Entity> RegistryObject<EntityType<T>> registerEntity(String name, Supplier<EntityType.Builder<T>> supplier) {
-		return ENTITY_TYPE_REGISTER.register(name, () -> supplier.get().build(name));
+	public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(String name, Supplier<EntityType.Builder<T>> supplier) {
+		return registerEntityType(plantopia(name), supplier);
 	}
 
-	public static void setup(IEventBus eventBus) {
-		ENTITY_TYPE_REGISTER.register(eventBus);
+	public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(ResourceLocation identifier, Supplier<EntityType.Builder<T>> supplier) {
+		return PlantopiaRegistries.ENTITY_TYPE.register(identifier, () -> supplier.get().build(identifier.getPath()));
+	}
+
+	public static void setup(@NotNull RegisterEvent event) {
+		event.registerAll(Registries.ENTITY_TYPE, PlantopiaRegistries.ENTITY_TYPE);
 	}
 }
