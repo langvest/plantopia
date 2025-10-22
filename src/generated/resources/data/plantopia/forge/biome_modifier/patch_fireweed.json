@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/fireweed",
+	"features": "plantopia:patch_fireweed_mountain",
+	"step": "vegetal_decoration"
+}

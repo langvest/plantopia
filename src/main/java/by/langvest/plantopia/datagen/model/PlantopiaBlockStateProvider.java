@@ -422,7 +422,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var fourShardsModel = fourCobblestoneShardsTemplateModel("four_" + baseName + "s", shardsTexture);
 
 		generatedItemModel(baseName, itemTexture);
-		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.SHARDS, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
+		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.AMOUNT, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
 	}
 
 	private void cobblestoneShardPetBlock(Block block) {

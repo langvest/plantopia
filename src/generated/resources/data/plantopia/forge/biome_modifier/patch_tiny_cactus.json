@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/tiny_cactus",
+	"features": "plantopia:patch_tiny_cactus",
+	"step": "vegetal_decoration"
+}

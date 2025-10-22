@@ -5,9 +5,8 @@ import by.langvest.plantopia.util.helper.PlantopiaResourceHelper;
 import by.langvest.toolkit.meta.MetaAccessor;
 import by.langvest.toolkit.meta.SimpleMetaObject;
 import com.google.common.collect.Maps;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -22,7 +21,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.location
 public interface PlantopiaTagProvider<T> {
     String META_TYPE_TAG_PREFIX = "type/";
 
-    IntrinsicHolderTagsProvider.IntrinsicTagAppender<T> getTagAppender(TagKey<T> key);
+    TagsProvider.TagAppender<T> getTagAppender(TagKey<T> key);
 
     default void saveByTagKeys(@NotNull Map<TagKey<T>, PlantopiaTagSet<T>> tagSets) {
         tagSets.forEach(this::save);

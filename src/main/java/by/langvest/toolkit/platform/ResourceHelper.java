@@ -18,7 +18,7 @@ public abstract class ResourceHelper extends PlatformHelper {
 		if(object instanceof LocationLike locationLike) return Optional.of(locationLike.location());
 		if(object instanceof ResourceKey<?> key) return Optional.of(key.location());
 		if(object instanceof TagKey<?> key) return Optional.of(key.location());
-		return getPlatform().getRegistryHelper().getRegistryName(object);
+		return getPlatform().getRegistryHelper().getResourceKey(object).map(ResourceKey::location);
 	}
 
 	@NotNull

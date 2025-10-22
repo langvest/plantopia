@@ -281,7 +281,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 	}
 
 	private LootTable.@NotNull Builder createCobblestoneShardDrops(Block block) {
-		LootPoolEntryContainer.Builder<?> lootEntry = withExplosionDecayFunction(block, createPartialLootEntry(block, PlantopiaCobblestoneShardBlock.SHARDS));
+		LootPoolEntryContainer.Builder<?> lootEntry = withExplosionDecayFunction(block, createPartialLootEntry(block, PlantopiaCobblestoneShardBlock.AMOUNT));
 
 		return createSurvivedExplosionBlockTable(block, lootEntry);
 	}

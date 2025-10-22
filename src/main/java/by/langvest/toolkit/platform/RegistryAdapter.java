@@ -13,14 +13,14 @@ import java.util.Optional;
 public abstract class RegistryAdapter<T> implements LocationLike, Streamable<T> {
 	public abstract ResourceKey<? extends Registry<?>> getRegistryKey();
 
-	public abstract Optional<ResourceLocation> getKey(T value);
+	public abstract Optional<ResourceKey<T>> getResourceKey(T value);
 
 	public abstract Optional<T> getValue(ResourceLocation key);
 
-	public @NotNull ResourceLocation getKeyOrThrow(T value) {
-		var key = getKey(value);
+	public @NotNull ResourceKey<T> getKeyOrThrow(T value) {
+		var key = getResourceKey(value);
 		if(key.isPresent()) return key.get();
-		throw new NoSuchElementException(String.format("Cannot get key of the value '%s' as it does not exist in the registry %s", value, this));
+		throw new NoSuchElementException(String.format("Cannot get resource key of the value '%s' as it does not exist in the registry %s", value, this));
 	}
 
 	public @NotNull T getValueOrThrow(ResourceLocation key) {

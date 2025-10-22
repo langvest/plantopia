@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#minecraft:is_overworld",
+	"features": "plantopia:patch_hogweed",
+	"step": "vegetal_decoration"
+}

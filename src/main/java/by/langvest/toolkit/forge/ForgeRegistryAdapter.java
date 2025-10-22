@@ -27,8 +27,8 @@ public class ForgeRegistryAdapter<T> extends RegistryAdapter<T> {
 	}
 
 	@Override
-	public Optional<ResourceLocation> getKey(T value) {
-		return Optional.ofNullable(getForgeRegistry().getKey(value));
+	public Optional<ResourceKey<T>> getResourceKey(T value) {
+		return getForgeRegistry().getResourceKey(value);
 	}
 
 	@Override
