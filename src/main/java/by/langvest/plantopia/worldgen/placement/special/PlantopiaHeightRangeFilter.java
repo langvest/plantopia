@@ -45,6 +45,6 @@ public class PlantopiaHeightRangeFilter extends PlacementFilter {
 
     @Override
     public @NotNull PlacementModifierType<?> type() {
-        return PlantopiaPlacementModifierTypes.HEIGHT_RANGE_FILTER;
+        return PlantopiaPlacementModifierTypes.HEIGHT_RANGE_FILTER.get();
     }
 }

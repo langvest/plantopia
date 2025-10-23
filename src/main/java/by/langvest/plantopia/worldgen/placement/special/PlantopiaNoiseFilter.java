@@ -1,5 +1,7 @@
 package by.langvest.plantopia.worldgen.placement.special;
 
+import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseActivationType;
+import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -105,6 +107,6 @@ public class PlantopiaNoiseFilter extends PlacementFilter {
 
     @Override
     public @NotNull PlacementModifierType<?> type() {
-        return PlantopiaPlacementModifierTypes.NOISE_FILTER;
+        return PlantopiaPlacementModifierTypes.NOISE_FILTER.get();
     }
 }

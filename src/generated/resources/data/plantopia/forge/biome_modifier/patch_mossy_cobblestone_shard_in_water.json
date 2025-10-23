@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/mossy_cobblestone_shard_in_water",
-	"features": "plantopia:patch_mossy_cobblestone_shard_in_water",
-	"step": "vegetal_decoration"
-}

@@ -16,13 +16,13 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaFeatureTypes {
-	public static final RegistryObject<Feature<NoneFeatureConfiguration>> HOGWEED = registerFeature("hogweed", () -> new PlantopiaHogweedFeature(NoneFeatureConfiguration.CODEC));
+	public static final RegistryObject<Feature<NoneFeatureConfiguration>> HOGWEED = registerFeatureType("hogweed", () -> new PlantopiaHogweedFeature(NoneFeatureConfiguration.CODEC));
 
-	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeature(String name, Supplier<F> supplier) {
-		return registerFeature(plantopia(name), supplier);
+	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
+		return registerFeatureType(plantopia(name), supplier);
 	}
 
-	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeature(ResourceLocation identifier, Supplier<F> supplier) {
+	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(ResourceLocation identifier, Supplier<F> supplier) {
 		return PlantopiaRegistries.FEATURE_TYPE.register(identifier, supplier);
 	}
 

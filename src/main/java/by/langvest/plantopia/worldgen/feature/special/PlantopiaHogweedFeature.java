@@ -21,7 +21,7 @@ public class PlantopiaHogweedFeature extends Feature<NoneFeatureConfiguration> {
 	 */
 	@Override
 	public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> context) {
-		PlantopiaHogweedBlock hogweedBlock = (PlantopiaHogweedBlock)PlantopiaBlocks.HOGWEED.get();
+		PlantopiaHogweedBlock hogweedBlock = (PlantopiaHogweedBlock) PlantopiaBlocks.HOGWEED.get();
 		var level = context.level();
 		var pos = context.origin();
 

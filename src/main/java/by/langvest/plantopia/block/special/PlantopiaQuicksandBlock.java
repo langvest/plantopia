@@ -1,7 +1,7 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.misc.PlantopiaDamageTypes;
+import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.extension.PlantopiaEntityQuicksandExtension;
 import by.langvest.plantopia.extension.PlantopiaZombieQuicksandExtension;
 import by.langvest.plantopia.item.PlantopiaItems;

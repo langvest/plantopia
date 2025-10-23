@@ -1,4 +1,4 @@
-package by.langvest.plantopia.worldgen.placement.special;
+package by.langvest.plantopia.worldgen.placement;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

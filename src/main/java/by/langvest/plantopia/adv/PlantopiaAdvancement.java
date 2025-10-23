@@ -1,63 +1,23 @@
 package by.langvest.plantopia.adv;
 
-import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
+import by.langvest.plantopia.adv.special.PlantopiaSimpleAdvancement;
 import by.langvest.toolkit.util.LocationLike;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationFrom;
+public abstract class PlantopiaAdvancement implements LocationLike {
+    public abstract Advancement.Builder getBuilder();
 
-public class PlantopiaAdvancement implements LocationLike {
-	private ResourceLocation location = null;
-	private Advancement instance = null;
-	private final Advancement.Builder builder;
+    @Nullable
+    public abstract Advancement getInstance();
 
-	public PlantopiaAdvancement() {
-		this.builder = Advancement.Builder.advancement();
-	}
+    protected abstract void bindLocation(ResourceLocation location);
 
-	public Advancement.Builder getBuilder() {
-		return builder;
-	}
+    public abstract PlantopiaAdvancement apply(@NotNull Consumer<PlantopiaSimpleAdvancement> consumer);
 
-	@Nullable
-	public Advancement getInstance() {
-		return instance;
-	}
-
-	protected PlantopiaAdvancement bindLocation(ResourceLocation location) {
-		if(this.location != null) return this;
-
-		this.location = location;
-		return this;
-	}
-
-	public @NotNull ResourceLocation getGroup() {
-		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(location);
-
-		return advancementMeta.getGroup();
-	}
-
-	@Override
-	public ResourceLocation location() {
-		return Objects.requireNonNull(location);
-	}
-
-	public PlantopiaAdvancement apply(@NotNull Consumer<PlantopiaAdvancement> consumer) {
-		consumer.accept(this);
-		return this;
-	}
-
-	public void save(@NotNull Consumer<Advancement> consumer) {
-		var group = getGroup();
-		var ownLocation = location();
-		var saveLocation = locationFrom(ownLocation.getNamespace(), group.getPath(), ownLocation.getPath());
-		instance = builder.build(saveLocation);
-		consumer.accept(instance);
-	}
+    public abstract void save(@NotNull Consumer<Advancement> consumer);
 }

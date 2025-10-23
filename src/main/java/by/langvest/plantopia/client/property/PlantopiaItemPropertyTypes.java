@@ -1,4 +1,4 @@
-package by.langvest.plantopia.misc;
+package by.langvest.plantopia.client.property;
 
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;

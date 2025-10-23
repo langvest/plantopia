@@ -1,4 +1,4 @@
-package by.langvest.plantopia.util;
+package by.langvest.toolkit.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.resources.ResourceKey;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 @SuppressWarnings("UnusedReturnValue")
-public class TagSet<T> {
+public class TagSet<T, Self extends TagSet<T, Self>> {
     protected final ArrayList<TagKey<T>> tags;
     protected final ArrayList<ResourceKey<T>> values;
     protected final ArrayList<ResourceLocation> optionalTags;
@@ -22,12 +22,17 @@ public class TagSet<T> {
         optionalValues = Lists.newArrayList();
     }
 
-    public TagSet<T> addAll(@NotNull TagSet<T> tagSet) {
+    @SuppressWarnings("unchecked")
+    protected Self self() {
+        return (Self) this;
+    }
+
+    public Self addAll(@NotNull TagSet<T, Self> tagSet) {
         tagSet.tags.forEach(this::addTag);
         tagSet.values.forEach(this::add);
         tagSet.optionalTags.forEach(this::addOptionalTag);
         tagSet.optionalValues.forEach(this::addOptional);
-        return this;
+        return self();
     }
 
     public boolean isEmpty() {
@@ -64,7 +69,7 @@ public class TagSet<T> {
     }
 
     @SafeVarargs
-    public final TagSet<T> add(ResourceKey<T>... values) {
+    public final Self add(ResourceKey<T>... values) {
         if(values != null) {
             for(ResourceKey<T> value : values) {
                 if(!contains(value)) {
@@ -73,10 +78,10 @@ public class TagSet<T> {
             }
         }
 
-        return this;
+        return self();
     }
 
-    public final TagSet<T> addOptional(ResourceLocation... optionalValues) {
+    public final Self addOptional(ResourceLocation... optionalValues) {
         if(optionalValues != null) {
             for(ResourceLocation optionalValue : optionalValues) {
                 if(!containsOptional(optionalValue)) {
@@ -85,7 +90,7 @@ public class TagSet<T> {
             }
         }
 
-        return this;
+        return self();
     }
 
     /* TARGS **************************************************/
@@ -99,7 +104,7 @@ public class TagSet<T> {
     }
 
     @SafeVarargs
-    public final TagSet<T> addTag(TagKey<T>... tags) {
+    public final Self addTag(TagKey<T>... tags) {
         if(tags != null) {
             for(TagKey<T> tag : tags) {
                 if(!containsTag(tag)) {
@@ -108,10 +113,10 @@ public class TagSet<T> {
             }
         }
 
-        return this;
+        return self();
     }
 
-    public final TagSet<T> addOptionalTag(ResourceLocation... optionalTags) {
+    public final Self addOptionalTag(ResourceLocation... optionalTags) {
         if(optionalTags != null) {
             for(ResourceLocation optionalTag : optionalTags) {
                 if(!containsOptionalTag(optionalTag)) {
@@ -120,6 +125,6 @@ public class TagSet<T> {
             }
         }
 
-        return this;
+        return self();
     }
 }

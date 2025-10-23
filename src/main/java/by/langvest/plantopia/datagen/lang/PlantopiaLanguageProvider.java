@@ -1,9 +1,9 @@
 package by.langvest.plantopia.datagen.lang;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.adv.PlantopiaAdvancement;
+import by.langvest.plantopia.adv.special.PlantopiaSimpleAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
-import by.langvest.plantopia.misc.PlantopiaDamageTypes;
+import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
@@ -58,7 +58,7 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		add(key, name);
 	}
 
-	private void advancement(@NotNull RegistryObject<PlantopiaAdvancement> advancement, String title, String description) {
+	private void advancement(@NotNull RegistryObject<PlantopiaSimpleAdvancement> advancement, String title, String description) {
 		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(advancement.getIdentifier());
 
 		add(advancementMeta.getTitleKey(), title);

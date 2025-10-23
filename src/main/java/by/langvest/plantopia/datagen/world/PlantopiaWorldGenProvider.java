@@ -1,7 +1,7 @@
 package by.langvest.plantopia.datagen.world;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.misc.PlantopiaDamageTypes;
+import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeModifiers;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;

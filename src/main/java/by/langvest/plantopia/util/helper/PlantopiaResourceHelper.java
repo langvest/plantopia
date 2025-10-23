@@ -10,7 +10,9 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class PlantopiaResourceHelper {
 	@Contract("_, _ -> new")
@@ -51,6 +53,16 @@ public final class PlantopiaResourceHelper {
 	public static @NotNull String idOf(@NotNull Object object) {
 		var location = locationOf(object);
 		return location.getNamespace() + ":" + location.getPath();
+	}
+
+	public static @NotNull String compileNameFrom(Object... nameParts) {
+		return Arrays.stream(nameParts)
+			.map(object -> {
+				if(object instanceof String) return (String) object;
+				if(object instanceof Integer) return object.toString();
+				return nameOf(object);
+			})
+			.collect(Collectors.joining("_"));
 	}
 
 	public static @NotNull String nameOf(@NotNull Object object) {

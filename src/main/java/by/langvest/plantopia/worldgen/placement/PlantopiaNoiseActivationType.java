@@ -1,4 +1,4 @@
-package by.langvest.plantopia.worldgen.placement.special;
+package by.langvest.plantopia.worldgen.placement;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
@@ -21,6 +21,6 @@ public enum PlantopiaNoiseActivationType implements StringRepresentable {
 
     @Override
     public @NotNull String getSerializedName() {
-        return serializationKey;
+        return getSerializationKey();
     }
 }

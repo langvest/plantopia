@@ -1,6 +1,6 @@
 package by.langvest.plantopia.block.special;
 
-import by.langvest.plantopia.misc.PlantopiaDamageTypes;
+import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
