@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaOffsettableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,6 +39,7 @@ public class PlantopiaWaterlilyFlowerBlock extends FlowerBlock implements Planto
 			|| state.is(Blocks.CACTUS)
 			|| state.is(Blocks.POTTED_BAMBOO)
 			|| state.is(Blocks.POTTED_CACTUS)
+			|| state.is(PlantopiaBlocks.POTTED_BRANCHING_SHRUB.get())
 			|| state.isFaceSturdy(level, pos, Direction.UP, SupportType.CENTER);
 	}
 

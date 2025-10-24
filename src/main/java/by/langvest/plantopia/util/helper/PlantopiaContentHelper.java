@@ -6,6 +6,7 @@ import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.toolkit.meta.SimpleMetaObject;
 import by.langvest.toolkit.platform.RegistryHelper;
+import by.langvest.toolkit.registry.RegistryObject;
 import com.google.common.collect.Sets;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.ItemLike;
@@ -74,6 +75,12 @@ public final class PlantopiaContentHelper {
 
 	public static @NotNull String pottedNameOf(String baseName) {
 		return "potted_" + baseName;
+	}
+
+	public static @NotNull String pottedNameOf(RegistryObject<? extends Block> plant) {
+		String baseName = nameOf(plant);
+
+		return pottedNameOf(baseName);
 	}
 
 	public static @NotNull String pottedNameOf(Block plant) {

@@ -81,7 +81,6 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 		add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
 		add(PlantopiaBlocks.POLLINATED_DANDELION.get(), this::createPollinatedDandelionDrops);
 		add(PlantopiaBlocks.BRANCHING_SHRUB.get(), this::createBranchingShrubDrops);
-		add(PlantopiaBlocks.BRANCHING_SHRUB_PLANT.get(), this::createBranchingShrubDrops);
 		add(PlantopiaBlocks.SEA_MOSS.get(), this::createSeaMossDrops);
 		add(PlantopiaBlocks.SEA_MOSS_PLANT.get(), this::createSeaMossDrops);
 		add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);

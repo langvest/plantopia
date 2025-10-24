@@ -23,7 +23,7 @@ public abstract class Registry<T> implements LocationLike, Streamable<RegistryOb
 		throw new NoSuchElementException(String.format("Cannot get value for the key '%s' as it does not exist in the registry %s", key, this));
 	}
 
-	public abstract RegistryObject<T> supposeValue(ResourceLocation key);
+	public abstract SupposedRegistryObject<T> supposeValue(ResourceLocation key);
 
 	public abstract <V extends T> RegistryObject<V> register(ResourceLocation key, Supplier<V> supplier);
 

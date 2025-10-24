@@ -264,11 +264,8 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.customBurnTime(BurnTime.WOODY_PLANT)
 			.makeType("woody_plant");
 
-		public static final MetaType BRANCHING_SHRUB = MetaProperties.of(WOODY_PLANT)
-			.hasDynamicShape()
-			.sound(SoundType.MANGROVE_ROOTS)
-			.strength(0.8F)
-			.makeType("branching_shrub");
+		public static final MetaType SHRUB = MetaProperties.of(WOODY_PLANT)
+			.makeType("shrub");
 
 		public static final MetaType TINY_CACTUS = MetaProperties.of(PLANT)
 			.sound(SoundType.WOOL)
