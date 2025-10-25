@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.util.PlantopiaTagSet;
 import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightRangeFilter;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseCountPlacement;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -68,27 +70,49 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED)
 			.modifiers(context -> {
-				var fireweedBigNoiseConfig = PlantopiaNoiseConfig.of(0.614D, 501, 402);
-				var fireweedSmallNoiseConfig = PlantopiaNoiseConfig.of(0.102D, 274, 148);
-
-				float fireweedBigNoiseLevel = -0.815F;
-				float fireweedSmallNoiseLevel = -0.1F;
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.614D, 501, 402);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.102D, 274, 148);
+				float bigNoiseLevel = -0.815F;
+				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.belowLevel(fireweedBigNoiseConfig, fireweedBigNoiseLevel, 26),
+					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 25),
 					InSquarePlacement.spread(),
-					PlantopiaNoiseFilter.belowLevel(fireweedBigNoiseConfig, fireweedBigNoiseLevel, 0.1F),
-					PlantopiaNoiseFilter.aboveLevel(fireweedSmallNoiseConfig, fireweedSmallNoiseLevel, 0.15F),
+					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.1F),
+					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.15F),
 					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 					PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(86), VerticalAnchor.TOP),
 					BiomeFilter.biome(),
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.FIREWEED.get())
 				);
 			})
-			.biomes(tagSet -> tagSet
-				.add(Biomes.PLAINS, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_BIRCH_FOREST)
-				.addTag(BiomeTags.IS_MOUNTAIN, BiomeTags.IS_HILL)
+			.biomes(tagSet -> addMountainBiomes(tagSet)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_FIREWEED_MOUNTAIN_2 = declarePlacedFeature(
+		compileNameFrom(PATCH_FIREWEED_MOUNTAIN, 2),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED)
+			.modifiers(context -> {
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(2.826D, 528, 811);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.138D, 332, 643);
+				float bigNoiseLevel = -0.44F;
+				float smallNoiseLevel = -0.1F;
+
+				return List.of(
+					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 17),
+					InSquarePlacement.spread(),
+					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.18F),
+					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.12F),
+					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+					PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(122), VerticalAnchor.TOP),
+					BiomeFilter.biome(),
+					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.FIREWEED.get())
+				);
+			})
+			.biomes(PlantopiaVegetationPlacements::addMountainBiomes)
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_TINY_CACTUS = declarePlacedFeature(
@@ -105,4 +129,12 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.addTag(BiomeTags.IS_BADLANDS)
 			)
 	);
+
+	/* HELPER METHODS ******************************************/
+
+	protected static PlantopiaTagSet<Biome> addMountainBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+		return tagSet
+			.add(Biomes.PLAINS, Biomes.MEADOW)
+			.add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
+	}
 }

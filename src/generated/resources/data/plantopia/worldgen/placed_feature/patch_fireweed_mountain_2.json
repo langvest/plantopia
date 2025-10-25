@@ -4,13 +4,13 @@
 		{
 			"type": "plantopia:noise_count",
 			"activation": "BELOW",
-			"active_count": 25,
+			"active_count": 17,
 			"noise_config": {
-				"offset_x": 501,
-				"offset_z": 402,
-				"scale": 0.614
+				"offset_x": 528,
+				"offset_z": 811,
+				"scale": 2.826
 			},
-			"noise_level": -0.815,
+			"noise_level": -0.44,
 			"passive_count": 0
 		},
 		{
@@ -22,16 +22,16 @@
 			"erosion_level": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": -0.715,
-					"min_inclusive": -0.915
+					"max_exclusive": -0.26,
+					"min_inclusive": -0.62
 				}
 			},
 			"noise_config": {
-				"offset_x": 501,
-				"offset_z": 402,
-				"scale": 0.614
+				"offset_x": 528,
+				"offset_z": 811,
+				"scale": 2.826
 			},
-			"noise_level": -0.815
+			"noise_level": -0.44
 		},
 		{
 			"type": "plantopia:noise_filter",
@@ -39,14 +39,14 @@
 			"erosion_level": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": 0.05,
-					"min_inclusive": -0.25
+					"max_exclusive": 0.02,
+					"min_inclusive": -0.22
 				}
 			},
 			"noise_config": {
-				"offset_x": 274,
-				"offset_z": 148,
-				"scale": 0.102
+				"offset_x": 332,
+				"offset_z": 643,
+				"scale": 0.138
 			},
 			"noise_level": -0.1
 		},
@@ -60,7 +60,7 @@
 				"below_top": 0
 			},
 			"min_inclusive": {
-				"absolute": 86
+				"absolute": 122
 			}
 		},
 		{
