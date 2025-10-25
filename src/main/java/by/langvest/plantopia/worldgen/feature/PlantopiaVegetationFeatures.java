@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -57,17 +58,21 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 			))
 	);
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS = declareConfiguredFeature(
-		patchNameOf(PlantopiaBlocks.TINY_CACTUS),
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS_ON_SAND = declareConfiguredFeature(
+		compileNameFrom(PATCH, PlantopiaBlocks.TINY_CACTUS, ON_SAND),
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
-				new RandomPatchConfiguration(2, 2, 2, PlacementUtils.onlyWhenEmpty(
+				new RandomPatchConfiguration(8, 6, 2, PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
 					new SimpleBlockConfiguration(new WeightedStateProvider(
 						SimpleWeightedRandomList.<BlockState>builder()
 							.add(PlantopiaBlocks.TINY_CACTUS.get().defaultBlockState(), 5)
 							.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get().defaultBlockState(), 2)
-					))
+					)),
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
+					)
 				))
 			))
 	);

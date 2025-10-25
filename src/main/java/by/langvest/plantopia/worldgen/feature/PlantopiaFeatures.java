@@ -23,6 +23,7 @@ public class PlantopiaFeatures {
 	protected static final String PATCH = "patch";
 	protected static final String IN_WATER = "in_water";
 	protected static final String IN_SNOW = "in_snow";
+	protected static final String ON_SAND = "on_sand";
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 		getDeclarations().forEach((key, declaration) -> {

@@ -10,7 +10,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -116,17 +115,17 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_TINY_CACTUS = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS),
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS_ON_SAND),
 		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS)
+			.feature(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS_ON_SAND)
 			.modifiers(context -> List.of(
+				RarityFilter.onAverageOnceEvery(4),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
 			.biomes(tagSet -> tagSet
-				.add(Biomes.DESERT)
-				.addTag(BiomeTags.IS_BADLANDS)
+				.add(Biomes.DESERT, Biomes.BADLANDS, Biomes.ERODED_BADLANDS)
 			)
 	);
 
