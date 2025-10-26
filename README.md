@@ -7,9 +7,11 @@
 </p>
 
 <p align="center">
-	<a href="https://github.com/langvest/plantopia"><img src="https://img.shields.io/github/stars/langvest/plantopia.svg" alt="Stars"></a>
-	<a href="https://github.com/langvest/plantopia/forks"><img src="https://img.shields.io/github/forks/langvest/plantopia.svg" alt="Forks"></a>
-	<a href="LICENSE"><img src="https://img.shields.io/github/license/langvest/plantopia?label=License&style=flat&color=a031de" alt="License"></a>
+	<a href="https://github.com/langvest/plantopia"><img src="https://img.shields.io/github/stars/langvest/plantopia.svg" alt="Stars"/></a>
+	<a href="https://github.com/langvest/plantopia/forks"><img src="https://img.shields.io/github/forks/langvest/plantopia.svg" alt="Forks"/></a>
+	<a href="LICENSE"><img src="https://img.shields.io/github/license/langvest/plantopia?label=License&style=flat&color=a031de" alt="License"/></a>
+    <br/>
+	<a href="https://wakatime.com/badge/user/0dc5d6cc-efe4-41a3-8c60-a36df7c33998/project/cfaab7df-382d-473f-b3c4-5e84a2e1a0c7"><img src="https://wakatime.com/badge/user/0dc5d6cc-efe4-41a3-8c60-a36df7c33998/project/cfaab7df-382d-473f-b3c4-5e84a2e1a0c7.svg" alt="WakaTime"/></a>
 </p>
 
 ## About
