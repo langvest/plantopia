@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.util.helper.PlantopiaFluidHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -15,9 +16,10 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
 public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -58,8 +60,14 @@ public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock imple
 
 	@Override
 	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos facingPos) {
+		if(!canSurvive(state, level, pos)) return getFluidBlockState(level, pos);
+
 		BlockState newState = super.updateShape(state, facing, facingState, level, pos, facingPos);
-		if(newState.is(this) && newState.getValue(WATERLOGGED)) level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+
+		if(newState.is(this) && newState.getValue(WATERLOGGED)) {
+			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+		}
+
 		return newState;
 	}
 
@@ -75,11 +83,6 @@ public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock imple
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		BlockState state = super.getStateForPlacement(context);
 		if(state == null) return null;
-		return copyWaterloggedFrom(context.getLevel(), context.getClickedPos(), state);
-	}
-
-	@Override
-	public PlantType getPlantType(BlockGetter level, BlockPos pos) {
-		return PlantType.WATER;
+		return PlantopiaFluidHelper.copyWaterloggedFrom(context.getLevel(), context.getClickedPos(), state);
 	}
 }

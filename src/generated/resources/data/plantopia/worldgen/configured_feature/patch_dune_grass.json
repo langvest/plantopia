@@ -10,13 +10,16 @@
 						"entries": [
 							{
 								"data": {
-									"Name": "plantopia:tiny_cactus"
+									"Name": "plantopia:dune_grass"
 								},
 								"weight": 5
 							},
 							{
 								"data": {
-									"Name": "plantopia:flowering_tiny_cactus"
+									"Name": "plantopia:tall_dune_grass",
+									"Properties": {
+										"half": "lower"
+									}
 								},
 								"weight": 2
 							}
@@ -48,8 +51,8 @@
 				}
 			]
 		},
-		"tries": 8,
-		"xz_spread": 6,
+		"tries": 64,
+		"xz_spread": 3,
 		"y_spread": 2
 	}
 }

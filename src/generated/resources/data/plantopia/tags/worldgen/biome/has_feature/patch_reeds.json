@@ -4,8 +4,6 @@
 		"minecraft:birch_forest",
 		"minecraft:dark_forest",
 		"minecraft:forest",
-		"minecraft:frozen_river",
-		"minecraft:grove",
 		"minecraft:mangrove_swamp",
 		"minecraft:old_growth_birch_forest",
 		"minecraft:old_growth_pine_taiga",
@@ -13,9 +11,6 @@
 		"minecraft:plains",
 		"minecraft:river",
 		"minecraft:savanna",
-		"minecraft:snowy_beach",
-		"minecraft:snowy_plains",
-		"minecraft:snowy_taiga",
 		"minecraft:sunflower_plains",
 		"minecraft:swamp",
 		"minecraft:taiga"

@@ -28,6 +28,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
  */
 public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
+	protected static final PlantopiaHeightRangeFilter WATER_PLANT_HIGH_RANGE_FILTER = PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(62), VerticalAnchor.TOP);
+
 	private static final Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> declarations = Maps.newHashMap();
 
 	public static @NotNull Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> getDeclarations() {
@@ -143,6 +145,32 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_HIGH_RANGE_FILTER,
+				BiomeFilter.biome(),
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.matchesFluids(Fluids.WATER)
+				)
+			))
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addOldGrowthBiomes)
+				.apply(PlantopiaPlacements::addSwampBiomes)
+				.add(Biomes.SAVANNA)
+				.add(Biomes.RIVER)
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.add(Biomes.BEACH, Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_REEDS_SNOWY = declarePlacedFeature(
+		compileNameFrom(PATCH_REEDS, SNOWY),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_REEDS)
+			.modifiers(context -> List.of(
+				RarityFilter.onAverageOnceEvery(2),
+				CountPlacement.of(UniformInt.of(1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_HIGH_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.anyOf(
@@ -152,12 +180,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				)
 			))
 			.biomes(tagSet -> tagSet
-				.apply(PlantopiaPlacements::addOldGrowthBiomes)
-				.apply(PlantopiaPlacements::addSwampBiomes)
-				.add(Biomes.SAVANNA)
-				.add(Biomes.RIVER, Biomes.FROZEN_RIVER)
-				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.SNOWY_PLAINS)
-				.add(Biomes.BEACH, Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
+				.add(Biomes.FROZEN_RIVER)
+				.add(Biomes.SNOWY_PLAINS)
 				.add(Biomes.GROVE, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH)
 			)
 	);
@@ -167,10 +191,11 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(6),
-				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 4), 2, 4)),
+				RarityFilter.onAverageOnceEvery(5),
+				CountPlacement.of(UniformInt.of(2, 4)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_HIGH_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.matchesFluids(Fluids.WATER)
@@ -192,6 +217,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_HIGH_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.matchesFluids(Fluids.WATER)
@@ -199,6 +225,22 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			))
 			.biomes(tagSet -> tagSet
 				.apply(PlantopiaPlacements::addSwampBiomes)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_DUNE_GRASS = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_DUNE_GRASS),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_DUNE_GRASS)
+			.modifiers(context -> List.of(
+				RarityFilter.onAverageOnceEvery(3),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 4), 2, 4)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.BEACH)
 			)
 	);
 }

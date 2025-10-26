@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_reeds_snowy",
+	"features": "plantopia:patch_reeds_snowy",
+	"step": "vegetal_decoration"
+}

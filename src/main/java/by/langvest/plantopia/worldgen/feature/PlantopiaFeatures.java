@@ -61,13 +61,13 @@ public class PlantopiaFeatures {
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
-		return context -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, configFactory.apply(context));
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
+		return context -> new ConfiguredFeature<>(PlantopiaFeatureTypes.NATURAL_BLOCK.get(), configFactory.apply(context));
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> hogweed() {
-		return context -> new ConfiguredFeature<>(PlantopiaFeatureTypes.HOGWEED.get(), FeatureConfiguration.NONE);
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
+		return context -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, configFactory.apply(context));
 	}
 
 	/* CONFIGS ******************************************/

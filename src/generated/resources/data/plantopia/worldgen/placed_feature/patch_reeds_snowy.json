@@ -1,9 +1,9 @@
 {
-	"feature": "plantopia:patch_cattail",
+	"feature": "plantopia:patch_reeds",
 	"placement": [
 		{
 			"type": "minecraft:rarity_filter",
-			"chance": 4
+			"chance": 2
 		},
 		{
 			"type": "minecraft:count",
@@ -37,8 +37,17 @@
 		{
 			"type": "minecraft:block_predicate_filter",
 			"predicate": {
-				"type": "minecraft:matching_fluids",
-				"fluids": "minecraft:water"
+				"type": "minecraft:any_of",
+				"predicates": [
+					{
+						"type": "minecraft:matching_fluids",
+						"fluids": "minecraft:water"
+					},
+					{
+						"type": "minecraft:matching_blocks",
+						"blocks": "minecraft:ice"
+					}
+				]
 			}
 		}
 	]

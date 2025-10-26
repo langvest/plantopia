@@ -86,10 +86,10 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	}
 
 	@Override
-	protected boolean canNaturallyPlaceQuarterColumnAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
+	protected boolean canPlaceQuarterColumnNaturallyAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
 		var posAbove2 = pos.above(2);
 
-		return super.canNaturallyPlaceQuarterColumnAt(level, pos)
+		return super.canPlaceQuarterColumnNaturallyAt(level, pos)
 			&& level.getBlockState(posAbove2).isAir();
 	}
 

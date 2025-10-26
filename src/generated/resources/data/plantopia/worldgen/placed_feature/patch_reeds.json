@@ -23,22 +23,22 @@
 			"heightmap": "OCEAN_FLOOR_WG"
 		},
 		{
+			"type": "plantopia:height_range_filter",
+			"max_inclusive": {
+				"below_top": 0
+			},
+			"min_inclusive": {
+				"absolute": 62
+			}
+		},
+		{
 			"type": "minecraft:biome"
 		},
 		{
 			"type": "minecraft:block_predicate_filter",
 			"predicate": {
-				"type": "minecraft:any_of",
-				"predicates": [
-					{
-						"type": "minecraft:matching_fluids",
-						"fluids": "minecraft:water"
-					},
-					{
-						"type": "minecraft:matching_blocks",
-						"blocks": "minecraft:ice"
-					}
-				]
+				"type": "minecraft:matching_fluids",
+				"fluids": "minecraft:water"
 			}
 		}
 	]

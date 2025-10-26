@@ -8,16 +8,11 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +27,10 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  */
 public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 	protected static final BlockPredicate WATER_PlANT_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GRASS, Blocks.SEAGRASS);
+	protected static final BlockPredicate ON_SAND_PREDICATE = BlockPredicate.allOf(
+		BlockPredicate.ONLY_IN_AIR_PREDICATE,
+		BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
+	);
 
 	private static final Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> declarations = Maps.newHashMap();
 
@@ -48,7 +47,9 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_HOGWEED = declareConfiguredFeature(
 		singleNameOf(PlantopiaBlocks.HOGWEED),
 		PlantopiaFeatureDeclaration.builder()
-			.feature(hogweed())
+			.feature(naturalBlock(context ->
+				simpleConfig(PlantopiaBlocks.HOGWEED.get())
+			))
 	);
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_DIAMOND_BLOCK = declareConfiguredFeature(
@@ -64,15 +65,12 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
 				new RandomPatchConfiguration(8, 6, 2, PlacementUtils.filtered(
-					Feature.SIMPLE_BLOCK,
+					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 					weightedConfig(states -> states
 						.add(PlantopiaBlocks.TINY_CACTUS.get().defaultBlockState(), 5)
 						.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get().defaultBlockState(), 2)
 					),
-					BlockPredicate.allOf(
-						BlockPredicate.ONLY_IN_AIR_PREDICATE,
-						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
-					)
+					ON_SAND_PREDICATE
 				))
 			))
 	);
@@ -82,7 +80,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
 				new RandomPatchConfiguration(64, 6, 3, PlacementUtils.filtered(
-					Feature.SIMPLE_BLOCK,
+					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 					weightedConfig(states -> states
 						.add(PlantopiaBlocks.FIREWEED.get().defaultBlockState(), 10)
 						.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
@@ -97,7 +95,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
 				new RandomPatchConfiguration(32, 3, 1, PlacementUtils.filtered(
-					Feature.SIMPLE_BLOCK,
+					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 					simpleConfig(PlantopiaBlocks.REEDS.get()),
 					WATER_PlANT_PREDICATE
 				))
@@ -108,10 +106,30 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		patchNameOf(PlantopiaBlocks.CATTAIL),
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
-				new RandomPatchConfiguration(88, 6, 1, PlacementUtils.filtered(
-					Feature.SIMPLE_BLOCK,
+				new RandomPatchConfiguration(96, 6, 1, PlacementUtils.filtered(
+					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 					simpleConfig(PlantopiaBlocks.CATTAIL.get()),
-					WATER_PlANT_PREDICATE
+					BlockPredicate.allOf(
+						WATER_PlANT_PREDICATE,
+						BlockPredicate.not(
+							BlockPredicate.matchesTag(BlockTags.ICE)
+						)
+					)
+				))
+			))
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DUNE_GRASS = declareConfiguredFeature(
+		patchNameOf(PlantopiaBlocks.DUNE_GRASS),
+		PlantopiaFeatureDeclaration.builder()
+			.feature(randomPatch(context ->
+				new RandomPatchConfiguration(64, 3, 2, PlacementUtils.filtered(
+					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+					weightedConfig(states -> states
+						.add(PlantopiaBlocks.DUNE_GRASS.get().defaultBlockState(), 5)
+						.add(PlantopiaBlocks.TALL_DUNE_GRASS.get().defaultBlockState(), 2)
+					),
+					ON_SAND_PREDICATE
 				))
 			))
 	);
@@ -148,7 +166,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 			boolean isWaterlogged = environmentalBlock.get() == Blocks.WATER;
 
 			return new RandomPatchConfiguration(4, 1, 1, PlacementUtils.filtered(
-				Feature.SIMPLE_BLOCK,
+				PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 				weightedConfig(states -> {
 					for(int i = PlantopiaCobblestoneShardBlock.MIN_SHARDS; i <= PlantopiaCobblestoneShardBlock.MAX_SHARDS; i++) {
 						int weight = calculateExponential(i, 0.215);
@@ -162,10 +180,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 
 					return states;
 				}),
-				BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(environmentalBlock.get()),
-					BlockPredicate.solid(BlockPos.ZERO.below())
-				)
+				BlockPredicate.matchesBlocks(environmentalBlock.get())
 			));
 		};
 	}

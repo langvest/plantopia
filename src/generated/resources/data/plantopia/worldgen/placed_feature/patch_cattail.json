@@ -3,22 +3,15 @@
 	"placement": [
 		{
 			"type": "minecraft:rarity_filter",
-			"chance": 6
+			"chance": 5
 		},
 		{
 			"type": "minecraft:count",
 			"count": {
-				"type": "minecraft:clamped",
+				"type": "minecraft:uniform",
 				"value": {
 					"max_inclusive": 4,
-					"min_inclusive": 2,
-					"source": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 4,
-							"min_inclusive": 1
-						}
-					}
+					"min_inclusive": 2
 				}
 			}
 		},
@@ -28,6 +21,15 @@
 		{
 			"type": "minecraft:heightmap",
 			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "plantopia:height_range_filter",
+			"max_inclusive": {
+				"below_top": 0
+			},
+			"min_inclusive": {
+				"absolute": 62
+			}
 		},
 		{
 			"type": "minecraft:biome"

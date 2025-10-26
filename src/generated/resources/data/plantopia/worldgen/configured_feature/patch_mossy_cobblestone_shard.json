@@ -3,7 +3,7 @@
 	"config": {
 		"feature": {
 			"feature": {
-				"type": "minecraft:simple_block",
+				"type": "plantopia:natural_block",
 				"config": {
 					"to_place": {
 						"type": "minecraft:weighted_state_provider",
@@ -56,21 +56,8 @@
 				{
 					"type": "minecraft:block_predicate_filter",
 					"predicate": {
-						"type": "minecraft:all_of",
-						"predicates": [
-							{
-								"type": "minecraft:matching_blocks",
-								"blocks": "minecraft:air"
-							},
-							{
-								"type": "minecraft:solid",
-								"offset": [
-									0,
-									-1,
-									0
-								]
-							}
-						]
+						"type": "minecraft:matching_blocks",
+						"blocks": "minecraft:air"
 					}
 				}
 			]
