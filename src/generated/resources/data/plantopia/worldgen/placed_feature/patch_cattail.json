@@ -1,0 +1,43 @@
+{
+	"feature": "plantopia:patch_cattail",
+	"placement": [
+		{
+			"type": "minecraft:rarity_filter",
+			"chance": 6
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:clamped",
+				"value": {
+					"max_inclusive": 4,
+					"min_inclusive": 2,
+					"source": {
+						"type": "minecraft:uniform",
+						"value": {
+							"max_inclusive": 4,
+							"min_inclusive": 1
+						}
+					}
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:matching_fluids",
+				"fluids": "minecraft:water"
+			}
+		}
+	]
+}

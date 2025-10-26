@@ -1,15 +1,23 @@
 package by.langvest.plantopia.worldgen.feature;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.toolkit.registry.RegistryObject;
 import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +53,7 @@ public class PlantopiaFeatures {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, plantopia(name));
 	}
 
-	/* HELPER METHODS ******************************************/
+	/* FEATURES ******************************************/
 
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
@@ -61,6 +69,22 @@ public class PlantopiaFeatures {
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> hogweed() {
 		return context -> new ConfiguredFeature<>(PlantopiaFeatureTypes.HOGWEED.get(), FeatureConfiguration.NONE);
 	}
+
+	/* CONFIGS ******************************************/
+
+	@Contract(pure = true)
+	protected static @NotNull SimpleBlockConfiguration simpleConfig(Block block) {
+		return new SimpleBlockConfiguration(BlockStateProvider.simple(block));
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull SimpleBlockConfiguration weightedConfig(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
+		return new SimpleBlockConfiguration(new WeightedStateProvider(
+			states.apply(SimpleWeightedRandomList.builder())
+		));
+	}
+
+	/* HELPER METHODS ******************************************/
 
 	@Contract("_ -> new")
 	protected static @NotNull String singleNameOf(String name) {

@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 @SuppressWarnings("UnusedReturnValue")
 public class TagSet<T, Self extends TagSet<T, Self>> {
@@ -40,6 +41,11 @@ public class TagSet<T, Self extends TagSet<T, Self>> {
             && values.isEmpty()
             && optionalTags.isEmpty()
             && optionalValues.isEmpty();
+    }
+
+    public Self apply(@NotNull Consumer<Self> consumer) {
+        consumer.accept(self());
+        return self();
     }
 
     public ArrayList<ResourceKey<T>> getValues() {

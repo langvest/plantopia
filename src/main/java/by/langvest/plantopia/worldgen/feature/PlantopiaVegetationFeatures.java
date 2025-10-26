@@ -17,7 +17,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +31,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.features.VegetationFeatures
  */
 public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
+	protected static final BlockPredicate WATER_PlANT_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GRASS, Blocks.SEAGRASS);
+
 	private static final Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> declarations = Maps.newHashMap();
 
 	public static @NotNull Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> getDeclarations() {
@@ -54,7 +55,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		singleNameOf("diamond_block"),
 		PlantopiaFeatureDeclaration.builder()
 			.feature(simpleBlock(context ->
-				new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.DIAMOND_BLOCK))
+				simpleConfig(Blocks.DIAMOND_BLOCK)
 			))
 	);
 
@@ -64,11 +65,10 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 			.feature(randomPatch(context ->
 				new RandomPatchConfiguration(8, 6, 2, PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(
-						SimpleWeightedRandomList.<BlockState>builder()
-							.add(PlantopiaBlocks.TINY_CACTUS.get().defaultBlockState(), 5)
-							.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get().defaultBlockState(), 2)
-					)),
+					weightedConfig(states -> states
+						.add(PlantopiaBlocks.TINY_CACTUS.get().defaultBlockState(), 5)
+						.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get().defaultBlockState(), 2)
+					),
 					BlockPredicate.allOf(
 						BlockPredicate.ONLY_IN_AIR_PREDICATE,
 						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
@@ -83,12 +83,35 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 			.feature(randomPatch(context ->
 				new RandomPatchConfiguration(64, 6, 3, PlacementUtils.filtered(
 					Feature.SIMPLE_BLOCK,
-					new SimpleBlockConfiguration(new WeightedStateProvider(
-						SimpleWeightedRandomList.<BlockState>builder()
-							.add(PlantopiaBlocks.FIREWEED.get().defaultBlockState(), 10)
-							.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
-					)),
+					weightedConfig(states -> states
+						.add(PlantopiaBlocks.FIREWEED.get().defaultBlockState(), 10)
+						.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
+					),
 					BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS)
+				))
+			))
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_REEDS = declareConfiguredFeature(
+		patchNameOf(PlantopiaBlocks.REEDS),
+		PlantopiaFeatureDeclaration.builder()
+			.feature(randomPatch(context ->
+				new RandomPatchConfiguration(32, 3, 1, PlacementUtils.filtered(
+					Feature.SIMPLE_BLOCK,
+					simpleConfig(PlantopiaBlocks.REEDS.get()),
+					WATER_PlANT_PREDICATE
+				))
+			))
+	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CATTAIL = declareConfiguredFeature(
+		patchNameOf(PlantopiaBlocks.CATTAIL),
+		PlantopiaFeatureDeclaration.builder()
+			.feature(randomPatch(context ->
+				new RandomPatchConfiguration(88, 6, 1, PlacementUtils.filtered(
+					Feature.SIMPLE_BLOCK,
+					simpleConfig(PlantopiaBlocks.CATTAIL.get()),
+					WATER_PlANT_PREDICATE
 				))
 			))
 	);
@@ -122,22 +145,23 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 	@Contract(pure = true)
 	private static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> getCobblestoneShardConfig(Supplier<Block> cobblestoneShardBlock, Supplier<Block> environmentalBlock) {
 		return context -> {
-			SimpleWeightedRandomList.Builder<BlockState> states = SimpleWeightedRandomList.builder();
 			boolean isWaterlogged = environmentalBlock.get() == Blocks.WATER;
-
-			for(int i = PlantopiaCobblestoneShardBlock.MIN_SHARDS; i <= PlantopiaCobblestoneShardBlock.MAX_SHARDS; i++) {
-				int weight = calculateExponential(i, 0.215);
-
-				var state = cobblestoneShardBlock.get().defaultBlockState()
-					.setValue(PlantopiaCobblestoneShardBlock.AMOUNT, i)
-					.setValue(PlantopiaCobblestoneShardBlock.WATERLOGGED, isWaterlogged);
-
-				states.add(state, weight);
-			}
 
 			return new RandomPatchConfiguration(4, 1, 1, PlacementUtils.filtered(
 				Feature.SIMPLE_BLOCK,
-				new SimpleBlockConfiguration(new WeightedStateProvider(states)),
+				weightedConfig(states -> {
+					for(int i = PlantopiaCobblestoneShardBlock.MIN_SHARDS; i <= PlantopiaCobblestoneShardBlock.MAX_SHARDS; i++) {
+						int weight = calculateExponential(i, 0.215);
+
+						var state = cobblestoneShardBlock.get().defaultBlockState()
+							.setValue(PlantopiaCobblestoneShardBlock.AMOUNT, i)
+							.setValue(PlantopiaCobblestoneShardBlock.WATERLOGGED, isWaterlogged);
+
+						states.add(state, weight);
+					}
+
+					return states;
+				}),
 				BlockPredicate.allOf(
 					BlockPredicate.matchesBlocks(environmentalBlock.get()),
 					BlockPredicate.solid(BlockPos.ZERO.below())

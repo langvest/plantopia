@@ -1,9 +1,12 @@
 package by.langvest.plantopia.worldgen.placement;
 
+import by.langvest.plantopia.util.PlantopiaTagSet;
 import com.google.common.collect.Maps;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +17,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 public class PlantopiaPlacements {
 	protected static final String BONEMEAL = "bonemeal";
 	protected static final String MOUNTAIN = "mountain";
+	protected static final String SWAMP = "swamp";
 	protected static final String UNDERGROUND = "underground";
 	protected static final String UNDERWATER = "underwater";
 
@@ -35,5 +39,23 @@ public class PlantopiaPlacements {
 
 	protected static @NotNull ResourceKey<PlacedFeature> createKey(String name) {
 		return ResourceKey.create(Registries.PLACED_FEATURE, plantopia(name));
+	}
+
+	/* HELPER METHODS ******************************************/
+
+	protected static void addMountainBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+		tagSet
+			.add(Biomes.PLAINS, Biomes.MEADOW)
+			.add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
+	}
+
+	protected static void addOldGrowthBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+		tagSet
+			.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_BIRCH_FOREST);
+	}
+
+	protected static void addSwampBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+		tagSet
+			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 	}
 }
