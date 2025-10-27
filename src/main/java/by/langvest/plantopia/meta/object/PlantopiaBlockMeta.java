@@ -444,6 +444,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.SNOW))
 			.makeType("snow");
 
+		public static final MetaType ICE = MetaProperties.create()
+			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.ICE))
+			.makeType("ice");
+
 		private MetaType(String name, MetaProperties properties) {
 			super(plantopia(name), properties);
 		}

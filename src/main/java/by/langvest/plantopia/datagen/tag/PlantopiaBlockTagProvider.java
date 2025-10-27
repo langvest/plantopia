@@ -55,6 +55,8 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider implement
     private final PlantopiaTagSet<Block> FROGS_SPAWNABLE_ON = createTagSet(BlockTags.FROGS_SPAWNABLE_ON);
     private final PlantopiaTagSet<Block> PARROTS_SPAWNABLE_ON = createTagSet(BlockTags.PARROTS_SPAWNABLE_ON);
     private final PlantopiaTagSet<Block> RABBITS_SPAWNABLE_ON = createTagSet(BlockTags.RABBITS_SPAWNABLE_ON);
+    private final PlantopiaTagSet<Block> POLAR_BEARS_SPAWNABLE_ON_ALTERNATE = createTagSet(BlockTags.POLAR_BEARS_SPAWNABLE_ON_ALTERNATE);
+    private final PlantopiaTagSet<Block> GEODE_INVALID_BLOCKS = createTagSet(BlockTags.GEODE_INVALID_BLOCKS);
     private final PlantopiaTagSet<Block> VALID_SPAWN = createTagSet(BlockTags.VALID_SPAWN);
     private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_GROWABLE = createTagSet(PlantopiaBlockTags.BONEMEAL_SPREAD_GROWABLE);
     private final PlantopiaTagSet<Block> BONEMEAL_SPREAD_ON = createTagSet(PlantopiaBlockTags.BONEMEAL_SPREAD_ON);
@@ -62,6 +64,7 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider implement
     private final PlantopiaTagSet<Block> FROG_PREFER_JUMP_TO = createTagSet(BlockTags.FROG_PREFER_JUMP_TO);
     private final PlantopiaTagSet<Block> INSIDE_STEP_SOUND_BLOCKS = createTagSet(BlockTags.INSIDE_STEP_SOUND_BLOCKS);
     private final PlantopiaTagSet<Block> SNOW = createTagSet(BlockTags.SNOW);
+    private final PlantopiaTagSet<Block> ICE = createTagSet(BlockTags.ICE);
     private final PlantopiaTagSet<Block> COMBINATION_STEP_SOUND_BLOCKS = createTagSet(BlockTags.COMBINATION_STEP_SOUND_BLOCKS);
     private final PlantopiaTagSet<Block> BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS);
     private final PlantopiaTagSet<Block> BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
@@ -123,6 +126,13 @@ public final class PlantopiaBlockTagProvider extends BlockTagsProvider implement
                     REPLACEABLE.add(block);
                     REPLACEABLE_BY_TREES.add(block);
                 }
+            }
+
+            if(type.instanceOf(MetaType.ICE)) {
+                MINEABLE_WITH_PICKAXE.add(block);
+                ICE.add(block);
+                POLAR_BEARS_SPAWNABLE_ON_ALTERNATE.add(block);
+                GEODE_INVALID_BLOCKS.add(block);
             }
 
             if(type.instanceOf(MetaType.FLOWER)) {

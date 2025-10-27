@@ -2,6 +2,7 @@ package by.langvest.plantopia.blockentity;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.blockentity.special.PlantopiaCobblestoneShardPetBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaIcyReedsBlockEntity;
 import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.blockentity.special.PlantopiaCoveredSnowdropBlockEntity;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
@@ -23,6 +24,7 @@ public class PlantopiaBlockEntities {
 	public static final RegistryObject<BlockEntityType<PlantopiaCobblestoneShardPetBlockEntity>> COBBLESTONE_SHARD_PET = registerBlockEntityType("cobblestone_shard_pet", PlantopiaCobblestoneShardPetBlockEntity::new, Set.of(PlantopiaBlocks.COBBLESTONE_SHARD_PET, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET));
 	public static final RegistryObject<BlockEntityType<PlantopiaSeaShellBlockEntity>> SEA_SHELL = registerBlockEntityType("sea_shell", PlantopiaSeaShellBlockEntity::new, Set.of(PlantopiaBlocks.ROUND_SEA_SHELL));
 	public static final RegistryObject<BlockEntityType<PlantopiaCoveredSnowdropBlockEntity>> COVERED_SNOWDROP = registerBlockEntityType("covered_snowdrop", PlantopiaCoveredSnowdropBlockEntity::new, Set.of(PlantopiaBlocks.COVERED_SNOWDROP));
+	public static final RegistryObject<BlockEntityType<PlantopiaIcyReedsBlockEntity>> ICY_REEDS = registerBlockEntityType("icy_reeds", PlantopiaIcyReedsBlockEntity::new, Set.of(PlantopiaBlocks.ICY_REEDS));
 
 	public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntityType(String name, BlockEntityType.BlockEntitySupplier<T> supplier, @NotNull Set<Supplier<Block>> blocks) {
 		return registerBlockEntityType(plantopia(name), supplier, blocks);

@@ -19,7 +19,7 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.*;
 
 public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -60,13 +60,9 @@ public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock imple
 
 	@Override
 	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos facingPos) {
-		if(!canSurvive(state, level, pos)) return getFluidBlockState(level, pos);
+		var newState = PlantopiaFluidHelper.copyWaterloggedFrom(level, pos, super.updateShape(state, facing, facingState, level, pos, facingPos));
 
-		BlockState newState = super.updateShape(state, facing, facingState, level, pos, facingPos);
-
-		if(newState.is(this) && newState.getValue(WATERLOGGED)) {
-			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
-		}
+		scheduleWaterTick(newState, level, pos);
 
 		return newState;
 	}

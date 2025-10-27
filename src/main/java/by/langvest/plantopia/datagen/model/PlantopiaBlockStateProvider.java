@@ -99,6 +99,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		seaweedBlock(PlantopiaBlocks.SEAWEED.get());
 		snowdropBlock(PlantopiaBlocks.SNOWDROP.get());
 		coveredSnowdropBlock(PlantopiaBlocks.COVERED_SNOWDROP.get());
+		icyReedsBlock(PlantopiaBlocks.ICY_REEDS.get());
 		luckyDaisyBlock(PlantopiaBlocks.WHITE_LUCKY_DAISY.get());
 		luckyDaisyBlock(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
 
@@ -581,6 +582,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 			return ConfiguredModel.builder().modelFile(minecraftExistingModel(nameOf(Blocks.SNOW) + "_height" + (layers * 2))).build();
 		});
+	}
+
+	private void icyReedsBlock(Block block) {
+		var iceModel = blockModel(Blocks.ICE);
+
+		simpleBlock(block, iceModel);
 	}
 
 	private void infestedDirtBlock(Block block) {

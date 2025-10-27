@@ -7,7 +7,5 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public interface PlantopiaNaturalBlock {
-    boolean canPlaceNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull RandomSource random);
-
-    void placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags);
+    boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags);
 }

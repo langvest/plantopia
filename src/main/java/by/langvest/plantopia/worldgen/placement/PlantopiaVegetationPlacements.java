@@ -9,6 +9,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biomes;
@@ -132,7 +133,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(tagSet -> tagSet
-				.add(Biomes.DESERT, Biomes.BADLANDS, Biomes.ERODED_BADLANDS)
+				.add(Biomes.DESERT)
+				.addTag(BiomeTags.IS_BADLANDS)
 			)
 	);
 
@@ -191,8 +193,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(5),
-				CountPlacement.of(UniformInt.of(2, 4)),
+				RarityFilter.onAverageOnceEvery(6),
+				CountPlacement.of(UniformInt.of(2, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				WATER_PLANT_HIGH_RANGE_FILTER,
@@ -213,8 +215,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(4),
-				CountPlacement.of(UniformInt.of(1, 3)),
+				RarityFilter.onAverageOnceEvery(3),
+				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				WATER_PLANT_HIGH_RANGE_FILTER,

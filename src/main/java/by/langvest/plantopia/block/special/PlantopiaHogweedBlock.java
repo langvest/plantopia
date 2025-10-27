@@ -17,15 +17,14 @@ import net.minecraft.world.entity.animal.horse.ZombieHorse;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	public PlantopiaHogweedBlock(Properties properties) {
@@ -51,12 +50,10 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	}
 
 	@Override
-	protected boolean canPlaceInto(@NotNull BlockGetter level, BlockPos pos, @Nullable BlockPlaceContext context) {
+	protected boolean canGrowInto(@NotNull LevelAccessor level, BlockPos pos) {
 		var fluidState = level.getFluidState(pos);
 
-		if(!fluidState.isEmpty()) return false;
-
-		return super.canPlaceInto(level, pos, context);
+		return fluidState.isEmpty() && super.canGrowInto(level, pos);
 	}
 
 	/**
@@ -86,11 +83,12 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	}
 
 	@Override
-	protected boolean canPlaceQuarterColumnNaturallyAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
+	public boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
 		var posAbove2 = pos.above(2);
 
-		return super.canPlaceQuarterColumnNaturallyAt(level, pos)
-			&& level.getBlockState(posAbove2).isAir();
+		if(!level.getBlockState(posAbove2).isAir()) return false;
+
+		return super.generateAt(level, pos, state, random, flags);
 	}
 
 	@Override

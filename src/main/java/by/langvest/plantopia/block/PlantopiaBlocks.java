@@ -96,6 +96,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> SWEET_FLAG = registerBlock("sweet_flag", PlantopiaWaterloggedDoublePlantBlock::new, MetaProperties.of(MetaType.WATER_GRASS).dropSelfByShears().grassTint());
 	public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", PlantopiaWaterloggedDoublePlantBlock::new, MetaProperties.of(MetaType.WATER_GRASS).dropSelfByShears().grassTint().customModel());
 	public static final RegistryObject<Block> REEDS = registerBlock("reeds", PlantopiaReedsBlock::new, MetaProperties.of(MetaType.WATER_GRASS).mapColor(MapColor.WOOD).dropSelfByShears());
+	public static final RegistryObject<Block> ICY_REEDS = registerBlock("icy_reeds", PlantopiaIcyReedsBlock::new, MetaProperties.of(MetaType.ICE).randomlyTicking().translucentRender().noItem().customModel().noDrop());
 	public static final RegistryObject<Block> TALL_REEDS = registerBlock("tall_reeds", PlantopiaTallReedsBlock::new, MetaProperties.of(MetaType.WATER_GRASS).mapColor(MapColor.WOOD).tripleHighPlant().customModel().customTint().dropSelfByShears());
 
 	public static final RegistryObject<Block> DUNE_GRASS = registerBlock("dune_grass", PlantopiaDuneGrassBlock::new, MetaProperties.of(MetaType.SMALL_GRASS).mapColor(MapColor.SAND));
