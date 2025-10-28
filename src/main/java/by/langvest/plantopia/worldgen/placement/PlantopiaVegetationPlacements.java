@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biomes;
@@ -200,7 +201,10 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				WATER_PLANT_HIGH_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
-					BlockPredicate.matchesFluids(Fluids.WATER)
+					BlockPredicate.allOf(
+						BlockPredicate.matchesFluids(Fluids.WATER),
+						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT)
+					)
 				)
 			))
 			.biomes(tagSet -> tagSet
