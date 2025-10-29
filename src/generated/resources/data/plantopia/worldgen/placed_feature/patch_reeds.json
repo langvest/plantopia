@@ -2,8 +2,8 @@
 	"feature": "plantopia:patch_reeds",
 	"placement": [
 		{
-			"type": "minecraft:rarity_filter",
-			"chance": 4
+			"type": "plantopia:rarity_filter",
+			"chance": 3.62
 		},
 		{
 			"type": "minecraft:count",

@@ -2,8 +2,8 @@
 	"feature": "plantopia:single_hogweed",
 	"placement": [
 		{
-			"type": "minecraft:rarity_filter",
-			"chance": 20
+			"type": "plantopia:rarity_filter",
+			"chance": 20.0
 		},
 		{
 			"type": "minecraft:block_predicate_filter",

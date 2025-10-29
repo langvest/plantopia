@@ -94,7 +94,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		patchNameOf(PlantopiaBlocks.REEDS),
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
-				new RandomPatchConfiguration(32, 3, 1, PlacementUtils.filtered(
+				new RandomPatchConfiguration(22, 3, 1, PlacementUtils.filtered(
 					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 					simpleConfig(PlantopiaBlocks.REEDS.get()),
 					WATER_PlANT_PREDICATE
@@ -106,7 +106,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 		patchNameOf(PlantopiaBlocks.CATTAIL),
 		PlantopiaFeatureDeclaration.builder()
 			.feature(randomPatch(context ->
-				new RandomPatchConfiguration(96, 6, 1, PlacementUtils.filtered(
+				new RandomPatchConfiguration(94, 6, 1, PlacementUtils.filtered(
 					PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
 					simpleConfig(PlantopiaBlocks.CATTAIL.get()),
 					BlockPredicate.allOf(

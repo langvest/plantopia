@@ -5,6 +5,7 @@ import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightRangeFilter;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseCountPlacement;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseFilter;
+import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -44,12 +45,14 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		return key;
 	}
 
+	/* VEGETATION PLACEMENTS ******************************************/
+
 	public static final ResourceKey<PlacedFeature> HOGWEED_BONEMEAL = declarePlacedFeature(
 		compileNameFrom(PlantopiaBlocks.HOGWEED, BONEMEAL),
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(20),
+				PlantopiaRarityFilter.onAverageOnceEvery(20.0F),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.HOGWEED.get())
 			))
 	);
@@ -102,10 +105,10 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED)
 			.modifiers(context -> {
-				var bigNoiseConfig = PlantopiaNoiseConfig.of(2.826D, 528, 811);
-				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.138D, 332, 643);
-				float bigNoiseLevel = -0.44F;
-				float smallNoiseLevel = -0.1F;
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(1.862D, 528, 811);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.112D, 332, 643);
+				float bigNoiseLevel = -0.6F;
+				float smallNoiseLevel = 0.1F;
 
 				return List.of(
 					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 17),
@@ -128,7 +131,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS_ON_SAND)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(4),
+				PlantopiaRarityFilter.onAverageOnceEvery(3.82F),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
@@ -144,7 +147,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REEDS)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(4),
+				PlantopiaRarityFilter.onAverageOnceEvery(3.62F),
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -169,7 +172,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REEDS)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(2),
+				PlantopiaRarityFilter.onAverageOnceEvery(2.12F),
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -194,8 +197,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(6),
-				CountPlacement.of(UniformInt.of(2, 3)),
+				PlantopiaRarityFilter.onAverageOnceEvery(5.52F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				WATER_PLANT_HIGH_RANGE_FILTER,
@@ -219,7 +222,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(3),
+				PlantopiaRarityFilter.onAverageOnceEvery(2.32F),
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -239,7 +242,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_DUNE_GRASS)
 			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(3),
+				PlantopiaRarityFilter.onAverageOnceEvery(2.92F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 4), 2, 4)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

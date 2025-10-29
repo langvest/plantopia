@@ -2,8 +2,8 @@
 	"feature": "plantopia:patch_tiny_cactus_on_sand",
 	"placement": [
 		{
-			"type": "minecraft:rarity_filter",
-			"chance": 4
+			"type": "plantopia:rarity_filter",
+			"chance": 3.82
 		},
 		{
 			"type": "minecraft:in_square"

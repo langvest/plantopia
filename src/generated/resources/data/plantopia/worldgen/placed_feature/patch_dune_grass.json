@@ -2,8 +2,8 @@
 	"feature": "plantopia:patch_dune_grass",
 	"placement": [
 		{
-			"type": "minecraft:rarity_filter",
-			"chance": 3
+			"type": "plantopia:rarity_filter",
+			"chance": 2.92
 		},
 		{
 			"type": "minecraft:count",
