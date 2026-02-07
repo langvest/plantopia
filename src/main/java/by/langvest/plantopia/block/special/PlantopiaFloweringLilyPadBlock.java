@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -45,5 +46,10 @@ public class PlantopiaFloweringLilyPadBlock extends WaterlilyBlock implements Pl
 	@SuppressWarnings("deprecation")
 	public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult blockHitResult) {
 		return useShears(state, level, pos, player, hand, blockHitResult);
+	}
+
+	@Override
+	public PlantType getPlantType(BlockGetter level, BlockPos pos) {
+		return PlantType.WATER;
 	}
 }

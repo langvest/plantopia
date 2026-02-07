@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_flowering_small_platterleaf",
+	"features": "plantopia:patch_flowering_small_platterleaf",
+	"step": "vegetal_decoration"
+}

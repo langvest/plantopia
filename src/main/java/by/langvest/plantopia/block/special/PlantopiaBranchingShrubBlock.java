@@ -1,6 +1,7 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
+import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,14 +37,14 @@ import org.jetbrains.annotations.Nullable;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
-public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterloggedBlock {
+public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterloggedBlock, PlantopiaNaturalBlock {
 	protected static final VoxelShape COLLISION_SHAPE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 16.0D, 9.0D);
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty BASE = PlantopiaBlockStateProperties.BASE;
 
 	public PlantopiaBranchingShrubBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false).setValue(BASE, false));
+		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false).setValue(BASE, true));
 	}
 
 	@Nullable
@@ -122,14 +123,19 @@ public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterlo
 	}
 
 	protected boolean isValidEnvironment(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		var isBase = state.getValue(BASE);
 		BlockPos posBelow = pos.below();
 		BlockState stateBelow = level.getBlockState(posBelow);
 
-		return mayPlaceOn(stateBelow, level, posBelow);
+		if(isBase) {
+			return mayPlaceOn(stateBelow, level, posBelow);
+		}
+
+		return stateBelow.is(this);
 	}
 
 	protected boolean mayPlaceOn(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return state.is(this) || state.is(Blocks.CLAY) || state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
+		return state.is(Blocks.CLAY) || state.is(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
 	}
 
 	@Override
@@ -175,5 +181,32 @@ public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterlo
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(WATERLOGGED, BASE);
+	}
+
+	@Override
+	public boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+		int height = 1 + random.nextIntBetweenInclusive(0, 2);
+
+		if(random.nextDouble() < 0.35D) {
+			height += random.nextIntBetweenInclusive(0, 1);
+		}
+
+		int successfulTries = 0;
+
+		for(int i = 0; i < height; i++) {
+			var candidatePos = pos.above(i);
+			var targetState = level.getBlockState(candidatePos);
+
+			if(!targetState.canBeReplaced()) break;
+
+			var newState = copyWaterloggedFrom(level, candidatePos, state.setValue(BASE, i == 0));
+
+			if(!newState.canSurvive(level, candidatePos)) break;
+
+			level.setBlock(candidatePos, newState, flags);
+			successfulTries++;
+		}
+
+		return successfulTries > 0;
 	}
 }

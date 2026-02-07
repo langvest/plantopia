@@ -1,0 +1,41 @@
+{
+	"feature": "plantopia:patch_flowering_small_platterleaf",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 4.12
+		},
+		{
+			"type": "minecraft:count",
+			"count": 1
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "WORLD_SURFACE_WG"
+		},
+		{
+			"type": "plantopia:height_range_filter",
+			"max_inclusive": {
+				"below_top": 0
+			},
+			"min_inclusive": {
+				"absolute": 62
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:would_survive",
+				"state": {
+					"Name": "plantopia:white_flowering_small_platterleaf"
+				}
+			}
+		}
+	]
+}

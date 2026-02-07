@@ -1,0 +1,42 @@
+{
+	"feature": "plantopia:single_hogweed",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 380.0
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_inclusive": 3,
+					"min_inclusive": 1
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "WORLD_SURFACE_WG"
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:would_survive",
+				"state": {
+					"Name": "plantopia:hogweed",
+					"Properties": {
+						"half": "lower",
+						"quarter": "south_west"
+					}
+				}
+			}
+		}
+	]
+}

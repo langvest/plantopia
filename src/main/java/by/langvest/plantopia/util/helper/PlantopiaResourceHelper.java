@@ -16,18 +16,8 @@ import java.util.stream.Collectors;
 
 public final class PlantopiaResourceHelper {
 	@Contract("_, _ -> new")
-	public static @NotNull ResourceLocation locationFrom(String namespace, String name) {
-		return ResourceLocation.fromNamespaceAndPath(namespace, name);
-	}
-
-	@Contract("_, _ -> new")
 	public static @NotNull ResourceLocation locationFrom(String namespace, String... path) {
 		return ResourceLocation.fromNamespaceAndPath(namespace, String.join("/", path));
-	}
-
-	@Contract("_ -> new")
-	public static @NotNull ResourceLocation minecraft(String name) {
-		return locationFrom("minecraft", name);
 	}
 
 	@Contract("_ -> new")
@@ -36,13 +26,13 @@ public final class PlantopiaResourceHelper {
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation plantopia(String name) {
-		return locationFrom(Plantopia.MOD_ID, name);
+	public static @NotNull ResourceLocation plantopia(String... path) {
+		return locationFrom(Plantopia.MOD_ID, path);
 	}
 
 	@Contract("_ -> new")
-	public static @NotNull ResourceLocation plantopia(String... path) {
-		return locationFrom(Plantopia.MOD_ID, path);
+	public static @NotNull ResourceLocation cascades(String... path) {
+		return locationFrom("hybrid_beta", path);
 	}
 
 	public static @NotNull ResourceLocation locationOf(@NotNull Object object) {

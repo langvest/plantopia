@@ -59,4 +59,12 @@ public class PlantopiaPlacements {
 		tagSet
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 	}
+
+	protected static void addCascadesBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+		tagSet
+			.addOptional(cascades("autumnal_forest"))
+			.addOptional(cascades("rainforest"))
+			.addOptional(cascades("seasonal_forest"))
+			.addOptional(cascades("temperate_rainforest"));
+	}
 }

@@ -2,10 +2,6 @@
 	"feature": "plantopia:single_hogweed",
 	"placement": [
 		{
-			"type": "plantopia:rarity_filter",
-			"chance": 20.0
-		},
-		{
 			"type": "minecraft:block_predicate_filter",
 			"predicate": {
 				"type": "minecraft:would_survive",

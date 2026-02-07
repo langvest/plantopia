@@ -13,6 +13,22 @@
 		"minecraft:savanna",
 		"minecraft:sunflower_plains",
 		"minecraft:swamp",
-		"minecraft:taiga"
+		"minecraft:taiga",
+		{
+			"id": "hybrid_beta:autumnal_forest",
+			"required": false
+		},
+		{
+			"id": "hybrid_beta:rainforest",
+			"required": false
+		},
+		{
+			"id": "hybrid_beta:seasonal_forest",
+			"required": false
+		},
+		{
+			"id": "hybrid_beta:temperate_rainforest",
+			"required": false
+		}
 	]
 }

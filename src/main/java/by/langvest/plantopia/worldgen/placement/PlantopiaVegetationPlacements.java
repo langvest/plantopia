@@ -18,6 +18,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
@@ -52,9 +53,27 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(20.0F),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.HOGWEED.get())
 			))
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_HOGWEED = declarePlacedFeature(
+		compileNameFrom("patch", PlantopiaBlocks.HOGWEED),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(380.0F),
+				CountPlacement.of(UniformInt.of(1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.HOGWEED.get())
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.addTag(BiomeTags.IS_SAVANNA)
+				.apply(PlantopiaPlacements::addMountainBiomes)
+			)
 	);
 
 	public static final ResourceKey<PlacedFeature> HOGWEED_INFESTED_GRASS_BLOCK = declarePlacedFeature(
@@ -160,6 +179,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			.biomes(tagSet -> tagSet
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.apply(PlantopiaPlacements::addSwampBiomes)
+				.apply(PlantopiaPlacements::addCascadesBiomes)
 				.add(Biomes.SAVANNA)
 				.add(Biomes.RIVER)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
@@ -212,8 +232,35 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			))
 			.biomes(tagSet -> tagSet
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
+				.apply(PlantopiaPlacements::addCascadesBiomes)
 				.add(Biomes.RIVER)
 				.add(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_SWEET_FLAG = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+				CountPlacement.of(UniformInt.of(1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_HIGH_RANGE_FILTER,
+				BiomeFilter.biome(),
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.matchesFluids(Fluids.WATER),
+						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT)
+					)
+				)
+			))
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addSwampBiomes)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
+				.add(Biomes.RIVER)
+				.addTag(BiomeTags.IS_JUNGLE, BiomeTags.IS_SAVANNA)
 			)
 	);
 
@@ -252,4 +299,216 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.add(Biomes.BEACH)
 			)
 	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_SNOWDROP = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SNOWDROP),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(5.92F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.SNOWY_TAIGA, Biomes.GROVE)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_COBBLESTONE_SHARD),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_COBBLESTONE_SHARD)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+				CountPlacement.of(UniformInt.of(0, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addCascadesBiomes)
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+				.add(Biomes.RIVER)
+				.addTag(BiomeTags.IS_SAVANNA)
+				.addTag(BiomeTags.IS_MOUNTAIN)
+				.addTag(BiomeTags.IS_JUNGLE)
+				.addTag(BiomeTags.IS_OCEAN)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(3.82F),
+				CountPlacement.of(UniformInt.of(0, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addSwampBiomes)
+				.add(Biomes.WARM_OCEAN)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD_2 = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
+			.modifiers(context -> List.of(
+				CountPlacement.of(UniformInt.of(1, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_FLOWERING_LILY_PAD = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+				CountPlacement.of(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				WATER_PLANT_HIGH_RANGE_FILTER,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get())
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.SWAMP)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_FLOWERING_SMALL_PLATTERLEAF = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLOWERING_SMALL_PLATTERLEAF),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_FLOWERING_SMALL_PLATTERLEAF)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+				CountPlacement.of(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				WATER_PLANT_HIGH_RANGE_FILTER,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get())
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.MANGROVE_SWAMP)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_SMALL_PLATTERLEAF = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SMALL_PLATTERLEAF),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_SMALL_PLATTERLEAF)
+			.modifiers(context -> List.of(
+				CountPlacement.of(2),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				WATER_PLANT_HIGH_RANGE_FILTER,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get())
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.MANGROVE_SWAMP)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(7.26F),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_HIGH_RANGE_FILTER,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.BRANCHING_SHRUB.get())
+			))
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addSwampBiomes)
+				.apply(PlantopiaPlacements::addCascadesBiomes)
+				.add(Biomes.FOREST, Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.DARK_FOREST)
+				.add(Biomes.WINDSWEPT_FOREST)
+				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.addTag(BiomeTags.IS_JUNGLE)
+				.addTag(BiomeTags.IS_BADLANDS)
+				.addTag(BiomeTags.IS_SAVANNA)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_AZOLLA = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_AZOLLA),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_AZOLLA)
+			.modifiers(context -> {
+				var noiseConfig = PlantopiaNoiseConfig.of(0.331D, 719, 112);
+				float noiseLevel = -0.3F;
+
+				return List.of(
+					PlantopiaNoiseCountPlacement.belowLevel(noiseConfig, noiseLevel, 17),
+					InSquarePlacement.spread(),
+					PlantopiaNoiseFilter.belowLevel(noiseConfig, noiseLevel, 0.1F),
+					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+					WATER_PLANT_HIGH_RANGE_FILTER,
+					BiomeFilter.biome(),
+					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.AZOLLA.get())
+				);
+			})
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addSwampBiomes)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 8.52F, false)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_WHITE_CLOVER_BLOSSOM = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM),
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, 20.12F, true)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_PINK_CLOVER_BLOSSOM = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM),
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, 20.12F, true)
+	);
+
+	protected static PlantopiaPlacedFeatureDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, float chance, boolean withFlower) {
+		return PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(feature)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(chance),
+				CountPlacement.of(UniformInt.of(0, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addCascadesBiomes)
+				.apply(PlantopiaPlacements::addOldGrowthBiomes)
+				.apply(PlantopiaPlacements::addMountainBiomes)
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
+				.apply(tagSet1 -> {
+					if(!withFlower) {
+						tagSet1.addTag(BiomeTags.IS_JUNGLE);
+						tagSet1.addTag(BiomeTags.IS_SAVANNA);
+					}
+				})
+			);
+	}
 }

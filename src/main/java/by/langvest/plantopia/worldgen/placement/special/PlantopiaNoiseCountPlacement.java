@@ -41,6 +41,10 @@ public class PlantopiaNoiseCountPlacement extends RepeatingPlacement {
         return belowLevel(noiseConfig, noiseLevel, count, 0);
     }
 
+    public static @NotNull PlantopiaNoiseCountPlacement belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider count) {
+        return belowLevel(noiseConfig, noiseLevel, count, ConstantInt.of(0));
+    }
+
     public static @NotNull PlantopiaNoiseCountPlacement belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int activeCount, int passiveCount) {
         return belowLevel(noiseConfig, noiseLevel, ConstantInt.of(activeCount), ConstantInt.of(passiveCount));
     }
@@ -52,6 +56,10 @@ public class PlantopiaNoiseCountPlacement extends RepeatingPlacement {
 
     public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int count) {
         return aboveLevel(noiseConfig, noiseLevel, count, 0);
+    }
+
+    public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider count) {
+        return aboveLevel(noiseConfig, noiseLevel, count, ConstantInt.of(0));
     }
 
     public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int activeCount, int passiveCount) {

@@ -1,12 +1,17 @@
 {
 	"values": [
+		"#minecraft:is_jungle",
+		"#minecraft:is_mountain",
+		"#minecraft:is_ocean",
+		"#minecraft:is_savanna",
 		"minecraft:birch_forest",
 		"minecraft:dark_forest",
+		"minecraft:flower_forest",
 		"minecraft:forest",
 		"minecraft:old_growth_birch_forest",
-		"minecraft:old_growth_pine_taiga",
-		"minecraft:old_growth_spruce_taiga",
+		"minecraft:plains",
 		"minecraft:river",
+		"minecraft:sunflower_plains",
 		"minecraft:taiga",
 		{
 			"id": "hybrid_beta:autumnal_forest",

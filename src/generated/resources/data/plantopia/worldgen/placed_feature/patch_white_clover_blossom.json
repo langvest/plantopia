@@ -1,0 +1,29 @@
+{
+	"feature": "plantopia:patch_white_clover_blossom",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 20.12
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_inclusive": 2,
+					"min_inclusive": 0
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "MOTION_BLOCKING"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}
