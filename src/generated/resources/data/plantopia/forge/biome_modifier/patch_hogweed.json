@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_hogweed",
+	"features": "plantopia:patch_hogweed",
+	"step": "vegetal_decoration"
+}

@@ -87,6 +87,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		hogweedBlock(PlantopiaBlocks.HOGWEED.get());
 		infestedDirtBlock(PlantopiaBlocks.INFESTED_DIRT.get());
 		infestedGrassBlock(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
+		branchingShrubBlock(PlantopiaBlocks.BRANCHING_SHRUB.get());
 		thornyShrubBlock(PlantopiaBlocks.THORNY_SHRUB.get());
 		quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
 		quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
@@ -98,6 +99,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		seaweedBlock(PlantopiaBlocks.SEAWEED.get());
 		snowdropBlock(PlantopiaBlocks.SNOWDROP.get());
 		coveredSnowdropBlock(PlantopiaBlocks.COVERED_SNOWDROP.get());
+		icyReedsBlock(PlantopiaBlocks.ICY_REEDS.get());
 		luckyDaisyBlock(PlantopiaBlocks.WHITE_LUCKY_DAISY.get());
 		luckyDaisyBlock(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
 
@@ -422,7 +424,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var fourShardsModel = fourCobblestoneShardsTemplateModel("four_" + baseName + "s", shardsTexture);
 
 		generatedItemModel(baseName, itemTexture);
-		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.SHARDS, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
+		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.AMOUNT, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
 	}
 
 	private void cobblestoneShardPetBlock(Block block) {
@@ -582,6 +584,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		});
 	}
 
+	private void icyReedsBlock(Block block) {
+		var iceModel = blockModel(Blocks.ICE);
+
+		simpleBlock(block, iceModel);
+	}
+
 	private void infestedDirtBlock(Block block) {
 		String baseName = nameOf(block);
 
@@ -615,6 +623,31 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			.modelFile(model).rotationY(270).addModel()
 			.partialState().with(PlantopiaInfestedGrassBlock.SNOWY, true).modelForState()
 			.modelFile(snowyModel).addModel();
+	}
+
+	private void branchingShrubBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var texture = texture(baseName);
+		var baseTexture = texture(baseName + "_base");
+
+		var model = crossModel(baseName, texture);
+		var baseModel = crossModel(baseName + "_base", baseTexture);
+
+		generatedItemModel(baseName, baseTexture);
+
+		getVariantBuilder(block)
+			.partialState().with(PlantopiaBranchingShrubBlock.BASE, false).modelForState()
+			.modelFile(model).addModel()
+			.partialState().with(PlantopiaBranchingShrubBlock.BASE, true).modelForState()
+			.modelFile(baseModel).addModel();
+
+		pottedBlockOf(block).ifPresent(pottedBlock -> {
+			var pottedName = nameOf(pottedBlock);
+			var pottedTexture = texture(pottedName);
+			var pottedModel = flowerPotCrossModel(pottedName, pottedTexture);
+			simpleBlock(pottedBlock, pottedModel);
+		});
 	}
 
 	private void thornyShrubBlock(Block block) {

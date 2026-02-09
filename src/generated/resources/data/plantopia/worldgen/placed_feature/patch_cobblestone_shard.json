@@ -1,0 +1,29 @@
+{
+	"feature": "plantopia:patch_cobblestone_shard",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 4.12
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_inclusive": 2,
+					"min_inclusive": 0
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

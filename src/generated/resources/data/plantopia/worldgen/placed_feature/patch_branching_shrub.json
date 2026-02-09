@@ -1,0 +1,41 @@
+{
+	"feature": "plantopia:patch_branching_shrub",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 7.26
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "plantopia:height_range_filter",
+			"max_inclusive": {
+				"below_top": 0
+			},
+			"min_inclusive": {
+				"absolute": 62
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:would_survive",
+				"state": {
+					"Name": "plantopia:branching_shrub",
+					"Properties": {
+						"base": "true",
+						"waterlogged": "false"
+					}
+				}
+			}
+		}
+	]
+}

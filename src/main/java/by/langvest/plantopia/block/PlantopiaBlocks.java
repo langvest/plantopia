@@ -13,6 +13,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
+import by.langvest.toolkit.registry.SupposedRegistryObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -54,9 +55,8 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> GIANT_GRASS = registerBlock("giant_grass", PlantopiaTriplePlantBlock::new, MetaProperties.of(MetaType.TALL_GRASS).tripleHighPlant().grassTint().customDrop());
 	public static final RegistryObject<Block> GIANT_FERN = registerBlock("giant_fern", PlantopiaTriplePlantBlock::new, MetaProperties.of(MetaType.TALL_GRASS).tripleHighPlant().grassTint().customDrop().customModel());
 
-	public static final RegistryObject<Block> BRANCHING_SHRUB = registerBlock("branching_shrub", PlantopiaBranchingShrubBlock::new, MetaProperties.of(MetaType.BRANCHING_SHRUB).customDrop().pottable());
-	public static final RegistryObject<Block> BRANCHING_SHRUB_PLANT = registerBlock("branching_shrub_plant", PlantopiaBranchingShrubPlantBlock::new, MetaProperties.of(MetaType.BRANCHING_SHRUB).customDrop().noItem());
-	public static final RegistryObject<Block> THORNY_SHRUB = registerBlock("thorny_shrub", PlantopiaThornyShrubBlock::new, MetaProperties.of(MetaType.WOODY_PLANT).strength(0.2F).sound(SoundType.SWEET_BERRY_BUSH).dropSelfByShears().customModel());
+	public static final RegistryObject<Block> BRANCHING_SHRUB = registerBlock("branching_shrub", PlantopiaBranchingShrubBlock::new, MetaProperties.of(MetaType.SHRUB).strength(0.8F).sound(SoundType.MANGROVE_ROOTS).hasDynamicShape().customModel().customDrop().pottable());
+	public static final RegistryObject<Block> THORNY_SHRUB = registerBlock("thorny_shrub", PlantopiaThornyShrubBlock::new, MetaProperties.of(MetaType.SHRUB).strength(0.2F).sound(SoundType.SWEET_BERRY_BUSH).dropSelfByShears().customModel().mapColor(MapColor.COLOR_GRAY));
 
 	public static final RegistryObject<Block> FIREWEED = registerBlock("fireweed", PlantopiaFireweedBlock::new, MetaProperties.of(MetaType.TALL_GRASS).customModel().customTint().dropSelfByShears().preferredByBees().compostable(Compostability.PLANT_2 + Compostability.HAS_FLOWERS));
 
@@ -96,6 +96,7 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> SWEET_FLAG = registerBlock("sweet_flag", PlantopiaWaterloggedDoublePlantBlock::new, MetaProperties.of(MetaType.WATER_GRASS).dropSelfByShears().grassTint());
 	public static final RegistryObject<Block> CATTAIL = registerBlock("cattail", PlantopiaWaterloggedDoublePlantBlock::new, MetaProperties.of(MetaType.WATER_GRASS).dropSelfByShears().grassTint().customModel());
 	public static final RegistryObject<Block> REEDS = registerBlock("reeds", PlantopiaReedsBlock::new, MetaProperties.of(MetaType.WATER_GRASS).mapColor(MapColor.WOOD).dropSelfByShears());
+	public static final RegistryObject<Block> ICY_REEDS = registerBlock("icy_reeds", PlantopiaIcyReedsBlock::new, MetaProperties.of(MetaType.ICE).randomlyTicking().translucentRender().noItem().customModel().noDrop());
 	public static final RegistryObject<Block> TALL_REEDS = registerBlock("tall_reeds", PlantopiaTallReedsBlock::new, MetaProperties.of(MetaType.WATER_GRASS).mapColor(MapColor.WOOD).tripleHighPlant().customModel().customTint().dropSelfByShears());
 
 	public static final RegistryObject<Block> DUNE_GRASS = registerBlock("dune_grass", PlantopiaDuneGrassBlock::new, MetaProperties.of(MetaType.SMALL_GRASS).mapColor(MapColor.SAND));
@@ -131,8 +132,14 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> WHITE_LUCKY_DAISY = registerBlock("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.LIGHT_GRAY));
 	public static final RegistryObject<Block> PINK_LUCKY_DAISY = registerBlock("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.PINK));
 
+	public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
+
 	static {
 		registerPottedBlocks();
+	}
+
+	public static SupposedRegistryObject<Block> supposeBlock(String name) {
+		return PlantopiaRegistries.BLOCK.supposeValue(plantopia(name));
 	}
 
 	public static <T extends Block> RegistryObject<T> registerBlock(String name, Function<Properties, T> factory, MetaProperties metaProperties) {

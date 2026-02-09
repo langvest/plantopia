@@ -1,6 +1,5 @@
 {
 	"values": [
-		"#plantopia:type/branching_shrub",
-		"plantopia:thorny_shrub"
+		"#plantopia:type/shrub"
 	]
 }

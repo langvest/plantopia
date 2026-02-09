@@ -29,7 +29,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterlo
 public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWaterloggedBlock {
 	public static final int MIN_SHARDS = 1;
 	public static final int MAX_SHARDS = 4;
-	public static final IntegerProperty SHARDS = PlantopiaBlockStateProperties.SHARDS;
+	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.SHARDS;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	protected static final VoxelShape ONE_AABB = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 4.0D, 11.0D);
 	protected static final VoxelShape TWO_AABB = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
@@ -38,7 +38,7 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 
 	public PlantopiaCobblestoneShardBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(stateDefinition.any().setValue(SHARDS, MIN_SHARDS).setValue(WATERLOGGED, false));
+		registerDefaultState(stateDefinition.any().setValue(AMOUNT, MIN_SHARDS).setValue(WATERLOGGED, false));
 	}
 
 	@Nullable
@@ -51,7 +51,7 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 		if(state.is(this)) {
 			BlockState stateBelow = level.getBlockState(posBelow);
 			if(!stateBelow.isFaceSturdy(level, posBelow, Direction.UP)) return null;
-			return state.setValue(SHARDS, Math.min(MAX_SHARDS, state.getValue(SHARDS) + 1));
+			return state.setValue(AMOUNT, Math.min(MAX_SHARDS, state.getValue(AMOUNT) + 1));
 		}
 		if(!Block.canSupportCenter(level, posBelow, Direction.UP)) return null;
 		BlockState newState = super.getStateForPlacement(context);
@@ -63,7 +63,7 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 	@SuppressWarnings("deprecation")
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
 		BlockPos posBelow = pos.below();
-		int amount = state.getValue(SHARDS);
+		int amount = state.getValue(AMOUNT);
 		if(amount == MIN_SHARDS) return Block.canSupportCenter(level, posBelow, Direction.UP);
 		BlockState stateBelow = level.getBlockState(posBelow);
 		return stateBelow.isFaceSturdy(level, posBelow, Direction.UP);
@@ -72,7 +72,7 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 	@Override
 	@SuppressWarnings("deprecation")
 	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
-		if(!context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(SHARDS) < MAX_SHARDS) return true;
+		if(!context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(AMOUNT) < MAX_SHARDS) return true;
 		return super.canBeReplaced(state, context);
 	}
 
@@ -92,7 +92,7 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 	@Override
 	@SuppressWarnings("deprecation")
 	public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		int amount = state.getValue(SHARDS);
+		int amount = state.getValue(AMOUNT);
 		if(amount == 1) return ONE_AABB;
 		if(amount == 2) return TWO_AABB;
 		if(amount == 3) return THREE_AABB;
@@ -113,6 +113,6 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(SHARDS, WATERLOGGED);
+		builder.add(AMOUNT, WATERLOGGED);
 	}
 }

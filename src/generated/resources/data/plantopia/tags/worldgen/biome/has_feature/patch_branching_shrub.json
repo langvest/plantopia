@@ -1,0 +1,32 @@
+{
+	"values": [
+		"#minecraft:is_badlands",
+		"#minecraft:is_jungle",
+		"#minecraft:is_savanna",
+		"minecraft:dark_forest",
+		"minecraft:forest",
+		"minecraft:mangrove_swamp",
+		"minecraft:old_growth_pine_taiga",
+		"minecraft:old_growth_spruce_taiga",
+		"minecraft:snowy_taiga",
+		"minecraft:swamp",
+		"minecraft:taiga",
+		"minecraft:windswept_forest",
+		{
+			"id": "hybrid_beta:autumnal_forest",
+			"required": false
+		},
+		{
+			"id": "hybrid_beta:rainforest",
+			"required": false
+		},
+		{
+			"id": "hybrid_beta:seasonal_forest",
+			"required": false
+		},
+		{
+			"id": "hybrid_beta:temperate_rainforest",
+			"required": false
+		}
+	]
+}

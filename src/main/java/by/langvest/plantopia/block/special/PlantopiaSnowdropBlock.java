@@ -1,9 +1,13 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaFreezableBlock;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
@@ -13,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class PlantopiaSnowdropBlock extends FlowerBlock {
+public class PlantopiaSnowdropBlock extends FlowerBlock implements PlantopiaFreezableBlock {
 	public PlantopiaSnowdropBlock(Supplier<MobEffect> effectSupplier, int effectDuration, Properties properties) {
 		super(effectSupplier, effectDuration, properties);
 	}
@@ -35,5 +39,25 @@ public class PlantopiaSnowdropBlock extends FlowerBlock {
 		}
 
 		return super.getStateForPlacement(context);
+	}
+
+	@Override
+	public boolean shouldIce(BlockState state, LevelReader level, BlockPos pos, boolean mustBeAtEdge) {
+		return false;
+	}
+
+	@Override
+	public boolean shouldSnow(BlockState state, LevelReader level, BlockPos pos) {
+		return true;
+	}
+
+	@Override
+	public void freezeAt(BlockState state, @NotNull BlockState freezingState, LevelAccessor level, BlockPos pos, int flags) {
+		if(freezingState.is(Blocks.SNOW)) {
+			var newState = PlantopiaBlocks.COVERED_SNOWDROP.get().defaultBlockState()
+				.setValue(PlantopiaCoveredSnowdropBlock.LAYERS, freezingState.getValue(SnowLayerBlock.LAYERS));
+
+			level.setBlock(pos, newState, flags);
+		}
 	}
 }

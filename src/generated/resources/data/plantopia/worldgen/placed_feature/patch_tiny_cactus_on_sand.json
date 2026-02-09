@@ -1,0 +1,19 @@
+{
+	"feature": "plantopia:patch_tiny_cactus_on_sand",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 3.82
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "WORLD_SURFACE_WG"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

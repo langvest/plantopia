@@ -25,8 +25,8 @@ public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
 	}
 
 	@Override
-	public Optional<ResourceLocation> getKey(T value) {
-		return Optional.ofNullable(getBuiltInRegistry().getKey(value));
+	public Optional<ResourceKey<T>> getResourceKey(T value) {
+		return getBuiltInRegistry().getResourceKey(value);
 	}
 
 	@Override

@@ -1,0 +1,189 @@
+{
+	"type": "minecraft:random_patch",
+	"config": {
+		"feature": {
+			"feature": {
+				"type": "plantopia:natural_block",
+				"config": {
+					"to_place": {
+						"type": "minecraft:weighted_state_provider",
+						"entries": [
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "north",
+										"leaf_amount": "1"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "north",
+										"leaf_amount": "2"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "north",
+										"leaf_amount": "3"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "north",
+										"leaf_amount": "4"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "east",
+										"leaf_amount": "1"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "east",
+										"leaf_amount": "2"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "east",
+										"leaf_amount": "3"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "east",
+										"leaf_amount": "4"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "south",
+										"leaf_amount": "1"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "south",
+										"leaf_amount": "2"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "south",
+										"leaf_amount": "3"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "south",
+										"leaf_amount": "4"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "west",
+										"leaf_amount": "1"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "west",
+										"leaf_amount": "2"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "west",
+										"leaf_amount": "3"
+									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "plantopia:azolla",
+									"Properties": {
+										"facing": "west",
+										"leaf_amount": "4"
+									}
+								},
+								"weight": 2
+							}
+						]
+					}
+				}
+			},
+			"placement": [
+				{
+					"type": "minecraft:block_predicate_filter",
+					"predicate": {
+						"type": "minecraft:matching_blocks",
+						"blocks": "minecraft:air"
+					}
+				}
+			]
+		},
+		"tries": 32,
+		"xz_spread": 3,
+		"y_spread": 0
+	}
+}

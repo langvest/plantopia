@@ -1,6 +1,6 @@
 package by.langvest.plantopia.datagen.adv;
 
-import by.langvest.plantopia.adv.PlantopiaAdvancement;
+import by.langvest.plantopia.adv.special.PlantopiaSimpleAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.adv.trigger.special.PlantopiaBlockInteractTrigger;
 import by.langvest.plantopia.block.PlantopiaBlocks;
@@ -108,7 +108,7 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 
 	/* CRITERIA GENERATION ******************************************/
 
-	private static void addFlowersToCollect(PlantopiaAdvancement advancement) {
+	private static void addFlowersToCollect(PlantopiaSimpleAdvancement advancement) {
 		for(ItemLike itemLike : ALL_FLOWERS) advancement.getBuilder().addCriterion(idOf(itemLike), has(itemLike));
 	}
 

@@ -33,7 +33,7 @@ public abstract class RegistryHelper extends PlatformHelper {
 	public abstract void registerBrewable(Potion inputPotion, @NotNull ItemLike ingredient, Potion outputPotion);
 
 	public void registerPottable(Block plantBlock, @NotNull FlowerPotBlock pottedBlock) {
-		getEmptyFlowerPotBlock().addPlant(getRegistryNameOrThrow(plantBlock), () -> pottedBlock);
+		getEmptyFlowerPotBlock().addPlant(getResourceKeyOrThrow(plantBlock).location(), () -> pottedBlock);
 	}
 
 	public void registerFlammable(Block block, int encouragement, int flammability) {
@@ -136,7 +136,7 @@ public abstract class RegistryHelper extends PlatformHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Optional<ResourceLocation> getRegistryName(Object object) {
+	public <T> Optional<ResourceKey<T>> getResourceKey(T object) {
 		var matches = getKnownRegistries()
 			.values()
 			.stream()
@@ -145,13 +145,13 @@ public abstract class RegistryHelper extends PlatformHelper {
 
 		if(matches.size() != 1) return Optional.empty();
 
-		RegistryAdapter<Object> registry = (RegistryAdapter<Object>) matches.get(0).registry();
+		var registry = (RegistryAdapter<T>) matches.get(0).registry();
 
-		return registry.getKey(object);
+		return registry.getResourceKey(object);
 	}
 
-	public ResourceLocation getRegistryNameOrThrow(Object object) {
-		var registryName = getRegistryName(object);
+	public <T> ResourceKey<T> getResourceKeyOrThrow(T object) {
+		var registryName = getResourceKey(object);
 		if(registryName.isPresent()) return registryName.get();
 		throw new IllegalArgumentException(String.format("Object %s is not registered in any known registry!", object));
 	}

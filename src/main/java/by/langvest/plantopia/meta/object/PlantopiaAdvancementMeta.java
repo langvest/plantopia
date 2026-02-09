@@ -25,7 +25,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 	private final ItemStack icon;
 	private final ResourceLocation group;
 	private final ResourceLocation background;
-	private final RegistryObject<PlantopiaAdvancement> parent;
+	private final RegistryObject<? extends PlantopiaAdvancement> parent;
 	private final boolean showToast;
 	private final boolean announceToChat;
 	private final boolean isHidden;
@@ -141,7 +141,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 		private ItemStack icon = null;
 		private ResourceLocation background = null;
 		private ResourceLocation group = null;
-		private RegistryObject<PlantopiaAdvancement> parent = null;
+		private RegistryObject<? extends PlantopiaAdvancement> parent = null;
 		private boolean showToast = true;
 		private boolean announceToChat = true;
 		private boolean isHidden = false;
@@ -171,7 +171,7 @@ public class PlantopiaAdvancementMeta extends SimpleMetaObject<PlantopiaAdvancem
 			return this;
 		}
 
-		public MetaProperties parent(RegistryObject<PlantopiaAdvancement> parent) {
+		public MetaProperties parent(RegistryObject<? extends PlantopiaAdvancement> parent) {
 			if(type != null && type.equals(MetaType.ROOT)) throw new MetaException.UnableToSet("parent", type);
 			this.parent = parent;
 			return this;

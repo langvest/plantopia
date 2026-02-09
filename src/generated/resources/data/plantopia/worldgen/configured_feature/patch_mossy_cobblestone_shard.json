@@ -1,0 +1,74 @@
+{
+	"type": "minecraft:random_patch",
+	"config": {
+		"feature": {
+			"feature": {
+				"type": "plantopia:natural_block",
+				"config": {
+					"to_place": {
+						"type": "minecraft:weighted_state_provider",
+						"entries": [
+							{
+								"data": {
+									"Name": "plantopia:mossy_cobblestone_shard",
+									"Properties": {
+										"shards": "1",
+										"waterlogged": "false"
+									}
+								},
+								"weight": 100
+							},
+							{
+								"data": {
+									"Name": "plantopia:mossy_cobblestone_shard",
+									"Properties": {
+										"shards": "2",
+										"waterlogged": "false"
+									}
+								},
+								"weight": 76
+							},
+							{
+								"data": {
+									"Name": "plantopia:mossy_cobblestone_shard",
+									"Properties": {
+										"shards": "3",
+										"waterlogged": "false"
+									}
+								},
+								"weight": 46
+							},
+							{
+								"data": {
+									"Name": "plantopia:mossy_cobblestone_shard",
+									"Properties": {
+										"shards": "4",
+										"waterlogged": "false"
+									}
+								},
+								"weight": 9
+							}
+						]
+					}
+				}
+			},
+			"placement": [
+				{
+					"type": "minecraft:block_predicate_filter",
+					"predicate": {
+						"type": "minecraft:matching_blocks",
+						"blocks": [
+							"minecraft:air",
+							"minecraft:grass",
+							"minecraft:water",
+							"minecraft:seagrass"
+						]
+					}
+				}
+			]
+		},
+		"tries": 4,
+		"xz_spread": 1,
+		"y_spread": 1
+	}
+}

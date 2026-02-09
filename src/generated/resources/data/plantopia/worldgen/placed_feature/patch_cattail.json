@@ -1,0 +1,66 @@
+{
+	"feature": "plantopia:patch_cattail",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 5.52
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:clamped",
+				"value": {
+					"max_inclusive": 3,
+					"min_inclusive": 2,
+					"source": {
+						"type": "minecraft:uniform",
+						"value": {
+							"max_inclusive": 3,
+							"min_inclusive": 1
+						}
+					}
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "plantopia:height_range_filter",
+			"max_inclusive": {
+				"below_top": 0
+			},
+			"min_inclusive": {
+				"absolute": 62
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:all_of",
+				"predicates": [
+					{
+						"type": "minecraft:matching_fluids",
+						"fluids": "minecraft:water"
+					},
+					{
+						"type": "minecraft:matching_block_tag",
+						"offset": [
+							0,
+							-1,
+							0
+						],
+						"tag": "minecraft:dirt"
+					}
+				]
+			}
+		}
+	]
+}

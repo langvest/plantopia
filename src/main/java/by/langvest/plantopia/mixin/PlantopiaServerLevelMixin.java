@@ -1,7 +1,7 @@
 package by.langvest.plantopia.mixin;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.special.PlantopiaCoveredSnowdropBlock;
+import by.langvest.plantopia.block.PlantopiaFreezableBlock;
 import by.langvest.plantopia.block.special.PlantopiaQuicksandCauldronBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -9,17 +9,15 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CauldronBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -55,15 +53,26 @@ public abstract class PlantopiaServerLevelMixin {
 		method = "tickChunk(Lnet/minecraft/world/level/chunk/LevelChunk;I)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"
+			target = "Lnet/minecraft/world/level/biome/Biome;shouldFreeze(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z"
 		)
 	)
-	private boolean tickChunk$is(BlockState state, @NotNull Block block) {
-		if(block instanceof SnowLayerBlock) {
-			return state.is(block) || state.is(PlantopiaBlocks.COVERED_SNOWDROP.get());
+	private boolean tickChunk$shouldIce(@NotNull Biome biome, LevelReader levelReader, BlockPos pos) {
+		ServerLevel level = (ServerLevel)(Object) this;
+
+		var state = level.getBlockState(pos);
+		var block = state.getBlock();
+
+		if(block instanceof PlantopiaFreezableBlock freezableBlock) {
+			if(!biome.shouldFreeze(levelReader, pos)) return false;
+
+			var iceState = Blocks.ICE.defaultBlockState();
+
+			freezableBlock.freezeAt(state, iceState, level, pos, 3);
+
+			return false;
 		}
 
-		return state.is(block);
+		return biome.shouldFreeze(levelReader, pos);
 	}
 
 	@Redirect(
@@ -74,41 +83,42 @@ public abstract class PlantopiaServerLevelMixin {
 		)
 	)
 	private boolean tickChunk$shouldSnow(@NotNull Biome biome, LevelReader levelReader, BlockPos pos) {
-		ServerLevel level = (ServerLevel)(Object)this;
-
-		boolean shouldSnow = biome.shouldSnow(levelReader, pos);
-
-		if(!shouldSnow && plantopia$shouldCoverSnowdrop(biome, level, pos)) {
-			var state = level.getBlockState(pos);
-
-			if(state.is(PlantopiaBlocks.COVERED_SNOWDROP.get())) {
-				int snowMaxHeight = level.getGameRules().getInt(GameRules.RULE_SNOW_ACCUMULATION_HEIGHT);
-				int layers = state.getValue(PlantopiaCoveredSnowdropBlock.LAYERS);
-
-				if(layers < Math.min(snowMaxHeight, PlantopiaCoveredSnowdropBlock.MAX_HEIGHT)) {
-					var newState = state.setValue(PlantopiaCoveredSnowdropBlock.LAYERS, layers + 1);
-					Block.pushEntitiesUp(state, newState, level, pos);
-					level.setBlockAndUpdate(pos, newState);
-				}
-			} else {
-				level.setBlockAndUpdate(pos, PlantopiaBlocks.COVERED_SNOWDROP.get().defaultBlockState());
-			}
-
-			return false;
-		}
-
-		return shouldSnow;
-	}
-
-	@Unique
-	private boolean plantopia$shouldCoverSnowdrop(@NotNull Biome biome, @NotNull ServerLevel level, BlockPos pos) {
-		if(biome.warmEnoughToRain(pos)) return false;
-		if(pos.getY() < level.getMinBuildHeight()) return false;
-		if(pos.getY() >= level.getMaxBuildHeight()) return false;
-		if(level.getBrightness(LightLayer.BLOCK, pos) >= 10) return false;
+		ServerLevel level = (ServerLevel)(Object) this;
 
 		var state = level.getBlockState(pos);
+		var block = state.getBlock();
 
-		return state.is(PlantopiaBlocks.SNOWDROP.get()) || state.is(PlantopiaBlocks.COVERED_SNOWDROP.get());
+		if(state.is(PlantopiaBlocks.COVERED_SNOWDROP.get())) {
+			System.out.println(232);
+		}
+
+		if(block instanceof PlantopiaFreezableBlock || block instanceof SnowLayerBlock) {
+			if(!biome.shouldSnow(levelReader, pos)) return false;
+
+			int layers = block instanceof SnowLayerBlock ? state.getValue(SnowLayerBlock.LAYERS) : 0;
+			int snowMaxHeight = level.getGameRules().getInt(GameRules.RULE_SNOW_ACCUMULATION_HEIGHT);
+
+			if(layers >= Math.min(snowMaxHeight, SnowLayerBlock.MAX_HEIGHT)) return false;
+
+			if(block instanceof PlantopiaFreezableBlock freezableBlock) {
+				var snowState = Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layers + 1);
+
+				freezableBlock.freezeAt(state, snowState, level, pos, 3);
+				Block.pushEntitiesUp(state, level.getBlockState(pos), level, pos);
+
+				return false;
+			}
+
+			if(block instanceof SnowLayerBlock) {
+				var newState = state.setValue(SnowLayerBlock.LAYERS, layers + 1);
+
+				level.setBlockAndUpdate(pos, newState);
+				Block.pushEntitiesUp(state, newState, level, pos);
+
+				return false;
+			}
+		}
+
+		return biome.shouldSnow(levelReader, pos);
 	}
 }

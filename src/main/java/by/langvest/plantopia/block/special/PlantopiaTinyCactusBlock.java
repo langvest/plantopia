@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaTinyCactusBlock extends BushBlock implements BonemealableBlock {
@@ -48,11 +47,6 @@ public class PlantopiaTinyCactusBlock extends BushBlock implements BonemealableB
 	@Override
 	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
 		return false;
-	}
-
-	@Override
-	public PlantType getPlantType(BlockGetter level, BlockPos pos) {
-		return PlantType.DESERT;
 	}
 
 	@Override

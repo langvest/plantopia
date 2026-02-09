@@ -1,7 +1,10 @@
 {
 	"variants": {
-		"": {
+		"base=false": {
 			"model": "plantopia:block/branching_shrub"
+		},
+		"base=true": {
+			"model": "plantopia:block/branching_shrub_base"
 		}
 	}
 }

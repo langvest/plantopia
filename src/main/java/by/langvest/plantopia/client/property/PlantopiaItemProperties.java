@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-import static by.langvest.plantopia.misc.PlantopiaItemPropertyTypes.*;
+import static by.langvest.plantopia.client.property.PlantopiaItemPropertyTypes.*;
 
 public class PlantopiaItemProperties {
     private static final Set<Item> LUCKY_DAISY = Sets.newHashSet();

@@ -8,6 +8,7 @@ import by.langvest.plantopia.datagen.model.PlantopiaBlockStateProvider;
 import by.langvest.plantopia.datagen.model.PlantopiaItemModelProvider;
 import by.langvest.plantopia.datagen.recipe.PlantopiaRecipeProvider;
 import by.langvest.plantopia.datagen.sound.PlantopiaSoundProvider;
+import by.langvest.plantopia.datagen.tag.PlantopiaBiomeTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaBlockTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaEntityTypeTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaItemTagProvider;
@@ -32,6 +33,7 @@ public class PlantopiaDataGenerationHandler {
 		generator.addProvider(event.includeServer(), new PlantopiaLootTableProvider(output));
 		generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaAdvancementProvider(output, lookupProvider, existingFileHelper));
+		generator.addProvider(event.includeServer(), new PlantopiaBiomeTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeClient(), new PlantopiaBlockStateProvider(output, existingFileHelper));

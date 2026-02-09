@@ -1,0 +1,82 @@
+{
+	"feature": "plantopia:patch_fireweed",
+	"placement": [
+		{
+			"type": "plantopia:noise_count",
+			"activation": "BELOW",
+			"active_count": 17,
+			"noise_config": {
+				"offset_x": 528,
+				"offset_z": 811,
+				"scale": 1.862
+			},
+			"noise_level": -0.6,
+			"passive_count": 0
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "plantopia:noise_filter",
+			"activation": "BELOW",
+			"erosion_level": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_exclusive": -0.42,
+					"min_inclusive": -0.78
+				}
+			},
+			"noise_config": {
+				"offset_x": 528,
+				"offset_z": 811,
+				"scale": 1.862
+			},
+			"noise_level": -0.6
+		},
+		{
+			"type": "plantopia:noise_filter",
+			"activation": "ABOVE",
+			"erosion_level": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_exclusive": 0.22,
+					"min_inclusive": -0.02
+				}
+			},
+			"noise_config": {
+				"offset_x": 332,
+				"offset_z": 643,
+				"scale": 0.112
+			},
+			"noise_level": 0.1
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "WORLD_SURFACE_WG"
+		},
+		{
+			"type": "plantopia:height_range_filter",
+			"max_inclusive": {
+				"below_top": 0
+			},
+			"min_inclusive": {
+				"absolute": 122
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:would_survive",
+				"state": {
+					"Name": "plantopia:fireweed",
+					"Properties": {
+						"half": "lower"
+					}
+				}
+			}
+		}
+	]
+}

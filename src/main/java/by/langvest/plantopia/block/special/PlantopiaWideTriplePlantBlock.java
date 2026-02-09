@@ -4,11 +4,11 @@ import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -30,62 +30,13 @@ import static by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock.prev
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.getFluidBlockState;
 
-public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsettableBlock, PlantopiaBaseBlockPosGetter {
+public class PlantopiaWideTriplePlantBlock extends BushBlock implements PlantopiaOffsettableBlock, PlantopiaBaseBlockPosGetter, PlantopiaNaturalBlock {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> HALF = PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF;
 	public static final EnumProperty<PlantopiaQuarter> QUARTER = PlantopiaBlockStateProperties.QUARTER;
 
 	public PlantopiaWideTriplePlantBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(stateDefinition.any().setValue(HALF, PlantopiaTripleBlockHalf.LOWER).setValue(QUARTER, PlantopiaQuarter.SOUTH_WEST));
-	}
-
-	@Contract(pure = true)
-	private PlantopiaQuarter getQuarterByPlacementDirection(@NotNull Direction direction) {
-		return switch(direction) {
-			case EAST -> PlantopiaQuarter.WEST_NORTH;
-			case SOUTH -> PlantopiaQuarter.NORTH_EAST;
-			case WEST -> PlantopiaQuarter.EAST_SOUTH;
-			default -> PlantopiaQuarter.SOUTH_WEST;
-		};
-	}
-
-	protected boolean canPlaceInto(@NotNull BlockGetter level, BlockPos pos, @Nullable BlockPlaceContext context) {
-		var state = level.getBlockState(pos);
-		return context != null ? state.canBeReplaced(context) : state.canBeReplaced();
-	}
-
-	protected boolean canManuallyPlaceQuarterColumnAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
-		var skippedPos = context.getClickedPos();
-		var level = context.getLevel();
-		var posAbove1 = pos.above(1);
-		var posAbove2 = pos.above(2);
-
-		return (skippedPos == pos || canPlaceInto(level, pos, context))
-			&& (skippedPos == posAbove1 || canPlaceInto(level, posAbove1, context))
-			&& (skippedPos == posAbove2 || canPlaceInto(level, posAbove2, context));
-	}
-
-	protected boolean canNaturallyPlaceQuarterColumnAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
-		var posAbove1 = pos.above(1);
-		var posAbove2 = pos.above(2);
-
-		return canPlaceInto(level, pos, null)
-			&& canPlaceInto(level, posAbove1, null)
-			&& canPlaceInto(level, posAbove2, null);
-	}
-
-	public boolean canManuallyPlaceAt(@NotNull BlockPlaceContext context, @NotNull BlockPos pos) {
-		return canManuallyPlaceQuarterColumnAt(context, pos)
-			&& canManuallyPlaceQuarterColumnAt(context, pos.north())
-			&& canManuallyPlaceQuarterColumnAt(context, pos.north().east())
-			&& canManuallyPlaceQuarterColumnAt(context, pos.east());
-	}
-
-	public boolean canNaturallyPlaceAt(@NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return canNaturallyPlaceQuarterColumnAt(level, pos)
-			&& canNaturallyPlaceQuarterColumnAt(level, pos.north())
-			&& canNaturallyPlaceQuarterColumnAt(level, pos.north().east())
-			&& canNaturallyPlaceQuarterColumnAt(level, pos.east());
 	}
 
 	@Nullable
@@ -100,7 +51,71 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		var newState = defaultBlockState().setValue(QUARTER, quarter);
 		var baseBlockPos = getBaseBlockPos(newState, pos);
 
-		return canManuallyPlaceAt(context, baseBlockPos) ? newState : null;
+		return canPlaceAt(level, baseBlockPos) ? newState : null;
+	}
+
+	@Contract(pure = true)
+	protected PlantopiaQuarter getQuarterByPlacementDirection(@NotNull Direction direction) {
+		return switch(direction) {
+			case EAST -> PlantopiaQuarter.WEST_NORTH;
+			case SOUTH -> PlantopiaQuarter.NORTH_EAST;
+			case WEST -> PlantopiaQuarter.EAST_SOUTH;
+			default -> PlantopiaQuarter.SOUTH_WEST;
+		};
+	}
+
+	protected boolean canGrowInto(@NotNull LevelAccessor level, BlockPos pos) {
+		return level.getBlockState(pos).canBeReplaced();
+	}
+
+	protected boolean canPlaceQuarterColumnAt(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		var posAbove1 = pos.above(1);
+		var posAbove2 = pos.above(2);
+
+		return canGrowInto(level, pos)
+			&& canGrowInto(level, posAbove1)
+			&& canGrowInto(level, posAbove2);
+	}
+
+	public boolean canPlaceAt(@NotNull LevelAccessor level, @NotNull BlockPos pos) {
+		return canPlaceQuarterColumnAt(level, pos)
+			&& canPlaceQuarterColumnAt(level, pos.north())
+			&& canPlaceQuarterColumnAt(level, pos.north().east())
+			&& canPlaceQuarterColumnAt(level, pos.east());
+	}
+
+	public static void placeAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, int flags) {
+		BlockPos posAbove1 = pos.above(1);
+		BlockPos posAbove2 = pos.above(2);
+
+		placeSliceAt(level, pos, state.setValue(HALF, PlantopiaTripleBlockHalf.LOWER), flags, null);
+		placeSliceAt(level, posAbove1, state.setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL), flags, null);
+		placeSliceAt(level, posAbove2, state.setValue(HALF, PlantopiaTripleBlockHalf.UPPER), flags, null);
+	}
+
+	private static void placeSliceAt(@NotNull LevelAccessor level, @NotNull BlockPos southWestPos, @NotNull BlockState state, int flags, BlockPos skippedPos) {
+		var westNorthPos = southWestPos.north();
+		var northEastPos = westNorthPos.east();
+		var eastSouthPos = northEastPos.south();
+
+		if(skippedPos != southWestPos) level.setBlock(southWestPos, copyWaterloggedFrom(level, southWestPos, state.setValue(QUARTER, PlantopiaQuarter.SOUTH_WEST)), flags);
+		if(skippedPos != westNorthPos) level.setBlock(westNorthPos, copyWaterloggedFrom(level, westNorthPos, state.setValue(QUARTER, PlantopiaQuarter.WEST_NORTH)), flags);
+		if(skippedPos != northEastPos) level.setBlock(northEastPos, copyWaterloggedFrom(level, northEastPos, state.setValue(QUARTER, PlantopiaQuarter.NORTH_EAST)), flags);
+		if(skippedPos != eastSouthPos) level.setBlock(eastSouthPos, copyWaterloggedFrom(level, eastSouthPos, state.setValue(QUARTER, PlantopiaQuarter.EAST_SOUTH)), flags);
+	}
+
+	@Override
+	public boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+		if(!state.canSurvive(level, pos)) return false;
+		if(!canPlaceAt(level, pos)) return false;
+
+		placeAt(level, pos, state, flags);
+
+		return true;
+	}
+
+	public boolean isValidEnvironment(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		return super.canSurvive(state, level, pos);
 	}
 
 	@Override
@@ -118,23 +133,15 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 			var northEastBlockState = level.getBlockState(northEastBlockPos);
 			var eastBlockState = level.getBlockState(eastBlockPos);
 
-			return super.canSurvive(baseBlockState, level, baseBlockPos)
-				&& super.canSurvive(northBlockState, level, northBlockPos)
-				&& super.canSurvive(northEastBlockState, level, northEastBlockPos)
-				&& super.canSurvive(eastBlockState, level, eastBlockPos);
+			return isValidEnvironment(baseBlockState, level, baseBlockPos)
+				&& isValidEnvironment(northBlockState, level, northBlockPos)
+				&& isValidEnvironment(northEastBlockState, level, northEastBlockPos)
+				&& isValidEnvironment(eastBlockState, level, eastBlockPos);
 		}
 
 		var stateBelow = level.getBlockState(pos.below());
 
 		return stateBelow.is(this) && stateBelow.getValue(HALF) != PlantopiaTripleBlockHalf.UPPER;
-	}
-
-	public static void placeAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, int flags) {
-		BlockPos posAbove1 = pos.above(1);
-		BlockPos posAbove2 = pos.above(2);
-		placeSliceAt(level, pos, state.setValue(HALF, PlantopiaTripleBlockHalf.LOWER), flags);
-		placeSliceAt(level, posAbove1, state.setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL), flags);
-		placeSliceAt(level, posAbove2, state.setValue(HALF, PlantopiaTripleBlockHalf.UPPER), flags);
 	}
 
 	/**
@@ -145,24 +152,10 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		BlockPos baseBlockPos = getBaseBlockPos(state, pos);
 		BlockPos baseBlockPosAbove1 = baseBlockPos.above(1);
 		BlockPos baseBlockPosAbove2 = baseBlockPos.above(2);
+
 		placeSliceAt(level, baseBlockPos, state.setValue(HALF, PlantopiaTripleBlockHalf.LOWER), 3, pos);
 		placeSliceAt(level, baseBlockPosAbove1, state.setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL), 3, pos);
 		placeSliceAt(level, baseBlockPosAbove2, state.setValue(HALF, PlantopiaTripleBlockHalf.UPPER), 3, pos);
-	}
-
-	private static void placeSliceAt(@NotNull LevelAccessor level, @NotNull BlockPos southWestPos, @NotNull BlockState state, int flags) {
-		placeSliceAt(level, southWestPos, state, flags, null);
-	}
-
-	private static void placeSliceAt(@NotNull LevelAccessor level, @NotNull BlockPos southWestPos, @NotNull BlockState state, int flags, BlockPos skippedPos) {
-		var westNorthPos = southWestPos.north();
-		var northEastPos = westNorthPos.east();
-		var eastSouthPos = northEastPos.south();
-
-		if(skippedPos != southWestPos) level.setBlock(southWestPos, copyWaterloggedFrom(level, southWestPos, state.setValue(QUARTER, PlantopiaQuarter.SOUTH_WEST)), flags);
-		if(skippedPos != westNorthPos) level.setBlock(westNorthPos, copyWaterloggedFrom(level, westNorthPos, state.setValue(QUARTER, PlantopiaQuarter.WEST_NORTH)), flags);
-		if(skippedPos != northEastPos) level.setBlock(northEastPos, copyWaterloggedFrom(level, northEastPos, state.setValue(QUARTER, PlantopiaQuarter.NORTH_EAST)), flags);
-		if(skippedPos != eastSouthPos) level.setBlock(eastSouthPos, copyWaterloggedFrom(level, eastSouthPos, state.setValue(QUARTER, PlantopiaQuarter.EAST_SOUTH)), flags);
 	}
 
 	/**

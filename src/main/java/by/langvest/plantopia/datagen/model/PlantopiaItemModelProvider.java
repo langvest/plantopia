@@ -5,7 +5,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaLuckyDaisyBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
-import by.langvest.plantopia.misc.PlantopiaItemPropertyTypes;
+import by.langvest.plantopia.client.property.PlantopiaItemPropertyTypes;
 import net.minecraft.client.renderer.block.model.BlockModel.GuiLight;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
