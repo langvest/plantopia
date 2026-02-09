@@ -361,6 +361,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:orange_wildflowers": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:orange_wildflowers"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:pink_clover_blossom": {
 			"conditions": {
 				"items": [
@@ -433,6 +445,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:pink_wildflowers": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:pink_wildflowers"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:purple_lupine": {
 			"conditions": {
 				"items": [
@@ -451,6 +475,18 @@
 					{
 						"items": [
 							"plantopia:purple_mallow"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:purple_wildflowers": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:purple_wildflowers"
 						]
 					}
 				]
@@ -499,6 +535,18 @@
 					{
 						"items": [
 							"plantopia:red_waterlily"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:red_wildflowers": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:red_wildflowers"
 						]
 					}
 				]
@@ -589,6 +637,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:white_wildflowers": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:white_wildflowers"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:yellow_foxglove": {
 			"conditions": {
 				"items": [
@@ -631,6 +691,18 @@
 					{
 						"items": [
 							"plantopia:yellow_waterlily"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:yellow_wildflowers": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:yellow_wildflowers"
 						]
 					}
 				]
@@ -745,6 +817,9 @@
 			"plantopia:orange_foxglove"
 		],
 		[
+			"plantopia:orange_wildflowers"
+		],
+		[
 			"plantopia:pink_clover_blossom"
 		],
 		[
@@ -763,10 +838,16 @@
 			"plantopia:pink_waterlily"
 		],
 		[
+			"plantopia:pink_wildflowers"
+		],
+		[
 			"plantopia:purple_lupine"
 		],
 		[
 			"plantopia:purple_mallow"
+		],
+		[
+			"plantopia:purple_wildflowers"
 		],
 		[
 			"plantopia:red_foxglove"
@@ -779,6 +860,9 @@
 		],
 		[
 			"plantopia:red_waterlily"
+		],
+		[
+			"plantopia:red_wildflowers"
 		],
 		[
 			"plantopia:snowdrop"
@@ -802,6 +886,9 @@
 			"plantopia:white_waterlily"
 		],
 		[
+			"plantopia:white_wildflowers"
+		],
+		[
 			"plantopia:yellow_foxglove"
 		],
 		[
@@ -812,6 +899,9 @@
 		],
 		[
 			"plantopia:yellow_waterlily"
+		],
+		[
+			"plantopia:yellow_wildflowers"
 		]
 	],
 	"rewards": {

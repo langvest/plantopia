@@ -323,6 +323,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.customItem()
 			.makeType("lucky_daisy");
 
+		public static final MetaType WILDFLOWERS = MetaProperties.of(SMALL_FLOWER)
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.makeType("wildflowers");
+
 		public static final MetaType CLOVER = MetaProperties.of(PLANT)
 			.sound(SoundType.AZALEA)
 			.order(PlantopiaOrderType.CLOVER)

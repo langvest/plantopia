@@ -132,6 +132,13 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> WHITE_LUCKY_DAISY = registerBlock("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.LIGHT_GRAY));
 	public static final RegistryObject<Block> PINK_LUCKY_DAISY = registerBlock("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.PINK));
 
+	public static final RegistryObject<Block> RED_WILDFLOWERS = registerBlock("red_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.RED));
+	public static final RegistryObject<Block> ORANGE_WILDFLOWERS = registerBlock("orange_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.ORANGE));
+	public static final RegistryObject<Block> YELLOW_WILDFLOWERS = registerBlock("yellow_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.YELLOW));
+	public static final RegistryObject<Block> WHITE_WILDFLOWERS = registerBlock("white_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.LIGHT_GRAY));
+	public static final RegistryObject<Block> PINK_WILDFLOWERS = registerBlock("pink_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.PINK));
+	public static final RegistryObject<Block> PURPLE_WILDFLOWERS = registerBlock("purple_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.PURPLE));
+
 	public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 
 	static {
