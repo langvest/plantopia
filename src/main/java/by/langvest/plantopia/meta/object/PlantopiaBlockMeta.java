@@ -300,6 +300,12 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.compostable(Compostability.PLANT_2)
 			.makeType("tall_grass");
 
+		public static final MetaType HERB = MetaProperties.of(TALL_GRASS)
+			.dropSelfByShears()
+			.preferredByBees()
+			.compostable(Compostability.PLANT_2 + Compostability.HAS_FLOWERS)
+			.makeType("herb");
+
 		public static final MetaType FLOWER = MetaProperties.of(PLANT)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.order(PlantopiaOrderType.FLOWER)

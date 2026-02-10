@@ -71,7 +71,7 @@ public interface PlantopiaTagProvider<T> {
         return TagKey.create(getRegistryKey(), metaType.getIdentifier().withPrefix(META_TYPE_TAG_PREFIX));
     }
 
-    default PlantopiaTagSet<T> getCachedTagSetOf(Map<SimpleMetaObject.MetaType<?, ?>, PlantopiaTagSet<T>> cache, SimpleMetaObject.@NotNull MetaType<?, ?> metaType) {
+    default PlantopiaTagSet<T> getCachedTagSetOf(@NotNull Map<SimpleMetaObject.MetaType<?, ?>, PlantopiaTagSet<T>> cache, SimpleMetaObject.@NotNull MetaType<?, ?> metaType) {
         return cache.computeIfAbsent(metaType, key -> PlantopiaTagSet.newTagSet());
     }
 

@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaFireweedBlock extends DoublePlantBlock implements PlantopiaPollinableBlock {
-	public PlantopiaFireweedBlock(Properties properties) {
+public class PlantopiaHerbBlock extends DoublePlantBlock implements PlantopiaPollinableBlock {
+	public PlantopiaHerbBlock(Properties properties) {
 		super(properties);
 	}
 

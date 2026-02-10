@@ -56,7 +56,8 @@ public abstract class PlantopiaColors {
 
 			seaShellBlocks();
 			pottedFernBlock(Blocks.POTTED_FERN);
-			fireweedBlock(PlantopiaBlocks.FIREWEED.get());
+			herbBlock(PlantopiaBlocks.FIREWEED.get());
+			herbBlock(PlantopiaBlocks.CHICORY.get());
 			tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
 		});
 	}
@@ -157,7 +158,7 @@ public abstract class PlantopiaColors {
 		});
 	}
 
-	private static void fireweedBlock(@NotNull Block block) {
+	private static void herbBlock(@NotNull Block block) {
 		ITEM_GRASS_COLOR_0.add(block.asItem());
 
 		PlantopiaBlockColors.add(block, (state, level, pos, tintIndex) -> {
