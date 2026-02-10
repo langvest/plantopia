@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class PlantopiaWildflowersBlock extends FlowerBlock {
-	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 7.5D, 14.0D);
+	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 6.5D, 14.0D);
 
 	public PlantopiaWildflowersBlock(Supplier<MobEffect> effectSupplier, int effectDuration, Properties properties) {
 		super(effectSupplier, effectDuration, properties);
