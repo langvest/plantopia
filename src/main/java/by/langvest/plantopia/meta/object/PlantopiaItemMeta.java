@@ -10,6 +10,7 @@ import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.toolkit.meta.SimpleMetaObject;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
@@ -72,11 +73,11 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	}
 
 	public boolean shouldGenerateTranslation() {
-		return type.instanceOf(MetaType.ITEM) && displayNameType != PlantopiaDisplayNameType.NONE && displayNameType != PlantopiaDisplayNameType.CUSTOM;
+		return !type.instanceOf(MetaType.BLOCK) && displayNameType != PlantopiaDisplayNameType.NONE && displayNameType != PlantopiaDisplayNameType.CUSTOM;
 	}
 
 	public boolean shouldGenerateTag() {
-		return type != MetaType.ITEM && tagType != PlantopiaTagType.NONE && tagType != PlantopiaTagType.CUSTOM;
+		return tagType != PlantopiaTagType.NONE && tagType != PlantopiaTagType.CUSTOM;
 	}
 
 	public int getBurnTime() {
@@ -93,7 +94,12 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 	public static class MetaType extends SimpleMetaObject.MetaType<MetaType, MetaProperties> {
 		public static final MetaType ITEM = MetaProperties.create()
+			.noTag()
 			.makeType("item");
+
+		public static final MetaType FOOD = MetaProperties.create()
+			.order(PlantopiaOrderType.FOOD)
+			.makeType("food");
 
 		public static final MetaType BLOCK = MetaProperties.create()
 			.order(PlantopiaOrderType.BLOCK)
@@ -119,6 +125,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 		public static final MetaType ICON = MetaProperties.create()
 			.noGroup()
+			.noDisplayName()
 			.stacksTo(1)
 			.makeType("icon");
 
@@ -165,6 +172,10 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 
 		public MetaProperties stacksTo(int maxStackSize) {
 			return behaviour(properties -> properties.stacksTo(maxStackSize));
+		}
+
+		public MetaProperties food(FoodProperties foodProperties) {
+			return behaviour(properties -> properties.food(foodProperties));
 		}
 
 		public MetaProperties hasCustomRenderer() {

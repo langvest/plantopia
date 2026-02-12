@@ -60,6 +60,7 @@ public class PlantopiaBlocks {
 
 	public static final RegistryObject<Block> FIREWEED = registerBlock("fireweed", PlantopiaHerbBlock::new, MetaProperties.of(MetaType.HERB).customModel().customTint());
 	public static final RegistryObject<Block> CHICORY = registerBlock("chicory", PlantopiaHerbBlock::new, MetaProperties.of(MetaType.HERB).customModel().customTint());
+	public static final RegistryObject<Block> CARROTWEED = registerBlock("carrotweed", PlantopiaHerbBlock::new, MetaProperties.of(MetaType.HERB).customModel().customTint().customDrop());
 
 	public static final RegistryObject<Block> POLLINATED_DANDELION = registerBlock("pollinated_dandelion", PlantopiaPollinatedDandelionBlock::new, MetaProperties.of(MetaType.SMALL_FLOWER).customModel().customDrop().noItem());
 	public static final RegistryObject<Block> FLUFFY_DANDELION = registerBlock("fluffy_dandelion", properties -> new PlantopiaFluffyDandelionBlock(() -> MobEffects.SLOW_FALLING, 7, properties), MetaProperties.of(MetaType.SMALL_FLOWER).ignoredByBees().noColor());

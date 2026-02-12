@@ -51,8 +51,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		generateAll();
 
 		pottedFernBlock(Blocks.POTTED_FERN);
-		fireweedBlock(PlantopiaBlocks.FIREWEED.get());
-		chicoryBlock(PlantopiaBlocks.CHICORY.get());
+		herbBlock(PlantopiaBlocks.FIREWEED.get());
+		herbBlock(PlantopiaBlocks.CHICORY.get());
+		herbBlock(PlantopiaBlocks.CARROTWEED.get());
 		cattailBlock(PlantopiaBlocks.CATTAIL.get());
 		giantFernBlock(PlantopiaBlocks.GIANT_FERN.get());
 		cloverBlock(PlantopiaBlocks.CLOVER.get());
@@ -284,7 +285,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void seaShellBlock(@NotNull PlantopiaBlockMeta blockMeta) {
 		String baseName = blockMeta.getName();
 
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 		var itemTexture = itemTexture(baseName);
 		var itemTextureOverlay = itemTexture(baseName + "_overlay");
 
@@ -302,21 +303,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	/* CUSTOM MODELS GENERATION ******************************************/
 
-	private void fireweedBlock(Block block) {
-		String baseName = nameOf(block);
-
-		var topTexture = texture(baseName + "_top");
-		var flowersTexture = texture(baseName + "_top_flowers");
-		var bottomTexture = texture(baseName + "_bottom");
-
-		var topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, flowersTexture);
-		var bottomModel = tintedCrossModel(baseName + "_bottom", bottomTexture);
-
-		generatedItemModel(baseName, topTexture, flowersTexture);
-		doubleHighBlock(block, topModel, bottomModel);
-	}
-
-	private void chicoryBlock(Block block) {
+	private void herbBlock(Block block) {
 		String baseName = nameOf(block);
 
 		var topTexture = texture(baseName + "_top");
@@ -324,8 +311,25 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var bottomTexture = texture(baseName + "_bottom");
 		var bottomFlowersTexture = texture(baseName + "_bottom_flowers");
 
-		var topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, topFlowersTexture);
-		var bottomModel = tintedCrossWithOverlayModel(baseName + "_bottom", bottomTexture, bottomFlowersTexture);
+		var topModelLocation = plantopia(ModelProvider.BLOCK_FOLDER, baseName + "_top");
+		var bottomModelLocation = plantopia(ModelProvider.BLOCK_FOLDER, baseName + "_bottom");
+
+		ModelFile topModel;
+		ModelFile bottomModel;
+
+		if(isModelExists(topModelLocation)) {
+			topModel = existingModel(topModelLocation);
+		} else {
+			topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, topFlowersTexture);
+		}
+
+		if(isModelExists(bottomModelLocation)) {
+			bottomModel = existingModel(bottomModelLocation);
+		} else if(isTextureExists(bottomFlowersTexture)) {
+			bottomModel = tintedCrossWithOverlayModel(baseName + "_bottom", bottomTexture, bottomFlowersTexture);
+		} else {
+			bottomModel = tintedCrossModel(baseName + "_bottom", bottomTexture);
+		}
 
 		generatedItemModel(baseName, topTexture, topFlowersTexture);
 		doubleHighBlock(block, topModel, bottomModel);
@@ -396,10 +400,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = nameOf(block);
 
 		generatedItemModel(baseName, texture(baseName));
-		simpleBlock(block, existingModel(baseName));
+		simpleBlock(block, existingPlantopiaModel(baseName));
 
 		pottedBlockOf(block).ifPresent(pottedBlock -> {
-			simpleBlock(pottedBlock, existingModel(nameOf(pottedBlock)));
+			simpleBlock(pottedBlock, existingPlantopiaModel(nameOf(pottedBlock)));
 		});
 	}
 
@@ -528,7 +532,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = nameOf(block);
 
 		var fullPetalsTexture = texture(baseName + "_petals_" + PlantopiaLuckyDaisyBlock.MAX_PETALS);
-		var stemModel = existingModel("lucky_daisy_stem");
+		var stemModel = existingPlantopiaModel("lucky_daisy_stem");
 
 		getVariantBuilder(block).forAllStates(state -> {
 			var amount = state.getValue(PlantopiaLuckyDaisyBlock.AMOUNT);
@@ -567,7 +571,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void seaweedBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 
 		blockItemModel(baseName, model);
 		horizontalBlock(block, model);
@@ -577,7 +581,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		String baseName = nameOf(block);
 
 		var plantTexture = texture(baseName);
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 
 		generatedItemModel(baseName, plantTexture);
 		simpleBlock(block, model);
@@ -596,7 +600,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 				return ConfiguredModel.builder().modelFile(blockModel(Blocks.SNOW_BLOCK)).build();
 			}
 
-			return ConfiguredModel.builder().modelFile(minecraftExistingModel(nameOf(Blocks.SNOW) + "_height" + (layers * 2))).build();
+			var snowModel = existingMinecraftModel(nameOf(Blocks.SNOW) + "_height" + (layers * 2));
+
+			return ConfiguredModel.builder().modelFile(snowModel).build();
 		});
 	}
 
@@ -624,7 +630,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		var snowySideTexture = texture(baseName + "_snow");
 		var bottomTexture = texture(nameOf(PlantopiaBlocks.INFESTED_DIRT));
 
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 
 		var snowyModel = cubeBottomTopModel(baseName + "_snow", topTexture, snowySideTexture, bottomTexture)
 			.texture("particle", bottomTexture);
@@ -680,7 +686,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void quicksandBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 
 		rotatedBlock(block, model);
 	}
@@ -722,7 +728,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void smallPlatterleafBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 
 		rotatedBlock(block, model);
 	}
@@ -730,7 +736,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	private void bigPlatterleafBlock(Block block) {
 		String baseName = nameOf(block);
 
-		var model = existingModel(baseName);
+		var model = existingPlantopiaModel(baseName);
 
 		getVariantBuilder(block).forAllStates(state -> {
 			PlantopiaQuarter quarter = state.getValue(PlantopiaBigPlatterleafBlock.QUARTER);
@@ -824,7 +830,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 			for(int i = value; i <= maxValue; i++) values.add(i);
 
-			var model = existingModel(baseName + "_" + value);
+			var model = existingPlantopiaModel(baseName + "_" + value);
 
 			HORIZONTAL_DIRECTIONS.forEach(direction ->
 				builder.part()
@@ -882,13 +888,18 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 	/* BLOCK MODELS ******************************************/
 
 	@Contract("_ -> new")
-	private @NotNull ModelFile.ExistingModelFile existingModel(String name) {
-		return models().getExistingFile(plantopia(name));
+	private @NotNull ModelFile.ExistingModelFile existingPlantopiaModel(String name) {
+		return existingModel(plantopia(name));
 	}
 
 	@Contract("_ -> new")
-	private @NotNull ModelFile.ExistingModelFile minecraftExistingModel(String name) {
+	private @NotNull ModelFile.ExistingModelFile existingMinecraftModel(String name) {
 		return models().getExistingFile(minecraft(name));
+	}
+
+	@Contract("_ -> new")
+	private @NotNull ModelFile.ExistingModelFile existingModel(ResourceLocation location) {
+		return models().getExistingFile(location);
 	}
 
 	private ModelFile.ExistingModelFile blockModel(@NotNull Block block) {

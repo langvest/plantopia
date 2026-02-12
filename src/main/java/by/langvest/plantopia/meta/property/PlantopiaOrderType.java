@@ -9,6 +9,7 @@ public enum PlantopiaOrderType {
 	WET_PLANT,
 	EXOTIC_PLANT,
 	FLOWER,
+	FOOD,
 	ITEM;
 
 	private static int counter = 0;
