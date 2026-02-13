@@ -3,6 +3,7 @@ package by.langvest.plantopia.handler;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.toolkit.event.*;
 import by.langvest.toolkit.event.client.RegisterColorsEvent;
+import by.langvest.toolkit.event.client.RegisterItemPropertiesEvent;
 import by.langvest.toolkit.event.client.RegisterParticleProvidersEvent;
 import by.langvest.toolkit.event.client.RegisterRenderLayersEvent;
 import by.langvest.toolkit.event.client.RegisterRenderersEvent;
@@ -16,8 +17,12 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -34,6 +39,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.minecraft;
 
 @Mod.EventBusSubscriber(modid = Plantopia.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class PlantopiaClientSetupHandler {
@@ -58,6 +65,33 @@ public class PlantopiaClientSetupHandler {
 				@Override
 				public void register(Item item, BlockEntityWithoutLevelRenderer renderer) {
 					PlantopiaClientSetupHandler.setItemRenderer(item, renderer);
+				}
+			});
+
+			globalEmitter.emit(new RegisterItemPropertiesEvent() {
+				@Override
+				public void registerCustomModelData(ItemPropertyFunction property) {
+					ItemProperties.registerGeneric(minecraft("custom_model_data"), property);
+				}
+
+				@Override
+				public void registerGeneric(ResourceLocation propertyIdentifier, ClampedItemPropertyFunction property) {
+					ItemProperties.registerGeneric(propertyIdentifier, property);
+				}
+
+				@Override
+				public void registerGeneric(ResourceLocation propertyIdentifier, ItemPropertyFunction property) {
+					ItemProperties.registerGeneric(propertyIdentifier, property);
+				}
+
+				@Override
+				public void register(Item item, ResourceLocation propertyIdentifier, ClampedItemPropertyFunction property) {
+					ItemProperties.register(item, propertyIdentifier, property);
+				}
+
+				@Override
+				public void register(Item item, ResourceLocation propertyIdentifier, ItemPropertyFunction property) {
+					ItemProperties.register(item, propertyIdentifier, property);
 				}
 			});
 		});

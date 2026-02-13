@@ -29,16 +29,17 @@ public class PlantopiaDataGenerationHandler {
 		var output = generator.getPackOutput();
 
 		generator.addProvider(event.includeServer(), new PlantopiaRecipeProvider(output));
-		generator.addProvider(event.includeClient(), new PlantopiaLanguageProvider(output));
 		generator.addProvider(event.includeServer(), new PlantopiaLootTableProvider(output));
 		generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaAdvancementProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaBiomeTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, lookupProvider, existingFileHelper));
 		generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, lookupProvider, existingFileHelper));
+
 		generator.addProvider(event.includeClient(), new PlantopiaBlockStateProvider(output, existingFileHelper));
 		generator.addProvider(event.includeClient(), new PlantopiaItemModelProvider(output, existingFileHelper));
 		generator.addProvider(event.includeClient(), new PlantopiaSoundProvider(output, existingFileHelper));
 		generator.addProvider(event.includeClient(), new PlantopiaWorldGenProvider(output, lookupProvider));
+		generator.addProvider(event.includeClient(), new PlantopiaLanguageProvider(output));
 	}
 }
