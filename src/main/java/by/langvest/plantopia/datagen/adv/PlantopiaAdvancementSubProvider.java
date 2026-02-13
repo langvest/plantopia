@@ -42,11 +42,11 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 		PlantopiaAdvancements.ROOT.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
-			.addCriterion(getHasName(ItemTags.DIRT), has(ItemTags.DIRT))
-			.addCriterion(getHasName(ItemTags.SAND), has(ItemTags.SAND))
-			.addCriterion(getHasName(ItemTags.LOGS), has(ItemTags.LOGS))
-			.addCriterion(getHasName(ItemTags.FLOWERS), has(ItemTags.FLOWERS))
-			.addCriterion(getHasName(Items.GRAVEL), has(Items.GRAVEL));
+			.addCriterion(hasName(ItemTags.DIRT), has(ItemTags.DIRT))
+			.addCriterion(hasName(ItemTags.SAND), has(ItemTags.SAND))
+			.addCriterion(hasName(ItemTags.LOGS), has(ItemTags.LOGS))
+			.addCriterion(hasName(ItemTags.FLOWERS), has(ItemTags.FLOWERS))
+			.addCriterion(hasName(Items.GRAVEL), has(Items.GRAVEL));
 
 		PlantopiaAdvancements.COLLECT_ALL_FLOWERS.get()
 			.apply(PlantopiaAdvancementSubProvider::addFlowersToCollect)
@@ -56,25 +56,29 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 		PlantopiaAdvancements.PLACE_HOGWEED.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
-			.addCriterion(getPlaceName(PlantopiaBlocks.HOGWEED.get()), place(PlantopiaBlocks.HOGWEED.get()))
-			.addCriterion(getPlaceName(PlantopiaBlocks.INFESTED_DIRT.get()), place(PlantopiaBlocks.INFESTED_DIRT.get()))
-			.addCriterion(getPlaceName(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()), place(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()));
+			.addCriterion(placeName(PlantopiaBlocks.HOGWEED.get()), place(PlantopiaBlocks.HOGWEED.get()))
+			.addCriterion(placeName(PlantopiaBlocks.INFESTED_DIRT.get()), place(PlantopiaBlocks.INFESTED_DIRT.get()))
+			.addCriterion(placeName(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()), place(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get()));
 
 		PlantopiaAdvancements.PLACE_COBBLESTONE_SHARD_PET.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
-			.addCriterion(getPlaceName(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()))
-			.addCriterion(getPlaceName(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()));
+			.addCriterion(placeName(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get()))
+			.addCriterion(placeName(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()), place(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get()));
 
 		PlantopiaAdvancements.WALK_ON_QUICKSAND_WITH_LEATHER_BOOTS.get()
 			.getBuilder()
-			.addCriterion(getWalkOnBlockWithEquipmentName(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS), walkOnBlockWithEquipment(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS));
+			.addCriterion(walkOnBlockWithEquipmentName(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS), walkOnBlockWithEquipment(PlantopiaBlocks.QUICKSAND.get(), Items.LEATHER_BOOTS));
 
 		PlantopiaAdvancements.PLUCK_LUCKY_DAISY_PETAL.get()
 			.getBuilder()
 			.requirements(RequirementsStrategy.OR)
-			.addCriterion(getInteractWithName(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()))
-			.addCriterion(getInteractWithName(PlantopiaBlocks.PINK_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.PINK_LUCKY_DAISY.get()));
+			.addCriterion(interactWithName(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.WHITE_LUCKY_DAISY.get()))
+			.addCriterion(interactWithName(PlantopiaBlocks.PINK_LUCKY_DAISY.get()), interactWith(PlantopiaBlocks.PINK_LUCKY_DAISY.get()));
+
+		PlantopiaAdvancements.OBTAIN_TANSY.get()
+				.getBuilder()
+				.addCriterion(hasName(PlantopiaBlocks.TANSY.get()), has(PlantopiaBlocks.TANSY.get()));
 
 		saveAll();
 	}
@@ -114,23 +118,23 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 
 	/* HELPER METHODS ******************************************/
 
-	private static @NotNull String getInteractWithName(@NotNull Block block) {
+	private static @NotNull String interactWithName(@NotNull Block block) {
 		return "interact_with_" + nameOf(block);
 	}
 
-	private static @NotNull String getHasName(@NotNull ItemLike item) {
+	private static @NotNull String hasName(@NotNull ItemLike item) {
 		return "has_" + nameOf(item.asItem());
 	}
 
-	private static @NotNull String getPlaceName(@NotNull Block block) {
+	private static @NotNull String placeName(@NotNull Block block) {
 		return "place_" + nameOf(block);
 	}
 
-	private static @NotNull String getHasName(@NotNull TagKey<Item> tag) {
+	private static @NotNull String hasName(@NotNull TagKey<Item> tag) {
 		return "has_" + nameOf(tag);
 	}
 
-	private static @NotNull String getWalkOnBlockWithEquipmentName(@NotNull Block block, @NotNull Item item) {
+	private static @NotNull String walkOnBlockWithEquipmentName(@NotNull Block block, @NotNull Item item) {
 		return "walk_on_" + nameOf(block) + "_with_" + nameOf(item);
 	}
 

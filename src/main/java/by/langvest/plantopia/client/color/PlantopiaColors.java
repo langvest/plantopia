@@ -59,6 +59,7 @@ public abstract class PlantopiaColors {
 			herbBlock(PlantopiaBlocks.FIREWEED.get());
 			herbBlock(PlantopiaBlocks.CHICORY.get());
 			herbBlock(PlantopiaBlocks.CARROTWEED.get());
+			herbBlock(PlantopiaBlocks.TANSY.get());
 			tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
 		});
 	}

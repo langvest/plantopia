@@ -51,9 +51,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		generateAll();
 
 		pottedFernBlock(Blocks.POTTED_FERN);
-		herbBlock(PlantopiaBlocks.FIREWEED.get());
-		herbBlock(PlantopiaBlocks.CHICORY.get());
-		herbBlock(PlantopiaBlocks.CARROTWEED.get());
 		cattailBlock(PlantopiaBlocks.CATTAIL.get());
 		giantFernBlock(PlantopiaBlocks.GIANT_FERN.get());
 		cloverBlock(PlantopiaBlocks.CLOVER.get());
@@ -114,6 +111,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 			var block = blockMeta.get();
 			var type = blockMeta.getType();
+
+			if(block instanceof PlantopiaHerbBlock) {
+				herbBlock(blockMeta);
+				return;
+			}
 
 			if(block instanceof PlantopiaSeaShellBlock) {
 				seaShellBlock(blockMeta);
@@ -301,10 +303,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 			);
 	}
 
-	/* CUSTOM MODELS GENERATION ******************************************/
-
-	private void herbBlock(Block block) {
-		String baseName = nameOf(block);
+	private void herbBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+		String baseName = blockMeta.getName();
 
 		var topTexture = texture(baseName + "_top");
 		var topFlowersTexture = texture(baseName + "_top_flowers");
@@ -332,8 +332,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		}
 
 		generatedItemModel(baseName, topTexture, topFlowersTexture);
-		doubleHighBlock(block, topModel, bottomModel);
+		doubleHighBlock(blockMeta.get(), topModel, bottomModel);
 	}
+
+	/* CUSTOM MODELS GENERATION ******************************************/
 
 	private void cattailBlock(Block block) {
 		String baseName = nameOf(block);

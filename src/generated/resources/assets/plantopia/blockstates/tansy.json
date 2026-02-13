@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"half=lower": {
+			"model": "plantopia:block/tansy_bottom"
+		},
+		"half=upper": {
+			"model": "plantopia:block/tansy_top"
+		}
+	}
+}
