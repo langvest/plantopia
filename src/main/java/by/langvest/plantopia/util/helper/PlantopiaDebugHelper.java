@@ -1,10 +1,12 @@
 package by.langvest.plantopia.util.helper;
 
+import by.langvest.plantopia.Plantopia;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.*;
@@ -37,6 +39,15 @@ public final class PlantopiaDebugHelper {
 
 	public static void logChat(@NotNull Object object) {
 		logChat(Component.literal(object.toString()));
+	}
+
+	public static void logConsole(String message) {
+		var logger = Plantopia.getPlatform().getLogger();
+		logger.log(Level.INFO, message);
+	}
+
+	public static void logConsole(@NotNull Object object) {
+		logConsole(object.toString());
 	}
 
 	public static void logChat(Component message) {
