@@ -71,8 +71,15 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> TINY_CACTUS = registerBlock("tiny_cactus", PlantopiaTinyCactusBlock::new, MetaProperties.of(MetaType.TINY_CACTUS));
 	public static final RegistryObject<Block> FLOWERING_TINY_CACTUS = registerBlock("flowering_tiny_cactus", PlantopiaTinyCactusBlock::new, MetaProperties.of(MetaType.TINY_CACTUS));
 
-	public static final RegistryObject<Block> QUICKSAND = registerBlock("quicksand", PlantopiaQuicksandBlock::new, MetaProperties.of(MetaType.SAND).behaviour(properties -> properties.forceSolidOn().isRedstoneConductor(PlantopiaBlocks::never)).hasDynamicShape().noItem().noDrop().customModel());
+	public static final RegistryObject<Block> QUICKSAND = registerBlock("quicksand", PlantopiaQuicksandBlock::new, MetaProperties.of(MetaType.SAND).modifyBehaviour(properties -> properties.forceSolidOn().isRedstoneConductor(PlantopiaBlocks::never)).hasDynamicShape().noItem().noDrop().customModel());
 	public static final RegistryObject<Block> QUICKSAND_CAULDRON = registerBlock("quicksand_cauldron", properties -> new PlantopiaQuicksandCauldronBlock(PlantopiaBlocks.QUICKSAND, properties), MetaProperties.of(MetaType.CAULDRON).noItem().customModel());
+
+	public static final RegistryObject<Block> RED_WILDFLOWERS = registerBlock("red_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.RED));
+	public static final RegistryObject<Block> ORANGE_WILDFLOWERS = registerBlock("orange_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.ORANGE));
+	public static final RegistryObject<Block> YELLOW_WILDFLOWERS = registerBlock("yellow_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.YELLOW));
+	public static final RegistryObject<Block> WHITE_WILDFLOWERS = registerBlock("white_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.LIGHT_GRAY));
+	public static final RegistryObject<Block> PINK_WILDFLOWERS = registerBlock("pink_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.PINK));
+	public static final RegistryObject<Block> PURPLE_WILDFLOWERS = registerBlock("purple_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.PURPLE));
 
 	public static final RegistryObject<Block> RED_FOXGLOVE = registerBlock("red_foxglove", PlantopiaFoxgloveBlock::new, MetaProperties.of(MetaType.TALL_FLOWER).customModel().color(DyeColor.RED));
 	public static final RegistryObject<Block> ORANGE_FOXGLOVE = registerBlock("orange_foxglove", PlantopiaFoxgloveBlock::new, MetaProperties.of(MetaType.TALL_FLOWER).customModel().color(DyeColor.ORANGE));
@@ -133,13 +140,6 @@ public class PlantopiaBlocks {
 
 	public static final RegistryObject<Block> WHITE_LUCKY_DAISY = registerBlock("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.LIGHT_GRAY));
 	public static final RegistryObject<Block> PINK_LUCKY_DAISY = registerBlock("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.PINK));
-
-	public static final RegistryObject<Block> RED_WILDFLOWERS = registerBlock("red_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.RED));
-	public static final RegistryObject<Block> ORANGE_WILDFLOWERS = registerBlock("orange_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.ORANGE));
-	public static final RegistryObject<Block> YELLOW_WILDFLOWERS = registerBlock("yellow_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.YELLOW));
-	public static final RegistryObject<Block> WHITE_WILDFLOWERS = registerBlock("white_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.LIGHT_GRAY));
-	public static final RegistryObject<Block> PINK_WILDFLOWERS = registerBlock("pink_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.PINK));
-	public static final RegistryObject<Block> PURPLE_WILDFLOWERS = registerBlock("purple_wildflowers", properties -> new PlantopiaWildflowersBlock(() -> MobEffects.WEAKNESS, 6, properties), MetaProperties.of(MetaType.WILDFLOWERS).color(DyeColor.PURPLE));
 
 	public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 

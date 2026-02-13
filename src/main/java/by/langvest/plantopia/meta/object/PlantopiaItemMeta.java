@@ -159,23 +159,27 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 			return new MetaType(name, this);
 		}
 
-		public MetaProperties behaviour(Supplier<Item.Properties> properties) {
+		public MetaProperties modifyBehaviour(Supplier<Item.Properties> properties) {
 			this.behaviourProperties = properties;
 			return this;
 		}
 
-		public MetaProperties behaviour(Function<Item.Properties, Item.Properties> properties) {
+		public MetaProperties resetBehaviour() {
+			return modifyBehaviour(Item.Properties::new);
+		}
+
+		public MetaProperties modifyBehaviour(Function<Item.Properties, Item.Properties> properties) {
 			var prevBehaviourProperties = this.behaviourProperties;
 			this.behaviourProperties = () -> properties.apply(prevBehaviourProperties.get());
 			return this;
 		}
 
 		public MetaProperties stacksTo(int maxStackSize) {
-			return behaviour(properties -> properties.stacksTo(maxStackSize));
+			return modifyBehaviour(properties -> properties.stacksTo(maxStackSize));
 		}
 
 		public MetaProperties food(FoodProperties foodProperties) {
-			return behaviour(properties -> properties.food(foodProperties));
+			return modifyBehaviour(properties -> properties.food(foodProperties));
 		}
 
 		public MetaProperties hasCustomRenderer() {

@@ -368,34 +368,34 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.makeType("mushroom_plant");
 
 		public static final MetaType MUSHROOM_STEM = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.MUSHROOM_STEM))
+			.copyBehaviour(Blocks.MUSHROOM_STEM)
 			.compostable(Compostability.MUSHROOM_STEM)
 			.makeType("mushroom_stem");
 
 		public static final MetaType MUSHROOM_BLOCK = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.BROWN_MUSHROOM_BLOCK))
+			.copyBehaviour(Blocks.BROWN_MUSHROOM_BLOCK)
 			.compostable(Compostability.MUSHROOM_BLOCK)
 			.makeType("mushroom_block");
 
 		public static final MetaType POTTED = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.FLOWER_POT))
+			.copyBehaviour(Blocks.FLOWER_POT)
 			.cutoutRender()
 			.noItem()
 			.notTintedParticles()
 			.makeType("potted");
 
 		public static final MetaType LEAVES = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES))
+			.copyBehaviour(Blocks.OAK_LEAVES)
 			.cutoutMippedRender()
 			.flammable(Encouragement.LEAVES, Flammability.LEAVES)
 			.makeType("leaves");
 
 		public static final MetaType STONE = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.STONE))
+			.copyBehaviour(Blocks.STONE)
 			.makeType("stone");
 
 		public static final MetaType COBBLESTONE_SHARD = MetaProperties.of(STONE)
-			.behaviour(BlockBehaviour.Properties::of)
+			.resetBehaviour()
 			.sound(SoundType.DRIPSTONE_BLOCK)
 			.strength(0.2F)
 			.pushReaction(PushReaction.DESTROY)
@@ -403,40 +403,40 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.makeType("cobblestone_shard");
 
 		public static final MetaType SAND = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.SAND))
+			.copyBehaviour(Blocks.SAND)
 			.makeType("sand");
 
 		public static final MetaType WOOD = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.OAK_WOOD))
+			.copyBehaviour(Blocks.OAK_WOOD)
 			.flammable(Encouragement.WOOD, Flammability.WOOD)
 			.makeType("wood");
 
 		public static final MetaType LOG = MetaProperties.of(WOOD)
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.OAK_LOG))
+			.copyBehaviour(Blocks.OAK_LOG)
 			.makeType("log");
 
 		public static final MetaType PLANKS = MetaProperties.of(WOOD)
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS))
+			.copyBehaviour(Blocks.OAK_PLANKS)
 			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
 			.makeType("planks");
 
 		public static final MetaType DIRT = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.DIRT))
+			.copyBehaviour(Blocks.DIRT)
 			.makeType("dirt");
 
 		public static final MetaType GRASS_BLOCK = MetaProperties.of(DIRT)
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK))
+			.copyBehaviour(Blocks.GRASS_BLOCK)
 			.cutoutMippedRender()
 			.grassTint()
 			.notTintedParticles()
 			.makeType("grass_block");
 
 		public static final MetaType IRON = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK))
+			.copyBehaviour(Blocks.IRON_BLOCK)
 			.makeType("iron");
 
 		public static final MetaType CAULDRON = MetaProperties.of(IRON)
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.CAULDRON))
+			.copyBehaviour(Blocks.CAULDRON)
 			.makeType("cauldron");
 
 		public static final MetaType SEA_SHELL = MetaProperties.create()
@@ -451,11 +451,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.makeType("sea_shell");
 
 		public static final MetaType SNOW = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.SNOW))
+			.copyBehaviour(Blocks.SNOW)
 			.makeType("snow");
 
 		public static final MetaType ICE = MetaProperties.create()
-			.behaviour(() -> BlockBehaviour.Properties.copy(Blocks.ICE))
+			.copyBehaviour(Blocks.ICE)
 			.makeType("ice");
 
 		private MetaType(String name, MetaProperties properties) {
@@ -513,114 +513,122 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			return new MetaType(name, this);
 		}
 
-		public MetaProperties behaviour(Supplier<BlockBehaviour.Properties> properties) {
+		public MetaProperties modifyBehaviour(Supplier<BlockBehaviour.Properties> properties) {
 			this.behaviourProperties = properties;
 			return this;
 		}
 
-		public MetaProperties behaviour(Function<BlockBehaviour.Properties, BlockBehaviour.Properties> properties) {
+		public MetaProperties modifyBehaviour(Function<BlockBehaviour.Properties, BlockBehaviour.Properties> properties) {
 			var prevBehaviourProperties = this.behaviourProperties;
 			this.behaviourProperties = () -> properties.apply(prevBehaviourProperties.get());
 			return this;
 		}
 
+		public MetaProperties copyBehaviour(Block block) {
+			return modifyBehaviour(() -> BlockBehaviour.Properties.copy(block));
+		}
+
+		public MetaProperties resetBehaviour() {
+			return modifyBehaviour(BlockBehaviour.Properties::of);
+		}
+
 		public MetaProperties randomlyTicking() {
-			return behaviour(BlockBehaviour.Properties::randomTicks);
+			return modifyBehaviour(BlockBehaviour.Properties::randomTicks);
 		}
 
 		public MetaProperties notRandomlyTicking() {
-			return behaviour(properties -> {
+			return modifyBehaviour(properties -> {
 				properties.isRandomlyTicking = false;
 				return properties;
 			});
 		}
 
 		public MetaProperties strength(float strength) {
-			return behaviour(properties -> properties.strength(strength));
+			return modifyBehaviour(properties -> properties.strength(strength));
 		}
 
 		public MetaProperties instabreak() {
-			return behaviour(BlockBehaviour.Properties::instabreak);
+			return modifyBehaviour(BlockBehaviour.Properties::instabreak);
 		}
 
 		public MetaProperties mapColor(DyeColor mapColor) {
-			return behaviour(properties -> properties.mapColor(mapColor));
+			return modifyBehaviour(properties -> properties.mapColor(mapColor));
 		}
 
 		public MetaProperties mapColor(MapColor mapColor) {
-			return behaviour(properties -> properties.mapColor(mapColor));
+			return modifyBehaviour(properties -> properties.mapColor(mapColor));
 		}
 
 		public MetaProperties mapColor(Function<BlockState, MapColor> mapColor) {
-			return behaviour(properties -> properties.mapColor(mapColor));
+			return modifyBehaviour(properties -> properties.mapColor(mapColor));
 		}
 
 		public MetaProperties sound(SoundType soundType) {
-			return behaviour(properties -> properties.sound(soundType));
+			return modifyBehaviour(properties -> properties.sound(soundType));
 		}
 
 		public MetaProperties offsetType(BlockBehaviour.OffsetType offsetType) {
-			return behaviour(properties -> properties.offsetType(offsetType));
+			return modifyBehaviour(properties -> properties.offsetType(offsetType));
 		}
 
 		public MetaProperties pushReaction(PushReaction pushReaction) {
-			return behaviour(properties -> properties.pushReaction(pushReaction));
+			return modifyBehaviour(properties -> properties.pushReaction(pushReaction));
 		}
 
 		public MetaProperties replaceable() {
-			return behaviour(BlockBehaviour.Properties::replaceable);
+			return modifyBehaviour(BlockBehaviour.Properties::replaceable);
 		}
 
 		public MetaProperties instrument(NoteBlockInstrument instrument) {
-			return behaviour(properties -> properties.instrument(instrument));
+			return modifyBehaviour(properties -> properties.instrument(instrument));
 		}
 
 		public MetaProperties notReplaceable() {
-			return behaviour(properties -> {
+			return modifyBehaviour(properties -> {
 				properties.replaceable = false;
 				return properties;
 			});
 		}
 
 		public MetaProperties ignitedByLava() {
-			return behaviour(BlockBehaviour.Properties::ignitedByLava);
+			return modifyBehaviour(BlockBehaviour.Properties::ignitedByLava);
 		}
 
 		public MetaProperties notIgnitedByLava() {
-			return behaviour(properties -> {
+			return modifyBehaviour(properties -> {
 				properties.ignitedByLava = false;
 				return properties;
 			});
 		}
 
 		public MetaProperties hasOcclusion() {
-			return behaviour(properties -> {
+			return modifyBehaviour(properties -> {
 				properties.canOcclude = true;
 				return properties;
 			});
 		}
 
 		public MetaProperties noOcclusion() {
-			return behaviour(BlockBehaviour.Properties::noOcclusion);
+			return modifyBehaviour(BlockBehaviour.Properties::noOcclusion);
 		}
 
 		public MetaProperties hasCollision() {
-			return behaviour(properties -> {
+			return modifyBehaviour(properties -> {
 				properties.hasCollision = true;
 				return properties;
 			});
 		}
 
 		public MetaProperties noCollision() {
-			return behaviour(BlockBehaviour.Properties::noCollission);
+			return modifyBehaviour(BlockBehaviour.Properties::noCollission);
 		}
 
 		public MetaProperties hasDynamicShape() {
-			return behaviour(BlockBehaviour.Properties::dynamicShape);
+			return modifyBehaviour(BlockBehaviour.Properties::dynamicShape);
 		}
 
 		public MetaProperties noDynamicShape() {
-			return behaviour(properties -> {
+			return modifyBehaviour(properties -> {
 				properties.dynamicShape = false;
 				return properties;
 			});
