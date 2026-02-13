@@ -12,13 +12,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer {
 	private final List<ItemLike> allFlowers = PlantopiaContentHelper.getAllFlowers();
+	private final List<ItemLike> allHerbs = PlantopiaContentHelper.getAllHerbs();
+	private final List<ItemLike> allMushrooms = PlantopiaContentHelper.getAllMushrooms();
+
 	private static PlantopiaItemStuckRenderer instance;
 
 	@SuppressWarnings("DataFlowIssue")
@@ -36,14 +38,28 @@ public class PlantopiaItemStuckRenderer extends BlockEntityWithoutLevelRenderer 
 
 	@Override
 	public void renderByItem(@NotNull ItemStack itemStack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
-		int inGameTick = PlantopiaTickHelper.getInGameTick();
-		Level level = Minecraft.getInstance().level;
-
 		if(itemStack.is(PlantopiaItems.FLOWERS_ICON.get())) {
-			poseStack.translate(0.5F, 0.5f, 0.5f);
-			int index = (inGameTick / 20) % allFlowers.size();
-			ItemStack flowerItem = allFlowers.get(index).asItem().getDefaultInstance();
-			Minecraft.getInstance().getItemRenderer().renderStatic(flowerItem, displayContext, packedLight, packedOverlay, poseStack, buffer, level, 0);
+			renderCollectionItem(allFlowers, displayContext, poseStack, buffer, packedLight, packedOverlay);
+			return;
 		}
+
+		if(itemStack.is(PlantopiaItems.HERBS_ICON.get())) {
+			renderCollectionItem(allHerbs, displayContext, poseStack, buffer, packedLight, packedOverlay);
+			return;
+		}
+
+		if(itemStack.is(PlantopiaItems.MUSHROOMS_ICON.get())) {
+			renderCollectionItem(allMushrooms, displayContext, poseStack, buffer, packedLight, packedOverlay);
+		}
+	}
+
+	private void renderCollectionItem(@NotNull List<ItemLike> collection, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
+		poseStack.translate(0.5F, 0.5f, 0.5f);
+		int inGameTick = PlantopiaTickHelper.getInGameTick();
+		int index = (inGameTick / 20) % collection.size();
+		var instance = Minecraft.getInstance();
+		var level = instance.level;
+		var itemStack = collection.get(index).asItem().getDefaultInstance();
+		instance.getItemRenderer().renderStatic(itemStack, displayContext, packedLight, packedOverlay, poseStack, buffer, level, 0);
 	}
 }

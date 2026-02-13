@@ -1,5 +1,5 @@
 {
-	"parent": "plantopia:plantopia/root",
+	"parent": "plantopia:plantopia/collect_all_herbs",
 	"criteria": {
 		"place_hogweed": {
 			"conditions": {

@@ -1,5 +1,7 @@
 {
 	"values": [
-		"plantopia:flowers_icon"
+		"plantopia:flowers_icon",
+		"plantopia:herbs_icon",
+		"plantopia:mushrooms_icon"
 	]
 }

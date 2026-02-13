@@ -29,6 +29,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
  */
 public class PlantopiaItems {
 	public static final RegistryObject<Item> FLOWERS_ICON = registerItem("flowers_icon", PlantopiaIconItem::new, MetaProperties.of(MetaType.ICON).hasCustomRenderer());
+	public static final RegistryObject<Item> HERBS_ICON = registerItem("herbs_icon", PlantopiaIconItem::new, MetaProperties.of(MetaType.ICON).hasCustomRenderer());
+	public static final RegistryObject<Item> MUSHROOMS_ICON = registerItem("mushrooms_icon", PlantopiaIconItem::new, MetaProperties.of(MetaType.ICON).hasCustomRenderer());
 
 	public static final RegistryObject<Item> COBBLESTONE_SHARD = registerItem("cobblestone_shard", properties -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), properties), MetaProperties.of(MetaType.COBBLESTONE_SHARD_BLOCK));
 	public static final RegistryObject<Item> MOSSY_COBBLESTONE_SHARD = registerItem("mossy_cobblestone_shard", properties -> new PlantopiaCobblestoneShardBlockItem(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), properties), MetaProperties.of(MetaType.COBBLESTONE_SHARD_BLOCK));

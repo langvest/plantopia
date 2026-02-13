@@ -1,0 +1,251 @@
+{
+	"parent": "plantopia:plantopia/root",
+	"criteria": {
+		"minecraft:crimson_roots": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:crimson_roots"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"minecraft:dead_bush": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:dead_bush"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"minecraft:fern": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:fern"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"minecraft:grass": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:grass"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"minecraft:warped_roots": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:warped_roots"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:carrotweed": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:carrotweed"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:chicory": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:chicory"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:clover": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:clover"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:dune_grass": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:dune_grass"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:fireweed": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:fireweed"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:giant_fern": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:giant_fern"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:giant_grass": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:giant_grass"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:hogweed": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:hogweed"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:tall_dune_grass": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:tall_dune_grass"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:tansy": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:tansy"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"announce_to_chat": true,
+		"description": {
+			"translate": "advancements.plantopia.collect_all_herbs.description"
+		},
+		"frame": "challenge",
+		"hidden": false,
+		"icon": {
+			"item": "plantopia:herbs_icon"
+		},
+		"show_toast": true,
+		"title": {
+			"translate": "advancements.plantopia.collect_all_herbs.title"
+		}
+	},
+	"requirements": [
+		[
+			"minecraft:crimson_roots"
+		],
+		[
+			"minecraft:dead_bush"
+		],
+		[
+			"minecraft:fern"
+		],
+		[
+			"minecraft:grass"
+		],
+		[
+			"minecraft:warped_roots"
+		],
+		[
+			"plantopia:carrotweed"
+		],
+		[
+			"plantopia:chicory"
+		],
+		[
+			"plantopia:clover"
+		],
+		[
+			"plantopia:dune_grass"
+		],
+		[
+			"plantopia:fireweed"
+		],
+		[
+			"plantopia:giant_fern"
+		],
+		[
+			"plantopia:giant_grass"
+		],
+		[
+			"plantopia:hogweed"
+		],
+		[
+			"plantopia:tall_dune_grass"
+		],
+		[
+			"plantopia:tansy"
+		]
+	],
+	"rewards": {
+		"experience": 50
+	},
+	"sends_telemetry_event": true
+}

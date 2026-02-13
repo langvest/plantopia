@@ -32,7 +32,9 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 import static net.minecraft.advancements.critereon.PlayerTrigger.TriggerInstance.walkOnBlockWithEquipment;
 
 public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
-	private static final List<ItemLike> ALL_FLOWERS = PlantopiaContentHelper.getAllFlowers();
+	private static final List<ItemLike> allFlowers = PlantopiaContentHelper.getAllFlowers();
+	private static final List<ItemLike> allHerbs = PlantopiaContentHelper.getAllHerbs();
+	private static final List<ItemLike> allMushrooms = PlantopiaContentHelper.getAllMushrooms();
 	private Consumer<Advancement> consumer;
 
 	@Override
@@ -52,6 +54,16 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 			.apply(PlantopiaAdvancementSubProvider::addFlowersToCollect)
 			.getBuilder()
 			.rewards(experience(100));
+
+		PlantopiaAdvancements.COLLECT_ALL_HERBS.get()
+			.apply(PlantopiaAdvancementSubProvider::addHerbsToCollect)
+			.getBuilder()
+			.rewards(experience(50));
+
+		PlantopiaAdvancements.COLLECT_ALL_MUSHROOMS.get()
+			.apply(PlantopiaAdvancementSubProvider::addMushroomsToCollect)
+			.getBuilder()
+			.rewards(experience(50));
 
 		PlantopiaAdvancements.PLACE_HOGWEED.get()
 			.getBuilder()
@@ -113,7 +125,15 @@ public class PlantopiaAdvancementSubProvider implements AdvancementGenerator {
 	/* CRITERIA GENERATION ******************************************/
 
 	private static void addFlowersToCollect(PlantopiaSimpleAdvancement advancement) {
-		for(ItemLike itemLike : ALL_FLOWERS) advancement.getBuilder().addCriterion(idOf(itemLike), has(itemLike));
+		for(ItemLike itemLike : allFlowers) advancement.getBuilder().addCriterion(idOf(itemLike), has(itemLike));
+	}
+
+	private static void addHerbsToCollect(PlantopiaSimpleAdvancement advancement) {
+		for(ItemLike itemLike : allHerbs) advancement.getBuilder().addCriterion(idOf(itemLike), has(itemLike));
+	}
+
+	private static void addMushroomsToCollect(PlantopiaSimpleAdvancement advancement) {
+		for(ItemLike itemLike : allMushrooms) advancement.getBuilder().addCriterion(idOf(itemLike), has(itemLike));
 	}
 
 	/* HELPER METHODS ******************************************/

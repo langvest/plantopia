@@ -4,6 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.toolkit.meta.SimpleMetaObject;
 import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.registry.RegistryObject;
@@ -21,9 +22,14 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public final class PlantopiaContentHelper {
 	private static List<ItemLike> allFlowers;
+	private static List<ItemLike> allHerbs;
+	private static List<ItemLike> allMushrooms;
 
 	public static List<ItemLike> getAllFlowers() {
 		if(allFlowers != null) return allFlowers;
+
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
 
 		Set<ItemLike> allFlowersSet = Sets.newHashSet();
 
@@ -36,12 +42,9 @@ public final class PlantopiaContentHelper {
 		allFlowersSet.add(Blocks.PITCHER_PLANT);
 		allFlowersSet.add(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
 
-		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
-		var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
-
 		blockRegistry.stream()
 			.filter(block -> metaOf(block)
-				.map(blockMeta -> blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.FLOWER))
+				.map(blockMeta -> blockMeta.hasItem() && blockMeta.getType().instanceOf(MetaType.FLOWER))
 				.orElseGet(() -> block instanceof FlowerBlock || block instanceof TallFlowerBlock)
 			)
 			.forEach(allFlowersSet::add);
@@ -51,6 +54,59 @@ public final class PlantopiaContentHelper {
 			.toList();
 
 		return allFlowers;
+	}
+
+	public static List<ItemLike> getAllHerbs() {
+		if(allHerbs != null) return allHerbs;
+
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
+
+		Set<ItemLike> allHerbsSet = Sets.newHashSet();
+
+		allHerbsSet.add(Blocks.CRIMSON_ROOTS);
+		allHerbsSet.add(Blocks.WARPED_ROOTS);
+		allHerbsSet.add(PlantopiaBlocks.CLOVER.get());
+		allHerbsSet.add(PlantopiaBlocks.HOGWEED.get());
+
+		blockRegistry.stream()
+			.filter(block -> metaOf(block)
+				.map(blockMeta -> {
+					var metaType = blockMeta.getType();
+					return blockMeta.hasItem()
+						&& (metaType.instanceOf(MetaType.HERB) || metaType.instanceOf(MetaType.GRASS));
+				})
+				.orElseGet(() -> block instanceof TallGrassBlock || block instanceof DeadBushBlock)
+			)
+			.forEach(allHerbsSet::add);
+
+		allHerbs = allHerbsSet.stream()
+			.sorted(PlantopiaResourceHelper::compareById)
+			.toList();
+
+		return allHerbs;
+	}
+
+	public static List<ItemLike> getAllMushrooms() {
+		if(allMushrooms != null) return allMushrooms;
+
+		var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+		var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
+
+		Set<ItemLike> allMushroomsSet = Sets.newHashSet();
+
+		blockRegistry.stream()
+			.filter(block -> metaOf(block)
+				.map(blockMeta -> blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.MUSHROOM_PLANT))
+				.orElseGet(() -> block instanceof MushroomBlock || block instanceof FungusBlock)
+			)
+			.forEach(allMushroomsSet::add);
+
+		allMushrooms = allMushroomsSet.stream()
+			.sorted(PlantopiaResourceHelper::compareById)
+			.toList();
+
+		return allMushrooms;
 	}
 
 	/* POTTED OF *************************************************************************************/
