@@ -3,7 +3,13 @@
 	"placement": [
 		{
 			"type": "plantopia:rarity_filter",
-			"chance": 6.14
+			"chance": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_exclusive": 6.64,
+					"min_inclusive": 4.24
+				}
+			}
 		},
 		{
 			"type": "minecraft:count",
