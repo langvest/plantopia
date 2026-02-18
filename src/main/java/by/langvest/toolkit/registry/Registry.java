@@ -2,6 +2,8 @@ package by.langvest.toolkit.registry;
 
 import by.langvest.toolkit.util.LocationLike;
 import by.langvest.toolkit.util.Streamable;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +18,8 @@ public abstract class Registry<T> implements LocationLike, Streamable<RegistryOb
 	public abstract boolean hasKey(ResourceLocation key);
 
 	public abstract Optional<RegistryObject<T>> getValue(ResourceLocation key);
+
+	public abstract Optional<ResourceLocation> getKey(T value);
 
 	public @NotNull RegistryObject<T> getValueOrThrow(ResourceLocation key) {
 		var value = getValue(key);
@@ -36,4 +40,16 @@ public abstract class Registry<T> implements LocationLike, Streamable<RegistryOb
 	public String toString() {
 		return String.format("%s{%s}", getClass().getSimpleName(), getRegistryKey());
 	}
+
+    public Codec<T> byNameCodec() {
+        return ResourceLocation.CODEC.flatXmap(
+                location -> this.getValue(location)
+                        .map(RegistryObject::get)
+                        .map(DataResult::success)
+                        .orElseGet(() -> DataResult.error(() -> "Unknown registry key in " + this.getRegistryKey() + ": " + location)),
+                value -> this.getKey(value)
+                        .map(DataResult::success)
+                        .orElseGet(() -> DataResult.error(() -> "Unknown registry element in " + this.getRegistryKey() + ":" + value))
+        );
+    }
 }

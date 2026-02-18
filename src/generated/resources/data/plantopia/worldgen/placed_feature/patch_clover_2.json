@@ -1,9 +1,9 @@
 {
-	"feature": "plantopia:patch_white_clover_blossom",
+	"feature": "plantopia:patch_clover",
 	"placement": [
 		{
 			"type": "plantopia:rarity_filter",
-			"chance": 26.48
+			"chance": 6.42
 		},
 		{
 			"type": "minecraft:count",

@@ -1,7 +1,6 @@
 package by.langvest.plantopia.worldgen.feature;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.toolkit.registry.RegistryObject;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
 import net.minecraft.core.registries.Registries;
@@ -9,11 +8,9 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -70,6 +67,11 @@ public class PlantopiaFeatures {
 		return context -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, configFactory.apply(context));
 	}
 
+	@Contract(pure = true)
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> radialPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> configFactory) {
+		return context -> new ConfiguredFeature<>(PlantopiaFeatureTypes.RADIAL_PATCH.get(), configFactory.apply(context));
+	}
+
 	/* CONFIGS ******************************************/
 
 	@Contract(pure = true)
@@ -79,9 +81,24 @@ public class PlantopiaFeatures {
 
 	@Contract(pure = true)
 	protected static @NotNull SimpleBlockConfiguration weightedConfig(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
-		return new SimpleBlockConfiguration(new WeightedStateProvider(
+		return new SimpleBlockConfiguration(weightedProvider(states));
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
+		return new WeightedStateProvider(
 			states.apply(SimpleWeightedRandomList.builder())
-		));
+		);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull BlockStateProvider simpleProvider(Block block) {
+		return BlockStateProvider.simple(block);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull BlockStateProvider simpleProvider(BlockState state) {
+		return BlockStateProvider.simple(state);
 	}
 
 	/* HELPER METHODS ******************************************/

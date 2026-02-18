@@ -5,7 +5,9 @@ import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -27,40 +29,46 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
         var level = context.level();
         var random = context.random();
         var pos = context.origin();
-        var candidateState = config.toPlace().getState(random, pos);
-        var candidateBlock = candidateState.getBlock();
+        var state = config.toPlace().getState(random, pos);
 
-        if(candidateBlock instanceof PlantopiaNaturalBlock naturalBlock) {
-            return naturalBlock.generateAt(level, pos, candidateState, random, 2);
+        return place(level, state, pos, random, Block.UPDATE_CLIENTS);
+    }
+
+    public boolean place(WorldGenLevel level, @NotNull BlockState state, BlockPos pos, RandomSource random, int flags) {
+        var block = state.getBlock();
+
+        if(block instanceof PlantopiaNaturalBlock naturalBlock) {
+            return naturalBlock.generateAt(level, pos, state, random, flags);
         }
 
-        if(!candidateState.canSurvive(level, pos)) return false;
-        if(!isValidPosToPlace(candidateState, level, pos)) return false;
+        if(!state.canSurvive(level, pos)) return false;
+        if(!isValidPosToPlace(state, level, pos)) return false;
 
-        if(candidateBlock instanceof DoublePlantBlock) {
+        if(block instanceof DoublePlantBlock) {
             if(!level.isEmptyBlock(pos.above(1))) return false;
 
-            DoublePlantBlock.placeAt(level, candidateState, pos, 2);
+            DoublePlantBlock.placeAt(level, state, pos, flags);
 
             return true;
         }
 
-        if(candidateBlock instanceof PlantopiaTriplePlantBlock) {
+        if(block instanceof PlantopiaTriplePlantBlock) {
             if(!level.isEmptyBlock(pos.above(1))) return false;
             if(!level.isEmptyBlock(pos.above(2))) return false;
 
-            PlantopiaTriplePlantBlock.placeAt(level, pos, candidateState, 2);
+            PlantopiaTriplePlantBlock.placeAt(level, pos, state, flags);
 
             return true;
         }
 
-        return level.setBlock(pos, copyWaterloggedFrom(level, pos, candidateState), 2);
+        return level.setBlock(pos, copyWaterloggedFrom(level, pos, state), flags);
     }
 
     protected boolean isValidPosToPlace(BlockState candidateState, @NotNull WorldGenLevel level, BlockPos pos) {
-        var fluidState = level.getFluidState(pos);
+        var currentState = level.getBlockState(pos);
+        var currentFluidState = level.getFluidState(pos);
 
-        if(fluidState.isSourceOfType(Fluids.WATER)) {
+        if(currentFluidState.isSourceOfType(Fluids.WATER)) {
             var biome = level.getBiome(pos).get();
 
             if(biome.shouldFreeze(level, pos)) {

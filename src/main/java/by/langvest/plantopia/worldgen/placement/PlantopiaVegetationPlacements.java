@@ -474,41 +474,55 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 8.52F, false)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 16.86F)
+			.biomes(tagSet -> tagSet
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+				.add(Biomes.WINDSWEPT_FOREST, Biomes.FOREST, Biomes.FLOWER_FOREST)
+				.addTag(BiomeTags.IS_SAVANNA, BiomeTags.IS_JUNGLE)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_CLOVER_2 = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER, 2),
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 6.24F)
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addOldGrowthBiomes)
+				.add(Biomes.MEADOW, Biomes.CHERRY_GROVE)
+				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
+			)
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_WHITE_CLOVER_BLOSSOM = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, 20.12F, true)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, 26.48F)
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addOldGrowthBiomes)
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST)
+			)
+
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_PINK_CLOVER_BLOSSOM = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, 20.12F, true)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, 26.48F)
+			.biomes(tagSet -> tagSet
+				.apply(PlantopiaPlacements::addOldGrowthBiomes)
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST)
+			)
 	);
 
-	protected static PlantopiaPlacedFeatureDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, float chance, boolean withFlower) {
+	protected static PlantopiaPlacedFeatureDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, float chance) {
 		return PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(feature)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(chance),
-				CountPlacement.of(UniformInt.of(0, 2)),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
-			))
-			.biomes(tagSet -> tagSet
-				.apply(PlantopiaPlacements::addCascadesBiomes)
-				.apply(PlantopiaPlacements::addOldGrowthBiomes)
-				.apply(PlantopiaPlacements::addMountainBiomes)
-				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
-				.add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
-				.apply(tagSet1 -> {
-					if(!withFlower) {
-						tagSet1.addTag(BiomeTags.IS_JUNGLE);
-						tagSet1.addTag(BiomeTags.IS_SAVANNA);
-					}
-				})
-			);
+			));
 	}
 }

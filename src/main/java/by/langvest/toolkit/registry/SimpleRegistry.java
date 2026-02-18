@@ -7,11 +7,13 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class SimpleRegistry<T> extends Registry<T> {
 	protected final ResourceKey<? extends net.minecraft.core.Registry<T>> registryKey;
-	protected final HashMap<ResourceLocation, RegistryObject<T>> storage = Maps.newLinkedHashMap();
+	protected final Map<ResourceLocation, RegistryObject<T>> storage = Maps.newLinkedHashMap();
+	private final Map<T, ResourceLocation> valueToKeyCache = new ConcurrentHashMap<>();
 
 	public SimpleRegistry(ResourceKey<? extends net.minecraft.core.Registry<T>> registryKey) {
 		this.registryKey = registryKey;
@@ -35,6 +37,27 @@ public class SimpleRegistry<T> extends Registry<T> {
 	@Override
 	public Optional<RegistryObject<T>> getValue(ResourceLocation key) {
 		return Optional.ofNullable(storage.get(key));
+	}
+
+	@Override
+	public Optional<ResourceLocation> getKey(T value) {
+		// LanGvest: Check the cache first for O(1) lookup.
+		ResourceLocation cachedKey = valueToKeyCache.get(value);
+		if (cachedKey != null) {
+			return Optional.of(cachedKey);
+		}
+
+		// LanGvest: If not in cache, perform the linear scan.
+		for (Map.Entry<ResourceLocation, RegistryObject<T>> entry : storage.entrySet()) {
+			T entryValue = entry.getValue().get();
+			if (Objects.equals(entryValue, value)) {
+				// LanGvest: Found it, so populate the cache for next time.
+				valueToKeyCache.put(entryValue, entry.getKey());
+				return Optional.of(entry.getKey());
+			}
+		}
+
+		return Optional.empty();
 	}
 
 	@Override

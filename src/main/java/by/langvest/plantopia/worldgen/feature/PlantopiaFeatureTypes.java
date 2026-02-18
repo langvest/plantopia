@@ -1,6 +1,8 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.special.PlantopiaRadialPatchFeature;
 import by.langvest.plantopia.worldgen.feature.special.PlantopiaNaturalBlockFeature;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
@@ -17,6 +19,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 
 public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaNaturalBlockFeature> NATURAL_BLOCK = registerFeatureType("natural_block", () -> new PlantopiaNaturalBlockFeature(SimpleBlockConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaRadialPatchFeature> RADIAL_PATCH = registerFeatureType("radial_patch", () -> new PlantopiaRadialPatchFeature(PlantopiaRadialPatchConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
 		return registerFeatureType(plantopia(name), supplier);
