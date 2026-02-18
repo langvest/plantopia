@@ -474,7 +474,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 16.86F)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 20.26F)
 			.biomes(tagSet -> tagSet
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
@@ -485,7 +485,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER_2 = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER, 2),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 6.24F)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, 6.14F)
 			.biomes(tagSet -> tagSet
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.add(Biomes.MEADOW, Biomes.CHERRY_GROVE)
@@ -495,7 +495,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_WHITE_CLOVER_BLOSSOM = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, 26.48F)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, 28.46F)
 			.biomes(tagSet -> tagSet
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
@@ -506,7 +506,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_PINK_CLOVER_BLOSSOM = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, 26.48F)
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, 28.46F)
 			.biomes(tagSet -> tagSet
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
