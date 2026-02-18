@@ -18,8 +18,8 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
+import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -278,6 +278,32 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                     simpleConfig(PlantopiaBlocks.BRANCHING_SHRUB.get()),
                     WATER_PlANT_PREDICATE
                 ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED = declareConfiguredFeature(
+        patchNameOf(PlantopiaBlocks.CARROTWEED),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(radialPatch(context ->
+                new PlantopiaRadialPatchConfiguration(
+                    UniformInt.of(48, 72), // tries
+                    ClampedInt.of(UniformInt.of(1,9), 3, 9), // xzSpread
+                    ConstantInt.of(4), // ySpread
+                    -0.22D, // sigma
+                    0.264D, // erosion
+                    List.of(new PlantopiaSimpleBlockPlacer(
+                        weightedProvider(states -> states
+                            .add(PlantopiaBlocks.CARROTWEED.get().defaultBlockState(), 3)
+                            .add(Blocks.GRASS.defaultBlockState(), 1)
+                        ),
+                        1
+                    )),
+                    Optional.of(BlockPredicate.allOf(
+                        BlockPredicate.ONLY_IN_AIR_PREDICATE,
+                        BlockPredicate.solid(BlockPos.ZERO.below())
+                    )),
+                    Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
+                )
             ))
     );
 

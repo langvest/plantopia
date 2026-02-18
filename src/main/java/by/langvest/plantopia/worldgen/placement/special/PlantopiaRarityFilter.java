@@ -24,8 +24,8 @@ public class PlantopiaRarityFilter extends PlacementFilter {
         this.chance = chance;
     }
 
-    public static @NotNull PlantopiaRarityFilter onAverageOnceEvery(float minInclusive, float maxInclusive) {
-        return new PlantopiaRarityFilter(UniformFloat.of(minInclusive, maxInclusive));
+    public static @NotNull PlantopiaRarityFilter onAverageOnceEvery(float minInclusive, float maxExclusive) {
+        return new PlantopiaRarityFilter(UniformFloat.of(minInclusive, maxExclusive));
     }
 
     public static @NotNull PlantopiaRarityFilter onAverageOnceEvery(float chance) {

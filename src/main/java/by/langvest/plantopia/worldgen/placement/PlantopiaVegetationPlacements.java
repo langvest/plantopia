@@ -471,6 +471,22 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
+	public static final ResourceKey<PlacedFeature> PATCH_CARROTWEED = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CARROTWEED),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_CARROTWEED)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.24F, 6.64F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+			))
+			.biomes(tagSet -> tagSet
+				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+			)
+	);
+
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
 		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(18.42F, 22.24F))
