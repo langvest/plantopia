@@ -4,6 +4,7 @@ import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import by.langvest.plantopia.client.PlantopiaClient;
+import by.langvest.plantopia.command.PlantopiaCommands;
 import by.langvest.plantopia.compat.PlantopiaCompats;
 import by.langvest.plantopia.entity.PlantopiaEntities;
 import by.langvest.plantopia.item.PlantopiaItems;
@@ -38,7 +39,7 @@ public final class Plantopia {
         Plantopia.injectPlatform(platform);
         Plantopia.addListeners(globalEmitter);
 
-        if(platform.isClient()) {
+        if (platform.isClient()) {
             PlantopiaClient.init(platform);
         }
     }
@@ -68,6 +69,7 @@ public final class Plantopia {
 
         // Common
         emitter.subscribe(PlantopiaCompats::setup);
+        emitter.subscribe(PlantopiaCommands::setup);
         emitter.subscribe(PlantopiaAdvancementTriggers::setup);
     }
 }
