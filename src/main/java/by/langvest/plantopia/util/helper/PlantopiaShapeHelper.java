@@ -7,27 +7,53 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 public final class PlantopiaShapeHelper {
-	public static VoxelShape rotateShape(@NotNull VoxelShape shape, Direction direction) {
-		VoxelShape[] buffer = new VoxelShape[]{shape, Shapes.empty()};
+    private PlantopiaShapeHelper() {}
 
-		for(AABB box : shape.toAabbs()) {
-			buffer[1] = Shapes.or(buffer[1], rotateBox(box, direction));
-		}
+    public static VoxelShape rotateShape(@NotNull VoxelShape shape, @NotNull Direction direction) {
+        if (direction == Direction.NORTH) {
+            return shape;
+        }
 
-		return buffer[1];
-	}
+        var result = Shapes.empty();
 
-	private static @NotNull VoxelShape rotateBox(@NotNull AABB box, @NotNull Direction direction) {
-		double top = box.minZ;
-		double left = box.minX;
-		double dx = box.maxX - box.minX;
-		double dz = box.maxZ - box.minZ;
+        for (AABB box : shape.toAabbs()) {
+            result = Shapes.or(result, rotateBox(box, direction));
+        }
 
-		return switch(direction) {
-			case EAST -> Shapes.box(1 - top - dz, box.minY, left, 1 - top, box.maxY, left + dx);
-			case SOUTH -> Shapes.box(1 - left - dx, box.minY, 1 - top - dz, 1 - left, box.maxY, 1 - top);
-			case WEST -> Shapes.box(top, box.minY, 1 - left - dx, top + dz, box.maxY, 1 - left);
-			default -> Shapes.box(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
-		};
-	}
+        return result;
+    }
+
+    private static @NotNull VoxelShape rotateBox(@NotNull AABB box, @NotNull Direction direction) {
+        return switch (direction) {
+            case EAST -> Shapes.box(1 - box.maxZ, box.minY, box.minX, 1 - box.minZ, box.maxY, box.maxX);
+            case SOUTH -> Shapes.box(1 - box.maxX, box.minY, 1 - box.maxZ, 1 - box.minX, box.maxY, 1 - box.minZ);
+            case WEST -> Shapes.box(box.minZ, box.minY, 1 - box.maxX, box.maxZ, box.maxY, 1 - box.minX);
+            default -> Shapes.box(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
+        };
+    }
+
+    public static VoxelShape orientShape(@NotNull VoxelShape shape, @NotNull Direction direction) {
+        if (direction == Direction.UP) {
+            return shape;
+        }
+
+        var result = Shapes.empty();
+
+        for (AABB box : shape.toAabbs()) {
+            result = Shapes.or(result, orientBox(box, direction));
+        }
+
+        return result;
+    }
+
+    private static @NotNull VoxelShape orientBox(@NotNull AABB box, @NotNull Direction direction) {
+        return switch (direction) {
+            case DOWN -> Shapes.box(box.minX, 1 - box.maxY, box.minZ, box.maxX, 1 - box.minY, box.maxZ);
+            case NORTH -> Shapes.box(box.minX, box.minZ, 1 - box.maxY, box.maxX, box.maxZ, 1 - box.minY);
+            case SOUTH -> Shapes.box(box.minX, 1 - box.maxZ, box.minY, box.maxX, 1 - box.minZ, box.maxY);
+            case WEST -> Shapes.box(1 - box.maxY, box.minX, box.minZ, 1 - box.minY, box.maxX, box.maxZ);
+            case EAST -> Shapes.box(box.minY, 1 - box.maxX, box.minZ, box.maxY, 1 - box.minX, box.maxZ);
+            default -> Shapes.box(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
+        };
+    }
 }

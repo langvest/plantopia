@@ -1,10 +1,7 @@
 package by.langvest.plantopia.datagen.model;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
-import by.langvest.plantopia.block.PlantopiaQuarter;
-import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
+import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
@@ -101,6 +98,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 		icyReedsBlock(PlantopiaBlocks.ICY_REEDS.get());
 		luckyDaisyBlock(PlantopiaBlocks.WHITE_LUCKY_DAISY.get());
 		luckyDaisyBlock(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
+		tinyCactusBlock(PlantopiaBlocks.TINY_CACTUS.get());
+		tinyCactusBlock(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
 
 		checkAll();
 	}
@@ -447,6 +446,34 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 		generatedItemModel(baseName, itemTexture);
 		rotatedVariableBlock(block, PlantopiaCobblestoneShardBlock.AMOUNT, oneShardModel, twoShardsModel, threeShardsModel, fourShardsModel);
+	}
+
+	private void tinyCactusBlock(Block block) {
+		String baseName = nameOf(block);
+
+		var texture = texture(baseName);
+		var normalModel = crossModel(baseName, texture);
+		var attachedModel = attachedTinyCactusTemplateModel("attached_" + baseName, texture);
+
+		generatedItemModel(baseName, texture);
+
+		getVariantBuilder(block).forAllStates(state -> {
+			var facing = state.getValue(PlantopiaBlockStateProperties.CACTUS_FACING);
+
+			if (facing == Direction.UP) {
+				return ConfiguredModel.builder().modelFile(normalModel).build();
+			}
+
+			return ConfiguredModel.builder()
+				.modelFile(attachedModel)
+				.rotationX(90)
+				.rotationY(((int) facing.toYRot() + 180) % 360)
+				.build();
+		});
+
+		pottedBlockOf(block).ifPresent(pottedBlock -> {
+			simpleBlock(pottedBlock, flowerPotCrossModel(nameOf(pottedBlock), texture));
+		});
 	}
 
 	private void cobblestoneShardPetBlock(Block block) {
@@ -962,6 +989,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
 	private BlockModelBuilder giantFernTemplateModel(String name, ResourceLocation crossTexture) {
 		return models().withExistingParent(name, parent("template_giant_fern"))
+			.texture("cross", crossTexture);
+	}
+
+	private BlockModelBuilder attachedTinyCactusTemplateModel(String name, ResourceLocation crossTexture) {
+		return models().withExistingParent(name, parent("template_attached_tiny_cactus"))
 			.texture("cross", crossTexture);
 	}
 

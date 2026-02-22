@@ -1,9 +1,7 @@
 package by.langvest.plantopia.block;
 
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.*;
 
 /**
  * @see net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -18,4 +16,5 @@ public class PlantopiaBlockStateProperties {
 	public static final EnumProperty<PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF = EnumProperty.create("half", PlantopiaTripleBlockHalf.class);
 	public static final IntegerProperty INFESTED_DIRT_AGE = BlockStateProperties.AGE_25;
 	public static final BooleanProperty BASE = BooleanProperty.create("base");
+	public static final DirectionProperty CACTUS_FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.UP);
 }

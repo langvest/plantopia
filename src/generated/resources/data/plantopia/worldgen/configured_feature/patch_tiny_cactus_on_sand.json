@@ -10,13 +10,19 @@
 						"entries": [
 							{
 								"data": {
-									"Name": "plantopia:tiny_cactus"
+									"Name": "plantopia:tiny_cactus",
+									"Properties": {
+										"facing": "up"
+									}
 								},
 								"weight": 5
 							},
 							{
 								"data": {
-									"Name": "plantopia:flowering_tiny_cactus"
+									"Name": "plantopia:flowering_tiny_cactus",
+									"Properties": {
+										"facing": "up"
+									}
 								},
 								"weight": 2
 							}
