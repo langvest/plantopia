@@ -32,6 +32,7 @@
 					"Name": "plantopia:branching_shrub",
 					"Properties": {
 						"base": "true",
+						"facing": "up",
 						"waterlogged": "false"
 					}
 				}

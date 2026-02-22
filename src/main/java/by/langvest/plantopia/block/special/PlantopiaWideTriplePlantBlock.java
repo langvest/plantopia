@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -258,7 +259,8 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		OffsetFunction offsetFunction = (state, level, pos) -> {
 			long seed = getOffsetSeed(state, pos);
 			float maxHorizontalOffset = getMaxHorizontalOffset();
-			return PlantopiaMathHelper.getXZOffset(seed, maxHorizontalOffset);
+			var offset = PlantopiaMathHelper.getSeededOffset(seed, maxHorizontalOffset);
+			return new Vec3(offset.x(), 0.0D, offset.z());
 		};
 
 		return Optional.of(offsetFunction);

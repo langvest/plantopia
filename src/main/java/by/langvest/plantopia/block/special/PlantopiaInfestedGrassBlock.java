@@ -80,7 +80,7 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 		if(!level.isAreaLoaded(pos, 3)) return; // LanGvest: Prevent loading unloaded chunks when checking neighbor's light and spreading.
 
 		for(int i = 0; i < 4; i++) {
-			var candidatePos = pos.offset(PlantopiaMathHelper.getRandomXYZOffsetInArea(random, 1));
+			var candidatePos = pos.offset(PlantopiaMathHelper.getRandomOffsetInArea(random, 1));
 			var candidateState = level.getBlockState(candidatePos);
 			boolean isBrightnessEnough = level.getMaxLocalRawBrightness(pos.above()) >= 9;
 			int currentAge = state.getValue(AGE);
