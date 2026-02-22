@@ -1,28 +1,18 @@
 {
-	"feature": "plantopia:patch_pink_clover_blossom",
+	"feature": "minecraft:patch_taiga_grass",
 	"placement": [
-		{
-			"type": "plantopia:rarity_filter",
-			"chance": {
-				"type": "minecraft:uniform",
-				"value": {
-					"max_exclusive": 29.32,
-					"min_inclusive": 26.64
-				}
-			}
-		},
 		{
 			"type": "minecraft:count",
 			"count": {
 				"type": "minecraft:clamped",
 				"value": {
-					"max_inclusive": 2,
-					"min_inclusive": 1,
+					"max_inclusive": 3,
+					"min_inclusive": 2,
 					"source": {
 						"type": "minecraft:uniform",
 						"value": {
-							"max_inclusive": 2,
-							"min_inclusive": 0
+							"max_inclusive": 3,
+							"min_inclusive": 1
 						}
 					}
 				}

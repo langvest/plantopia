@@ -8,10 +8,7 @@
 					"to_place": {
 						"type": "minecraft:simple_state_provider",
 						"state": {
-							"Name": "plantopia:carrotweed",
-							"Properties": {
-								"half": "lower"
-							}
+							"Name": "minecraft:fern"
 						}
 					}
 				}
@@ -42,8 +39,8 @@
 				}
 			]
 		},
-		"tries": 18,
-		"xz_spread": 3,
+		"tries": 32,
+		"xz_spread": 6,
 		"y_spread": 2
 	}
 }

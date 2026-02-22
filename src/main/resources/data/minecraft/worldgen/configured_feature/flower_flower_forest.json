@@ -23,16 +23,7 @@
 								"Name": "minecraft:poppy"
 							},
 							{
-								"Name": "plantopia:white_wildflowers"
-							},
-							{
 								"Name": "minecraft:allium"
-							},
-							{
-								"Name": "plantopia:orange_wildflowers"
-							},
-							{
-								"Name": "plantopia:purple_wildflowers"
 							},
 							{
 								"Name": "minecraft:orange_tulip"
@@ -47,16 +38,10 @@
 								"Name": "minecraft:white_tulip"
 							},
 							{
-								"Name": "plantopia:pink_wildflowers"
-							},
-							{
 								"Name": "minecraft:pink_tulip"
 							},
 							{
 								"Name": "minecraft:oxeye_daisy"
-							},
-							{
-								"Name": "plantopia:yellow_wildflowers"
 							},
 							{
 								"Name": "minecraft:cornflower"
@@ -65,7 +50,22 @@
 								"Name": "minecraft:lily_of_the_valley"
 							},
 							{
+								"Name": "plantopia:purple_wildflowers"
+							},
+							{
+								"Name": "plantopia:pink_wildflowers"
+							},
+							{
 								"Name": "plantopia:red_wildflowers"
+							},
+							{
+								"Name": "plantopia:orange_wildflowers"
+							},
+							{
+								"Name": "plantopia:yellow_wildflowers"
+							},
+							{
+								"Name": "plantopia:white_wildflowers"
 							}
 						]
 					}

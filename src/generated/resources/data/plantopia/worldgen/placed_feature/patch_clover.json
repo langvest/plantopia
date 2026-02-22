@@ -6,7 +6,7 @@
 			"chance": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": 22.24,
+					"max_exclusive": 22.42,
 					"min_inclusive": 18.42
 				}
 			}
@@ -33,7 +33,7 @@
 		},
 		{
 			"type": "minecraft:heightmap",
-			"heightmap": "MOTION_BLOCKING"
+			"heightmap": "WORLD_SURFACE_WG"
 		},
 		{
 			"type": "minecraft:biome"

@@ -1,0 +1,23 @@
+{
+	"feature": "plantopia:patch_fern",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 6.12
+		},
+		{
+			"type": "minecraft:count",
+			"count": 1
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "WORLD_SURFACE_WG"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

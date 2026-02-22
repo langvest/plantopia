@@ -8,6 +8,7 @@ import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseFilter;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
@@ -68,7 +69,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.HOGWEED.get())
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.addTag(BiomeTags.IS_SAVANNA)
 				.apply(PlantopiaPlacements::addMountainBiomes)
@@ -92,9 +93,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_FIREWEED_MOUNTAIN = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FIREWEED, MOUNTAIN),
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FIREWEED_MOUNTAIN),
 		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED)
+			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED_MOUNTAIN)
 			.modifiers(context -> {
 				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.614D, 501, 402);
 				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.102D, 274, 148);
@@ -102,7 +103,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 25),
+					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 22),
 					InSquarePlacement.spread(),
 					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.1F),
 					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.15F),
@@ -112,7 +113,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.FIREWEED.get())
 				);
 			})
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addMountainBiomes)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			)
@@ -121,7 +122,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 	public static final ResourceKey<PlacedFeature> PATCH_FIREWEED_MOUNTAIN_2 = declarePlacedFeature(
 		compileNameFrom(PATCH_FIREWEED_MOUNTAIN, 2),
 		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED)
+			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED_MOUNTAIN)
 			.modifiers(context -> {
 				var bigNoiseConfig = PlantopiaNoiseConfig.of(1.862D, 528, 811);
 				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.112D, 332, 643);
@@ -139,7 +140,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.FIREWEED.get())
 				);
 			})
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addMountainBiomes)
 			)
 	);
@@ -154,7 +155,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.DESERT)
 				.addTag(BiomeTags.IS_BADLANDS)
 			)
@@ -165,7 +166,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REEDS)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(3.62F),
+				PlantopiaRarityFilter.onAverageOnceEvery(3.12F, 4.12F),
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -175,7 +176,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					BlockPredicate.matchesFluids(Fluids.WATER)
 				)
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.apply(PlantopiaPlacements::addSwampBiomes)
 				.apply(PlantopiaPlacements::addCascadesBiomes)
@@ -204,10 +205,147 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					)
 				)
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.FROZEN_RIVER)
 				.add(Biomes.SNOWY_PLAINS)
 				.add(Biomes.GROVE, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_CHICORY = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CHICORY),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(26.24F, 30.84F),
+				CountPlacement.of(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_TANSY = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TANSY),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_TANSY)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(6.42F, 10.86F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_TANSY_2 = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TANSY, 2),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_TANSY)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(6.12F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.WINDSWEPT_FOREST)
+			)
+	);
+
+//	public static final ResourceKey<PlacedFeature> PATCH_CARROTWEED = declarePlacedFeature(
+//		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CARROTWEED),
+//		PlantopiaPlacedFeatureDeclaration.builder()
+//			.feature(PlantopiaVegetationFeatures.PATCH_CARROTWEED)
+//			.modifiers(context -> List.of(
+//				PlantopiaRarityFilter.onAverageOnceEvery(10.24F),
+//				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
+//				InSquarePlacement.spread(),
+//				PlacementUtils.HEIGHTMAP,
+//				BiomeFilter.biome()
+//			))
+//			.biomes(biomes -> biomes
+//				.add(Biomes.TAIGA)
+//			)
+//	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_CARROTWEED_MOUNTAIN = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CARROTWEED_MOUNTAIN),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_CARROTWEED_MOUNTAIN)
+			.modifiers(context -> {
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.158D, 188, 398);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.0684D, 68, 834);
+				float bigNoiseLevel = -0.426F;
+				float smallNoiseLevel = -0.1F;
+
+				return List.of(
+					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 22),
+					InSquarePlacement.spread(),
+					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.15F),
+					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.2F),
+					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+					BiomeFilter.biome(),
+					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.CARROTWEED.get())
+				);
+			})
+			.biomes(biomes -> biomes
+				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_GRASS_BONUS = declarePlacedFeature(
+		compileNameFrom(VegetationFeatures.PATCH_GRASS, BONUS),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(VegetationFeatures.PATCH_GRASS)
+			.modifiers(context -> List.of(
+				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_TAIGA_GRASS_BONUS = declarePlacedFeature(
+		compileNameFrom(VegetationFeatures.PATCH_TAIGA_GRASS, BONUS),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(VegetationFeatures.PATCH_TAIGA_GRASS)
+			.modifiers(context -> List.of(
+				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.WINDSWEPT_FOREST)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_FERN_BONUS = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FERN, BONUS),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_FERN)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(6.12F),
+				CountPlacement.of(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FOREST)
+				.add(Biomes.SWAMP)
+				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 			)
 	);
 
@@ -216,7 +354,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(5.52F),
+				PlantopiaRarityFilter.onAverageOnceEvery(5.42F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -229,7 +367,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					)
 				)
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.apply(PlantopiaPlacements::addCascadesBiomes)
 				.add(Biomes.RIVER)
@@ -255,10 +393,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					)
 				)
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
-				.add(Biomes.OLD_GROWTH_PINE_TAIGA)
-				.add(Biomes.RIVER)
 				.addTag(BiomeTags.IS_JUNGLE, BiomeTags.IS_SAVANNA)
 			)
 	);
@@ -278,7 +414,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					BlockPredicate.matchesFluids(Fluids.WATER)
 				)
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
 			)
 	);
@@ -294,7 +430,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.BEACH)
 			)
 	);
@@ -310,7 +446,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.SNOWY_TAIGA, Biomes.GROVE)
 			)
 	);
@@ -326,12 +462,14 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addCascadesBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
 				.add(Biomes.RIVER)
+				.add(Biomes.STONY_PEAKS, Biomes.STONY_SHORE)
+				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
 				.addTag(BiomeTags.IS_SAVANNA)
 				.addTag(BiomeTags.IS_MOUNTAIN)
 				.addTag(BiomeTags.IS_JUNGLE)
@@ -350,7 +488,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
 				.add(Biomes.WARM_OCEAN)
 			)
@@ -366,7 +504,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 			)
 	);
@@ -384,7 +522,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get())
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.SWAMP)
 			)
 	);
@@ -402,7 +540,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get())
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.MANGROVE_SWAMP)
 			)
 	);
@@ -419,7 +557,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get())
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.add(Biomes.MANGROVE_SWAMP)
 			)
 	);
@@ -429,17 +567,17 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(7.26F),
+				PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				WATER_PLANT_HIGH_RANGE_FILTER,
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.BRANCHING_SHRUB.get())
 			))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
 				.apply(PlantopiaPlacements::addCascadesBiomes)
-				.add(Biomes.FOREST, Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.DARK_FOREST)
+				.add(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.DARK_FOREST)
 				.add(Biomes.WINDSWEPT_FOREST)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 				.addTag(BiomeTags.IS_JUNGLE)
@@ -466,44 +604,28 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.AZOLLA.get())
 				);
 			})
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_CARROTWEED = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CARROTWEED),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_CARROTWEED)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(4.24F, 6.64F),
-				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
-			))
-			.biomes(tagSet -> tagSet
-				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
 			)
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(18.42F, 22.24F))
-			.biomes(tagSet -> tagSet
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(18.42F, 22.42F))
+			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
-				.add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
-				.add(Biomes.WINDSWEPT_FOREST, Biomes.FOREST, Biomes.FLOWER_FOREST)
+				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+				.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
 				.addTag(BiomeTags.IS_SAVANNA, BiomeTags.IS_JUNGLE)
 			)
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER_2 = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER, 2),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(4.24F, 6.64F))
-			.biomes(tagSet -> tagSet
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(4.24F, 6.24F))
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
-				.add(Biomes.MEADOW, Biomes.CHERRY_GROVE)
+				.add(Biomes.MEADOW)
 				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
 			)
 	);
@@ -511,21 +633,20 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 	public static final ResourceKey<PlacedFeature> PATCH_WHITE_CLOVER_BLOSSOM = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM),
 		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, UniformFloat.of(26.64F, 29.32F))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
-				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST)
+				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
 			)
-
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_PINK_CLOVER_BLOSSOM = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM),
 		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, UniformFloat.of(26.64F, 29.32F))
-			.biomes(tagSet -> tagSet
+			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addOldGrowthBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
-				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST)
+				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
 			)
 	);
 
@@ -536,7 +657,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlantopiaRarityFilter.onAverageOnceEvery(chance),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
 				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			));
 	}

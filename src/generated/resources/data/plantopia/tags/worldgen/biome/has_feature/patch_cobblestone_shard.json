@@ -11,8 +11,13 @@
 		"minecraft:old_growth_birch_forest",
 		"minecraft:plains",
 		"minecraft:river",
+		"minecraft:stony_peaks",
+		"minecraft:stony_shore",
 		"minecraft:sunflower_plains",
 		"minecraft:taiga",
+		"minecraft:windswept_forest",
+		"minecraft:windswept_gravelly_hills",
+		"minecraft:windswept_hills",
 		{
 			"id": "hybrid_beta:autumnal_forest",
 			"required": false

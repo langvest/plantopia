@@ -26,6 +26,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 public class PlantopiaFeatures {
 	protected static final String SINGLE = "single";
 	protected static final String PATCH = "patch";
+	protected static final String MOUNTAIN = "mountain";
 	protected static final String IN_WATER = "in_water";
 	protected static final String IN_SNOW = "in_snow";
 	protected static final String ON_SAND = "on_sand";
@@ -111,6 +112,11 @@ public class PlantopiaFeatures {
 	@Contract("_ -> new")
 	protected static @NotNull String patchNameOf(String name) {
 		return compileNameFrom(PATCH, name);
+	}
+
+	@Contract("_ -> new")
+	protected static @NotNull String patchNameOf(Block block) {
+		return compileNameFrom(PATCH, nameOf(block));
 	}
 
 	@Contract("_ -> new")

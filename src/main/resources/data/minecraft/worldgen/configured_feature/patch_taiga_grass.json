@@ -3,28 +3,22 @@
 	"config": {
 		"feature": {
 			"feature": {
-				"type": "plantopia:natural_block",
+				"type": "minecraft:simple_block",
 				"config": {
 					"to_place": {
 						"type": "minecraft:weighted_state_provider",
 						"entries": [
 							{
 								"data": {
-									"Name": "plantopia:fireweed",
-									"Properties": {
-										"half": "lower"
-									}
+									"Name": "minecraft:grass"
 								},
-								"weight": 10
+								"weight": 2
 							},
 							{
 								"data": {
-									"Name": "minecraft:tall_grass",
-									"Properties": {
-										"half": "lower"
-									}
+									"Name": "minecraft:fern"
 								},
-								"weight": 1
+								"weight": 5
 							}
 						]
 					}
@@ -35,16 +29,13 @@
 					"type": "minecraft:block_predicate_filter",
 					"predicate": {
 						"type": "minecraft:matching_blocks",
-						"blocks": [
-							"minecraft:air",
-							"minecraft:grass"
-						]
+						"blocks": "minecraft:air"
 					}
 				}
 			]
 		},
-		"tries": 64,
-		"xz_spread": 6,
+		"tries": 32,
+		"xz_spread": 7,
 		"y_spread": 3
 	}
 }

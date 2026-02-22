@@ -18,7 +18,6 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
-import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
@@ -51,6 +50,10 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         BlockPredicate.ONLY_IN_AIR_PREDICATE,
         BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
     );
+    protected static final BlockPredicate GRASS_PLANT_PREDICATE = BlockPredicate.allOf(
+        BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS),
+        BlockPredicate.solid(BlockPos.ZERO.below())
+    );
 
     private static final Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> declarations = Maps.newHashMap();
 
@@ -72,14 +75,6 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_DIAMOND_BLOCK = declareConfiguredFeature(
-        singleNameOf("diamond_block"),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(simpleBlock(context ->
-                simpleConfig(Blocks.DIAMOND_BLOCK)
-            ))
-    );
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS_ON_SAND = declareConfiguredFeature(
         compileNameFrom(PATCH, PlantopiaBlocks.TINY_CACTUS, ON_SAND),
         PlantopiaFeatureDeclaration.builder()
@@ -95,17 +90,85 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREWEED = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.FIREWEED),
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHICORY = declareConfiguredFeature(
+        patchNameOf(PlantopiaBlocks.CHICORY),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(64, 6, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(8, 3, 2, PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.CHICORY.get()),
+                    GRASS_PLANT_PREDICATE
+                ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TANSY = declareConfiguredFeature(
+        patchNameOf(PlantopiaBlocks.TANSY),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(14, 2, 1, PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.TANSY.get()),
+                    GRASS_PLANT_PREDICATE
+                ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED = declareConfiguredFeature(
+        patchNameOf(PlantopiaBlocks.CARROTWEED),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(18, 3, 2, PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.CARROTWEED.get()),
+                    GRASS_PLANT_PREDICATE
+                ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED_MOUNTAIN = declareConfiguredFeature(
+        compileNameFrom(patchNameOf(PlantopiaBlocks.CARROTWEED), MOUNTAIN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(60, 5, 3, PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    weightedConfig(states -> states
+                        .add(PlantopiaBlocks.CARROTWEED.get().defaultBlockState(), 10)
+                        .add(Blocks.TALL_GRASS.defaultBlockState(), 2)
+                        .add(Blocks.GRASS.defaultBlockState(), 1)
+                    ),
+                    BlockPredicate.allOf(
+                        BlockPredicate.ONLY_IN_AIR_PREDICATE,
+                        BlockPredicate.solid(BlockPos.ZERO.below())
+                    )
+                ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREWEED_MOUNTAIN = declareConfiguredFeature(
+        compileNameFrom(PATCH, PlantopiaBlocks.FIREWEED, MOUNTAIN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(60, 5, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.FIREWEED.get().defaultBlockState(), 10)
-                        .add(Blocks.TALL_GRASS.defaultBlockState(), 1)
+                        .add(Blocks.TALL_GRASS.defaultBlockState(), 2)
+                        .add(Blocks.GRASS.defaultBlockState(), 1)
                     ),
-                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS)
+                    GRASS_PLANT_PREDICATE
+                ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FERN = declareConfiguredFeature(
+        patchNameOf(Blocks.FERN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(Blocks.FERN),
+                    GRASS_PLANT_PREDICATE
                 ))
             ))
     );
@@ -128,7 +191,10 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             .feature(randomPatch(context ->
                 new RandomPatchConfiguration(94, 6, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    simpleConfig(PlantopiaBlocks.CATTAIL.get()),
+                    weightedConfig(states -> states
+                        .add(PlantopiaBlocks.CATTAIL.get().defaultBlockState(), 4)
+                        .add(PlantopiaBlocks.SWEET_FLAG.get().defaultBlockState(), 1)
+                    ),
                     BlockPredicate.allOf(
                         WATER_PlANT_PREDICATE,
                         BlockPredicate.not(
@@ -281,32 +347,6 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.CARROTWEED),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(radialPatch(context ->
-                new PlantopiaRadialPatchConfiguration(
-                    UniformInt.of(48, 72), // tries
-                    ClampedInt.of(UniformInt.of(1,9), 3, 9), // xzSpread
-                    ConstantInt.of(4), // ySpread
-                    -0.22D, // sigma
-                    0.264D, // erosion
-                    List.of(new PlantopiaSimpleBlockPlacer(
-                        weightedProvider(states -> states
-                            .add(PlantopiaBlocks.CARROTWEED.get().defaultBlockState(), 3)
-                            .add(Blocks.GRASS.defaultBlockState(), 1)
-                        ),
-                        1
-                    )),
-                    Optional.of(BlockPredicate.allOf(
-                        BlockPredicate.ONLY_IN_AIR_PREDICATE,
-                        BlockPredicate.solid(BlockPos.ZERO.below())
-                    )),
-                    Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
-                )
-            ))
-    );
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CLOVER = declareConfiguredFeature(
         patchNameOf(PlantopiaBlocks.CLOVER),
         PlantopiaFeatureDeclaration.builder()
@@ -386,10 +426,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                 -0.232D, // sigma
                 0.242D, // erosion
                 blocks,
-				Optional.of(BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS),
-					BlockPredicate.solid(BlockPos.ZERO.below())
-				)),
+                Optional.of(GRASS_PLANT_PREDICATE),
                 Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
             );
         };

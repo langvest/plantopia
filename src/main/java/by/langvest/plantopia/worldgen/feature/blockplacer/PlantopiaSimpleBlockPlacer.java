@@ -13,11 +13,16 @@ import org.jetbrains.annotations.NotNull;
 public class PlantopiaSimpleBlockPlacer extends PlantopiaBlockPlacer {
     public static final Codec<PlantopiaSimpleBlockPlacer> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
         BlockStateProvider.CODEC.fieldOf("provider").forGetter(target -> target.provider),
-        ExtraCodecs.POSITIVE_INT.fieldOf("weight").forGetter(target -> target.weight)
+        ExtraCodecs.POSITIVE_INT.fieldOf("weight").orElse(1).forGetter(target -> target.weight)
     ).apply(instance, PlantopiaSimpleBlockPlacer::new));
 
     protected final BlockStateProvider provider;
     protected final int weight;
+
+    public PlantopiaSimpleBlockPlacer(BlockStateProvider provider) {
+        this.provider = provider;
+        this.weight = 1;
+    }
 
     public PlantopiaSimpleBlockPlacer(BlockStateProvider provider, int weight) {
         this.provider = provider;

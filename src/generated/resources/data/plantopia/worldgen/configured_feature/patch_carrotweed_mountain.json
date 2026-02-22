@@ -10,21 +10,25 @@
 						"entries": [
 							{
 								"data": {
-									"Name": "plantopia:cattail",
+									"Name": "plantopia:carrotweed",
 									"Properties": {
-										"half": "lower",
-										"waterlogged": "false"
+										"half": "lower"
 									}
 								},
-								"weight": 4
+								"weight": 10
 							},
 							{
 								"data": {
-									"Name": "plantopia:sweet_flag",
+									"Name": "minecraft:tall_grass",
 									"Properties": {
-										"half": "lower",
-										"waterlogged": "false"
+										"half": "lower"
 									}
+								},
+								"weight": 2
+							},
+							{
+								"data": {
+									"Name": "minecraft:grass"
 								},
 								"weight": 1
 							}
@@ -40,27 +44,23 @@
 						"predicates": [
 							{
 								"type": "minecraft:matching_blocks",
-								"blocks": [
-									"minecraft:air",
-									"minecraft:water",
-									"minecraft:grass",
-									"minecraft:seagrass"
-								]
+								"blocks": "minecraft:air"
 							},
 							{
-								"type": "minecraft:not",
-								"predicate": {
-									"type": "minecraft:matching_block_tag",
-									"tag": "minecraft:ice"
-								}
+								"type": "minecraft:solid",
+								"offset": [
+									0,
+									-1,
+									0
+								]
 							}
 						]
 					}
 				}
 			]
 		},
-		"tries": 94,
-		"xz_spread": 6,
-		"y_spread": 1
+		"tries": 60,
+		"xz_spread": 5,
+		"y_spread": 3
 	}
 }
