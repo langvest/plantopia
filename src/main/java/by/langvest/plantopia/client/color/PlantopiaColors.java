@@ -30,7 +30,7 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class PlantopiaColors {
+public class PlantopiaColors {
 	private static final Set<Block> BLOCK_GRASS_COLOR_0 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_GRASS_COLOR_1 = Sets.newHashSet();
 	private static final Set<Block> BLOCK_FOLIAGE_COLOR_0 = Sets.newHashSet();
