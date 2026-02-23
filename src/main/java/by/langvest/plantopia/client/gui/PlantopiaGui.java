@@ -1,4 +1,4 @@
-package by.langvest.plantopia.gui;
+package by.langvest.plantopia.client.gui;
 
 import net.minecraft.resources.ResourceLocation;
 

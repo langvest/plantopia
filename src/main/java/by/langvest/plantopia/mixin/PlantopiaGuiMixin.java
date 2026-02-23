@@ -1,7 +1,7 @@
 package by.langvest.plantopia.mixin;
 
 import by.langvest.plantopia.block.special.PlantopiaQuicksandBlock;
-import by.langvest.plantopia.gui.PlantopiaGui;
+import by.langvest.plantopia.client.gui.PlantopiaGui;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;
