@@ -91,5 +91,7 @@
 	"itemGroup.plantopia.main": "Plantopia",
 	"subtitles.plantopia.entity.drowned.converted_to_zombie": "Drowned converts to Zombie",
 	"subtitles.plantopia.entity.zombie.converted_to_husk": "Zombie converts to Husk",
-	"tooltip.plantopia.random_variant": "Random variant"
+	"tooltip.plantopia.no_petals": "No petals left",
+	"tooltip.plantopia.random_variant": "Random variant",
+	"tooltip.plantopia.remaining_petals": "Petals left: %s"
 }

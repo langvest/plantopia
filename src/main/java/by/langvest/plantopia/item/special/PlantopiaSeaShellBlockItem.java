@@ -2,8 +2,8 @@ package by.langvest.plantopia.item.special;
 
 import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
 import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
+import by.langvest.plantopia.client.lang.PlantopiaLangKey;
 import by.langvest.plantopia.item.PlantopiaUpdateUseOnContext;
-import by.langvest.plantopia.util.helper.PlantopiaTemplateHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -21,47 +21,47 @@ import java.util.List;
 import java.util.Locale;
 
 public class PlantopiaSeaShellBlockItem extends BlockItem implements PlantopiaUpdateUseOnContext {
-	public PlantopiaSeaShellBlockItem(Block block, Properties properties) {
-		super(block, properties);
-	}
+    public PlantopiaSeaShellBlockItem(Block block, Properties properties) {
+        super(block, properties);
+    }
 
-	@Override
-	public UseOnContext updateUseOnContext(@NotNull UseOnContext context, RandomSource syncRandom) {
-		var itemStack = context.getItemInHand();
+    @Override
+    public UseOnContext updateUseOnContext(@NotNull UseOnContext context, RandomSource syncRandom) {
+        var itemStack = context.getItemInHand();
 
-		if(itemStack.hasTag()) return context;
+        if (itemStack.hasTag()) return context;
 
-		var player = context.getPlayer();
-		var tag = new CompoundTag();
-		var newItemStack = itemStack.copy();
+        var player = context.getPlayer();
+        var tag = new CompoundTag();
+        var newItemStack = itemStack.copy();
 
-		tag.putInt("Color", PlantopiaSeaShellBlockEntity.generateRandomColor(syncRandom));
+        tag.putInt("Color", PlantopiaSeaShellBlockEntity.generateRandomColor(syncRandom));
 
-		BlockItem.setBlockEntityData(newItemStack, PlantopiaBlockEntities.SEA_SHELL.get(), tag);
+        BlockItem.setBlockEntityData(newItemStack, PlantopiaBlockEntities.SEA_SHELL.get(), tag);
 
-		if(player != null && !player.isCreative()) itemStack.shrink(1);
+        if (player != null && !player.isCreative()) itemStack.shrink(1);
 
-		return new UseOnContext(
-			context.getLevel(),
-			context.getPlayer(),
-			context.getHand(),
-			newItemStack,
-			context.getHitResult()
-		);
-	}
+        return new UseOnContext(
+            context.getLevel(),
+            context.getPlayer(),
+            context.getHand(),
+            newItemStack,
+            context.getHitResult()
+        );
+    }
 
-	@Override
-	public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-		super.appendHoverText(itemStack, level, tooltip, flag);
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        super.appendHoverText(itemStack, level, tooltip, flag);
 
-		var tag = BlockItem.getBlockEntityData(itemStack);
+        var tag = BlockItem.getBlockEntityData(itemStack);
 
-		if(tag != null && tag.contains("Color")) {
-			if(flag.isAdvanced()) {
-				tooltip.add(Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", tag.getInt("Color"))).withStyle(ChatFormatting.GRAY));
-			}
-		} else if(flag.isCreative()) {
-			tooltip.add(Component.translatable(PlantopiaTemplateHelper.TOOLTIP_RANDOM_VARIANT_KEY).withStyle(ChatFormatting.GRAY));
-		}
-	}
+        if (tag != null && tag.contains("Color")) {
+            if (flag.isAdvanced()) {
+                tooltip.add(Component.translatable("item.color", String.format(Locale.ROOT, "#%06X", tag.getInt("Color"))).withStyle(ChatFormatting.GRAY));
+            }
+        } else if (flag.isCreative()) {
+            tooltip.add(Component.translatable(PlantopiaLangKey.TOOLTIP_RANDOM_VARIANT).withStyle(ChatFormatting.GRAY));
+        }
+    }
 }

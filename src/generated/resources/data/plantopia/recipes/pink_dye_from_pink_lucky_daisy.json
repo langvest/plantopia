@@ -1,12 +1,10 @@
 {
-	"type": "minecraft:crafting_shapeless",
+	"type": "plantopia:crafting_lucky_daisy_dye",
 	"category": "misc",
+	"daisy": {
+		"item": "plantopia:pink_lucky_daisy"
+	},
 	"group": "pink_dye",
-	"ingredients": [
-		{
-			"item": "plantopia:pink_lucky_daisy"
-		}
-	],
 	"result": {
 		"item": "minecraft:pink_dye"
 	}

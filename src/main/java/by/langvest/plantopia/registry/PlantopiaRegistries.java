@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -33,6 +34,7 @@ public final class PlantopiaRegistries {
 	public static final Registry<PlacementModifierType<?>> PLACEMENT_MODIFIER_TYPE = createSimpleRegistry("placement_modifier_type");
 	public static final Registry<PlantopiaBlockPlacerType<?>> BLOCK_PLACER_TYPE = createSimpleRegistry("block_placer_type");
 	public static final Registry<PlantopiaAdvancement> ADVANCEMENT = createSimpleRegistry("advancement");
+	public static final Registry<RecipeSerializer<?>> RECIPE_SERIALIZER = createSimpleRegistry("recipe_serializer");
 
 	@Contract("_ -> new")
 	private static <T> @NotNull SimpleRegistry<T> createSimpleRegistry(String name) {

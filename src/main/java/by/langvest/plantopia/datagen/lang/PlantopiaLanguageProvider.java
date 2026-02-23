@@ -3,6 +3,7 @@ package by.langvest.plantopia.datagen.lang;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.special.PlantopiaSimpleAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
+import by.langvest.plantopia.client.lang.PlantopiaLangKey;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
@@ -51,7 +52,9 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		soundEvent(PlantopiaSoundEvents.DROWNED_CONVERTED_TO_ZOMBIE, "Drowned converts to Zombie");
 		soundEvent(PlantopiaSoundEvents.ZOMBIE_CONVERTED_TO_HUSK, "Zombie converts to Husk");
 
-		add(PlantopiaTemplateHelper.TOOLTIP_RANDOM_VARIANT_KEY, "Random variant");
+		add(PlantopiaLangKey.TOOLTIP_RANDOM_VARIANT, "Random variant");
+		add(PlantopiaLangKey.TOOLTIP_REMAINING_PETALS, "Petals left: %s");
+		add(PlantopiaLangKey.TOOLTIP_NO_PETALS, "No petals left");
 	}
 
 	@SuppressWarnings("SameParameterValue")

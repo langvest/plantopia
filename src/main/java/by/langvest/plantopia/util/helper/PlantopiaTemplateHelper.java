@@ -6,8 +6,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class PlantopiaTemplateHelper {
-	public static final String TOOLTIP_RANDOM_VARIANT_KEY = "tooltip." + Plantopia.MOD_ID + ".random_variant";
-
 	/* ADVANCEMENT *****************************************************************/
 
 	@Contract(pure = true)
