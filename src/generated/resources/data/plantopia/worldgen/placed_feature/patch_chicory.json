@@ -6,8 +6,8 @@
 			"chance": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": 30.84,
-					"min_inclusive": 26.24
+					"max_exclusive": 32.24,
+					"min_inclusive": 28.12
 				}
 			}
 		},

@@ -217,7 +217,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(26.24F, 30.84F),
+				PlantopiaRarityFilter.onAverageOnceEvery(28.12F, 32.24F),
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
