@@ -1,8 +1,8 @@
-package by.langvest.plantopia.util;
+package by.langvest.plantopia.extension;
 
 import net.minecraft.util.RandomSource;
 
-public interface PlantopiaRandomizedHitResult {
+public interface PlantopiaRandomizedHitResultExtension {
 	void plantopia$setBaseSeed(byte baseSeed);
 
 	byte plantopia$getBaseSeed();

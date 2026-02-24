@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
-public final class PlantopiaMetaBuckets {
+public class PlantopiaMetaBuckets {
 	public static final MetaBucket<PlantopiaBlockMeta> BLOCK = createBucket("block");
 	public static final MetaBucket<PlantopiaItemMeta> ITEM = createBucket("item");
 	public static final MetaBucket<PlantopiaSoundEventMeta> SOUND_EVENT = createBucket("sound_event");

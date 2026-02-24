@@ -1,6 +1,6 @@
 package by.langvest.plantopia.mixin;
 
-import by.langvest.plantopia.util.PlantopiaRandomizedHitResult;
+import by.langvest.plantopia.extension.PlantopiaRandomizedHitResultExtension;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Unique;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Mixin(HitResult.class)
-public abstract class PlantopiaHitResultMixin implements PlantopiaRandomizedHitResult {
+public abstract class PlantopiaHitResultMixin implements PlantopiaRandomizedHitResultExtension {
 	@Unique
 	private static final long plantopia$FNV_OFFSET_BASIS = 0xcbf29ce484222325L;
 	@Unique

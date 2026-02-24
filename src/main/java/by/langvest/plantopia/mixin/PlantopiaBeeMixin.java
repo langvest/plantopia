@@ -3,7 +3,7 @@ package by.langvest.plantopia.mixin;
 import by.langvest.plantopia.block.PlantopiaPollinableBlock;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
-import by.langvest.plantopia.util.PlantopiaContextBinder;
+import by.langvest.plantopia.extension.PlantopiaContextBinderExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.item.ItemStack;
@@ -57,6 +57,6 @@ public abstract class PlantopiaBeeMixin {
 	)
 	private void registerGoals(CallbackInfo ci) {
 		Bee that = (Bee)(Object)this;
-		if(beePollinateGoal instanceof PlantopiaContextBinder binder) binder.plantopia$bindContext(that);
+		if(beePollinateGoal instanceof PlantopiaContextBinderExtension binder) binder.plantopia$bindContext(that);
 	}
 }

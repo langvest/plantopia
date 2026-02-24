@@ -1,7 +1,7 @@
 package by.langvest.plantopia.mixin;
 
 import by.langvest.plantopia.item.PlantopiaUpdateUseOnContext;
-import by.langvest.plantopia.util.PlantopiaRandomizedHitResult;
+import by.langvest.plantopia.extension.PlantopiaRandomizedHitResultExtension;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.UseOnContext;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ public abstract class PlantopiaBlockItemMixin {
 		if(blockItem instanceof PlantopiaUpdateUseOnContext expandedBlockItem) {
 			var random = context.getLevel().getRandom();
 
-			if(context.getHitResult() instanceof PlantopiaRandomizedHitResult randomizedHitResult) {
+			if(context.getHitResult() instanceof PlantopiaRandomizedHitResultExtension randomizedHitResult) {
 				random = randomizedHitResult.plantopia$getRandom();
 			}
 

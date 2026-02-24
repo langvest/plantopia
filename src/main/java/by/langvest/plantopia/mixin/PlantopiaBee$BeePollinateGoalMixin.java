@@ -4,7 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaPollinableBlock;
 import by.langvest.plantopia.block.special.PlantopiaPollinatedDandelionBlock;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
-import by.langvest.plantopia.util.PlantopiaContextBinder;
+import by.langvest.plantopia.extension.PlantopiaContextBinderExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.level.Level;
@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 @Mixin(Bee.BeePollinateGoal.class)
-public abstract class PlantopiaBee$BeePollinateGoalMixin implements PlantopiaContextBinder {
+public abstract class PlantopiaBee$BeePollinateGoalMixin implements PlantopiaContextBinderExtension {
 	@Nullable
 	@Unique
 	private Bee plantopia$bee = null;

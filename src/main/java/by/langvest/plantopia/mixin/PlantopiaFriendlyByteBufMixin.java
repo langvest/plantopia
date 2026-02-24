@@ -1,6 +1,6 @@
 package by.langvest.plantopia.mixin;
 
-import by.langvest.plantopia.util.PlantopiaRandomizedHitResult;
+import by.langvest.plantopia.extension.PlantopiaRandomizedHitResultExtension;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +20,7 @@ public abstract class PlantopiaFriendlyByteBufMixin {
 		FriendlyByteBuf friendlyByteBuf = (FriendlyByteBuf)(Object)this;
 		var blockHitResult = cir.getReturnValue();
 
-		if(blockHitResult instanceof PlantopiaRandomizedHitResult randomizedHitResult) {
+		if(blockHitResult instanceof PlantopiaRandomizedHitResultExtension randomizedHitResult) {
 			randomizedHitResult.plantopia$setBaseSeed(friendlyByteBuf.readByte());
 		}
 	}
@@ -32,7 +32,7 @@ public abstract class PlantopiaFriendlyByteBufMixin {
 	private void writeBlockHitResult(BlockHitResult blockHitResult, CallbackInfo ci) {
 		FriendlyByteBuf friendlyByteBuf = (FriendlyByteBuf)(Object)this;
 
-		if(blockHitResult instanceof PlantopiaRandomizedHitResult randomizedHitResult) {
+		if(blockHitResult instanceof PlantopiaRandomizedHitResultExtension randomizedHitResult) {
 			friendlyByteBuf.writeByte(randomizedHitResult.plantopia$getBaseSeed());
 		}
 	}

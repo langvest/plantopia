@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
-public final class PlantopiaRegistries {
+public class PlantopiaRegistries {
 	public static final Registry<Block> BLOCK = createSimpleRegistry("block");
 	public static final Registry<Item> ITEM = createSimpleRegistry("item");
 	public static final Registry<SoundEvent> SOUND_EVENT = createSimpleRegistry("sound_event");
