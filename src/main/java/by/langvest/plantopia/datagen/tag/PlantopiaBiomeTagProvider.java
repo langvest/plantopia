@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
-public final class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements PlantopiaTagProvider<Biome> {
+public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements PlantopiaTagProvider<Biome> {
     private final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
 
 	public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {

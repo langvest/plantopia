@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public final class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider implements PlantopiaTagProvider<EntityType<?>> {
+public class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider implements PlantopiaTagProvider<EntityType<?>> {
     private final Map<TagKey<EntityType<?>>, PlantopiaTagSet<EntityType<?>>> byTagKeys = Maps.newHashMap();
 
 	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS);

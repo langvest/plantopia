@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
-public final class PlantopiaBlockTagProvider extends BlockTagsProvider implements PlantopiaTagProvider<Block> {
+public class PlantopiaBlockTagProvider extends BlockTagsProvider implements PlantopiaTagProvider<Block> {
     private final Map<TagKey<Block>, PlantopiaTagSet<Block>> byTagKeys = Maps.newHashMap();
     private final Map<MetaType, PlantopiaTagSet<Block>> byMetaTypes = Maps.newHashMap();
 

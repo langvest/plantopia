@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public final class PlantopiaItemTagProvider extends ItemTagsProvider implements PlantopiaTagProvider<Item> {
+public class PlantopiaItemTagProvider extends ItemTagsProvider implements PlantopiaTagProvider<Item> {
     private final Map<TagKey<Item>, PlantopiaTagSet<Item>> byTagKeys = Maps.newHashMap();
     private final Map<PlantopiaItemMeta.MetaType, PlantopiaTagSet<Item>> byItemMetaTypes = Maps.newHashMap();
     private final Map<PlantopiaBlockMeta.MetaType, PlantopiaTagSet<Item>> byBlockMetaTypes = Maps.newHashMap();
