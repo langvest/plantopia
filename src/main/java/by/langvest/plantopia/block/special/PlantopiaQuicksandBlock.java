@@ -42,6 +42,9 @@ import java.util.Optional;
 
 import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToRgb;
 
+/**
+ * @see net.minecraft.world.level.block.PowderSnowBlock
+ */
 public class PlantopiaQuicksandBlock extends SandBlock implements BucketPickup {
 	public static final int DUST_COLOR = hexToRgb("#DBD3A0");
 	private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, 0.9D, 1.0D);
@@ -132,7 +135,10 @@ public class PlantopiaQuicksandBlock extends SandBlock implements BucketPickup {
 	}
 
 	public static boolean isEntityImmuneToQuicksand(@NotNull Entity entity) {
-		return entity.getType().is(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES);
+		if (entity instanceof LivingEntity livingEntity) {
+			return livingEntity.getType().is(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES);
+		}
+		return true;
 	}
 
 	public static boolean canEntityWalkOnQuicksand(@NotNull Entity entity) {
