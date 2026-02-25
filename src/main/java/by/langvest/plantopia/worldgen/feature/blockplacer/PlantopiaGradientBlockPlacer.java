@@ -20,11 +20,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlantopiaGradientBlockPlacer extends PlantopiaBlockPlacer {
-    public static final Codec<PlantopiaGradientBlockPlacer> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-        BlockStateProvider.CODEC.fieldOf("provider").forGetter(target -> target.provider),
-        PlantopiaIntegerPropertyHolder.CODEC.fieldOf("property").forGetter(target -> target.property),
-        Codec.DOUBLE.fieldOf("erosion").forGetter(target -> target.erosion),
-        ExtraCodecs.POSITIVE_INT.fieldOf("weight").forGetter(target -> target.weight)
+    public static final Codec<PlantopiaGradientBlockPlacer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        BlockStateProvider.CODEC.fieldOf("provider").forGetter(it -> it.provider),
+        PlantopiaIntegerPropertyHolder.CODEC.fieldOf("property").forGetter(it -> it.property),
+        Codec.DOUBLE.fieldOf("erosion").forGetter(it -> it.erosion),
+        ExtraCodecs.POSITIVE_INT.fieldOf("weight").forGetter(it -> it.weight)
     ).apply(instance, PlantopiaGradientBlockPlacer::new));
 
     private static final Map<Block, IntegerProperty> PROPERTY_CACHE = new ConcurrentHashMap<>();

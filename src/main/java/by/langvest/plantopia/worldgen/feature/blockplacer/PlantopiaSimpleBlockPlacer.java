@@ -11,9 +11,9 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaSimpleBlockPlacer extends PlantopiaBlockPlacer {
-    public static final Codec<PlantopiaSimpleBlockPlacer> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-        BlockStateProvider.CODEC.fieldOf("provider").forGetter(target -> target.provider),
-        ExtraCodecs.POSITIVE_INT.fieldOf("weight").orElse(1).forGetter(target -> target.weight)
+    public static final Codec<PlantopiaSimpleBlockPlacer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        BlockStateProvider.CODEC.fieldOf("provider").forGetter(it -> it.provider),
+        ExtraCodecs.POSITIVE_INT.fieldOf("weight").orElse(1).forGetter(it -> it.weight)
     ).apply(instance, PlantopiaSimpleBlockPlacer::new));
 
     protected final BlockStateProvider provider;

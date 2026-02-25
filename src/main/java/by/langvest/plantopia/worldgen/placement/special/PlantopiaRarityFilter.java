@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class PlantopiaRarityFilter extends PlacementFilter {
     public static final Codec<PlantopiaRarityFilter> CODEC = FloatProvider.codec(1.0F, Float.MAX_VALUE)
         .fieldOf("chance")
-        .xmap(PlantopiaRarityFilter::new, p_191907_ -> p_191907_.chance)
+        .xmap(PlantopiaRarityFilter::new, it -> it.chance)
         .codec();
 
     private final FloatProvider chance;

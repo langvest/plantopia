@@ -21,7 +21,7 @@ public record PlantopiaRadialPatchConfiguration(
     Optional<BlockPredicate> predicate,
     Optional<Heightmap.Types> heightmap
 ) implements FeatureConfiguration {
-    public static final Codec<PlantopiaRadialPatchConfiguration> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final Codec<PlantopiaRadialPatchConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         IntProvider.codec(0, 512).fieldOf("tries").forGetter(PlantopiaRadialPatchConfiguration::tries),
         IntProvider.codec(0, 128).fieldOf("xz_spread").forGetter(PlantopiaRadialPatchConfiguration::xzSpread),
         IntProvider.codec(0, 128).fieldOf("y_spread").forGetter(PlantopiaRadialPatchConfiguration::ySpread),

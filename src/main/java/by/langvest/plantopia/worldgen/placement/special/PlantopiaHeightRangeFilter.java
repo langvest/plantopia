@@ -13,10 +13,10 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaHeightRangeFilter extends PlacementFilter {
-    public static final Codec<PlantopiaHeightRangeFilter> CODEC = RecordCodecBuilder.create((p_191679_) -> p_191679_.group(
-        VerticalAnchor.CODEC.fieldOf("min_inclusive").forGetter((p_161941_) -> p_161941_.minInclusive),
-        VerticalAnchor.CODEC.fieldOf("max_inclusive").forGetter((p_161941_) -> p_161941_.maxInclusive)
-    ).apply(p_191679_, PlantopiaHeightRangeFilter::new));
+    public static final Codec<PlantopiaHeightRangeFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        VerticalAnchor.CODEC.fieldOf("min_inclusive").forGetter(it -> it.minInclusive),
+        VerticalAnchor.CODEC.fieldOf("max_inclusive").forGetter(it -> it.maxInclusive)
+    ).apply(instance, PlantopiaHeightRangeFilter::new));
 
     private final VerticalAnchor minInclusive;
     private final VerticalAnchor maxInclusive;

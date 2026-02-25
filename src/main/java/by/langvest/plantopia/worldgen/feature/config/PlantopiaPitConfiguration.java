@@ -20,7 +20,7 @@ public record PlantopiaPitConfiguration(
     Optional<BlockPredicate> predicate,
     Optional<Heightmap.Types> heightmap
 ) implements FeatureConfiguration {
-    public static final Codec<PlantopiaPitConfiguration> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final Codec<PlantopiaPitConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         IntProvider.codec(0, 128).fieldOf("xz_spread").forGetter(PlantopiaPitConfiguration::xzSpread),
         IntProvider.codec(0, 128).fieldOf("y_spread").forGetter(PlantopiaPitConfiguration::ySpread),
         IntProvider.codec(1, 64).fieldOf("depth").forGetter(PlantopiaPitConfiguration::depth),

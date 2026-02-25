@@ -15,13 +15,13 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaNoiseCountPlacement extends RepeatingPlacement {
-    public static final Codec<PlantopiaNoiseCountPlacement> CODEC = RecordCodecBuilder.create((p_191761_) -> p_191761_.group(
-        PlantopiaNoiseConfig.CODEC.fieldOf("noise_config").forGetter((p_1917617_) -> p_1917617_.noiseConfig),
-        PlantopiaNoiseActivationType.CODEC.fieldOf("activation").forGetter((p_1917617_) -> p_1917617_.activationType),
-        Codec.FLOAT.fieldOf("noise_level").forGetter((p_191771_) -> p_191771_.noiseLevel),
-        IntProvider.codec(0, 256).fieldOf("active_count").forGetter((p_191769_) -> p_191769_.activeCount),
-        IntProvider.codec(0, 256).fieldOf("passive_count").forGetter((p_191763_) -> p_191763_.passiveCount)
-    ).apply(p_191761_, PlantopiaNoiseCountPlacement::new));
+    public static final Codec<PlantopiaNoiseCountPlacement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        PlantopiaNoiseConfig.CODEC.fieldOf("noise_config").forGetter(it -> it.noiseConfig),
+        PlantopiaNoiseActivationType.CODEC.fieldOf("activation").forGetter(it -> it.activationType),
+        Codec.FLOAT.fieldOf("noise_level").forGetter(it -> it.noiseLevel),
+        IntProvider.codec(0, 256).fieldOf("active_count").forGetter(it -> it.activeCount),
+        IntProvider.codec(0, 256).fieldOf("passive_count").forGetter(it -> it.passiveCount)
+    ).apply(instance, PlantopiaNoiseCountPlacement::new));
 
     private final PlantopiaNoiseConfig noiseConfig;
     private final PlantopiaNoiseActivationType activationType;

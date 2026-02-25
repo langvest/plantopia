@@ -8,11 +8,11 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaNoiseConfig {
-    public static final Codec<PlantopiaNoiseConfig> CODEC = RecordCodecBuilder.create((p_191761_) -> p_191761_.group(
-        Codec.DOUBLE.fieldOf("scale").forGetter((p_191771_) -> p_191771_.scale),
-        Codec.INT.fieldOf("offset_x").forGetter((p_191769_) -> p_191769_.offsetX),
-        Codec.INT.fieldOf("offset_z").forGetter((p_191763_) -> p_191763_.offsetZ)
-    ).apply(p_191761_, PlantopiaNoiseConfig::new));
+    public static final Codec<PlantopiaNoiseConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        Codec.DOUBLE.fieldOf("scale").forGetter(it -> it.scale),
+        Codec.INT.fieldOf("offset_x").forGetter(it -> it.offsetX),
+        Codec.INT.fieldOf("offset_z").forGetter(it -> it.offsetZ)
+    ).apply(instance, PlantopiaNoiseConfig::new));
 
     private final double scale;
     private final int offsetX;

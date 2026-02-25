@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public record PlantopiaIntegerPropertyHolder(String name, int min, int max) {
-    public static final Codec<PlantopiaIntegerPropertyHolder> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+    public static final Codec<PlantopiaIntegerPropertyHolder> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Codec.STRING.fieldOf("Name").forGetter(PlantopiaIntegerPropertyHolder::name),
         ExtraCodecs.POSITIVE_INT.fieldOf("Min").forGetter(PlantopiaIntegerPropertyHolder::min),
         ExtraCodecs.POSITIVE_INT.fieldOf("Max").forGetter(PlantopiaIntegerPropertyHolder::max)
