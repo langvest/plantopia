@@ -4,6 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeModifiers;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatures;
+import by.langvest.plantopia.worldgen.noise.PlantopiaNoises;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -20,6 +21,7 @@ public class PlantopiaWorldGenProvider extends DatapackBuiltinEntriesProvider {
 		.add(Registries.CONFIGURED_FEATURE, PlantopiaFeatures::bootstrap)
 		.add(Registries.PLACED_FEATURE, PlantopiaPlacements::bootstrap)
 		.add(Registries.DAMAGE_TYPE, PlantopiaDamageTypes::bootstrap)
+		.add(Registries.NOISE, PlantopiaNoises::bootstrap)
 		.add(ForgeRegistries.Keys.BIOME_MODIFIERS, PlantopiaBiomeModifiers::bootstrap);
 
 	public PlantopiaWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {

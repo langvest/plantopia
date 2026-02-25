@@ -35,6 +35,7 @@ public class PlantopiaPlacements {
 		Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> result = Maps.newHashMap();
 
 		result.putAll(PlantopiaVegetationPlacements.getDeclarations());
+		result.putAll(PlantopiaMiscOverworldPlacements.getDeclarations());
 
 		return result;
 	}

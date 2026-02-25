@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.feature;
 
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -43,6 +45,7 @@ public class PlantopiaFeatures {
 		Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> result = Maps.newHashMap();
 
 		result.putAll(PlantopiaVegetationFeatures.getDeclarations());
+		result.putAll(PlantopiaMiscOverworldFeatures.getDeclarations());
 
 		return result;
 	}
@@ -55,29 +58,39 @@ public class PlantopiaFeatures {
 
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
-		return context -> new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, configFactory.apply(context));
+		return configuredFeature(Feature.SIMPLE_BLOCK, configFactory);
 	}
 
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
-		return context -> new ConfiguredFeature<>(PlantopiaFeatureTypes.NATURAL_BLOCK.get(), configFactory.apply(context));
+		return configuredFeature(PlantopiaFeatureTypes.NATURAL_BLOCK.get(), configFactory);
 	}
 
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
-		return context -> new ConfiguredFeature<>(Feature.RANDOM_PATCH, configFactory.apply(context));
+		return configuredFeature(Feature.RANDOM_PATCH, configFactory);
 	}
 
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> radialPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> configFactory) {
-		return context -> new ConfiguredFeature<>(PlantopiaFeatureTypes.RADIAL_PATCH.get(), configFactory.apply(context));
+		return configuredFeature(PlantopiaFeatureTypes.RADIAL_PATCH.get(), configFactory);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> pit(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaPitConfiguration> configFactory) {
+		return configuredFeature(PlantopiaFeatureTypes.PIT.get(), configFactory);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull <FC extends FeatureConfiguration, F extends Feature<FC>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(F feature, Function<BootstapContext<ConfiguredFeature<?, ?>>, FC> configFactory) {
+		return context -> new ConfiguredFeature<>(feature, configFactory.apply(context));
 	}
 
 	/* CONFIGS ******************************************/
 
 	@Contract(pure = true)
 	protected static @NotNull SimpleBlockConfiguration simpleConfig(Block block) {
-		return new SimpleBlockConfiguration(BlockStateProvider.simple(block));
+		return new SimpleBlockConfiguration(simpleProvider(block));
 	}
 
 	@Contract(pure = true)
@@ -85,12 +98,7 @@ public class PlantopiaFeatures {
 		return new SimpleBlockConfiguration(weightedProvider(states));
 	}
 
-	@Contract(pure = true)
-	protected static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
-		return new WeightedStateProvider(
-			states.apply(SimpleWeightedRandomList.builder())
-		);
-	}
+	/* PROVIDERS ******************************************/
 
 	@Contract(pure = true)
 	protected static @NotNull BlockStateProvider simpleProvider(Block block) {
@@ -100,6 +108,11 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	protected static @NotNull BlockStateProvider simpleProvider(BlockState state) {
 		return BlockStateProvider.simple(state);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
+		return new WeightedStateProvider(states.apply(SimpleWeightedRandomList.builder()));
 	}
 
 	/* HELPER METHODS ******************************************/
