@@ -83,12 +83,12 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	}
 
 	@Override
-	public boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
 		var posAbove2 = pos.above(2);
 
 		if(!level.getBlockState(posAbove2).isAir()) return false;
 
-		return super.generateAt(level, pos, state, random, flags);
+		return super.placeNaturallyAt(level, pos, state, random, flags);
 	}
 
 	@Override

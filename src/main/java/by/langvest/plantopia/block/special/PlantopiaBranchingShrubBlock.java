@@ -255,7 +255,7 @@ public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterlo
     }
 
     @Override
-    public boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+    public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
         int height = 1 + random.nextIntBetweenInclusive(0, 2);
 
         if (random.nextDouble() < 0.35D) {

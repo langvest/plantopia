@@ -106,7 +106,7 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	}
 
 	@Override
-	public boolean generateAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
 		if(!state.canSurvive(level, pos)) return false;
 		if(!canPlaceAt(level, pos)) return false;
 

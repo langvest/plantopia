@@ -38,7 +38,7 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
         var block = state.getBlock();
 
         if(block instanceof PlantopiaNaturalBlock naturalBlock) {
-            return naturalBlock.generateAt(level, pos, state, random, flags);
+            return naturalBlock.placeNaturallyAt(level, pos, state, random, flags);
         }
 
         if(!state.canSurvive(level, pos)) return false;
