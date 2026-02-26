@@ -3,11 +3,11 @@ package by.langvest.plantopia.worldgen.feature;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaAzollaBlock;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
-import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaGradientBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -18,6 +18,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
+import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
@@ -89,36 +90,54 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHICORY = declareConfiguredFeature(
         patchNameOf(PlantopiaBlocks.CHICORY),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(8, 3, 2, PlacementUtils.filtered(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    simpleConfig(PlantopiaBlocks.CHICORY.get()),
-                    GRASS_PLANT_PREDICATE
-                ))
+            .feature(limitedRandomPatch(context ->
+                new PlantopiaLimitedRandomPatchConfiguration(
+                    ConstantInt.of(8),
+                    ClampedInt.of(UniformInt.of(2, 4), 3, 4),
+                    ConstantInt.of(3),
+                    ConstantInt.of(2),
+                    PlacementUtils.filtered(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        simpleConfig(PlantopiaBlocks.CHICORY.get()),
+                        GRASS_PLANT_PREDICATE
+                    )
+                )
             ))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TANSY = declareConfiguredFeature(
         patchNameOf(PlantopiaBlocks.TANSY),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(14, 2, 1, PlacementUtils.filtered(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    simpleConfig(PlantopiaBlocks.TANSY.get()),
-                    GRASS_PLANT_PREDICATE
-                ))
+            .feature(limitedRandomPatch(context ->
+                new PlantopiaLimitedRandomPatchConfiguration(
+                    UniformInt.of(10, 14),
+                    ConstantInt.of(6),
+                    ConstantInt.of(2),
+                    ConstantInt.of(1),
+                    PlacementUtils.filtered(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        simpleConfig(PlantopiaBlocks.TANSY.get()),
+                        GRASS_PLANT_PREDICATE
+                    )
+                )
             ))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED = declareConfiguredFeature(
         patchNameOf(PlantopiaBlocks.CARROTWEED),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(18, 3, 2, PlacementUtils.filtered(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    simpleConfig(PlantopiaBlocks.CARROTWEED.get()),
-                    GRASS_PLANT_PREDICATE
-                ))
+            .feature(limitedRandomPatch(context ->
+                new PlantopiaLimitedRandomPatchConfiguration(
+                    UniformInt.of(16, 18),
+                    ConstantInt.of(6),
+                    ConstantInt.of(3),
+                    ConstantInt.of(2),
+                    PlacementUtils.filtered(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        simpleConfig(PlantopiaBlocks.CARROTWEED.get()),
+                        GRASS_PLANT_PREDICATE
+                    )
+                )
             ))
     );
 
@@ -237,16 +256,16 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.SNOWDROP),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(82, 6, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(96, 6, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
-                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS)
+                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.SNOW)
                 ))
             ))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AZOLLA = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.SNOWDROP),
+        patchNameOf(PlantopiaBlocks.AZOLLA),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
                 new RandomPatchConfiguration(32, 3, 0, PlacementUtils.onlyWhenEmpty(
@@ -361,31 +380,9 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             .feature(radialPatch(getCloverConfig(PlantopiaBlocks.PINK_CLOVER_BLOSSOM)))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_COBBLESTONE_SHARD = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.COBBLESTONE_SHARD),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(getCobblestoneShardConfig(PlantopiaBlocks.COBBLESTONE_SHARD)))
-    );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_MOSSY_COBBLESTONE_SHARD = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(getCobblestoneShardConfig(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD)))
-    );
 
-//	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_COBBLESTONE_SHARD_IN_WATER = declareConfiguredFeature(
-//		compileNameFrom(PATCH, PlantopiaBlocks.COBBLESTONE_SHARD, IN_WATER),
-//		PlantopiaFeatureDeclaration.builder()
-//			.feature(randomPatch(getCobblestoneShardConfig(PlantopiaBlocks.COBBLESTONE_SHARD, () -> Blocks.WATER)))
-//	);
-//
-//	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_MOSSY_COBBLESTONE_SHARD_IN_WATER = declareConfiguredFeature(
-//		compileNameFrom(PATCH, PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD, IN_WATER),
-//		PlantopiaFeatureDeclaration.builder()
-//			.feature(randomPatch(getCobblestoneShardConfig(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD, () -> Blocks.WATER)))
-//	);
-
-    /* HELPER METHODS ******************************************/
+    /* HELPER METHODS *************************************************************************/
 
     @Contract(pure = true)
     private static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getCloverConfig(@Nullable Supplier<Block> flowerBlock) {
@@ -425,28 +422,6 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                 Optional.of(GRASS_PLANT_PREDICATE),
                 Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
             );
-        };
-    }
-
-    @Contract(pure = true)
-    private static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> getCobblestoneShardConfig(Supplier<Block> cobblestoneShardBlock) {
-        return context -> {
-            return new RandomPatchConfiguration(4, 1, 1, PlacementUtils.filtered(
-                PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                weightedConfig(states -> {
-                    for (int i = PlantopiaCobblestoneShardBlock.MIN_SHARDS; i <= PlantopiaCobblestoneShardBlock.MAX_SHARDS; i++) {
-                        int weight = calculateExponential(i, 0.215);
-
-                        var state = cobblestoneShardBlock.get().defaultBlockState()
-                            .setValue(PlantopiaCobblestoneShardBlock.AMOUNT, i);
-
-                        states.add(state, weight);
-                    }
-
-                    return states;
-                }),
-                BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.WATER, Blocks.SEAGRASS)
-            ));
         };
     }
 }

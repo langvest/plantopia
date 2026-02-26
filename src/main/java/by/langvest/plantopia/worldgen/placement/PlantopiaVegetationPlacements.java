@@ -217,7 +217,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(28.12F, 32.24F),
+				PlantopiaRarityFilter.onAverageOnceEvery(28.42F, 32.86F),
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
@@ -440,72 +440,30 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(5.92F),
+				PlantopiaRarityFilter.onAverageOnceEvery(16.12F, 18.24F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.SNOWY_PLAINS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_SNOWDROP_2 = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SNOWDROP, 2),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(8.12F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.add(Biomes.SNOWY_TAIGA, Biomes.GROVE)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_COBBLESTONE_SHARD),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_COBBLESTONE_SHARD)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
-				CountPlacement.of(UniformInt.of(0, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addCascadesBiomes)
-				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
-				.add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA)
-				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-				.add(Biomes.RIVER)
-				.add(Biomes.STONY_PEAKS, Biomes.STONY_SHORE)
-				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
-				.addTag(BiomeTags.IS_SAVANNA)
-				.addTag(BiomeTags.IS_MOUNTAIN)
-				.addTag(BiomeTags.IS_JUNGLE)
-				.addTag(BiomeTags.IS_OCEAN)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(3.82F),
-				CountPlacement.of(UniformInt.of(0, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addSwampBiomes)
-				.add(Biomes.WARM_OCEAN)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD_2 = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
-			.modifiers(context -> List.of(
-				CountPlacement.of(UniformInt.of(1, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+				.add(Biomes.SNOWY_TAIGA)
 			)
 	);
 

@@ -1,10 +1,7 @@
 package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightRangeFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseCountPlacement;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
+import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import com.mojang.serialization.Codec;
@@ -23,6 +20,8 @@ public class PlantopiaPlacementModifierTypes {
     public static final RegistryObject<PlacementModifierType<PlantopiaNoiseFilter>> NOISE_FILTER = registerPlacementModifierType("noise_filter", () -> PlantopiaNoiseFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaHeightRangeFilter>> HEIGHT_RANGE_FILTER = registerPlacementModifierType("height_range_filter", () -> PlantopiaHeightRangeFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaRarityFilter>> RARITY_FILTER = registerPlacementModifierType("rarity_filter", () -> PlantopiaRarityFilter.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaHeightmapFilter>> HEIGHTMAP_FILTER = registerPlacementModifierType("heightmap_filter", () -> PlantopiaHeightmapFilter.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaUndergroundDensityPlacement>> UNDERGROUND_DENSITY = registerPlacementModifierType("underground_density", () -> PlantopiaUndergroundDensityPlacement.CODEC);
 
     private static <P extends PlacementModifier> @NotNull RegistryObject<PlacementModifierType<P>> registerPlacementModifierType(String name, Supplier<Codec<P>> supplier) {
         return registerPlacementModifierType(plantopia(name), supplier);

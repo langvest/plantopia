@@ -23,6 +23,8 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProjectile {
+	public static final float DAMAGE_AMOUNT = 2.25F;
+
 	public PlantopiaCobblestoneShardProjectileEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
 		super(entityType, level);
 	}
@@ -66,7 +68,7 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 		super.onHitEntity(entityHitResult);
 
 		var entity = entityHitResult.getEntity();
-		entity.hurt(damageSources().thrown(this, getOwner()), 3.0F);
+		entity.hurt(damageSources().thrown(this, getOwner()), DAMAGE_AMOUNT);
 	}
 
 	@Override

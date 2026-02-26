@@ -68,6 +68,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private final PlantopiaTagSet<Block> COMBINATION_STEP_SOUND_BLOCKS = createTagSet(BlockTags.COMBINATION_STEP_SOUND_BLOCKS);
     private final PlantopiaTagSet<Block> BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS);
     private final PlantopiaTagSet<Block> BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
+    private final PlantopiaTagSet<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.COBBLESTONE_SHARD_CAN_GENERATE_ON);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -81,7 +82,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         generateAll();
 
         IGNORED_BY_BEES.add(Blocks.WITHER_ROSE);
@@ -93,6 +94,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         INFESTED_DIRT_CAN_SPREAD_TO.add(Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
         BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS.addOptionalTag(forge("glass"), forge("glass_panes"));
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS.add(Blocks.ICE);
+        COBBLESTONE_SHARD_CAN_GENERATE_ON.add(Blocks.GRAVEL, Blocks.CLAY).addTag(BlockTags.DIRT, BlockTags.SAND, BlockTags.BASE_STONE_OVERWORLD).apply(this::addOverworldOres);
 
         saveAll();
     }
@@ -203,6 +205,19 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private void saveAll() {
         saveByTagKeys(byTagKeys);
         saveByMetaTypes(byMetaTypes);
+    }
+
+    private void addOverworldOres(@NotNull PlantopiaTagSet<Block> tagSet) {
+        tagSet.addTag(
+            BlockTags.COAL_ORES,
+            BlockTags.EMERALD_ORES,
+            BlockTags.DIAMOND_ORES,
+            BlockTags.COPPER_ORES,
+            BlockTags.GOLD_ORES,
+            BlockTags.IRON_ORES,
+            BlockTags.LAPIS_ORES,
+            BlockTags.REDSTONE_ORES
+        );
     }
 
     private @NotNull PlantopiaTagSet<Block> createTagSet(TagKey<Block> key) {

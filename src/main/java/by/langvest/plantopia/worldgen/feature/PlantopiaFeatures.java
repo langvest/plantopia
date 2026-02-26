@@ -157,10 +157,10 @@ public class PlantopiaFeatures {
 		return patchNameOf(nameOf(locationLike));
 	}
 
-	protected static int calculateExponential(int t, double k) {
+	protected static int calculateExponentialWeight(int step, double decay) {
 		int maxWeight = 100;
-		double dec = (maxWeight * Math.exp(k * (t - 1))) - maxWeight;
+		double weightDecrease = (maxWeight * Math.exp(decay * (step - 1))) - maxWeight;
 
-		return (int) Math.max(1, maxWeight - dec);
+		return (int) Math.max(1, maxWeight - weightDecrease);
 	}
 }

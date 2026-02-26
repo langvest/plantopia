@@ -1,5 +1,5 @@
 {
-	"type": "minecraft:random_patch",
+	"type": "plantopia:limited_random_patch",
 	"config": {
 		"feature": {
 			"feature": {
@@ -42,7 +42,14 @@
 				}
 			]
 		},
-		"tries": 18,
+		"limit": 6,
+		"tries": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_inclusive": 18,
+				"min_inclusive": 16
+			}
+		},
 		"xz_spread": 3,
 		"y_spread": 2
 	}

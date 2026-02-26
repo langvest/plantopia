@@ -1,5 +1,5 @@
 {
-	"type": "minecraft:random_patch",
+	"type": "plantopia:limited_random_patch",
 	"config": {
 		"feature": {
 			"feature": {
@@ -26,7 +26,7 @@
 										"waterlogged": "false"
 									}
 								},
-								"weight": 76
+								"weight": 75
 							},
 							{
 								"data": {
@@ -36,7 +36,7 @@
 										"waterlogged": "false"
 									}
 								},
-								"weight": 46
+								"weight": 45
 							},
 							{
 								"data": {
@@ -46,7 +46,7 @@
 										"waterlogged": "false"
 									}
 								},
-								"weight": 9
+								"weight": 8
 							}
 						]
 					}
@@ -67,7 +67,20 @@
 				}
 			]
 		},
-		"tries": 4,
+		"limit": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_inclusive": 3,
+				"min_inclusive": 2
+			}
+		},
+		"tries": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_inclusive": 4,
+				"min_inclusive": 3
+			}
+		},
 		"xz_spread": 1,
 		"y_spread": 1
 	}

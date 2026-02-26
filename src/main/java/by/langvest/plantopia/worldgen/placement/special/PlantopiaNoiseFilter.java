@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.placement.special;
 
-import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseActivationType;
+import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdActivationType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
 import com.mojang.serialization.Codec;
@@ -21,17 +21,17 @@ import java.math.RoundingMode;
 public class PlantopiaNoiseFilter extends PlacementFilter {
     public static final Codec<PlantopiaNoiseFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         PlantopiaNoiseConfig.CODEC.fieldOf("noise_config").forGetter(it -> it.noiseConfig),
-        PlantopiaNoiseActivationType.CODEC.fieldOf("activation").forGetter(it -> it.activationType),
+        PlantopiaThresholdActivationType.CODEC.fieldOf("activation").forGetter(it -> it.activationType),
         Codec.FLOAT.fieldOf("noise_level").forGetter(it -> it.noiseLevel),
         FloatProvider.codec(-1.0F, 1.0F).fieldOf("erosion_level").forGetter(it -> it.erosionLevel)
     ).apply(instance, PlantopiaNoiseFilter::new));
 
     private final PlantopiaNoiseConfig noiseConfig;
-    private final PlantopiaNoiseActivationType activationType;
+    private final PlantopiaThresholdActivationType activationType;
     private final float noiseLevel;
     private final FloatProvider erosionLevel;
 
-    private PlantopiaNoiseFilter(PlantopiaNoiseConfig noiseConfig, PlantopiaNoiseActivationType activationType, float noiseLevel, FloatProvider erosionLevel) {
+    private PlantopiaNoiseFilter(PlantopiaNoiseConfig noiseConfig, PlantopiaThresholdActivationType activationType, float noiseLevel, FloatProvider erosionLevel) {
         this.noiseConfig = noiseConfig;
         this.activationType = activationType;
         this.noiseLevel = noiseLevel;
@@ -47,7 +47,7 @@ public class PlantopiaNoiseFilter extends PlacementFilter {
     }
 
     public static @NotNull PlantopiaNoiseFilter aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, FloatProvider erosionLevel) {
-        return new PlantopiaNoiseFilter(noiseConfig, PlantopiaNoiseActivationType.ABOVE, noiseLevel, erosionLevel);
+        return new PlantopiaNoiseFilter(noiseConfig, PlantopiaThresholdActivationType.ABOVE, noiseLevel, erosionLevel);
     }
 
     public static @NotNull PlantopiaNoiseFilter belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel) {
@@ -59,7 +59,7 @@ public class PlantopiaNoiseFilter extends PlacementFilter {
     }
 
     public static @NotNull PlantopiaNoiseFilter belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, FloatProvider erosionLevel) {
-        return new PlantopiaNoiseFilter(noiseConfig, PlantopiaNoiseActivationType.BELOW, noiseLevel, erosionLevel);
+        return new PlantopiaNoiseFilter(noiseConfig, PlantopiaThresholdActivationType.BELOW, noiseLevel, erosionLevel);
     }
 
     private static @NotNull FloatProvider getErosionLevel(float noiseLevel, float erosion) {
@@ -82,7 +82,7 @@ public class PlantopiaNoiseFilter extends PlacementFilter {
         float minErosionLevel = erosionLevel.getMinValue();
         float maxErosionLevel = erosionLevel.getMaxValue();
 
-        if(activationType == PlantopiaNoiseActivationType.BELOW) {
+        if(activationType == PlantopiaThresholdActivationType.BELOW) {
             if(noiseValue < noiseLevel) {
                 if(noiseLevel == minErosionLevel) return true;
                 return !(noiseValue >= minErosionLevel) || !random.nextBoolean();
@@ -92,7 +92,7 @@ public class PlantopiaNoiseFilter extends PlacementFilter {
             }
         }
 
-        if(activationType == PlantopiaNoiseActivationType.ABOVE) {
+        if(activationType == PlantopiaThresholdActivationType.ABOVE) {
             if(noiseValue >= noiseLevel) {
                 if(noiseLevel == maxErosionLevel) return true;
                 return !(noiseValue < maxErosionLevel) || !random.nextBoolean();

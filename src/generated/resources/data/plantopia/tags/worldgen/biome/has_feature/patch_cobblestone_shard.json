@@ -1,38 +1,28 @@
 {
 	"values": [
-		"#minecraft:is_jungle",
-		"#minecraft:is_mountain",
-		"#minecraft:is_ocean",
-		"#minecraft:is_savanna",
 		"minecraft:birch_forest",
+		"minecraft:cherry_grove",
+		"minecraft:cold_ocean",
 		"minecraft:dark_forest",
 		"minecraft:flower_forest",
 		"minecraft:forest",
+		"minecraft:frozen_ocean",
+		"minecraft:frozen_river",
+		"minecraft:jungle",
+		"minecraft:meadow",
+		"minecraft:mushroom_fields",
+		"minecraft:ocean",
 		"minecraft:old_growth_birch_forest",
 		"minecraft:plains",
 		"minecraft:river",
-		"minecraft:stony_peaks",
-		"minecraft:stony_shore",
+		"minecraft:savanna",
+		"minecraft:savanna_plateau",
+		"minecraft:snowy_taiga",
+		"minecraft:sparse_jungle",
 		"minecraft:sunflower_plains",
 		"minecraft:taiga",
 		"minecraft:windswept_forest",
-		"minecraft:windswept_gravelly_hills",
 		"minecraft:windswept_hills",
-		{
-			"id": "hybrid_beta:autumnal_forest",
-			"required": false
-		},
-		{
-			"id": "hybrid_beta:rainforest",
-			"required": false
-		},
-		{
-			"id": "hybrid_beta:seasonal_forest",
-			"required": false
-		},
-		{
-			"id": "hybrid_beta:temperate_rainforest",
-			"required": false
-		}
+		"minecraft:windswept_savanna"
 	]
 }

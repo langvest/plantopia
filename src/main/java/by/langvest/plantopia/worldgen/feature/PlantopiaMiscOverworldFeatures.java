@@ -1,22 +1,29 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import com.google.common.collect.Maps;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ClampedInt;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 
@@ -68,9 +75,50 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
                             .add(PlantopiaBlocks.TWISTY_SEA_SHELL.get().defaultBlockState(), 4)
                             .add(PlantopiaBlocks.TUBE_SEA_SHELL.get().defaultBlockState(), 4)
                         ),
-                        BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE
+                        BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.SEAGRASS)
                     )
                 )
             ))
     );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_COBBLESTONE_SHARD = declareConfiguredFeature(
+        patchNameOf(PlantopiaBlocks.COBBLESTONE_SHARD),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(limitedRandomPatch(getCobblestoneShardConfig(PlantopiaBlocks.COBBLESTONE_SHARD)))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_MOSSY_COBBLESTONE_SHARD = declareConfiguredFeature(
+        patchNameOf(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(limitedRandomPatch(getCobblestoneShardConfig(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD)))
+    );
+
+    /* HELPER METHODS *************************************************************************/
+
+    @Contract(pure = true)
+    private static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaLimitedRandomPatchConfiguration> getCobblestoneShardConfig(Supplier<Block> cobblestoneShardBlock) {
+        return context ->
+            new PlantopiaLimitedRandomPatchConfiguration(
+                UniformInt.of(3, 4), // tries
+                UniformInt.of(2, 3), // limit
+                ConstantInt.of(1), // xzSpread
+                ConstantInt.of(1), // ySpread
+                PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    weightedConfig(states -> {
+                        for (int amount = PlantopiaCobblestoneShardBlock.MIN_SHARDS; amount <= PlantopiaCobblestoneShardBlock.MAX_SHARDS; amount++) {
+                            int weight = calculateExponentialWeight(amount, 0.2165);
+
+                            var state = cobblestoneShardBlock.get().defaultBlockState()
+                                .setValue(PlantopiaCobblestoneShardBlock.AMOUNT, amount);
+
+                            states.add(state, weight);
+                        }
+
+                        return states;
+                    }),
+                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.WATER, Blocks.SEAGRASS)
+                )
+            );
+    }
 }

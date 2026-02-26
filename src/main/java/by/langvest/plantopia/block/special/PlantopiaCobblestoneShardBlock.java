@@ -1,8 +1,11 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
+import by.langvest.plantopia.block.PlantopiaNaturalBlock;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -26,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
-public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWaterloggedBlock {
+public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWaterloggedBlock, PlantopiaNaturalBlock {
 	public static final int MIN_SHARDS = 1;
 	public static final int MAX_SHARDS = 4;
 	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.SHARDS;
@@ -114,5 +117,17 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(AMOUNT, WATERLOGGED);
+	}
+
+	@Override
+	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+		var posBelow = pos.below();
+		var stateBelow = level.getBlockState(posBelow);
+
+		if (!stateBelow.is(PlantopiaBlockTags.COBBLESTONE_SHARD_CAN_GENERATE_ON)) {
+			return false;
+		}
+
+		return level.setBlock(pos, copyWaterloggedFrom(level, pos, state), flags);
 	}
 }

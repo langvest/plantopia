@@ -2,14 +2,20 @@ package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaMiscOverworldFeatures;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightRangeFilter;
+import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightmapFilter;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
+import by.langvest.plantopia.worldgen.placement.special.PlantopiaUndergroundDensityPlacement;
 import com.google.common.collect.Maps;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -59,8 +65,8 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(8.64F),
-                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
+                PlantopiaRarityFilter.onAverageOnceEvery(8.48F),
+                CountPlacement.of(1),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                 BiomeFilter.biome()
@@ -104,6 +110,105 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(2.48F, 3.86F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.OCEAN, Biomes.COLD_OCEAN, Biomes.FROZEN_OCEAN)
+                .add(Biomes.MUSHROOM_FIELDS, Biomes.MEADOW, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+                .add(Biomes.CHERRY_GROVE)
+                .add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_FOREST)
+                .add(Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
+                .add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.SPARSE_JUNGLE)
+                .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+                .add(Biomes.RIVER, Biomes.FROZEN_RIVER)
+                .add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(2.48F, 3.86F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN)
+                .add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD_2 = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD, 2),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
+            .modifiers(context -> List.of(
+                CountPlacement.of(UniformInt.of(1, 3)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.DEEP_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
+                .add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.STONY_SHORE)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD_2 = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD, 2),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
+            .modifiers(context -> List.of(
+                CountPlacement.of(UniformInt.of(1, 3)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.DEEP_LUKEWARM_OCEAN)
+                .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD_UNDERGROUND = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD, UNDERGROUND),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
+            .modifiers(context -> List.of(
+                PlantopiaUndergroundDensityPlacement.of(
+                    0.3F,
+                    VerticalAnchor.absolute(4),
+                    Heightmap.Types.OCEAN_FLOOR_WG
+                ),
+                InSquarePlacement.spread(),
+                EnvironmentScanPlacement.scanningFor(
+                    Direction.DOWN,
+                    BlockPredicate.allOf(
+                        BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+                        BlockPredicate.solid(BlockPos.ZERO.below())
+                    ),
+                    8
+                ),
+                PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG)
+            ))
+            .biomes(biomes -> biomes
+                .addTag(BiomeTags.IS_OVERWORLD)
             )
     );
 }

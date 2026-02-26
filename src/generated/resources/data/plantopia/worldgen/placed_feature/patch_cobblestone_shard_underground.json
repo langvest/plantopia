@@ -1,0 +1,46 @@
+{
+	"feature": "plantopia:patch_cobblestone_shard",
+	"placement": [
+		{
+			"type": "plantopia:underground_density",
+			"bottom_anchor": {
+				"absolute": 4
+			},
+			"density": 0.3,
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:environment_scan",
+			"direction_of_search": "down",
+			"max_steps": 8,
+			"target_condition": {
+				"type": "minecraft:all_of",
+				"predicates": [
+					{
+						"type": "minecraft:matching_blocks",
+						"blocks": [
+							"minecraft:air",
+							"minecraft:water"
+						]
+					},
+					{
+						"type": "minecraft:solid",
+						"offset": [
+							0,
+							-1,
+							0
+						]
+					}
+				]
+			}
+		},
+		{
+			"type": "plantopia:heightmap_filter",
+			"activation": "BELOW",
+			"heightmap": "OCEAN_FLOOR_WG"
+		}
+	]
+}
