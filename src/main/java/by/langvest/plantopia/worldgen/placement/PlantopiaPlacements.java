@@ -20,6 +20,7 @@ public class PlantopiaPlacements {
 	protected static final String BONUS = "bonus";
 	protected static final String SNOWY = "snowy";
 	protected static final String SWAMP = "swamp";
+	protected static final String OCEAN = "ocean";
 	protected static final String UNDERGROUND = "underground";
 	protected static final String UNDERWATER = "underwater";
 

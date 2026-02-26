@@ -14,8 +14,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToRgb;
+
 public class PlantopiaSeaShellBlockEntity extends BlockEntity {
-	public static final int DEFAULT_COLOR = 8635114; // -2181481
+	public static final int DEFAULT_COLOR = hexToRgb("#83C2EA");
 	protected int color = DEFAULT_COLOR;
 
 	public PlantopiaSeaShellBlockEntity(BlockPos pos, BlockState state) {
@@ -37,6 +39,10 @@ public class PlantopiaSeaShellBlockEntity extends BlockEntity {
 		var b = PlantopiaMathHelper.getRandomFloatInclusive(random, 0.72F, 0.88F);
 
 		return PlantopiaColorHelper.hsbToRgb(h, s, b);
+	}
+
+	public void setRandomColor(@NotNull RandomSource random) {
+		setColor(generateRandomColor(random));
 	}
 
 	@Override

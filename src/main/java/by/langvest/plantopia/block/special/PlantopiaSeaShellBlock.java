@@ -1,9 +1,11 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.util.helper.PlantopiaShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -32,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
-public class PlantopiaSeaShellBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class PlantopiaSeaShellBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, PlantopiaNaturalBlock {
 	public static final VoxelShape ROUND_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D);
 	public static final VoxelShape TWISTY_SHAPE = Shapes.or(
 		Block.box(7.0D, 0.0D, 2.0D, 12.0D, 3.0D, 11.0D),
@@ -59,8 +61,7 @@ public class PlantopiaSeaShellBlock extends BaseEntityBlock implements SimpleWat
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
-	public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
 
@@ -144,5 +145,20 @@ public class PlantopiaSeaShellBlock extends BaseEntityBlock implements SimpleWat
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		builder.add(FACING, WATERLOGGED);
+	}
+
+	@Override
+	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+		var newState = state.setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
+
+		if (!level.setBlock(pos, copyWaterloggedFrom(level, pos, newState), flags)) {
+			return false;
+		}
+
+		if (level.getBlockEntity(pos) instanceof PlantopiaSeaShellBlockEntity seaShellBlockEntity) {
+			seaShellBlockEntity.setRandomColor(random);
+		}
+
+		return true;
 	}
 }
