@@ -23,7 +23,7 @@ public record PlantopiaPitConfiguration(
     public static final Codec<PlantopiaPitConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         IntProvider.codec(0, 128).fieldOf("xz_spread").forGetter(PlantopiaPitConfiguration::xzSpread),
         IntProvider.codec(0, 128).fieldOf("y_spread").forGetter(PlantopiaPitConfiguration::ySpread),
-        IntProvider.codec(1, 64).fieldOf("depth").forGetter(PlantopiaPitConfiguration::depth),
+        IntProvider.codec(0, 128).fieldOf("depth").forGetter(PlantopiaPitConfiguration::depth),
         FloatProvider.codec(0.0F, 100.0F).fieldOf("curvature").forGetter(PlantopiaPitConfiguration::curvature),
         BlockStateProvider.CODEC.fieldOf("to_place").forGetter(PlantopiaPitConfiguration::toPlace),
         BlockPredicate.CODEC.optionalFieldOf("predicate").forGetter(PlantopiaPitConfiguration::predicate),
