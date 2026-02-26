@@ -42,7 +42,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             .generationStep(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
             .feature(PlantopiaMiscOverworldFeatures.QUICKSAND_PIT)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(22.0F),
+                PlantopiaRarityFilter.onAverageOnceEvery(20.0F, 22.0F),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

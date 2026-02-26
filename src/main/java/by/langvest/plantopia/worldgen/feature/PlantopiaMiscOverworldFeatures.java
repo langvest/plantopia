@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.Optional;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+
 /**
  * @see net.minecraft.data.worldgen.features.MiscOverworldFeatures
  */
@@ -32,7 +34,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
     }
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> QUICKSAND_PIT = declareConfiguredFeature(
-        "quicksand_pit",
+        compileNameFrom(PlantopiaBlocks.QUICKSAND, PIT),
         PlantopiaFeatureDeclaration.builder()
             .feature(pit(context -> new PlantopiaPitConfiguration(
                 UniformInt.of(5, 9),
