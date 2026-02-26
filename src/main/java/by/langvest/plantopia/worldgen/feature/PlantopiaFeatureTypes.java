@@ -1,8 +1,10 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.special.PlantopiaLimitedRandomPatchFeature;
 import by.langvest.plantopia.worldgen.feature.special.PlantopiaPitFeature;
 import by.langvest.plantopia.worldgen.feature.special.PlantopiaRadialPatchFeature;
 import by.langvest.plantopia.worldgen.feature.special.PlantopiaNaturalBlockFeature;
@@ -22,6 +24,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaNaturalBlockFeature> NATURAL_BLOCK = registerFeatureType("natural_block", () -> new PlantopiaNaturalBlockFeature(SimpleBlockConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaRadialPatchFeature> RADIAL_PATCH = registerFeatureType("radial_patch", () -> new PlantopiaRadialPatchFeature(PlantopiaRadialPatchConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaLimitedRandomPatchFeature> LIMITED_RANDOM_PATCH = registerFeatureType("limited_random_patch", () -> new PlantopiaLimitedRandomPatchFeature(PlantopiaLimitedRandomPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaPitFeature> PIT = registerFeatureType("pit", () -> new PlantopiaPitFeature(PlantopiaPitConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {

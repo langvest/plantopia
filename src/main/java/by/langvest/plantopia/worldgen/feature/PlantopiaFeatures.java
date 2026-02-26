@@ -1,15 +1,19 @@
 package by.langvest.plantopia.worldgen.feature;
 
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -27,11 +31,17 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public class PlantopiaFeatures {
 	protected static final String SINGLE = "single";
+	protected static final String PIT = "pit";
 	protected static final String PATCH = "patch";
 	protected static final String MOUNTAIN = "mountain";
 	protected static final String IN_WATER = "in_water";
 	protected static final String IN_SNOW = "in_snow";
 	protected static final String ON_SAND = "on_sand";
+
+	protected static final BlockPredicate ON_SAND_PREDICATE = BlockPredicate.allOf(
+		BlockPredicate.ONLY_IN_AIR_PREDICATE,
+		BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
+	);
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 		getDeclarations().forEach((key, declaration) -> {
@@ -69,6 +79,11 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
 		return configuredFeature(Feature.RANDOM_PATCH, configFactory);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> limitedRandomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaLimitedRandomPatchConfiguration> configFactory) {
+		return configuredFeature(PlantopiaFeatureTypes.LIMITED_RANDOM_PATCH.get(), configFactory);
 	}
 
 	@Contract(pure = true)

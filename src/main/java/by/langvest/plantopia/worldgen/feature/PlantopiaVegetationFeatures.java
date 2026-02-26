@@ -46,10 +46,6 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  */
 public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     protected static final BlockPredicate WATER_PlANT_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GRASS, Blocks.SEAGRASS);
-    protected static final BlockPredicate ON_SAND_PREDICATE = BlockPredicate.allOf(
-        BlockPredicate.ONLY_IN_AIR_PREDICATE,
-        BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
-    );
     protected static final BlockPredicate GRASS_PLANT_PREDICATE = BlockPredicate.allOf(
         BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS),
         BlockPredicate.solid(BlockPos.ZERO.below())
