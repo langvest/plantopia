@@ -37,24 +37,24 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
     public boolean place(WorldGenLevel level, @NotNull BlockState state, BlockPos pos, RandomSource random, int flags) {
         var block = state.getBlock();
 
-        if(block instanceof PlantopiaNaturalBlock naturalBlock) {
+        if (!state.canSurvive(level, pos)) return false;
+        if (!isValidPosToPlace(state, level, pos)) return false;
+
+        if (block instanceof PlantopiaNaturalBlock naturalBlock) {
             return naturalBlock.placeNaturallyAt(level, pos, state, random, flags);
         }
 
-        if(!state.canSurvive(level, pos)) return false;
-        if(!isValidPosToPlace(state, level, pos)) return false;
-
-        if(block instanceof DoublePlantBlock) {
-            if(!level.isEmptyBlock(pos.above(1))) return false;
+        if (block instanceof DoublePlantBlock) {
+            if (!level.isEmptyBlock(pos.above(1))) return false;
 
             DoublePlantBlock.placeAt(level, state, pos, flags);
 
             return true;
         }
 
-        if(block instanceof PlantopiaTriplePlantBlock) {
-            if(!level.isEmptyBlock(pos.above(1))) return false;
-            if(!level.isEmptyBlock(pos.above(2))) return false;
+        if (block instanceof PlantopiaTriplePlantBlock) {
+            if (!level.isEmptyBlock(pos.above(1))) return false;
+            if (!level.isEmptyBlock(pos.above(2))) return false;
 
             PlantopiaTriplePlantBlock.placeAt(level, pos, state, flags);
 
@@ -65,14 +65,13 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
     }
 
     protected boolean isValidPosToPlace(BlockState candidateState, @NotNull WorldGenLevel level, BlockPos pos) {
-        var currentState = level.getBlockState(pos);
         var currentFluidState = level.getFluidState(pos);
 
-        if(currentFluidState.isSourceOfType(Fluids.WATER)) {
+        if (currentFluidState.isSourceOfType(Fluids.WATER)) {
             var biome = level.getBiome(pos).get();
 
-            if(biome.shouldFreeze(level, pos)) {
-                if(candidateState.getBlock() instanceof PlantopiaFreezableBlock freezableBlock) {
+            if (biome.shouldFreeze(level, pos)) {
+                if (candidateState.getBlock() instanceof PlantopiaFreezableBlock freezableBlock) {
                     return freezableBlock.shouldIce(candidateState, level, pos, true);
                 } else {
                     return false;
