@@ -18,25 +18,11 @@
 				"below_top": 0
 			},
 			"min_inclusive": {
-				"absolute": 62
+				"absolute": 63
 			}
 		},
 		{
 			"type": "minecraft:biome"
-		},
-		{
-			"type": "minecraft:block_predicate_filter",
-			"predicate": {
-				"type": "minecraft:would_survive",
-				"state": {
-					"Name": "plantopia:branching_shrub",
-					"Properties": {
-						"base": "true",
-						"facing": "up",
-						"waterlogged": "false"
-					}
-				}
-			}
 		}
 	]
 }

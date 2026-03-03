@@ -21,6 +21,7 @@ public class PlantopiaPlacementModifierTypes {
     public static final RegistryObject<PlacementModifierType<PlantopiaHeightRangeFilter>> HEIGHT_RANGE_FILTER = registerPlacementModifierType("height_range_filter", () -> PlantopiaHeightRangeFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaRarityFilter>> RARITY_FILTER = registerPlacementModifierType("rarity_filter", () -> PlantopiaRarityFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaHeightmapFilter>> HEIGHTMAP_FILTER = registerPlacementModifierType("heightmap_filter", () -> PlantopiaHeightmapFilter.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaBiomeFilter>> BIOME_FILTER = registerPlacementModifierType("biome_filter", () -> PlantopiaBiomeFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaUndergroundDensityPlacement>> UNDERGROUND_DENSITY = registerPlacementModifierType("underground_density", () -> PlantopiaUndergroundDensityPlacement.CODEC);
 
     private static <P extends PlacementModifier> @NotNull RegistryObject<PlacementModifierType<P>> registerPlacementModifierType(String name, Supplier<Codec<P>> supplier) {

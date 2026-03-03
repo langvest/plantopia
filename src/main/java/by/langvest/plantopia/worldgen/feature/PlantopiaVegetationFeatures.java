@@ -7,6 +7,7 @@ import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaGradientBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaBranchingShrubPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import com.google.common.collect.Lists;
@@ -18,9 +19,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
-import net.minecraft.util.valueproviders.ClampedInt;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -256,7 +255,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.SNOWDROP),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(96, 6, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(112, 6, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.SNOW)
@@ -353,12 +352,36 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BRANCHING_SHRUB = declareConfiguredFeature(
         patchNameOf(PlantopiaBlocks.BRANCHING_SHRUB),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(16, 1, 2, PlacementUtils.filtered(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    simpleConfig(PlantopiaBlocks.BRANCHING_SHRUB.get()),
-                    WATER_PlANT_PREDICATE
-                ))
+            .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
+                new PlantopiaBranchingShrubPatchConfiguration(
+                    UniformInt.of(2, 3), // xzSpread
+                    ConstantInt.of(1), // ySpread
+                    UniformInt.of(32, 48), // tries
+                    UniformInt.of(3, 4), // height
+                    UniformFloat.of(0.72F, 0.92F), // heightFalloff
+                    ConstantFloat.of(0.48F), // heightErosion
+                    ConstantFloat.of(-0.234F), // shapeSigma
+                    ConstantFloat.of(0.24F), // shapeErosion
+                    ConstantInt.of(6) // searchDistance
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BRANCHING_SHRUB_CAVE = declareConfiguredFeature(
+        compileNameFrom(patchNameOf(PlantopiaBlocks.BRANCHING_SHRUB), CAVE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
+                new PlantopiaBranchingShrubPatchConfiguration(
+                    UniformInt.of(3, 4), // xzSpread
+                    ConstantInt.of(1), // ySpread
+                    UniformInt.of(32, 48), // tries
+                    UniformInt.of(4, 5), // height
+                    UniformFloat.of(0.72F, 0.92F), // heightFalloff
+                    ConstantFloat.of(0.48F), // heightErosion
+                    ConstantFloat.of(-0.234F), // shapeSigma
+                    ConstantFloat.of(0.24F), // shapeErosion
+                    ConstantInt.of(12) // searchDistance
+                )
             ))
     );
 

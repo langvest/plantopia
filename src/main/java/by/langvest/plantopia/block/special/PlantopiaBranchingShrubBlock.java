@@ -1,7 +1,6 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
-import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import by.langvest.plantopia.util.helper.PlantopiaShapeHelper;
 import com.google.common.collect.ImmutableSet;
@@ -42,7 +41,7 @@ import java.util.Set;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
-public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterloggedBlock, PlantopiaNaturalBlock {
+public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterloggedBlock {
     protected static final VoxelShape COLLISION_ROD_SHAPE = Block.box(7.0D, 0.0D, 7.0D, 9.0D, 16.0D, 9.0D);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty BASE = PlantopiaBlockStateProperties.BASE;
@@ -252,32 +251,5 @@ public class PlantopiaBranchingShrubBlock extends Block implements SimpleWaterlo
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED, BASE, FACING);
-    }
-
-    @Override
-    public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
-        int height = 1 + random.nextIntBetweenInclusive(0, 2);
-
-        if (random.nextDouble() < 0.35D) {
-            height += random.nextIntBetweenInclusive(0, 1);
-        }
-
-        int successfulTries = 0;
-
-        for (int i = 0; i < height; i++) {
-            var candidatePos = pos.above(i);
-            var targetState = level.getBlockState(candidatePos);
-
-            if (!targetState.canBeReplaced()) break;
-
-            var newState = copyWaterloggedFrom(level, candidatePos, state.setValue(BASE, i == 0));
-
-            if (!newState.canSurvive(level, candidatePos)) break;
-
-            level.setBlock(candidatePos, newState, flags);
-            successfulTries++;
-        }
-
-        return successfulTries > 0;
     }
 }

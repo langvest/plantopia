@@ -4,8 +4,8 @@
 		"height": {
 			"type": "minecraft:uniform",
 			"value": {
-				"max_inclusive": 4,
-				"min_inclusive": 3
+				"max_inclusive": 5,
+				"min_inclusive": 4
 			}
 		},
 		"height_erosion": 0.48,
@@ -16,7 +16,7 @@
 				"min_inclusive": 0.72
 			}
 		},
-		"search_distance": 6,
+		"search_distance": 12,
 		"shape_erosion": 0.24,
 		"shape_sigma": -0.234,
 		"tries": {
@@ -29,8 +29,8 @@
 		"xz_spread": {
 			"type": "minecraft:uniform",
 			"value": {
-				"max_inclusive": 3,
-				"min_inclusive": 2
+				"max_inclusive": 4,
+				"min_inclusive": 3
 			}
 		},
 		"y_spread": 1

@@ -1,10 +1,7 @@
 package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaMiscOverworldFeatures;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightRangeFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightmapFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaUndergroundDensityPlacement;
+import by.langvest.plantopia.worldgen.placement.special.*;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -186,13 +183,13 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             )
     );
 
-    public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD_UNDERGROUND = declarePlacedFeature(
-        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD, UNDERGROUND),
+    public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD_CAVE = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD, CAVE),
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 PlantopiaUndergroundDensityPlacement.of(
-                    0.3F,
+                    0.28F,
                     VerticalAnchor.absolute(4),
                     Heightmap.Types.OCEAN_FLOOR_WG
                 ),
@@ -203,7 +200,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
                         BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
                         BlockPredicate.solid(BlockPos.ZERO.below())
                     ),
-                    8
+                    6
                 ),
                 PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG)
             ))

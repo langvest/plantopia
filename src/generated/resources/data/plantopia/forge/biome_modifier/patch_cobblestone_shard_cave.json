@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_cobblestone_shard_cave",
+	"features": "plantopia:patch_cobblestone_shard_cave",
+	"step": "vegetal_decoration"
+}

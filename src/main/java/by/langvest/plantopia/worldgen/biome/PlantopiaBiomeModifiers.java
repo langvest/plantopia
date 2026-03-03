@@ -22,7 +22,7 @@ public class PlantopiaBiomeModifiers {
         PlantopiaPlacements.getDeclarations().forEach((placedFeatureKey, declaration) -> {
             var biomeTagSet = declaration.getBiomeTagSet();
 
-            if(biomeTagSet.isEmpty()) return;
+            if (biomeTagSet.isEmpty()) return;
 
             var placedFeatureName = nameOf(placedFeatureKey);
             var biomeModifierKey = createKey(placedFeatureName);

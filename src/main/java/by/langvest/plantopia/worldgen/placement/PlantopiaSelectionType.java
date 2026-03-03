@@ -4,14 +4,14 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
-public enum PlantopiaThresholdActivationType implements StringRepresentable {
-    ABOVE("ABOVE"),
-    BELOW("BELOW");
+public enum PlantopiaSelectionType implements StringRepresentable {
+    INCLUDE("INCLUDE"),
+    EXCLUDE("EXCLUDE");
 
-    public static final Codec<PlantopiaThresholdActivationType> CODEC = StringRepresentable.fromEnum(PlantopiaThresholdActivationType::values);
+    public static final Codec<PlantopiaSelectionType> CODEC = StringRepresentable.fromEnum(PlantopiaSelectionType::values);
     private final String serializationKey;
 
-    PlantopiaThresholdActivationType(String serializationKey) {
+    PlantopiaSelectionType(String serializationKey) {
         this.serializationKey = serializationKey;
     }
 

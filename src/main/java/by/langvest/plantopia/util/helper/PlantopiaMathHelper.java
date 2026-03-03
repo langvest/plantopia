@@ -9,6 +9,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public final class PlantopiaMathHelper {
     public static long getSeed(int x, int y, int z) {
         return Mth.getSeed(x, y, z);
@@ -49,6 +51,26 @@ public final class PlantopiaMathHelper {
         return new Vec3i(dx, dy, dz);
     }
 
+    public static @NotNull Vec3i getHorizontalRadialOffset(@NotNull RandomSource random, int radius, double sigma, double erosion) {
+        double angle = random.nextDouble() * 2 * Math.PI;
+        double baseDistribution = 1.0 - Math.sqrt(random.nextDouble());
+        double exponent = Math.pow(2, sigma);
+        double adjustedDistanceFactor = Math.pow(baseDistribution, exponent);
+        double distance = adjustedDistanceFactor * radius;
+
+        if (erosion > 0) {
+            double distortion = (random.nextDouble() * 2.0 - 1.0) * erosion * distance;
+            distance += distortion;
+        }
+
+        distance = Mth.clamp(distance, 0, radius);
+
+        int dx = (int) Math.round(Math.cos(angle) * distance);
+        int dz = (int) Math.round(Math.sin(angle) * distance);
+
+        return new Vec3i(dx, 0, dz);
+    }
+
     public static @NotNull Vec3i getRandomOffsetAlongFaces(@NotNull RandomSource random) {
         return switch (random.nextInt(7)) {
             case 1 -> BlockPos.ZERO.above();
@@ -59,6 +81,19 @@ public final class PlantopiaMathHelper {
             case 6 -> BlockPos.ZERO.east();
             default -> BlockPos.ZERO;
         };
+    }
+
+    public static void shuffle(@NotNull List<?> list, RandomSource random) {
+        int size = list.size();
+        for (int i = size; i > 1; i--) {
+            swap(list, i - 1, random.nextInt(i));
+        }
+    }
+
+    private static <T> void swap(@NotNull List<T> list, int firstIndex, int secondIndex) {
+        T tempItem = list.get(firstIndex);
+        list.set(firstIndex, list.get(secondIndex));
+        list.set(secondIndex, tempItem);
     }
 
     public static boolean isCloseNeighbours(@NotNull BlockPos pos1, @NotNull BlockPos pos2) {

@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.placement.special;
 
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdActivationType;
+import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -16,25 +16,25 @@ import org.jetbrains.annotations.NotNull;
 public class PlantopiaHeightmapFilter extends PlacementFilter {
     public static final Codec<PlantopiaHeightmapFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Heightmap.Types.CODEC.fieldOf("heightmap").forGetter(it -> it.heightmap),
-        PlantopiaThresholdActivationType.CODEC.fieldOf("activation").forGetter(it -> it.activationType)
+        PlantopiaThresholdType.CODEC.fieldOf("activation").forGetter(it -> it.activationType)
     ).apply(instance, PlantopiaHeightmapFilter::new));
 
     private final Heightmap.Types heightmap;
-    private final PlantopiaThresholdActivationType activationType;
+    private final PlantopiaThresholdType activationType;
 
-    private PlantopiaHeightmapFilter(Heightmap.Types heightmap, PlantopiaThresholdActivationType activationType) {
+    private PlantopiaHeightmapFilter(Heightmap.Types heightmap, PlantopiaThresholdType activationType) {
         this.heightmap = heightmap;
         this.activationType = activationType;
     }
 
     @Contract("_ -> new")
     public static @NotNull PlantopiaHeightmapFilter below(Heightmap.Types heightmap) {
-        return new PlantopiaHeightmapFilter(heightmap, PlantopiaThresholdActivationType.BELOW);
+        return new PlantopiaHeightmapFilter(heightmap, PlantopiaThresholdType.BELOW);
     }
 
     @Contract("_ -> new")
     public static @NotNull PlantopiaHeightmapFilter above(Heightmap.Types heightmap) {
-        return new PlantopiaHeightmapFilter(heightmap, PlantopiaThresholdActivationType.ABOVE);
+        return new PlantopiaHeightmapFilter(heightmap, PlantopiaThresholdType.ABOVE);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PlantopiaHeightmapFilter extends PlacementFilter {
         int candidateY = pos.getY();
         int heightmapY = context.getHeight(heightmap, pos.getX(), pos.getZ());
         
-        if (activationType == PlantopiaThresholdActivationType.BELOW) {
+        if (activationType == PlantopiaThresholdType.BELOW) {
             return candidateY < heightmapY;
         } else {
             return candidateY >= heightmapY;

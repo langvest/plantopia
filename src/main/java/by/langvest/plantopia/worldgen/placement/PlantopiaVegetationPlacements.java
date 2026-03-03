@@ -2,12 +2,11 @@ package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaHeightRangeFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseCountPlacement;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseFilter;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
+import by.langvest.plantopia.worldgen.placement.special.*;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -16,6 +15,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -440,7 +440,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(16.12F, 18.24F),
+				PlantopiaRarityFilter.onAverageOnceEvery(18.12F, 20.42F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -456,7 +456,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(8.12F),
+				PlantopiaRarityFilter.onAverageOnceEvery(8.64F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -528,9 +528,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_HIGH_RANGE_FILTER,
-				BiomeFilter.biome(),
-				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.BRANCHING_SHRUB.get())
+				PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(63), VerticalAnchor.TOP),
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
@@ -541,6 +540,26 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.addTag(BiomeTags.IS_JUNGLE)
 				.addTag(BiomeTags.IS_BADLANDS)
 				.addTag(BiomeTags.IS_SAVANNA)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB_CAVE = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE)
+			.modifiers(context -> {
+				var biomes = context.lookup(Registries.BIOME);
+
+				return List.of(
+					PlantopiaUndergroundDensityPlacement.of(0.32F, VerticalAnchor.absolute(-32), Heightmap.Types.OCEAN_FLOOR_WG),
+					InSquarePlacement.spread(),
+					PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG),
+					BiomeFilter.biome(),
+					PlantopiaBiomeFilter.exclude(HolderSet.direct(biomes.getOrThrow(Biomes.LUSH_CAVES)))
+				);
+			})
+			.biomes(biomes -> biomes
+				.addTag(BiomeTags.IS_OVERWORLD)
 			)
 	);
 
@@ -569,7 +588,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(18.42F, 22.42F))
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(18.42F, 20.42F))
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
