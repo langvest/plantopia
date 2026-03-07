@@ -313,6 +313,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			))
 			.biomes(biomes -> biomes
 				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+				.add(Biomes.DARK_FOREST)
 			)
 	);
 
@@ -346,6 +347,21 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.add(Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FOREST)
 				.add(Biomes.SWAMP)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_LARGE_FERN_BONUS = declarePlacedFeature(
+		compileNameFrom(VegetationFeatures.PATCH_LARGE_FERN, BONUS),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(VegetationFeatures.PATCH_LARGE_FERN)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(5.0F),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.DARK_FOREST)
 			)
 	);
 
@@ -588,7 +604,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(18.42F, 20.42F))
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(16.42F, 18.86F))
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
