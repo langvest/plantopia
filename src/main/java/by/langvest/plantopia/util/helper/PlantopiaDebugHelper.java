@@ -31,7 +31,7 @@ public final class PlantopiaDebugHelper {
 	}
 
 	public static void logColor(int packedColor) {
-		var hsb = PlantopiaColorHelper.rgbToHsb(packedColor);
+		var hsb = PlantopiaColorHelper.intToHsb(packedColor);
 		PlantopiaDebugHelper.logChat("=====> Color: " + packedColor + " <=====");
 		PlantopiaDebugHelper.logChat("R: " + red(packedColor) + "; G: " + green(packedColor) + "; B: " + blue(packedColor));
 		PlantopiaDebugHelper.logChat("H: " + hsb[0] + "; S: " + hsb[1] + "; B: " + hsb[2]);
