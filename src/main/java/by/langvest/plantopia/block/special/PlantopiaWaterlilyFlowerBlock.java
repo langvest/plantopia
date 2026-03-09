@@ -54,7 +54,7 @@ public class PlantopiaWaterlilyFlowerBlock extends FlowerBlock implements Planto
 			}
 
 			if(stateBelow.is(Blocks.DECORATED_POT)) {
-				return Vec3.ZERO.add(0, 4.0D / 16.0D - 0.005D, 0);
+				return Vec3.ZERO.add(0, 0.245D, 0);
 			}
 
 			return Vec3.ZERO;

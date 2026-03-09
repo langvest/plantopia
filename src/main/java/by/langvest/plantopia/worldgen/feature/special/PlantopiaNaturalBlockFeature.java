@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Predicate;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.isWaterSourceBlock;
 
 public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfiguration> {
     public PlantopiaNaturalBlockFeature(Codec<SimpleBlockConfiguration> codec) {
@@ -42,7 +43,7 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
     }
 
     public boolean isWaterBlock(@NotNull BlockState state) {
-        return state.is(Blocks.WATER) && state.getFluidState().isSource();
+        return isWaterSourceBlock(state);
     }
 
     public boolean isEmptyFluid(@NotNull FluidState state) {

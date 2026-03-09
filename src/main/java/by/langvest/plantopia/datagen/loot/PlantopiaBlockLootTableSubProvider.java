@@ -83,8 +83,6 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
         add(PlantopiaBlocks.POLLINATED_DANDELION.get(), this::createPollinatedDandelionDrops);
         add(PlantopiaBlocks.BRANCHING_SHRUB.get(), this::createBranchingShrubDrops);
-        add(PlantopiaBlocks.HANGING_SEA_MOSS.get(), this::createHangingSeaMossDrops);
-        add(PlantopiaBlocks.HANGING_SEA_MOSS_PLANT.get(), this::createHangingSeaMossDrops);
         add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);
         add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
         add(PlantopiaBlocks.BIG_PLATTERLEAF.get(), this::createBigPlatterleafDrops);
@@ -108,6 +106,11 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
             if (block instanceof PlantopiaSeaShellBlock) {
                 add(block, this::createSeaShellDrops);
+                return;
+            }
+
+            if (block instanceof PlantopiaHangingMossBlock) {
+                add(block, this::createHangingMossDrops);
                 return;
             }
 
@@ -327,12 +330,6 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createHangingSeaMossDrops(Block block) {
-        LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(PlantopiaBlocks.HANGING_SEA_MOSS.get()));
-
-        return createBlockTable(block, lootEntry);
-    }
-
     private LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .when(HAS_SILK_TOUCH)
@@ -372,6 +369,12 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
+    private LootTable.@NotNull Builder createHangingMossDrops(Block block) {
+        LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+            .when(HAS_SHEARS_OR_SILK_TOUCH);
+
+        return createBlockTable(block, lootEntry);
+    }
 
     private LootTable.@NotNull Builder createLuckyDaisyDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)

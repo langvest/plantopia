@@ -31,7 +31,8 @@ public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock imple
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
-		builder.add(HALF, WATERLOGGED);
+		super.createBlockStateDefinition(builder);
+		builder.add(WATERLOGGED);
 	}
 
 	protected boolean mayGrowOn(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
@@ -60,11 +61,8 @@ public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock imple
 
 	@Override
 	public @NotNull BlockState updateShape(@NotNull BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos facingPos) {
-		var newState = PlantopiaFluidHelper.copyWaterloggedFrom(level, pos, super.updateShape(state, facing, facingState, level, pos, facingPos));
-
-		scheduleWaterTick(newState, level, pos);
-
-		return newState;
+		scheduleWaterTick(state, level, pos);
+		return copyWaterloggedFrom(level, pos, super.updateShape(state, facing, facingState, level, pos, facingPos));
 	}
 
 	@Override

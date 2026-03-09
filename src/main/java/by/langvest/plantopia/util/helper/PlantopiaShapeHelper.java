@@ -1,9 +1,11 @@
 package by.langvest.plantopia.util.helper;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public final class PlantopiaShapeHelper {
@@ -55,5 +57,16 @@ public final class PlantopiaShapeHelper {
             case EAST -> Shapes.box(box.minY, 1 - box.maxX, box.minZ, box.maxY, 1 - box.minX, box.maxZ);
             default -> Shapes.box(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
         };
+    }
+
+    @Contract(pure = true)
+    public static @NotNull VoxelShape column(double size, double y1, double y2) {
+        return column(size, size, y1, y2);
+    }
+
+    public static @NotNull VoxelShape column(double xSize, double zSize, double y1, double y2) {
+        double d0 = xSize / 2.0;
+        double d1 = zSize / 2.0;
+        return Block.box(8.0 - d0, y1, 8.0 - d1, 8.0 + d0, y2, 8.0 + d1);
     }
 }

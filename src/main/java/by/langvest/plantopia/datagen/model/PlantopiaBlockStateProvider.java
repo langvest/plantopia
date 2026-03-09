@@ -88,8 +88,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
         quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
         seaMossCarpetBlock(PlantopiaBlocks.SEA_MOSS_CARPET.get());
-        hangingSeaMossBlock(PlantopiaBlocks.HANGING_SEA_MOSS.get());
-        hangingSeaMossBlock(PlantopiaBlocks.HANGING_SEA_MOSS_PLANT.get());
         smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
         bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
         tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
@@ -119,6 +117,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
             if (block instanceof PlantopiaSeaShellBlock) {
                 seaShellBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof PlantopiaHangingMossBlock) {
+                hangingMossBlock(blockMeta);
                 return;
             }
 
@@ -298,6 +301,26 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                 state -> ConfiguredModel.builder()
                     .modelFile(model)
                     .rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot() + ANGLE_OFFSET) % 360)
+                    .build(),
+                BlockStateProperties.WATERLOGGED
+            );
+    }
+
+    private void hangingMossBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var baseTexture = texture(baseName);
+        var tipTexture = texture(baseName + "_tip");
+
+        var baseModel = crossModel(baseName, baseTexture);
+        var tipModel = crossModel(baseName + "_tip", tipTexture);
+
+        generatedItemModel(baseName, baseTexture);
+
+        getVariantBuilder(blockMeta.get())
+            .forAllStatesExcept(
+                state -> ConfiguredModel.builder()
+                    .modelFile(state.getValue(PlantopiaHangingMossBlock.TIP) ? tipModel : baseModel)
                     .build(),
                 BlockStateProperties.WATERLOGGED
             );
@@ -756,21 +779,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         simpleBlock(block, model);
     }
 
-    private void hangingSeaMossBlock(Block block) {
-        String baseName = nameOf(block);
-        var hasItem = metaOf(block).map(PlantopiaBlockMeta::hasItem).orElse(false);
-
-        var texture = texture(baseName);
-        var model = hangingSeaMossTemplateModel(baseName, texture);
-
-        if (hasItem) {
-            var itemTexture = texture(baseName + "_plant");
-            generatedItemModel(baseName, itemTexture);
-        }
-
-        simpleBlock(block, model);
-    }
-
     private void smallPlatterleafBlock(Block block) {
         String baseName = nameOf(block);
 
@@ -1087,11 +1095,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private BlockModelBuilder carpetTemplateModel(String name, ResourceLocation woolTexture) {
         return models().withExistingParent(name, "carpet")
             .texture("wool", woolTexture);
-    }
-
-    private BlockModelBuilder hangingSeaMossTemplateModel(String name, ResourceLocation texture) {
-        return models().withExistingParent(name, parent("template_hanging_sea_moss"))
-            .texture("texture", texture);
     }
 
     private BlockModelBuilder luckyDaisyTemplateModel(String name, ResourceLocation petalsTexture) {

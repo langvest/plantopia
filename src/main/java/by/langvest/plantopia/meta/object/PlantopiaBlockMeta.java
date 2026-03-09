@@ -397,10 +397,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.order(PlantopiaOrderType.SEA_MOSS)
 			.makeType("sea_moss");
 
-		public static final MetaType HANGING_SEA_MOSS = MetaProperties.of(UNDERWATER_PLANT)
+		public static final MetaType SEA_HANGING_MOSS = MetaProperties.of(UNDERWATER_PLANT)
 			.flammable(Encouragement.PLANT_2, Flammability.PLANT_2)
 			.order(PlantopiaOrderType.SEA_MOSS)
-			.makeType("hanging_sea_moss");
+			.makeType("sea_hanging_moss");
 
 		public static final MetaType STONE = MetaProperties.create()
 			.copyBehaviour(Blocks.STONE)

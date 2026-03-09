@@ -114,8 +114,7 @@ public class PlantopiaBlocks {
 
 	public static final RegistryObject<Block> SEA_MOSS_BLOCK = registerBlock("sea_moss_block", PlantopiaSeaMossBlock::new, MetaProperties.of(MetaType.SEA_MOSS));
 	public static final RegistryObject<Block> SEA_MOSS_CARPET = registerBlock("sea_moss_carpet", PlantopiaSeaMossCarpetBlock::new, MetaProperties.of(MetaType.SEA_MOSS).customModel());
-	public static final RegistryObject<Block> HANGING_SEA_MOSS = registerBlock("hanging_sea_moss", PlantopiaHangingSeaMossBlock::new, MetaProperties.of(MetaType.HANGING_SEA_MOSS).customDrop().customModel().randomlyTicking());
-	public static final RegistryObject<Block> HANGING_SEA_MOSS_PLANT = registerBlock("hanging_sea_moss_plant", PlantopiaHangingSeaMossPlantBlock::new, MetaProperties.of(MetaType.HANGING_SEA_MOSS).customDrop().customModel().noItem());
+	public static final RegistryObject<Block> SEA_HANGING_MOSS = registerBlock("sea_hanging_moss", PlantopiaWaterloggedHangingMossBlock::new, MetaProperties.of(MetaType.SEA_HANGING_MOSS));
 
 	public static final RegistryObject<Block> SMALL_PLATTERLEAF = registerBlock("small_platterleaf", PlantopiaSmallPlatterleafBlock::new, MetaProperties.of(MetaType.WATERLILY).dropSelf().customModel().customItem());
 	public static final RegistryObject<Block> BIG_PLATTERLEAF = registerBlock("big_platterleaf", PlantopiaBigPlatterleafBlock::new, MetaProperties.of(MetaType.WATERLILY).customDrop().customModel().customItem().compostable(Compostability.PLANT_1 * 2));
