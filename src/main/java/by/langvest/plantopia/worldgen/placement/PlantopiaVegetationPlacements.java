@@ -337,7 +337,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FERN)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(6.12F),
+				PlantopiaRarityFilter.onAverageOnceEvery(5.24F),
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
