@@ -1,0 +1,74 @@
+{
+	"type": "plantopia:natural_block",
+	"config": {
+		"to_place": {
+			"type": "minecraft:weighted_state_provider",
+			"entries": [
+				{
+					"data": {
+						"Name": "plantopia:sea_moss_carpet",
+						"Properties": {
+							"waterlogged": "false"
+						}
+					},
+					"weight": 25
+				},
+				{
+					"data": {
+						"Name": "minecraft:seagrass"
+					},
+					"weight": 50
+				},
+				{
+					"data": {
+						"Name": "minecraft:tall_seagrass",
+						"Properties": {
+							"half": "lower"
+						}
+					},
+					"weight": 10
+				},
+				{
+					"data": {
+						"Name": "minecraft:sea_pickle",
+						"Properties": {
+							"pickles": "1",
+							"waterlogged": "true"
+						}
+					},
+					"weight": 1
+				},
+				{
+					"data": {
+						"Name": "minecraft:sea_pickle",
+						"Properties": {
+							"pickles": "2",
+							"waterlogged": "true"
+						}
+					},
+					"weight": 1
+				},
+				{
+					"data": {
+						"Name": "minecraft:sea_pickle",
+						"Properties": {
+							"pickles": "3",
+							"waterlogged": "true"
+						}
+					},
+					"weight": 1
+				},
+				{
+					"data": {
+						"Name": "minecraft:sea_pickle",
+						"Properties": {
+							"pickles": "4",
+							"waterlogged": "true"
+						}
+					},
+					"weight": 1
+				}
+			]
+		}
+	}
+}

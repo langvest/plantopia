@@ -1,7 +1,6 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaSeaMoss;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -9,15 +8,20 @@ import net.minecraft.world.level.block.GrowingPlantBodyBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaSeaMossPlantBlock extends GrowingPlantBodyBlock implements PlantopiaSeaMoss {
-	public PlantopiaSeaMossPlantBlock(Properties properties) {
+public class PlantopiaHangingSeaMossPlantBlock extends GrowingPlantBodyBlock {
+	private static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
+	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
+	public PlantopiaHangingSeaMossPlantBlock(Properties properties) {
 		super(properties, Direction.DOWN, SHAPE, true);
 		registerDefaultState(stateDefinition.any().setValue(WATERLOGGED, false));
-
 	}
 
 	@Override
@@ -45,6 +49,6 @@ public class PlantopiaSeaMossPlantBlock extends GrowingPlantBodyBlock implements
 
 	@Override
 	protected @NotNull GrowingPlantHeadBlock getHeadBlock() {
-		return (GrowingPlantHeadBlock)PlantopiaBlocks.SEA_MOSS.get();
+		return (GrowingPlantHeadBlock)PlantopiaBlocks.HANGING_SEA_MOSS.get();
 	}
 }

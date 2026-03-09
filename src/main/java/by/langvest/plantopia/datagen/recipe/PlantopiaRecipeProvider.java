@@ -42,6 +42,12 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
         smeltingRecipe(RecipeCategory.MISC, Items.PINK_DYE, PlantopiaBlocks.FLOWERING_TINY_CACTUS.get(), 1.0F, 200);
 
         woodFromLogs(consumer, PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PlantopiaBlocks.SEA_MOSS_CARPET.get(), 3)
+            .pattern("##")
+            .define('#', PlantopiaBlocks.SEA_MOSS_BLOCK.get())
+            .unlockedBy(getHasName(PlantopiaBlocks.SEA_MOSS_BLOCK.get()), has(PlantopiaBlocks.SEA_MOSS_BLOCK.get()))
+            .save(consumer, plantopia(getSimpleRecipeName(PlantopiaBlocks.SEA_MOSS_CARPET.get())));
     }
 
     private void setConsumer(@NotNull Consumer<FinishedRecipe> consumer) {

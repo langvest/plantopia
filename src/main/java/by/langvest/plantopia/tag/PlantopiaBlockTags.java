@@ -16,6 +16,7 @@ public class PlantopiaBlockTags {
 	public static final TagKey<Block> INFESTED_DIRT_CAN_SPREAD_TO = createBlockTag("infested_dirt_can_spread_to");
 	public static final TagKey<Block> BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS = createBlockTag("breaks_into_air_by_cobblestone_shards");
 	public static final TagKey<Block> BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS = createBlockTag("breaks_into_water_by_cobblestone_shards");
+	public static final TagKey<Block> SEA_MOSS_REPLACEABLE = createBlockTag("sea_moss_replaceable");
 
 	private PlantopiaBlockTags() {}
 

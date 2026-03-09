@@ -3,6 +3,8 @@ package by.langvest.plantopia.worldgen.feature;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaAzollaBlock;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaGradientBlockPlacer;
@@ -10,10 +12,12 @@ import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPl
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaBranchingShrubPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaVegetationPatchConfiguration;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -22,13 +26,16 @@ import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -69,6 +76,49 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             .feature(naturalBlock(context ->
                 simpleConfig(PlantopiaBlocks.HOGWEED.get())
             ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_VEGETATION = declareConfiguredFeature(
+        compileNameFrom(PlantopiaBlockMeta.MetaType.SEA_MOSS, VEGETATION),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(naturalBlock(context ->
+                weightedConfig(states -> {
+                    states.add(PlantopiaBlocks.SEA_MOSS_CARPET.get().defaultBlockState(), 25);
+                    states.add(Blocks.SEAGRASS.defaultBlockState(), 50);
+                    states.add(Blocks.TALL_SEAGRASS.defaultBlockState(), 10);
+
+                    SeaPickleBlock.PICKLES.getPossibleValues().forEach(pickles ->
+                        states.add(Blocks.SEA_PICKLE.defaultBlockState().setValue(SeaPickleBlock.PICKLES, pickles), 1)
+                    );
+
+                    return states;
+                })
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_PATCH_BONEMEAL = declareConfiguredFeature(
+        compileNameFrom(PlantopiaBlockMeta.MetaType.SEA_MOSS, PATCH, BONEMEAL),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(vegetationPatch(context -> {
+                var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+
+                return new PlantopiaVegetationPatchConfiguration(
+                    BlockPredicate.anyOf(
+                        BlockPredicate.matchesFluids(Fluids.WATER),
+                        BlockPredicate.matchesBlocks(Blocks.WATER)
+                    ),
+                    PlantopiaBlockTags.SEA_MOSS_REPLACEABLE,
+                    simpleProvider(PlantopiaBlocks.SEA_MOSS_BLOCK.get()),
+                    PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SEA_MOSS_VEGETATION)),
+                    CaveSurface.FLOOR,
+                    ConstantInt.of(1),
+                    0.0F,
+                    5,
+                    0.6F,
+                    UniformInt.of(1, 2),
+                    0.75F
+                );
+            }))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS_ON_SAND = declareConfiguredFeature(

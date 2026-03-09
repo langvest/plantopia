@@ -69,6 +69,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private final PlantopiaTagSet<Block> BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS);
     private final PlantopiaTagSet<Block> BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
     private final PlantopiaTagSet<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.COBBLESTONE_SHARD_CAN_GENERATE_ON);
+    private final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE = createTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -85,6 +86,10 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         generateAll();
 
+        DIRT.add(PlantopiaBlocks.SEA_MOSS_BLOCK.get());
+        MINEABLE_WITH_HOE.add(PlantopiaBlocks.SEA_MOSS_BLOCK.get(), PlantopiaBlocks.SEA_MOSS_CARPET.get());
+        SWORD_EFFICIENT.add(PlantopiaBlocks.SEA_MOSS_CARPET.get());
+        COMBINATION_STEP_SOUND_BLOCKS.add(PlantopiaBlocks.SEA_MOSS_CARPET.get());
         IGNORED_BY_BEES.add(Blocks.WITHER_ROSE);
         BIRCH_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), PlantopiaBlocks.BIRCH_BASE_WOOD.get());
         OVERWORLD_NATURAL_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get());
@@ -95,6 +100,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS.addOptionalTag(forge("glass"), forge("glass_panes"));
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS.add(Blocks.ICE);
         COBBLESTONE_SHARD_CAN_GENERATE_ON.add(Blocks.GRAVEL, Blocks.CLAY).addTag(BlockTags.DIRT, BlockTags.SAND, BlockTags.BASE_STONE_OVERWORLD).apply(this::addOverworldOres);
+        SEA_MOSS_REPLACEABLE.addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT, BlockTags.SAND);
 
         saveAll();
     }

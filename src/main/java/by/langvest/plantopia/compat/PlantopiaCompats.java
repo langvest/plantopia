@@ -94,6 +94,7 @@ public class PlantopiaCompats {
 
 	public static final class Encouragement {
 		public static final int PLANT = 60;
+		public static final int PLANT_2 = 30;
 		public static final int WOOD = 5;
 		public static final int PLANKS = WOOD;
 		public static final int LEAVES = 30;
@@ -101,6 +102,7 @@ public class PlantopiaCompats {
 
 	public static final class Flammability {
 		public static final int PLANT = 100;
+		public static final int PLANT_2 = 150;
 		public static final int WOOD = 5;
 		public static final int PLANKS = 20;
 		public static final int LEAVES = 60;

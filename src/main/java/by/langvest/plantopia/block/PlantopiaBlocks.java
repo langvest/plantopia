@@ -112,8 +112,10 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> DUNE_GRASS = registerBlock("dune_grass", PlantopiaDuneGrassBlock::new, MetaProperties.of(MetaType.SMALL_GRASS).mapColor(MapColor.SAND));
 	public static final RegistryObject<Block> TALL_DUNE_GRASS = registerBlock("tall_dune_grass", PlantopiaTallDuneGrassBlock::new, MetaProperties.of(MetaType.TALL_GRASS).mapColor(MapColor.SAND).customDrop());
 
-	public static final RegistryObject<Block> SEA_MOSS = registerBlock("sea_moss", PlantopiaSeaMossBlock::new, MetaProperties.of(MetaType.UNDERWATER_PLANT).customDrop().customModel().randomlyTicking());
-	public static final RegistryObject<Block> SEA_MOSS_PLANT = registerBlock("sea_moss_plant", PlantopiaSeaMossPlantBlock::new, MetaProperties.of(MetaType.UNDERWATER_PLANT).customDrop().customModel().noItem());
+	public static final RegistryObject<Block> SEA_MOSS_BLOCK = registerBlock("sea_moss_block", PlantopiaSeaMossBlock::new, MetaProperties.of(MetaType.SEA_MOSS));
+	public static final RegistryObject<Block> SEA_MOSS_CARPET = registerBlock("sea_moss_carpet", PlantopiaSeaMossCarpetBlock::new, MetaProperties.of(MetaType.SEA_MOSS).customModel());
+	public static final RegistryObject<Block> HANGING_SEA_MOSS = registerBlock("hanging_sea_moss", PlantopiaHangingSeaMossBlock::new, MetaProperties.of(MetaType.HANGING_SEA_MOSS).customDrop().customModel().randomlyTicking());
+	public static final RegistryObject<Block> HANGING_SEA_MOSS_PLANT = registerBlock("hanging_sea_moss_plant", PlantopiaHangingSeaMossPlantBlock::new, MetaProperties.of(MetaType.HANGING_SEA_MOSS).customDrop().customModel().noItem());
 
 	public static final RegistryObject<Block> SMALL_PLATTERLEAF = registerBlock("small_platterleaf", PlantopiaSmallPlatterleafBlock::new, MetaProperties.of(MetaType.WATERLILY).dropSelf().customModel().customItem());
 	public static final RegistryObject<Block> BIG_PLATTERLEAF = registerBlock("big_platterleaf", PlantopiaBigPlatterleafBlock::new, MetaProperties.of(MetaType.WATERLILY).customDrop().customModel().customItem().compostable(Compostability.PLANT_1 * 2));

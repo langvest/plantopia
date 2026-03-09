@@ -11,11 +11,11 @@
 							"condition": "minecraft:survives_explosion"
 						}
 					],
-					"name": "plantopia:sea_moss"
+					"name": "plantopia:hanging_sea_moss"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "plantopia:blocks/sea_moss_plant"
+	"random_sequence": "plantopia:blocks/hanging_sea_moss"
 }

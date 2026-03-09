@@ -3,6 +3,7 @@ package by.langvest.plantopia.worldgen.feature;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaVegetationPatchConfiguration;
 import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
@@ -16,10 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import org.jetbrains.annotations.Contract;
@@ -35,6 +33,8 @@ public class PlantopiaFeatures {
 	protected static final String SINGLE = "single";
 	protected static final String PIT = "pit";
 	protected static final String PATCH = "patch";
+	protected static final String BONEMEAL = "bonemeal";
+	protected static final String VEGETATION = "vegetation";
 	protected static final String MOUNTAIN = "mountain";
 	protected static final String CAVE = "cave";
 	protected static final String WIDE = "wide";
@@ -88,6 +88,11 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
 		return configuredFeature(Feature.RANDOM_PATCH, configFactory);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> vegetationPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaVegetationPatchConfiguration> configFactory) {
+		return configuredFeature(PlantopiaFeatureTypes.VEGETATION_PATCH, configFactory);
 	}
 
 	@Contract(pure = true)

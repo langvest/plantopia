@@ -87,8 +87,9 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         thornyShrubBlock(PlantopiaBlocks.THORNY_SHRUB.get());
         quicksandBlock(PlantopiaBlocks.QUICKSAND.get());
         quicksandCauldronBlock(PlantopiaBlocks.QUICKSAND_CAULDRON.get());
-        seaMossBlock(PlantopiaBlocks.SEA_MOSS.get());
-        seaMossBlock(PlantopiaBlocks.SEA_MOSS_PLANT.get());
+        seaMossCarpetBlock(PlantopiaBlocks.SEA_MOSS_CARPET.get());
+        hangingSeaMossBlock(PlantopiaBlocks.HANGING_SEA_MOSS.get());
+        hangingSeaMossBlock(PlantopiaBlocks.HANGING_SEA_MOSS_PLANT.get());
         smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
         bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
         tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
@@ -745,12 +746,22 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         });
     }
 
-    private void seaMossBlock(Block block) {
+    private void seaMossCarpetBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var texture = blockTexture(PlantopiaBlocks.SEA_MOSS_BLOCK.get());
+        var model = carpetTemplateModel(baseName, texture);
+
+        blockItemModel(baseName, model);
+        simpleBlock(block, model);
+    }
+
+    private void hangingSeaMossBlock(Block block) {
         String baseName = nameOf(block);
         var hasItem = metaOf(block).map(PlantopiaBlockMeta::hasItem).orElse(false);
 
         var texture = texture(baseName);
-        var model = seaMossTemplateModel(baseName, texture);
+        var model = hangingSeaMossTemplateModel(baseName, texture);
 
         if (hasItem) {
             var itemTexture = texture(baseName + "_plant");
@@ -1073,8 +1084,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             .texture("cross", crossTexture);
     }
 
-    private BlockModelBuilder seaMossTemplateModel(String name, ResourceLocation texture) {
-        return models().withExistingParent(name, parent("template_sea_moss"))
+    private BlockModelBuilder carpetTemplateModel(String name, ResourceLocation woolTexture) {
+        return models().withExistingParent(name, "carpet")
+            .texture("wool", woolTexture);
+    }
+
+    private BlockModelBuilder hangingSeaMossTemplateModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("template_hanging_sea_moss"))
             .texture("texture", texture);
     }
 

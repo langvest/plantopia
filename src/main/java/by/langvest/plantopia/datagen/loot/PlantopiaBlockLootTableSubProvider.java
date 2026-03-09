@@ -54,6 +54,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
     private static final LootItemConditionalFunction.Builder<?> EXPLOSION_DECAY = ApplyExplosionDecay.explosionDecay();
     private static final LootItemCondition.Builder SURVIVES_EXPLOSION = ExplosionCondition.survivesExplosion();
     private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
+    private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
+    private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
     private static final float SEEDS_CHANCE = 0.125F;
     private static final Pair<Property<DoubleBlockHalf>, DoubleBlockHalf> DOUBLE_BLOCK_HALF_LOWER = Pair.of(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
     private static final Pair<Property<DoubleBlockHalf>, DoubleBlockHalf> DOUBLE_BLOCK_HALF_UPPER = Pair.of(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
@@ -81,8 +83,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
         add(PlantopiaBlocks.POLLINATED_DANDELION.get(), this::createPollinatedDandelionDrops);
         add(PlantopiaBlocks.BRANCHING_SHRUB.get(), this::createBranchingShrubDrops);
-        add(PlantopiaBlocks.SEA_MOSS.get(), this::createSeaMossDrops);
-        add(PlantopiaBlocks.SEA_MOSS_PLANT.get(), this::createSeaMossDrops);
+        add(PlantopiaBlocks.HANGING_SEA_MOSS.get(), this::createHangingSeaMossDrops);
+        add(PlantopiaBlocks.HANGING_SEA_MOSS_PLANT.get(), this::createHangingSeaMossDrops);
         add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);
         add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
         add(PlantopiaBlocks.BIG_PLATTERLEAF.get(), this::createBigPlatterleafDrops);
@@ -289,7 +291,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
     private LootTable.@NotNull Builder createAzollaDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaCloverBlock.AMOUNT)
-            .when(HAS_SHEARS);
+            .when(HAS_SHEARS_OR_SILK_TOUCH);
 
         return createBlockTable(block, lootEntry);
     }
@@ -325,8 +327,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createSeaMossDrops(Block block) {
-        LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(PlantopiaBlocks.SEA_MOSS.get()));
+    private LootTable.@NotNull Builder createHangingSeaMossDrops(Block block) {
+        LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(PlantopiaBlocks.HANGING_SEA_MOSS.get()));
 
         return createBlockTable(block, lootEntry);
     }

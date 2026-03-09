@@ -7,14 +7,17 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Predicate;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
@@ -34,6 +37,22 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
         return place(level, state, pos, random, Block.UPDATE_CLIENTS);
     }
 
+    public boolean isEmptyBlock(@NotNull BlockState state) {
+        return state.isAir();
+    }
+
+    public boolean isWaterBlock(@NotNull BlockState state) {
+        return state.is(Blocks.WATER) && state.getFluidState().isSource();
+    }
+
+    public boolean isEmptyFluid(@NotNull FluidState state) {
+        return state.isEmpty();
+    }
+
+    public boolean isWaterFluid(@NotNull FluidState state) {
+        return state.isSourceOfType(Fluids.WATER);
+    }
+
     public boolean place(WorldGenLevel level, @NotNull BlockState state, BlockPos pos, RandomSource random, int flags) {
         var block = state.getBlock();
 
@@ -44,8 +63,27 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
             return naturalBlock.placeNaturallyAt(level, pos, state, random, flags);
         }
 
+        boolean isLiquidContainer = block instanceof LiquidBlockContainer;
+        boolean isWaterloggable = state.hasProperty(BlockStateProperties.WATERLOGGED);
+
+        Predicate<BlockPos> spacePredicate = candidatePos -> {
+            var candidateState = level.getBlockState(candidatePos);
+            if (isLiquidContainer && !isWaterloggable) return isWaterBlock(candidateState);
+            if (isWaterloggable) return isEmptyBlock(candidateState) || isWaterBlock(candidateState);
+            return isEmptyBlock(candidateState);
+        };
+
+        Predicate<BlockPos> targetPredicate = candidatePos -> {
+            var candidateState = level.getFluidState(candidatePos);
+            if (isLiquidContainer && !isWaterloggable) return isWaterFluid(candidateState);
+            if (isWaterloggable) return isEmptyFluid(candidateState) || isWaterFluid(candidateState);
+            return isEmptyFluid(candidateState);
+        };
+
+        if (!targetPredicate.test(pos)) return false;
+
         if (block instanceof DoublePlantBlock) {
-            if (!level.isEmptyBlock(pos.above(1))) return false;
+            if (!spacePredicate.test(pos.above(1))) return false;
 
             DoublePlantBlock.placeAt(level, state, pos, flags);
 
@@ -53,8 +91,8 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
         }
 
         if (block instanceof PlantopiaTriplePlantBlock) {
-            if (!level.isEmptyBlock(pos.above(1))) return false;
-            if (!level.isEmptyBlock(pos.above(2))) return false;
+            if (!spacePredicate.test(pos.above(1))) return false;
+            if (!spacePredicate.test(pos.above(2))) return false;
 
             PlantopiaTriplePlantBlock.placeAt(level, pos, state, flags);
 

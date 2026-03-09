@@ -1,7 +1,6 @@
 package by.langvest.plantopia.mixin.block.special;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -59,7 +58,7 @@ public abstract class PlantopiaCarpetBlockMixin extends Block {
 	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
 		super.entityInside(state, level, pos, entity);
 
-		if(level instanceof ServerLevel && entity instanceof Boat && plantopia$isFloatingMossCarpet(level, pos)) {
+		if(!level.isClientSide() && entity instanceof Boat && plantopia$isFloatingMossCarpet(level, pos)) {
 			level.destroyBlock(new BlockPos(pos), true, entity);
 		}
 	}

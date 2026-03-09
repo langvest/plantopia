@@ -7,6 +7,7 @@ public enum PlantopiaOrderType {
 	COBBLESTONE_SHARD,
 	SHELL,
 	WET_PLANT,
+	SEA_MOSS,
 	EXOTIC_PLANT,
 	FLOWER,
 	FOOD,
