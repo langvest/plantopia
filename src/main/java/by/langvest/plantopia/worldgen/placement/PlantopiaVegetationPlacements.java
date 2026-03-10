@@ -463,7 +463,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.add(Biomes.SNOWY_PLAINS)
+				// .add(Biomes.SNOWY_PLAINS)
 			)
 	);
 
