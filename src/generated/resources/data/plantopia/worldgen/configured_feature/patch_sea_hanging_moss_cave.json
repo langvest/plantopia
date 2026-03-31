@@ -1,0 +1,72 @@
+{
+	"type": "plantopia:sea_hanging_moss_patch",
+	"config": {
+		"allowed_attachment": {
+			"type": "minecraft:matching_block_tag",
+			"tag": "plantopia:sea_hanging_moss_can_generate_on"
+		},
+		"allowed_placement": {
+			"type": "minecraft:matching_blocks",
+			"blocks": [
+				"minecraft:air",
+				"minecraft:water",
+				"minecraft:glow_lichen"
+			]
+		},
+		"height": {
+			"type": "minecraft:weighted_list",
+			"distribution": [
+				{
+					"data": {
+						"type": "minecraft:uniform",
+						"value": {
+							"max_inclusive": 14,
+							"min_inclusive": 10
+						}
+					},
+					"weight": 3
+				},
+				{
+					"data": {
+						"type": "minecraft:uniform",
+						"value": {
+							"max_inclusive": 18,
+							"min_inclusive": 14
+						}
+					},
+					"weight": 7
+				},
+				{
+					"data": {
+						"type": "minecraft:uniform",
+						"value": {
+							"max_inclusive": 22,
+							"min_inclusive": 18
+						}
+					},
+					"weight": 2
+				}
+			]
+		},
+		"height_erosion": 0.132,
+		"height_falloff": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_exclusive": 0.56,
+				"min_inclusive": 0.38
+			}
+		},
+		"search_distance": 9,
+		"shape_erosion": 0.148,
+		"shape_sigma": -0.562,
+		"tries": 128,
+		"xz_spread": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_inclusive": 7,
+				"min_inclusive": 5
+			}
+		},
+		"y_spread": 2
+	}
+}

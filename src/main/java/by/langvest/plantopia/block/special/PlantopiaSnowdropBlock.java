@@ -4,7 +4,6 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaFreezableBlock;
 import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -69,7 +68,11 @@ public class PlantopiaSnowdropBlock extends FlowerBlock implements PlantopiaFree
 	}
 
 	@Override
-	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+	public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
+		var level = context.level();
+		var pos = context.origin();
+		var state = context.state();
+		var flags = context.flags();
 		var currentState = level.getBlockState(pos);
 
 		if (currentState.is(Blocks.SNOW)) {

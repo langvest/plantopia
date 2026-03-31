@@ -4,7 +4,6 @@ import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -106,7 +105,12 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	}
 
 	@Override
-	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+	public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
+		var level = context.level();
+		var pos = context.origin();
+		var state = context.state();
+		var flags = context.flags();
+
 		if(!state.canSurvive(level, pos)) return false;
 		if(!canPlaceAt(level, pos)) return false;
 

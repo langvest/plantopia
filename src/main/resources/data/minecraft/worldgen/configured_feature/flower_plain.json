@@ -43,9 +43,6 @@
 								"Name": "minecraft:orange_tulip"
 							},
 							{
-								"Name": "plantopia:orange_wildflowers"
-							},
-							{
 								"Name": "minecraft:red_tulip"
 							},
 							{
@@ -58,7 +55,7 @@
 								"Name": "minecraft:white_tulip"
 							},
 							{
-								"Name": "plantopia:purple_wildflowers"
+								"Name": "plantopia:red_wildflowers"
 							}
 						],
 						"noise": {

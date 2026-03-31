@@ -2,7 +2,7 @@ package by.langvest.plantopia.worldgen.feature.blockplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerType;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.special.PlantopiaNaturalBlockFeature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.ExtraCodecs;
@@ -45,8 +45,7 @@ public class PlantopiaSimpleBlockPlacer extends PlantopiaBlockPlacer {
         var targetPos = context.targetPos();
         var level = context.level();
         var state = provider.getState(random, targetPos);
-        var naturalBlockFeature = PlantopiaFeatureTypes.NATURAL_BLOCK.get();
 
-        return naturalBlockFeature.place(level, state, targetPos, random, Block.UPDATE_CLIENTS);
+        return PlantopiaNaturalBlockFeature.place(level, state, targetPos, random, Block.UPDATE_CLIENTS);
     }
 }

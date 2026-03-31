@@ -1,0 +1,15 @@
+{
+	"values": [
+		"#minecraft:base_stone_overworld",
+		"#minecraft:dirt",
+		"#minecraft:planks",
+		"#minecraft:terracotta",
+		"#plantopia:ores_overworld",
+		"minecraft:clay",
+		"minecraft:dark_prismarine",
+		"minecraft:dripstone_block",
+		"minecraft:prismarine",
+		"minecraft:prismarine_bricks",
+		"minecraft:sandstone"
+	]
+}

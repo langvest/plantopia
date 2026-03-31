@@ -192,7 +192,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REEDS)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(2.12F),
+				PlantopiaRarityFilter.onAverageOnceEvery(2.0F),
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -337,7 +337,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FERN)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(5.24F),
+				PlantopiaRarityFilter.onAverageOnceEvery(5.0F),
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -370,7 +370,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(5.42F),
+				PlantopiaRarityFilter.onAverageOnceEvery(5.0F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -396,7 +396,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+				PlantopiaRarityFilter.onAverageOnceEvery(4.0F),
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -456,23 +456,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(18.12F, 20.42F),
-				CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				// .add(Biomes.SNOWY_PLAINS)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_SNOWDROP_2 = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SNOWDROP, 2),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(8.64F),
+				PlantopiaRarityFilter.onAverageOnceEvery(10.24F),
 				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -563,17 +547,17 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE),
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE)
-			.modifiers(context -> {
-				var biomes = context.lookup(Registries.BIOME);
-
-				return List.of(
-					PlantopiaUndergroundDensityPlacement.of(0.32F, VerticalAnchor.absolute(-32), Heightmap.Types.OCEAN_FLOOR_WG),
-					InSquarePlacement.spread(),
-					PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG),
-					BiomeFilter.biome(),
-					PlantopiaBiomeFilter.exclude(HolderSet.direct(biomes.getOrThrow(Biomes.LUSH_CAVES)))
-				);
-			})
+			.modifiers(context -> List.of(
+				PlantopiaUndergroundDensityPlacement.of(
+					0.246F,
+					VerticalAnchor.absolute(-32),
+					Heightmap.Types.OCEAN_FLOOR_WG
+				),
+				InSquarePlacement.spread(),
+				PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG),
+				BiomeFilter.biome(),
+				PlantopiaBiomeFilter.exclude(directBiomes(context, Biomes.LUSH_CAVES))
+			))
 			.biomes(biomes -> biomes
 				.addTag(BiomeTags.IS_OVERWORLD)
 			)
@@ -604,11 +588,11 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(16.42F, 18.86F))
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(14.24F, 16.24F))
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
-				.add(Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
-				.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
+				.add(Biomes.WINDSWEPT_FOREST)
+//				.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
 				.addTag(BiomeTags.IS_SAVANNA, BiomeTags.IS_JUNGLE)
 			)
 	);

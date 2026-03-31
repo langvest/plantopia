@@ -69,7 +69,11 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private final PlantopiaTagSet<Block> BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS);
     private final PlantopiaTagSet<Block> BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS = createTagSet(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
     private final PlantopiaTagSet<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.COBBLESTONE_SHARD_CAN_GENERATE_ON);
+    private final PlantopiaTagSet<Block> BRANCHING_SHRUB_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON);
+    private final PlantopiaTagSet<Block> SEA_HANGING_MOSS_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.SEA_HANGING_MOSS_CAN_GENERATE_ON);
     private final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE = createTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE);
+    private final PlantopiaTagSet<Block> ORES_OVERWORLD = createTagSet(PlantopiaBlockTags.ORES_OVERWORLD);
+    private final PlantopiaTagSet<Block> GROUND_OVERWORLD = createTagSet(PlantopiaBlockTags.GROUND_OVERWORLD);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -94,13 +98,36 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         BIRCH_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), PlantopiaBlocks.BIRCH_BASE_WOOD.get());
         OVERWORLD_NATURAL_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get());
         CONVERTABLE_TO_MUD.add(PlantopiaBlocks.INFESTED_DIRT.get());
-        BONEMEAL_SPREAD_GROWABLE.add(Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN, PlantopiaBlocks.CLOVER.get());
         BONEMEAL_SPREAD_ON.add(Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
         INFESTED_DIRT_CAN_SPREAD_TO.add(Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
         BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS.addOptionalTag(forge("glass"), forge("glass_panes"));
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS.add(Blocks.ICE);
-        COBBLESTONE_SHARD_CAN_GENERATE_ON.add(Blocks.GRAVEL, Blocks.CLAY).addTag(BlockTags.DIRT, BlockTags.SAND, BlockTags.BASE_STONE_OVERWORLD).apply(this::addOverworldOres);
+        COBBLESTONE_SHARD_CAN_GENERATE_ON.addTag(PlantopiaBlockTags.GROUND_OVERWORLD);
         SEA_MOSS_REPLACEABLE.addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT, BlockTags.SAND);
+
+        BONEMEAL_SPREAD_GROWABLE
+            .add(Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN)
+            .add(PlantopiaBlocks.CLOVER.get());
+
+        GROUND_OVERWORLD
+            .add(Blocks.GRAVEL, Blocks.CLAY, Blocks.SANDSTONE, Blocks.DRIPSTONE_BLOCK)
+            .addTag(BlockTags.DIRT, BlockTags.SAND, BlockTags.BASE_STONE_OVERWORLD, BlockTags.TERRACOTTA)
+            .addTag(PlantopiaBlockTags.ORES_OVERWORLD);
+
+        ORES_OVERWORLD
+            .add(Blocks.COAL_ORE, Blocks.IRON_ORE, Blocks.COPPER_ORE, Blocks.GOLD_ORE, Blocks.REDSTONE_ORE, Blocks.LAPIS_ORE, Blocks.DIAMOND_ORE, Blocks.EMERALD_ORE)
+            .add(Blocks.DEEPSLATE_COAL_ORE, Blocks.DEEPSLATE_IRON_ORE, Blocks.DEEPSLATE_COPPER_ORE, Blocks.DEEPSLATE_GOLD_ORE, Blocks.DEEPSLATE_REDSTONE_ORE, Blocks.DEEPSLATE_LAPIS_ORE, Blocks.DEEPSLATE_DIAMOND_ORE, Blocks.DEEPSLATE_EMERALD_ORE);
+
+        BRANCHING_SHRUB_CAN_GENERATE_ON
+            .add(Blocks.RED_SAND)
+            .addTag(BlockTags.DIRT, BlockTags.TERRACOTTA);
+
+        SEA_HANGING_MOSS_CAN_GENERATE_ON
+            .add(Blocks.CLAY, Blocks.SANDSTONE, Blocks.DRIPSTONE_BLOCK)
+            .add(Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS, Blocks.DARK_PRISMARINE)
+            .addTag(BlockTags.DIRT, BlockTags.BASE_STONE_OVERWORLD, BlockTags.TERRACOTTA)
+            .addTag(BlockTags.PLANKS)
+            .addTag(PlantopiaBlockTags.ORES_OVERWORLD);
 
         saveAll();
     }

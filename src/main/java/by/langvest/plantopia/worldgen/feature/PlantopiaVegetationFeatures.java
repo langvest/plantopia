@@ -17,7 +17,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -53,6 +52,16 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  */
 public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     protected static final BlockPredicate WATER_PlANT_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GRASS, Blocks.SEAGRASS);
+    protected static final BlockPredicate BRANCHING_SHRUB_VERTICAL_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GLOW_LICHEN, Blocks.SEAGRASS, Blocks.GRASS, Blocks.FERN);
+
+    protected static final BlockPredicate BRANCHING_SHRUB_HORIZONTAL_PREDICATE = BlockPredicate.allOf(
+        BRANCHING_SHRUB_VERTICAL_PREDICATE,
+        BlockPredicate.anyOf(
+            BlockPredicate.matchesBlocks(BlockPos.ZERO.below(), PlantopiaBlocks.BRANCHING_SHRUB.get()),
+            BlockPredicate.replaceable(BlockPos.ZERO.below())
+        )
+    );
+
     protected static final BlockPredicate GRASS_PLANT_PREDICATE = BlockPredicate.allOf(
         BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS),
         BlockPredicate.solid(BlockPos.ZERO.below())
@@ -99,17 +108,17 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_PATCH_BONEMEAL = declareConfiguredFeature(
         compileNameFrom(PlantopiaBlockMeta.MetaType.SEA_MOSS, PATCH, BONEMEAL),
         PlantopiaFeatureDeclaration.builder()
-            .feature(vegetationPatch(context -> {
-                var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
-
-                return new PlantopiaVegetationPatchConfiguration(
+            .feature(vegetationPatch(context ->
+                new PlantopiaVegetationPatchConfiguration(
                     BlockPredicate.anyOf(
                         BlockPredicate.matchesFluids(Fluids.WATER),
                         BlockPredicate.matchesBlocks(Blocks.WATER)
                     ),
                     PlantopiaBlockTags.SEA_MOSS_REPLACEABLE,
                     simpleProvider(PlantopiaBlocks.SEA_MOSS_BLOCK.get()),
-                    PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SEA_MOSS_VEGETATION)),
+                    PlacementUtils.inlinePlaced(
+                        lookupFeatures(context).getOrThrow(SEA_MOSS_VEGETATION)
+                    ),
                     CaveSurface.FLOOR,
                     ConstantInt.of(1),
                     0.0F,
@@ -117,8 +126,8 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                     0.6F,
                     UniformInt.of(1, 2),
                     0.75F
-                );
-            }))
+                )
+            ))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS_ON_SAND = declareConfiguredFeature(
@@ -241,7 +250,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.REEDS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(22, 3, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(26, 3, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.REEDS.get()),
                     WATER_PlANT_PREDICATE
@@ -253,7 +262,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.CATTAIL),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(94, 6, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(96, 6, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.CATTAIL.get().defaultBlockState(), 4)
@@ -273,7 +282,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.SWEET_FLAG),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(94, 6, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(96, 6, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SWEET_FLAG.get()),
                     BlockPredicate.allOf(
@@ -305,7 +314,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.SNOWDROP),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(112, 6, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(96, 6, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.SNOW)
@@ -404,15 +413,19 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
                 new PlantopiaBranchingShrubPatchConfiguration(
-                    UniformInt.of(2, 3), // xzSpread
+                    ConstantInt.of(2), // xzSpread
                     ConstantInt.of(1), // ySpread
                     UniformInt.of(32, 48), // tries
-                    UniformInt.of(3, 4), // height
-                    UniformFloat.of(0.72F, 0.92F), // heightFalloff
-                    ConstantFloat.of(0.48F), // heightErosion
-                    ConstantFloat.of(-0.234F), // shapeSigma
-                    ConstantFloat.of(0.24F), // shapeErosion
-                    ConstantInt.of(6) // searchDistance
+                    ClampedInt.of(UniformInt.of(1, 4), 3, 4), // height
+                    UniformFloat.of(0.58F, 0.72F), // heightFalloff
+                    ConstantFloat.of(0.196F), // heightErosion
+                    ConstantFloat.of(-0.268F), // shapeSigma
+                    ConstantFloat.of(0.126F), // shapeErosion
+                    ConstantInt.of(6), // searchDistance
+                    BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
+                    BRANCHING_SHRUB_VERTICAL_PREDICATE,
+                    BRANCHING_SHRUB_HORIZONTAL_PREDICATE,
+                    List.of(Direction.UP)
                 )
             ))
     );
@@ -422,15 +435,19 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
                 new PlantopiaBranchingShrubPatchConfiguration(
-                    UniformInt.of(3, 4), // xzSpread
+                    ConstantInt.of(3), // xzSpread
                     ConstantInt.of(1), // ySpread
                     UniformInt.of(32, 48), // tries
-                    UniformInt.of(4, 5), // height
-                    UniformFloat.of(0.72F, 0.92F), // heightFalloff
-                    ConstantFloat.of(0.48F), // heightErosion
-                    ConstantFloat.of(-0.234F), // shapeSigma
-                    ConstantFloat.of(0.24F), // shapeErosion
-                    ConstantInt.of(12) // searchDistance
+                    ClampedInt.of(UniformInt.of(3, 5), 4, 5), // height
+                    UniformFloat.of(0.58F, 0.72F), // heightFalloff
+                    ConstantFloat.of(0.182F), // heightErosion
+                    ConstantFloat.of(-0.268F), // shapeSigma
+                    ConstantFloat.of(0.126F), // shapeErosion
+                    ConstantInt.of(12), // searchDistance
+                    BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
+                    BRANCHING_SHRUB_VERTICAL_PREDICATE,
+                    BRANCHING_SHRUB_HORIZONTAL_PREDICATE,
+                    List.of(Direction.DOWN, Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)
                 )
             ))
     );
@@ -452,8 +469,6 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(getCloverConfig(PlantopiaBlocks.PINK_CLOVER_BLOSSOM)))
     );
-
-
 
     /* HELPER METHODS *************************************************************************/
 

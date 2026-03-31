@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/patch_snowdrop_2",
-	"features": "plantopia:patch_snowdrop_2",
-	"step": "vegetal_decoration"
-}

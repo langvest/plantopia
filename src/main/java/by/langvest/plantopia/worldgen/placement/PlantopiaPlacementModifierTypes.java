@@ -22,7 +22,10 @@ public class PlantopiaPlacementModifierTypes {
     public static final RegistryObject<PlacementModifierType<PlantopiaRarityFilter>> RARITY_FILTER = registerPlacementModifierType("rarity_filter", () -> PlantopiaRarityFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaHeightmapFilter>> HEIGHTMAP_FILTER = registerPlacementModifierType("heightmap_filter", () -> PlantopiaHeightmapFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaBiomeFilter>> BIOME_FILTER = registerPlacementModifierType("biome_filter", () -> PlantopiaBiomeFilter.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaEnvironmentScanFilter>> ENVIRONMENT_SCAN_FILTER = registerPlacementModifierType("environment_scan_filter", () -> PlantopiaEnvironmentScanFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaUndergroundDensityPlacement>> UNDERGROUND_DENSITY = registerPlacementModifierType("underground_density", () -> PlantopiaUndergroundDensityPlacement.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaSwitchPlacement>> SWITCH = registerPlacementModifierType("switch", () -> PlantopiaSwitchPlacement.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaConditionPlacement>> CONDITION = registerPlacementModifierType("condition", () -> PlantopiaConditionPlacement.CODEC);
 
     private static <P extends PlacementModifier> @NotNull RegistryObject<PlacementModifierType<P>> registerPlacementModifierType(String name, Supplier<Codec<P>> supplier) {
         return registerPlacementModifierType(plantopia(name), supplier);

@@ -1,24 +1,87 @@
 {
 	"type": "plantopia:branching_shrub_patch",
 	"config": {
+		"allowed_attachment": {
+			"type": "minecraft:matching_block_tag",
+			"tag": "plantopia:branching_shrub_can_generate_on"
+		},
+		"allowed_horizontal_placement": {
+			"type": "minecraft:all_of",
+			"predicates": [
+				{
+					"type": "minecraft:matching_blocks",
+					"blocks": [
+						"minecraft:air",
+						"minecraft:water",
+						"minecraft:glow_lichen",
+						"minecraft:seagrass",
+						"minecraft:grass",
+						"minecraft:fern"
+					]
+				},
+				{
+					"type": "minecraft:any_of",
+					"predicates": [
+						{
+							"type": "minecraft:matching_blocks",
+							"blocks": "plantopia:branching_shrub",
+							"offset": [
+								0,
+								-1,
+								0
+							]
+						},
+						{
+							"type": "minecraft:replaceable",
+							"offset": [
+								0,
+								-1,
+								0
+							]
+						}
+					]
+				}
+			]
+		},
+		"allowed_vertical_placement": {
+			"type": "minecraft:matching_blocks",
+			"blocks": [
+				"minecraft:air",
+				"minecraft:water",
+				"minecraft:glow_lichen",
+				"minecraft:seagrass",
+				"minecraft:grass",
+				"minecraft:fern"
+			]
+		},
+		"growth_directions": [
+			"up"
+		],
 		"height": {
-			"type": "minecraft:uniform",
+			"type": "minecraft:clamped",
 			"value": {
 				"max_inclusive": 4,
-				"min_inclusive": 3
+				"min_inclusive": 3,
+				"source": {
+					"type": "minecraft:uniform",
+					"value": {
+						"max_inclusive": 4,
+						"min_inclusive": 1
+					}
+				}
 			}
 		},
-		"height_erosion": 0.48,
+		"height_erosion": 0.196,
 		"height_falloff": {
 			"type": "minecraft:uniform",
 			"value": {
-				"max_exclusive": 0.92,
-				"min_inclusive": 0.72
+				"max_exclusive": 0.72,
+				"min_inclusive": 0.58
 			}
 		},
 		"search_distance": 6,
-		"shape_erosion": 0.24,
-		"shape_sigma": -0.234,
+		"shape_erosion": 0.126,
+		"shape_sigma": -0.268,
 		"tries": {
 			"type": "minecraft:uniform",
 			"value": {
@@ -26,13 +89,7 @@
 				"min_inclusive": 32
 			}
 		},
-		"xz_spread": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_inclusive": 3,
-				"min_inclusive": 2
-			}
-		},
+		"xz_spread": 2,
 		"y_spread": 1
 	}
 }

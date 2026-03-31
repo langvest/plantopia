@@ -14,7 +14,9 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
 
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -48,21 +50,26 @@ public class PlantopiaUndergroundDensityPlacement extends PlacementModifier {
     @Override
     public @NotNull Stream<BlockPos> getPositions(@NotNull PlacementContext context, @NotNull RandomSource random, @NotNull BlockPos pos) {
         int minY = bottomAnchor.resolveY(context);
-        int surfaceY = context.getHeight(heightmap, pos.getX() + 8, pos.getZ() + 8);
+        var surfaceYList = getSurfaceYList(context, pos);
 
-        if (surfaceY <= minY) {
+        int avgSurfaceY = (int) surfaceYList.stream()
+            .mapToInt(Integer::intValue)
+            .average()
+            .orElse(minY - 1);
+
+        if (avgSurfaceY <= minY) {
             return Stream.empty();
         }
 
-        int verticalRange = surfaceY - minY;
+        int verticalRange = avgSurfaceY - minY;
         int attempts = Math.round(verticalRange * density.sample(random));
 
         if (attempts <= 0) {
             return Stream.empty();
         }
-        
+
         return IntStream.range(0, attempts).mapToObj(i -> {
-            int y = random.nextInt(minY, surfaceY);
+            int y = random.nextInt(minY, avgSurfaceY);
             return new BlockPos(pos.getX(), y, pos.getZ());
         });
     }
@@ -70,5 +77,16 @@ public class PlantopiaUndergroundDensityPlacement extends PlacementModifier {
     @Override
     public @NotNull PlacementModifierType<?> type() {
         return PlantopiaPlacementModifierTypes.UNDERGROUND_DENSITY.get();
+    }
+
+    @Contract("_, _ -> new")
+    private @NotNull @Unmodifiable List<Integer> getSurfaceYList(@NotNull PlacementContext context, @NotNull BlockPos chunkPos) {
+        return List.of(
+            context.getHeight(heightmap, chunkPos.getX() + 8, chunkPos.getZ() + 8),
+            context.getHeight(heightmap, chunkPos.getX(), chunkPos.getZ()),
+            context.getHeight(heightmap, chunkPos.getX() + 15, chunkPos.getZ()),
+            context.getHeight(heightmap, chunkPos.getX(), chunkPos.getZ() + 15),
+            context.getHeight(heightmap, chunkPos.getX() + 15, chunkPos.getZ() + 15)
+        );
     }
 }

@@ -115,7 +115,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(2.48F, 3.86F),
+                PlantopiaRarityFilter.onAverageOnceEvery(2.86F),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -139,7 +139,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(2.48F, 3.86F),
+                PlantopiaRarityFilter.onAverageOnceEvery(2.86F),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
@@ -156,7 +156,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
-                CountPlacement.of(UniformInt.of(1, 3)),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 BiomeFilter.biome()
@@ -189,7 +189,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 PlantopiaUndergroundDensityPlacement.of(
-                    0.28F,
+                    0.256F,
                     VerticalAnchor.absolute(4),
                     Heightmap.Types.OCEAN_FLOOR_WG
                 ),

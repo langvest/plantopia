@@ -1,6 +1,7 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
@@ -83,12 +84,15 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
 	}
 
 	@Override
-	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
-		var posAbove2 = pos.above(2);
+	public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
+		var pos = context.origin();
 
-		if(!level.getBlockState(posAbove2).isAir()) return false;
+		if(!context.canSpreadInto(pos.above(2))) return false;
+		if(!context.canSpreadInto(pos.north().above(2))) return false;
+		if(!context.canSpreadInto(pos.north().east().above(2))) return false;
+		if(!context.canSpreadInto(pos.east().above(2))) return false;
 
-		return super.placeNaturallyAt(level, pos, state, random, flags);
+		return super.placeNaturally(context);
 	}
 
 	@Override

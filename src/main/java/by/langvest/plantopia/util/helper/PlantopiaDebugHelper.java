@@ -1,60 +1,166 @@
 package by.langvest.plantopia.util.helper;
 
 import by.langvest.plantopia.Plantopia;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.phys.Vec3;
-import org.apache.logging.log4j.Level;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SupportType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class PlantopiaDebugHelper {
-	public static void logCoords(@NotNull BlockPos pos) {
-		logCoords(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
-	}
+    public static void logChat(@NotNull Object object) {
+        if (Plantopia.getPlatform().isClient()) {
+            logChat(Component.literal(object.toString()));
+        }
+    }
 
-	public static void logCoords(@NotNull Vec3 vec3) {
-		logCoords(vec3.x, vec3.y, vec3.z);
-	}
+    public static void logConsole(String message) {
+        var logger = Plantopia.getPlatform().getLogger();
+        logger.log(org.apache.logging.log4j.Level.INFO, message);
+    }
 
-	public static void logCoords(double x, double y, double z) {
-		var player = Minecraft.getInstance().player;
+    public static void logConsole(@NotNull Object object) {
+        logConsole(object.toString());
+    }
 
-		if(player == null) return;
+    public static void logChat(Component message) {
+        if (Plantopia.getPlatform().isClient()) {
+            var player = net.minecraft.client.Minecraft.getInstance().player;
+            if (player != null) {
+                player.displayClientMessage(message, false);
+            }
+        }
+    }
 
-		for(int i = 0; i < 5; i++) {
-			player.level().addParticle(ParticleTypes.HAPPY_VILLAGER, x, y, z, 0.0D, 0.0D, 0.0D);
-		}
-	}
+    public static void logInWorld(Level level, BlockPos pos, @NotNull String message) {
+        if (message.length() <= 100) {
+            placeSign(level, pos, message);
+        } else {
+            placeBookInFrame(level, pos, message);
+        }
+    }
 
-	public static void logColor(int packedColor) {
-		var hsb = PlantopiaColorHelper.intToHsb(packedColor);
-		PlantopiaDebugHelper.logChat("=====> Color: " + packedColor + " <=====");
-		PlantopiaDebugHelper.logChat("R: " + red(packedColor) + "; G: " + green(packedColor) + "; B: " + blue(packedColor));
-		PlantopiaDebugHelper.logChat("H: " + hsb[0] + "; S: " + hsb[1] + "; B: " + hsb[2]);
-	}
+    public static void placeSign(LevelAccessor level, BlockPos pos, String message) {
+        placeSign(level, pos, message, Blocks.OAK_SIGN);
+    }
 
-	public static void logChat(@NotNull Object object) {
-		logChat(Component.literal(object.toString()));
-	}
+    public static void placeSign(@NotNull LevelAccessor level, BlockPos pos, String message, @NotNull Block signBlock) {
+        if (level.isClientSide()) {
+            return;
+        }
 
-	public static void logConsole(String message) {
-		var logger = Plantopia.getPlatform().getLogger();
-		logger.log(Level.INFO, message);
-	}
+        BlockPos supportPos = pos.below();
+        var supportState = level.getBlockState(supportPos);
+        if (!supportState.is(BlockTags.SIGNS) || !supportState.isFaceSturdy(level, supportPos, Direction.UP, SupportType.CENTER)) {
+            level.setBlock(supportPos, Blocks.YELLOW_WOOL.defaultBlockState(), Block.UPDATE_CLIENTS); // Changed to UPDATE_CLIENTS
+        }
 
-	public static void logConsole(@NotNull Object object) {
-		logConsole(object.toString());
-	}
+        level.setBlock(pos, signBlock.defaultBlockState(), Block.UPDATE_CLIENTS); // Changed to UPDATE_CLIENTS
 
-	public static void logChat(Component message) {
-		var player = Minecraft.getInstance().player;
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be != null) {
+            CompoundTag nbt = new CompoundTag();
+            List<String> lines = splitText(message, 25);
 
-		if(player == null) return;
+            // Front Text NBT
+            CompoundTag frontTextNbt = new CompoundTag();
+            ListTag frontMessages = new ListTag();
+            for (int i = 0; i < 4; i++) {
+                String line = i < lines.size() ? lines.get(i) : "";
+                frontMessages.add(StringTag.valueOf(Component.Serializer.toJson(Component.literal(line))));
+            }
+            frontTextNbt.put("messages", frontMessages);
+            frontTextNbt.putString("color", "black"); // Default color, can be customized if needed
 
-		player.displayClientMessage(message, false);
-	}
+            // Back Text NBT (same as front for this debug helper)
+            CompoundTag backTextNbt = (CompoundTag) frontTextNbt.copy();
+
+            nbt.put("front_text", frontTextNbt);
+            nbt.put("back_text", backTextNbt);
+
+            // Load the NBT data into the BlockEntity
+            be.load(nbt);
+        } else {
+            LogManager.getLogger().warn("Failed to get BlockEntity for sign at {} during worldgen. Sign text will not be set.", pos);
+        }
+    }
+
+    public static void placeBookInFrame(@NotNull Level level, BlockPos pos, String message) {
+        if (level.isClientSide()) {
+            return;
+        }
+
+        BlockPos supportPos = pos.below();
+        if (!level.getBlockState(supportPos).isFaceSturdy(level, supportPos, Direction.UP)) {
+            level.setBlock(supportPos, Blocks.YELLOW_WOOL.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+
+        ItemStack bookStack = new ItemStack(Items.WRITTEN_BOOK);
+        CompoundTag bookNbt = new CompoundTag();
+        bookNbt.putString("author", "Plantopia Debug");
+        bookNbt.putString("title", "Log");
+
+        List<String> lines = splitText(message, 35);
+        final int linesPerPage = 14;
+        final ListTag pagesTag = new ListTag();
+        for (int i = 0; i < lines.size(); i += linesPerPage) {
+            int end = Math.min(i + linesPerPage, lines.size());
+            List<String> pageLines = lines.subList(i, end);
+            String pageText = String.join("\n", pageLines);
+            pagesTag.add(StringTag.valueOf(Component.Serializer.toJson(Component.literal(pageText))));
+        }
+        bookNbt.put("pages", pagesTag);
+        bookStack.setTag(bookNbt);
+
+        ItemFrame frame = new ItemFrame(level, pos, Direction.UP);
+        frame.setItem(bookStack);
+        level.addFreshEntity(frame);
+    }
+
+    private static List<String> splitText(@NotNull String text, int maxLineLength) {
+        return Arrays.stream(text.split("\n"))
+            .flatMap(line -> wrapLine(line, maxLineLength).stream())
+            .collect(Collectors.toList());
+    }
+
+    private static @NotNull List<String> wrapLine(@NotNull String line, int maxLineLength) {
+        List<String> wrappedLines = new ArrayList<>();
+        String[] words = line.split(" ");
+        StringBuilder currentLine = new StringBuilder();
+
+        for (String word : words) {
+            if (currentLine.length() + word.length() + 1 > maxLineLength && !currentLine.isEmpty()) {
+                wrappedLines.add(currentLine.toString());
+                currentLine = new StringBuilder();
+            }
+            if (!currentLine.isEmpty()) {
+                currentLine.append(" ");
+            }
+            currentLine.append(word);
+        }
+        if (!currentLine.isEmpty()) {
+            wrappedLines.add(currentLine.toString());
+        }
+        return wrappedLines;
+    }
 }

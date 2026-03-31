@@ -5,7 +5,6 @@ import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.util.helper.PlantopiaShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -60,7 +59,8 @@ public class PlantopiaSeaShellBlock extends BaseEntityBlock implements SimpleWat
 		return PlantopiaShapeHelper.rotateShape(shape, facing);
 	}
 
-	@Override
+    @Override
+	@SuppressWarnings("deprecation")
     public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
 		return RenderShape.MODEL;
 	}
@@ -148,7 +148,12 @@ public class PlantopiaSeaShellBlock extends BaseEntityBlock implements SimpleWat
 	}
 
 	@Override
-	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+	public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
+		var level = context.level();
+		var pos = context.origin();
+		var state = context.state();
+		var random = context.random();
+		var flags = context.flags();
 		var newState = state.setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
 
 		if (!level.setBlock(pos, copyWaterloggedFrom(level, pos, newState), flags)) {

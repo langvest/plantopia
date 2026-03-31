@@ -5,7 +5,6 @@ import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -120,7 +119,11 @@ public class PlantopiaCobblestoneShardBlock extends Block implements SimpleWater
 	}
 
 	@Override
-	public boolean placeNaturallyAt(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull RandomSource random, int flags) {
+	public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
+		var pos = context.origin();
+		var level = context.level();
+		var state = context.state();
+		var flags = context.flags();
 		var posBelow = pos.below();
 		var stateBelow = level.getBlockState(posBelow);
 

@@ -2,31 +2,33 @@ package by.langvest.plantopia.worldgen.feature.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaBranchingShrubBlock;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaBranchingShrubPatchConfiguration;
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
 public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranchingShrubPatchConfiguration> {
     public PlantopiaBranchingShrubPatchFeature(Codec<PlantopiaBranchingShrubPatchConfiguration> codec) {
@@ -37,19 +39,23 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
     public boolean place(@NotNull FeaturePlaceContext<PlantopiaBranchingShrubPatchConfiguration> context) {
         var level = context.level();
         var random = context.random();
-        var origin = context.origin();
+        var originPos = context.origin();
         var config = context.config();
-        int horizontalSpread = config.xzSpread().sample(random);
-        int verticalSpread = config.ySpread().sample(random);
-        int maxHeight = config.height().sample(random);
-        var surfaceInfo = findSurface(level, origin, config, random, horizontalSpread, maxHeight);
 
-        if (surfaceInfo == null) {
+        var placementInfo = findPlacement(level, originPos, config, random);
+        if (placementInfo == null) {
             return false;
         }
 
-        var centerPos = surfaceInfo.getFirst();
-        var growthDirection = surfaceInfo.getSecond();
+        var centerPos = placementInfo.pos();
+        var growthDirection = placementInfo.direction();
+        var maxHeight = placementInfo.maxHeight();
+        var xzSpread = placementInfo.xzSpread();
+        var ySpread = placementInfo.ySpread();
+        if (maxHeight <= 0) {
+            return false;
+        }
+
         int tries = config.tries().sample(random);
         float shapeSigma = config.shapeSigma().sample(random);
         float shapeErosion = config.shapeErosion().sample(random);
@@ -57,18 +63,19 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         float heightErosion = config.heightErosion().sample(random);
 
         int successfulPlacements = 0;
+        var localPos = new BlockPos.MutableBlockPos();
 
         for (int i = 0; i < tries; i++) {
-            var radialOffset = PlantopiaMathHelper.getHorizontalRadialOffset(random, horizontalSpread, shapeSigma, shapeErosion);
-            var verticalOffset = random.nextInt(-verticalSpread, verticalSpread + 1);
-            var localPos = new BlockPos(radialOffset.getX(), verticalOffset, radialOffset.getZ());
-            double distanceToCenter = Math.sqrt(localPos.getX() * localPos.getX() + localPos.getZ() * localPos.getZ());
-            double heightFactor = 1.0 - (distanceToCenter / horizontalSpread) * heightFalloff;
-            double idealHeightDouble = maxHeight * Mth.clamp(heightFactor, 0.0, 1.0);
-            double erosionAmountDouble = (random.nextDouble() * 2 - 1) * maxHeight * heightErosion;
-            int finalHeight = (int) Math.round(Mth.clamp(idealHeightDouble + erosionAmountDouble, 1.0, maxHeight));
+            var xzOffset = PlantopiaMathHelper.getHorizontalRadialOffset(random, xzSpread, shapeSigma, shapeErosion);
+            var yOffset = random.nextInt(-ySpread, ySpread + 1);
+            localPos.set(xzOffset.getX(), yOffset, xzOffset.getZ());
+            double distanceToCenter = Math.sqrt(localPos.distSqr(BlockPos.ZERO));
+            double falloffFactor = 1.0 - (distanceToCenter / xzSpread) * heightFalloff;
+            double smoothHeight = maxHeight * Mth.clamp(falloffFactor, 0.0, 1.0);
+            double erodedOffset = (random.nextDouble() * 2 - 1) * maxHeight * heightErosion;
+            int height = (int) Math.round(Mth.clamp(smoothHeight + erodedOffset, 0.0, maxHeight));
 
-            if (placeColumn(level, centerPos, localPos, growthDirection, finalHeight)) {
+            if (placeColumn(level, centerPos, localPos, growthDirection, height, config, random)) {
                 successfulPlacements++;
             }
         }
@@ -76,100 +83,107 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         return successfulPlacements > 0;
     }
 
-    private boolean placeColumn(@NotNull WorldGenLevel level, @NotNull BlockPos centerPos, @NotNull BlockPos columnBasePos, @NotNull Direction growthDirection, int height) {
-        var currentPos = rotate(columnBasePos, growthDirection).offset(centerPos).mutable();
-
-        boolean successfulPlaced = false;
-
-        for (int i = 0; i < height; i++) {
-            currentPos = currentPos.move(growthDirection);
-
-            if (!canReplace(level, currentPos)) break;
-
-            var segmentState = getBranchingShrubBlock().defaultBlockState()
-                .setValue(PlantopiaBranchingShrubBlock.BASE, i == 0)
-                .setValue(PlantopiaBranchingShrubBlock.FACING, growthDirection);
-
-            if (i == 0) {
-                if (!segmentState.canSurvive(level, currentPos)) break;
-                if (!mayPlace(level, currentPos, segmentState)) break;
-            }
-
-            level.setBlock(currentPos, copyWaterloggedFrom(level, currentPos, segmentState), Block.UPDATE_CLIENTS);
-            successfulPlaced = true;
+    private boolean placeColumn(@NotNull WorldGenLevel level, @NotNull BlockPos centerPos, @NotNull BlockPos.MutableBlockPos localPos, @NotNull Direction growthDirection, int height, @NotNull PlantopiaBranchingShrubPatchConfiguration config, @NotNull RandomSource random) {
+        if (height <= 0) {
+            return false;
         }
-
-        return successfulPlaced;
-    }
-
-    private BlockPos rotate(@NotNull BlockPos pos, @NotNull Direction direction) {
-        return switch (direction) {
-            case DOWN -> new BlockPos(pos.getX(), -pos.getY(), pos.getZ());
-            case UP -> pos;
-            case NORTH -> new BlockPos(pos.getX(), pos.getZ(), -pos.getY());
-            case SOUTH -> new BlockPos(pos.getX(), pos.getZ(), pos.getY());
-            case WEST -> new BlockPos(-pos.getY(), pos.getX(), pos.getZ());
-            case EAST -> new BlockPos(pos.getY(), pos.getX(), pos.getZ());
-        };
-    }
-
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean canReplace(@NotNull WorldGenLevel level, BlockPos pos) {
-        var state = level.getBlockState(pos);
-
-        return canReplace(state);
-    }
-
-    private boolean canReplace(@NotNull BlockState state) {
-        return state.isAir()
-            || state.is(Blocks.WATER)
-            || state.is(Blocks.SNOW)
-            || state.is(Blocks.GRASS)
-            || state.is(Blocks.FERN)
-            || state.is(Blocks.SEAGRASS)
-            || state.is(Blocks.GLOW_LICHEN);
-    }
-
-    private boolean canBreathThrough(@NotNull WorldGenLevel level, BlockPos pos) {
-        var state = level.getBlockState(pos);
-
-        return canBreathThrough(state);
-    }
-
-    private boolean isLandscape(@NotNull BlockState state) {
-        return state.is(BlockTags.DIRT) || state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(BlockTags.SAND) || state.is(Blocks.SANDSTONE);
-    }
-
-    private boolean canBreathThrough(@NotNull BlockState state) {
-        return !isLandscape(state);
-    }
-
-    private Block getBranchingShrubBlock() {
-        return PlantopiaBlocks.BRANCHING_SHRUB.get();
-    }
-
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean mayPlace(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull BlockState state) {
-        var facing = state.getValue(PlantopiaBranchingShrubBlock.FACING);
-        var surfacePos = pos.relative(facing.getOpposite());
-        var surfaceState = level.getBlockState(surfacePos);
-
-        if (surfaceState.is(Blocks.SAND) || surfaceState.is(Blocks.MOSS_BLOCK)) {
+        
+        var allowedPlacement = growthDirection.getAxis().isVertical() ? config.allowedVerticalPlacement() : config.allowedHorizontalPlacement();
+        var allowedAttachment = config.allowedAttachment();
+        var columnBasePos = rotate(localPos, growthDirection).offset(centerPos);
+        var baseState = getBaseState(growthDirection);
+        var bodyState = getBodyState(growthDirection);
+        
+        if (!allowedPlacement.test(level, columnBasePos)) {
             return false;
         }
 
-        if (facing == Direction.UP && surfaceState.is(Blocks.GRASS_BLOCK)) {
+        if (!mayPlaceAt(level, columnBasePos, growthDirection, allowedAttachment)) {
+            return false;
+        }
+
+        if (!baseState.canSurvive(level, columnBasePos)) {
+            return false;
+        }
+
+        return PlantopiaNaturalBlockColumnFeature.place(
+            level,
+            columnBasePos,
+            random,
+            growthDirection,
+            allowedPlacement,
+            false,
+            Block.UPDATE_CLIENTS,
+            List.of(
+                BlockColumnConfiguration.layer(
+                    ConstantInt.of(1),
+                    BlockStateProvider.simple(baseState)
+                ),
+                BlockColumnConfiguration.layer(
+                    ConstantInt.of(height - 1),
+                    BlockStateProvider.simple(bodyState)
+                )
+            )
+        );
+    }
+
+    private BlockPos.MutableBlockPos rotate(@NotNull BlockPos.MutableBlockPos pos, @NotNull Direction direction) {
+        return switch (direction) {
+            case DOWN -> pos.set(pos.getX(), -pos.getY(), pos.getZ());
+            case UP -> pos;
+            case NORTH -> pos.set(pos.getX(), pos.getZ(), -pos.getY());
+            case SOUTH -> pos.set(pos.getX(), pos.getZ(), pos.getY());
+            case WEST -> pos.set(-pos.getY(), pos.getX(), pos.getZ());
+            case EAST -> pos.set(pos.getY(), pos.getX(), pos.getZ());
+        };
+    }
+
+    private boolean canBreatheThrough(@NotNull WorldGenLevel level, BlockPos pos) {
+        return canBreatheThrough(level.getBlockState(pos));
+    }
+
+    private boolean canBreatheThrough(@NotNull BlockState state) {
+        return !state.is(PlantopiaBlockTags.GROUND_OVERWORLD) && !state.is(BlockTags.LEAVES);
+    }
+
+    private Block getPlantBlock() {
+        return PlantopiaBlocks.BRANCHING_SHRUB.get();
+    }
+
+    private @NotNull BlockState getBaseState(Direction growthDirection) {
+        return getPlantBlock().defaultBlockState()
+            .setValue(PlantopiaBranchingShrubBlock.BASE, true)
+            .setValue(PlantopiaBranchingShrubBlock.FACING, growthDirection);
+    }
+
+    private @NotNull BlockState getBodyState(Direction growthDirection) {
+        return getPlantBlock().defaultBlockState()
+            .setValue(PlantopiaBranchingShrubBlock.BASE, false)
+            .setValue(PlantopiaBranchingShrubBlock.FACING, growthDirection);
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean mayPlaceAt(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction growthDirection, BlockPredicate allowedAttachment) {
+        var attachedPos = pos.relative(growthDirection.getOpposite());
+        var attachedState = level.getBlockState(attachedPos);
+
+        if (attachedState.is(getPlantBlock())) {
+            return false;
+        }
+
+        if (!attachedState.isFaceSturdy(level, attachedPos, growthDirection)) {
+            return false;
+        }
+
+        if (growthDirection == Direction.UP && attachedState.is(Blocks.GRASS_BLOCK)) {
             int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
-            if (pos.getY() < surfaceY) return false;
+
+            if (pos.getY() < surfaceY) {
+                return false;
+            }
         }
 
-        if (facing.getAxis().isHorizontal()) {
-            var posBelow = pos.below();
-            var stateBelow = level.getBlockState(posBelow);
-            if (stateBelow.is(Blocks.GRASS_BLOCK)) return false;
-        }
-
-        return true;
+        return allowedAttachment.test(level, attachedPos);
     }
 
     private float getAirRatio(int[] passableCounts, int maxHeight) {
@@ -180,8 +194,9 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
     private float getAirThreshold(@NotNull WorldGenLevel level, @NotNull BlockPos pos) {
         int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
         int depth = surfaceY - pos.getY();
-        double progress = Mth.inverseLerp(depth, 0, 20);
-        return (float) Mth.lerp(progress, 0.5F, 0.1F);
+        double delta = Mth.inverseLerp(depth, 0, 20);
+        
+        return (float) Mth.lerp(delta, 0.5F, 0.1F);
     }
 
     private float getUniformRatio(int[] passableCounts) {
@@ -208,11 +223,12 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
 
         int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
         int depth = surfaceY - pos.getY();
-        double progress = Mth.inverseLerp(depth, 0, 15);
-        return (float) Mth.lerp(progress, 0.6F, 0.3F);
+        double delta = Mth.inverseLerp(depth, 0, 15);
+        
+        return (float) Mth.lerp(delta, 0.6F, 0.3F);
     }
 
-    private boolean isAreaFavorable(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction direction, int radius, int maxHeight) {
+    private boolean isAreaFavorableAt(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction direction, int radius, int maxHeight) {
         int[] passableCounts = collectColumnData(level, pos, direction, radius, maxHeight);
 
         float airRatio = getAirRatio(passableCounts, maxHeight);
@@ -233,11 +249,11 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         int[] passableCounts = new int[testPoints.size()];
 
         for (int idx = 0; idx < testPoints.size(); idx++) {
-            BlockPos point = testPoints.get(idx);
+            var point = testPoints.get(idx);
             var testPos = rotate(point, growthDirection).offset(pos).mutable();
             int count = 0;
             for (int i = 0; i < maxHeight; i++) {
-                if (canBreathThrough(level, testPos)) {
+                if (canBreatheThrough(level, testPos)) {
                     count++;
                 }
                 testPos.move(growthDirection);
@@ -248,45 +264,100 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         return passableCounts;
     }
 
-    private @NotNull @Unmodifiable List<BlockPos> getTestPoints(int radius) {
+    private @NotNull @Unmodifiable List<BlockPos.MutableBlockPos> getTestPoints(int radius) {
         int maxOffset = Math.max(1, radius / 2);
         int rawOffset = (int) Math.ceil(radius * 0.36);
         int offset = Mth.clamp(rawOffset, 1, maxOffset);
 
         return List.of(
-            new BlockPos(offset, 0, offset),
-            new BlockPos(-offset, 0, offset),
-            new BlockPos(offset, 0, -offset),
-            new BlockPos(-offset, 0, -offset)
+            new BlockPos.MutableBlockPos(offset, 0, offset),
+            new BlockPos.MutableBlockPos(-offset, 0, offset),
+            new BlockPos.MutableBlockPos(offset, 0, -offset),
+            new BlockPos.MutableBlockPos(-offset, 0, -offset)
         );
     }
 
+    private int getAdjustedMaxHeight(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction growthDirection, int maxHeight, @NotNull RandomSource random) {
+        int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
+        int depth = surfaceY - pos.getY();
+
+        if (growthDirection.getAxis().isHorizontal()) {
+            return Math.min(maxHeight, 2);
+        }
+
+        float delta = (float) Mth.clamp(Mth.inverseLerp(depth, 0, 20), 0.0, 1.0);
+
+        if (growthDirection == Direction.UP) {
+            return (int) Mth.lerp(delta, maxHeight, Math.min(maxHeight, 3));
+        }
+
+        if (growthDirection == Direction.DOWN) {
+            return (int) Mth.lerp(delta, Math.min(maxHeight, 3), maxHeight);
+        }
+
+        return maxHeight;
+    }
+
+    private int getAdjustedXZSpread(@NotNull Direction growthDirection, int xzSpread) {
+        if (growthDirection.getAxis().isHorizontal()) {
+            return Math.min(xzSpread, 2);
+        }
+        
+        return xzSpread;
+    }
+
+    private @NotNull List<Direction> getAllowedGrowthDirections(@NotNull PlantopiaBranchingShrubPatchConfiguration config, RandomSource random) {
+        var allowedGrowthDirections = config.growthDirections();
+        var horizontalDirections = Lists.<Direction>newArrayList();
+        var growthDirections = Lists.<Direction>newArrayList();
+
+        for (var direction : allowedGrowthDirections) {
+            if (direction.getAxis().isVertical()) {
+                growthDirections.add(direction);
+            } else {
+                horizontalDirections.add(direction);
+            }
+        }
+
+        if (!horizontalDirections.isEmpty()) {
+            PlantopiaMathHelper.shuffle(horizontalDirections, random);
+            growthDirections.addAll(horizontalDirections);
+        }
+
+        return growthDirections;
+    }
+
     @Nullable
-    private Pair<BlockPos, Direction> findSurface(@NotNull WorldGenLevel level, @NotNull BlockPos origin, @NotNull PlantopiaBranchingShrubPatchConfiguration config, @NotNull RandomSource random, int xzSpread, int maxHeight) {
+    private PlacementInfo findPlacement(@NotNull WorldGenLevel level, @NotNull BlockPos originPos, @NotNull PlantopiaBranchingShrubPatchConfiguration config, @NotNull RandomSource random) {
         int searchDistance = config.searchDistance().sample(random);
-        var searchDirections = Lists.newArrayList(Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST);
+        int maxHeight = config.height().sample(random);
+        int xzSpread = config.xzSpread().sample(random);
+        int ySpread = config.ySpread().sample(random);
+        var allowedAttachment = config.allowedAttachment();
+        var growthDirections = getAllowedGrowthDirections(config, random);
 
-        PlantopiaMathHelper.shuffle(searchDirections, random);
-
-        for (var direction : searchDirections) {
-            var candidateFace = direction.getOpposite();
-
-            var candidateState = getBranchingShrubBlock().defaultBlockState()
-                .setValue(PlantopiaBranchingShrubBlock.BASE, true)
-                .setValue(PlantopiaBranchingShrubBlock.FACING, candidateFace);
+        for (var direction : growthDirections) {
+            var allowedPlacement = direction.getAxis().isVertical() ? config.allowedVerticalPlacement() : config.allowedHorizontalPlacement();
+            var candidateState = getBaseState(direction);
 
             for (int i = 0; i < searchDistance; i++) {
-                var candidatePos = origin.relative(direction, i);
+                var candidatePos = originPos.relative(direction.getOpposite(), i);
 
-                if (!canReplace(level, candidatePos)) continue;
+                if (!allowedPlacement.test(level, candidatePos)) continue;
+                if (!mayPlaceAt(level, candidatePos, direction, allowedAttachment)) continue;
                 if (!candidateState.canSurvive(level, candidatePos)) continue;
-                if (!mayPlace(level, candidatePos, candidateState)) continue;
-                if (!isAreaFavorable(level, candidatePos, candidateFace, xzSpread, maxHeight)) continue;
 
-                return Pair.of(candidatePos, candidateFace);
+                var adjustedMaxHeight = getAdjustedMaxHeight(level, candidatePos, direction, maxHeight, random);
+                var adjustedXZSpread = getAdjustedXZSpread(direction, xzSpread);
+
+                if (!isAreaFavorableAt(level, candidatePos, direction, adjustedXZSpread, adjustedMaxHeight)) continue;
+
+                return new PlacementInfo(candidatePos, direction, adjustedMaxHeight, adjustedXZSpread, ySpread);
             }
         }
 
         return null;
     }
+
+    private record PlacementInfo(BlockPos pos, Direction direction, int maxHeight, int xzSpread, int ySpread) {}
 }

@@ -7,11 +7,15 @@ import by.langvest.plantopia.worldgen.feature.config.PlantopiaVegetationPatchCon
 import by.langvest.toolkit.util.LocationLike;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.WeightedListInt;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -20,6 +24,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -60,6 +65,7 @@ public class PlantopiaFeatures {
 
 		result.putAll(PlantopiaVegetationFeatures.getDeclarations());
 		result.putAll(PlantopiaMiscOverworldFeatures.getDeclarations());
+		result.putAll(PlantopiaCaveFeatures.getDeclarations());
 
 		return result;
 	}
@@ -78,6 +84,11 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleRandomSelector(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleRandomFeatureConfiguration> configFactory) {
 		return configuredFeature(Feature.SIMPLE_RANDOM_SELECTOR, configFactory);
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlockColumn(Function<BootstapContext<ConfiguredFeature<?, ?>>, BlockColumnConfiguration> configFactory) {
+		return configuredFeature(PlantopiaFeatureTypes.NATURAL_BLOCK_COLUMN, configFactory);
 	}
 
 	@Contract(pure = true)
@@ -147,6 +158,25 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	protected static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
 		return new WeightedStateProvider(states.apply(SimpleWeightedRandomList.builder()));
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull WeightedListInt weightedListInt(@NotNull Function<SimpleWeightedRandomList.Builder<IntProvider>, SimpleWeightedRandomList.Builder<IntProvider>> values) {
+		return new WeightedListInt(values.apply(SimpleWeightedRandomList.builder()).build());
+	}
+
+	/* CONTEXT *************************************************/
+
+	protected static @NotNull HolderGetter<ConfiguredFeature<?, ?>> lookupFeatures(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
+		return context.lookup(Registries.CONFIGURED_FEATURE);
+	}
+
+	protected static @NotNull HolderGetter<PlacedFeature> lookupPlacements(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
+		return context.lookup(Registries.PLACED_FEATURE);
+	}
+
+	protected static @NotNull HolderGetter<Biome> lookupBiomes(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
+		return context.lookup(Registries.BIOME);
 	}
 
 	/* HELPER METHODS ******************************************/

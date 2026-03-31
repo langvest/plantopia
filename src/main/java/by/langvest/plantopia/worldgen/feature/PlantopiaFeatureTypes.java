@@ -8,6 +8,7 @@ import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +19,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 
 public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaNaturalBlockFeature> NATURAL_BLOCK = registerFeatureType("natural_block", () -> new PlantopiaNaturalBlockFeature(SimpleBlockConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaNaturalBlockColumnFeature> NATURAL_BLOCK_COLUMN = registerFeatureType("natural_block_column", () -> new PlantopiaNaturalBlockColumnFeature(BlockColumnConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaSeaHangingMossPatchFeature> SEA_HANGING_MOSS_PATCH = registerFeatureType("sea_hanging_moss_patch", () -> new PlantopiaSeaHangingMossPatchFeature(PlantopiaSeaHangingMossPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaRadialPatchFeature> RADIAL_PATCH = registerFeatureType("radial_patch", () -> new PlantopiaRadialPatchFeature(PlantopiaRadialPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaLimitedRandomPatchFeature> LIMITED_RANDOM_PATCH = registerFeatureType("limited_random_patch", () -> new PlantopiaLimitedRandomPatchFeature(PlantopiaLimitedRandomPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaPitFeature> PIT = registerFeatureType("pit", () -> new PlantopiaPitFeature(PlantopiaPitConfiguration.CODEC));

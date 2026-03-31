@@ -1,17 +1,5 @@
 {
 	"values": [
-		"#minecraft:base_stone_overworld",
-		"#minecraft:coal_ores",
-		"#minecraft:copper_ores",
-		"#minecraft:diamond_ores",
-		"#minecraft:dirt",
-		"#minecraft:emerald_ores",
-		"#minecraft:gold_ores",
-		"#minecraft:iron_ores",
-		"#minecraft:lapis_ores",
-		"#minecraft:redstone_ores",
-		"#minecraft:sand",
-		"minecraft:clay",
-		"minecraft:gravel"
+		"#plantopia:ground_overworld"
 	]
 }

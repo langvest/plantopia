@@ -2,12 +2,8 @@
 	"values": [
 		"#minecraft:is_jungle",
 		"#minecraft:is_savanna",
-		"minecraft:flower_forest",
-		"minecraft:forest",
 		"minecraft:plains",
 		"minecraft:sunflower_plains",
-		"minecraft:windswept_forest",
-		"minecraft:windswept_gravelly_hills",
-		"minecraft:windswept_hills"
+		"minecraft:windswept_forest"
 	]
 }

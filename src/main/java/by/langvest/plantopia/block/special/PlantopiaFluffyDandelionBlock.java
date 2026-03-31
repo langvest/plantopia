@@ -61,7 +61,7 @@ public class PlantopiaFluffyDandelionBlock extends FlowerBlock {
 		}
 	}
 
-	protected void spawnBatchedParticles(BlockState state, @NotNull ServerLevel level, BlockPos pos) {
+	public void spawnBatchedParticles(BlockState state, @NotNull ServerLevel level, BlockPos pos) {
 		var random = level.random;
 		int count = 2 + random.nextInt(2);
 		var particlePos = getRandomParticlePos(state, level, pos);

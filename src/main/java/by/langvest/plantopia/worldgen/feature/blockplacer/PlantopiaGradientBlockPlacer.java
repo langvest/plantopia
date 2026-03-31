@@ -3,7 +3,7 @@ package by.langvest.plantopia.worldgen.feature.blockplacer;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerType;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.special.PlantopiaNaturalBlockFeature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.ExtraCodecs;
@@ -83,9 +83,8 @@ public class PlantopiaGradientBlockPlacer extends PlantopiaBlockPlacer {
 
         int finalValue = (int) Mth.clamp(Math.round(preciseValue), minValue, maxValue);
         var newState = baseState.setValue(intProperty, finalValue);
-        var naturalBlockFeature = PlantopiaFeatureTypes.NATURAL_BLOCK.get();
 
-        return naturalBlockFeature.place(level, newState, targetPos, random, Block.UPDATE_CLIENTS);
+        return PlantopiaNaturalBlockFeature.place(level, newState, targetPos, random, Block.UPDATE_CLIENTS);
     }
 
     private double getDensityIndex(@NotNull Context context) {
