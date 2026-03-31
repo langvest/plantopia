@@ -35,6 +35,7 @@
 		"item.special.PlantopiaItemMixin",
 		"level.PlantopiaServerLevelMixin",
 		"level.biome.PlantopiaBiomeMixin",
+		"level.feature.PlantopiaFeatureMixin",
 		"level.feature.PlantopiaSnowAndFreezeFeatureMixin",
 		"level.pathfinder.PlantopiaWalkNodeEvaluatorMixin",
 		"level.phys.PlantopiaHitResultMixin",
