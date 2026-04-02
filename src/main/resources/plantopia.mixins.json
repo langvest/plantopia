@@ -6,6 +6,7 @@
 	"refmap": "plantopia.refmap.json",
 	"mixins": [
 		"block.PlantopiaBlockBehaviour$BlockStateBaseMixin",
+		"block.special.PlantopiaCactusBlockMixin",
 		"block.special.PlantopiaCarpetBlockMixin",
 		"block.special.PlantopiaCauldronBlockMixin",
 		"block.special.PlantopiaDoublePlantBlockMixin",

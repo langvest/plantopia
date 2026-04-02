@@ -30,6 +30,7 @@ public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaVegetationPatchFeature> VEGETATION_PATCH = registerFeatureType("vegetation_patch", () -> new PlantopiaVegetationPatchFeature(PlantopiaVegetationPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaHugeWitchyToadstoolFeature> HUGE_WITCHY_TOADSTOOL = registerFeatureType("huge_witchy_toadstool", () -> new PlantopiaHugeWitchyToadstoolFeature(HugeMushroomFeatureConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaPoiAnchorFeature> POI_ANCHOR = registerFeatureType("poi_anchor", () -> new PlantopiaPoiAnchorFeature(PlantopiaPoiAnchorConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaCactusColumnFeature> CACTUS_COLUMN = registerFeatureType("cactus_column", () -> new PlantopiaCactusColumnFeature(BlockColumnConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
 		return registerFeatureType(plantopia(name), supplier);

@@ -11,6 +11,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -57,8 +58,8 @@ public class PlantopiaNaturalBlockColumnFeature extends Feature<BlockColumnConfi
             prioritizeTip,
             flags,
             layers.size(),
-            (l, p, r, layerIndex, totalHeight) -> layers.get(layerIndex).height().sample(r),
-            (l, p, r, layerIndex, blockIndex, layerHeight, totalHeight) -> layers.get(layerIndex).state().getState(r, p)
+            simpleHeightProvider(layers),
+            simpleStateProvider(layers)
         );
     }
 
@@ -73,6 +74,49 @@ public class PlantopiaNaturalBlockColumnFeature extends Feature<BlockColumnConfi
         int layerAmount,
         LayerHeightProvider heightProvider,
         LayerStateProvider stateProvider
+    ) {
+        return place(
+            level,
+            pos,
+            random,
+            direction,
+            allowedPlacement,
+            prioritizeTip,
+            flags,
+            layerAmount,
+            heightProvider,
+            stateProvider,
+            simpleBlockPlacer()
+        );
+    }
+
+    @Contract(pure = true)
+    public static @NotNull LayerHeightProvider simpleHeightProvider(@NotNull List<BlockColumnConfiguration.Layer> layers) {
+        return (level, pos, random, layerIndex, totalHeight) -> layers.get(layerIndex).height().sample(random);
+    }
+
+    @Contract(pure = true)
+    public static @NotNull LayerStateProvider simpleStateProvider(@NotNull List<BlockColumnConfiguration.Layer> layers) {
+        return (level, pos, random, layerIndex, blockIndex, layerHeight, totalHeight) -> layers.get(layerIndex).state().getState(random, pos);
+    }
+
+    @Contract(pure = true)
+    public static @NotNull LayerBlockPlacer simpleBlockPlacer() {
+        return (level, pos, state, flags, random, layerIndex, blockIndex, layerHeight, totalHeight) -> level.setBlock(pos, copyWaterloggedFrom(level, pos, state), flags);
+    }
+
+    public static boolean place(
+        WorldGenLevel level,
+        BlockPos pos,
+        RandomSource random,
+        Direction direction,
+        BlockPredicate allowedPlacement,
+        boolean prioritizeTip,
+        int flags,
+        int layerAmount,
+        LayerHeightProvider heightProvider,
+        LayerStateProvider stateProvider,
+        LayerBlockPlacer blockPlacer
     ) {
         if (layerAmount == 0) return false;
 
@@ -100,16 +144,16 @@ public class PlantopiaNaturalBlockColumnFeature extends Feature<BlockColumnConfi
             checkPos.move(direction);
         }
 
-        var placementPos = pos.mutable();
+        var mutablePos = pos.mutable();
 
         for (int i = 0; i < layerAmount; i++) {
             int layerHeight = layerHeights[i];
 
             if (layerHeight != 0) {
                 for (int j = 0; j < layerHeight; j++) {
-                    var stateToPlace = stateProvider.getState(level, placementPos, random, i, j, layerHeight, totalHeight);
-                    level.setBlock(placementPos, copyWaterloggedFrom(level, placementPos, stateToPlace), flags);
-                    placementPos.move(direction);
+                    var stateToPlace = stateProvider.getState(level, mutablePos, random, i, j, layerHeight, totalHeight);
+                    blockPlacer.placeBlock(level, mutablePos, stateToPlace, flags, random, i, j, layerHeight, totalHeight);
+                    mutablePos.move(direction);
                 }
             }
         }
@@ -129,6 +173,11 @@ public class PlantopiaNaturalBlockColumnFeature extends Feature<BlockColumnConfi
             heightToTruncate -= truncatedAmount;
             layerHeights[layerIndex] -= truncatedAmount;
         }
+    }
+
+    @FunctionalInterface
+    public interface LayerBlockPlacer {
+        void placeBlock(WorldGenLevel level, BlockPos pos, BlockState state, int flags, RandomSource random, int layerIndex, int blockIndex, int layerHeight, int totalHeight);
     }
 
     @FunctionalInterface
