@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
@@ -75,6 +76,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.GIANT_GRASS.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.GRASS, Items.WHEAT_SEEDS));
         add(PlantopiaBlocks.GIANT_FERN.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.FERN, Items.WHEAT_SEEDS));
         add(PlantopiaBlocks.TALL_DUNE_GRASS.get(), block -> createDoublePlantShearedDrops(block, PlantopiaBlocks.DUNE_GRASS.get()));
+        add(PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.WITCHY_TOADSTOOL.get()));
         add(PlantopiaBlocks.CLOVER.get(), this::createCloverDrops);
         add(PlantopiaBlocks.AZOLLA.get(), this::createAzollaDrops);
         add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
@@ -409,6 +411,10 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
     private static LootItemConditionalFunction.@NotNull Builder<?> setCount(int from, int to) {
         return SetItemCountFunction.setCount(UniformGenerator.between(from, to));
+    }
+
+    private static LootItemConditionalFunction.@NotNull Builder<?> limitCount(IntRange range) {
+        return LimitCount.limitCount(range);
     }
 
     private static LootItemCondition.@NotNull Builder randomChance(float chance) {

@@ -110,6 +110,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             var block = blockMeta.get();
             var type = blockMeta.getType();
 
+            if (block instanceof HugeMushroomBlock) {
+                hugeMushroomBlock(blockMeta);
+                return;
+            }
+
             if (block instanceof PlantopiaHerbBlock) {
                 herbBlock(blockMeta);
                 return;
@@ -324,6 +329,36 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                     .build(),
                 BlockStateProperties.WATERLOGGED
             );
+    }
+
+    private void hugeMushroomBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var texture = texture(baseName);
+
+        var model = singleFaceTemplateModel(baseName, texture);
+        var insideModel = existingMinecraftModel("mushroom_block_inside");
+
+        if (blockMeta.hasItem()) {
+            var inventoryModel = cubeAllModel(baseName + "_inventory", texture);
+
+            blockItemModel(baseName, inventoryModel);
+        }
+
+        var builder = getMultipartBuilder(blockMeta.get());
+
+        builder.part().modelFile(model).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.UP, true);
+        builder.part().modelFile(insideModel).rotationX(270).addModel().condition(BlockStateProperties.UP, false);
+        builder.part().modelFile(model).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.DOWN, true);
+        builder.part().modelFile(insideModel).rotationX(90).addModel().condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).addModel().condition(BlockStateProperties.NORTH, true);
+        builder.part().modelFile(insideModel).addModel().condition(BlockStateProperties.NORTH, false);
+        builder.part().modelFile(model).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true);
+        builder.part().modelFile(insideModel).rotationY(180).addModel().condition(BlockStateProperties.SOUTH, false);
+        builder.part().modelFile(model).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.EAST, true);
+        builder.part().modelFile(insideModel).rotationY(90).addModel().condition(BlockStateProperties.EAST, false);
+        builder.part().modelFile(model).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.WEST, true);
+        builder.part().modelFile(insideModel).rotationY(270).addModel().condition(BlockStateProperties.WEST, false);
     }
 
     private void herbBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -877,7 +912,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private void directionalMultipartBlock(Block block, @NotNull IntegerProperty property) {
         String baseName = nameOf(block);
         Integer maxValue = Collections.max(property.getPossibleValues());
-        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+        var builder = getMultipartBuilder(block);
 
         property.getPossibleValues().forEach(value -> {
             ArrayList<Integer> values = Lists.newArrayList();
@@ -983,6 +1018,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private BlockModelBuilder tintedCrossModel(String name, ResourceLocation crossTexture) {
         return models().withExistingParent(name, "tinted_cross")
             .texture("cross", crossTexture);
+    }
+
+    private BlockModelBuilder singleFaceTemplateModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, "template_single_face")
+            .texture("texture", texture);
     }
 
     private BlockModelBuilder flowerPotCrossModel(String name, ResourceLocation plantTexture, boolean tinted) {

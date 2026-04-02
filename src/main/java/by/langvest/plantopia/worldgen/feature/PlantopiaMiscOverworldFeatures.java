@@ -2,12 +2,20 @@ package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
+import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaPoiAnchorConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import com.google.common.collect.Maps;
+import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
@@ -15,11 +23,13 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -91,6 +101,52 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(getCobblestoneShardConfig(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD)))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FAIRY_RING = declareConfiguredFeature(
+        compileNameFrom("fairy_ring"),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(radialPatch(context ->
+                new PlantopiaRadialPatchConfiguration(
+                    ConstantInt.of(64),
+                    UniformInt.of(3, 6),
+                    ConstantInt.of(2),
+                    -4.82,
+                    0.04,
+                    List.of(
+                        new PlantopiaSimpleBlockPlacer(
+                            simpleProvider(PlantopiaBlocks.WITCHY_TOADSTOOL.get())
+                        )
+                    ),
+                    Optional.of(
+                        BlockPredicate.allOf(
+                            BlockPredicate.anyOf(
+                                BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.FERN),
+                                BlockPredicate.matchesTag(BlockTags.SMALL_FLOWERS)
+                            ),
+                            BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON)
+                        )
+                    ),
+                    Optional.empty()
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FAIRY_RING_ANCHOR = declareConfiguredFeature(
+        compileNameFrom(FAIRY_RING, ANCHOR),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.POI_ANCHOR, context ->
+                new PlantopiaPoiAnchorConfiguration(
+                    lookupFeatures(context).getOrThrow(FAIRY_RING),
+                    PlantopiaDipType.SURFACE_OR_CAVE,
+                    VerticalAnchor.aboveBottom(32),
+                    VerticalAnchor.belowTop(32),
+                    ConstantInt.of(5),
+                    List.of(PlantopiaThresholdType.ABOVE),
+                    Optional.of(BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON)),
+                    Optional.of(Heightmap.Types.OCEAN_FLOOR_WG)
+                )
+            ))
     );
 
     /* HELPER METHODS *************************************************************************/

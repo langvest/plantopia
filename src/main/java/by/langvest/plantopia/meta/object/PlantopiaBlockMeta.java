@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
@@ -360,12 +361,16 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.notTintedParticles()
 			.makeType("sapling");
 
-		public static final MetaType MUSHROOM_PLANT = MetaProperties.of(PLANT)
+		public static final MetaType MUSHROOM = MetaProperties.create()
+			.copyBehaviour(Blocks.BROWN_MUSHROOM)
+			.notLuminous()
+			.cutoutRender()
 			.pottable()
 			.notTintedParticles()
 			.notFlammable()
-			.compostable(Compostability.MUSHROOM_PLANT)
-			.makeType("mushroom_plant");
+			.compostable(Compostability.MUSHROOM)
+			.order(PlantopiaOrderType.MUSHROOM)
+			.makeType("mushroom");
 
 		public static final MetaType MUSHROOM_STEM = MetaProperties.create()
 			.copyBehaviour(Blocks.MUSHROOM_STEM)
@@ -475,11 +480,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		}
 
 		public boolean isSimplePlantLike() {
-			return instanceOfExcept(PLANT, Set.of(FLOWER, SAPLING, WATERLILY, UNDERWATER_PLANT, MUSHROOM_PLANT));
+			return instanceOfExcept(PLANT, Set.of(FLOWER, SAPLING, WATERLILY, UNDERWATER_PLANT, MUSHROOM));
 		}
 
 		public boolean isMushroomLike() {
-			return instanceOf(MUSHROOM_PLANT) || instanceOf(MUSHROOM_STEM) || instanceOf(MUSHROOM_BLOCK);
+			return instanceOf(MUSHROOM) || instanceOf(MUSHROOM_STEM) || instanceOf(MUSHROOM_BLOCK);
 		}
 
 		public boolean isAbleToBePotted() {
@@ -565,6 +570,18 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 		public MetaProperties mapColor(DyeColor mapColor) {
 			return modifyBehaviour(properties -> properties.mapColor(mapColor));
+		}
+
+		public MetaProperties lightLevel(ToIntFunction<BlockState> lightEmission) {
+			return modifyBehaviour(properties -> properties.lightLevel(lightEmission));
+		}
+
+		public MetaProperties lightLevel(int lightEmission) {
+			return modifyBehaviour(properties -> properties.lightLevel(state -> lightEmission));
+		}
+
+		public MetaProperties notLuminous() {
+			return modifyBehaviour(properties -> properties.lightLevel(state -> 0));
 		}
 
 		public MetaProperties mapColor(MapColor mapColor) {

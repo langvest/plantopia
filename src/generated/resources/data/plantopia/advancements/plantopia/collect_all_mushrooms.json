@@ -48,6 +48,18 @@
 				]
 			},
 			"trigger": "minecraft:inventory_changed"
+		},
+		"plantopia:witchy_toadstool": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:witchy_toadstool"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
 		}
 	},
 	"display": {
@@ -77,6 +89,9 @@
 		],
 		[
 			"minecraft:warped_fungus"
+		],
+		[
+			"plantopia:witchy_toadstool"
 		]
 	],
 	"rewards": {

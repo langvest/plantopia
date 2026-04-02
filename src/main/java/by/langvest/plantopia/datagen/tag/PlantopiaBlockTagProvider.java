@@ -71,6 +71,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private final PlantopiaTagSet<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.COBBLESTONE_SHARD_CAN_GENERATE_ON);
     private final PlantopiaTagSet<Block> BRANCHING_SHRUB_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON);
     private final PlantopiaTagSet<Block> SEA_HANGING_MOSS_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.SEA_HANGING_MOSS_CAN_GENERATE_ON);
+    private final PlantopiaTagSet<Block> WITCHY_TOADSTOOL_CAN_GENERATE_ON = createTagSet(PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON);
     private final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE = createTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE);
     private final PlantopiaTagSet<Block> ORES_OVERWORLD = createTagSet(PlantopiaBlockTags.ORES_OVERWORLD);
     private final PlantopiaTagSet<Block> GROUND_OVERWORLD = createTagSet(PlantopiaBlockTags.GROUND_OVERWORLD);
@@ -127,6 +128,12 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             .add(Blocks.PRISMARINE, Blocks.PRISMARINE_BRICKS, Blocks.DARK_PRISMARINE)
             .addTag(BlockTags.DIRT, BlockTags.BASE_STONE_OVERWORLD, BlockTags.TERRACOTTA)
             .addTag(BlockTags.PLANKS)
+            .addTag(PlantopiaBlockTags.ORES_OVERWORLD);
+
+        WITCHY_TOADSTOOL_CAN_GENERATE_ON
+            .add(Blocks.CLAY, Blocks.GRAVEL, Blocks.DRIPSTONE_BLOCK)
+            .addTag(BlockTags.DIRT, BlockTags.BASE_STONE_OVERWORLD)
+            .addTag(BlockTags.PLANKS, BlockTags.LOGS)
             .addTag(PlantopiaBlockTags.ORES_OVERWORLD);
 
         saveAll();
@@ -196,8 +203,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             if(type.isMushroomLike()) {
                 MINEABLE_WITH_AXE.add(block);
 
-                if(type.instanceOf(MetaType.MUSHROOM_PLANT)) {
+                if(type.instanceOf(MetaType.MUSHROOM)) {
                     ENDERMAN_HOLDABLE.add(block);
+                    SWORD_EFFICIENT.add(block);
                 }
             }
 

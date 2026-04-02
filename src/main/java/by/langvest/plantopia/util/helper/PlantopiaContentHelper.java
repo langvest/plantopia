@@ -97,7 +97,7 @@ public final class PlantopiaContentHelper {
 
 		blockRegistry.stream()
 			.filter(block -> metaOf(block)
-				.map(blockMeta -> blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.MUSHROOM_PLANT))
+				.map(blockMeta -> blockMeta.hasItem() && blockMeta.getType().instanceOf(PlantopiaBlockMeta.MetaType.MUSHROOM))
 				.orElseGet(() -> block instanceof MushroomBlock || block instanceof FungusBlock)
 			)
 			.forEach(allMushroomsSet::add);

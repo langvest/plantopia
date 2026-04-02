@@ -20,6 +20,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaParticleTypes {
 	public static final RegistryObject<SimpleParticleType> FLUFFY_DANDELION_SEED = registerParticleType("fluffy_dandelion_seed", false);
 	public static final RegistryObject<SimpleParticleType> QUICKSAND = registerParticleType("quicksand", false);
+	public static final RegistryObject<SimpleParticleType> WITCHY_TOADSTOOL_SPORE = registerParticleType("witchy_toadstool_spore", false);
 	public static final RegistryObject<ParticleType<ItemParticleOption>> BREAKING_ITEM = registerParticleType("breaking_item", false, ItemParticleOption.DESERIALIZER, ItemParticleOption::codec);
 
 	private static RegistryObject<SimpleParticleType> registerParticleType(String name, boolean overrideLimiter) {

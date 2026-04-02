@@ -2,6 +2,7 @@ package by.langvest.plantopia.meta.property;
 
 public enum PlantopiaOrderType {
 	BLOCK,
+	MUSHROOM,
 	PLANT,
 	CLOVER,
 	COBBLESTONE_SHARD,

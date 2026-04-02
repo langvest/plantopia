@@ -41,7 +41,9 @@ public class PlantopiaFeatures {
 	protected static final String BONEMEAL = "bonemeal";
 	protected static final String VEGETATION = "vegetation";
 	protected static final String MOUNTAIN = "mountain";
+	protected static final String ANCHOR = "anchor";
 	protected static final String CAVE = "cave";
+	protected static final String HUGE = "huge";
 	protected static final String WIDE = "wide";
 	protected static final String IN_WATER = "in_water";
 	protected static final String IN_SNOW = "in_snow";
@@ -66,6 +68,7 @@ public class PlantopiaFeatures {
 		result.putAll(PlantopiaVegetationFeatures.getDeclarations());
 		result.putAll(PlantopiaMiscOverworldFeatures.getDeclarations());
 		result.putAll(PlantopiaCaveFeatures.getDeclarations());
+		result.putAll(PlantopiaTreeFeatures.getDeclarations());
 
 		return result;
 	}

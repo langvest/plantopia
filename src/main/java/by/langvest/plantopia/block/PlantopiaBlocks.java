@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block;
 
+import by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatures;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.registry.RegistryObject;
@@ -34,6 +35,9 @@ import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedNam
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
+/**
+ * @see net.minecraft.world.level.block.Blocks
+ */
 public class PlantopiaBlocks {
 	public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_LOG, properties), MetaProperties.of(MetaType.LOG).mapColor(PlantopiaBirchBaseBlock::logMapColor).customModel());
 	public static final RegistryObject<Block> BIRCH_BASE_WOOD = registerBlock("birch_base_wood", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_WOOD, properties), MetaProperties.of(MetaType.WOOD).mapColor(PlantopiaBirchBaseBlock::woodMapColor).customModel());
@@ -142,6 +146,9 @@ public class PlantopiaBlocks {
 
 	public static final RegistryObject<Block> WHITE_LUCKY_DAISY = registerBlock("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.LIGHT_GRAY));
 	public static final RegistryObject<Block> PINK_LUCKY_DAISY = registerBlock("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.PINK));
+
+	public static final RegistryObject<Block> WITCHY_TOADSTOOL_BLOCK = registerBlock("witchy_toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_PURPLE).customDrop());
+	public static final RegistryObject<Block> WITCHY_TOADSTOOL = registerBlock("witchy_toadstool", properties -> new PlantopiaWitchyToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_WITCHY_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_PURPLE).lightLevel(1));
 
 	public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 
