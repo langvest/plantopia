@@ -456,14 +456,29 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(10.24F),
-				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
+				PlantopiaRarityFilter.onAverageOnceEvery(12.32f),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.add(Biomes.SNOWY_TAIGA)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(6.64F),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.addTag(BiomeTags.IS_JUNGLE)
 			)
 	);
 

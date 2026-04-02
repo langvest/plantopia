@@ -41,6 +41,7 @@ public class PlantopiaFeatures {
 	protected static final String BONEMEAL = "bonemeal";
 	protected static final String VEGETATION = "vegetation";
 	protected static final String MOUNTAIN = "mountain";
+	protected static final String JUNGLE = "jungle";
 	protected static final String ANCHOR = "anchor";
 	protected static final String CAVE = "cave";
 	protected static final String HUGE = "huge";

@@ -18,6 +18,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -319,6 +320,20 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.SNOW)
                 ))
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declareConfiguredFeature(
+        compileNameFrom(patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS), JUNGLE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simpleRandomPatchConfiguration(
+                    64,
+                    PlacementUtils.onlyWhenEmpty(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        simpleConfig(PlantopiaBlocks.ORANGE_WILDFLOWERS.get())
+                    )
+                )
             ))
     );
 
