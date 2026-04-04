@@ -41,10 +41,15 @@ public class PlantopiaNoiseConfig {
         return offsetZ;
     }
 
-    @SuppressWarnings("removal")
+
     public double getValue(@NotNull BlockPos pos) {
-        double noiseX = ((double) pos.getX() / 200 / scale) + offsetX;
-        double noiseZ = ((double) pos.getZ() / 200 / scale) + offsetZ;
+        return getValue(pos.getX(), pos.getZ());
+    }
+
+    @SuppressWarnings("removal")
+    public double getValue(double x, double z) {
+        double noiseX = (x / 200 / scale) + offsetX;
+        double noiseZ = (z / 200 / scale) + offsetZ;
 
         return Biome.BIOME_INFO_NOISE.getValue(noiseX, noiseZ, false);
     }

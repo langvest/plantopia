@@ -111,4 +111,42 @@ public final class PlantopiaMathHelper {
 
         return min + random.nextFloat() * (max - min);
     }
+
+
+    public static double @NotNull[] @NotNull[] boxBlurMatrix(double @NotNull[] @NotNull[] matrix, int blurRadius) {
+        if (matrix.length == 0 || matrix[0].length == 0) {
+            return new double[0][0];
+        }
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        double[][] blurredMatrix = new double[rows][cols];
+
+        // 1. Построение summed-area table (интегрального изображения) для быстрых вычислений суммы в области.
+        double[][] sat = new double[rows + 1][cols + 1];
+        for (int row = 1; row <= rows; row++) {
+            double rowSum = 0;
+            for (int col = 1; col <= cols; col++) {
+                rowSum += matrix[row - 1][col - 1];
+                sat[row][col] = sat[row - 1][col] + rowSum;
+            }
+        }
+
+        // 2. Вычисление размытия для КАЖДОЙ точки, используя SAT.
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                int y1 = Math.max(0, row - blurRadius);
+                int y2 = Math.min(rows - 1, row + blurRadius);
+                int x1 = Math.max(0, col - blurRadius);
+                int x2 = Math.min(cols - 1, col + blurRadius);
+
+                double sum = sat[y2 + 1][x2 + 1] - sat[y1][x2 + 1] - sat[y2 + 1][x1] + sat[y1][x1];
+                int area = (y2 - y1 + 1) * (x2 - x1 + 1);
+
+                blurredMatrix[row][col] = sum / area;
+            }
+        }
+
+        return blurredMatrix;
+    }
 }

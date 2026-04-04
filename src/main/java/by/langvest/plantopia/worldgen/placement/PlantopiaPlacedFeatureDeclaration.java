@@ -61,7 +61,7 @@ public class PlantopiaPlacedFeatureDeclaration {
 
     public static class Builder {
         private Function<BootstapContext<PlacedFeature>, Holder<ConfiguredFeature<?, ?>>> featureFactory;
-        private Function<BootstapContext<PlacedFeature>, List<PlacementModifier>> modifiersFactory;
+        private Function<BootstapContext<PlacedFeature>, List<PlacementModifier>> modifiersFactory = context -> List.of();
         private Function<PlantopiaTagSet<Biome>, PlantopiaTagSet<Biome>> biomesFactory;
         private GenerationStep.Decoration generationStep;
 

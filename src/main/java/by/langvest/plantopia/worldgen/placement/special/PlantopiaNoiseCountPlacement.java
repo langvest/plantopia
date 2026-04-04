@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class PlantopiaNoiseCountPlacement extends RepeatingPlacement {
     public static final Codec<PlantopiaNoiseCountPlacement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         PlantopiaNoiseConfig.CODEC.fieldOf("noise_config").forGetter(it -> it.noiseConfig),
-        PlantopiaThresholdType.CODEC.fieldOf("activation").forGetter(it -> it.activationType),
+        PlantopiaThresholdType.CODEC.fieldOf("activation_type").forGetter(it -> it.activationType),
         Codec.FLOAT.fieldOf("noise_level").forGetter(it -> it.noiseLevel),
         IntProvider.codec(0, 256).fieldOf("active_count").forGetter(it -> it.activeCount),
         IntProvider.codec(0, 256).fieldOf("passive_count").forGetter(it -> it.passiveCount)

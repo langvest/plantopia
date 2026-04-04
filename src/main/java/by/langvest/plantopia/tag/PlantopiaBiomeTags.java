@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBiomeTags {
-	private PlantopiaBiomeTags() {}
+	public static final TagKey<Biome> ALLOWS_QUAGMIRE = createBiomeTag("allows_quagmire");
 
 	public static @NotNull TagKey<Biome> createBiomeTag(String name) {
 		return TagKey.create(Registries.BIOME, plantopia(name));

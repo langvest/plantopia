@@ -121,7 +121,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
                     Optional.of(
                         BlockPredicate.allOf(
                             BlockPredicate.anyOf(
-                                BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.FERN),
+                                BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.FERN, Blocks.VINE, PlantopiaBlocks.CLOVER.get()),
                                 BlockPredicate.matchesTag(BlockTags.SMALL_FLOWERS)
                             ),
                             BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON)

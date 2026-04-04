@@ -23,4 +23,12 @@ public enum PlantopiaThresholdType implements StringRepresentable {
     public @NotNull String getSerializedName() {
         return getSerializationKey();
     }
+
+    public boolean isAbove() {
+        return this == ABOVE;
+    }
+
+    public boolean isBelow() {
+        return this == BELOW;
+    }
 }

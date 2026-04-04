@@ -23,8 +23,6 @@ public class PlantopiaBlockTags {
 	public static final TagKey<Block> GROUND_OVERWORLD = createBlockTag("ground_overworld");
 	public static final TagKey<Block> ORES_OVERWORLD = createBlockTag("ores_overworld");
 
-	private PlantopiaBlockTags() {}
-
 	public static @NotNull TagKey<Block> createBlockTag(String name) {
 		return TagKey.create(Registries.BLOCK, plantopia(name));
 	}

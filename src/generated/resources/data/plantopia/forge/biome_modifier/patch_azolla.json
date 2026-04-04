@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/patch_azolla",
-	"features": "plantopia:patch_azolla",
-	"step": "vegetal_decoration"
-}

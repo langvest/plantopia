@@ -1,18 +1,18 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.special.PlantopiaAzollaBlock;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
+import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaGradientBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaBranchingShrubPatchConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaVegetationPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.*;
+import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
+import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
+import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
@@ -337,26 +337,23 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AZOLLA = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.AZOLLA),
+    public static final ResourceKey<ConfiguredFeature<?, ?>> QUAGMIRE_WATER_LEVEL = declareConfiguredFeature(
+        compileNameFrom("quagmire_water_level"),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(32, 3, 0, PlacementUtils.onlyWhenEmpty(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    weightedConfig(states -> {
-                        for (var direction : Direction.Plane.HORIZONTAL) {
-                            for (int i = PlantopiaAzollaBlock.MIN_LEAFS; i <= PlantopiaAzollaBlock.MAX_LEAFS; i++) {
-                                var state = PlantopiaBlocks.AZOLLA.get().defaultBlockState()
-                                    .setValue(PlantopiaAzollaBlock.AMOUNT, i)
-                                    .setValue(PlantopiaAzollaBlock.FACING, direction);
-
-                                states.add(state, 2);
-                            }
-                        }
-
-                        return states;
-                    })
-                ))
+            .feature(configuredFeature(PlantopiaFeatureTypes.QUAGMIRE_WATER_LEVEL, context ->
+                new PlantopiaAzollaAndMossConfiguration(
+                    PlantopiaMultiNoiseConfig.builder()
+                        .add(PlantopiaNoiseConfig.of(0.362D, 719, 112), 1)
+                        .add(PlantopiaNoiseConfig.of(0.158D, 32, 775), 0.42)
+                        .add(PlantopiaNoiseConfig.of(0.074D, 78, 21), 0.24)
+                        .build(),
+                    PlantopiaThresholdType.BELOW,
+                    -0.012F,
+                    0.64F,
+                    3,
+                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.VINE),
+                    lookupBiomes(context).getOrThrow(PlantopiaBiomeTags.ALLOWS_QUAGMIRE)
+                )
             ))
     );
 

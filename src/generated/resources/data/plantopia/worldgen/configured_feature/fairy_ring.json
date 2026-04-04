@@ -25,7 +25,9 @@
 							"blocks": [
 								"minecraft:air",
 								"minecraft:grass",
-								"minecraft:fern"
+								"minecraft:fern",
+								"minecraft:vine",
+								"plantopia:clover"
 							]
 						},
 						{

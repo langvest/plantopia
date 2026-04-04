@@ -5,8 +5,6 @@ import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -15,6 +13,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -558,6 +557,22 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
+	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB_RARE = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB, RARE),
+		PlantopiaPlacedFeatureDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(16.48F),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(63), VerticalAnchor.TOP),
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.SNOWY_PLAINS)
+			)
+	);
+
 	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB_CAVE = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE),
 		PlantopiaPlacedFeatureDeclaration.builder()
@@ -578,27 +593,14 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_AZOLLA = declarePlacedFeature(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_AZOLLA),
+	public static final ResourceKey<PlacedFeature> QUAGMIRE_WATER_LEVEL = declarePlacedFeature(
+		compileNameFrom(PlantopiaVegetationFeatures.QUAGMIRE_WATER_LEVEL),
 		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_AZOLLA)
-			.modifiers(context -> {
-				var noiseConfig = PlantopiaNoiseConfig.of(0.331D, 719, 112);
-				float noiseLevel = -0.3F;
-
-				return List.of(
-					PlantopiaNoiseCountPlacement.belowLevel(noiseConfig, noiseLevel, 17),
-					InSquarePlacement.spread(),
-					PlantopiaNoiseFilter.belowLevel(noiseConfig, noiseLevel, 0.1F),
-					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-					WATER_PLANT_HIGH_RANGE_FILTER,
-					BiomeFilter.biome(),
-					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.AZOLLA.get())
-				);
-			})
+			.feature(PlantopiaVegetationFeatures.QUAGMIRE_WATER_LEVEL)
 			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addSwampBiomes)
 			)
+			.generationStep(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
 	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(

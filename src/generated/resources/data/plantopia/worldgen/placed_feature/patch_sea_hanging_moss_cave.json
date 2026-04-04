@@ -23,7 +23,7 @@
 					},
 					{
 						"type": "plantopia:noise_filter",
-						"activation": "BELOW",
+						"activation_type": "BELOW",
 						"erosion_level": {
 							"type": "minecraft:uniform",
 							"value": {

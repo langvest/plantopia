@@ -135,6 +135,16 @@ public class PlantopiaFeatures {
 		return context -> new ConfiguredFeature<>(feature.get(), configFactory.apply(context));
 	}
 
+	@Contract(pure = true)
+	protected static @NotNull <F extends Feature<NoneFeatureConfiguration>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(F feature) {
+		return context -> new ConfiguredFeature<>(feature, new NoneFeatureConfiguration());
+	}
+
+	@Contract(pure = true)
+	protected static @NotNull <F extends Feature<NoneFeatureConfiguration>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(Supplier<F> feature) {
+		return context -> new ConfiguredFeature<>(feature.get(), new NoneFeatureConfiguration());
+	}
+
 	/* CONFIGS ******************************************/
 
 	@Contract(pure = true)

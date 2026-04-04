@@ -11,8 +11,6 @@ public class PlantopiaEntityTypeTags {
 	public static final TagKey<EntityType<?>> QUICKSAND_WALKABLE_MOBS = createEntityTypeTag("quicksand_walkable_mobs");
 	public static final TagKey<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = createEntityTypeTag("quicksand_immune_entity_types");
 
-	private PlantopiaEntityTypeTags() {}
-
 	public static @NotNull TagKey<EntityType<?>> createEntityTypeTag(String name) {
 		return TagKey.create(Registries.ENTITY_TYPE, plantopia(name));
 	}

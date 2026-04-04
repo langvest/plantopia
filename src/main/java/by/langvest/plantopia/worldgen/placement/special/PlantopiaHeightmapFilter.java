@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class PlantopiaHeightmapFilter extends PlacementFilter {
     public static final Codec<PlantopiaHeightmapFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Heightmap.Types.CODEC.fieldOf("heightmap").forGetter(it -> it.heightmap),
-        PlantopiaThresholdType.CODEC.fieldOf("activation").forGetter(it -> it.activationType)
+        PlantopiaThresholdType.CODEC.fieldOf("activation_type").forGetter(it -> it.activationType)
     ).apply(instance, PlantopiaHeightmapFilter::new));
 
     private final Heightmap.Types heightmap;

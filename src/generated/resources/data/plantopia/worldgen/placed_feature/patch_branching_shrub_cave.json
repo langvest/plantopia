@@ -14,7 +14,7 @@
 		},
 		{
 			"type": "plantopia:heightmap_filter",
-			"activation": "BELOW",
+			"activation_type": "BELOW",
 			"heightmap": "OCEAN_FLOOR_WG"
 		},
 		{

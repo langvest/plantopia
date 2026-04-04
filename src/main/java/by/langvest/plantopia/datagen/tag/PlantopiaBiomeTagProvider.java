@@ -13,6 +13,7 @@ import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,6 +25,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements PlantopiaTagProvider<Biome> {
     private final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
 
+	private final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = createTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
+
 	public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
 	}
@@ -32,11 +35,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 	protected void addTags(HolderLookup.Provider provider) {
 		generateAll();
 
-//		HAS_COBBLESTONE_SHARD.add(Biomes.PLAINS).addTag(BiomeTags.IS_FOREST, BiomeTags.IS_HILL, BiomeTags.IS_JUNGLE, BiomeTags.IS_MOUNTAIN, BiomeTags.IS_SAVANNA);
-//		HAS_MOSSY_COBBLESTONE_SHARD.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP).addTag(BiomeTags.IS_JUNGLE);
-//		HAS_MOSSY_COBBLESTONE_SHARD_2.add(Biomes.OLD_GROWTH_PINE_TAIGA).addTag(BiomeTags.IS_DEEP_OCEAN);
-//		HAS_COBBLESTONE_SHARD_IN_WATER.addTag(BiomeTags.IS_RIVER, BiomeTags.IS_OCEAN);
-//		HAS_MOSSY_COBBLESTONE_SHARD_IN_WATER.add(Biomes.RIVER).addTag(BiomeTags.IS_OCEAN);
+		ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 
 		saveAll();
 	}

@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 public class PlantopiaNoiseFilter extends PlacementFilter {
     public static final Codec<PlantopiaNoiseFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         PlantopiaNoiseConfig.CODEC.fieldOf("noise_config").forGetter(it -> it.noiseConfig),
-        PlantopiaThresholdType.CODEC.fieldOf("activation").forGetter(it -> it.activationType),
+        PlantopiaThresholdType.CODEC.fieldOf("activation_type").forGetter(it -> it.activationType),
         Codec.FLOAT.fieldOf("noise_level").forGetter(it -> it.noiseLevel),
         FloatProvider.codec(-1.0F, 1.0F).fieldOf("erosion_level").forGetter(it -> it.erosionLevel)
     ).apply(instance, PlantopiaNoiseFilter::new));
