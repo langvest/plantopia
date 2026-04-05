@@ -75,6 +75,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE = createTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE);
     private final PlantopiaTagSet<Block> ORES_OVERWORLD = createTagSet(PlantopiaBlockTags.ORES_OVERWORLD);
     private final PlantopiaTagSet<Block> GROUND_OVERWORLD = createTagSet(PlantopiaBlockTags.GROUND_OVERWORLD);
+    private final PlantopiaTagSet<Block> PACKED_ICE_REPLACEABLE_BLOCKS = createTagSet(PlantopiaBlockTags.PACKED_ICE_REPLACEABLE_BLOCKS);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -105,6 +106,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS.add(Blocks.ICE);
         COBBLESTONE_SHARD_CAN_GENERATE_ON.addTag(PlantopiaBlockTags.GROUND_OVERWORLD);
         SEA_MOSS_REPLACEABLE.addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT, BlockTags.SAND);
+        PACKED_ICE_REPLACEABLE_BLOCKS.addTag(BlockTags.BASE_STONE_OVERWORLD);
 
         BONEMEAL_SPREAD_GROWABLE
             .add(Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN)

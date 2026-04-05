@@ -2,8 +2,12 @@ package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaSeaHangingMossPatchConfiguration;
 import com.google.common.collect.Maps;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -12,6 +16,10 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -54,6 +62,39 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
                     ConstantInt.of(9), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.SEA_HANGING_MOSS_CAN_GENERATE_ON), // allowedAttachment
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GLOW_LICHEN) // allowedPlacement
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ICICLE = declareConfiguredFeature(
+        compileNameFrom(PlantopiaBlocks.ICICLE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(Feature.SIMPLE_RANDOM_SELECTOR, context ->
+                new SimpleRandomFeatureConfiguration(
+                    HolderSet.direct(
+                        PlacementUtils.inlinePlaced(
+                            PlantopiaFeatureTypes.ICICLE.get(),
+                            new PlantopiaIcicleConfiguration(0.2F, 0.7F, 0.5F, 0.5F),
+                            EnvironmentScanPlacement.scanningFor(
+                                Direction.DOWN,
+                                BlockPredicate.solid(),
+                                BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+                                12
+                            ),
+                            RandomOffsetPlacement.vertical(ConstantInt.of(1))
+                        ),
+                        PlacementUtils.inlinePlaced(
+                            PlantopiaFeatureTypes.ICICLE.get(),
+                            new PlantopiaIcicleConfiguration(0.2F, 0.7F, 0.5F, 0.5F),
+                            EnvironmentScanPlacement.scanningFor(
+                                Direction.UP,
+                                BlockPredicate.solid(),
+                                BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+                                12
+                            ),
+                            RandomOffsetPlacement.vertical(ConstantInt.of(-1))
+                        )
+                    )
                 )
             ))
     );
