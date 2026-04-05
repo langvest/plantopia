@@ -35,6 +35,7 @@
 		"minecraft:white_stained_glass_pane",
 		"minecraft:yellow_stained_glass",
 		"minecraft:yellow_stained_glass_pane",
+		"plantopia:icicle",
 		{
 			"id": "#forge:glass",
 			"required": false

@@ -5,11 +5,14 @@ import by.langvest.plantopia.meta.property.*;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.toolkit.meta.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -375,11 +378,13 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		public static final MetaType MUSHROOM_STEM = MetaProperties.create()
 			.copyBehaviour(Blocks.MUSHROOM_STEM)
 			.compostable(Compostability.MUSHROOM_STEM)
+			.order(PlantopiaOrderType.MUSHROOM)
 			.makeType("mushroom_stem");
 
 		public static final MetaType MUSHROOM_BLOCK = MetaProperties.create()
 			.copyBehaviour(Blocks.BROWN_MUSHROOM_BLOCK)
 			.compostable(Compostability.MUSHROOM_BLOCK)
+			.order(PlantopiaOrderType.MUSHROOM)
 			.makeType("mushroom_block");
 
 		public static final MetaType POTTED = MetaProperties.create()
@@ -475,6 +480,13 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.copyBehaviour(Blocks.ICE)
 			.makeType("ice");
 
+		public static final MetaType ICICLE = MetaProperties.of(ICE)
+			.notValidSpawn()
+			.cutoutRender()
+			.offsetType(BlockBehaviour.OffsetType.XZ)
+			.pushReaction(PushReaction.DESTROY)
+			.makeType("icicle");
+
 		private MetaType(String name, MetaProperties properties) {
 			super(plantopia(name), properties);
 		}
@@ -530,6 +542,18 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			return new MetaType(name, this);
 		}
 
+		private static boolean always(BlockState state, BlockGetter level, BlockPos pos) {
+			return true;
+		}
+
+		private static boolean never(BlockState state, BlockGetter level, BlockPos pos) {
+			return false;
+		}
+
+		private static boolean never(BlockState state, BlockGetter level, BlockPos pos, EntityType<?> entity) {
+			return false;
+		}
+
 		public MetaProperties modifyBehaviour(Supplier<BlockBehaviour.Properties> properties) {
 			this.behaviourProperties = properties;
 			return this;
@@ -564,6 +588,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			return modifyBehaviour(properties -> properties.strength(strength));
 		}
 
+		public MetaProperties friction(float friction) {
+			return modifyBehaviour(properties -> properties.friction(friction));
+		}
+
 		public MetaProperties instabreak() {
 			return modifyBehaviour(BlockBehaviour.Properties::instabreak);
 		}
@@ -590,6 +618,22 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 		public MetaProperties mapColor(Function<BlockState, MapColor> mapColor) {
 			return modifyBehaviour(properties -> properties.mapColor(mapColor));
+		}
+
+		public MetaProperties isRedstoneConductor(BlockBehaviour.StatePredicate predicate) {
+			return modifyBehaviour(properties -> properties.isRedstoneConductor(predicate));
+		}
+
+		public MetaProperties notRedstoneConductable() {
+			return modifyBehaviour(properties -> properties.isRedstoneConductor(MetaProperties::never));
+		}
+
+		public MetaProperties isValidSpawn(BlockBehaviour.StateArgumentPredicate<EntityType<?>> predicate) {
+			return modifyBehaviour(properties -> properties.isValidSpawn(predicate));
+		}
+
+		public MetaProperties notValidSpawn() {
+			return modifyBehaviour(properties -> properties.isValidSpawn(MetaProperties::never));
 		}
 
 		public MetaProperties sound(SoundType soundType) {

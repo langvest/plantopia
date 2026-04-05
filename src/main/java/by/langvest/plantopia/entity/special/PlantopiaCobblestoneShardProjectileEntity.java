@@ -22,6 +22,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
+
 public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProjectile {
 	public static final float DAMAGE_AMOUNT = 2.25F;
 
@@ -85,11 +87,11 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 			boolean breaksIntoWater = state.is(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
 
 			if(breaksIntoAir || breaksIntoWater) {
-				var blockToReplace = breaksIntoWater ? Blocks.WATER : Blocks.AIR;
+				var stateToReplace = breaksIntoWater ? Blocks.WATER.defaultBlockState() : copyWaterloggedFrom(level, pos, Blocks.AIR.defaultBlockState());
 
 				level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
 				level.levelEvent(2001, pos, Block.getId(state));
-				level.setBlockAndUpdate(pos, blockToReplace.defaultBlockState());
+				level.setBlockAndUpdate(pos, stateToReplace);
 
 				return;
 			}

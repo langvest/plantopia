@@ -13,10 +13,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Contract;
@@ -99,6 +96,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         luckyDaisyBlock(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
         tinyCactusBlock(PlantopiaBlocks.TINY_CACTUS.get());
         tinyCactusBlock(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
+        icicleBlock(PlantopiaBlocks.ICICLE.get());
 
         checkAll();
     }
@@ -394,6 +392,28 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     }
 
     /* CUSTOM MODELS GENERATION ******************************************/
+
+    private void icicleBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var downTipTexture = texture(baseName + "_down_tip");
+
+        generatedItemModel(baseName, downTipTexture);
+
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+                var direction = state.getValue(PlantopiaIcicleBlock.TIP_DIRECTION);
+                var thickness = state.getValue(PlantopiaIcicleBlock.THICKNESS);
+                String suffix = "_" + direction + "_" + thickness;
+                var texture = texture(baseName + suffix);
+                var model = icicleModel(baseName + suffix, texture);
+
+                return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+            },
+            PlantopiaIcicleBlock.WATERLOGGED
+        );
+    }
 
     private void cattailBlock(Block block) {
         String baseName = nameOf(block);
@@ -1072,6 +1092,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         return models().withExistingParent(name, parent("wide_cross_leaf"))
             .texture("right", rightTexture)
             .texture("left", leftTexture);
+    }
+
+    private BlockModelBuilder icicleModel(String name, ResourceLocation crossTexture) {
+        return models().withExistingParent(name, parent("icicle"))
+            .texture("cross", crossTexture);
     }
 
     private BlockModelBuilder cloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {

@@ -172,9 +172,16 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
 
             if(type.instanceOf(MetaType.ICE)) {
                 MINEABLE_WITH_PICKAXE.add(block);
-                ICE.add(block);
-                POLAR_BEARS_SPAWNABLE_ON_ALTERNATE.add(block);
-                GEODE_INVALID_BLOCKS.add(block);
+
+                if (type.equals(MetaType.ICE)) {
+                    ICE.add(block);
+                    POLAR_BEARS_SPAWNABLE_ON_ALTERNATE.add(block);
+                    GEODE_INVALID_BLOCKS.add(block);
+                }
+            }
+
+            if (type.instanceOf(MetaType.ICICLE)) {
+                BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS.add(block);
             }
 
             if(type.instanceOf(MetaType.FLOWER)) {

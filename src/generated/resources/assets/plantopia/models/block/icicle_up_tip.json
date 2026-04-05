@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/icicle",
+	"textures": {
+		"cross": "plantopia:block/icicle_up_tip"
+	}
+}
