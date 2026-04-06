@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import org.jetbrains.annotations.Contract;
@@ -31,6 +32,7 @@ public class PlantopiaRegistries {
 	public static final Registry<ParticleType<?>> PARTICLE_TYPE = createSimpleRegistry("particle_type");
 	public static final Registry<Feature<?>> FEATURE_TYPE = createSimpleRegistry("feature_type");
 	public static final Registry<TreeDecoratorType<?>> TREE_DECORATOR_TYPE = createSimpleRegistry("tree_decorator_type");
+	public static final Registry<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPE = createSimpleRegistry("block_state_provider_type");
 	public static final Registry<PlacementModifierType<?>> PLACEMENT_MODIFIER_TYPE = createSimpleRegistry("placement_modifier_type");
 	public static final Registry<PlantopiaBlockPlacerType<?>> BLOCK_PLACER_TYPE = createSimpleRegistry("block_placer_type");
 	public static final Registry<PlantopiaAdvancement> ADVANCEMENT = createSimpleRegistry("advancement");

@@ -12,6 +12,7 @@ import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.recipe.PlantopiaRecipeSerializers;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
+import by.langvest.plantopia.worldgen.feature.PlantopiaBlockStateProviderTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaTreeDecoratorTypes;
@@ -66,6 +67,7 @@ public final class Plantopia {
         emitter.subscribe(PlantopiaFeatureTypes::setup);
         emitter.subscribe(PlantopiaBlockPlacerTypes::setup);
         emitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
+        emitter.subscribe(PlantopiaBlockStateProviderTypes::setup);
         emitter.subscribe(PlantopiaPlacementModifierTypes::setup);
         emitter.subscribe(PlantopiaRecipeSerializers::setup);
 

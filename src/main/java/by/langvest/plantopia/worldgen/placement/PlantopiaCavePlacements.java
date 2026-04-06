@@ -84,4 +84,60 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
                 .addTag(BiomeTags.IS_OVERWORLD)
             )
     );
+
+//    public static final ResourceKey<PlacedFeature> ICICLE_CLUSTER = declarePlacedFeature(
+//        compileNameFrom(PlantopiaCaveFeatures.ICICLE_CLUSTER),
+//        PlantopiaPlacedFeatureDeclaration.builder()
+//            .feature(PlantopiaCaveFeatures.ICICLE_CLUSTER)
+//            .modifiers(context -> List.of(
+//                CountPlacement.of(UniformInt.of(48, 96)),
+//                InSquarePlacement.spread(),
+//                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+//                BiomeFilter.biome()
+//            ))
+//            .biomes(biomes -> biomes
+//                .add(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH, Biomes.SNOWY_SLOPES)
+//                .add(Biomes.ICE_SPIKES, Biomes.GROVE)
+//                .add(Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER, Biomes.FROZEN_PEAKS, Biomes.DEEP_FROZEN_OCEAN)
+//            )
+//    );
+//
+//    public static final ResourceKey<PlacedFeature> LARGE_ICICLE = declarePlacedFeature(
+//        compileNameFrom(PlantopiaCaveFeatures.LARGE_ICICLE),
+//        PlantopiaPlacedFeatureDeclaration.builder()
+//            .feature(PlantopiaCaveFeatures.LARGE_ICICLE)
+//            .modifiers(context -> List.of(
+//                CountPlacement.of(UniformInt.of(10, 48)),
+//                InSquarePlacement.spread(),
+//                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+//                BiomeFilter.biome()
+//            ))
+//            .biomes(biomes -> biomes
+//                .add(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH, Biomes.SNOWY_SLOPES)
+//                .add(Biomes.ICE_SPIKES, Biomes.GROVE)
+//                .add(Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER, Biomes.FROZEN_PEAKS, Biomes.DEEP_FROZEN_OCEAN)
+//            )
+//    );
+//
+//    public static final ResourceKey<PlacedFeature> ICICLE = declarePlacedFeature(
+//        compileNameFrom(PlantopiaCaveFeatures.ICICLE),
+//        PlantopiaPlacedFeatureDeclaration.builder()
+//            .feature(PlantopiaCaveFeatures.ICICLE)
+//            .modifiers(context -> List.of(
+//                CountPlacement.of(UniformInt.of(192, 256)),
+//                InSquarePlacement.spread(),
+//                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+//                CountPlacement.of(UniformInt.of(1, 5)),
+//                RandomOffsetPlacement.of(
+//                    ClampedNormalInt.of(0.0F, 3.0F, -10, 10),
+//                    ClampedNormalInt.of(0.0F, 0.6F, -2, 2)
+//                ),
+//                BiomeFilter.biome()
+//            ))
+//            .biomes(biomes -> biomes
+//                .add(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH, Biomes.SNOWY_SLOPES)
+//                .add(Biomes.ICE_SPIKES, Biomes.GROVE)
+//                .add(Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER, Biomes.FROZEN_PEAKS, Biomes.DEEP_FROZEN_OCEAN)
+//            )
+//    );
 }

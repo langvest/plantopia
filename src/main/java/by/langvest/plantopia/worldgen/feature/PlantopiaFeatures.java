@@ -45,6 +45,8 @@ public class PlantopiaFeatures {
 	protected static final String ANCHOR = "anchor";
 	protected static final String CAVE = "cave";
 	protected static final String HUGE = "huge";
+	protected static final String CLUSTER = "cluster";
+	protected static final String LARGE = "large";
 	protected static final String WIDE = "wide";
 	protected static final String IN_WATER = "in_water";
 	protected static final String IN_SNOW = "in_snow";

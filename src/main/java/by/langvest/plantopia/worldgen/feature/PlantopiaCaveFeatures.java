@@ -2,21 +2,22 @@ package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleClusterConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaLargeIcicleConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaSeaHangingMossPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
 import com.google.common.collect.Maps;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.ConstantFloat;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformFloat;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
@@ -62,6 +63,49 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
                     ConstantInt.of(9), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.SEA_HANGING_MOSS_CAN_GENERATE_ON), // allowedAttachment
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GLOW_LICHEN) // allowedPlacement
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICICLE = declareConfiguredFeature(
+        compileNameFrom(LARGE, PlantopiaBlocks.ICICLE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.LARGE_ICICLE, context ->
+                new PlantopiaLargeIcicleConfiguration(
+                    30,
+                    UniformInt.of(3, 19),
+                    UniformFloat.of(0.4F, 2.0F),
+                    0.33F,
+                    UniformFloat.of(0.3F, 0.9F),
+                    UniformFloat.of(0.4F, 1.0F),
+                    UniformFloat.of(0.0F, 0.3F),
+                    4,
+                    0.6F,
+                    PlantopiaTiltedLayeredBlockStateProvider.builder()
+                        .angle(35.0F)
+                        .rotation(45.0F)
+                        .addLayer(5, simpleProvider(Blocks.PACKED_ICE))
+                        .addLayer(3, simpleProvider(Blocks.ICE))
+                        .build()
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ICICLE_CLUSTER = declareConfiguredFeature(
+        compileNameFrom(PlantopiaBlocks.ICICLE, CLUSTER),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.ICICLE_CLUSTER, context ->
+                new PlantopiaIcicleClusterConfiguration(
+                    12,
+                    UniformInt.of(3, 6),
+                    UniformInt.of(2, 8),
+                    1,
+                    3,
+                    UniformInt.of(2, 4),
+                    UniformFloat.of(0.3F, 0.7F),
+                    0.1F,
+                    3,
+                    8
                 )
             ))
     );

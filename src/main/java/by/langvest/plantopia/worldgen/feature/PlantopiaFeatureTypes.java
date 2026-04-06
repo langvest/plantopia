@@ -29,6 +29,8 @@ public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaPoiAnchorFeature> POI_ANCHOR = registerFeatureType("poi_anchor", () -> new PlantopiaPoiAnchorFeature(PlantopiaPoiAnchorConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaCactusColumnFeature> CACTUS_COLUMN = registerFeatureType("cactus_column", () -> new PlantopiaCactusColumnFeature(BlockColumnConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaAzollaAndMossFeature> QUAGMIRE_WATER_LEVEL = registerFeatureType("quagmire_water_level", () -> new PlantopiaAzollaAndMossFeature(PlantopiaAzollaAndMossConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaIcicleClusterFeature> ICICLE_CLUSTER = registerFeatureType("icicle_cluster", () -> new PlantopiaIcicleClusterFeature(PlantopiaIcicleClusterConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaLargeIcicleFeature> LARGE_ICICLE = registerFeatureType("large_icicle", () -> new PlantopiaLargeIcicleFeature(PlantopiaLargeIcicleConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaIcicleFeature> ICICLE = registerFeatureType("icicle", () -> new PlantopiaIcicleFeature(PlantopiaIcicleConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
