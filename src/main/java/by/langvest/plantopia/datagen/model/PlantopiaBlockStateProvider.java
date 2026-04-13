@@ -396,10 +396,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private void icicleBlock(Block block) {
         String baseName = nameOf(block);
 
-        var downTipTexture = texture(baseName + "_down_tip");
-
-        generatedItemModel(baseName, downTipTexture);
-
         getVariantBuilder(block).forAllStatesExcept(state -> {
                 var direction = state.getValue(PlantopiaIcicleBlock.TIP_DIRECTION);
                 var thickness = state.getValue(PlantopiaIcicleBlock.THICKNESS);
