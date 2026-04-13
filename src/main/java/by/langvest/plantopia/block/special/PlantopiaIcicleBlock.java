@@ -15,10 +15,7 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -170,6 +167,8 @@ public class PlantopiaIcicleBlock extends Block implements Fallable, SimpleWater
 
     @Override
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (level.dimensionType().ultraWarm()) return; // Prevent dripping in ultra-warm dimensions like the Nether.
+
         float randomChance = random.nextFloat();
 
         if (randomChance > DRIP_PROBABILITY_PER_ANIMATE_TICK_IF_UNDER_LIQUID_SOURCE) return;
@@ -195,6 +194,8 @@ public class PlantopiaIcicleBlock extends Block implements Fallable, SimpleWater
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (level.dimensionType().ultraWarm()) return; // Prevent fluid transfer and growth in ultra-warm dimensions.
+
         // Attempt to transfer fluid (e.g., drip into a cauldron).
         maybeTransferFluid(state, level, pos, random.nextFloat());
 
@@ -569,7 +570,11 @@ public class PlantopiaIcicleBlock extends Block implements Fallable, SimpleWater
         return findBlockVertical(level, pos, Direction.UP.getAxisDirection(), canPassThrough, PlantopiaIcicleBlock::canDrip, MAX_VERTICAL_INTERACTION_RANGE).orElse(null);
     }
 
-    public static Fluid getCauldronFillFluidType(ServerLevel level, BlockPos pos) {
+    public static Fluid getCauldronFillFluidType(@NotNull ServerLevel level, BlockPos pos) {
+        if (level.dimensionType().ultraWarm()) {
+            return Fluids.EMPTY;
+        }
+
         return getLiquidSourceInfo(level, pos, level.getBlockState(pos))
             .map(fluidInfo -> fluidInfo.fluid) // fluidInfo.fluid will always be water
             .orElse(Fluids.EMPTY);

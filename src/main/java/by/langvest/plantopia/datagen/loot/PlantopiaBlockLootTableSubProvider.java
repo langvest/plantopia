@@ -126,6 +126,11 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
                 return;
             }
 
+            if (dropType == PlantopiaBlockDropType.SELF_BY_SILK_TOUCH) {
+                dropSelfBySilkTouch(blockMeta);
+                return;
+            }
+
             dropGenerated(blockMeta);
         });
     }
@@ -191,6 +196,13 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         }
 
         var lootEntry = LootItem.lootTableItem(block).when(HAS_SHEARS);
+
+        add(block, createTable(blockMeta, lootEntry));
+    }
+
+    private void dropSelfBySilkTouch(@NotNull PlantopiaBlockMeta blockMeta) {
+        var block = blockMeta.get();
+        var lootEntry = LootItem.lootTableItem(block).when(HAS_SILK_TOUCH);
 
         add(block, createTable(blockMeta, lootEntry));
     }

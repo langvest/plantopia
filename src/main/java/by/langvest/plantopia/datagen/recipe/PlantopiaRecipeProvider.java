@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaRecipeProvider extends RecipeProvider implements IConditionBuilder {
     private Consumer<FinishedRecipe> consumer;
@@ -48,6 +49,14 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
             .define('#', PlantopiaBlocks.SEA_MOSS_BLOCK.get())
             .unlockedBy(getHasName(PlantopiaBlocks.SEA_MOSS_BLOCK.get()), has(PlantopiaBlocks.SEA_MOSS_BLOCK.get()))
             .save(consumer, plantopia(getSimpleRecipeName(PlantopiaBlocks.SEA_MOSS_CARPET.get())));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_ICE, 1)
+            .pattern("##")
+            .pattern("##")
+            .group(nameOf(Blocks.PACKED_ICE))
+            .define('#', PlantopiaBlocks.ICICLE.get())
+            .unlockedBy(getHasName(PlantopiaBlocks.ICICLE.get()), has(PlantopiaBlocks.ICICLE.get()))
+            .save(consumer, plantopia(getSimpleRecipeName(Blocks.PACKED_ICE)));
     }
 
     private void setConsumer(@NotNull Consumer<FinishedRecipe> consumer) {

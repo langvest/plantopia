@@ -483,6 +483,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		public static final MetaType ICICLE = MetaProperties.of(ICE)
 			.notValidSpawn()
 			.cutoutRender()
+			.dropSelfBySilkTouch()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.pushReaction(PushReaction.DESTROY)
 			.makeType("icicle");
@@ -962,6 +963,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 		public MetaProperties dropSelfByShears() {
 			this.dropType = PlantopiaBlockDropType.SELF_BY_SHEARS;
+			return this;
+		}
+
+		public MetaProperties dropSelfBySilkTouch() {
+			this.dropType = PlantopiaBlockDropType.SELF_BY_SILK_TOUCH;
 			return this;
 		}
 
