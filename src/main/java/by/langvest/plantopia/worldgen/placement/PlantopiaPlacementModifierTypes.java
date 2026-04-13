@@ -18,12 +18,11 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaPlacementModifierTypes {
     public static final RegistryObject<PlacementModifierType<PlantopiaNoiseCountPlacement>> NOISE_COUNT = registerPlacementModifierType("noise_count", () -> PlantopiaNoiseCountPlacement.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaNoiseFilter>> NOISE_FILTER = registerPlacementModifierType("noise_filter", () -> PlantopiaNoiseFilter.CODEC);
-    public static final RegistryObject<PlacementModifierType<PlantopiaHeightRangeFilter>> HEIGHT_RANGE_FILTER = registerPlacementModifierType("height_range_filter", () -> PlantopiaHeightRangeFilter.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaRangeFilter>> RANGE_FILTER = registerPlacementModifierType("range_filter", () -> PlantopiaRangeFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaRarityFilter>> RARITY_FILTER = registerPlacementModifierType("rarity_filter", () -> PlantopiaRarityFilter.CODEC);
-    public static final RegistryObject<PlacementModifierType<PlantopiaHeightmapFilter>> HEIGHTMAP_FILTER = registerPlacementModifierType("heightmap_filter", () -> PlantopiaHeightmapFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaBiomeFilter>> BIOME_FILTER = registerPlacementModifierType("biome_filter", () -> PlantopiaBiomeFilter.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaEnvironmentScanFilter>> ENVIRONMENT_SCAN_FILTER = registerPlacementModifierType("environment_scan_filter", () -> PlantopiaEnvironmentScanFilter.CODEC);
-    public static final RegistryObject<PlacementModifierType<PlantopiaUndergroundDensityPlacement>> UNDERGROUND_DENSITY = registerPlacementModifierType("underground_density", () -> PlantopiaUndergroundDensityPlacement.CODEC);
+    public static final RegistryObject<PlacementModifierType<PlantopiaDensityPlacement>> DENSITY = registerPlacementModifierType("density", () -> PlantopiaDensityPlacement.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaSwitchPlacement>> SWITCH = registerPlacementModifierType("switch", () -> PlantopiaSwitchPlacement.CODEC);
     public static final RegistryObject<PlacementModifierType<PlantopiaConditionPlacement>> CONDITION = registerPlacementModifierType("condition", () -> PlantopiaConditionPlacement.CODEC);
 

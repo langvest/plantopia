@@ -69,7 +69,7 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
             var xzOffset = PlantopiaMathHelper.getHorizontalRadialOffset(random, xzSpread, shapeSigma, shapeErosion);
             var yOffset = random.nextInt(-ySpread, ySpread + 1);
             localPos.set(xzOffset.getX(), yOffset, xzOffset.getZ());
-            double distanceToCenter = Math.sqrt(localPos.distSqr(BlockPos.ZERO));
+            double distanceToCenter = Math.sqrt(Mth.square(xzOffset.getX()) + Mth.square(xzOffset.getZ()));
             double falloffFactor = 1.0 - (distanceToCenter / xzSpread) * heightFalloff;
             double smoothHeight = maxHeight * Mth.clamp(falloffFactor, 0.0, 1.0);
             double erodedOffset = (random.nextDouble() * 2 - 1) * maxHeight * heightErosion;

@@ -105,11 +105,11 @@ public class PlantopiaIcicleClusterFeature extends Feature<PlantopiaIcicleCluste
 
         boolean merge = random.nextBoolean() && finalStalactiteHeight > 0 && finalStalagmiteHeight > 0 && optional.get().getHeight().isPresent() && finalStalactiteHeight + finalStalagmiteHeight == optional.get().getHeight().getAsInt();
         if (ceiling.isPresent()) {
-            PlantopiaIcicleUtil.growIcicle(level, pos.atY(ceiling.getAsInt() - 1), Direction.DOWN, finalStalactiteHeight, merge);
+            PlantopiaIcicleUtil.growIcicleOnIceIfPossible(level, pos.atY(ceiling.getAsInt() - 1), Direction.DOWN, finalStalactiteHeight, merge, random);
         }
 
         if (floor.isPresent()) {
-            PlantopiaIcicleUtil.growIcicle(level, pos.atY(floor.getAsInt() + 1), Direction.UP, finalStalagmiteHeight, merge);
+            PlantopiaIcicleUtil.growIcicleOnIceIfPossible(level, pos.atY(floor.getAsInt() + 1), Direction.UP, finalStalagmiteHeight, merge, random);
         }
     }
 

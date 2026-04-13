@@ -37,37 +37,37 @@ public class PlantopiaNoiseCountPlacement extends RepeatingPlacement {
         this.passiveCount = passiveCount;
     }
 
-    public static @NotNull PlantopiaNoiseCountPlacement belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int count) {
-        return belowLevel(noiseConfig, noiseLevel, count, 0);
+    public static @NotNull PlantopiaNoiseCountPlacement below(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int count) {
+        return below(noiseConfig, noiseLevel, count, 0);
     }
 
-    public static @NotNull PlantopiaNoiseCountPlacement belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider count) {
-        return belowLevel(noiseConfig, noiseLevel, count, ConstantInt.of(0));
+    public static @NotNull PlantopiaNoiseCountPlacement below(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider count) {
+        return below(noiseConfig, noiseLevel, count, ConstantInt.of(0));
     }
 
-    public static @NotNull PlantopiaNoiseCountPlacement belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int activeCount, int passiveCount) {
-        return belowLevel(noiseConfig, noiseLevel, ConstantInt.of(activeCount), ConstantInt.of(passiveCount));
+    public static @NotNull PlantopiaNoiseCountPlacement below(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int activeCount, int passiveCount) {
+        return below(noiseConfig, noiseLevel, ConstantInt.of(activeCount), ConstantInt.of(passiveCount));
     }
 
     @Contract("_, _, _, _ -> new")
-    public static @NotNull PlantopiaNoiseCountPlacement belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider activeCount, IntProvider passiveCount) {
+    public static @NotNull PlantopiaNoiseCountPlacement below(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider activeCount, IntProvider passiveCount) {
         return new PlantopiaNoiseCountPlacement(noiseConfig, PlantopiaThresholdType.BELOW, noiseLevel, activeCount, passiveCount);
     }
 
-    public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int count) {
-        return aboveLevel(noiseConfig, noiseLevel, count, 0);
+    public static @NotNull PlantopiaNoiseCountPlacement above(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int count) {
+        return above(noiseConfig, noiseLevel, count, 0);
     }
 
-    public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider count) {
-        return aboveLevel(noiseConfig, noiseLevel, count, ConstantInt.of(0));
+    public static @NotNull PlantopiaNoiseCountPlacement above(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider count) {
+        return above(noiseConfig, noiseLevel, count, ConstantInt.of(0));
     }
 
-    public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int activeCount, int passiveCount) {
-        return aboveLevel(noiseConfig, noiseLevel, ConstantInt.of(activeCount), ConstantInt.of(passiveCount));
+    public static @NotNull PlantopiaNoiseCountPlacement above(PlantopiaNoiseConfig noiseConfig, float noiseLevel, int activeCount, int passiveCount) {
+        return above(noiseConfig, noiseLevel, ConstantInt.of(activeCount), ConstantInt.of(passiveCount));
     }
 
     @Contract("_, _, _, _ -> new")
-    public static @NotNull PlantopiaNoiseCountPlacement aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider activeCount, IntProvider passiveCount) {
+    public static @NotNull PlantopiaNoiseCountPlacement above(PlantopiaNoiseConfig noiseConfig, float noiseLevel, IntProvider activeCount, IntProvider passiveCount) {
         return new PlantopiaNoiseCountPlacement(noiseConfig, PlantopiaThresholdType.ABOVE, noiseLevel, activeCount, passiveCount);
     }
 
@@ -76,15 +76,19 @@ public class PlantopiaNoiseCountPlacement extends RepeatingPlacement {
         return shouldActivateChunk(pos) ? activeCount.sample(random) : passiveCount.sample(random);
     }
 
-    private boolean shouldActivateChunk(BlockPos chunkPos) {
-        return shouldActivatePos(chunkPos)
-            || shouldActivatePos(chunkPos.offset(15, 0, 0))
-            || shouldActivatePos(chunkPos.offset(0, 0, 15))
-            || shouldActivatePos(chunkPos.offset(15, 0, 15));
+    private boolean shouldActivateChunk(@NotNull BlockPos chunkPos) {
+        int x = chunkPos.getX();
+        int z = chunkPos.getZ();
+
+        return shouldActivatePos(x, z)
+            || shouldActivatePos(x + 8, z + 8)
+            || shouldActivatePos(x + 15, z)
+            || shouldActivatePos(x, z + 15)
+            || shouldActivatePos(x + 15, z + 15);
     }
 
-    private boolean shouldActivatePos(BlockPos pos) {
-        double noiseValue = noiseConfig.getValue(pos);
+    private boolean shouldActivatePos(int x, int z) {
+        double noiseValue = noiseConfig.getValue(x, z);
 
         if (activationType == PlantopiaThresholdType.BELOW) {
             return noiseValue < noiseLevel;

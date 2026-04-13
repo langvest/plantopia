@@ -30,12 +30,18 @@
 			"heightmap": "OCEAN_FLOOR"
 		},
 		{
-			"type": "plantopia:height_range_filter",
-			"max_inclusive": {
-				"absolute": 60
+			"type": "plantopia:range_filter",
+			"bottom_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"above_bottom": 0
+				}
 			},
-			"min_inclusive": {
-				"above_bottom": 0
+			"top_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"absolute": 59
+				}
 			}
 		},
 		{

@@ -36,13 +36,13 @@ public class PlantopiaIcicleFeature extends Feature<PlantopiaIcicleConfiguration
         createPatchOfIceBlocks(level, random, basePos, config);
 
         int height = random.nextFloat() < config.chanceOfTallerIcicle() && PlantopiaIcicleUtil.isEmptyOrWater(level.getBlockState(origin.relative(direction))) ? 2 : 1;
-        PlantopiaIcicleUtil.growIcicle(level, origin, direction, height, false);
+        PlantopiaIcicleUtil.growIcicleOnIceIfPossible(level, origin, direction, height, false, random);
         return true;
     }
 
     private static Optional<Direction> getTipDirection(@NotNull LevelAccessor level, @NotNull BlockPos pos, RandomSource random) {
-        boolean canPlaceAbove = PlantopiaIcicleUtil.isIcicleBase(level.getBlockState(pos.above()));
-        boolean canPlaceBelow = PlantopiaIcicleUtil.isIcicleBase(level.getBlockState(pos.below()));
+        boolean canPlaceAbove = PlantopiaIcicleUtil.isValidGround(level.getBlockState(pos.above()));
+        boolean canPlaceBelow = PlantopiaIcicleUtil.isValidGround(level.getBlockState(pos.below()));
 
         if (canPlaceAbove && canPlaceBelow) {
             return Optional.of(random.nextBoolean() ? Direction.DOWN : Direction.UP);

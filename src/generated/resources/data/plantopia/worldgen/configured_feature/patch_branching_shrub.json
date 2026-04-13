@@ -71,7 +71,7 @@
 				}
 			}
 		},
-		"height_erosion": 0.196,
+		"height_erosion": 0.248,
 		"height_falloff": {
 			"type": "minecraft:uniform",
 			"value": {
@@ -80,15 +80,9 @@
 			}
 		},
 		"search_distance": 6,
-		"shape_erosion": 0.126,
-		"shape_sigma": -0.268,
-		"tries": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_inclusive": 48,
-				"min_inclusive": 32
-			}
-		},
+		"shape_erosion": 0.148,
+		"shape_sigma": -0.164,
+		"tries": 32,
 		"xz_spread": 2,
 		"y_spread": 1
 	}

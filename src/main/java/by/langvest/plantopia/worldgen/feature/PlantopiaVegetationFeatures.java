@@ -351,7 +351,13 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                     -0.012F,
                     0.64F,
                     3,
-                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.VINE),
+                    BlockPredicate.allOf(
+                        BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.VINE),
+                        BlockPredicate.anyOf(
+                            BlockPredicate.matchesFluids(BlockPos.ZERO.below(), Fluids.WATER),
+                            BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP)
+                        )
+                    ),
                     lookupBiomes(context).getOrThrow(PlantopiaBiomeTags.ALLOWS_QUAGMIRE)
                 )
             ))
@@ -427,12 +433,12 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                 new PlantopiaBranchingShrubPatchConfiguration(
                     ConstantInt.of(2), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    UniformInt.of(32, 48), // tries
+                    ConstantInt.of(32), // tries
                     ClampedInt.of(UniformInt.of(1, 4), 3, 4), // height
                     UniformFloat.of(0.58F, 0.72F), // heightFalloff
-                    ConstantFloat.of(0.196F), // heightErosion
-                    ConstantFloat.of(-0.268F), // shapeSigma
-                    ConstantFloat.of(0.126F), // shapeErosion
+                    ConstantFloat.of(0.248F), // heightErosion
+                    ConstantFloat.of(-0.164F), // shapeSigma
+                    ConstantFloat.of(0.148F), // shapeErosion
                     ConstantInt.of(6), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
                     BRANCHING_SHRUB_VERTICAL_PREDICATE,
@@ -449,11 +455,11 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                 new PlantopiaBranchingShrubPatchConfiguration(
                     ConstantInt.of(3), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    UniformInt.of(32, 48), // tries
+                    ConstantInt.of(32), // tries
                     ClampedInt.of(UniformInt.of(3, 5), 4, 5), // height
                     UniformFloat.of(0.58F, 0.72F), // heightFalloff
-                    ConstantFloat.of(0.182F), // heightErosion
-                    ConstantFloat.of(-0.268F), // shapeSigma
+                    ConstantFloat.of(0.228F), // heightErosion
+                    ConstantFloat.of(-0.232F), // shapeSigma
                     ConstantFloat.of(0.126F), // shapeErosion
                     ConstantInt.of(12), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),

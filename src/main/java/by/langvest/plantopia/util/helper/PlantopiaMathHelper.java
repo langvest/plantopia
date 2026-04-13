@@ -122,7 +122,6 @@ public final class PlantopiaMathHelper {
         int cols = matrix[0].length;
         double[][] blurredMatrix = new double[rows][cols];
 
-        // 1. Построение summed-area table (интегрального изображения) для быстрых вычислений суммы в области.
         double[][] sat = new double[rows + 1][cols + 1];
         for (int row = 1; row <= rows; row++) {
             double rowSum = 0;
@@ -132,7 +131,6 @@ public final class PlantopiaMathHelper {
             }
         }
 
-        // 2. Вычисление размытия для КАЖДОЙ точки, используя SAT.
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 int y1 = Math.max(0, row - blurRadius);

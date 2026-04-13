@@ -2,6 +2,7 @@ package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaMiscOverworldFeatures;
 import by.langvest.plantopia.worldgen.placement.special.*;
+import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,9 +12,8 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
@@ -82,7 +82,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
                 CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                PlantopiaHeightRangeFilter.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(60)),
+                PlantopiaRangeFilter.below(PlantopiaVerticalAnchor.seaLevel(-4)),
                 BiomeFilter.biome(),
                 BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
             ))
@@ -101,7 +101,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
                 CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                PlantopiaHeightRangeFilter.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(60)),
+                PlantopiaRangeFilter.below(PlantopiaVerticalAnchor.seaLevel(-4)),
                 BiomeFilter.biome(),
                 BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
             ))
@@ -188,10 +188,10 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
-                PlantopiaUndergroundDensityPlacement.of(
+                PlantopiaDensityPlacement.of(
                     0.256F,
-                    VerticalAnchor.absolute(4),
-                    Heightmap.Types.OCEAN_FLOOR_WG
+                    PlantopiaVerticalAnchor.oceanFloorWg(-1),
+                    PlantopiaVerticalAnchor.absolute(4)
                 ),
                 InSquarePlacement.spread(),
                 EnvironmentScanPlacement.scanningFor(
@@ -202,10 +202,56 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
                     ),
                     6
                 ),
-                PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG)
+                PlantopiaRangeFilter.below(PlantopiaVerticalAnchor.oceanFloorWg(-1))
             ))
             .biomes(biomes -> biomes
                 .addTag(BiomeTags.IS_OVERWORLD)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> SINGLE_ICICLE_STALACTITE = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.SINGLE_ICICLE_STALACTITE),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.SINGLE_ICICLE_STALACTITE)
+            .modifiers(context -> List.of(
+                PlantopiaDensityPlacement.of(
+                    3.32F,
+                    PlantopiaVerticalAnchor.worldSurfaceWg(60),
+                    PlantopiaVerticalAnchor.worldSurfaceWg(-6)
+                ),
+                InSquarePlacement.spread(),
+                EnvironmentScanPlacement.scanningFor(
+                    Direction.UP,
+                    BlockPredicate.allOf(
+                        BlockPredicate.ONLY_IN_AIR_PREDICATE,
+                        BlockPredicate.matchesBlocks(BlockPos.ZERO.above(), Blocks.PACKED_ICE)
+                    ),
+                    6
+                ),
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.ICE_SPIKES, Biomes.FROZEN_PEAKS)
+                .add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
+            )
+    );
+
+    public static final ResourceKey<PlacedFeature> PATCH_ICICLE_STALAGMITE = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_ICICLE_STALAGMITE),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.PATCH_ICICLE_STALAGMITE)
+            .modifiers(context -> List.of(
+                CountPlacement.of(6),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.motionBlocking()),
+                BlockPredicateFilter.forPredicate(
+                    BlockPredicate.matchesBlocks(BlockPos.ZERO.below(), Blocks.PACKED_ICE)
+                ),
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.ICE_SPIKES)
             )
     );
 }

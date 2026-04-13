@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/icicle",
-	"features": "plantopia:icicle",
-	"step": "vegetal_decoration"
-}

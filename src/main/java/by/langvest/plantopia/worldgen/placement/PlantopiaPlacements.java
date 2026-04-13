@@ -21,6 +21,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 public class PlantopiaPlacements {
 	protected static final String BONEMEAL = "bonemeal";
 	protected static final String MOUNTAIN = "mountain";
+	protected static final String SURFACE = "surface";
 	protected static final String RARE = "rare";
 	protected static final String BONUS = "bonus";
 	protected static final String SNOWY = "snowy";

@@ -3,6 +3,7 @@ package by.langvest.plantopia.worldgen.placement;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.special.*;
+import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
@@ -14,8 +15,6 @@ import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -31,7 +30,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
  */
 public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
-	protected static final PlantopiaHeightRangeFilter WATER_PLANT_HIGH_RANGE_FILTER = PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(62), VerticalAnchor.TOP);
+	protected static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));
 
 	private static final Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> declarations = Maps.newHashMap();
 
@@ -102,12 +101,12 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 22),
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 22),
 					InSquarePlacement.spread(),
-					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.1F),
-					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.15F),
+					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.15F),
 					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-					PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(86), VerticalAnchor.TOP),
+					PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.absolute(86)),
 					BiomeFilter.biome(),
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.FIREWEED.get())
 				);
@@ -129,12 +128,12 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				float smallNoiseLevel = 0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 17),
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 17),
 					InSquarePlacement.spread(),
-					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.18F),
-					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.12F),
+					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.18F),
+					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.12F),
 					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-					PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(122), VerticalAnchor.TOP),
+					PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.absolute(122)),
 					BiomeFilter.biome(),
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.FIREWEED.get())
 				);
@@ -169,7 +168,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.matchesFluids(Fluids.WATER)
@@ -195,7 +194,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.anyOf(
@@ -286,10 +285,10 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.belowLevel(bigNoiseConfig, bigNoiseLevel, 22),
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 22),
 					InSquarePlacement.spread(),
-					PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.15F),
-					PlantopiaNoiseFilter.aboveLevel(smallNoiseConfig, smallNoiseLevel, 0.2F),
+					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.15F),
+					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.2F),
 					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 					BiomeFilter.biome(),
 					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.CARROTWEED.get())
@@ -373,7 +372,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.allOf(
@@ -399,7 +398,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.allOf(
@@ -423,7 +422,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.matchesFluids(Fluids.WATER)
@@ -471,7 +470,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(6.64F),
+				PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
@@ -490,7 +489,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get())
 			))
@@ -508,7 +507,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(1),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get())
 			))
@@ -525,7 +524,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(2),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				WATER_PLANT_HIGH_RANGE_FILTER,
+				WATER_PLANT_RANGE_FILTER,
 				BiomeFilter.biome(),
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get())
 			))
@@ -542,7 +541,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(63), VerticalAnchor.TOP),
+				PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
@@ -562,10 +561,10 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
 			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(16.48F),
+				PlantopiaRarityFilter.onAverageOnceEvery(18.24F),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				PlantopiaHeightRangeFilter.uniform(VerticalAnchor.absolute(63), VerticalAnchor.TOP),
+				PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
@@ -578,13 +577,13 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE)
 			.modifiers(context -> List.of(
-				PlantopiaUndergroundDensityPlacement.of(
+				PlantopiaDensityPlacement.of(
 					0.246F,
-					VerticalAnchor.absolute(-32),
-					Heightmap.Types.OCEAN_FLOOR_WG
+					PlantopiaVerticalAnchor.oceanFloorWg(-1),
+					PlantopiaVerticalAnchor.absolute(-32)
 				),
 				InSquarePlacement.spread(),
-				PlantopiaHeightmapFilter.below(Heightmap.Types.OCEAN_FLOOR_WG),
+				PlantopiaRangeFilter.below(PlantopiaVerticalAnchor.oceanFloorWg(-1)),
 				BiomeFilter.biome(),
 				PlantopiaBiomeFilter.exclude(directBiomes(context, Biomes.LUSH_CAVES))
 			))
@@ -605,7 +604,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacedFeature(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER),
-		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(14.24F, 16.24F))
+		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, ConstantFloat.of(12.24F))
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.WINDSWEPT_FOREST)

@@ -1,0 +1,30 @@
+{
+	"type": "plantopia:icicle_column",
+	"config": {
+		"allowed_placement": {
+			"type": "minecraft:matching_blocks",
+			"blocks": [
+				"minecraft:air",
+				"minecraft:water"
+			]
+		},
+		"direction": "down",
+		"height": {
+			"type": "minecraft:weighted_list",
+			"distribution": [
+				{
+					"data": 1,
+					"weight": 2
+				},
+				{
+					"data": 2,
+					"weight": 3
+				},
+				{
+					"data": 3,
+					"weight": 1
+				}
+			]
+		}
+	}
+}

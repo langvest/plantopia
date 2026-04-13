@@ -13,6 +13,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -137,7 +138,7 @@ public class PlantopiaNaturalBlockColumnFeature extends Feature<BlockColumnConfi
         var checkPos = pos.mutable();
 
         for (int i = 0; i < totalHeight; i++) {
-            if (!allowedPlacement.test(level, checkPos) || (direction != Direction.DOWN && !PlantopiaNaturalBlockFeature.isFavorablePos(testState, level, checkPos))) {
+            if (!isFavorablePos(testState, level, checkPos, direction, allowedPlacement)) {
                 truncate(layerHeights, totalHeight, i, prioritizeTip);
                 break;
             }
@@ -159,6 +160,18 @@ public class PlantopiaNaturalBlockColumnFeature extends Feature<BlockColumnConfi
         }
 
         return true;
+    }
+
+    public static boolean isFavorablePos(BlockState state, @NotNull WorldGenLevel level, BlockPos pos, Direction direction) {
+        return isFavorablePos(state, level, pos, direction, null);
+    }
+
+    public static boolean isFavorablePos(BlockState state, @NotNull WorldGenLevel level, BlockPos pos, Direction direction, @Nullable BlockPredicate allowedPlacement) {
+        if (allowedPlacement != null && !allowedPlacement.test(level, pos)) {
+            return false;
+        }
+
+        return direction == Direction.DOWN || PlantopiaNaturalBlockFeature.isFavorablePos(state, level, pos);
     }
 
     private static void truncate(int[] layerHeights, int totalHeight, int currentHeight, boolean prioritizeTip) {

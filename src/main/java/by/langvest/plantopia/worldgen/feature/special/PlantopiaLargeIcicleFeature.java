@@ -37,7 +37,7 @@ public class PlantopiaLargeIcicleFeature extends Feature<PlantopiaLargeIcicleCon
             return false;
         }
 
-        Optional<Column> optional = Column.scan(level, origin, config.floorToCeilingSearchRange(), PlantopiaIcicleUtil::isEmptyOrWater, PlantopiaIcicleUtil::isIcicleBase);
+        Optional<Column> optional = Column.scan(level, origin, config.floorToCeilingSearchRange(), PlantopiaIcicleUtil::isEmptyOrWater, PlantopiaIcicleUtil::isValidGround);
         if (optional.isEmpty() || !(optional.get() instanceof Column.Range range)) {
             return false;
         }

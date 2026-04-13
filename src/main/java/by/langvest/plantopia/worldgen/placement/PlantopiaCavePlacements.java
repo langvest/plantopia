@@ -2,14 +2,13 @@ package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaCaveFeatures;
 import by.langvest.plantopia.worldgen.placement.special.*;
+import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
 import com.google.common.collect.Maps;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
@@ -45,16 +44,16 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
                 float bigNoiseLevel = -0.286F;
 
                 return List.of(
-                    PlantopiaUndergroundDensityPlacement.of(
+                    PlantopiaDensityPlacement.of(
                         0.184F,
-                        VerticalAnchor.aboveBottom(12),
-                        Heightmap.Types.OCEAN_FLOOR_WG
+                        PlantopiaVerticalAnchor.oceanFloorWg(-1),
+                        PlantopiaVerticalAnchor.aboveBottom(12)
                     ),
                     InSquarePlacement.spread(),
                     PlantopiaSwitchPlacement.switched(
                         List.of(
                             PlantopiaBiomeFilter.include(directBiomes(context, Biomes.DRIPSTONE_CAVES)),
-                            PlantopiaNoiseFilter.belowLevel(bigNoiseConfig, bigNoiseLevel, 0.05F),
+                            PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.05F),
                             PlantopiaRarityFilter.onAverageOnceEvery(1.352F)
                         ),
                         List.of(
@@ -69,7 +68,7 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
                             ),
                             PlantopiaConditionPlacement.conditional(
                                 List.of(
-                                    PlantopiaHeightRangeFilter.uniform(VerticalAnchor.BOTTOM, VerticalAnchor.absolute(56))
+                                    PlantopiaRangeFilter.below(PlantopiaVerticalAnchor.absolute(56))
                                 ),
                                 List.of(
                                     PlantopiaRarityFilter.onAverageOnceEvery(2.854F)

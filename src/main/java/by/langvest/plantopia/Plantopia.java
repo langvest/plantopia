@@ -17,6 +17,7 @@ import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaTreeDecoratorTypes;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
+import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorTypes;
 import by.langvest.toolkit.forge.ForgePlatform;
 import by.langvest.toolkit.platform.EventEmitter;
 import by.langvest.toolkit.platform.Platform;
@@ -66,6 +67,7 @@ public final class Plantopia {
         emitter.subscribe(PlantopiaSoundEvents::setup);
         emitter.subscribe(PlantopiaFeatureTypes::setup);
         emitter.subscribe(PlantopiaBlockPlacerTypes::setup);
+        emitter.subscribe(PlantopiaVerticalAnchorTypes::setup);
         emitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
         emitter.subscribe(PlantopiaBlockStateProviderTypes::setup);
         emitter.subscribe(PlantopiaPlacementModifierTypes::setup);

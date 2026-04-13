@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/icicle_cluster",
-	"features": "plantopia:icicle_cluster",
-	"step": "vegetal_decoration"
-}

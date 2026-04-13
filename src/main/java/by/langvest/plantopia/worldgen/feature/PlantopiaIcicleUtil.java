@@ -1,19 +1,21 @@
 package by.langvest.plantopia.worldgen.feature;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaIcicleBlock;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.feature.special.PlantopiaNaturalBlockColumnFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Consumer;
 
 public final class PlantopiaIcicleUtil {
     public static double getIcicleHeight(double radius, double maxRadius, double scale, double minRadius) {
@@ -55,62 +57,76 @@ public final class PlantopiaIcicleUtil {
         return level.isStateAtPosition(pos, PlantopiaIcicleUtil::isEmptyOrWaterOrLava);
     }
 
-    public static void buildBaseToTipColumn(Direction direction, int height, boolean mergeTip, Consumer<BlockState> blockSetter) {
-        if (height >= 3) {
-            blockSetter.accept(createIcicle(direction, DripstoneThickness.BASE));
-            for (int i = 0; i < height - 3; ++i) {
-                blockSetter.accept(createIcicle(direction, DripstoneThickness.MIDDLE));
-            }
-        }
+    public static void growIcicleOnIceIfPossible(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction direction, int height, boolean mergeTip, RandomSource random) {
+        var oppositeDirection = direction.getOpposite();
+        var attachedPos = pos.relative(oppositeDirection);
+        var attachedState = level.getBlockState(attachedPos);
 
-        if (height >= 2) {
-            blockSetter.accept(createIcicle(direction, DripstoneThickness.FRUSTUM));
-        }
-
-        if (height >= 1) {
-            blockSetter.accept(createIcicle(direction, mergeTip ? DripstoneThickness.TIP_MERGE : DripstoneThickness.TIP));
-        }
-    }
-
-    public static void growIcicle(@NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull Direction direction, int height, boolean mergeTip) {
-        if (!isIcicleBase(level.getBlockState(pos.relative(direction.getOpposite())))) {
+        if (!isValidGround(attachedState)) {
             return;
         }
 
-        var mutablePos = pos.mutable();
-        buildBaseToTipColumn(direction, height, mergeTip, (state) -> {
-            if (state.is(getIcicleBlock())) {
-                state = state.setValue(PlantopiaIcicleBlock.WATERLOGGED, level.isWaterAt(mutablePos));
+        growIcicle(level, pos, direction, height, Block.UPDATE_CLIENTS, mergeTip, random);
+    }
+
+    public static boolean growIcicle(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction direction, int height, int flags, boolean mergeTip, RandomSource random) {
+        if (height <= 0) {
+            return false;
+        }
+
+        return PlantopiaNaturalBlockColumnFeature.place(
+            level,
+            pos,
+            random,
+            direction,
+            BlockPredicate.alwaysTrue(),
+            false,
+            flags,
+            4,
+            (l, p, r, layerIndex, totalHeight) -> switch (layerIndex) {
+                case 0 -> height >= 3 ? 1 : 0;
+                case 1 -> Math.max(0, height - 3);
+                case 2 -> height >= 2 ? 1 : 0;
+                case 3 -> height >= 1 ? 1 : 0;
+                default -> 0;
+            },
+            (l, p, r, layerIndex, blockIndex, layerHeight, totalHeight) -> switch (layerIndex) {
+                case 0 -> getIcicleState(direction, DripstoneThickness.BASE);
+                case 1 -> getIcicleState(direction, DripstoneThickness.MIDDLE);
+                case 2 -> getIcicleState(direction, DripstoneThickness.FRUSTUM);
+                case 3 -> getIcicleState(direction, mergeTip ? DripstoneThickness.TIP_MERGE : DripstoneThickness.TIP);
+                default -> Blocks.AIR.defaultBlockState();
             }
-            level.setBlock(mutablePos, state, 2);
-            mutablePos.move(direction);
-        });
+        );
     }
 
     public static boolean placeIceBlockIfPossible(@NotNull LevelAccessor level, BlockPos pos) {
         var state = level.getBlockState(pos);
-        if (state.is(getBaseBlock())) {
+
+        if (state.is(getIceBlock())) {
             return true;
         }
+
         if (state.is(PlantopiaBlockTags.PACKED_ICE_REPLACEABLE_BLOCKS)) {
-            level.setBlock(pos, getBaseBlock().defaultBlockState(), 2);
+            level.setBlock(pos, getIceState(), Block.UPDATE_CLIENTS);
             return true;
         }
+
         return false;
     }
 
-    private static @NotNull BlockState createIcicle(Direction direction, DripstoneThickness thickness) {
+    public static @NotNull BlockState getIcicleState(Direction direction, DripstoneThickness thickness) {
         return getIcicleBlock().defaultBlockState()
-                .setValue(PlantopiaIcicleBlock.TIP_DIRECTION, direction)
-                .setValue(PlantopiaIcicleBlock.THICKNESS, thickness);
+            .setValue(PlantopiaIcicleBlock.TIP_DIRECTION, direction)
+            .setValue(PlantopiaIcicleBlock.THICKNESS, thickness);
     }
 
-    public static boolean isIcicleBaseOrLava(BlockState state) {
-        return isIcicleBase(state) || state.is(Blocks.LAVA);
+    public static @NotNull BlockState getIceState() {
+        return getIceBlock().defaultBlockState();
     }
 
-    public static boolean isIcicleBase(@NotNull BlockState state) {
-        return state.is(getBaseBlock()) || state.is(PlantopiaBlockTags.PACKED_ICE_REPLACEABLE_BLOCKS);
+    public static boolean isValidGround(@NotNull BlockState state) {
+        return state.is(getIceBlock()) || state.is(PlantopiaBlockTags.PACKED_ICE_REPLACEABLE_BLOCKS);
     }
 
     public static boolean isEmptyOrWater(@NotNull BlockState state) {
@@ -126,10 +142,10 @@ public final class PlantopiaIcicleUtil {
     }
 
     public static Block getIcicleBlock() {
-        return PlantopiaIcicleBlock.getIcicleBlock();
+        return PlantopiaBlocks.ICICLE.get();
     }
 
-    public static Block getBaseBlock() {
+    public static Block getIceBlock() {
         return Blocks.PACKED_ICE;
     }
 }

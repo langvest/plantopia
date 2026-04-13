@@ -55,12 +55,18 @@
 			"heightmap": "WORLD_SURFACE_WG"
 		},
 		{
-			"type": "plantopia:height_range_filter",
-			"max_inclusive": {
-				"below_top": 0
+			"type": "plantopia:range_filter",
+			"bottom_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"absolute": 86
+				}
 			},
-			"min_inclusive": {
-				"absolute": 86
+			"top_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"below_top": 0
+				}
 			}
 		},
 		{

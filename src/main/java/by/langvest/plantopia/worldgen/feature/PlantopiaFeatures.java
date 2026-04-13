@@ -38,6 +38,8 @@ public class PlantopiaFeatures {
 	protected static final String SINGLE = "single";
 	protected static final String PIT = "pit";
 	protected static final String PATCH = "patch";
+	protected static final String STALACTITE = "stalactite";
+	protected static final String STALAGMITE = "stalagmite";
 	protected static final String BONEMEAL = "bonemeal";
 	protected static final String VEGETATION = "vegetation";
 	protected static final String MOUNTAIN = "mountain";
@@ -46,6 +48,7 @@ public class PlantopiaFeatures {
 	protected static final String CAVE = "cave";
 	protected static final String HUGE = "huge";
 	protected static final String CLUSTER = "cluster";
+	protected static final String SURFACE = "surface";
 	protected static final String LARGE = "large";
 	protected static final String WIDE = "wide";
 	protected static final String IN_WATER = "in_water";

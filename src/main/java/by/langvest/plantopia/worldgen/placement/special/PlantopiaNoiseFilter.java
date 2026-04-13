@@ -38,27 +38,27 @@ public class PlantopiaNoiseFilter extends PlacementFilter {
         this.erosionLevel = erosionLevel;
     }
 
-    public static @NotNull PlantopiaNoiseFilter aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel) {
-        return aboveLevel(noiseConfig, noiseLevel, 0);
+    public static @NotNull PlantopiaNoiseFilter above(PlantopiaNoiseConfig noiseConfig, float noiseLevel) {
+        return above(noiseConfig, noiseLevel, 0);
     }
 
-    public static @NotNull PlantopiaNoiseFilter aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, float erosion) {
-        return aboveLevel(noiseConfig, noiseLevel, getErosionLevel(noiseLevel, erosion));
+    public static @NotNull PlantopiaNoiseFilter above(PlantopiaNoiseConfig noiseConfig, float noiseLevel, float erosion) {
+        return above(noiseConfig, noiseLevel, getErosionLevel(noiseLevel, erosion));
     }
 
-    public static @NotNull PlantopiaNoiseFilter aboveLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, FloatProvider erosionLevel) {
+    public static @NotNull PlantopiaNoiseFilter above(PlantopiaNoiseConfig noiseConfig, float noiseLevel, FloatProvider erosionLevel) {
         return new PlantopiaNoiseFilter(noiseConfig, PlantopiaThresholdType.ABOVE, noiseLevel, erosionLevel);
     }
 
-    public static @NotNull PlantopiaNoiseFilter belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel) {
-        return belowLevel(noiseConfig, noiseLevel, 0);
+    public static @NotNull PlantopiaNoiseFilter below(PlantopiaNoiseConfig noiseConfig, float noiseLevel) {
+        return below(noiseConfig, noiseLevel, 0);
     }
 
-    public static @NotNull PlantopiaNoiseFilter belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, float erosion) {
-        return belowLevel(noiseConfig, noiseLevel, getErosionLevel(noiseLevel, erosion));
+    public static @NotNull PlantopiaNoiseFilter below(PlantopiaNoiseConfig noiseConfig, float noiseLevel, float erosion) {
+        return below(noiseConfig, noiseLevel, getErosionLevel(noiseLevel, erosion));
     }
 
-    public static @NotNull PlantopiaNoiseFilter belowLevel(PlantopiaNoiseConfig noiseConfig, float noiseLevel, FloatProvider erosionLevel) {
+    public static @NotNull PlantopiaNoiseFilter below(PlantopiaNoiseConfig noiseConfig, float noiseLevel, FloatProvider erosionLevel) {
         return new PlantopiaNoiseFilter(noiseConfig, PlantopiaThresholdType.BELOW, noiseLevel, erosionLevel);
     }
 

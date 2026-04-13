@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/single_icicle_stalactite",
+	"features": "plantopia:single_icicle_stalactite",
+	"step": "vegetal_decoration"
+}

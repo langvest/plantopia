@@ -1,10 +1,10 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -32,19 +32,16 @@ public class PlantopiaRadialPatchFeature extends Feature<PlantopiaRadialPatchCon
 
         for (int attempt = 0; attempt < tries; attempt++) {
             var targetPos = this.findTargetPos(context, xzSpread, ySpread);
-
             if (targetPos == null) {
                 continue;
             }
 
             var selectedBlockPlacer = this.selectWeightedBlockPlacer(config, random);
-
             if (selectedBlockPlacer == null) {
                 continue;
             }
 
             var blockPlaceContext = new PlantopiaBlockPlacer.Context(level, targetPos, centerPos, random, xzSpread, ySpread);
-
             if (selectedBlockPlacer.place(blockPlaceContext)) {
                 successfulPlacements++;
             }
@@ -92,23 +89,9 @@ public class PlantopiaRadialPatchFeature extends Feature<PlantopiaRadialPatchCon
         var sigma = config.sigma();
         var erosion = config.erosion();
 
-        double angle = random.nextDouble() * 2 * Math.PI;
-        double baseDistribution = 1.0 - Math.sqrt(random.nextDouble());
-        double exponent = Math.pow(2, sigma);
-        double adjustedDistanceFactor = Math.pow(baseDistribution, exponent);
-        double distance = adjustedDistanceFactor * xzSpread;
+        var xzOffset = PlantopiaMathHelper.getHorizontalRadialOffset(random, xzSpread, sigma, erosion);
 
-        if (erosion > 0) {
-            double distortion = (random.nextDouble() * 2.0 - 1.0) * erosion * distance;
-            distance += distortion;
-        }
-
-        distance = Mth.clamp(distance, 0, xzSpread);
-
-        int dx = (int) Math.round(Math.cos(angle) * distance);
-        int dz = (int) Math.round(Math.sin(angle) * distance);
-
-        return centerPos.offset(dx, 0, dz);
+        return centerPos.offset(xzOffset);
     }
 
     @Nullable

@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/large_icicle",
-	"features": "plantopia:large_icicle",
-	"step": "vegetal_decoration"
-}

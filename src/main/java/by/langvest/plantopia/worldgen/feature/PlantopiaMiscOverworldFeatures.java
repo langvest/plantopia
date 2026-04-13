@@ -3,23 +3,18 @@ package by.langvest.plantopia.worldgen.feature;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaPoiAnchorConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.valueproviders.ClampedInt;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformFloat;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -109,7 +104,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             .feature(radialPatch(context ->
                 new PlantopiaRadialPatchConfiguration(
                     ConstantInt.of(64),
-                    UniformInt.of(3, 6),
+                    UniformInt.of(3, 5),
                     ConstantInt.of(2),
                     -4.82,
                     0.04,
@@ -145,6 +140,44 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
                     List.of(PlantopiaThresholdType.ABOVE),
                     Optional.of(BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON)),
                     Optional.of(Heightmap.Types.OCEAN_FLOOR_WG)
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_ICICLE_STALACTITE = declareConfiguredFeature(
+        compileNameFrom(SINGLE, PlantopiaBlocks.ICICLE, STALACTITE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.ICICLE_COLUMN, context ->
+                new PlantopiaIcicleColumnConfiguration(
+                    weightedListInt(values -> values
+                        .add(ConstantInt.of(1), 2)
+                        .add(ConstantInt.of(2), 3)
+                        .add(ConstantInt.of(3), 1)
+                    ), // height
+                    Direction.DOWN,
+                    BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ICICLE_STALAGMITE = declareConfiguredFeature(
+        compileNameFrom(PATCH, PlantopiaBlocks.ICICLE, STALAGMITE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.ICICLE_PATCH, context ->
+                new PlantopiaIciclePatchConfiguration(
+                    ConstantInt.of( 3), // xzSpread
+                    ConstantInt.of(1), // ySpread
+                    ConstantInt.of(5), // tries
+                    UniformInt.of(3, 4), // height
+                    UniformFloat.of(0.52F, 0.56F), // heightFalloff
+                    ConstantFloat.of(0.128F), // heightErosion
+                    ConstantFloat.of(-0.448F), // shapeSigma
+                    ConstantFloat.of(0.354F), // shapeErosion
+                    ConstantInt.of(6), // searchDistance
+                    BlockPredicate.matchesBlocks(Blocks.PACKED_ICE),
+                    BlockPredicate.ONLY_IN_AIR_PREDICATE,
+                    List.of(Direction.UP),
+                    Optional.of(Heightmap.Types.WORLD_SURFACE_WG)
                 )
             ))
     );

@@ -1,24 +1,23 @@
 {
-	"feature": "plantopia:patch_small_platterleaf",
+	"feature": "plantopia:patch_icicle_stalagmite",
 	"placement": [
 		{
 			"type": "minecraft:count",
-			"count": 2
+			"count": 6
 		},
 		{
 			"type": "minecraft:in_square"
 		},
 		{
 			"type": "minecraft:heightmap",
-			"heightmap": "WORLD_SURFACE_WG"
+			"heightmap": "OCEAN_FLOOR_WG"
 		},
 		{
 			"type": "plantopia:range_filter",
 			"bottom_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"absolute": 62
-				}
+				"type": "plantopia:heightmap_anchor",
+				"heightmap": "MOTION_BLOCKING",
+				"offset": 0
 			},
 			"top_anchor": {
 				"type": "plantopia:absolute_anchor",
@@ -28,16 +27,19 @@
 			}
 		},
 		{
-			"type": "minecraft:biome"
-		},
-		{
 			"type": "minecraft:block_predicate_filter",
 			"predicate": {
-				"type": "minecraft:would_survive",
-				"state": {
-					"Name": "plantopia:white_flowering_small_platterleaf"
-				}
+				"type": "minecraft:matching_blocks",
+				"blocks": "minecraft:packed_ice",
+				"offset": [
+					0,
+					-1,
+					0
+				]
 			}
+		},
+		{
+			"type": "minecraft:biome"
 		}
 	]
 }
