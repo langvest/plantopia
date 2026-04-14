@@ -46,6 +46,7 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> PINK_WATERLILY = registerItem("pink_waterlily", properties -> new PlantopiaWaterlilyFlowerBlockItem(PlantopiaBlocks.PINK_WATERLILY.get(), properties), MetaProperties.of(MetaType.WATERLILY_BLOCK));
 
 	public static final RegistryObject<Item> AZOLLA = registerItem("azolla", properties -> new PlantopiaAzollaBlockItem(PlantopiaBlocks.AZOLLA.get(), properties), MetaProperties.of(MetaType.BLOCK).order(PlantopiaOrderType.WET_PLANT));
+	public static final RegistryObject<Item> ICE_CRUST = registerItem("ice_crust", properties -> new PlantopiaIceCrustBlockItem(PlantopiaBlocks.ICE_CRUST.get(), properties), MetaProperties.of(MetaType.BLOCK).order(PlantopiaOrderType.ICE));
 
 	public static final RegistryObject<Item> ROUND_SEA_SHELL = registerItem("round_sea_shell", properties -> new PlantopiaSeaShellBlockItem(PlantopiaBlocks.ROUND_SEA_SHELL.get(), properties), MetaProperties.of(MetaType.SHELL_BLOCK));
 	public static final RegistryObject<Item> TWISTY_SEA_SHELL = registerItem("twisty_sea_shell", properties -> new PlantopiaSeaShellBlockItem(PlantopiaBlocks.TWISTY_SEA_SHELL.get(), properties), MetaProperties.of(MetaType.SHELL_BLOCK));

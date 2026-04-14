@@ -26,6 +26,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
     private final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
 
 	private final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = createTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
+	private final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = createTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
 
 	public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -36,6 +37,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 		generateAll();
 
 		ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+		ALLOWS_FRAZIL.add(Biomes.FROZEN_OCEAN);
 
 		saveAll();
 	}

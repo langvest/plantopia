@@ -1,0 +1,17 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"texture": "plantopia:block/ice_crust",
+		"particle": "#texture"
+	},
+	"elements": [
+		{
+			"from": [ 0, 0, 0.015 ],
+			"to": [ 16, 16, 0.015 ],
+			"faces": {
+				"north": { "uv": [ 16, 0, 0, 16 ], "texture": "#texture" },
+				"south": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture" }
+			}
+		}
+	]
+}

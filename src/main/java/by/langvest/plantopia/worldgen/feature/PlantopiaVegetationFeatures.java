@@ -341,7 +341,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         compileNameFrom("quagmire_water_level"),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.QUAGMIRE_WATER_LEVEL, context ->
-                new PlantopiaAzollaAndMossConfiguration(
+                new PlantopiaQuagmireConfiguration(
                     PlantopiaMultiNoiseConfig.builder()
                         .add(PlantopiaNoiseConfig.of(0.362D, 719, 112), 1)
                         .add(PlantopiaNoiseConfig.of(0.158D, 32, 775), 0.42)

@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
@@ -597,7 +598,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		PlantopiaPlacedFeatureDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.QUAGMIRE_WATER_LEVEL)
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addSwampBiomes)
+				.addTag(PlantopiaBiomeTags.ALLOWS_QUAGMIRE)
 			)
 			.generationStep(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
 	);

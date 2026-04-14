@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.placement;
 
+import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.worldgen.feature.PlantopiaMiscOverworldFeatures;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
@@ -215,7 +216,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             .feature(PlantopiaMiscOverworldFeatures.SINGLE_ICICLE_STALACTITE)
             .modifiers(context -> List.of(
                 PlantopiaDensityPlacement.of(
-                    3.32F,
+                    3.0F,
                     PlantopiaVerticalAnchor.worldSurfaceWg(60),
                     PlantopiaVerticalAnchor.worldSurfaceWg(-6)
                 ),
@@ -253,5 +254,15 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             .biomes(biomes -> biomes
                 .add(Biomes.ICE_SPIKES)
             )
+    );
+
+    public static final ResourceKey<PlacedFeature> FRAZIL_WATER_LEVEL = declarePlacedFeature(
+        compileNameFrom(PlantopiaMiscOverworldFeatures.FRAZIL_WATER_LEVEL),
+        PlantopiaPlacedFeatureDeclaration.builder()
+            .feature(PlantopiaMiscOverworldFeatures.FRAZIL_WATER_LEVEL)
+            .biomes(biomes -> biomes
+                .addTag(PlantopiaBiomeTags.ALLOWS_FRAZIL)
+            )
+            .generationStep(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
     );
 }

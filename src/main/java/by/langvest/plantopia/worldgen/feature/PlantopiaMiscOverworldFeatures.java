@@ -2,9 +2,12 @@ package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
+import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
+import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
+import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
 import com.google.common.collect.Maps;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -167,7 +171,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
                 new PlantopiaIciclePatchConfiguration(
                     ConstantInt.of( 3), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    ConstantInt.of(5), // tries
+                    ConstantInt.of(4), // tries
                     UniformInt.of(3, 4), // height
                     UniformFloat.of(0.52F, 0.56F), // heightFalloff
                     ConstantFloat.of(0.128F), // heightErosion
@@ -178,6 +182,27 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
                     BlockPredicate.ONLY_IN_AIR_PREDICATE,
                     List.of(Direction.UP),
                     Optional.of(Heightmap.Types.WORLD_SURFACE_WG)
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FRAZIL_WATER_LEVEL = declareConfiguredFeature(
+        compileNameFrom("frazil_water_level"),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.FRAZIL_WATER_LEVEL, context ->
+                new PlantopiaFrazilConfiguration(
+                    PlantopiaMultiNoiseConfig.builder()
+                        .add(PlantopiaNoiseConfig.of(0.312D, 719, 21), 1)
+                        .add(PlantopiaNoiseConfig.of(0.138D, 32, 75), 0.64)
+                        .add(PlantopiaNoiseConfig.of(0.072D, 78, 321), 0.48)
+                        .build(),
+                    PlantopiaThresholdType.BELOW,
+                    -0.032F,
+                    BlockPredicate.allOf(
+                        BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.VINE),
+                        BlockPredicate.matchesFluids(BlockPos.ZERO.below(), Fluids.WATER)
+                    ),
+                    lookupBiomes(context).getOrThrow(PlantopiaBiomeTags.ALLOWS_FRAZIL)
                 )
             ))
     );

@@ -102,11 +102,15 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         CONVERTABLE_TO_MUD.add(PlantopiaBlocks.INFESTED_DIRT.get());
         BONEMEAL_SPREAD_ON.add(Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
         INFESTED_DIRT_CAN_SPREAD_TO.add(Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
-        BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS.addOptionalTag(forge("glass"), forge("glass_panes"));
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS.add(Blocks.ICE);
         COBBLESTONE_SHARD_CAN_GENERATE_ON.addTag(PlantopiaBlockTags.GROUND_OVERWORLD);
         SEA_MOSS_REPLACEABLE.addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT, BlockTags.SAND);
         PACKED_ICE_REPLACEABLE_BLOCKS.addTag(BlockTags.BASE_STONE_OVERWORLD);
+        INSIDE_STEP_SOUND_BLOCKS.add(PlantopiaBlocks.ICE_CRUST.get());
+
+        BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS
+            .add(PlantopiaBlocks.ICICLE.get(), PlantopiaBlocks.ICE_CRUST.get())
+            .addOptionalTag(forge("glass"), forge("glass_panes"));
 
         BONEMEAL_SPREAD_GROWABLE
             .add(Blocks.GRASS, Blocks.TALL_GRASS, Blocks.FERN, Blocks.LARGE_FERN)
@@ -180,10 +184,6 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
                     POLAR_BEARS_SPAWNABLE_ON_ALTERNATE.add(block);
                     GEODE_INVALID_BLOCKS.add(block);
                 }
-            }
-
-            if (type.instanceOf(MetaType.ICICLE)) {
-                BREAKS_INTO_AIR_BY_COBBLESTONE_SHARDS.add(block);
             }
 
             if(type.instanceOf(MetaType.FLOWER)) {

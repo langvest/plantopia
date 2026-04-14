@@ -8,7 +8,7 @@
 				"heightmap": "WORLD_SURFACE_WG",
 				"offset": -6
 			},
-			"density": 3.32,
+			"density": 3.0,
 			"top_anchor": {
 				"type": "plantopia:heightmap_anchor",
 				"heightmap": "WORLD_SURFACE_WG",

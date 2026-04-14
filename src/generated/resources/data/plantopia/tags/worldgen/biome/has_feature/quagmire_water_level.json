@@ -1,6 +1,5 @@
 {
 	"values": [
-		"minecraft:mangrove_swamp",
-		"minecraft:swamp"
+		"#plantopia:allows_quagmire"
 	]
 }

@@ -53,7 +53,7 @@ public class PlantopiaIcicleBlock extends Block implements Fallable, SimpleWater
     // Ticks before a stalagmite breaks if its support is broken.
     private static final int STALAGMITE_BREAK_DELAY = 1;
     // Drip particle chance when an icicle is just melting.
-    private static final float DRIP_PROBABILITY_PER_ANIMATE_TICK = 0.06F;
+    private static final float DRIP_PROBABILITY_PER_ANIMATE_TICK = 0.08F;
     // Drip particle chance when an icicle is conducting fluid.
     private static final float DRIP_PROBABILITY_PER_ANIMATE_TICK_IF_UNDER_LIQUID_SOURCE = 0.16F;
     // Chance to transfer water to a cauldron per random tick.
@@ -144,10 +144,10 @@ public class PlantopiaIcicleBlock extends Block implements Fallable, SimpleWater
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hit, @NotNull Projectile projectile) {
+    public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, @NotNull BlockHitResult hitResult, @NotNull Projectile projectile) {
         if (level.isClientSide()) return;
 
-        var pos = hit.getBlockPos();
+        var pos = hitResult.getBlockPos();
 
         // Tridents moving fast enough can break the icicle.
         if (projectile.mayInteract(level, pos) && projectile instanceof ThrownTrident && projectile.getDeltaMovement().length() > MIN_TRIDENT_VELOCITY_TO_BREAK_ICICLE) {

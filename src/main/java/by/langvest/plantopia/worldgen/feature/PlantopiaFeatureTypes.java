@@ -28,7 +28,8 @@ public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaHugeWitchyToadstoolFeature> HUGE_WITCHY_TOADSTOOL = registerFeatureType("huge_witchy_toadstool", () -> new PlantopiaHugeWitchyToadstoolFeature(HugeMushroomFeatureConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaPoiAnchorFeature> POI_ANCHOR = registerFeatureType("poi_anchor", () -> new PlantopiaPoiAnchorFeature(PlantopiaPoiAnchorConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaCactusColumnFeature> CACTUS_COLUMN = registerFeatureType("cactus_column", () -> new PlantopiaCactusColumnFeature(BlockColumnConfiguration.CODEC));
-	public static final RegistryObject<PlantopiaAzollaAndMossFeature> QUAGMIRE_WATER_LEVEL = registerFeatureType("quagmire_water_level", () -> new PlantopiaAzollaAndMossFeature(PlantopiaAzollaAndMossConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaQuagmireFeature> QUAGMIRE_WATER_LEVEL = registerFeatureType("quagmire_water_level", () -> new PlantopiaQuagmireFeature(PlantopiaQuagmireConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaFrazilFeature> FRAZIL_WATER_LEVEL = registerFeatureType("frazil_water_level", () -> new PlantopiaFrazilFeature(PlantopiaFrazilConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaIciclePatchFeature> ICICLE_PATCH = registerFeatureType("icicle_patch", () -> new PlantopiaIciclePatchFeature(PlantopiaIciclePatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaIcicleClusterFeature> ICICLE_CLUSTER = registerFeatureType("icicle_cluster", () -> new PlantopiaIcicleClusterFeature(PlantopiaIcicleClusterConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaIcicleColumnFeature> ICICLE_COLUMN = registerFeatureType("icicle_column", () -> new PlantopiaIcicleColumnFeature(PlantopiaIcicleColumnConfiguration.CODEC));

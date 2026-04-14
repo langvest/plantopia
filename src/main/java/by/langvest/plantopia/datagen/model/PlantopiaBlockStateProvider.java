@@ -97,6 +97,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         tinyCactusBlock(PlantopiaBlocks.TINY_CACTUS.get());
         tinyCactusBlock(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
         icicleBlock(PlantopiaBlocks.ICICLE.get());
+        iceCrustBlock(PlantopiaBlocks.ICE_CRUST.get());
 
         checkAll();
     }
@@ -409,6 +410,34 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             },
             PlantopiaIcicleBlock.WATERLOGGED
         );
+    }
+
+    private void iceCrustBlock(Block block) {
+        String baseName = nameOf(block);
+        var faceTexture = texture(baseName);
+        var faceModel = existingPlantopiaModel(baseName);
+        var floatingFaceModel = existingPlantopiaModel(baseName + "_floating");
+
+        generatedItemModel(baseName, faceTexture);
+
+        var builder = getMultipartBuilder(block);
+
+        builder.part().modelFile(faceModel).addModel()
+            .condition(BlockStateProperties.NORTH, true);
+        builder.part().modelFile(faceModel).rotationY(90).uvLock(true).addModel()
+            .condition(BlockStateProperties.EAST, true);
+        builder.part().modelFile(faceModel).rotationY(180).uvLock(true).addModel()
+            .condition(BlockStateProperties.SOUTH, true);
+        builder.part().modelFile(faceModel).rotationY(270).uvLock(true).addModel()
+            .condition(BlockStateProperties.WEST, true);
+        builder.part().modelFile(faceModel).rotationX(270).uvLock(true).addModel()
+            .condition(BlockStateProperties.UP, true);
+        builder.part().modelFile(faceModel).rotationX(90).uvLock(true).addModel()
+            .condition(BlockStateProperties.DOWN, true)
+            .condition(PlantopiaIceCrustBlock.FLOATING, false);
+        builder.part().modelFile(floatingFaceModel).addModel()
+            .condition(BlockStateProperties.DOWN, true)
+            .condition(PlantopiaIceCrustBlock.FLOATING, true);
     }
 
     private void cattailBlock(Block block) {
@@ -1038,6 +1067,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private BlockModelBuilder singleFaceTemplateModel(String name, ResourceLocation texture) {
         return models().withExistingParent(name, "template_single_face")
+            .texture("texture", texture);
+    }
+
+    private BlockModelBuilder elevatedSingleFaceTemplateModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("template_elevated_single_face"))
             .texture("texture", texture);
     }
 

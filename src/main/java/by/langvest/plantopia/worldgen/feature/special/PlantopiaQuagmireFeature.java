@@ -3,7 +3,7 @@ package by.langvest.plantopia.worldgen.feature.special;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaAzollaBlock;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaAzollaAndMossConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaQuagmireConfiguration;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -21,13 +21,13 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlantopiaAzollaAndMossFeature extends Feature<PlantopiaAzollaAndMossConfiguration> {
-    public PlantopiaAzollaAndMossFeature(Codec<PlantopiaAzollaAndMossConfiguration> codec) {
+public class PlantopiaQuagmireFeature extends Feature<PlantopiaQuagmireConfiguration> {
+    public PlantopiaQuagmireFeature(Codec<PlantopiaQuagmireConfiguration> codec) {
         super(codec);
     }
 
     @Override
-    public boolean place(@NotNull FeaturePlaceContext<PlantopiaAzollaAndMossConfiguration> context) {
+    public boolean place(@NotNull FeaturePlaceContext<PlantopiaQuagmireConfiguration> context) {
         var level = context.level();
         var originPos = context.origin();
         var random = context.random();
@@ -66,7 +66,7 @@ public class PlantopiaAzollaAndMossFeature extends Feature<PlantopiaAzollaAndMos
             }
         }
 
-        if (!multipleBiomes && !isBiomeAllowed(allowedBiomes, firstBiomeHolder)) {
+        if (!multipleBiomes && firstBiomeHolder != null && !isBiomeAllowed(allowedBiomes, firstBiomeHolder)) {
             return false;
         }
 

@@ -478,15 +478,27 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 		public static final MetaType ICE = MetaProperties.create()
 			.copyBehaviour(Blocks.ICE)
+			.order(PlantopiaOrderType.ICE)
+			.dropSelfBySilkTouch()
 			.makeType("ice");
 
 		public static final MetaType ICICLE = MetaProperties.of(ICE)
 			.notValidSpawn()
 			.cutoutRender()
-			.dropSelfBySilkTouch()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 			.pushReaction(PushReaction.DESTROY)
 			.makeType("icicle");
+
+		public static final MetaType ICE_CRUST = MetaProperties.of(ICE)
+			.strength(0.2F)
+			.translucentRender()
+			.isValidSpawn((state, level, pos, entityType) -> {
+				var posBelow = pos.below();
+				var stateBelow = level.getBlockState(posBelow);
+				return stateBelow.isValidSpawn(level, posBelow, entityType);
+			})
+			.pushReaction(PushReaction.DESTROY)
+			.makeType("ice_crust");
 
 		private MetaType(String name, MetaProperties properties) {
 			super(plantopia(name), properties);

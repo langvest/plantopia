@@ -17,5 +17,6 @@ public class PlantopiaBlockStateProperties {
 	public static final IntegerProperty INFESTED_DIRT_AGE = BlockStateProperties.AGE_25;
 	public static final BooleanProperty BASE = BooleanProperty.create("base");
 	public static final BooleanProperty TIP = BooleanProperty.create("tip");
+	public static final BooleanProperty FLOATING = BooleanProperty.create("floating");
 	public static final DirectionProperty CACTUS_FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.UP);
 }
