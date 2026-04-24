@@ -11,10 +11,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.MultifaceSpreader;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -88,6 +85,10 @@ public class PlantopiaIceCrustBlock extends MultifaceBlock implements PlantopiaN
     @SuppressWarnings("deprecation")
     public boolean skipRendering(BlockState state, BlockState adjacentState, Direction side) {
         if (adjacentState.is(this) && adjacentState.getValue(FLOATING)) {
+            return true;
+        }
+
+        if (adjacentState.getBlock() instanceof IceBlock) {
             return true;
         }
 
