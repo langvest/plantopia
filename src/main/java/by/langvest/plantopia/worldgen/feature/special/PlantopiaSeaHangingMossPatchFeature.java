@@ -2,7 +2,6 @@ package by.langvest.plantopia.worldgen.feature.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaHangingMossBlock;
-import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaSeaHangingMossPatchConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -13,6 +12,7 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -24,6 +24,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class PlantopiaSeaHangingMossPatchFeature extends Feature<PlantopiaSeaHangingMossPatchConfiguration> {
+    private static final int MIN_DEPTH_FOR_EFFECT = 0;
+    private static final int MAX_DEPTH_FOR_EFFECT = 20;
+    private static final int SURFACE_MAX_HEIGHT = 2;
+    private static final float SURFACE_HEIGHT_FALLOFF = 1.064F;
+
     public PlantopiaSeaHangingMossPatchFeature(Codec<PlantopiaSeaHangingMossPatchConfiguration> codec) {
         super(codec);
     }
@@ -48,59 +53,65 @@ public class PlantopiaSeaHangingMossPatchFeature extends Feature<PlantopiaSeaHan
             return false;
         }
 
-        int tries = config.tries().sample(random);
-        float shapeSigma = config.shapeSigma().sample(random);
-        float shapeErosion = config.shapeErosion().sample(random);
-        float heightFalloff = config.heightFalloff().sample(random);
+        float surfaceProximityFactor = getSurfaceProximityFactor(level, centerPos);
+        maxHeight = (int) Mth.lerp(surfaceProximityFactor, maxHeight, SURFACE_MAX_HEIGHT);
+        float heightFalloff = Mth.lerp(surfaceProximityFactor, config.heightFalloff().sample(random), SURFACE_HEIGHT_FALLOFF);
+
+        float edgeErosion = config.edgeErosion().sample(random);
         float heightErosion = config.heightErosion().sample(random);
 
         int successfulPlacements = 0;
         var localPos = new BlockPos.MutableBlockPos();
+        boolean centerInWater = level.isWaterAt(centerPos);
 
-        for (int i = 0; i < tries; i++) {
-            var xzOffset = PlantopiaMathHelper.getHorizontalRadialOffset(random, xzSpread, shapeSigma, shapeErosion);
-            var yOffset = random.nextInt(-ySpread, ySpread + 1);
-            localPos.set(xzOffset.getX(), yOffset, xzOffset.getZ());
-            double distanceToCenter = Math.sqrt(Mth.square(xzOffset.getX()) + Mth.square(xzOffset.getZ()));
-            double falloffFactor = 1.0 - (distanceToCenter / xzSpread) * heightFalloff;
-            double smoothHeight = maxHeight * Mth.clamp(falloffFactor, 0.0, 1.0);
-            double erodedOffset = (random.nextDouble() * 2 - 1) * maxHeight * heightErosion;
-            int height = (int) Math.round(Mth.clamp(smoothHeight + erodedOffset, 0.0, maxHeight));
+        for (int x = -xzSpread; x <= xzSpread; x++) {
+            for (int z = -xzSpread; z <= xzSpread; z++) {
+                double distanceToCenter = Math.sqrt(Mth.square(x) + Mth.square(z));
+                if (distanceToCenter > xzSpread) {
+                    continue;
+                }
 
-            if (placeColumn(level, centerPos, localPos, height, config, random)) {
-                successfulPlacements++;
+                double remoteness = distanceToCenter / xzSpread;
+                if (random.nextFloat() < remoteness * edgeErosion) {
+                    continue;
+                }
+
+                localPos.set(x, 0, z);
+                var placementPos = findCeiling(level, centerPos.offset(localPos), ySpread, config.allowedPlacement(), config.allowedAttachment());
+                if (placementPos == null) {
+                    continue;
+                }
+
+                if (level.isWaterAt(placementPos) != centerInWater) {
+                    continue;
+                }
+
+                double falloffFactor = 1.0 - (distanceToCenter / xzSpread) * heightFalloff;
+                double smoothHeight = maxHeight * Mth.clamp(falloffFactor, 0.0, 1.0);
+                double erodedOffset = (random.nextDouble() * 2 - 1) * maxHeight * heightErosion;
+                int height = (int) Math.round(Mth.clamp(smoothHeight + erodedOffset, 0.0, maxHeight));
+
+                if (height > 0) {
+                    if (placeColumn(level, placementPos, height, config.allowedPlacement(), random)) {
+                        successfulPlacements++;
+                    }
+                }
             }
         }
 
         return successfulPlacements > 0;
     }
 
-    private boolean placeColumn(@NotNull WorldGenLevel level, @NotNull BlockPos centerPos, BlockPos.MutableBlockPos localPos, int height, @NotNull PlantopiaSeaHangingMossPatchConfiguration config, @NotNull RandomSource random) {
-        if (height <= 0) {
-            return false;
-        }
+    private float getSurfaceProximityFactor(WorldGenLevel level, BlockPos pos) {
+        int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
+        int depth = surfaceY - pos.getY();
+        return (float) Mth.clamp(Mth.inverseLerp(depth, MAX_DEPTH_FOR_EFFECT, MIN_DEPTH_FOR_EFFECT), 0.0, 1.0);
+    }
 
-        var allowedPlacement = config.allowedPlacement();
-        var allowedAttachment = config.allowedAttachment();
-        var columnBasePos = localPos.offset(centerPos);
-        var bodyState = getBodyState();
-        var tipState = getTipState();
-
-        if (!allowedPlacement.test(level, columnBasePos)) {
-            return false;
-        }
-
-        if (!mayPlaceAt(level, columnBasePos, allowedAttachment)) {
-            return false;
-        }
-
-        if (!tipState.canSurvive(level, columnBasePos)) {
-            return false;
-        }
-
+    private boolean placeColumn(@NotNull WorldGenLevel level, @NotNull BlockPos pos, int height, BlockPredicate allowedPlacement, @NotNull RandomSource random) {
         return PlantopiaNaturalBlockColumnFeature.place(
             level,
-            columnBasePos,
+            pos,
             random,
             Direction.DOWN,
             allowedPlacement,
@@ -109,15 +120,32 @@ public class PlantopiaSeaHangingMossPatchFeature extends Feature<PlantopiaSeaHan
             List.of(
                 BlockColumnConfiguration.layer(
                     ConstantInt.of(height - 1),
-                    BlockStateProvider.simple(bodyState)
+                    BlockStateProvider.simple(getBodyState())
                 ),
                 BlockColumnConfiguration.layer(
                     ConstantInt.of(1),
-                    BlockStateProvider.simple(tipState)
+                    BlockStateProvider.simple(getTipState())
                 )
             )
         );
     }
+
+    @Nullable
+    private BlockPos findCeiling(@NotNull WorldGenLevel level, @NotNull BlockPos pos, int ySpread, BlockPredicate allowedPlacement, BlockPredicate allowedAttachment) {
+        var mutablePos = new BlockPos.MutableBlockPos().set(pos);
+        for (int y = -ySpread; y <= ySpread; y++) {
+            mutablePos.setY(pos.getY() + y);
+
+            if (allowedPlacement.test(level, mutablePos) &&
+                allowedPlacement.test(level, mutablePos.below()) &&
+                mayPlaceAt(level, mutablePos, allowedAttachment) &&
+                getTipState().canSurvive(level, mutablePos)) {
+                return mutablePos.immutable();
+            }
+        }
+        return null;
+    }
+
 
     private int getAdjustedMaxHeight(@NotNull WorldGenLevel level, @NotNull BlockPos pos, int maxHeight, BlockPredicate allowedPlacement, RandomSource random) {
         var physicalLimit = getPhysicalHeightLimit(level, pos, maxHeight, allowedPlacement);
@@ -145,14 +173,13 @@ public class PlantopiaSeaHangingMossPatchFeature extends Feature<PlantopiaSeaHan
         int ySpread = config.ySpread().sample(random);
         var allowedPlacement = config.allowedPlacement();
         var allowedAttachment = config.allowedAttachment();
-        var candidateState = getTipState();
 
         for (int i = 0; i < searchDistance; i++) {
             var candidatePos = originPos.relative(Direction.UP, i);
 
             if (!allowedPlacement.test(level, candidatePos)) continue;
             if (!mayPlaceAt(level, candidatePos, allowedAttachment)) continue;
-            if (!candidateState.canSurvive(level, candidatePos)) continue;
+            if (!getTipState().canSurvive(level, candidatePos)) continue;
 
             var adjustedMaxHeight = getAdjustedMaxHeight(level, candidatePos, maxHeight, allowedPlacement, random);
 
@@ -207,5 +234,6 @@ public class PlantopiaSeaHangingMossPatchFeature extends Feature<PlantopiaSeaHan
         return getPlantBlock().defaultBlockState().setValue(PlantopiaHangingMossBlock.TIP, true);
     }
 
-    private record PlacementInfo(BlockPos pos, int maxHeight, int xzSpread, int ySpread) {}
+    private record PlacementInfo(BlockPos pos, int maxHeight, int xzSpread, int ySpread) {
+    }
 }

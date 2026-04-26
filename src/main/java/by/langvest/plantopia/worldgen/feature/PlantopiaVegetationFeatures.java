@@ -327,13 +327,10 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         compileNameFrom(patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS), JUNGLE),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                FeatureUtils.simpleRandomPatchConfiguration(
-                    64,
-                    PlacementUtils.onlyWhenEmpty(
-                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                        simpleConfig(PlantopiaBlocks.ORANGE_WILDFLOWERS.get())
-                    )
-                )
+                new RandomPatchConfiguration(42, 5, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.ORANGE_WILDFLOWERS.get())
+                ))
             ))
     );
 
@@ -431,13 +428,13 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
                 new PlantopiaBranchingShrubPatchConfiguration(
-                    ConstantInt.of(2), // xzSpread
+                    UniformInt.of(1, 2), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    ConstantInt.of(32), // tries
-                    ClampedInt.of(UniformInt.of(1, 4), 3, 4), // height
-                    UniformFloat.of(0.58F, 0.72F), // heightFalloff
-                    ConstantFloat.of(0.248F), // heightErosion
-                    ConstantFloat.of(-0.164F), // shapeSigma
+                    ConstantInt.of(36), // tries
+                    ConstantInt.of(3), // height
+                    UniformFloat.of(0.48F, 0.58F), // heightFalloff
+                    ConstantFloat.of(0.286F), // heightErosion
+                    ConstantFloat.of(-0.112F), // shapeSigma
                     ConstantFloat.of(0.148F), // shapeErosion
                     ConstantInt.of(6), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
@@ -453,12 +450,12 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
                 new PlantopiaBranchingShrubPatchConfiguration(
-                    ConstantInt.of(3), // xzSpread
+                    UniformInt.of(2, 3), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    ConstantInt.of(32), // tries
-                    ClampedInt.of(UniformInt.of(3, 5), 4, 5), // height
-                    UniformFloat.of(0.58F, 0.72F), // heightFalloff
-                    ConstantFloat.of(0.228F), // heightErosion
+                    ConstantInt.of(42), // tries
+                    ConstantInt.of(4), // height
+                    UniformFloat.of(0.48F, 0.58F), // heightFalloff
+                    ConstantFloat.of(0.332F), // heightErosion
                     ConstantFloat.of(-0.232F), // shapeSigma
                     ConstantFloat.of(0.126F), // shapeErosion
                     ConstantInt.of(12), // searchDistance
@@ -520,7 +517,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 
             return new PlantopiaRadialPatchConfiguration(
                 ConstantInt.of(96), // tries
-                UniformInt.of(5,9), // xzSpread
+                UniformInt.of(5, 9), // xzSpread
                 ConstantInt.of(3), // ySpread
                 -0.232D, // sigma
                 0.242D, // erosion

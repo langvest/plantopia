@@ -299,7 +299,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
                 withExplosionDecayFunction(
                     block,
                     withSurvivesExplosionCondition(block, item(Items.CARROT))
-                        .when(randomChance(SEEDS_CHANCE * 0.75F))
+                        .when(randomChance(SEEDS_CHANCE * 0.5F))
                 )
             );
 
@@ -336,7 +336,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
                 withExplosionDecayFunction(
                     block,
                     withSurvivesExplosionCondition(block, item(Items.STICK))
-                        .when(randomChance(SEEDS_CHANCE * 1.75F))
+                        .when(randomChance(SEEDS_CHANCE * 2))
                         .apply(setCount(1, 2))
                 )
             );

@@ -57,33 +57,26 @@
 		"growth_directions": [
 			"up"
 		],
-		"height": {
-			"type": "minecraft:clamped",
-			"value": {
-				"max_inclusive": 4,
-				"min_inclusive": 3,
-				"source": {
-					"type": "minecraft:uniform",
-					"value": {
-						"max_inclusive": 4,
-						"min_inclusive": 1
-					}
-				}
-			}
-		},
-		"height_erosion": 0.248,
+		"height": 3,
+		"height_erosion": 0.286,
 		"height_falloff": {
 			"type": "minecraft:uniform",
 			"value": {
-				"max_exclusive": 0.72,
-				"min_inclusive": 0.58
+				"max_exclusive": 0.58,
+				"min_inclusive": 0.48
 			}
 		},
 		"search_distance": 6,
 		"shape_erosion": 0.148,
-		"shape_sigma": -0.164,
-		"tries": 32,
-		"xz_spread": 2,
+		"shape_sigma": -0.112,
+		"tries": 36,
+		"xz_spread": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_inclusive": 2,
+				"min_inclusive": 1
+			}
+		},
 		"y_spread": 1
 	}
 }

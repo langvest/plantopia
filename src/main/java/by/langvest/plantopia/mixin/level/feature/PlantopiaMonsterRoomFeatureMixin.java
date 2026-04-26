@@ -32,9 +32,9 @@ public abstract class PlantopiaMonsterRoomFeatureMixin {
         if (originPos.getY() < surfaceY) {
             if (isMonsterRoomPlacedSuccessfully) {
                 float delta = Mth.clamp(depth, 0, 64) / 64.0F;
-                probability = Mth.lerp(delta, 0.76F, 0.04F);
+                probability = Mth.lerp(delta, 0.7F, 0.01F);
             } else {
-                probability = 0.00014F;
+                probability = 0.0001F;
             }
         }
 

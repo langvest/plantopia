@@ -45,7 +45,7 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
 
                 return List.of(
                     PlantopiaDensityPlacement.of(
-                        0.184F,
+                        0.176F,
                         PlantopiaVerticalAnchor.oceanFloorWg(-1),
                         PlantopiaVerticalAnchor.aboveBottom(12)
                     ),
@@ -76,7 +76,7 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
                             )
                         )
                     ),
-                    PlantopiaBiomeFilter.exclude(directBiomes(context, Biomes.LUSH_CAVES, Biomes.DEEP_DARK))
+                    PlantopiaBiomeFilter.exclude(directBiomes(context, Biomes.LUSH_CAVES, Biomes.DEEP_DARK, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.ERODED_BADLANDS))
                 );
             })
             .biomes(biomes -> biomes

@@ -50,16 +50,15 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
                 new PlantopiaSeaHangingMossPatchConfiguration(
                     UniformInt.of(5, 7), // xzSpread
                     ConstantInt.of(2), // ySpread
-                    ConstantInt.of(128), // tries
                     weightedListInt(values -> values
-                        .add(UniformInt.of(10, 14), 3)
-                        .add(UniformInt.of(14, 18), 7)
-                        .add(UniformInt.of(18, 22), 2)
+                        .add(UniformInt.of(2, 3), 4)
+                        .add(UniformInt.of(5, 10), 3)
+                        .add(UniformInt.of(12, 14), 5)
+                        .add(UniformInt.of(16, 20), 2)
                     ), // height
-                    UniformFloat.of(0.38F, 0.56F), // heightFalloff
-                    ConstantFloat.of(0.132F), // heightErosion
-                    ConstantFloat.of(-0.562F), // shapeSigma
-                    ConstantFloat.of(0.148F), // shapeErosion
+                    UniformFloat.of(0.68F, 0.88F), // heightFalloff
+                    ConstantFloat.of(0.148F), // heightErosion
+                    ConstantFloat.of(0.96F), // edgeErosion
                     ConstantInt.of(9), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.SEA_HANGING_MOSS_CAN_GENERATE_ON), // allowedAttachment
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GLOW_LICHEN) // allowedPlacement

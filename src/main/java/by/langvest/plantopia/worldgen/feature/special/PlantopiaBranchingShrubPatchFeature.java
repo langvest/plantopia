@@ -143,7 +143,9 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
     }
 
     private boolean canBreatheThrough(@NotNull BlockState state) {
-        return !state.is(PlantopiaBlockTags.GROUND_OVERWORLD) && !state.is(BlockTags.LEAVES);
+        if (state.is(BlockTags.LEAVES)) return false;
+        if (state.is(PlantopiaBlocks.SEA_HANGING_MOSS.get())) return false;
+        return !state.is(PlantopiaBlockTags.GROUND_OVERWORLD);
     }
 
     private Block getPlantBlock() {
@@ -175,11 +177,15 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
             return false;
         }
 
-        if (growthDirection == Direction.UP && attachedState.is(Blocks.GRASS_BLOCK)) {
-            int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
+        if (growthDirection == Direction.UP) {
+            var fluidState = level.getFluidState(pos);
 
-            if (pos.getY() < surfaceY) {
-                return false;
+            if (attachedState.is(Blocks.GRASS_BLOCK) || !fluidState.isEmpty()) {
+                int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
+
+                if (pos.getY() < surfaceY) {
+                    return false;
+                }
             }
         }
 
@@ -277,30 +283,37 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         );
     }
 
-    private int getAdjustedMaxHeight(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction growthDirection, int maxHeight, @NotNull RandomSource random) {
-        int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
-        int depth = surfaceY - pos.getY();
+    private int getAdjustedMaxHeight(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction growthDirection, int maxHeight) {
+        int smallHeight = 2;
 
         if (growthDirection.getAxis().isHorizontal()) {
-            return Math.min(maxHeight, 2);
+            return Math.min(maxHeight, smallHeight);
         }
 
-        float delta = (float) Mth.clamp(Mth.inverseLerp(depth, 0, 20), 0.0, 1.0);
+        int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
+        int depth = surfaceY - pos.getY();
+        float delta = (float) Mth.clamp(Mth.inverseLerp(depth, 0, 12), 0.0, 1.0);
 
         if (growthDirection == Direction.UP) {
-            return (int) Mth.lerp(delta, maxHeight, Math.min(maxHeight, 3));
+            return (int) Mth.lerp(delta, maxHeight, Math.min(maxHeight, smallHeight));
         }
 
         if (growthDirection == Direction.DOWN) {
-            return (int) Mth.lerp(delta, Math.min(maxHeight, 3), maxHeight);
+            return (int) Mth.lerp(delta, Math.min(maxHeight, smallHeight), maxHeight);
         }
 
         return maxHeight;
     }
 
-    private int getAdjustedXZSpread(@NotNull Direction growthDirection, int xzSpread) {
+    private int getAdjustedXZSpread(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction growthDirection, int xzSpread) {
+        int smallXZSpread = 1;
+
         if (growthDirection.getAxis().isHorizontal()) {
-            return Math.min(xzSpread, 2);
+            int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
+            int depth = surfaceY - pos.getY();
+            float delta = (float) Mth.clamp(Mth.inverseLerp(depth, 0, 12), 0.0, 1.0);
+
+            return (int) Mth.lerp(delta, Math.min(xzSpread, smallXZSpread), xzSpread);
         }
         
         return xzSpread;
@@ -347,10 +360,11 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
                 if (!mayPlaceAt(level, candidatePos, direction, allowedAttachment)) continue;
                 if (!candidateState.canSurvive(level, candidatePos)) continue;
 
-                var adjustedMaxHeight = getAdjustedMaxHeight(level, candidatePos, direction, maxHeight, random);
-                var adjustedXZSpread = getAdjustedXZSpread(direction, xzSpread);
+                var adjustedMaxHeight = getAdjustedMaxHeight(level, candidatePos, direction, maxHeight);
+                var adjustedXZSpread = getAdjustedXZSpread(level, candidatePos, direction, xzSpread);
+                var favorableMaxHeight = adjustedMaxHeight + 1;
 
-                if (!isAreaFavorableAt(level, candidatePos, direction, adjustedXZSpread, adjustedMaxHeight)) continue;
+                if (!isAreaFavorableAt(level, candidatePos, direction, adjustedXZSpread, favorableMaxHeight)) continue;
 
                 return new PlacementInfo(candidatePos, direction, adjustedMaxHeight, adjustedXZSpread, ySpread);
             }

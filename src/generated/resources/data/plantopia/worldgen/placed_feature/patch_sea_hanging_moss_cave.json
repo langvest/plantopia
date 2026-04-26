@@ -9,7 +9,7 @@
 					"above_bottom": 12
 				}
 			},
-			"density": 0.184,
+			"density": 0.176,
 			"top_anchor": {
 				"type": "plantopia:heightmap_anchor",
 				"heightmap": "OCEAN_FLOOR_WG",
@@ -109,7 +109,10 @@
 			"type": "plantopia:biome_filter",
 			"biomes": [
 				"minecraft:lush_caves",
-				"minecraft:deep_dark"
+				"minecraft:deep_dark",
+				"minecraft:badlands",
+				"minecraft:wooded_badlands",
+				"minecraft:eroded_badlands"
 			],
 			"selection": "EXCLUDE"
 		}

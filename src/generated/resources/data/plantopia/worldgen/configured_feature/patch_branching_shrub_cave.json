@@ -62,33 +62,26 @@
 			"south",
 			"west"
 		],
-		"height": {
-			"type": "minecraft:clamped",
-			"value": {
-				"max_inclusive": 5,
-				"min_inclusive": 4,
-				"source": {
-					"type": "minecraft:uniform",
-					"value": {
-						"max_inclusive": 5,
-						"min_inclusive": 3
-					}
-				}
-			}
-		},
-		"height_erosion": 0.228,
+		"height": 4,
+		"height_erosion": 0.332,
 		"height_falloff": {
 			"type": "minecraft:uniform",
 			"value": {
-				"max_exclusive": 0.72,
-				"min_inclusive": 0.58
+				"max_exclusive": 0.58,
+				"min_inclusive": 0.48
 			}
 		},
 		"search_distance": 12,
 		"shape_erosion": 0.126,
 		"shape_sigma": -0.232,
-		"tries": 32,
-		"xz_spread": 3,
+		"tries": 42,
+		"xz_spread": {
+			"type": "minecraft:uniform",
+			"value": {
+				"max_inclusive": 3,
+				"min_inclusive": 2
+			}
+		},
 		"y_spread": 1
 	}
 }
