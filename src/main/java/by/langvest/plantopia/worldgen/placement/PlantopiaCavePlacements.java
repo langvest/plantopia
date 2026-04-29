@@ -45,7 +45,7 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
 
                 return List.of(
                     PlantopiaDensityPlacement.of(
-                        0.176F,
+                        0.18F,
                         PlantopiaVerticalAnchor.oceanFloorWg(-1),
                         PlantopiaVerticalAnchor.aboveBottom(12)
                     ),

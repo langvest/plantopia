@@ -1,5 +1,5 @@
 {
-	"feature": "plantopia:patch_reeds",
+	"feature": "plantopia:patch_reed",
 	"placement": [
 		{
 			"type": "plantopia:rarity_filter",

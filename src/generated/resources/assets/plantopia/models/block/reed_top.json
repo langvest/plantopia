@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cross",
 	"textures": {
-		"cross": "plantopia:block/tall_reeds_bottom"
+		"cross": "plantopia:block/reed_top"
 	}
 }

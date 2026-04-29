@@ -18,7 +18,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -248,12 +247,12 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_REEDS = declareConfiguredFeature(
-        patchNameOf(PlantopiaBlocks.REEDS),
+        patchNameOf(PlantopiaBlocks.REED),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
                 new RandomPatchConfiguration(26, 3, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    simpleConfig(PlantopiaBlocks.REEDS.get()),
+                    simpleConfig(PlantopiaBlocks.REED.get()),
                     WATER_PlANT_PREDICATE
                 ))
             ))

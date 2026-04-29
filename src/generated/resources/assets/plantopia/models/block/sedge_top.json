@@ -1,0 +1,7 @@
+{
+	"parent": "plantopia:block/template_sedge_with_overlay",
+	"textures": {
+		"cross": "plantopia:block/sedge_top",
+		"overlay": "plantopia:block/sedge_top_overlay"
+	}
+}

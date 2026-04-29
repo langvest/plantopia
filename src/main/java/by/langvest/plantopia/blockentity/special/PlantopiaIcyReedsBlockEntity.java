@@ -13,6 +13,6 @@ public class PlantopiaIcyReedsBlockEntity extends BlockEntity {
 	}
 
 	public Block getPlantBlock() {
-		return PlantopiaBlocks.REEDS.get();
+		return PlantopiaBlocks.REED.get();
 	}
 }

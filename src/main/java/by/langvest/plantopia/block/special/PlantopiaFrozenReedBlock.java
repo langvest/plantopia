@@ -24,13 +24,13 @@ import org.jetbrains.annotations.Nullable;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTick;
 
-public class PlantopiaIcyReedsBlock extends IceBlock implements EntityBlock {
-    public PlantopiaIcyReedsBlock(Properties properties) {
+public class PlantopiaFrozenReedBlock extends IceBlock implements EntityBlock {
+    public PlantopiaFrozenReedBlock(Properties properties) {
         super(properties);
     }
 
     public Block getPlantBlock() {
-        return PlantopiaBlocks.REEDS.get();
+        return PlantopiaBlocks.REED.get();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PlantopiaIcyReedsBlock extends IceBlock implements EntityBlock {
         var stateAbove = level.getBlockState(pos.above());
 
         if(!stateAbove.is(getPlantBlock())) return false;
-        if(stateAbove.getValue(PlantopiaReedsBlock.HALF) != DoubleBlockHalf.UPPER) return false;
+        if(stateAbove.getValue(PlantopiaReedBlock.HALF) != DoubleBlockHalf.UPPER) return false;
 
         return getPlantBlock().defaultBlockState().canSurvive(level, pos);
     }
@@ -98,12 +98,12 @@ public class PlantopiaIcyReedsBlock extends IceBlock implements EntityBlock {
 
     public BlockState getDriedState() {
         return getPlantBlock().defaultBlockState()
-            .setValue(PlantopiaReedsBlock.HALF, DoubleBlockHalf.LOWER);
+            .setValue(PlantopiaReedBlock.HALF, DoubleBlockHalf.LOWER);
     }
 
     public BlockState getMeltedState() {
         return getDriedState()
-            .setValue(PlantopiaReedsBlock.WATERLOGGED, true);
+            .setValue(PlantopiaReedBlock.WATERLOGGED, true);
     }
 
     @Override

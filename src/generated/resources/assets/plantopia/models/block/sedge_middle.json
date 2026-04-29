@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_sedge",
+	"textures": {
+		"cross": "plantopia:block/sedge_middle"
+	}
+}

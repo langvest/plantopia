@@ -51,10 +51,10 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
                     UniformInt.of(5, 7), // xzSpread
                     ConstantInt.of(2), // ySpread
                     weightedListInt(values -> values
-                        .add(UniformInt.of(2, 3), 4)
-                        .add(UniformInt.of(5, 10), 3)
-                        .add(UniformInt.of(12, 14), 5)
-                        .add(UniformInt.of(16, 20), 2)
+                        .add(UniformInt.of(2, 3), 8)
+                        .add(UniformInt.of(5, 10), 6)
+                        .add(UniformInt.of(12, 14), 9)
+                        .add(UniformInt.of(16, 20), 4)
                     ), // height
                     UniformFloat.of(0.68F, 0.88F), // heightFalloff
                     ConstantFloat.of(0.148F), // heightErosion

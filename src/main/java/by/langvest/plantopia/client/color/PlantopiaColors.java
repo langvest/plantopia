@@ -1,10 +1,8 @@
 package by.langvest.plantopia.client.color;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
-import by.langvest.plantopia.block.special.PlantopiaTallReedsBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import by.langvest.plantopia.util.helper.PlantopiaBlockHelper;
@@ -66,7 +64,6 @@ public class PlantopiaColors {
             herbBlock(PlantopiaBlocks.CHICORY.get());
             herbBlock(PlantopiaBlocks.CARROTWEED.get());
             herbBlock(PlantopiaBlocks.TANSY.get());
-            tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
         });
     }
 
@@ -175,20 +172,6 @@ public class PlantopiaColors {
 
             if (half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
             if (half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, baseBlockPos);
-            return noColor();
-        });
-    }
-
-    private static void tallReedsBlock(@NotNull Block block) {
-        ITEM_GRASS_COLOR_0.add(block.asItem());
-
-        PlantopiaBlockColors.add(block, (state, level, pos, tintIndex) -> {
-            var half = state.getValue(PlantopiaTallReedsBlock.HALF);
-            var baseBlockPos = getBaseBlockPos(state, pos);
-
-            if (half == PlantopiaTripleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
-            if (half == PlantopiaTripleBlockHalf.CENTRAL && tintIndex == 0) return grassColor(level, baseBlockPos);
-            if (half == PlantopiaTripleBlockHalf.LOWER && tintIndex == 1) return grassColor(level, baseBlockPos);
             return noColor();
         });
     }

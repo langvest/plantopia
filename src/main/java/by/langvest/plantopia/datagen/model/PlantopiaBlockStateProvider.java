@@ -87,11 +87,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         seaMossCarpetBlock(PlantopiaBlocks.SEA_MOSS_CARPET.get());
         smallPlatterleafBlock(PlantopiaBlocks.SMALL_PLATTERLEAF.get());
         bigPlatterleafBlock(PlantopiaBlocks.BIG_PLATTERLEAF.get());
-        tallReedsBlock(PlantopiaBlocks.TALL_REEDS.get());
+        sedgeBlock(PlantopiaBlocks.SEDGE.get());
         seaweedBlock(PlantopiaBlocks.SEAWEED.get());
         snowdropBlock(PlantopiaBlocks.SNOWDROP.get());
         coveredSnowdropBlock(PlantopiaBlocks.COVERED_SNOWDROP.get());
-        icyReedsBlock(PlantopiaBlocks.ICY_REEDS.get());
+        frozenReedsBlock(PlantopiaBlocks.FROZEN_REED.get());
         luckyDaisyBlock(PlantopiaBlocks.WHITE_LUCKY_DAISY.get());
         luckyDaisyBlock(PlantopiaBlocks.PINK_LUCKY_DAISY.get());
         tinyCactusBlock(PlantopiaBlocks.TINY_CACTUS.get());
@@ -414,11 +414,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private void iceCrustBlock(Block block) {
         String baseName = nameOf(block);
-        var faceTexture = texture(baseName);
+        var itemModel = existingPlantopiaModel(baseName + "_inventory");
         var faceModel = existingPlantopiaModel(baseName);
         var floatingFaceModel = existingPlantopiaModel(baseName + "_floating");
 
-        generatedItemModel(baseName, faceTexture);
+        blockItemModel(baseName, itemModel);
 
         var builder = getMultipartBuilder(block);
 
@@ -470,18 +470,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         tripleHighBlock(block, topModel, middleModel, bottomModel);
     }
 
-    private void tallReedsBlock(Block block) {
+    private void sedgeBlock(Block block) {
         String baseName = nameOf(block);
 
         var topTexture = texture(baseName + "_top");
         var topOverlayTexture = texture(baseName + "_top_overlay");
         var middleTexture = texture(baseName + "_middle");
-        var middleOverlayTexture = texture(baseName + "_middle_overlay");
         var bottomTexture = texture(baseName + "_bottom");
 
-        var topModel = invertedTintedCrossWithOverlayModel(baseName + "_top", topTexture, topOverlayTexture);
-        var middleModel = tintedCrossWithOverlayModel(baseName + "_middle", middleTexture, middleOverlayTexture);
-        var bottomModel = crossModel(baseName + "_bottom", bottomTexture);
+        var topModel = sedgeWithOverlayTemplateModel(baseName + "_top", topTexture, topOverlayTexture);
+        var middleModel = sedgeTemplateModel(baseName + "_middle", middleTexture);
+        var bottomModel = sedgeTemplateModel(baseName + "_bottom", bottomTexture);
 
         generatedItemModel(baseName, topTexture, topOverlayTexture);
         tripleHighBlock(block, topModel, middleModel, bottomModel);
@@ -739,7 +738,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         });
     }
 
-    private void icyReedsBlock(Block block) {
+    private void frozenReedsBlock(Block block) {
         var iceModel = blockModel(Blocks.ICE);
 
         simpleBlock(block, iceModel);
@@ -1185,6 +1184,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private BlockModelBuilder lupineTemplateModel(String name, ResourceLocation crossTexture) {
         return models().withExistingParent(name, parent("template_lupine"))
             .texture("cross", crossTexture);
+    }
+
+    private BlockModelBuilder sedgeTemplateModel(String name, ResourceLocation crossTexture) {
+        return models().withExistingParent(name, parent("template_sedge"))
+            .texture("cross", crossTexture);
+    }
+
+    private BlockModelBuilder sedgeWithOverlayTemplateModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
+        return models().withExistingParent(name, parent("template_sedge_with_overlay"))
+            .texture("cross", crossTexture)
+            .texture("overlay", overlayTexture);
     }
 
     private BlockModelBuilder carpetTemplateModel(String name, ResourceLocation woolTexture) {

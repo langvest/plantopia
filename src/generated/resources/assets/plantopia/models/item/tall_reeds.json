@@ -1,7 +1,0 @@
-{
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:block/tall_reeds_top",
-		"layer1": "plantopia:block/tall_reeds_top_overlay"
-	}
-}

@@ -14,8 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.NotNull;
 
-public class PlantopiaReedsBlock extends PlantopiaWaterloggedDoublePlantBlock implements PlantopiaFreezableBlock {
-	public PlantopiaReedsBlock(BlockBehaviour.Properties properties) {
+public class PlantopiaReedBlock extends PlantopiaWaterloggedDoublePlantBlock implements PlantopiaFreezableBlock {
+	public PlantopiaReedBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
@@ -34,7 +34,7 @@ public class PlantopiaReedsBlock extends PlantopiaWaterloggedDoublePlantBlock im
 		var stateBelow = level.getBlockState(posBelow);
 
 		if(state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-			return stateBelow.is(this) || stateBelow.is(PlantopiaBlocks.ICY_REEDS.get());
+			return stateBelow.is(this) || stateBelow.is(PlantopiaBlocks.FROZEN_REED.get());
 		}
 
 		return mayGrowOn(stateBelow, level, posBelow);
@@ -63,7 +63,7 @@ public class PlantopiaReedsBlock extends PlantopiaWaterloggedDoublePlantBlock im
 	@Override
 	public void freezeAt(BlockState state, @NotNull BlockState freezingState, LevelAccessor level, BlockPos pos, int flags) {
 		if(freezingState.is(Blocks.ICE)) {
-			level.setBlock(pos, PlantopiaBlocks.ICY_REEDS.get().defaultBlockState(), flags);
+			level.setBlock(pos, PlantopiaBlocks.FROZEN_REED.get().defaultBlockState(), flags);
 		}
 	}
 }
