@@ -216,7 +216,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             .feature(PlantopiaMiscOverworldFeatures.SINGLE_ICICLE_STALACTITE)
             .modifiers(context -> List.of(
                 PlantopiaDensityPlacement.of(
-                    3.0F,
+                    2.48F,
                     PlantopiaVerticalAnchor.worldSurfaceWg(60),
                     PlantopiaVerticalAnchor.worldSurfaceWg(-6)
                 ),
