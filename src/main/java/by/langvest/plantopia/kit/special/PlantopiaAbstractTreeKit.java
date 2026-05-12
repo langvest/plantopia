@@ -16,8 +16,8 @@ public abstract class PlantopiaAbstractTreeKit {
     protected PlantopiaAbstractTreeKit(String baseName, @NotNull PlantopiaTreeOptions config) {
         super();
         this.baseName = baseName;
-        this.blockSetType = BlockSetType.register(config.blockSetTypeFactory().apply(plantopia(baseName)));
-        this.woodType = WoodType.register(config.woodTypeFactory().apply(Pair.of(plantopia(baseName), blockSetType)));
+        this.blockSetType = config.blockSetTypeFactory().apply(plantopia(baseName));
+        this.woodType = config.woodTypeFactory().apply(Pair.of(plantopia(baseName), blockSetType));
     }
 
     public BlockSetType blockSetType() {

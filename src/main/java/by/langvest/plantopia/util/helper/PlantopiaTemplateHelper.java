@@ -46,6 +46,13 @@ public final class PlantopiaTemplateHelper {
 		return key;
 	}
 
+	/* ENTITY TYPE *****************************************************************/
+
+	@Contract(pure = true)
+	public static @NotNull String getEntityTypeTitleKey(@NotNull ResourceLocation identifier) {
+		return "entity." + identifier.getNamespace() + "." + identifier.getPath();
+	}
+
 	/* SOUND EVENT *******************************************************************/
 
 	@Contract(pure = true)

@@ -70,9 +70,9 @@ public class PlantopiaTreeStuffKit {
 
         /* SIGNS ******************************************************************************************************/
 
-        this.sign = PlantopiaBlocks.registerBlock(baseName + "_sign", properties -> new PlantopiaStandingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).customItem().noDisplayName()));
+        this.sign = PlantopiaBlocks.registerBlock(baseName + "_sign", properties -> new PlantopiaStandingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).customItem()));
         this.wallSign = PlantopiaBlocks.registerBlock(baseName + "_wall_sign", properties -> new PlantopiaWallSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).noItem()));
-        this.hangingSign = PlantopiaBlocks.registerBlock(baseName + "_hanging_sign", properties -> new PlantopiaCeilingHangingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).customItem().noDisplayName()));
+        this.hangingSign = PlantopiaBlocks.registerBlock(baseName + "_hanging_sign", properties -> new PlantopiaCeilingHangingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).customItem()));
         this.wallHangingSign = PlantopiaBlocks.registerBlock(baseName + "_wall_hanging_sign", properties -> new PlantopiaWallHangingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).noItem()));
 
         this.signItem = PlantopiaItems.registerItem(baseName + "_sign", properties -> new SignItem(properties, sign.get(), wallSign.get()), options.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN)));
