@@ -1,6 +1,6 @@
 package by.langvest.plantopia.entity.special;
 
-import by.langvest.plantopia.entity.PlantopiaEntities;
+import by.langvest.plantopia.entity.PlantopiaEntityTypes;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -32,11 +32,11 @@ public class PlantopiaCobblestoneShardProjectileEntity extends ThrowableItemProj
 	}
 
 	public PlantopiaCobblestoneShardProjectileEntity(Level level) {
-		super(PlantopiaEntities.COBBLESTONE_SHARD.get(), level);
+		super(PlantopiaEntityTypes.COBBLESTONE_SHARD.get(), level);
 	}
 
 	public PlantopiaCobblestoneShardProjectileEntity(Level level, LivingEntity shooter) {
-		super(PlantopiaEntities.COBBLESTONE_SHARD.get(), shooter, level);
+		super(PlantopiaEntityTypes.COBBLESTONE_SHARD.get(), shooter, level);
 	}
 
 	@Override

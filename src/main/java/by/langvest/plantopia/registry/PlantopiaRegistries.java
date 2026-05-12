@@ -1,6 +1,7 @@
 package by.langvest.plantopia.registry;
 
 import by.langvest.plantopia.adv.PlantopiaAdvancement;
+import by.langvest.plantopia.entity.PlantopiaBoatType;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorType;
 import by.langvest.toolkit.registry.Registry;
@@ -39,6 +40,7 @@ public class PlantopiaRegistries {
 	public static final Registry<PlantopiaVerticalAnchorType<?>> VERTICAL_ANCHOR_TYPE = createSimpleRegistry("vertical_anchor_type");
 	public static final Registry<PlantopiaAdvancement> ADVANCEMENT = createSimpleRegistry("advancement");
 	public static final Registry<RecipeSerializer<?>> RECIPE_SERIALIZER = createSimpleRegistry("recipe_serializer");
+	public static final Registry<PlantopiaBoatType> BOAT_TYPE = createSimpleRegistry("boat_type");
 
 	@Contract("_ -> new")
 	private static <T> @NotNull SimpleRegistry<T> createSimpleRegistry(String name) {

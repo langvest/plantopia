@@ -1,7 +1,7 @@
 package by.langvest.plantopia.blockentity.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntityTypes;
 import by.langvest.plantopia.block.special.PlantopiaCoveredSnowdropBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class PlantopiaCoveredSnowdropBlockEntity extends BlockEntity {
 	public PlantopiaCoveredSnowdropBlockEntity(BlockPos pos, BlockState state) {
-		super(PlantopiaBlockEntities.COVERED_SNOWDROP.get(), pos, state);
+		super(PlantopiaBlockEntityTypes.COVERED_SNOWDROP.get(), pos, state);
 	}
 
 	public boolean skipFlowerRendering() {

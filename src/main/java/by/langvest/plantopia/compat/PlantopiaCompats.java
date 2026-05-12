@@ -7,13 +7,17 @@ import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
 import by.langvest.plantopia.item.special.PlantopiaWaterlilyFlowerBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.toolkit.event.LifecycleEvent;
+import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaCompats {
@@ -43,6 +47,7 @@ public class PlantopiaCompats {
 
 			if(blockMeta.isFlammable()) registerFlammable(block, blockMeta.getEncouragement(), blockMeta.getFlammability());
 			if(blockMeta.isCompostable()) registerCompostable(block, blockMeta.getCompostability());
+			if(blockMeta.isStrippable()) registerStrippable(block, blockMeta.getStripped());
 			if(block instanceof FlowerPotBlock pottedBlock) registerPottable(pottedBlock);
 			if(block instanceof PlantopiaFloweringWaterlilyBlock waterlilyBlock) registerFloweringWaterlily(waterlilyBlock);
 		});
@@ -75,6 +80,16 @@ public class PlantopiaCompats {
 		registryHelper.registerBrewable(precursor, ingredient, result);
 	}
 
+	public static void registerStrippable(Block log, Block stripped) {
+		AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
+		AxeItem.STRIPPABLES.put(log, stripped);
+	}
+
+	public static void registerFlattenable(Block block, BlockState flattened) {
+		ShovelItem.FLATTENABLES = Maps.newHashMap(ShovelItem.FLATTENABLES);
+		ShovelItem.FLATTENABLES.put(block, flattened);
+	}
+
 	public static final class Compostability {
 		public static final float CHANCE_30 = 0.3F;
 		public static final float CHANCE_50 = 0.5F;
@@ -92,6 +107,9 @@ public class PlantopiaCompats {
 		public static final float HAS_FLOWERS = 0.05F;
 	}
 
+	/**
+	 * @see net.minecraft.world.level.block.FireBlock#bootStrap()
+	 */
 	public static final class Encouragement {
 		public static final int PLANT = 60;
 		public static final int PLANT_2 = 30;
@@ -100,6 +118,9 @@ public class PlantopiaCompats {
 		public static final int LEAVES = 30;
 	}
 
+	/**
+	 * @see net.minecraft.world.level.block.FireBlock#bootStrap()
+	 */
 	public static final class Flammability {
 		public static final int PLANT = 100;
 		public static final int PLANT_2 = 150;
@@ -108,7 +129,11 @@ public class PlantopiaCompats {
 		public static final int LEAVES = 60;
 	}
 
+	/**
+	 * @see net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity#getFuel()
+	 */
 	public static final class BurnTime {
 		public static final int WOODY_PLANT = 100;
+		public static final int LEAF_LITTER = 100;
 	}
 }

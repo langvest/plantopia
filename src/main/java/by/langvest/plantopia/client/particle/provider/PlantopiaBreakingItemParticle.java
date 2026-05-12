@@ -14,8 +14,8 @@ public class PlantopiaBreakingItemParticle extends BreakingItemParticle {
 		super(level, x, y, z, itemStack);
 	}
 
-	public static class PlantopiaProvider implements ParticleProvider<ItemParticleOption> {
-		public PlantopiaProvider(@SuppressWarnings("unused") SpriteSet sprite) {}
+	public static class Provider implements ParticleProvider<ItemParticleOption> {
+		public Provider(@SuppressWarnings("unused") SpriteSet sprite) {}
 
 		public Particle createParticle(@NotNull ItemParticleOption type, @NotNull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			return new PlantopiaBreakingItemParticle(level, x, y, z, type.getItem());

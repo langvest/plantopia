@@ -107,7 +107,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(context ->
                 new PlantopiaRadialPatchConfiguration(
-                    ConstantInt.of(64),
+                    ConstantInt.of(48),
                     UniformInt.of(3, 5),
                     ConstantInt.of(2),
                     -4.82,

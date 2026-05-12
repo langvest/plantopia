@@ -1,6 +1,6 @@
 package by.langvest.plantopia.blockentity.special;
 
-import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,7 @@ public class PlantopiaCobblestoneShardPetBlockEntity extends BlockEntity impleme
 	protected Component name;
 
 	public PlantopiaCobblestoneShardPetBlockEntity(BlockPos pos, BlockState state) {
-		super(PlantopiaBlockEntities.COBBLESTONE_SHARD_PET.get(), pos, state);
+		super(PlantopiaBlockEntityTypes.COBBLESTONE_SHARD_PET.get(), pos, state);
 	}
 
 	@Override

@@ -42,7 +42,7 @@
 									"block": "plantopia:azolla",
 									"condition": "minecraft:block_state_property",
 									"properties": {
-										"leaf_amount": "2"
+										"segment_amount": "2"
 									}
 								}
 							],
@@ -56,7 +56,7 @@
 									"block": "plantopia:azolla",
 									"condition": "minecraft:block_state_property",
 									"properties": {
-										"leaf_amount": "3"
+										"segment_amount": "3"
 									}
 								}
 							],
@@ -70,7 +70,7 @@
 									"block": "plantopia:azolla",
 									"condition": "minecraft:block_state_property",
 									"properties": {
-										"leaf_amount": "4"
+										"segment_amount": "4"
 									}
 								}
 							],

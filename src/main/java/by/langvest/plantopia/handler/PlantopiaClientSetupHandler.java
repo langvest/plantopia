@@ -2,14 +2,12 @@ package by.langvest.plantopia.handler;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.toolkit.event.*;
-import by.langvest.toolkit.event.client.RegisterColorsEvent;
-import by.langvest.toolkit.event.client.RegisterItemPropertiesEvent;
-import by.langvest.toolkit.event.client.RegisterParticleProvidersEvent;
-import by.langvest.toolkit.event.client.RegisterRenderLayersEvent;
-import by.langvest.toolkit.event.client.RegisterRenderersEvent;
+import by.langvest.toolkit.event.client.*;
 import by.langvest.toolkit.platform.EventEmitter;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -39,6 +37,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.minecraft;
 
@@ -94,6 +93,18 @@ public class PlantopiaClientSetupHandler {
 					ItemProperties.register(item, propertyIdentifier, property);
 				}
 			});
+		});
+	}
+
+	@SubscribeEvent
+	public static void handleLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		var globalEmitter = EventEmitter.getDefaultInstance();
+
+		globalEmitter.emit(new RegisterLayerDefinitionsEvent.EntityEvent() {
+			@Override
+			public void register(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {
+				event.registerLayerDefinition(layerLocation, supplier);
+			}
 		});
 	}
 

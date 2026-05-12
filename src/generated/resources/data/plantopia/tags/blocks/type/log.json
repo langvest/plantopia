@@ -1,5 +1,7 @@
 {
 	"values": [
-		"plantopia:birch_base_log"
+		"plantopia:birch_base_log",
+		"plantopia:maple_log",
+		"plantopia:stripped_maple_log"
 	]
 }

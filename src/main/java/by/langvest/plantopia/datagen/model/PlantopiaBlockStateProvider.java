@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaContentHelper.pottedBlockOf;
@@ -109,6 +110,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             var block = blockMeta.get();
             var type = blockMeta.getType();
 
+            if (block instanceof PlantopiaLeafLitterBlock) {
+                leafLitterBlock(blockMeta);
+                return;
+            }
+
             if (block instanceof HugeMushroomBlock) {
                 hugeMushroomBlock(blockMeta);
                 return;
@@ -159,6 +165,56 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                 return;
             }
 
+            if (block instanceof RotatedPillarBlock) {
+                rotatedPillarBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof StairBlock) {
+                stairsBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof SlabBlock) {
+                slabBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof FenceBlock) {
+                fenceBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof FenceGateBlock) {
+                fenceGateBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof DoorBlock) {
+                doorBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof TrapDoorBlock) {
+                trapdoorBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof PressurePlateBlock) {
+                pressurePlateBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof ButtonBlock) {
+                buttonBlock(blockMeta);
+                return;
+            }
+
+            if (type.isSignLike()) {
+                signBlock(blockMeta);
+                return;
+            }
+
             simpleBlock(blockMeta);
         });
     }
@@ -204,6 +260,135 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
         generatedBlockItem(blockMeta, () -> blockItemModel(baseName, model));
         simpleBlock(blockMeta.get(), model);
+    }
+
+    private void rotatedPillarBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        RotatedPillarBlock block = (RotatedPillarBlock) blockMeta.get();
+        var isWood = blockMeta.getType().equals(MetaType.WOOD);
+        var parentBlock = blockMeta.getParent();
+
+        var endTexture = texture(baseName + "_top");
+        var sideTexture = isWood && parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        if (isWood) {
+            endTexture = sideTexture;
+        }
+
+        axisBlock(block, sideTexture, endTexture);
+        blockItemModel(baseName, blockModelLocation(block));
+    }
+
+    private void stairsBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        StairBlock block = (StairBlock) blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        stairsBlock(block, texture);
+        blockItemModel(baseName, blockModelLocation(block));
+    }
+
+    private void slabBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        SlabBlock block = (SlabBlock) blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        var doubleSlabModel = parentBlock != null ? blockModel(parentBlock) : cubeAllModel(baseName + "_double", texture);
+
+        slabBlock(block, doubleSlabModel.getLocation(), texture);
+        blockItemModel(baseName, blockModelLocation(block));
+    }
+
+    private void fenceBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        FenceBlock block = (FenceBlock) blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        itemModels().fenceInventory(baseName, texture);
+        fenceBlock(block, texture);
+    }
+
+    private void fenceGateBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        FenceGateBlock block = (FenceGateBlock) blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        fenceGateBlock(block, texture);
+        blockItemModel(baseName, blockModelLocation(block));
+    }
+
+    private void doorBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        DoorBlock block = (DoorBlock) blockMeta.get();
+
+        var itemTexture = itemTexture(baseName);
+        var topTexture = texture(baseName + "_top");
+        var bottomTexture = texture(baseName + "_bottom");
+
+        generatedItemModel(baseName, itemTexture);
+        doorBlock(block, bottomTexture, topTexture);
+    }
+
+    private void trapdoorBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        TrapDoorBlock block = (TrapDoorBlock) blockMeta.get();
+
+        var orientable = blockMeta.getType().instanceOf(MetaType.WOODEN_TRAPDOOR);
+        var texture = texture(baseName);
+
+        trapdoorBlock(block, texture, orientable);
+        blockItemModel(baseName, blockModelLocation(block).withSuffix("_bottom"));
+    }
+
+    private void pressurePlateBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        PressurePlateBlock block = (PressurePlateBlock) blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        pressurePlateBlock(block, texture);
+        blockItemModel(baseName, blockModelLocation(block));
+    }
+
+    private void buttonBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        ButtonBlock block = (ButtonBlock) blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        itemModels().buttonInventory(baseName, texture);
+        buttonBlock(block, texture);
+    }
+
+    private void signBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        var block = blockMeta.get();
+        var parentBlock = blockMeta.getParent();
+        var isWall = block instanceof WallSignBlock || block instanceof WallHangingSignBlock;
+        var baseSignName = isWall ? baseName.replace("_wall_", "_") : baseName;
+
+        var particleTexture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+
+        var modelLocation = blockModelLocation(plantopia(baseSignName));
+
+        ModelFile model;
+        if (isModelExists(modelLocation)) {
+            model = existingModel(modelLocation);
+        } else {
+            model = models().sign(baseSignName, particleTexture);
+        }
+
+        simpleBlock(block, model);
     }
 
     private void flowerPotBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -328,6 +513,20 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                     .build(),
                 BlockStateProperties.WATERLOGGED
             );
+    }
+
+    private void leafLitterBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var texture = texture(baseName);
+
+        generatedItemModel(baseName, texture);
+        directionalMultipartBlock(
+            blockMeta.get(),
+            PlantopiaLeafLitterBlock.AMOUNT,
+            value -> models().withExistingParent(baseName + "_" + value, parent("template_leaf_litter_" + value))
+                .texture("texture", texture)
+        );
     }
 
     private void hugeMushroomBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -955,6 +1154,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private void directionalMultipartBlock(Block block, @NotNull IntegerProperty property) {
         String baseName = nameOf(block);
+        directionalMultipartBlock(block, property, value -> existingPlantopiaModel(baseName + "_" + value));
+    }
+
+    private void directionalMultipartBlock(Block block, @NotNull IntegerProperty property, Function<Integer, ModelFile> modelFactory) {
         Integer maxValue = Collections.max(property.getPossibleValues());
         var builder = getMultipartBuilder(block);
 
@@ -963,7 +1166,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
             for (int i = value; i <= maxValue; i++) values.add(i);
 
-            var model = existingPlantopiaModel(baseName + "_" + value);
+            var model = modelFactory.apply(value);
 
             HORIZONTAL_DIRECTIONS.forEach(direction ->
                 builder.part()
@@ -1035,10 +1238,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         return models().getExistingFile(location);
     }
 
+    private @NotNull ResourceLocation blockModelLocation(@NotNull Block block) {
+        return blockModelLocation(locationOf(block));
+    }
+
+    private @NotNull ResourceLocation blockModelLocation(@NotNull ResourceLocation location) {
+        return locationFrom(location.getNamespace(), ModelProvider.BLOCK_FOLDER, location.getPath());
+    }
+
     private ModelFile.ExistingModelFile blockModel(@NotNull Block block) {
-        var blockLocation = locationOf(block);
-        var modelLocation = locationFrom(blockLocation.getNamespace(), ModelProvider.BLOCK_FOLDER, blockLocation.getPath());
-        return models().getExistingFile(modelLocation);
+        return models().getExistingFile(blockModelLocation(block));
     }
 
     private BlockModelBuilder cubeAllModel(String name, ResourceLocation texture) {
@@ -1237,9 +1446,14 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     }
 
     public ItemModelBuilder blockItemModel(String name, @NotNull ModelFile modelFile) {
-        return itemModels().withExistingParent(name, modelFile.getLocation());
+        return blockItemModel(name, modelFile.getLocation());
     }
 
+    public ItemModelBuilder blockItemModel(String name, ResourceLocation modelLocation) {
+        return itemModels().withExistingParent(name, modelLocation);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
     private ItemModelBuilder waterlilyFlowerTemplateItemModel(String name, ResourceLocation flowerTexture, ResourceLocation overlayTexture) {
         return itemModels().withExistingParent(name, itemParent("template_waterlily"))
             .texture("layer0", flowerTexture)

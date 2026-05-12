@@ -1,6 +1,6 @@
 package by.langvest.plantopia.item.special;
 
-import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntityTypes;
 import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.client.lang.PlantopiaLangKey;
 import by.langvest.plantopia.item.PlantopiaUpdateUseOnContext;
@@ -37,7 +37,7 @@ public class PlantopiaSeaShellBlockItem extends BlockItem implements PlantopiaUp
 
         tag.putInt("Color", PlantopiaSeaShellBlockEntity.generateRandomColor(syncRandom));
 
-        BlockItem.setBlockEntityData(newItemStack, PlantopiaBlockEntities.SEA_SHELL.get(), tag);
+        BlockItem.setBlockEntityData(newItemStack, PlantopiaBlockEntityTypes.SEA_SHELL.get(), tag);
 
         if (player != null && !player.isCreative()) itemStack.shrink(1);
 

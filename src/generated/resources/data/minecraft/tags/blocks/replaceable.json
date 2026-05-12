@@ -9,10 +9,13 @@
 		"plantopia:fireweed",
 		"plantopia:giant_fern",
 		"plantopia:giant_grass",
+		"plantopia:orange_leaf_litter",
+		"plantopia:red_leaf_litter",
 		"plantopia:reed",
 		"plantopia:sedge",
 		"plantopia:sweet_flag",
 		"plantopia:tall_dune_grass",
-		"plantopia:tansy"
+		"plantopia:tansy",
+		"plantopia:yellow_leaf_litter"
 	]
 }

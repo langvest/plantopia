@@ -5,6 +5,7 @@ import by.langvest.plantopia.meta.property.*;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.toolkit.meta.*;
+import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -50,7 +52,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 	private final PlantopiaTagType tagType;
 	private final PlantopiaOrderType orderType;
 	private final PlantopiaBeePreferenceType beePreferenceType;
-	private final DyeColor color;
+	private final @Nullable Supplier<? extends ItemLike> goesAfter;
+	private final @Nullable DyeColor color;
+	private final @Nullable Supplier<Block> parent;
+	private final @Nullable Supplier<Block> stripped;
 	private final boolean isPottable;
 	private final boolean shouldTintParticles;
 	private final boolean shouldTintItem;
@@ -74,6 +79,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		tintType = properties.tintType;
 		tagType = properties.tagType;
 		orderType = properties.orderType;
+		goesAfter = properties.goesAfter;
 		encouragement = properties.encouragement;
 		flammability = properties.flammability;
 		compostability = properties.compostability;
@@ -82,6 +88,8 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		shouldTintParticles = properties.shouldTintParticles;
 		shouldTintItem = properties.shouldTintItem;
 		color = properties.color;
+		parent = properties.parent;
+		stripped = properties.stripped;
 		burnTime = properties.burnTime;
 		behaviourProperties = properties.behaviourProperties;
 	}
@@ -97,6 +105,16 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 	@Nullable
 	public DyeColor getColor() {
 		return color;
+	}
+
+	@Nullable
+	public Block getParent() {
+		return parent == null ? null : parent.get();
+	}
+
+	@Nullable
+	public Block getStripped() {
+		return stripped == null ? null : stripped.get();
 	}
 
 	public boolean isIgnoredByBees() {
@@ -133,6 +151,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
 	public PlantopiaOrderType getOrderType() {
 		return orderType;
+	}
+
+	public @Nullable ItemLike getGoesAfter() {
+		return goesAfter == null ? null : goesAfter.get();
 	}
 
 	public PlantopiaBlockDropType getDropType() {
@@ -223,6 +245,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		return hasItem() && compostability > 0.0F;
 	}
 
+	public boolean isStrippable() {
+		return stripped != null;
+	}
+
 	public int getBurnTime() {
 		return this.burnTime;
 	}
@@ -265,7 +291,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		public static final MetaType WOODY_PLANT = MetaProperties.of(PLANT)
 			.mapColor(MapColor.WOOD)
 			.notCompostable()
-			.customBurnTime(BurnTime.WOODY_PLANT)
+			.burnTime(BurnTime.WOODY_PLANT)
 			.makeType("woody_plant");
 
 		public static final MetaType SHRUB = MetaProperties.of(WOODY_PLANT)
@@ -400,6 +426,16 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.flammable(Encouragement.LEAVES, Flammability.LEAVES)
 			.makeType("leaves");
 
+		public static final MetaType LEAF_LITTER = MetaProperties.create()
+			.replaceable()
+			.noCollision()
+			.sound(SoundType.CHERRY_LEAVES)
+			.pushReaction(PushReaction.DESTROY)
+			.cutoutRender()
+			.flammable(Encouragement.PLANT, Flammability.PLANT)
+			.burnTime(BurnTime.LEAF_LITTER)
+			.makeType("leaf_litter");
+
 		public static final MetaType SEA_MOSS = MetaProperties.create()
 			.copyBehaviour(Blocks.MOSS_BLOCK)
 			.sound(SoundType.WET_GRASS)
@@ -433,14 +469,93 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.flammable(Encouragement.WOOD, Flammability.WOOD)
 			.makeType("wood");
 
-		public static final MetaType LOG = MetaProperties.of(WOOD)
+		public static final MetaType LOG = MetaProperties.create()
 			.copyBehaviour(Blocks.OAK_LOG)
+			.flammable(Encouragement.WOOD, Flammability.WOOD)
 			.makeType("log");
 
-		public static final MetaType PLANKS = MetaProperties.of(WOOD)
+		public static final MetaType PLANKS = MetaProperties.create()
 			.copyBehaviour(Blocks.OAK_PLANKS)
 			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
 			.makeType("planks");
+
+		public static final MetaType STAIRS = MetaProperties.create()
+			.makeType("stairs");
+
+		public static final MetaType WOODEN_STAIRS = MetaProperties.of(STAIRS)
+			.copyBehaviour(Blocks.OAK_STAIRS)
+			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
+			.makeType("wooden_planks");
+
+		public static final MetaType SLAB = MetaProperties.create()
+			.makeType("slab");
+
+		public static final MetaType WOODEN_SLAB = MetaProperties.of(SLAB)
+			.copyBehaviour(Blocks.OAK_SLAB)
+			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
+			.makeType("wooden_slab");
+
+		public static final MetaType FENCE = MetaProperties.create()
+			.makeType("fence");
+
+		public static final MetaType WOODEN_FENCE = MetaProperties.of(FENCE)
+			.copyBehaviour(Blocks.OAK_FENCE)
+			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
+			.makeType("wooden_fence");
+
+		public static final MetaType FENCE_GATE = MetaProperties.create()
+			.makeType("fence_gate");
+
+		public static final MetaType WOODEN_FENCE_GATE = MetaProperties.of(FENCE_GATE)
+			.copyBehaviour(Blocks.OAK_FENCE_GATE)
+			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
+			.makeType("wooden_fence_gate");
+
+		public static final MetaType DOOR = MetaProperties.create()
+			.cutoutRender()
+			.makeType("door");
+
+		public static final MetaType WOODEN_DOOR = MetaProperties.of(DOOR)
+			.copyBehaviour(Blocks.OAK_DOOR)
+			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
+			.makeType("wooden_door");
+
+		public static final MetaType TRAPDOOR = MetaProperties.create()
+			.cutoutRender()
+			.makeType("trapdoor");
+
+		public static final MetaType WOODEN_TRAPDOOR = MetaProperties.of(TRAPDOOR)
+			.copyBehaviour(Blocks.OAK_TRAPDOOR)
+			.flammable(Encouragement.PLANKS, Flammability.PLANKS)
+			.makeType("wooden_trapdoor");
+
+		public static final MetaType PRESSURE_PLATE = MetaProperties.create()
+			.makeType("pressure_plate");
+
+		public static final MetaType WOODEN_PRESSURE_PLATE = MetaProperties.of(PRESSURE_PLATE)
+			.copyBehaviour(Blocks.OAK_PRESSURE_PLATE)
+			.makeType("wooden_pressure_plate");
+
+		public static final MetaType BUTTON = MetaProperties.create()
+			.makeType("button");
+
+		public static final MetaType WOODEN_BUTTON = MetaProperties.of(BUTTON)
+			.copyBehaviour(Blocks.OAK_BUTTON)
+			.makeType("wooden_button");
+
+		public static final MetaType SIGN = MetaProperties.create()
+			.makeType("sign");
+
+		public static final MetaType WOODEN_SIGN = MetaProperties.of(SIGN)
+			.copyBehaviour(Blocks.OAK_SIGN)
+			.makeType("wooden_sign");
+
+		public static final MetaType HANGING_SIGN = MetaProperties.create()
+			.makeType("hanging_sign");
+
+		public static final MetaType WOODEN_HANGING_SIGN = MetaProperties.of(HANGING_SIGN)
+			.copyBehaviour(Blocks.OAK_HANGING_SIGN)
+			.makeType("wooden_hanging_sign");
 
 		public static final MetaType DIRT = MetaProperties.create()
 			.copyBehaviour(Blocks.DIRT)
@@ -512,6 +627,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			return instanceOf(MUSHROOM) || instanceOf(MUSHROOM_STEM) || instanceOf(MUSHROOM_BLOCK);
 		}
 
+		public boolean isSignLike() {
+			return instanceOf(SIGN) || instanceOf(HANGING_SIGN);
+		}
+
 		public boolean isAbleToBePotted() {
 			return instanceOf(PLANT);
 		}
@@ -531,8 +650,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		private PlantopiaTintType tintType = PlantopiaTintType.NONE;
 		private PlantopiaTagType tagType = PlantopiaTagType.GENERATED;
 		private PlantopiaOrderType orderType = PlantopiaOrderType.BLOCK;
+		private @Nullable Supplier<? extends ItemLike> goesAfter = null;
 		private PlantopiaBeePreferenceType beePreferenceType = PlantopiaBeePreferenceType.DEFAULT;
-		private DyeColor color = null;
+		private @Nullable DyeColor color = null;
+		private @Nullable Supplier<Block> parent = null;
+		private @Nullable Supplier<Block> stripped = null;
 		private boolean isPottable = false;
 		private boolean shouldTintParticles = true;
 		private boolean shouldTintItem = true;
@@ -720,17 +842,12 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			});
 		}
 
-		public MetaProperties generatedBurnTime() {
+		public MetaProperties noBurnTime() {
 			this.burnTime = -1;
 			return this;
 		}
 
-		public MetaProperties noBurnTime() {
-			this.burnTime = 0;
-			return this;
-		}
-
-		public MetaProperties customBurnTime(int ticks) {
+		public MetaProperties burnTime(int ticks) {
 			this.burnTime = ticks;
 			return this;
 		}
@@ -745,8 +862,38 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			return this;
 		}
 
+		public MetaProperties noParent() {
+			this.parent = null;
+			return this;
+		}
+
+		public MetaProperties parent(Supplier<Block> parent) {
+			this.parent = parent;
+			return this;
+		}
+
+		public MetaProperties notStrippable() {
+			this.stripped = null;
+			return this;
+		}
+
+		public MetaProperties strippable(Supplier<Block> stripped) {
+			this.stripped = stripped;
+			return this;
+		}
+
 		public MetaProperties order(PlantopiaOrderType orderType) {
 			this.orderType = orderType;
+			return this;
+		}
+
+		public MetaProperties goesAfter(RegistryObject<? extends ItemLike> itemLike) {
+			this.goesAfter = itemLike;
+			return this;
+		}
+
+		public MetaProperties goesAfter(Supplier<? extends ItemLike> itemLike) {
+			this.goesAfter = itemLike;
 			return this;
 		}
 

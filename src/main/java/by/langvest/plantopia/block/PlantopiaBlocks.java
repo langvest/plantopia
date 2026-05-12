@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block;
 
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatures;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.platform.RegistryHelper;
@@ -39,8 +40,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
  * @see net.minecraft.world.level.block.Blocks
  */
 public class PlantopiaBlocks {
-	public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_LOG, properties), MetaProperties.of(MetaType.LOG).mapColor(PlantopiaBirchBaseBlock::logMapColor).customModel());
-	public static final RegistryObject<Block> BIRCH_BASE_WOOD = registerBlock("birch_base_wood", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_WOOD, properties), MetaProperties.of(MetaType.WOOD).mapColor(PlantopiaBirchBaseBlock::woodMapColor).customModel());
+	public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_LOG, properties), MetaProperties.of(MetaType.LOG).order(PlantopiaOrderType.BIRCH).mapColor(PlantopiaBirchBaseBlock::logMapColor).customModel().customDrop());
+	public static final RegistryObject<Block> BIRCH_BASE_WOOD = registerBlock("birch_base_wood", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_WOOD, properties), MetaProperties.of(MetaType.WOOD).order(PlantopiaOrderType.BIRCH).mapColor(PlantopiaBirchBaseBlock::woodMapColor).customModel().customDrop());
 
 	public static final RegistryObject<Block> INFESTED_GRASS_BLOCK = registerBlock("infested_grass_block", PlantopiaInfestedGrassBlock::new, MetaProperties.of(MetaType.GRASS_BLOCK).customModel().customDrop());
 	public static final RegistryObject<Block> INFESTED_DIRT = registerBlock("infested_dirt", PlantopiaInfestedDirtBlock::new, MetaProperties.of(MetaType.DIRT).randomlyTicking().customModel().customDrop());
@@ -153,6 +154,10 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> ICICLE = registerBlock("icicle", PlantopiaIcicleBlock::new, MetaProperties.of(MetaType.ICICLE).hasDynamicShape().randomlyTicking().customModel());
 	public static final RegistryObject<Block> ICE_CRUST = registerBlock("ice_crust", PlantopiaIceCrustBlock::new, MetaProperties.of(MetaType.ICE_CRUST).hasDynamicShape().randomlyTicking().customModel().customItem());
 
+	public static final RegistryObject<Block> YELLOW_LEAF_LITTER = registerBlock("yellow_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_YELLOW).goesAfter(PlantopiaKits.MAPLE.yellowLeaves()));
+	public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves()));
+	public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves()));
+
 	public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 
 	static {
@@ -196,6 +201,11 @@ public class PlantopiaBlocks {
 
 	@Contract(pure = true)
 	private static @NotNull Boolean never(BlockState state, BlockGetter level, BlockPos pos) {
+		return false;
+	}
+
+	@Contract(pure = true)
+	private static @NotNull Boolean woodColor(MapColor topColor, MapColor sideColor) {
 		return false;
 	}
 }

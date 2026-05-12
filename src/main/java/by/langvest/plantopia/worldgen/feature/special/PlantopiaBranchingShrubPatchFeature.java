@@ -74,6 +74,7 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
             double smoothHeight = maxHeight * Mth.clamp(falloffFactor, 0.0, 1.0);
             double erodedOffset = (random.nextDouble() * 2 - 1) * maxHeight * heightErosion;
             int height = (int) Math.round(Mth.clamp(smoothHeight + erodedOffset, 0.0, maxHeight));
+            if (growthDirection == Direction.UP && height == 1 && random.nextFloat() < 0.35F) height++;
 
             if (placeColumn(level, centerPos, localPos, growthDirection, height, config, random)) {
                 successfulPlacements++;
@@ -87,13 +88,13 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         if (height <= 0) {
             return false;
         }
-        
+
         var allowedPlacement = growthDirection.getAxis().isVertical() ? config.allowedVerticalPlacement() : config.allowedHorizontalPlacement();
         var allowedAttachment = config.allowedAttachment();
         var columnBasePos = rotate(localPos, growthDirection).offset(centerPos);
         var baseState = getBaseState(growthDirection);
         var bodyState = getBodyState(growthDirection);
-        
+
         if (!allowedPlacement.test(level, columnBasePos)) {
             return false;
         }
@@ -201,7 +202,7 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
         int depth = surfaceY - pos.getY();
         double delta = Mth.inverseLerp(depth, 0, 20);
-        
+
         return (float) Mth.lerp(delta, 0.5F, 0.1F);
     }
 
@@ -230,7 +231,7 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         int surfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, pos.getX(), pos.getZ());
         int depth = surfaceY - pos.getY();
         double delta = Mth.inverseLerp(depth, 0, 15);
-        
+
         return (float) Mth.lerp(delta, 0.6F, 0.3F);
     }
 
@@ -315,7 +316,7 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
 
             return (int) Mth.lerp(delta, Math.min(xzSpread, smallXZSpread), xzSpread);
         }
-        
+
         return xzSpread;
     }
 
@@ -373,5 +374,6 @@ public class PlantopiaBranchingShrubPatchFeature extends Feature<PlantopiaBranch
         return null;
     }
 
-    private record PlacementInfo(BlockPos pos, Direction direction, int maxHeight, int xzSpread, int ySpread) {}
+    private record PlacementInfo(BlockPos pos, Direction direction, int maxHeight, int xzSpread, int ySpread) {
+    }
 }

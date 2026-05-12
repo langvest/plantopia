@@ -2,6 +2,8 @@ package by.langvest.plantopia.meta.property;
 
 public enum PlantopiaOrderType {
 	BLOCK,
+	BIRCH,
+	MAPLE,
 	ICE,
 	MUSHROOM,
 	PLANT,

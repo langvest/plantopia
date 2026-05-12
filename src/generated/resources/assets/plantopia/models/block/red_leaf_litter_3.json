@@ -1,0 +1,6 @@
+{
+	"parent": "plantopia:block/template_leaf_litter_3",
+	"textures": {
+		"texture": "plantopia:block/red_leaf_litter"
+	}
+}

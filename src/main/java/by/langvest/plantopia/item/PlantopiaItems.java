@@ -12,6 +12,7 @@ import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.util.helper.PlantopiaItemHelper;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
+import by.langvest.toolkit.registry.SupposedRegistryObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -55,6 +56,10 @@ public class PlantopiaItems {
 	public static final RegistryObject<Item> WHITE_LUCKY_DAISY = registerItem("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlockItem(PlantopiaBlocks.WHITE_LUCKY_DAISY.get(), properties), MetaProperties.of(MetaType.LUCKY_DAISY_BLOCK));
 	public static final RegistryObject<Item> PINK_LUCKY_DAISY = registerItem("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlockItem(PlantopiaBlocks.PINK_LUCKY_DAISY.get(), properties), MetaProperties.of(MetaType.LUCKY_DAISY_BLOCK));
 
+	public static SupposedRegistryObject<Item> supposeItem(String name) {
+		return PlantopiaRegistries.ITEM.supposeValue(plantopia(name));
+	}
+
 	public static <T extends Item> RegistryObject<T> registerItem(String name, Function<Properties, T> factory, MetaProperties metaProperties) {
 		return registerItem(plantopia(name), factory, metaProperties);
 	}
@@ -72,7 +77,7 @@ public class PlantopiaItems {
 		var orderType = blockMeta.getOrderType();
 
 		var factory = PlantopiaItemHelper.getBlockItemFactory(blockMeta);
-		var metaProperties = MetaProperties.of(MetaType.BLOCK).group(groups).customBurnTime(burnTime).order(orderType);
+		var metaProperties = MetaProperties.of(MetaType.BLOCK).group(groups).burnTime(burnTime).order(orderType).goesAfter(blockMeta::getGoesAfter);
 
 		registerItem(blockMeta.getIdentifier(), factory, metaProperties);
 	}

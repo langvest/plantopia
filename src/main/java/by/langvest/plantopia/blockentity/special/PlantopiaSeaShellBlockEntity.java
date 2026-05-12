@@ -1,6 +1,6 @@
 package by.langvest.plantopia.blockentity.special;
 
-import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntityTypes;
 import by.langvest.plantopia.util.helper.PlantopiaColorHelper;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import net.minecraft.core.BlockPos;
@@ -21,7 +21,7 @@ public class PlantopiaSeaShellBlockEntity extends BlockEntity {
 	protected int color = DEFAULT_COLOR;
 
 	public PlantopiaSeaShellBlockEntity(BlockPos pos, BlockState state) {
-		super(PlantopiaBlockEntities.SEA_SHELL.get(), pos, state);
+		super(PlantopiaBlockEntityTypes.SEA_SHELL.get(), pos, state);
 	}
 
 	public int getColor() {

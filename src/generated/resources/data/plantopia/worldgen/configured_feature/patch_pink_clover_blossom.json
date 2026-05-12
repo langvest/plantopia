@@ -8,7 +8,7 @@
 				"property": {
 					"Max": 4,
 					"Min": 1,
-					"Name": "leaf_amount"
+					"Name": "segment_amount"
 				},
 				"provider": {
 					"type": "minecraft:weighted_state_provider",
@@ -18,7 +18,7 @@
 								"Name": "plantopia:clover",
 								"Properties": {
 									"facing": "north",
-									"leaf_amount": "1"
+									"segment_amount": "1"
 								}
 							},
 							"weight": 1
@@ -28,7 +28,7 @@
 								"Name": "plantopia:clover",
 								"Properties": {
 									"facing": "east",
-									"leaf_amount": "1"
+									"segment_amount": "1"
 								}
 							},
 							"weight": 1
@@ -38,7 +38,7 @@
 								"Name": "plantopia:clover",
 								"Properties": {
 									"facing": "south",
-									"leaf_amount": "1"
+									"segment_amount": "1"
 								}
 							},
 							"weight": 1
@@ -48,7 +48,7 @@
 								"Name": "plantopia:clover",
 								"Properties": {
 									"facing": "west",
-									"leaf_amount": "1"
+									"segment_amount": "1"
 								}
 							},
 							"weight": 1

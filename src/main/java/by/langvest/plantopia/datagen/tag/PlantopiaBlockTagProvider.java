@@ -48,6 +48,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     private final PlantopiaTagSet<Block> OVERWORLD_NATURAL_LOGS = createTagSet(BlockTags.OVERWORLD_NATURAL_LOGS);
     private final PlantopiaTagSet<Block> DIRT = createTagSet(BlockTags.DIRT);
     private final PlantopiaTagSet<Block> SNIFFER_DIGGABLE_BLOCK = createTagSet(BlockTags.SNIFFER_DIGGABLE_BLOCK);
+    private final PlantopiaTagSet<Block> ENCHANTMENT_POWER_TRANSMITTER = createTagSet(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
     private final PlantopiaTagSet<Block> CONVERTABLE_TO_MUD = createTagSet(BlockTags.CONVERTABLE_TO_MUD);
     private final PlantopiaTagSet<Block> WOLVES_SPAWNABLE_ON = createTagSet(BlockTags.WOLVES_SPAWNABLE_ON);
     private final PlantopiaTagSet<Block> ANIMALS_SPAWNABLE_ON = createTagSet(BlockTags.ANIMALS_SPAWNABLE_ON);
@@ -202,6 +203,16 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             if(type.instanceOf(MetaType.LEAVES)) {
                 LEAVES.add(block);
                 MINEABLE_WITH_HOE.add(block);
+            }
+
+            if(type.instanceOf(MetaType.LEAF_LITTER)) {
+                INSIDE_STEP_SOUND_BLOCKS.add(block);
+                ENCHANTMENT_POWER_TRANSMITTER.add(block);
+
+                if(replaceable) {
+                    REPLACEABLE.add(block);
+                    REPLACEABLE_BY_TREES.add(block);
+                }
             }
 
             if(type.instanceOf(MetaType.SAPLING)) {

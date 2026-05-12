@@ -13,12 +13,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -31,6 +30,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	private final PlantopiaModelType modelType;
 	private final PlantopiaDisplayNameType displayNameType;
 	private final PlantopiaOrderType orderType;
+	private final @Nullable Supplier<? extends ItemLike> goesAfter;
 	private final PlantopiaTagType tagType;
 	private final boolean hasCustomRenderer;
 	private final int burnTime;
@@ -42,6 +42,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		modelType = properties.modelType;
 		displayNameType = properties.displayNameType;
 		orderType = properties.orderType;
+		goesAfter = properties.goesAfter;
 		burnTime = properties.burnTime;
 		behaviourProperties = properties.behaviourProperties;
 		hasCustomRenderer = properties.hasCustomRenderer;
@@ -69,7 +70,7 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 	}
 
 	public boolean shouldGenerateModel() {
-		return !type.instanceOf(MetaType.BLOCK) && modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
+		return !type.instanceOfExcept(MetaType.BLOCK, Set.of(MetaType.SIGN)) && modelType != PlantopiaModelType.NONE && modelType != PlantopiaModelType.CUSTOM;
 	}
 
 	public boolean shouldGenerateTranslation() {
@@ -92,10 +93,18 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		return orderType;
 	}
 
+	public @Nullable ItemLike getGoesAfter() {
+		return goesAfter == null ? null : goesAfter.get();
+	}
+
 	public static class MetaType extends SimpleMetaObject.MetaType<MetaType, MetaProperties> {
 		public static final MetaType ITEM = MetaProperties.create()
 			.noTag()
 			.makeType("item");
+
+		public static final MetaType BOAT = MetaProperties.create()
+			.stacksTo(1)
+			.makeType("boat");
 
 		public static final MetaType FOOD = MetaProperties.create()
 			.order(PlantopiaOrderType.FOOD)
@@ -105,6 +114,10 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 			.order(PlantopiaOrderType.BLOCK)
 			.noTag()
 			.makeType("block");
+
+		public static final MetaType SIGN = MetaProperties.of(BLOCK)
+			.stacksTo(16)
+			.makeType("sign");
 
 		public static final MetaType COBBLESTONE_SHARD_BLOCK = MetaProperties.of(BLOCK)
 			.order(PlantopiaOrderType.COBBLESTONE_SHARD)
@@ -141,8 +154,8 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 		private PlantopiaDisplayNameType displayNameType = PlantopiaDisplayNameType.GENERATED;
 		private PlantopiaTagType tagType = PlantopiaTagType.GENERATED;
 		private boolean hasCustomRenderer = false;
-
 		private PlantopiaOrderType orderType = PlantopiaOrderType.ITEM;
+		private @Nullable Supplier<? extends ItemLike> goesAfter = null;
 		private int burnTime = -1;
 
 		private MetaProperties() {}
@@ -192,23 +205,23 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 			return this;
 		}
 
-		public MetaProperties generatedBurnTime() {
+		public MetaProperties noBurnTime() {
 			this.burnTime = -1;
 			return this;
 		}
 
-		public MetaProperties noBurnTime() {
-			this.burnTime = 0;
-			return this;
-		}
-
-		public MetaProperties customBurnTime(int ticks) {
+		public MetaProperties burnTime(int ticks) {
 			this.burnTime = ticks;
 			return this;
 		}
 
 		public MetaProperties order(PlantopiaOrderType orderType) {
 			this.orderType = orderType;
+			return this;
+		}
+
+		public MetaProperties goesAfter(Supplier<? extends ItemLike> itemLike) {
+			this.goesAfter = itemLike;
 			return this;
 		}
 

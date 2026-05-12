@@ -21,10 +21,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.AbstractCauldronBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -77,6 +74,8 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.GIANT_FERN.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.FERN, Items.WHEAT_SEEDS));
         add(PlantopiaBlocks.TALL_DUNE_GRASS.get(), block -> createDoublePlantShearedDrops(block, PlantopiaBlocks.DUNE_GRASS.get()));
         add(PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.WITCHY_TOADSTOOL.get()));
+        add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_LOG));
+        add(PlantopiaBlocks.BIRCH_BASE_WOOD.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_WOOD));
         add(PlantopiaBlocks.CLOVER.get(), this::createCloverDrops);
         add(PlantopiaBlocks.AZOLLA.get(), this::createAzollaDrops);
         add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
@@ -100,6 +99,16 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
             var block = blockMeta.get();
             var dropType = blockMeta.getDropType();
+
+            if (block instanceof DoorBlock) {
+                add(block, this::createDoorTable);
+                return;
+            }
+
+            if (block instanceof PlantopiaLeafLitterBlock) {
+                add(block, this::createLeafLitterDrops);
+                return;
+            }
 
             if (block instanceof PlantopiaFloweringWaterlilyBlock) {
                 add(block, this::createFloweringWaterlilyDrops);
@@ -273,6 +282,16 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createTripleHighPlantTable(block, lootEntry);
     }
 
+    private static LootTable.@NotNull Builder createBirchBaseDrops(Block block, Block simpleBirch) {
+        LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+            .when(HAS_SILK_TOUCH)
+            .otherwise(
+                withSurvivesExplosionCondition(block, item(simpleBirch))
+            );
+
+        return createBlockTable(block, lootEntry);
+    }
+
     private static LootTable.@NotNull Builder createDoublePlantShearedDrops(Block block, Block sheared) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(sheared)
             .apply(setCount(2))
@@ -307,8 +326,14 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
     }
 
     private LootTable.@NotNull Builder createAzollaDrops(Block block) {
-        LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaCloverBlock.AMOUNT)
+        LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaBlockStateProperties.SEGMENT_AMOUNT)
             .when(HAS_SHEARS_OR_SILK_TOUCH);
+
+        return createBlockTable(block, lootEntry);
+    }
+
+    private LootTable.@NotNull Builder createLeafLitterDrops(Block block) {
+        LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaBlockStateProperties.SEGMENT_AMOUNT);
 
         return createBlockTable(block, lootEntry);
     }

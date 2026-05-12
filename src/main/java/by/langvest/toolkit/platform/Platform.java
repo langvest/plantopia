@@ -8,11 +8,13 @@ public abstract class Platform {
 	protected String modId;
 	protected Logger logger;
 	protected EventEmitter eventEmitter;
+	protected WorkScheduler workScheduler;
 
 	public Platform(String modId) {
 		this.modId = modId;
 		this.logger = LogManager.getLogger(modId);
 		this.eventEmitter = new EventEmitter();
+		this.workScheduler = new WorkScheduler();
 	}
 
 	public String getModId() {
@@ -25,6 +27,10 @@ public abstract class Platform {
 
 	public EventEmitter getEventEmitter() {
 		return eventEmitter;
+	}
+
+	public WorkScheduler getWorkScheduler() {
+		return workScheduler;
 	}
 
 	public abstract String getPlatformName();

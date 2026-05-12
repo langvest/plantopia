@@ -1,7 +1,7 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.blockentity.special.PlantopiaIcyReedsBlockEntity;
+import by.langvest.plantopia.blockentity.special.PlantopiaFrozenReedBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.stats.Stats;
@@ -61,7 +61,7 @@ public class PlantopiaFrozenReedBlock extends IceBlock implements EntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new PlantopiaIcyReedsBlockEntity(pos, state);
+        return new PlantopiaFrozenReedBlockEntity(pos, state);
     }
 
     @Override

@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column_horizontal",
+	"textures": {
+		"end": "plantopia:block/maple_log",
+		"side": "plantopia:block/maple_log"
+	}
+}

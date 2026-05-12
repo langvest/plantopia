@@ -1,6 +1,7 @@
 {
 	"values": [
-		"#plantopia:type/log",
-		"plantopia:birch_base_wood"
+		"plantopia:birch_base_wood",
+		"plantopia:maple_wood",
+		"plantopia:stripped_maple_wood"
 	]
 }

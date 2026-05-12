@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.properties.*;
  */
 public class PlantopiaBlockStateProperties {
 	public static final int INFESTED_DIRT_MAX_AGE = BlockStateProperties.MAX_AGE_25;
-	public static final IntegerProperty LEAF_AMOUNT = IntegerProperty.create("leaf_amount", 1, 4);
+	public static final IntegerProperty SEGMENT_AMOUNT = IntegerProperty.create("segment_amount", 1, 4);
 	public static final IntegerProperty PETAL_AMOUNT = IntegerProperty.create("petal_amount", 0, 8);
 	public static final IntegerProperty SHARDS = IntegerProperty.create("shards", 1, 4);
 	public static final IntegerProperty POLLINATION_COUNT = IntegerProperty.create("pollination_count", 1, 4);

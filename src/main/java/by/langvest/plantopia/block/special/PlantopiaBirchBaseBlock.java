@@ -4,7 +4,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -34,8 +33,8 @@ public class PlantopiaBirchBaseBlock extends DirectionalBlock {
 
 	@Override
 	@Nullable
-	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction action, boolean simulate) {
-		if(action != ToolActions.AXE_STRIP) return super.getToolModifiedState(state, context, action, simulate);
+	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction action, boolean simulated) {
+		if(action != ToolActions.AXE_STRIP) return super.getToolModifiedState(state, context, action, simulated);
 		Direction facing = state.getValue(FACING);
 		return strippedBlock.get().defaultBlockState().setValue(BlockStateProperties.AXIS, facing.getAxis());
 	}

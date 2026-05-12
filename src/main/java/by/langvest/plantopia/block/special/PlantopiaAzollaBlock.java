@@ -28,7 +28,7 @@ public class PlantopiaAzollaBlock extends BushBlock implements BonemealableBlock
 	public static final int MIN_LEAFS = 1;
 	public static final int MAX_LEAFS = 4;
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.LEAF_AMOUNT;
+	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.SEGMENT_AMOUNT;
 
 	public PlantopiaAzollaBlock(Properties properties) {
 		super(properties);
@@ -76,7 +76,7 @@ public class PlantopiaAzollaBlock extends BushBlock implements BonemealableBlock
 	@Override
 	@SuppressWarnings("deprecation")
 	public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext context) {
-		return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(AMOUNT) < MAX_LEAFS || super.canBeReplaced(state, context);
+		return !context.isSecondaryUseActive() && context.getItemInHand().is(asItem()) && state.getValue(AMOUNT) < MAX_LEAFS || super.canBeReplaced(state, context);
 	}
 
     @Override
@@ -87,8 +87,12 @@ public class PlantopiaAzollaBlock extends BushBlock implements BonemealableBlock
 
 	@Override
 	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
-		BlockState state = context.getLevel().getBlockState(context.getClickedPos());
-		if(state.is(this)) return state.setValue(AMOUNT, Math.min(MAX_LEAFS, state.getValue(AMOUNT) + 1));
+		var state = context.getLevel().getBlockState(context.getClickedPos());
+
+		if(state.is(this)) {
+			return state.setValue(AMOUNT, Math.min(MAX_LEAFS, state.getValue(AMOUNT) + 1));
+		}
+
 		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
 	}
 
@@ -110,11 +114,9 @@ public class PlantopiaAzollaBlock extends BushBlock implements BonemealableBlock
 	protected boolean isValidBonemealCandidate(@NotNull ServerLevel level, @NotNull BlockPos pos) {
 		var posBelow = pos.below();
 		var fluidStateBelow = level.getFluidState(posBelow);
-
 		if(!fluidStateBelow.isSourceOfType(Fluids.WATER)) return false;
 
 		var state = level.getBlockState(pos);
-
 		if(state.is(this)) return true;
 
         return state.isAir() && canSurvive(state, level, pos);

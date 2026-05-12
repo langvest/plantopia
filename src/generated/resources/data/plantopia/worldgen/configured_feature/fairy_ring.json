@@ -48,7 +48,7 @@
 			]
 		},
 		"sigma": -4.82,
-		"tries": 64,
+		"tries": 48,
 		"xz_spread": {
 			"type": "minecraft:uniform",
 			"value": {

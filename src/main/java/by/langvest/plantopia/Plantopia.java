@@ -2,12 +2,15 @@ package by.langvest.plantopia;
 
 import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.blockentity.PlantopiaBlockEntities;
+import by.langvest.plantopia.blockentity.PlantopiaBlockEntityTypes;
 import by.langvest.plantopia.client.PlantopiaClient;
 import by.langvest.plantopia.command.PlantopiaCommands;
 import by.langvest.plantopia.compat.PlantopiaCompats;
-import by.langvest.plantopia.entity.PlantopiaEntities;
+import by.langvest.plantopia.entity.PlantopiaBoatType;
+import by.langvest.plantopia.entity.PlantopiaBoatTypes;
+import by.langvest.plantopia.entity.PlantopiaEntityTypes;
 import by.langvest.plantopia.item.PlantopiaItems;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.recipe.PlantopiaRecipeSerializers;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
@@ -59,10 +62,12 @@ public final class Plantopia {
     private static void addListeners(@NotNull EventEmitter emitter) {
         // Registries
         emitter.subscribe(PlantopiaBlocks::setup);
-        emitter.subscribe(PlantopiaBlockEntities::setup);
+        emitter.subscribe(PlantopiaBlockEntityTypes::setup);
         emitter.subscribe(PlantopiaItems::setup);
+        emitter.subscribe(PlantopiaKits::setup);
         emitter.subscribe(PlantopiaCreativeModeTabs::setup);
-        emitter.subscribe(PlantopiaEntities::setup);
+        emitter.subscribe(PlantopiaEntityTypes::setup);
+        emitter.subscribe(PlantopiaBoatTypes::setup);
         emitter.subscribe(PlantopiaParticleTypes::setup);
         emitter.subscribe(PlantopiaSoundEvents::setup);
         emitter.subscribe(PlantopiaFeatureTypes::setup);
@@ -74,6 +79,7 @@ public final class Plantopia {
         emitter.subscribe(PlantopiaRecipeSerializers::setup);
 
         // Common
+        emitter.subscribe(PlantopiaBoatType::setup);
         emitter.subscribe(PlantopiaCompats::setup);
         emitter.subscribe(PlantopiaCommands::setup);
         emitter.subscribe(PlantopiaAdvancementTriggers::setup);
