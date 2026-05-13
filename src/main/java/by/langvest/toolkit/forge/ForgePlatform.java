@@ -5,6 +5,7 @@ import by.langvest.toolkit.platform.Platform;
 import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.platform.ResourceHelper;
 import by.langvest.toolkit.platform.client.RenderHelper;
+import net.minecraftforge.data.loading.DatagenModLoader;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +42,11 @@ public class ForgePlatform extends Platform {
 	@Override
 	public boolean isServer() {
 		return FMLEnvironment.dist.isDedicatedServer();
+	}
+
+	@Override
+	public boolean isDatagen() {
+    	return DatagenModLoader.isRunningDataGen();
 	}
 
 	@Override

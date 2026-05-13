@@ -46,6 +46,6 @@ public final class PlantopiaClient {
     private static void setup(LifecycleEvent.ClientSetupEvent event) {
         var workScheduler = Plantopia.getPlatform().getWorkScheduler();
 
-        workScheduler.executeClientWork();
+        workScheduler.executeWork("client_setup");
     }
 }

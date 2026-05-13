@@ -39,6 +39,8 @@ public abstract class Platform {
 
 	public abstract boolean isServer();
 
+	public abstract boolean isDatagen();
+
 	public abstract ResourceHelper getResourceHelper();
 
 	public abstract RegistryHelper getRegistryHelper();

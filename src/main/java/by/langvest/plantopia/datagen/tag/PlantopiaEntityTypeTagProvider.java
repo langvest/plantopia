@@ -19,10 +19,10 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider implements PlantopiaTagProvider<EntityType<?>> {
-    private final Map<TagKey<EntityType<?>>, PlantopiaTagSet<EntityType<?>>> byTagKeys = Maps.newHashMap();
+    private static final Map<TagKey<EntityType<?>>, PlantopiaTagSet<EntityType<?>>> byTagKeys = Maps.newHashMap();
 
-	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS);
-	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = createTagSet(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES);
+	public static final PlantopiaTagSet<EntityType<?>> QUICKSAND_WALKABLE_MOBS = getOrCreateTagSet(PlantopiaEntityTypeTags.QUICKSAND_WALKABLE_MOBS);
+	private final PlantopiaTagSet<EntityType<?>> QUICKSAND_IMMUNE_ENTITY_TYPES = getOrCreateTagSet(PlantopiaEntityTypeTags.QUICKSAND_IMMUNE_ENTITY_TYPES);
 
 	public PlantopiaEntityTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -40,10 +40,8 @@ public class PlantopiaEntityTypeTagProvider extends EntityTypeTagsProvider imple
 		saveByTagKeys(byTagKeys);
 	}
 
-    private @NotNull PlantopiaTagSet<EntityType<?>> createTagSet(TagKey<EntityType<?>> key) {
-        PlantopiaTagSet<EntityType<?>> tagSet = PlantopiaTagSet.newTagSet();
-        byTagKeys.put(key, tagSet);
-        return tagSet;
+    public static @NotNull PlantopiaTagSet<EntityType<?>> getOrCreateTagSet(TagKey<EntityType<?>> key) {
+        return byTagKeys.computeIfAbsent(key, k -> PlantopiaTagSet.newTagSet());
     }
 
 	@Override

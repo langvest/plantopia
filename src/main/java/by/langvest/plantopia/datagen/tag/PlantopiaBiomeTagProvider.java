@@ -23,10 +23,10 @@ import java.util.concurrent.CompletableFuture;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements PlantopiaTagProvider<Biome> {
-    private final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
+    private static final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
 
-	private final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = createTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
-	private final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = createTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
+	public static final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
+	public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
 
 	public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -59,10 +59,8 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 		saveByTagKeys(byTagKeys);
 	}
 
-    private @NotNull PlantopiaTagSet<Biome> createTagSet(TagKey<Biome> key) {
-        PlantopiaTagSet<Biome> tagSet = PlantopiaTagSet.newTagSet();
-        byTagKeys.put(key, tagSet);
-        return tagSet;
+    public static @NotNull PlantopiaTagSet<Biome> getOrCreateTagSet(TagKey<Biome> key) {
+        return byTagKeys.computeIfAbsent(key, k -> PlantopiaTagSet.newTagSet());
     }
 
 	@Override

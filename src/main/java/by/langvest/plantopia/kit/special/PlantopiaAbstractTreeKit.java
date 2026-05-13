@@ -1,6 +1,6 @@
 package by.langvest.plantopia.kit.special;
 
-import by.langvest.plantopia.kit.options.PlantopiaTreeOptions;
+import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -13,7 +13,7 @@ public abstract class PlantopiaAbstractTreeKit {
     protected final BlockSetType blockSetType;
     protected final WoodType woodType;
 
-    protected PlantopiaAbstractTreeKit(String baseName, @NotNull PlantopiaTreeOptions config) {
+    protected PlantopiaAbstractTreeKit(String baseName, @NotNull PlantopiaTreeKitConfiguration config) {
         super();
         this.baseName = baseName;
         this.blockSetType = config.blockSetTypeFactory().apply(plantopia(baseName));

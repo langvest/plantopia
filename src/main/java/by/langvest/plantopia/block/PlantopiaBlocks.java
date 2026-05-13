@@ -207,7 +207,18 @@ public class PlantopiaBlocks {
 	}
 
 	@Contract(pure = true)
-	private static @NotNull Boolean woodColor(MapColor topColor, MapColor sideColor) {
-		return false;
+	public static @NotNull Function<BlockState, MapColor> birchBaseLogMapColor() {
+		return state -> {
+			Direction facing = state.getValue(BlockStateProperties.FACING);
+			return facing.getAxis() == Direction.Axis.Y ? MapColor.SAND : MapColor.QUARTZ;
+		};
+	}
+
+	@Contract(pure = true)
+	public static @NotNull Function<BlockState, MapColor> birchBaseWoodMapColor() {
+		return state -> {
+			Direction facing = state.getValue(BlockStateProperties.FACING);
+			return facing == Direction.DOWN ? MapColor.COLOR_BLACK : MapColor.QUARTZ;
+		};
 	}
 }

@@ -11,7 +11,7 @@ import by.langvest.plantopia.entity.PlantopiaBoatType;
 import by.langvest.plantopia.entity.PlantopiaBoatTypes;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.item.special.PlantopiaBoatItem;
-import by.langvest.plantopia.kit.options.PlantopiaTreeOptions;
+import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
@@ -53,30 +53,30 @@ public class PlantopiaTreeStuffKit {
     protected final RegistryObject<Item> signItem;
     protected final RegistryObject<Item> hangingSignItem;
 
-    protected PlantopiaTreeStuffKit(String baseName, WoodType woodType, @NotNull PlantopiaTreeOptions options) {
+    protected PlantopiaTreeStuffKit(String baseName, WoodType woodType, @NotNull PlantopiaTreeKitConfiguration config) {
         this.baseName = baseName;
 
         /* BUILDING BLOCKS ********************************************************************************************/
 
-        this.planks = PlantopiaBlocks.registerBlock(baseName + "_planks", Block::new, options.applyBlockMeta(MetaProperties.of(MetaType.PLANKS)));
-        this.stairs = PlantopiaBlocks.registerBlock(baseName + "_stairs", properties -> new StairBlock(() -> planks.get().defaultBlockState(), properties), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_STAIRS).parent(planks)));
-        this.slab = PlantopiaBlocks.registerBlock(baseName + "_slab", SlabBlock::new, options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SLAB).parent(planks)));
-        this.fence = PlantopiaBlocks.registerBlock(baseName + "_fence", FenceBlock::new, options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_FENCE).parent(planks)));
-        this.fenceGate = PlantopiaBlocks.registerBlock(baseName + "_fence_gate", properties -> new FenceGateBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_FENCE_GATE).parent(planks)));
-        this.door = PlantopiaBlocks.registerBlock(baseName + "_door", properties -> new DoorBlock(properties, woodType.setType()), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_DOOR).parent(planks)));
-        this.trapdoor = PlantopiaBlocks.registerBlock(baseName + "_trapdoor", properties -> new TrapDoorBlock(properties, woodType.setType()), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_TRAPDOOR).parent(planks)));
-        this.pressurePlate = PlantopiaBlocks.registerBlock(baseName + "_pressure_plate", properties -> new PressurePlateBlock(options.pressurePlateSensitivity(), properties, woodType.setType()), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_PRESSURE_PLATE).parent(planks)));
-        this.button = PlantopiaBlocks.registerBlock(baseName + "_button", properties -> new ButtonBlock(properties, woodType.setType(), options.buttonTicksToStayPressed(), options.canArrowsPressButton()), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_BUTTON).parent(planks)));
+        this.planks = PlantopiaBlocks.registerBlock(baseName + "_planks", Block::new, config.applyBlockMeta(MetaProperties.of(MetaType.PLANKS)));
+        this.stairs = PlantopiaBlocks.registerBlock(baseName + "_stairs", properties -> new StairBlock(() -> planks.get().defaultBlockState(), properties), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_STAIRS).parent(planks)));
+        this.slab = PlantopiaBlocks.registerBlock(baseName + "_slab", SlabBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SLAB).parent(planks)));
+        this.fence = PlantopiaBlocks.registerBlock(baseName + "_fence", FenceBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_FENCE).parent(planks)));
+        this.fenceGate = PlantopiaBlocks.registerBlock(baseName + "_fence_gate", properties -> new FenceGateBlock(properties, woodType), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_FENCE_GATE).parent(planks)));
+        this.door = PlantopiaBlocks.registerBlock(baseName + "_door", properties -> new DoorBlock(properties, woodType.setType()), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_DOOR).parent(planks)));
+        this.trapdoor = PlantopiaBlocks.registerBlock(baseName + "_trapdoor", properties -> new TrapDoorBlock(properties, woodType.setType()), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_TRAPDOOR).parent(planks)));
+        this.pressurePlate = PlantopiaBlocks.registerBlock(baseName + "_pressure_plate", properties -> new PressurePlateBlock(config.pressurePlateSensitivity(), properties, woodType.setType()), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_PRESSURE_PLATE).parent(planks)));
+        this.button = PlantopiaBlocks.registerBlock(baseName + "_button", properties -> new ButtonBlock(properties, woodType.setType(), config.buttonTicksToStayPressed(), config.canArrowsPressButton()), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_BUTTON).parent(planks)));
 
         /* SIGNS ******************************************************************************************************/
 
-        this.sign = PlantopiaBlocks.registerBlock(baseName + "_sign", properties -> new PlantopiaStandingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).customItem()));
-        this.wallSign = PlantopiaBlocks.registerBlock(baseName + "_wall_sign", properties -> new PlantopiaWallSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).noItem()));
-        this.hangingSign = PlantopiaBlocks.registerBlock(baseName + "_hanging_sign", properties -> new PlantopiaCeilingHangingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).customItem()));
-        this.wallHangingSign = PlantopiaBlocks.registerBlock(baseName + "_wall_hanging_sign", properties -> new PlantopiaWallHangingSignBlock(properties, woodType), options.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).noItem()));
+        this.sign = PlantopiaBlocks.registerBlock(baseName + "_sign", properties -> new PlantopiaStandingSignBlock(properties, woodType), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).customItem()));
+        this.wallSign = PlantopiaBlocks.registerBlock(baseName + "_wall_sign", properties -> new PlantopiaWallSignBlock(properties, woodType), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).noItem()));
+        this.hangingSign = PlantopiaBlocks.registerBlock(baseName + "_hanging_sign", properties -> new PlantopiaCeilingHangingSignBlock(properties, woodType), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).customItem()));
+        this.wallHangingSign = PlantopiaBlocks.registerBlock(baseName + "_wall_hanging_sign", properties -> new PlantopiaWallHangingSignBlock(properties, woodType), config.applyBlockMeta(MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).noItem()));
 
-        this.signItem = PlantopiaItems.registerItem(baseName + "_sign", properties -> new SignItem(properties, sign.get(), wallSign.get()), options.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN)));
-        this.hangingSignItem = PlantopiaItems.registerItem(baseName + "_hanging_sign", properties -> new HangingSignItem(hangingSign.get(), wallHangingSign.get(), properties), options.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN)));
+        this.signItem = PlantopiaItems.registerItem(baseName + "_sign", properties -> new SignItem(properties, sign.get(), wallSign.get()), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN)));
+        this.hangingSignItem = PlantopiaItems.registerItem(baseName + "_hanging_sign", properties -> new HangingSignItem(hangingSign.get(), wallHangingSign.get(), properties), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN)));
 
         /* BOATS ******************************************************************************************************/
 
@@ -84,8 +84,8 @@ public class PlantopiaTreeStuffKit {
         var supposedChestBoatItem = PlantopiaItems.supposeItem(baseName + "_chest_boat");
 
         this.boatType = PlantopiaBoatTypes.registerBoatType(baseName, () -> new PlantopiaBoatType(boat -> planks.get(), boat -> boat instanceof ChestBoat ? supposedChestBoatItem.get() : supposedBoatItem.get()));
-        this.boatItem = PlantopiaItems.registerItem(baseName + "_boat", properties -> new PlantopiaBoatItem(false, boatType, properties), options.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.BOAT)));
-        this.chestBoatItem = PlantopiaItems.registerItem(baseName + "_chest_boat", properties -> new PlantopiaBoatItem(true, boatType, properties), options.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.BOAT)));
+        this.boatItem = PlantopiaItems.registerItem(baseName + "_boat", properties -> new PlantopiaBoatItem(false, boatType, properties), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.BOAT)));
+        this.chestBoatItem = PlantopiaItems.registerItem(baseName + "_chest_boat", properties -> new PlantopiaBoatItem(true, boatType, properties), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.BOAT)));
 
         if (Plantopia.getPlatform().isClient()) {
             var boatModelLayerLocation = new ModelLayerLocation(plantopia("boat", baseName), "main");
@@ -96,8 +96,8 @@ public class PlantopiaTreeStuffKit {
         }
     }
 
-    public static @NotNull PlantopiaTreeStuffKit registerTreeStuffKit(String baseName, WoodType woodType, PlantopiaTreeOptions options) {
-        return new PlantopiaTreeStuffKit(baseName, woodType, options);
+    public static @NotNull PlantopiaTreeStuffKit registerTreeStuffKit(String baseName, WoodType woodType, PlantopiaTreeKitConfiguration config) {
+        return new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 
     public RegistryObject<Block> planks() {

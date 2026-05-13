@@ -1,4 +1,4 @@
-package by.langvest.plantopia.kit.options;
+package by.langvest.plantopia.kit.config;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
@@ -6,7 +6,9 @@ import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,13 +21,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
-public record PlantopiaTreeOptions(
+public record PlantopiaTreeKitConfiguration(
     Function<BlockState, MapColor> woodMapColor,
     Function<BlockState, MapColor> trunkMapColor,
     Function<BlockState, MapColor> logMapColor,
     PressurePlateBlock.Sensitivity pressurePlateSensitivity,
     int buttonTicksToStayPressed,
     boolean canArrowsPressButton,
+    ResourceKey<Level> dimensionType,
     @Nullable PlantopiaOrderType orderType,
     Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> blockMetaPropertiesFactory,
     Function<ResourceLocation, BlockSetType> blockSetTypeFactory,
@@ -63,6 +66,7 @@ public record PlantopiaTreeOptions(
         private PressurePlateBlock.Sensitivity pressurePlateSensitivity = PressurePlateBlock.Sensitivity.EVERYTHING;
         private int buttonTicksToStayPressed = 30;
         private boolean canArrowsPressButton = true;
+        private ResourceKey<Level> dimensionType = Level.OVERWORLD;
         private @Nullable PlantopiaOrderType orderType = null;
         private Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> blockMetaPropertiesFactory = metaProperties -> metaProperties;
         private Function<ResourceLocation, BlockSetType> blockSetTypeFactory = identifier -> BlockSetType.register(new BlockSetType(identifier.toString()));
@@ -72,25 +76,31 @@ public record PlantopiaTreeOptions(
             var workScheduler = Plantopia.getPlatform().getWorkScheduler();
 
             if (Plantopia.getPlatform().isClient()) {
-                workScheduler.enqueueClientWork(() -> Sheets.addWoodType(woodType));
+                workScheduler.enqueueWork("client_setup", () -> Sheets.addWoodType(woodType));
             }
 
             return woodType;
         };
 
-        public PlantopiaTreeOptions build() {
-            return new PlantopiaTreeOptions(
+        public PlantopiaTreeKitConfiguration build() {
+            return new PlantopiaTreeKitConfiguration(
                 woodMapColor,
                 trunkMapColor,
                 logMapColor,
                 pressurePlateSensitivity,
                 buttonTicksToStayPressed,
                 canArrowsPressButton,
+                dimensionType,
                 orderType,
                 blockMetaPropertiesFactory,
                 blockSetTypeFactory,
                 woodTypeFactory
             );
+        }
+
+        public Builder dimensionType(ResourceKey<Level> dimensionType) {
+            this.dimensionType = dimensionType;
+            return this;
         }
 
         public Builder woodType(WoodType woodType) {
