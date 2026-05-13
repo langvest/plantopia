@@ -2,6 +2,7 @@ package by.langvest.plantopia.kit.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaMapleLeavesBlock;
+import by.langvest.plantopia.datagen.recipe.PlantopiaRecipeProvider;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -51,5 +52,13 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
 
     public RegistryObject<Block> redLeaves() {
         return redLeaves;
+    }
+
+    @Override
+    protected void addRecipes() {
+        super.addRecipes();
+
+        PlantopiaRecipeProvider.planksFromLogs(stuff.planks().get(), trunk.logsItemTag(), 4);
+        PlantopiaRecipeProvider.hangingSign(stuff.hangingSign().get(), trunk.strippedLog().get());
     }
 }

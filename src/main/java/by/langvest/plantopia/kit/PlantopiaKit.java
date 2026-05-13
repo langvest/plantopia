@@ -1,0 +1,28 @@
+package by.langvest.plantopia.kit;
+
+import by.langvest.plantopia.Plantopia;
+
+public abstract class PlantopiaKit {
+    protected PlantopiaKit() {
+        var platform = Plantopia.getPlatform();
+        var workScheduler = platform.getWorkScheduler();
+
+        if (platform.isDatagen()) {
+            workScheduler.enqueueWork("block_tag_datagen", this::addBlockTags);
+            workScheduler.enqueueWork("item_tag_datagen", this::addItemTags);
+            workScheduler.enqueueWork("recipe_datagen", this::addRecipes);
+        }
+
+        if (platform.isClient()) {
+            workScheduler.enqueueWork("client_setup", this::onClientSetup);
+        }
+    }
+
+    protected void addBlockTags() {}
+
+    protected void addItemTags() {}
+
+    protected void addRecipes() {}
+
+    protected void onClientSetup() {}
+}

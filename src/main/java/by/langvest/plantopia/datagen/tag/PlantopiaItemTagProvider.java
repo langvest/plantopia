@@ -5,6 +5,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
+import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
 import com.google.common.collect.Maps;
@@ -55,6 +56,8 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
     public static final PlantopiaTagSet<Item> SIGNS = getOrCreateTagSet(ItemTags.SIGNS);
     public static final PlantopiaTagSet<Item> HANGING_SIGNS = getOrCreateTagSet(ItemTags.HANGING_SIGNS);
     public static final PlantopiaTagSet<Item> LOGS_THAT_BURN = getOrCreateTagSet(ItemTags.LOGS_THAT_BURN);
+    public static final PlantopiaTagSet<Item> BOATS = getOrCreateTagSet(ItemTags.BOATS);
+    public static final PlantopiaTagSet<Item> CHEST_BOATS = getOrCreateTagSet(ItemTags.CHEST_BOATS);
 
     public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
@@ -78,6 +81,14 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
         PlantopiaMetaBuckets.ITEM.forEach(itemMeta -> {
             var item = itemMeta.get();
             var type = itemMeta.getType();
+
+            if (type.instanceOf(MetaType.BOAT)) {
+                if (type.instanceOf(MetaType.CHEST_BOAT)) {
+                    CHEST_BOATS.add(item);
+                } else {
+                    BOATS.add(item);
+                }
+            }
 
             if (itemMeta.shouldGenerateTag()) {
                 byItemMetaTypes.computeIfAbsent(type, key -> PlantopiaTagSet.newTagSet()).add(item);

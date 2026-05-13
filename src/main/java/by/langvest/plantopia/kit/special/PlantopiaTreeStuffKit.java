@@ -7,10 +7,12 @@ import by.langvest.plantopia.block.special.PlantopiaStandingSignBlock;
 import by.langvest.plantopia.block.special.PlantopiaWallHangingSignBlock;
 import by.langvest.plantopia.block.special.PlantopiaWallSignBlock;
 import by.langvest.plantopia.client.render.PlantopiaEntityLayerDefinitions;
+import by.langvest.plantopia.datagen.recipe.PlantopiaRecipeProvider;
 import by.langvest.plantopia.entity.PlantopiaBoatType;
 import by.langvest.plantopia.entity.PlantopiaBoatTypes;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.item.special.PlantopiaBoatItem;
+import by.langvest.plantopia.kit.PlantopiaKit;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -19,6 +21,7 @@ import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -29,8 +32,9 @@ import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
-public class PlantopiaTreeStuffKit {
+public class PlantopiaTreeStuffKit extends PlantopiaKit {
     protected final String baseName;
+    protected final PlantopiaTreeKitConfiguration config;
 
     protected final RegistryObject<Block> planks;
     protected final RegistryObject<Block> stairs;
@@ -55,6 +59,7 @@ public class PlantopiaTreeStuffKit {
 
     protected PlantopiaTreeStuffKit(String baseName, WoodType woodType, @NotNull PlantopiaTreeKitConfiguration config) {
         this.baseName = baseName;
+        this.config = config;
 
         /* BUILDING BLOCKS ********************************************************************************************/
 
@@ -85,7 +90,7 @@ public class PlantopiaTreeStuffKit {
 
         this.boatType = PlantopiaBoatTypes.registerBoatType(baseName, () -> new PlantopiaBoatType(boat -> planks.get(), boat -> boat instanceof ChestBoat ? supposedChestBoatItem.get() : supposedBoatItem.get()));
         this.boatItem = PlantopiaItems.registerItem(baseName + "_boat", properties -> new PlantopiaBoatItem(false, boatType, properties), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.BOAT)));
-        this.chestBoatItem = PlantopiaItems.registerItem(baseName + "_chest_boat", properties -> new PlantopiaBoatItem(true, boatType, properties), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.BOAT)));
+        this.chestBoatItem = PlantopiaItems.registerItem(baseName + "_chest_boat", properties -> new PlantopiaBoatItem(true, boatType, properties), config.applyItemMeta(PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.CHEST_BOAT)));
 
         if (Plantopia.getPlatform().isClient()) {
             var boatModelLayerLocation = new ModelLayerLocation(plantopia("boat", baseName), "main");
@@ -170,5 +175,32 @@ public class PlantopiaTreeStuffKit {
 
     public RegistryObject<Item> hangingSignItem() {
         return hangingSignItem;
+    }
+
+    @Override
+    protected void addRecipes() {
+        super.addRecipes();
+
+        var blockFamily = familyBuilder(planks.get())
+            .button(button.get())
+            .fence(fence.get())
+            .fenceGate(fenceGate.get())
+            .pressurePlate(pressurePlate.get())
+            .sign(sign.get(), wallSign.get())
+            .slab(slab.get())
+            .stairs(stairs.get())
+            .door(door.get())
+            .trapdoor(trapdoor.get())
+            .recipeGroupPrefix("wooden")
+            .recipeUnlockedBy("has_planks")
+            .getFamily();
+
+        PlantopiaRecipeProvider.blockFamily(blockFamily);
+        PlantopiaRecipeProvider.woodenBoat(boatItem.get(), planks.get());
+        PlantopiaRecipeProvider.chestBoat(chestBoatItem.get(), boatItem.get());
+    }
+
+    protected BlockFamily.Builder familyBuilder(Block planks) {
+        return new BlockFamily.Builder(planks);
     }
 }

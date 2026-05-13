@@ -424,6 +424,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.copyBehaviour(Blocks.OAK_LEAVES)
 			.cutoutMippedRender()
 			.flammable(Encouragement.LEAVES, Flammability.LEAVES)
+			.compostable(Compostability.LEAVES)
 			.makeType("leaves");
 
 		public static final MetaType LEAF_LITTER = MetaProperties.create()
@@ -433,6 +434,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.pushReaction(PushReaction.DESTROY)
 			.cutoutRender()
 			.flammable(Encouragement.PLANT, Flammability.PLANT)
+			.compostable(Compostability.LEAF_LITTER)
 			.burnTime(BurnTime.LEAF_LITTER)
 			.makeType("leaf_litter");
 

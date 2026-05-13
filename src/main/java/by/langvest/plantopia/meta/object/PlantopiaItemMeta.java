@@ -106,6 +106,9 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
 			.stacksTo(1)
 			.makeType("boat");
 
+		public static final MetaType CHEST_BOAT = MetaProperties.of(BOAT)
+			.makeType("chest_boat");
+
 		public static final MetaType FOOD = MetaProperties.create()
 			.order(PlantopiaOrderType.FOOD)
 			.makeType("food");

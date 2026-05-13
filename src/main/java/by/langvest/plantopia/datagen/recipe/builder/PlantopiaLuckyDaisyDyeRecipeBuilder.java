@@ -117,10 +117,10 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder  extends CraftingRecipeBuilder 
 
             json.add("daisy", daisy.toJson());
 
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("item", locationOf(result).toString());
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("item", locationOf(result).toString());
 
-            json.add("result", jsonobject);
+            json.add("result", jsonObject);
         }
 
         @Override
