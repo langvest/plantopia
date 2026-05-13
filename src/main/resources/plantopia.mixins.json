@@ -33,6 +33,7 @@
 		"entity.special.PlantopiaMobMixin",
 		"entity.special.PlantopiaPlayerMixin",
 		"entity.special.PlantopiaZombieMixin",
+		"item.special.PlantopiaAxeItemMixin",
 		"item.special.PlantopiaBlockItemMixin",
 		"item.special.PlantopiaBoatItemMixin",
 		"item.special.PlantopiaBoneMealItemMixin",

@@ -17,6 +17,7 @@ import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import by.langvest.toolkit.registry.SupposedRegistryObject;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +42,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
  * @see net.minecraft.world.level.block.Blocks
  */
 public class PlantopiaBlocks {
-	public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_LOG, properties), MetaProperties.of(MetaType.LOG).order(PlantopiaOrderType.BIRCH).mapColor(PlantopiaBirchBaseBlock::logMapColor).customModel().customDrop());
-	public static final RegistryObject<Block> BIRCH_BASE_WOOD = registerBlock("birch_base_wood", properties -> new PlantopiaBirchBaseBlock(() -> Blocks.STRIPPED_BIRCH_WOOD, properties), MetaProperties.of(MetaType.WOOD).order(PlantopiaOrderType.BIRCH).mapColor(PlantopiaBirchBaseBlock::woodMapColor).customModel().customDrop());
+	public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", PlantopiaDirectionalPillarBlock::new, MetaProperties.of(MetaType.LOG).order(PlantopiaOrderType.BIRCH).mapColor(birchBaseLogMapColor()).customModel().customDrop().strippable(() -> Blocks.STRIPPED_BIRCH_LOG));
+	public static final RegistryObject<Block> BIRCH_BASE_WOOD = registerBlock("birch_base_wood", PlantopiaDirectionalPillarBlock::new, MetaProperties.of(MetaType.WOOD).order(PlantopiaOrderType.BIRCH).mapColor(birchBaseWoodMapColor()).customModel().customDrop().strippable(() -> Blocks.STRIPPED_BIRCH_WOOD));
 
 	public static final RegistryObject<Block> INFESTED_GRASS_BLOCK = registerBlock("infested_grass_block", PlantopiaInfestedGrassBlock::new, MetaProperties.of(MetaType.GRASS_BLOCK).customModel().customDrop());
 	public static final RegistryObject<Block> INFESTED_DIRT = registerBlock("infested_dirt", PlantopiaInfestedDirtBlock::new, MetaProperties.of(MetaType.DIRT).randomlyTicking().customModel().customDrop());
