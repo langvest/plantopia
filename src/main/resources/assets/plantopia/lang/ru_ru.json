@@ -114,8 +114,6 @@
 	"death.attack.quicksand": "%1$s утонул в зыбучих песках",
 	"death.attack.thornyShrub": "%1$s искололся до смерти в колючем кустарнике",
 	"death.attack.thornyShrub.player": "%1$s искололся до смерти в колючем кустарнике, пытаясь сбежать от %2$s",
-	"entity.plantopia.boat": "Лодка",
-	"entity.plantopia.chest_boat": "Грузовая лодка",
 	"item.plantopia.maple_boat": "Кленовая лодка",
 	"item.plantopia.maple_chest_boat": "Кленовая грузовая лодка",
 	"item.plantopia.quicksand_bucket": "Ведро с зыбучим песком",

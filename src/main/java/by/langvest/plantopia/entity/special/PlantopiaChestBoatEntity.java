@@ -5,6 +5,7 @@ import by.langvest.plantopia.entity.PlantopiaBoatType;
 import by.langvest.plantopia.entity.PlantopiaEntityTypes;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -55,6 +56,11 @@ public class PlantopiaChestBoatEntity extends ChestBoat implements PlantopiaBoat
             var type = PlantopiaRegistries.BOAT_TYPE.getValueOrThrow(identifier).get();
             this.setBoatType(type);
         }
+    }
+
+    @Override
+    protected @NotNull Component getTypeName() {
+        return EntityType.CHEST_BOAT.getDescription();
     }
 
     @Override

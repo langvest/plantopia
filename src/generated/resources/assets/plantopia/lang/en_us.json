@@ -114,8 +114,6 @@
 	"death.attack.quicksand": "%1$s drowned in quicksand",
 	"death.attack.thornyShrub": "%1$s was poked to death by a thorny shrub",
 	"death.attack.thornyShrub.player": "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s",
-	"entity.plantopia.boat": "Boat",
-	"entity.plantopia.chest_boat": "Boat with Chest",
 	"item.plantopia.maple_boat": "Maple Boat",
 	"item.plantopia.maple_chest_boat": "Maple Chest Boat",
 	"item.plantopia.quicksand_bucket": "Quicksand Bucket",

@@ -4,7 +4,6 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.special.PlantopiaSimpleAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.client.lang.PlantopiaLangKey;
-import by.langvest.plantopia.entity.PlantopiaEntityTypes;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
@@ -50,9 +49,6 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "%1$s was poked to death by a thorny shrub");
 		damageType(PlantopiaDamageTypes.THORNY_SHRUB, "player", "%1$s was poked to death by a thorny shrub whilst trying to escape %2$s");
 		damageType(PlantopiaDamageTypes.QUICKSAND, "%1$s drowned in quicksand");
-
-		entityType(PlantopiaEntityTypes.BOAT, "Boat");
-		entityType(PlantopiaEntityTypes.CHEST_BOAT, "Boat with Chest");
 
 		soundEvent(PlantopiaSoundEvents.DROWNED_CONVERTED_TO_ZOMBIE, "Drowned converts to Zombie");
 		soundEvent(PlantopiaSoundEvents.ZOMBIE_CONVERTED_TO_HUSK, "Zombie converts to Husk");
