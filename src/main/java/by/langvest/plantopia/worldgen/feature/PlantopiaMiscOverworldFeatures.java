@@ -111,7 +111,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
                     UniformInt.of(3, 5),
                     ConstantInt.of(2),
                     -4.82,
-                    0.04,
+                    0,
                     List.of(
                         new PlantopiaSimpleBlockPlacer(
                             simpleProvider(PlantopiaBlocks.WITCHY_TOADSTOOL.get())
