@@ -39,8 +39,8 @@ public class PlantopiaTreeTrunkKit {
         var supposedStrippedWood = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_wood");
 
         this.log = PlantopiaBlocks.registerBlock(baseName + "_log", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LOG).mapColor(config.logMapColor()).strippable(supposedStrippedLog)));
-        this.wood = PlantopiaBlocks.registerBlock(baseName + "_wood", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log)));
-        this.strippedLog = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LOG).mapColor(config.woodMapColor()).strippable(supposedStrippedWood)));
+        this.wood = PlantopiaBlocks.registerBlock(baseName + "_wood", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log).strippable(supposedStrippedWood)));
+        this.strippedLog = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LOG).mapColor(config.woodMapColor())));
         this.strippedWood = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOOD).mapColor(config.woodMapColor()).parent(strippedLog)));
 
         this.logsBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_logs");
