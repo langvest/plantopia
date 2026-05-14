@@ -48,9 +48,9 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 
         woodFromLogs(PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
 
-        leafLitterRecipe(PlantopiaBlocks.YELLOW_LEAF_LITTER.get(), PlantopiaKits.MAPLE.yellowLeaves().get());
-        leafLitterRecipe(PlantopiaBlocks.ORANGE_LEAF_LITTER.get(), PlantopiaKits.MAPLE.orangeLeaves().get());
-        leafLitterRecipe(PlantopiaBlocks.RED_LEAF_LITTER.get(), PlantopiaKits.MAPLE.redLeaves().get());
+        leafLitterRecipe(PlantopiaBlocks.YELLOW_LEAF_LITTER.get(), PlantopiaKits.MAPLE.yellowLeaves.get());
+        leafLitterRecipe(PlantopiaBlocks.ORANGE_LEAF_LITTER.get(), PlantopiaKits.MAPLE.orangeLeaves.get());
+        leafLitterRecipe(PlantopiaBlocks.RED_LEAF_LITTER.get(), PlantopiaKits.MAPLE.redLeaves.get());
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PlantopiaBlocks.SEA_MOSS_CARPET.get(), 3)
             .pattern("##")

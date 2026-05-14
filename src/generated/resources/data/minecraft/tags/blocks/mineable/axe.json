@@ -14,10 +14,12 @@
 		"plantopia:giant_fern",
 		"plantopia:giant_grass",
 		"plantopia:hogweed",
+		"plantopia:orange_maple_sapling",
 		"plantopia:pink_flowering_lily_pad",
 		"plantopia:pink_flowering_small_platterleaf",
 		"plantopia:red_flowering_lily_pad",
 		"plantopia:red_flowering_small_platterleaf",
+		"plantopia:red_maple_sapling",
 		"plantopia:reed",
 		"plantopia:sedge",
 		"plantopia:small_platterleaf",
@@ -31,6 +33,7 @@
 		"plantopia:witchy_toadstool",
 		"plantopia:witchy_toadstool_block",
 		"plantopia:yellow_flowering_lily_pad",
-		"plantopia:yellow_flowering_small_platterleaf"
+		"plantopia:yellow_flowering_small_platterleaf",
+		"plantopia:yellow_maple_sapling"
 	]
 }

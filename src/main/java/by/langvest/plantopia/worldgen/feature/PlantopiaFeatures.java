@@ -35,27 +35,28 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
 public class PlantopiaFeatures {
-	protected static final String SINGLE = "single";
-	protected static final String PIT = "pit";
-	protected static final String PATCH = "patch";
-	protected static final String STALACTITE = "stalactite";
-	protected static final String STALAGMITE = "stalagmite";
-	protected static final String BONEMEAL = "bonemeal";
-	protected static final String VEGETATION = "vegetation";
-	protected static final String MOUNTAIN = "mountain";
-	protected static final String JUNGLE = "jungle";
-	protected static final String ANCHOR = "anchor";
-	protected static final String CAVE = "cave";
-	protected static final String HUGE = "huge";
-	protected static final String CLUSTER = "cluster";
-	protected static final String SURFACE = "surface";
-	protected static final String LARGE = "large";
-	protected static final String WIDE = "wide";
-	protected static final String IN_WATER = "in_water";
-	protected static final String IN_SNOW = "in_snow";
-	protected static final String ON_SAND = "on_sand";
+	public static final String SINGLE = "single";
+	public static final String PIT = "pit";
+	public static final String PATCH = "patch";
+	public static final String STALACTITE = "stalactite";
+	public static final String STALAGMITE = "stalagmite";
+	public static final String BONEMEAL = "bonemeal";
+	public static final String VEGETATION = "vegetation";
+	public static final String MOUNTAIN = "mountain";
+	public static final String JUNGLE = "jungle";
+	public static final String ANCHOR = "anchor";
+	public static final String CAVE = "cave";
+	public static final String HUGE = "huge";
+	public static final String FANCY = "fancy";
+	public static final String CLUSTER = "cluster";
+	public static final String SURFACE = "surface";
+	public static final String LARGE = "large";
+	public static final String WIDE = "wide";
+	public static final String IN_WATER = "in_water";
+	public static final String IN_SNOW = "in_snow";
+	public static final String ON_SAND = "on_sand";
 
-	protected static final BlockPredicate ON_SAND_PREDICATE = BlockPredicate.allOf(
+	public static final BlockPredicate ON_SAND_PREDICATE = BlockPredicate.allOf(
 		BlockPredicate.ONLY_IN_AIR_PREDICATE,
 		BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
 	);
@@ -86,146 +87,151 @@ public class PlantopiaFeatures {
 	/* FEATURES ******************************************/
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
 		return configuredFeature(Feature.SIMPLE_BLOCK, configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleRandomSelector(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleRandomFeatureConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleRandomSelector(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleRandomFeatureConfiguration> configFactory) {
 		return configuredFeature(Feature.SIMPLE_RANDOM_SELECTOR, configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlockColumn(Function<BootstapContext<ConfiguredFeature<?, ?>>, BlockColumnConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> tree(Function<BootstapContext<ConfiguredFeature<?, ?>>, TreeConfiguration> configFactory) {
+		return configuredFeature(Feature.TREE, configFactory);
+	}
+
+	@Contract(pure = true)
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlockColumn(Function<BootstapContext<ConfiguredFeature<?, ?>>, BlockColumnConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.NATURAL_BLOCK_COLUMN, configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.NATURAL_BLOCK.get(), configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
 		return configuredFeature(Feature.RANDOM_PATCH, configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> vegetationPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaVegetationPatchConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> vegetationPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaVegetationPatchConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.VEGETATION_PATCH, configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> limitedRandomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaLimitedRandomPatchConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> limitedRandomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaLimitedRandomPatchConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.LIMITED_RANDOM_PATCH.get(), configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> radialPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> radialPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.RADIAL_PATCH.get(), configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> pit(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaPitConfiguration> configFactory) {
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> pit(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaPitConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.PIT.get(), configFactory);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull <FC extends FeatureConfiguration, F extends Feature<FC>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(F feature, Function<BootstapContext<ConfiguredFeature<?, ?>>, FC> configFactory) {
+	public static @NotNull <FC extends FeatureConfiguration, F extends Feature<FC>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(F feature, Function<BootstapContext<ConfiguredFeature<?, ?>>, FC> configFactory) {
 		return context -> new ConfiguredFeature<>(feature, configFactory.apply(context));
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull <FC extends FeatureConfiguration, F extends Feature<FC>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(Supplier<F> feature, Function<BootstapContext<ConfiguredFeature<?, ?>>, FC> configFactory) {
+	public static @NotNull <FC extends FeatureConfiguration, F extends Feature<FC>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(Supplier<F> feature, Function<BootstapContext<ConfiguredFeature<?, ?>>, FC> configFactory) {
 		return context -> new ConfiguredFeature<>(feature.get(), configFactory.apply(context));
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull <F extends Feature<NoneFeatureConfiguration>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(F feature) {
+	public static @NotNull <F extends Feature<NoneFeatureConfiguration>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(F feature) {
 		return context -> new ConfiguredFeature<>(feature, new NoneFeatureConfiguration());
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull <F extends Feature<NoneFeatureConfiguration>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(Supplier<F> feature) {
+	public static @NotNull <F extends Feature<NoneFeatureConfiguration>> Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> configuredFeature(Supplier<F> feature) {
 		return context -> new ConfiguredFeature<>(feature.get(), new NoneFeatureConfiguration());
 	}
 
 	/* CONFIGS ******************************************/
 
 	@Contract(pure = true)
-	protected static @NotNull SimpleBlockConfiguration simpleConfig(Block block) {
+	public static @NotNull SimpleBlockConfiguration simpleConfig(Block block) {
 		return new SimpleBlockConfiguration(simpleProvider(block));
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull SimpleBlockConfiguration weightedConfig(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
+	public static @NotNull SimpleBlockConfiguration weightedConfig(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
 		return new SimpleBlockConfiguration(weightedProvider(states));
 	}
 
 	/* PROVIDERS ******************************************/
 
 	@Contract(pure = true)
-	protected static @NotNull BlockStateProvider simpleProvider(Block block) {
+	public static @NotNull BlockStateProvider simpleProvider(Block block) {
 		return BlockStateProvider.simple(block);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull BlockStateProvider simpleProvider(BlockState state) {
+	public static @NotNull BlockStateProvider simpleProvider(BlockState state) {
 		return BlockStateProvider.simple(state);
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
+	public static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
 		return new WeightedStateProvider(states.apply(SimpleWeightedRandomList.builder()));
 	}
 
 	@Contract(pure = true)
-	protected static @NotNull WeightedListInt weightedListInt(@NotNull Function<SimpleWeightedRandomList.Builder<IntProvider>, SimpleWeightedRandomList.Builder<IntProvider>> values) {
+	public static @NotNull WeightedListInt weightedListInt(@NotNull Function<SimpleWeightedRandomList.Builder<IntProvider>, SimpleWeightedRandomList.Builder<IntProvider>> values) {
 		return new WeightedListInt(values.apply(SimpleWeightedRandomList.builder()).build());
 	}
 
 	/* CONTEXT *************************************************/
 
-	protected static @NotNull HolderGetter<ConfiguredFeature<?, ?>> lookupFeatures(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
+	public static @NotNull HolderGetter<ConfiguredFeature<?, ?>> lookupFeatures(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
 		return context.lookup(Registries.CONFIGURED_FEATURE);
 	}
 
-	protected static @NotNull HolderGetter<PlacedFeature> lookupPlacements(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
+	public static @NotNull HolderGetter<PlacedFeature> lookupPlacements(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
 		return context.lookup(Registries.PLACED_FEATURE);
 	}
 
-	protected static @NotNull HolderGetter<Biome> lookupBiomes(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
+	public static @NotNull HolderGetter<Biome> lookupBiomes(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
 		return context.lookup(Registries.BIOME);
 	}
 
 	/* HELPER METHODS ******************************************/
 
 	@Contract("_ -> new")
-	protected static @NotNull String singleNameOf(String name) {
+	public static @NotNull String singleNameOf(String name) {
 		return compileNameFrom(SINGLE, name);
 	}
 
 	@Contract("_ -> new")
-	protected static @NotNull String patchNameOf(String name) {
+	public static @NotNull String patchNameOf(String name) {
 		return compileNameFrom(PATCH, name);
 	}
 
 	@Contract("_ -> new")
-	protected static @NotNull String patchNameOf(Block block) {
+	public static @NotNull String patchNameOf(Block block) {
 		return compileNameFrom(PATCH, nameOf(block));
 	}
 
 	@Contract("_ -> new")
-	protected static @NotNull String singleNameOf(LocationLike locationLike) {
+	public static @NotNull String singleNameOf(LocationLike locationLike) {
 		return singleNameOf(nameOf(locationLike));
 	}
 
 	@Contract("_ -> new")
-	protected static @NotNull String patchNameOf(LocationLike locationLike) {
+	public static @NotNull String patchNameOf(LocationLike locationLike) {
 		return patchNameOf(nameOf(locationLike));
 	}
 
-	protected static int calculateExponentialWeight(int step, double decay) {
+	public static int calculateExponentialWeight(int step, double decay) {
 		int maxWeight = 100;
 		double weightDecrease = (maxWeight * Math.exp(decay * (step - 1))) - maxWeight;
 

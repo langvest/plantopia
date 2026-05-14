@@ -12,8 +12,9 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public abstract class PlantopiaAbstractTreeKit extends PlantopiaKit {
     protected final String baseName;
     protected final PlantopiaTreeKitConfiguration config;
-    protected final BlockSetType blockSetType;
-    protected final WoodType woodType;
+
+    public final BlockSetType blockSetType;
+    public final WoodType woodType;
 
     protected PlantopiaAbstractTreeKit(String baseName, @NotNull PlantopiaTreeKitConfiguration config) {
         super();
@@ -21,13 +22,5 @@ public abstract class PlantopiaAbstractTreeKit extends PlantopiaKit {
         this.config = config;
         this.blockSetType = config.blockSetTypeFactory().apply(plantopia(baseName));
         this.woodType = config.woodTypeFactory().apply(Pair.of(plantopia(baseName), blockSetType));
-    }
-
-    public BlockSetType blockSetType() {
-        return blockSetType;
-    }
-
-    public WoodType woodType() {
-        return woodType;
     }
 }

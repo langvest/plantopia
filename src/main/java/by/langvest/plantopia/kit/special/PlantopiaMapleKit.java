@@ -9,56 +9,61 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
-    protected final PlantopiaTreeStuffKit stuff;
-    protected final PlantopiaTreeTrunkKit trunk;
+    public final PlantopiaTreeStuffKit stuff;
+    public final PlantopiaTreeTrunkKit trunk;
 
-    protected final RegistryObject<Block> yellowLeaves;
-    protected final RegistryObject<Block> orangeLeaves;
-    protected final RegistryObject<Block> redLeaves;
+    public final PlantopiaTreeFeatureKit yellowFeature;
+    public final PlantopiaTreeFeatureKit orangeFeature;
+    public final PlantopiaTreeFeatureKit redFeature;
+
+    public final RegistryObject<Block> yellowSapling;
+    public final RegistryObject<Block> orangeSapling;
+    public final RegistryObject<Block> redSapling;
+
+    public final RegistryObject<Block> yellowLeaves;
+    public final RegistryObject<Block> orangeLeaves;
+    public final RegistryObject<Block> redLeaves;
 
     protected PlantopiaMapleKit(String baseName, PlantopiaTreeKitConfiguration config) {
         super(baseName, config);
 
+        this.yellowFeature = PlantopiaMapleKit.registerMapleFeatureKit("yellow_", baseName, config);
+        this.yellowSapling = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_sapling", properties -> new SaplingBlock(yellowFeature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_YELLOW)));
         this.yellowLeaves = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES, properties), config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_YELLOW)));
+
+        this.orangeFeature = PlantopiaMapleKit.registerMapleFeatureKit("orange_", baseName, config);
+        this.orangeSapling = PlantopiaBlocks.registerBlock("orange_" + baseName + "_sapling", properties -> new SaplingBlock(orangeFeature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_ORANGE)));
         this.orangeLeaves = PlantopiaBlocks.registerBlock("orange_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.ORANGE_MAPLE_LEAVES, properties), config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_ORANGE)));
+
+        this.redFeature = PlantopiaMapleKit.registerMapleFeatureKit("red_", baseName, config);
+        this.redSapling = PlantopiaBlocks.registerBlock("red_" + baseName + "_sapling", properties -> new SaplingBlock(redFeature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_RED)));
         this.redLeaves = PlantopiaBlocks.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_RED)));
+
         this.trunk = PlantopiaTreeTrunkKit.registerTreeTrunkKit(baseName, config);
         this.stuff = PlantopiaTreeStuffKit.registerTreeStuffKit(baseName, woodType, config);
+    }
+
+    protected static @NotNull PlantopiaTreeFeatureKit registerMapleFeatureKit(String colorPrefix, String baseName, PlantopiaTreeKitConfiguration config) {
+        var supposedLog = PlantopiaBlocks.supposeBlock(baseName + "_log");
+        var supposedLeaves = PlantopiaBlocks.supposeBlock(colorPrefix + baseName + "_leaves");
+
+        return PlantopiaTreeFeatureKit.registerTreeFeatureKit(colorPrefix + baseName, supposedLog, supposedLeaves, config);
     }
 
     public static @NotNull PlantopiaMapleKit registerMapleKit(String baseName, PlantopiaTreeKitConfiguration config) {
         return new PlantopiaMapleKit(baseName, config);
     }
 
-    public PlantopiaTreeStuffKit stuff() {
-        return stuff;
-    }
-
-    public PlantopiaTreeTrunkKit trunk() {
-        return trunk;
-    }
-
-    public RegistryObject<Block> yellowLeaves() {
-        return yellowLeaves;
-    }
-
-    public RegistryObject<Block> orangeLeaves() {
-        return orangeLeaves;
-    }
-
-    public RegistryObject<Block> redLeaves() {
-        return redLeaves;
-    }
-
     @Override
     protected void addRecipes() {
         super.addRecipes();
 
-        PlantopiaRecipeProvider.planksFromLogs(stuff.planks().get(), trunk.logsItemTag(), 4);
-        PlantopiaRecipeProvider.hangingSign(stuff.hangingSign().get(), trunk.strippedLog().get());
+        PlantopiaRecipeProvider.planksFromLogs(stuff.planks.get(), trunk.logsItemTag, 4);
+        PlantopiaRecipeProvider.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
     }
 }

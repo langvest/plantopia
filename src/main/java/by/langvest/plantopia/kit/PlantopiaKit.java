@@ -11,6 +11,7 @@ public abstract class PlantopiaKit {
             workScheduler.enqueueWork("block_tag_datagen", this::addBlockTags);
             workScheduler.enqueueWork("item_tag_datagen", this::addItemTags);
             workScheduler.enqueueWork("recipe_datagen", this::addRecipes);
+            workScheduler.enqueueWork("block_loot_table_datagen", this::addBlockLootTables);
         }
 
         if (platform.isClient()) {
@@ -23,6 +24,8 @@ public abstract class PlantopiaKit {
     protected void addItemTags() {}
 
     protected void addRecipes() {}
+
+    protected void addBlockLootTables() {}
 
     protected void onClientSetup() {}
 }

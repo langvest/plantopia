@@ -1,5 +1,6 @@
 package by.langvest.plantopia.datagen.loot;
 
+import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.item.PlantopiaItems;
@@ -8,6 +9,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.meta.property.PlantopiaBlockDropType;
 import by.langvest.plantopia.meta.property.PlantopiaBlockHeightType;
+import by.langvest.plantopia.registry.PlantopiaRegistries;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.critereon.BlockPredicate;
@@ -43,31 +45,37 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
+
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
+    private static PlantopiaBlockLootTableSubProvider self;
+
     protected PlantopiaBlockLootTableSubProvider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 
-    private static final LootItemConditionalFunction.Builder<?> EXPLOSION_DECAY = ApplyExplosionDecay.explosionDecay();
-    private static final LootItemCondition.Builder SURVIVES_EXPLOSION = ExplosionCondition.survivesExplosion();
-    private static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
-    private static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
-    private static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
-    private static final float SEEDS_CHANCE = 0.125F;
-    private static final Pair<Property<DoubleBlockHalf>, DoubleBlockHalf> DOUBLE_BLOCK_HALF_LOWER = Pair.of(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
-    private static final Pair<Property<DoubleBlockHalf>, DoubleBlockHalf> DOUBLE_BLOCK_HALF_UPPER = Pair.of(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
-    private static final Pair<Property<PlantopiaTripleBlockHalf>, PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF_LOWER = Pair.of(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF, PlantopiaTripleBlockHalf.LOWER);
-    private static final Pair<Property<PlantopiaTripleBlockHalf>, PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF_CENTRAL = Pair.of(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF, PlantopiaTripleBlockHalf.CENTRAL);
-    private static final Pair<Property<PlantopiaTripleBlockHalf>, PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF_UPPER = Pair.of(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF, PlantopiaTripleBlockHalf.UPPER);
-    private static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_SOUTH_WEST = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.SOUTH_WEST);
-    private static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_WEST_NORTH = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.WEST_NORTH);
-    private static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_NORTH_EAST = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.NORTH_EAST);
-    private static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_EAST_SOUTH = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.EAST_SOUTH);
-    private static final Set<Block> EXPLOSION_RESISTANT_BLOCKS = Sets.newHashSet();
+    public static final LootItemConditionalFunction.Builder<?> EXPLOSION_DECAY = ApplyExplosionDecay.explosionDecay();
+    public static final LootItemCondition.Builder SURVIVES_EXPLOSION = ExplosionCondition.survivesExplosion();
+    public static final LootItemCondition.Builder HAS_SHEARS = MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS));
+    public static final LootItemCondition.Builder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.or(HAS_SILK_TOUCH);
+    public static final LootItemCondition.Builder HAS_NO_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.invert();
+    public static final float SEEDS_CHANCE = 0.125F;
+    public static final Pair<Property<DoubleBlockHalf>, DoubleBlockHalf> DOUBLE_BLOCK_HALF_LOWER = Pair.of(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
+    public static final Pair<Property<DoubleBlockHalf>, DoubleBlockHalf> DOUBLE_BLOCK_HALF_UPPER = Pair.of(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER);
+    public static final Pair<Property<PlantopiaTripleBlockHalf>, PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF_LOWER = Pair.of(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF, PlantopiaTripleBlockHalf.LOWER);
+    public static final Pair<Property<PlantopiaTripleBlockHalf>, PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF_CENTRAL = Pair.of(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF, PlantopiaTripleBlockHalf.CENTRAL);
+    public static final Pair<Property<PlantopiaTripleBlockHalf>, PlantopiaTripleBlockHalf> TRIPLE_BLOCK_HALF_UPPER = Pair.of(PlantopiaBlockStateProperties.TRIPLE_BLOCK_HALF, PlantopiaTripleBlockHalf.UPPER);
+    public static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_SOUTH_WEST = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.SOUTH_WEST);
+    public static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_WEST_NORTH = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.WEST_NORTH);
+    public static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_NORTH_EAST = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.NORTH_EAST);
+    public static final Pair<Property<PlantopiaQuarter>, PlantopiaQuarter> QUARTER_EAST_SOUTH = Pair.of(PlantopiaBlockStateProperties.QUARTER, PlantopiaQuarter.EAST_SOUTH);
+    public static final Set<Block> EXPLOSION_RESISTANT_BLOCKS = Sets.newHashSet();
 
     @Override
     protected void generate() {
+        setSelf(this);
         generateAll();
 
         add(PlantopiaBlocks.GIANT_GRASS.get(), block -> createTriplePlantWithSeedDrops(block, Blocks.GRASS, Items.WHEAT_SEEDS));
@@ -76,54 +84,36 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.WITCHY_TOADSTOOL.get()));
         add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_LOG));
         add(PlantopiaBlocks.BIRCH_BASE_WOOD.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_WOOD));
-        add(PlantopiaBlocks.CLOVER.get(), this::createCloverDrops);
-        add(PlantopiaBlocks.AZOLLA.get(), this::createAzollaDrops);
-        add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
-        add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), this::createCobblestoneShardDrops);
-        add(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
-        add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), this::createCobblestoneShardPetDrops);
-        add(PlantopiaBlocks.POLLINATED_DANDELION.get(), this::createPollinatedDandelionDrops);
-        add(PlantopiaBlocks.BRANCHING_SHRUB.get(), this::createBranchingShrubDrops);
-        add(PlantopiaBlocks.INFESTED_DIRT.get(), this::createInfestedDirtDrops);
-        add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), this::createInfestedDirtDrops);
-        add(PlantopiaBlocks.BIG_PLATTERLEAF.get(), this::createBigPlatterleafDrops);
-        add(PlantopiaBlocks.COVERED_SNOWDROP.get(), this::createCoveredSnowdropDrops);
-        add(PlantopiaBlocks.WHITE_LUCKY_DAISY.get(), this::createLuckyDaisyDrops);
-        add(PlantopiaBlocks.PINK_LUCKY_DAISY.get(), this::createLuckyDaisyDrops);
-        add(PlantopiaBlocks.CARROTWEED.get(), this::createCarrotweedDrops);
+        add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTableSubProvider::createCloverDrops);
+        add(PlantopiaBlocks.AZOLLA.get(), PlantopiaBlockLootTableSubProvider::createAzollaDrops);
+        add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
+        add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
+        add(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardPetDrops);
+        add(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardPetDrops);
+        add(PlantopiaBlocks.POLLINATED_DANDELION.get(), PlantopiaBlockLootTableSubProvider::createPollinatedDandelionDrops);
+        add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlockLootTableSubProvider::createBranchingShrubDrops);
+        add(PlantopiaBlocks.INFESTED_DIRT.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
+        add(PlantopiaBlocks.INFESTED_GRASS_BLOCK.get(), PlantopiaBlockLootTableSubProvider::createInfestedDirtDrops);
+        add(PlantopiaBlocks.BIG_PLATTERLEAF.get(), PlantopiaBlockLootTableSubProvider::createBigPlatterleafDrops);
+        add(PlantopiaBlocks.COVERED_SNOWDROP.get(), PlantopiaBlockLootTableSubProvider::createCoveredSnowdropDrops);
+        add(PlantopiaBlocks.WHITE_LUCKY_DAISY.get(), PlantopiaBlockLootTableSubProvider::createLuckyDaisyDrops);
+        add(PlantopiaBlocks.PINK_LUCKY_DAISY.get(), PlantopiaBlockLootTableSubProvider::createLuckyDaisyDrops);
+        add(PlantopiaBlocks.CARROTWEED.get(), PlantopiaBlockLootTableSubProvider::createCarrotweedDrops);
+    }
+
+    private static void setSelf(PlantopiaBlockLootTableSubProvider self) {
+        PlantopiaBlockLootTableSubProvider.self = self;
     }
 
     private void generateAll() {
+        var workScheduler = Plantopia.getPlatform().getWorkScheduler();
+
+        workScheduler.executeWork("block_loot_table_datagen");
+
         PlantopiaMetaBuckets.BLOCK.forEach(blockMeta -> {
             if (!blockMeta.shouldGenerateLootTable()) return;
 
-            var block = blockMeta.get();
             var dropType = blockMeta.getDropType();
-
-            if (block instanceof DoorBlock) {
-                add(block, this::createDoorTable);
-                return;
-            }
-
-            if (block instanceof PlantopiaLeafLitterBlock) {
-                add(block, this::createLeafLitterDrops);
-                return;
-            }
-
-            if (block instanceof PlantopiaFloweringWaterlilyBlock) {
-                add(block, this::createFloweringWaterlilyDrops);
-                return;
-            }
-
-            if (block instanceof PlantopiaSeaShellBlock) {
-                add(block, this::createSeaShellDrops);
-                return;
-            }
-
-            if (block instanceof PlantopiaHangingMossBlock) {
-                add(block, this::createHangingMossDrops);
-                return;
-            }
 
             if (dropType == PlantopiaBlockDropType.SELF) {
                 dropSelf(blockMeta);
@@ -140,7 +130,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
                 return;
             }
 
-            dropGenerated(blockMeta);
+            generatedDrops(blockMeta);
         });
     }
 
@@ -149,32 +139,71 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return PlantopiaMetaBuckets.BLOCK.getAll().stream().filter(PlantopiaBlockMeta::hasDrop).map(PlantopiaBlockMeta::get)::iterator;
     }
 
+    public static void addTable(Block block, Function<Block, LootTable.Builder> factory) {
+        self.add(block, factory);
+    }
+
+    public static void addTable(Block block, LootTable.Builder builder) {
+        self.add(block, builder);
+    }
+
     /* DROPS GENERATION ******************************************/
 
-    private void dropGenerated(@NotNull PlantopiaBlockMeta blockMeta) {
+    public static void generatedDrops(@NotNull PlantopiaBlockMeta blockMeta) {
         var block = blockMeta.get();
+        var type = blockMeta.getType();
+
+        if (block instanceof DoorBlock) {
+            addTable(block, self::createDoorTable);
+            return;
+        }
+
+        if (block instanceof PlantopiaLeafLitterBlock) {
+            addTable(block, PlantopiaBlockLootTableSubProvider::createLeafLitterDrops);
+            return;
+        }
+
+        if (block instanceof PlantopiaFloweringWaterlilyBlock) {
+            addTable(block, PlantopiaBlockLootTableSubProvider::createFloweringWaterlilyDrops);
+            return;
+        }
+
+        if (block instanceof PlantopiaSeaShellBlock) {
+            addTable(block, PlantopiaBlockLootTableSubProvider::createSeaShellDrops);
+            return;
+        }
+
+        if (block instanceof PlantopiaHangingMossBlock) {
+            addTable(block, PlantopiaBlockLootTableSubProvider::createHangingMossDrops);
+            return;
+        }
 
         if (block instanceof FlowerPotBlock) {
-            dropPottedContents(block);
+            self.dropPottedContents(block);
             return;
         }
 
         if (block instanceof AbstractCauldronBlock) {
-            dropCauldron(blockMeta);
+            generatedCauldronDrops(blockMeta);
+            return;
+        }
+
+        if (type.instanceOf(MetaType.LEAVES)) {
+            generatedLeavesDrops(blockMeta);
             return;
         }
 
         dropSelf(blockMeta);
     }
 
-    private void dropSelf(@NotNull PlantopiaBlockMeta blockMeta) {
+    public static void dropSelf(@NotNull PlantopiaBlockMeta blockMeta) {
         var block = blockMeta.get();
         var type = blockMeta.getType();
         int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
         int baseWidth = blockMeta.getBlockWidthType().getBaseWidth();
 
         if (baseHeight == 1 && baseWidth == 1) {
-            dropSelf(block);
+            self.dropSelf(block);
             return;
         }
 
@@ -185,10 +214,10 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
         var lootEntry = withSurvivesExplosionCondition(block, item(block));
 
-        add(block, createTable(blockMeta, lootEntry));
+        addTable(block, createTable(blockMeta, lootEntry));
     }
 
-    private void dropSelfByShears(@NotNull PlantopiaBlockMeta blockMeta) {
+    public static void dropSelfByShears(@NotNull PlantopiaBlockMeta blockMeta) {
         var block = blockMeta.get();
         var type = blockMeta.getType();
         var blockHeightType = blockMeta.getBlockHeightType();
@@ -206,21 +235,30 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
         var lootEntry = LootItem.lootTableItem(block).when(HAS_SHEARS);
 
-        add(block, createTable(blockMeta, lootEntry));
+        addTable(block, createTable(blockMeta, lootEntry));
     }
 
-    private void dropSelfBySilkTouch(@NotNull PlantopiaBlockMeta blockMeta) {
+    public static void dropSelfBySilkTouch(@NotNull PlantopiaBlockMeta blockMeta) {
         var block = blockMeta.get();
         var lootEntry = LootItem.lootTableItem(block).when(HAS_SILK_TOUCH);
 
-        add(block, createTable(blockMeta, lootEntry));
+        addTable(block, createTable(blockMeta, lootEntry));
     }
 
-    private void dropCauldron(@NotNull PlantopiaBlockMeta blockMeta) {
+    public static void generatedLeavesDrops(@NotNull PlantopiaBlockMeta blockMeta) {
+        String name = blockMeta.getName();
+        String saplingName = name.replace("_leaves", "_sapling");
+        var block = blockMeta.get();
+        var saplingBlock = PlantopiaRegistries.BLOCK.getValueOrThrow(plantopia(saplingName));
+
+        addTable(block, createLeavesWithSaplingDrops(block, saplingBlock.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+    }
+
+    public static void generatedCauldronDrops(@NotNull PlantopiaBlockMeta blockMeta) {
         var block = blockMeta.get();
         var lootEntry = withSurvivesExplosionCondition(block, item(Items.CAULDRON));
 
-        add(block, createTable(blockMeta, lootEntry));
+        addTable(block, createTable(blockMeta, lootEntry));
     }
 
     /* SIMPLE DROPS GENERATION ******************************************/
@@ -236,17 +274,17 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(block, lootTable);
     }
 
-    private void dropSelfIf(Block block, LootItemCondition.Builder condition) {
+    public static void dropSelfIf(Block block, LootItemCondition.Builder condition) {
         LootTable.Builder lootTable = LootTable.lootTable()
             .withPool(
                 withSurvivesExplosionCondition(block, LootPool.lootPool())
                     .add(item(block).when(condition))
             );
 
-        add(block, lootTable);
+        addTable(block, lootTable);
     }
 
-    private void dropSelfByShears(Block block) {
+    public static void dropSelfByShears(Block block) {
         LootTable.Builder lootTable = LootTable.lootTable()
             .withPool(
                 LootPool.lootPool()
@@ -254,10 +292,10 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
                     .when(HAS_SHEARS)
             );
 
-        add(block, lootTable);
+        addTable(block, lootTable);
     }
 
-    private void dropSelfByShearsIf(Block block, LootItemCondition.Builder condition) {
+    public static void dropSelfByShearsIf(Block block, LootItemCondition.Builder condition) {
         LootTable.Builder lootTable = LootTable.lootTable()
             .withPool(
                 LootPool.lootPool()
@@ -265,12 +303,12 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
                     .when(HAS_SHEARS)
             );
 
-        add(block, lootTable);
+        addTable(block, lootTable);
     }
 
     /* CUSTOM DROPS ******************************************/
 
-    private static LootTable.@NotNull Builder createTriplePlantWithSeedDrops(Block block, Block sheared, Item seeds) {
+    public static LootTable.@NotNull Builder createTriplePlantWithSeedDrops(Block block, Block sheared, Item seeds) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(sheared)
             .apply(setCount(3))
             .when(HAS_SHEARS)
@@ -282,7 +320,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createTripleHighPlantTable(block, lootEntry);
     }
 
-    private static LootTable.@NotNull Builder createBirchBaseDrops(Block block, Block simpleBirch) {
+    public static LootTable.@NotNull Builder createBirchBaseDrops(Block block, Block simpleBirch) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .when(HAS_SILK_TOUCH)
             .otherwise(
@@ -292,7 +330,11 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private static LootTable.@NotNull Builder createDoublePlantShearedDrops(Block block, Block sheared) {
+    public static LootTable.@NotNull Builder createLeavesWithSaplingDrops(Block block, Block sapling, float... chances) {
+        return self.createLeavesDrops(block, sapling, chances);
+    }
+
+    public static LootTable.@NotNull Builder createDoublePlantShearedDrops(Block block, Block sheared) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(sheared)
             .apply(setCount(2))
             .when(HAS_SHEARS);
@@ -300,7 +342,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createDoubleHighPlantTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createCloverDrops(Block block) {
+    public static LootTable.@NotNull Builder createCloverDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaCloverBlock.AMOUNT)
             .when(HAS_SHEARS)
             .otherwise(
@@ -311,7 +353,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createCarrotweedDrops(Block block) {
+    public static LootTable.@NotNull Builder createCarrotweedDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .when(HAS_SHEARS)
             .otherwise(
@@ -325,36 +367,36 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createDoubleHighPlantTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createAzollaDrops(Block block) {
+    public static LootTable.@NotNull Builder createAzollaDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaBlockStateProperties.SEGMENT_AMOUNT)
             .when(HAS_SHEARS_OR_SILK_TOUCH);
 
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createLeafLitterDrops(Block block) {
+    public static LootTable.@NotNull Builder createLeafLitterDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = createPartialLootEntry(block, PlantopiaBlockStateProperties.SEGMENT_AMOUNT);
 
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createCobblestoneShardDrops(Block block) {
+    public static LootTable.@NotNull Builder createCobblestoneShardDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = withExplosionDecayFunction(block, createPartialLootEntry(block, PlantopiaCobblestoneShardBlock.AMOUNT));
 
         return createSurvivedExplosionBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createCobblestoneShardPetDrops(Block block) {
+    public static LootTable.@NotNull Builder createCobblestoneShardPetDrops(Block block) {
         var originalBlock = ((PlantopiaCobblestoneShardPetBlock) block).getOriginBlock();
 
-        return createNameableBlockEntityTable(originalBlock);
+        return self.createNameableBlockEntityTable(originalBlock);
     }
 
-    private LootTable.@NotNull Builder createPollinatedDandelionDrops(Block block) {
+    public static LootTable.@NotNull Builder createPollinatedDandelionDrops(Block block) {
         return createSurvivedExplosionBlockTable(block, item(Blocks.DANDELION));
     }
 
-    private LootTable.@NotNull Builder createBranchingShrubDrops(Block block) {
+    public static LootTable.@NotNull Builder createBranchingShrubDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(PlantopiaBlocks.BRANCHING_SHRUB.get())
             .when(HAS_SHEARS)
             .otherwise(
@@ -369,7 +411,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
+    public static LootTable.@NotNull Builder createInfestedDirtDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .when(HAS_SILK_TOUCH)
             .otherwise(
@@ -379,7 +421,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createBigPlatterleafDrops(Block block) {
+    public static LootTable.@NotNull Builder createBigPlatterleafDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .when(HAS_SILK_TOUCH)
             .otherwise(
@@ -390,7 +432,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createWidePlantTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createCoveredSnowdropDrops(Block block) {
+    public static LootTable.@NotNull Builder createCoveredSnowdropDrops(Block block) {
         PlantopiaCoveredSnowdropBlock coveredSnowdropBlock = (PlantopiaCoveredSnowdropBlock) block;
 
         LootPoolEntryContainer.Builder<?> lootEntry = withSurvivesExplosionCondition(block, item(coveredSnowdropBlock.getFlowerBlock()));
@@ -398,7 +440,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createSeaShellDrops(Block block) {
+    public static LootTable.@NotNull Builder createSeaShellDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .apply(
                 CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
@@ -408,14 +450,14 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createHangingMossDrops(Block block) {
+    public static LootTable.@NotNull Builder createHangingMossDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .when(HAS_SHEARS_OR_SILK_TOUCH);
 
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createLuckyDaisyDrops(Block block) {
+    public static LootTable.@NotNull Builder createLuckyDaisyDrops(Block block) {
         LootPoolEntryContainer.Builder<?> lootEntry = item(block)
             .apply(
                 CopyBlockState.copyState(block)
@@ -425,7 +467,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntry);
     }
 
-    private LootTable.@NotNull Builder createFloweringWaterlilyDrops(Block block) {
+    public static LootTable.@NotNull Builder createFloweringWaterlilyDrops(Block block) {
         var floweringWaterlilyBlock = ((PlantopiaFloweringWaterlilyBlock) block);
 
         LootPoolEntryContainer.Builder<?> flowerLootEntry = withSurvivesExplosionCondition(block, item(floweringWaterlilyBlock.getFlowerBlock()));
@@ -438,44 +480,44 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
     /* HELPER METHODS ******************************************/
 
-    private static LootPoolSingletonContainer.@NotNull Builder<?> item(ItemLike item) {
+    public static LootPoolSingletonContainer.@NotNull Builder<?> item(ItemLike item) {
         return LootItem.lootTableItem(item);
     }
 
-    private static LootItemConditionalFunction.@NotNull Builder<?> setCount(int count) {
+    public static LootItemConditionalFunction.@NotNull Builder<?> setCount(int count) {
         return SetItemCountFunction.setCount(ConstantValue.exactly(count));
     }
 
-    private static LootItemConditionalFunction.@NotNull Builder<?> setCount(int from, int to) {
+    public static LootItemConditionalFunction.@NotNull Builder<?> setCount(int from, int to) {
         return SetItemCountFunction.setCount(UniformGenerator.between(from, to));
     }
 
-    private static LootItemConditionalFunction.@NotNull Builder<?> limitCount(IntRange range) {
+    public static LootItemConditionalFunction.@NotNull Builder<?> limitCount(IntRange range) {
         return LimitCount.limitCount(range);
     }
 
-    private static LootItemCondition.@NotNull Builder randomChance(float chance) {
+    public static LootItemCondition.@NotNull Builder randomChance(float chance) {
         return LootItemRandomChanceCondition.randomChance(chance);
     }
 
-    private static <T extends Comparable<T> & StringRepresentable, P extends Property<T>> LootItemBlockStatePropertyCondition.@NotNull Builder hasProperty(Block block, @NotNull Pair<P, T> property) {
+    public static <T extends Comparable<T> & StringRepresentable, P extends Property<T>> LootItemBlockStatePropertyCondition.@NotNull Builder hasProperty(Block block, @NotNull Pair<P, T> property) {
         return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
             StatePropertiesPredicate.Builder.properties().hasProperty(property.getFirst(), property.getSecond())
         );
     }
 
-    private static <P extends Property<Integer>> LootItemBlockStatePropertyCondition.@NotNull Builder hasProperty(Block block, P property, Integer value) {
+    public static <P extends Property<Integer>> LootItemBlockStatePropertyCondition.@NotNull Builder hasProperty(Block block, P property, Integer value) {
         return LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(
             StatePropertiesPredicate.Builder.properties().hasProperty(property, value)
         );
     }
 
-    private static LootItemCondition.@NotNull Builder hasLowerHalfProperty(Block block, PlantopiaBlockHeightType blockHeightType) {
+    public static LootItemCondition.@NotNull Builder hasLowerHalfProperty(Block block, PlantopiaBlockHeightType blockHeightType) {
         if (blockHeightType == PlantopiaBlockHeightType.TRIPLE) return hasProperty(block, TRIPLE_BLOCK_HALF_LOWER);
         return hasProperty(block, DOUBLE_BLOCK_HALF_LOWER);
     }
 
-    private static <T extends Comparable<T> & StringRepresentable> LootItemCondition.@NotNull Builder checkPropertyAt(Block block, @NotNull Pair<Property<T>, T> property, BlockPos pos) {
+    public static <T extends Comparable<T> & StringRepresentable> LootItemCondition.@NotNull Builder checkPropertyAt(Block block, @NotNull Pair<Property<T>, T> property, BlockPos pos) {
         return LocationCheck.checkLocation(
             LocationPredicate.Builder.location().setBlock(
                 BlockPredicate.Builder.block().of(block).setProperties(
@@ -486,35 +528,35 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
     }
 
     @Contract(value = "_ -> new", pure = true)
-    private static @NotNull BlockPos x(int offset) {
+    public static @NotNull BlockPos x(int offset) {
         return new BlockPos(offset, 0, 0);
     }
 
     @Contract(value = "_ -> new", pure = true)
-    private static @NotNull BlockPos y(int offset) {
+    public static @NotNull BlockPos y(int offset) {
         return new BlockPos(0, offset, 0);
     }
 
     @Contract(value = "_ -> new", pure = true)
-    private static @NotNull BlockPos z(int offset) {
+    public static @NotNull BlockPos z(int offset) {
         return new BlockPos(0, 0, offset);
     }
 
-    private static <T extends FunctionUserBuilder<T>> T withExplosionDecayFunction(@NotNull Block block, FunctionUserBuilder<T> function) {
+    public static <T extends FunctionUserBuilder<T>> T withExplosionDecayFunction(@NotNull Block block, FunctionUserBuilder<T> function) {
         return EXPLOSION_RESISTANT_BLOCKS.contains(block) ? function.unwrap() : function.apply(EXPLOSION_DECAY);
     }
 
-    private static <T extends ConditionUserBuilder<T>> T withSurvivesExplosionCondition(@NotNull Block block, ConditionUserBuilder<T> condition) {
+    public static <T extends ConditionUserBuilder<T>> T withSurvivesExplosionCondition(@NotNull Block block, ConditionUserBuilder<T> condition) {
         return EXPLOSION_RESISTANT_BLOCKS.contains(block) ? condition.unwrap() : condition.when(SURVIVES_EXPLOSION);
     }
 
     /* LOOT ENTRY PATTERNS ******************************************/
 
-    private static LootPoolSingletonContainer.@NotNull Builder<?> createPartialLootEntry(Block block, IntegerProperty property) {
+    public static LootPoolSingletonContainer.@NotNull Builder<?> createPartialLootEntry(Block block, IntegerProperty property) {
         return createPartialLootEntry(block, block, property);
     }
 
-    private static LootPoolSingletonContainer.@NotNull Builder<?> createPartialLootEntry(Block block, ItemLike drop, IntegerProperty property) {
+    public static LootPoolSingletonContainer.@NotNull Builder<?> createPartialLootEntry(Block block, ItemLike drop, IntegerProperty property) {
         LootPoolSingletonContainer.Builder<?> lootEntry = item(drop);
         if (property != null) for (Integer value : property.getPossibleValues()) {
             if (value == 1) continue;
@@ -525,7 +567,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
 
     /* LOOT TABLE PATTERNS ******************************************/
 
-    private static LootTable.@NotNull Builder createTable(@NotNull PlantopiaBlockMeta blockMeta, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createTable(@NotNull PlantopiaBlockMeta blockMeta, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         var block = blockMeta.get();
         var type = blockMeta.getType();
         int baseHeight = blockMeta.getBlockHeightType().getBaseHeight();
@@ -554,33 +596,33 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createBlockTable(block, lootEntries);
     }
 
-    private static LootTable.@NotNull Builder createBlockTable(@SuppressWarnings("unused") Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createBlockTable(@SuppressWarnings("unused") Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder lootPool = LootPool.lootPool();
         for (LootPoolEntryContainer.Builder<?> lootEntry : lootEntries) lootPool.add(lootEntry);
         return LootTable.lootTable().withPool(lootPool);
     }
 
-    private static LootTable.@NotNull Builder createSurvivedExplosionBlockTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createSurvivedExplosionBlockTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder lootPool = withSurvivesExplosionCondition(block, LootPool.lootPool());
         for (LootPoolEntryContainer.Builder<?> lootEntry : lootEntries) lootPool.add(lootEntry);
         return LootTable.lootTable().withPool(lootPool);
     }
 
-    private static LootTable.@NotNull Builder createDoubleHighBlockTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createDoubleHighBlockTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         return createLowerBlockTable(block, DOUBLE_BLOCK_HALF_LOWER, lootEntries);
     }
 
-    private static LootTable.@NotNull Builder createTripleHighBlockTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createTripleHighBlockTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         return createLowerBlockTable(block, TRIPLE_BLOCK_HALF_LOWER, lootEntries);
     }
 
-    private static <T extends Comparable<T> & StringRepresentable> LootTable.@NotNull Builder createLowerBlockTable(Block block, Pair<Property<T>, T> property, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static <T extends Comparable<T> & StringRepresentable> LootTable.@NotNull Builder createLowerBlockTable(Block block, Pair<Property<T>, T> property, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder lootPool = LootPool.lootPool();
         for (LootPoolEntryContainer.Builder<?> lootEntry : lootEntries) lootPool.add(lootEntry);
         return LootTable.lootTable().withPool(lootPool.when(hasProperty(block, property)));
     }
 
-    private static LootTable.@NotNull Builder createDoubleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createDoubleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder lowerLootPool = LootPool.lootPool();
         LootPool.Builder upperLootPool = LootPool.lootPool();
 
@@ -602,7 +644,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
             );
     }
 
-    private static LootTable.@NotNull Builder createTripleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createTripleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder lowerLootPool = LootPool.lootPool();
         LootPool.Builder centralLootPool = LootPool.lootPool();
         LootPool.Builder upperLootPool = LootPool.lootPool();
@@ -634,7 +676,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
             );
     }
 
-    private static LootTable.@NotNull Builder createWideTripleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createWideTripleHighPlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder southWestLootPool = LootPool.lootPool();
         LootPool.Builder westNorthLootPool = LootPool.lootPool();
         LootPool.Builder northEastLootPool = LootPool.lootPool();
@@ -690,7 +732,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
             );
     }
 
-    private static LootTable.@NotNull Builder createWidePlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
+    public static LootTable.@NotNull Builder createWidePlantTable(Block block, LootPoolEntryContainer.Builder<?> @NotNull ... lootEntries) {
         LootPool.Builder southWestLootPool = LootPool.lootPool();
         LootPool.Builder westNorthLootPool = LootPool.lootPool();
         LootPool.Builder northEastLootPool = LootPool.lootPool();

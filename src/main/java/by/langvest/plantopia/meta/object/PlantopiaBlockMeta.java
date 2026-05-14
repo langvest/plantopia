@@ -386,6 +386,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 			.makeType("waterlily_flower");
 
 		public static final MetaType SAPLING = MetaProperties.of(PLANT)
+			.copyBehaviour(Blocks.OAK_SAPLING)
 			.pottable()
 			.notTintedParticles()
 			.makeType("sapling");

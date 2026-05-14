@@ -156,9 +156,9 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> ICICLE = registerBlock("icicle", PlantopiaIcicleBlock::new, MetaProperties.of(MetaType.ICICLE).hasDynamicShape().randomlyTicking().customModel());
 	public static final RegistryObject<Block> ICE_CRUST = registerBlock("ice_crust", PlantopiaIceCrustBlock::new, MetaProperties.of(MetaType.ICE_CRUST).hasDynamicShape().randomlyTicking().customModel().customItem());
 
-	public static final RegistryObject<Block> YELLOW_LEAF_LITTER = registerBlock("yellow_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_YELLOW).goesAfter(PlantopiaKits.MAPLE.yellowLeaves()));
-	public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves()));
-	public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves()));
+	public static final RegistryObject<Block> YELLOW_LEAF_LITTER = registerBlock("yellow_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_YELLOW).goesAfter(PlantopiaKits.MAPLE.yellowLeaves));
+	public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves));
+	public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves));
 
 	public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 

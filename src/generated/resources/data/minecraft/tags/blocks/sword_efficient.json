@@ -19,6 +19,7 @@
 		"plantopia:magenta_foxglove",
 		"plantopia:magenta_mallow",
 		"plantopia:orange_foxglove",
+		"plantopia:orange_maple_sapling",
 		"plantopia:orange_wildflowers",
 		"plantopia:pink_clover_blossom",
 		"plantopia:pink_flowering_lily_pad",
@@ -38,6 +39,7 @@
 		"plantopia:red_foxglove",
 		"plantopia:red_lupine",
 		"plantopia:red_mallow",
+		"plantopia:red_maple_sapling",
 		"plantopia:red_waterlily",
 		"plantopia:red_wildflowers",
 		"plantopia:reed",
@@ -65,6 +67,7 @@
 		"plantopia:yellow_foxglove",
 		"plantopia:yellow_lupine",
 		"plantopia:yellow_mallow",
+		"plantopia:yellow_maple_sapling",
 		"plantopia:yellow_waterlily",
 		"plantopia:yellow_wildflowers"
 	]

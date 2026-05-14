@@ -36,26 +36,26 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
     protected final String baseName;
     protected final PlantopiaTreeKitConfiguration config;
 
-    protected final RegistryObject<Block> planks;
-    protected final RegistryObject<Block> stairs;
-    protected final RegistryObject<Block> slab;
-    protected final RegistryObject<Block> fence;
-    protected final RegistryObject<Block> fenceGate;
-    protected final RegistryObject<Block> door;
-    protected final RegistryObject<Block> trapdoor;
-    protected final RegistryObject<Block> pressurePlate;
-    protected final RegistryObject<Block> button;
+    public final RegistryObject<Block> planks;
+    public final RegistryObject<Block> stairs;
+    public final RegistryObject<Block> slab;
+    public final RegistryObject<Block> fence;
+    public final RegistryObject<Block> fenceGate;
+    public final RegistryObject<Block> door;
+    public final RegistryObject<Block> trapdoor;
+    public final RegistryObject<Block> pressurePlate;
+    public final RegistryObject<Block> button;
 
-    protected final RegistryObject<PlantopiaBoatType> boatType;
-    protected final RegistryObject<Item> boatItem;
-    protected final RegistryObject<Item> chestBoatItem;
+    public final RegistryObject<PlantopiaBoatType> boatType;
+    public final RegistryObject<Item> boatItem;
+    public final RegistryObject<Item> chestBoatItem;
 
-    protected final RegistryObject<Block> sign;
-    protected final RegistryObject<Block> wallSign;
-    protected final RegistryObject<Block> hangingSign;
-    protected final RegistryObject<Block> wallHangingSign;
-    protected final RegistryObject<Item> signItem;
-    protected final RegistryObject<Item> hangingSignItem;
+    public final RegistryObject<Block> sign;
+    public final RegistryObject<Block> wallSign;
+    public final RegistryObject<Block> hangingSign;
+    public final RegistryObject<Block> wallHangingSign;
+    public final RegistryObject<Item> signItem;
+    public final RegistryObject<Item> hangingSignItem;
 
     protected PlantopiaTreeStuffKit(String baseName, WoodType woodType, @NotNull PlantopiaTreeKitConfiguration config) {
         this.baseName = baseName;
@@ -105,83 +105,23 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
         return new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 
-    public RegistryObject<Block> planks() {
-        return planks;
-    }
-
-    public RegistryObject<Block> stairs() {
-        return stairs;
-    }
-
-    public RegistryObject<Block> slab() {
-        return slab;
-    }
-
-    public RegistryObject<Block> fence() {
-        return fence;
-    }
-
-    public RegistryObject<Block> fenceGate() {
-        return fenceGate;
-    }
-
-    public RegistryObject<Block> door() {
-        return door;
-    }
-
-    public RegistryObject<Block> trapdoor() {
-        return trapdoor;
-    }
-
-    public RegistryObject<Block> pressurePlate() {
-        return pressurePlate;
-    }
-
-    public RegistryObject<Block> button() {
-        return button;
-    }
-
-    public RegistryObject<PlantopiaBoatType> boatType() {
-        return boatType;
-    }
-
-    public RegistryObject<Item> boatItem() {
-        return boatItem;
-    }
-
-    public RegistryObject<Item> chestBoatItem() {
-        return chestBoatItem;
-    }
-
-    public RegistryObject<Block> sign() {
-        return sign;
-    }
-
-    public RegistryObject<Block> wallSign() {
-        return wallSign;
-    }
-
-    public RegistryObject<Block> hangingSign() {
-        return hangingSign;
-    }
-
-    public RegistryObject<Block> wallHangingSign() {
-        return wallHangingSign;
-    }
-
-    public RegistryObject<Item> signItem() {
-        return signItem;
-    }
-
-    public RegistryObject<Item> hangingSignItem() {
-        return hangingSignItem;
-    }
-
     @Override
     protected void addRecipes() {
         super.addRecipes();
 
-        var blockFamily = familyBuilder(planks.get())
+        var blockFamily = createBlockFamily();
+
+        PlantopiaRecipeProvider.blockFamily(blockFamily);
+        PlantopiaRecipeProvider.woodenBoat(boatItem.get(), planks.get());
+        PlantopiaRecipeProvider.chestBoat(chestBoatItem.get(), boatItem.get());
+    }
+
+    protected BlockFamily.Builder blockFamilyBuilder() {
+        return new BlockFamily.Builder(planks.get());
+    }
+
+    protected BlockFamily createBlockFamily() {
+        return blockFamilyBuilder()
             .button(button.get())
             .fence(fence.get())
             .fenceGate(fenceGate.get())
@@ -194,13 +134,5 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
             .recipeGroupPrefix("wooden")
             .recipeUnlockedBy("has_planks")
             .getFamily();
-
-        PlantopiaRecipeProvider.blockFamily(blockFamily);
-        PlantopiaRecipeProvider.woodenBoat(boatItem.get(), planks.get());
-        PlantopiaRecipeProvider.chestBoat(chestBoatItem.get(), boatItem.get());
-    }
-
-    protected BlockFamily.Builder familyBuilder(Block planks) {
-        return new BlockFamily.Builder(planks);
     }
 }

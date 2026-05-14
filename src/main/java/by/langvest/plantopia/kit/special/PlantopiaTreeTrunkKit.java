@@ -24,13 +24,13 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
     protected final String baseName;
     protected final PlantopiaTreeKitConfiguration config;
 
-    protected final RegistryObject<Block> log;
-    protected final RegistryObject<Block> wood;
-    protected final RegistryObject<Block> strippedLog;
-    protected final RegistryObject<Block> strippedWood;
+    public final RegistryObject<Block> log;
+    public final RegistryObject<Block> wood;
+    public final RegistryObject<Block> strippedLog;
+    public final RegistryObject<Block> strippedWood;
 
-    protected final TagKey<Block> logsBlockTag;
-    protected final TagKey<Item> logsItemTag;
+    public final TagKey<Block> logsBlockTag;
+    public final TagKey<Item> logsItemTag;
 
     protected PlantopiaTreeTrunkKit(String baseName, @NotNull PlantopiaTreeKitConfiguration config) {
         this.baseName = baseName;
@@ -50,30 +50,6 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
 
     public static @NotNull PlantopiaTreeTrunkKit registerTreeTrunkKit(String baseName, PlantopiaTreeKitConfiguration config) {
         return new PlantopiaTreeTrunkKit(baseName, config);
-    }
-
-    public RegistryObject<Block> log() {
-        return log;
-    }
-
-    public RegistryObject<Block> wood() {
-        return wood;
-    }
-
-    public RegistryObject<Block> strippedLog() {
-        return strippedLog;
-    }
-
-    public RegistryObject<Block> strippedWood() {
-        return strippedWood;
-    }
-
-    public TagKey<Block> logsBlockTag() {
-        return logsBlockTag;
-    }
-
-    public TagKey<Item> logsItemTag() {
-        return logsItemTag;
     }
 
     @Override
