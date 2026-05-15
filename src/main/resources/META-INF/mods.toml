@@ -13,6 +13,13 @@ issueTrackerURL = "${mod_issues}"
 	logoFile = "logo.png"
 
 [[dependencies.plantopia]]
+	modId = "terrablender"
+	mandatory = true
+	versionRange = "${terrablender_version_range}"
+	ordering = "NONE"
+	side = "BOTH"
+
+[[dependencies.plantopia]]
 	modId = "forge"
 	mandatory = true
 	versionRange = "${forge_version_range}"
