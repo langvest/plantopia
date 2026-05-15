@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 
 public abstract class RegisterColorsEvent extends ClientEvent {
@@ -35,8 +35,8 @@ public abstract class RegisterColorsEvent extends ClientEvent {
 			register(color, blocks.toArray(Block[]::new));
 		}
 
-		public void registerAll(@NotNull List<Pair<Set<Block>, BlockColor>> list) {
-			for(var pair : list) {
+		public void registerAll(@NotNull Collection<Pair<Set<Block>, BlockColor>> colors) {
+			for(var pair : colors) {
 				registerAll(pair.getFirst(), pair.getSecond());
 			}
 		}
@@ -70,8 +70,8 @@ public abstract class RegisterColorsEvent extends ClientEvent {
 			register(color, items.toArray(Item[]::new));
 		}
 
-		public void registerAll(@NotNull List<Pair<Set<Item>, ItemColor>> list) {
-			for(var pair : list) {
+		public void registerAll(@NotNull Collection<Pair<Set<Item>, ItemColor>> colors) {
+			for(var pair : colors) {
 				registerAll(pair.getFirst(), pair.getSecond());
 			}
 		}
