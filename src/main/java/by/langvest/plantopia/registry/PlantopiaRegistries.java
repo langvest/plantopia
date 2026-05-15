@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import terrablender.api.Region;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
@@ -41,6 +42,7 @@ public class PlantopiaRegistries {
 	public static final Registry<PlantopiaAdvancement> ADVANCEMENT = createSimpleRegistry("advancement");
 	public static final Registry<RecipeSerializer<?>> RECIPE_SERIALIZER = createSimpleRegistry("recipe_serializer");
 	public static final Registry<PlantopiaBoatType> BOAT_TYPE = createSimpleRegistry("boat_type");
+	public static final Registry<Region> REGION = createSimpleRegistry("region");
 
 	@Contract("_ -> new")
 	private static <T> @NotNull SimpleRegistry<T> createSimpleRegistry(String name) {

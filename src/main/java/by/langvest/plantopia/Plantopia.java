@@ -15,6 +15,8 @@ import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.recipe.PlantopiaRecipeSerializers;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
+import by.langvest.plantopia.worldgen.region.PlantopiaRegions;
+import by.langvest.plantopia.worldgen.surface.PlantopiaSurfaceRules;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockStateProviderTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaBlockPlacerTypes;
@@ -81,6 +83,8 @@ public final class Plantopia {
         // Common
         emitter.subscribe(PlantopiaBoatType::setup);
         emitter.subscribe(PlantopiaCompats::setup);
+        emitter.subscribe(PlantopiaRegions::setup);
+        emitter.subscribe(PlantopiaSurfaceRules::setup);
         emitter.subscribe(PlantopiaCommands::setup);
         emitter.subscribe(PlantopiaAdvancementTriggers::setup);
     }

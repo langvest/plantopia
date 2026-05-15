@@ -1,6 +1,7 @@
 package by.langvest.plantopia.datagen.world;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.worldgen.biome.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeModifiers;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatures;
@@ -22,6 +23,7 @@ public class PlantopiaWorldGenProvider extends DatapackBuiltinEntriesProvider {
 		.add(Registries.PLACED_FEATURE, PlantopiaPlacements::bootstrap)
 		.add(Registries.DAMAGE_TYPE, PlantopiaDamageTypes::bootstrap)
 		.add(Registries.NOISE, PlantopiaNoises::bootstrap)
+		.add(Registries.BIOME, PlantopiaBiomes::bootstrap)
 		.add(ForgeRegistries.Keys.BIOME_MODIFIERS, PlantopiaBiomeModifiers::bootstrap);
 
 	public PlantopiaWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
