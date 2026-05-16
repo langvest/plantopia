@@ -66,7 +66,7 @@ minecraft {
 			workingDirectory file("run")
 			property "forge.logging.markers", "REGISTRIES"
 			property "forge.logging.console.level", "info"
-			args = ["-mixin.config", mixin_config]
+			args "-mixin.config", mixin_config
 
 			mods {
 				"$mod_id" {
@@ -78,7 +78,7 @@ minecraft {
 		client {
 			taskName "runClient"
 			property "forge.enabledGameTestNamespaces", mod_id
-			args = ["--username", "LanGvest"]
+			args "--username", "LanGvest"
 		}
 
 		server {
@@ -88,7 +88,7 @@ minecraft {
 
 		data {
 			taskName "generateData"
-			args = ["--mod", mod_id, "--all", "--output", file(GENERATED_RESOURCES_PATH), "--existing", file(MAIN_RESOURCES_PATH)]
+			args "--mod", mod_id, "--all", "--output", file(GENERATED_RESOURCES_PATH), "--existing", file(MAIN_RESOURCES_PATH)
 		}
 	}
 }
