@@ -25,7 +25,7 @@ public class PlantopiaBiomeModifiers {
             if (biomeTagSet.isEmpty()) return;
 
             var placedFeatureName = nameOf(placedFeatureKey);
-            var biomeModifierKey = createKey(placedFeatureName);
+            var biomeModifierKey = createKey("add_feature/" + placedFeatureName);
             var biomeTagKey = PlantopiaBiomeTags.createBiomeHasFeatureTag(placedFeatureName);
 
             context.register(biomeModifierKey, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
