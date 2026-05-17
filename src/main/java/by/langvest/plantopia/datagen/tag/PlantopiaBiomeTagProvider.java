@@ -3,6 +3,7 @@ package by.langvest.plantopia.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
+import by.langvest.plantopia.worldgen.biome.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;
 import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
@@ -27,6 +28,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 
 	public static final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
 	public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
+	public static final PlantopiaTagSet<Biome> MARSH = getOrCreateTagSet(PlantopiaBiomeTags.MARSH);
 
 	public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -38,6 +40,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 
 		ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 		ALLOWS_FRAZIL.add(Biomes.FROZEN_OCEAN);
+		MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
 
 		saveAll();
 	}

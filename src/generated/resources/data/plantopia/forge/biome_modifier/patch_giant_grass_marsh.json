@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_giant_grass_marsh",
+	"features": "plantopia:patch_giant_grass_marsh",
+	"step": "vegetal_decoration"
+}

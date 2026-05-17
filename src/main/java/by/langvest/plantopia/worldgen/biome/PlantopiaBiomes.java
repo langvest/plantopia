@@ -13,6 +13,8 @@ import java.util.Map;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBiomes {
+    public static final String DEAD = "dead";
+
     public static void bootstrap(BootstapContext<Biome> context) {
         getDeclarations().forEach((key, declaration) -> {
             var biome = declaration.getBiome(context);

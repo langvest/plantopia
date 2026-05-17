@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_branching_shrub_marsh",
+	"features": "plantopia:patch_branching_shrub_marsh",
+	"step": "vegetal_decoration"
+}

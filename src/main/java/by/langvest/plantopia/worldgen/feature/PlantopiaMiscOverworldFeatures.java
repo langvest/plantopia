@@ -24,6 +24,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -46,14 +47,25 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
         return declarations;
     }
 
-    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareConfiguredFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         var key = createKey(name);
         declarations.put(key, builder.build());
         return key;
     }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> QUICKSAND_PIT = declareConfiguredFeature(
-        compileNameFrom(PlantopiaBlocks.QUICKSAND, PIT),
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_WATER_MARSH = declareFeature(
+        compileNameFrom(LAKE, Blocks.WATER, MARSH),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(lake(context ->
+                new LakeFeature.Configuration(
+                    simpleProvider(Blocks.WATER),
+                    simpleProvider(Blocks.AIR)
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PIT_QUICKSAND = declareFeature(
+        compileNameFrom(PIT, PlantopiaBlocks.QUICKSAND),
         PlantopiaFeatureDeclaration.builder()
             .feature(pit(context ->
                 new PlantopiaPitConfiguration(
@@ -68,7 +80,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEA_SHELL = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEA_SHELL = declareFeature(
         patchNameOf("sea_shell"),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(context ->
@@ -90,19 +102,19 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_COBBLESTONE_SHARD = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_COBBLESTONE_SHARD = declareFeature(
         patchNameOf(PlantopiaBlocks.COBBLESTONE_SHARD),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(getCobblestoneShardConfig(PlantopiaBlocks.COBBLESTONE_SHARD)))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_MOSSY_COBBLESTONE_SHARD = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_MOSSY_COBBLESTONE_SHARD = declareFeature(
         patchNameOf(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(getCobblestoneShardConfig(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD)))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FAIRY_RING = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FAIRY_RING = declareFeature(
         compileNameFrom("fairy_ring"),
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(context ->
@@ -131,7 +143,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FAIRY_RING_ANCHOR = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FAIRY_RING_ANCHOR = declareFeature(
         compileNameFrom(FAIRY_RING, ANCHOR),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.POI_ANCHOR, context ->
@@ -148,7 +160,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_ICICLE_STALACTITE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_ICICLE_STALACTITE = declareFeature(
         compileNameFrom(SINGLE, PlantopiaBlocks.ICICLE, STALACTITE),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.ICICLE_COLUMN, context ->
@@ -164,7 +176,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ICICLE_STALAGMITE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ICICLE_STALAGMITE = declareFeature(
         compileNameFrom(PATCH, PlantopiaBlocks.ICICLE, STALAGMITE),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.ICICLE_PATCH, context ->
@@ -186,7 +198,7 @@ public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FRAZIL_WATER_LEVEL = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FRAZIL_WATER_LEVEL = declareFeature(
         compileNameFrom("frazil_water_level"),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.FRAZIL_WATER_LEVEL, context ->

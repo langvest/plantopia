@@ -1,30 +1,23 @@
 {
-	"feature": "plantopia:quicksand_pit",
+	"feature": "plantopia:lake_water_marsh",
 	"placement": [
 		{
 			"type": "plantopia:rarity_filter",
 			"chance": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": 22.0,
-					"min_inclusive": 20.0
+					"max_exclusive": 6.24,
+					"min_inclusive": 3.12
 				}
 			}
 		},
 		{
 			"type": "minecraft:count",
 			"count": {
-				"type": "minecraft:clamped",
+				"type": "minecraft:uniform",
 				"value": {
-					"max_inclusive": 2,
-					"min_inclusive": 1,
-					"source": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 2,
-							"min_inclusive": -1
-						}
-					}
+					"max_inclusive": 3,
+					"min_inclusive": 1
 				}
 			}
 		},

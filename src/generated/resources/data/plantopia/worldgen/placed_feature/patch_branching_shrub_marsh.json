@@ -1,0 +1,44 @@
+{
+	"feature": "plantopia:patch_branching_shrub",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": 4.42
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_inclusive": 2,
+					"min_inclusive": 1
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "plantopia:range_filter",
+			"bottom_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"absolute": 63
+				}
+			},
+			"top_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"below_top": 0
+				}
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

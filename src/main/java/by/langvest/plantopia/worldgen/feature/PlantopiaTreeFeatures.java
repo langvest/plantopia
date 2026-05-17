@@ -34,13 +34,13 @@ public class PlantopiaTreeFeatures extends PlantopiaFeatures {
         return declarations;
     }
 
-    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareConfiguredFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         var key = createKey(name);
         declarations.put(key, builder.build());
         return key;
     }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_WITCHY_TOADSTOOL = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_WITCHY_TOADSTOOL = declareFeature(
         compileNameFrom(HUGE, PlantopiaBlocks.WITCHY_TOADSTOOL),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.HUGE_WITCHY_TOADSTOOL, context ->

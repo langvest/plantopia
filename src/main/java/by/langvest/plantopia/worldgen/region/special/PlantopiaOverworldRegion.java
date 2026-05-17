@@ -21,6 +21,7 @@ public class PlantopiaOverworldRegion extends PlantopiaRegion {
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
         addModifiedVanillaOverworldBiomes(mapper, modifiedVanillaOverworldBuilder -> {
             modifiedVanillaOverworldBuilder.replaceBiome(Biomes.SWAMP, PlantopiaOverworldBiomes.MARSH);
+            modifiedVanillaOverworldBuilder.replaceBiome(Biomes.MANGROVE_SWAMP, PlantopiaOverworldBiomes.DEAD_MARSH);
         });
     }
 }

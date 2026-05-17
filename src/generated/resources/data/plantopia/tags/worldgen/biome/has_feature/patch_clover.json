@@ -2,6 +2,7 @@
 	"values": [
 		"#minecraft:is_jungle",
 		"#minecraft:is_savanna",
+		"#plantopia:marsh",
 		"minecraft:plains",
 		"minecraft:sunflower_plains",
 		"minecraft:windswept_forest"

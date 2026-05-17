@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
@@ -37,6 +38,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 public class PlantopiaFeatures {
 	public static final String SINGLE = "single";
 	public static final String PIT = "pit";
+	public static final String LAKE = "lake";
 	public static final String PATCH = "patch";
 	public static final String STALACTITE = "stalactite";
 	public static final String STALAGMITE = "stalagmite";
@@ -44,6 +46,7 @@ public class PlantopiaFeatures {
 	public static final String VEGETATION = "vegetation";
 	public static final String MOUNTAIN = "mountain";
 	public static final String JUNGLE = "jungle";
+	public static final String MARSH = "marsh";
 	public static final String ANCHOR = "anchor";
 	public static final String CAVE = "cave";
 	public static final String HUGE = "huge";
@@ -134,6 +137,11 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> pit(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaPitConfiguration> configFactory) {
 		return configuredFeature(PlantopiaFeatureTypes.PIT.get(), configFactory);
+	}
+
+	@Contract(pure = true)
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> lake(Function<BootstapContext<ConfiguredFeature<?, ?>>, LakeFeature.Configuration> configFactory) {
+		return configuredFeature(Feature.LAKE, configFactory);
 	}
 
 	@Contract(pure = true)

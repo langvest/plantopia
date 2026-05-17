@@ -17,7 +17,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -31,6 +34,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
@@ -73,13 +77,13 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         return declarations;
     }
 
-    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareConfiguredFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         var key = createKey(name);
         declarations.put(key, builder.build());
         return key;
     }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_HOGWEED = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_HOGWEED = declareFeature(
         singleNameOf(PlantopiaBlocks.HOGWEED),
         PlantopiaFeatureDeclaration.builder()
             .feature(naturalBlock(context ->
@@ -87,7 +91,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_VEGETATION = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_VEGETATION = declareFeature(
         compileNameFrom(PlantopiaBlockMeta.MetaType.SEA_MOSS, VEGETATION),
         PlantopiaFeatureDeclaration.builder()
             .feature(naturalBlock(context ->
@@ -105,7 +109,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_PATCH_BONEMEAL = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_PATCH_BONEMEAL = declareFeature(
         compileNameFrom(PlantopiaBlockMeta.MetaType.SEA_MOSS, PATCH, BONEMEAL),
         PlantopiaFeatureDeclaration.builder()
             .feature(vegetationPatch(context ->
@@ -130,7 +134,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS_ON_SAND = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TINY_CACTUS_ON_SAND = declareFeature(
         compileNameFrom(PATCH, PlantopiaBlocks.TINY_CACTUS, ON_SAND),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -145,7 +149,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHICORY = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHICORY = declareFeature(
         patchNameOf(PlantopiaBlocks.CHICORY),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(context ->
@@ -163,7 +167,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TANSY = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TANSY = declareFeature(
         patchNameOf(PlantopiaBlocks.TANSY),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(context ->
@@ -181,7 +185,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED = declareFeature(
         patchNameOf(PlantopiaBlocks.CARROTWEED),
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(context ->
@@ -199,7 +203,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED_MOUNTAIN = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CARROTWEED_MOUNTAIN = declareFeature(
         compileNameFrom(patchNameOf(PlantopiaBlocks.CARROTWEED), MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -218,7 +222,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREWEED_MOUNTAIN = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREWEED_MOUNTAIN = declareFeature(
         compileNameFrom(PATCH, PlantopiaBlocks.FIREWEED, MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -234,7 +238,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FERN = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FERN = declareFeature(
         patchNameOf(Blocks.FERN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -246,7 +250,34 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_REEDS = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_GIANT_GRASS = declareFeature(
+        patchNameOf(PlantopiaBlocks.GIANT_GRASS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simplePatchConfiguration(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    weightedConfig(states -> states
+                        .add(PlantopiaBlocks.GIANT_GRASS.get().defaultBlockState(), 2)
+                        .add(Blocks.TALL_GRASS.defaultBlockState(), 5)
+                    )
+            )))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_AZURE_BLUET = declareFeature(
+        patchNameOf(Blocks.AZURE_BLUET),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simpleRandomPatchConfiguration(
+                    46,
+                    PlacementUtils.onlyWhenEmpty(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        simpleConfig(Blocks.AZURE_BLUET)
+                    )
+                )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_REED = declareFeature(
         patchNameOf(PlantopiaBlocks.REED),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -258,7 +289,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CATTAIL = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CATTAIL = declareFeature(
         patchNameOf(PlantopiaBlocks.CATTAIL),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -278,7 +309,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SWEET_FLAG = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SWEET_FLAG = declareFeature(
         patchNameOf(PlantopiaBlocks.SWEET_FLAG),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -295,7 +326,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DUNE_GRASS = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DUNE_GRASS = declareFeature(
         patchNameOf(PlantopiaBlocks.DUNE_GRASS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -310,7 +341,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SNOWDROP = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SNOWDROP = declareFeature(
         patchNameOf(PlantopiaBlocks.SNOWDROP),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -322,7 +353,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declareFeature(
         compileNameFrom(patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS), JUNGLE),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -333,7 +364,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> QUAGMIRE_WATER_LEVEL = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> QUAGMIRE_WATER_LEVEL = declareFeature(
         compileNameFrom("quagmire_water_level"),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.QUAGMIRE_WATER_LEVEL, context ->
@@ -359,7 +390,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD = declareFeature(
         patchNameOf("flowering_lily_pad"),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -385,7 +416,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_SMALL_PLATTERLEAF = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_SMALL_PLATTERLEAF = declareFeature(
         patchNameOf("flowering_small_platterleaf"),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -411,7 +442,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SMALL_PLATTERLEAF = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SMALL_PLATTERLEAF = declareFeature(
         patchNameOf(PlantopiaBlocks.SMALL_PLATTERLEAF),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
@@ -422,7 +453,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BRANCHING_SHRUB = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BRANCHING_SHRUB = declareFeature(
         patchNameOf(PlantopiaBlocks.BRANCHING_SHRUB),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
@@ -444,7 +475,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BRANCHING_SHRUB_CAVE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BRANCHING_SHRUB_CAVE = declareFeature(
         compileNameFrom(patchNameOf(PlantopiaBlocks.BRANCHING_SHRUB), CAVE),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
@@ -466,19 +497,19 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CLOVER = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CLOVER = declareFeature(
         patchNameOf(PlantopiaBlocks.CLOVER),
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(getCloverConfig(null)))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WHITE_CLOVER_BLOSSOM = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WHITE_CLOVER_BLOSSOM = declareFeature(
         patchNameOf(PlantopiaBlocks.WHITE_CLOVER_BLOSSOM),
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(getCloverConfig(PlantopiaBlocks.WHITE_CLOVER_BLOSSOM)))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_PINK_CLOVER_BLOSSOM = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_PINK_CLOVER_BLOSSOM = declareFeature(
         patchNameOf(PlantopiaBlocks.PINK_CLOVER_BLOSSOM),
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(getCloverConfig(PlantopiaBlocks.PINK_CLOVER_BLOSSOM)))

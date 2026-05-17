@@ -3,6 +3,7 @@ package by.langvest.plantopia.handler;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.datagen.adv.PlantopiaAdvancementProvider;
 import by.langvest.plantopia.datagen.lang.PlantopiaLanguageProvider;
+import by.langvest.plantopia.datagen.registry.PlantopiaRegistryProvider;
 import by.langvest.plantopia.datagen.loot.PlantopiaLootTableProvider;
 import by.langvest.plantopia.datagen.model.PlantopiaBlockStateProvider;
 import by.langvest.plantopia.datagen.model.PlantopiaItemModelProvider;
@@ -12,7 +13,6 @@ import by.langvest.plantopia.datagen.tag.PlantopiaBiomeTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaBlockTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaEntityTypeTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaItemTagProvider;
-import by.langvest.plantopia.datagen.world.PlantopiaWorldGenProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,22 +24,25 @@ public class PlantopiaDataGenerationHandler {
 	@SubscribeEvent
 	public static void gatherData(@NotNull GatherDataEvent event) {
 		var generator = event.getGenerator();
-		var lookupProvider = event.getLookupProvider();
 		var existingFileHelper = event.getExistingFileHelper();
 		var output = generator.getPackOutput();
+		
+		var registryProvider = new PlantopiaRegistryProvider(output, event.getLookupProvider());
+		generator.addProvider(event.includeServer(), registryProvider);
+		
+		var registryLookup = registryProvider.getRegistryProvider();
 
 		generator.addProvider(event.includeServer(), new PlantopiaRecipeProvider(output));
 		generator.addProvider(event.includeServer(), new PlantopiaLootTableProvider(output));
-		generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, lookupProvider, existingFileHelper));
-		generator.addProvider(event.includeServer(), new PlantopiaAdvancementProvider(output, lookupProvider, existingFileHelper));
-		generator.addProvider(event.includeServer(), new PlantopiaBiomeTagProvider(output, lookupProvider, existingFileHelper));
-		generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, lookupProvider, existingFileHelper));
-		generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, lookupProvider, existingFileHelper));
+		generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, registryLookup, existingFileHelper));
+		generator.addProvider(event.includeServer(), new PlantopiaAdvancementProvider(output, registryLookup, existingFileHelper));
+		generator.addProvider(event.includeServer(), new PlantopiaBiomeTagProvider(output, registryLookup, existingFileHelper));
+		generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, registryLookup, existingFileHelper));
+		generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, registryLookup, existingFileHelper));
 
 		generator.addProvider(event.includeClient(), new PlantopiaBlockStateProvider(output, existingFileHelper));
 		generator.addProvider(event.includeClient(), new PlantopiaItemModelProvider(output, existingFileHelper));
 		generator.addProvider(event.includeClient(), new PlantopiaSoundProvider(output, existingFileHelper));
-		generator.addProvider(event.includeClient(), new PlantopiaWorldGenProvider(output, lookupProvider));
 		generator.addProvider(event.includeClient(), new PlantopiaLanguageProvider(output));
 	}
 }

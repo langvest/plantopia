@@ -1,0 +1,50 @@
+{
+	"feature": "plantopia:patch_reed",
+	"placement": [
+		{
+			"type": "minecraft:count",
+			"count": 4
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "OCEAN_FLOOR_WG"
+		},
+		{
+			"type": "plantopia:range_filter",
+			"bottom_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"absolute": 62
+				}
+			},
+			"top_anchor": {
+				"type": "plantopia:absolute_anchor",
+				"anchor": {
+					"below_top": 0
+				}
+			}
+		},
+		{
+			"type": "minecraft:biome"
+		},
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:any_of",
+				"predicates": [
+					{
+						"type": "minecraft:matching_fluids",
+						"fluids": "minecraft:water"
+					},
+					{
+						"type": "minecraft:matching_blocks",
+						"blocks": "minecraft:ice"
+					}
+				]
+			}
+		}
+	]
+}

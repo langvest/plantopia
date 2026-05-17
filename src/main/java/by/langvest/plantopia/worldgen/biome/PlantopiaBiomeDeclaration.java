@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.biome;
 
+import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.worldgen.region.special.PlantopiaRegion;
 import by.langvest.toolkit.registry.RegistryObject;
 import com.google.common.collect.Lists;
@@ -84,7 +85,7 @@ public class PlantopiaBiomeDeclaration {
         private List<RegistryObject<PlantopiaRegion>> regions = Lists.newArrayList();
 
         private Function<Biome.BiomeBuilder, Biome.BiomeBuilder> modifyBiome = biomeBuilder -> biomeBuilder;
-        private Function<BiomeSpecialEffects.Builder, BiomeSpecialEffects.Builder> modifySpecialEffects = specialEffectsBuilder -> specialEffectsBuilder;
+        private Function<BiomeSpecialEffects.Builder, BiomeSpecialEffects.Builder> modifySpecialEffects = specialEffectsBuilder -> specialEffectsBuilder.waterColor(4159204).waterFogColor(329011).fogColor(12638463);
         private Function<BiomeGenerationSettings.Builder, BiomeGenerationSettings.Builder> modifyGeneration = generationBuilder -> generationBuilder;
         private Function<MobSpawnSettings.Builder, MobSpawnSettings.Builder> modifySpawn = spawnBuilder -> spawnBuilder;
 
@@ -275,7 +276,11 @@ public class PlantopiaBiomeDeclaration {
 
         /* GENERATION *************************************************************************************************/
 
-        public Builder addFeature(GenerationStep.Decoration decoration, ResourceKey<PlacedFeature> placedFeature) {
+        public Builder addFeature(GenerationStep.Decoration decoration, @NotNull ResourceKey<PlacedFeature> placedFeature) {
+            if (placedFeature.location().getNamespace().equals(Plantopia.MOD_ID)) {
+                throw new IllegalArgumentException("Use biome modifications for Plantopia placed features!");
+            }
+
             var prevModifyGeneration = this.modifyGeneration;
             this.modifyGeneration = generationBuilder -> prevModifyGeneration.apply(generationBuilder).addFeature(decoration, placedFeature);
             return this;

@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/patch_sweet_flag",
-	"features": "plantopia:patch_sweet_flag",
-	"step": "vegetal_decoration"
-}

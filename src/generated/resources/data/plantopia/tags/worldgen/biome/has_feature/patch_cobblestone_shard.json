@@ -23,6 +23,8 @@
 		"minecraft:taiga",
 		"minecraft:windswept_forest",
 		"minecraft:windswept_hills",
-		"minecraft:windswept_savanna"
+		"minecraft:windswept_savanna",
+		"plantopia:dead_marsh",
+		"plantopia:marsh"
 	]
 }

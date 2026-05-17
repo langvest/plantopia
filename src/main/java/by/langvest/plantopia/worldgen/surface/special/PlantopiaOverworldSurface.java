@@ -24,14 +24,15 @@ public class PlantopiaOverworldSurface extends PlantopiaSurface {
                     SurfaceRules.ifTrue(
                         // Weighted water noise
                         SurfaceRules.isBiome(
-                            PlantopiaOverworldBiomes.MARSH
+                            PlantopiaOverworldBiomes.MARSH,
+                            PlantopiaOverworldBiomes.DEAD_MARSH
                         ),
                         SurfaceRules.ifTrue(
                             IS_ABOVE_62,
                             SurfaceRules.ifTrue(
                                 SurfaceRules.not(IS_ABOVE_63),
                                 SurfaceRules.ifTrue(
-                                    SurfaceRules.noiseCondition(PlantopiaNoises.WEIGHTED, 0.0D),
+                                    SurfaceRules.noiseCondition(PlantopiaNoises.MARSH, 0.0D),
                                     water
                                 )
                             )

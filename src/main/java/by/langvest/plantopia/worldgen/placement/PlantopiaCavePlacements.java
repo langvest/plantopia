@@ -29,13 +29,13 @@ public class PlantopiaCavePlacements extends PlantopiaPlacements {
         return declarations;
     }
 
-    private static @NotNull ResourceKey<PlacedFeature> declarePlacedFeature(String name, PlantopiaPlacedFeatureDeclaration.@NotNull Builder builder) {
+    private static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacedFeatureDeclaration.@NotNull Builder builder) {
         var key = createKey(name);
         declarations.put(key, builder.build());
         return key;
     }
 
-    public static final ResourceKey<PlacedFeature> PATCH_SEA_HANGING_MOSS_CAVE = declarePlacedFeature(
+    public static final ResourceKey<PlacedFeature> PATCH_SEA_HANGING_MOSS_CAVE = declarePlacement(
         compileNameFrom(PlantopiaCaveFeatures.PATCH_SEA_HANGING_MOSS_CAVE),
         PlantopiaPlacedFeatureDeclaration.builder()
             .feature(PlantopiaCaveFeatures.PATCH_SEA_HANGING_MOSS_CAVE)

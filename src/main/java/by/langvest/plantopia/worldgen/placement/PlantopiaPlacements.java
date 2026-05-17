@@ -28,6 +28,7 @@ public class PlantopiaPlacements {
 	protected static final String SWAMP = "swamp";
 	protected static final String OCEAN = "ocean";
 	protected static final String CAVE = "cave";
+	protected static final String MARSH = "marsh";
 
 	public static void bootstrap(BootstapContext<PlacedFeature> context) {
 		getDeclarations().forEach((key, declaration) -> {
@@ -79,12 +80,12 @@ public class PlantopiaPlacements {
 			.add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 	}
 
-	protected static void addOldGrowthBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+	protected static void addVanillaOldGrowthBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
 		tagSet
 			.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_BIRCH_FOREST);
 	}
 
-	protected static void addSwampBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
+	protected static void addVanillaSwampBiomes(@NotNull PlantopiaTagSet<Biome> tagSet) {
 		tagSet
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 	}

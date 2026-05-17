@@ -29,7 +29,7 @@ public class PlantopiaTreeFeatureKit extends PlantopiaKit {
     protected PlantopiaTreeFeatureKit(String baseName, Supplier<Block> log, Supplier<Block> leaves, PlantopiaTreeKitConfiguration config) {
         var beehiveDecorator005 = new BeehiveDecorator(0.05F);
 
-        this.tree = PlantopiaTreeFeatures.declareConfiguredFeature(
+        this.tree = PlantopiaTreeFeatures.declareFeature(
             baseName,
             PlantopiaFeatureDeclaration.builder()
                 .feature(tree(context ->
@@ -39,7 +39,7 @@ public class PlantopiaTreeFeatureKit extends PlantopiaKit {
                 ))
         );
 
-        this.treeBees005 = PlantopiaTreeFeatures.declareConfiguredFeature(
+        this.treeBees005 = PlantopiaTreeFeatures.declareFeature(
             baseName + "_bees_005",
             PlantopiaFeatureDeclaration.builder()
                 .feature(tree(context ->
@@ -50,7 +50,7 @@ public class PlantopiaTreeFeatureKit extends PlantopiaKit {
                 ))
         );
 
-        this.fancyTree = PlantopiaTreeFeatures.declareConfiguredFeature(
+        this.fancyTree = PlantopiaTreeFeatures.declareFeature(
             "fancy_" + baseName,
             PlantopiaFeatureDeclaration.builder()
                 .feature(tree(context ->
@@ -60,7 +60,7 @@ public class PlantopiaTreeFeatureKit extends PlantopiaKit {
                 ))
         );
 
-        this.fancyTreeBees005 = PlantopiaTreeFeatures.declareConfiguredFeature(
+        this.fancyTreeBees005 = PlantopiaTreeFeatures.declareFeature(
             "fancy_" + baseName + "_bees_005",
             PlantopiaFeatureDeclaration.builder()
                 .feature(tree(context ->

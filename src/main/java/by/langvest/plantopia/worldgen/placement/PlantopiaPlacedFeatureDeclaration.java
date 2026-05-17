@@ -88,7 +88,7 @@ public class PlantopiaPlacedFeatureDeclaration {
             return this;
         }
 
-        public Builder generationStep(GenerationStep.Decoration generationStep) {
+        public Builder step(GenerationStep.Decoration generationStep) {
             this.generationStep = generationStep;
             return this;
         }

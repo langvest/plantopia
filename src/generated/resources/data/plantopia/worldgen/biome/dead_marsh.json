@@ -6,9 +6,11 @@
 			"minecraft:canyon"
 		]
 	},
-	"downfall": 0.7,
+	"downfall": 0.5,
 	"effects": {
-		"fog_color": 12638463,
+		"fog_color": -4138753,
+		"foliage_color": -4745637,
+		"grass_color": -6057387,
 		"mood_sound": {
 			"block_search_extent": 8,
 			"offset": 2.0,
@@ -21,9 +23,9 @@
 			"replace_current_music": false,
 			"sound": "minecraft:music.overworld.swamp"
 		},
-		"sky_color": 7842047,
-		"water_color": 4159204,
-		"water_fog_color": 329011
+		"sky_color": 8037887,
+		"water_color": -10388636,
+		"water_fog_color": -14474473
 	},
 	"features": [
 		[],
@@ -77,6 +79,8 @@
 		],
 		[
 			"minecraft:glow_lichen",
+			"minecraft:flower_default",
+			"minecraft:patch_dead_bush",
 			"minecraft:seagrass_swamp"
 		],
 		[
@@ -96,6 +100,12 @@
 		],
 		"axolotls": [],
 		"creature": [
+			{
+				"type": "minecraft:pig",
+				"maxCount": 4,
+				"minCount": 2,
+				"weight": 8
+			},
 			{
 				"type": "minecraft:chicken",
 				"maxCount": 4,
@@ -177,5 +187,5 @@
 		"water_ambient": [],
 		"water_creature": []
 	},
-	"temperature": 0.9
+	"temperature": 0.6
 }

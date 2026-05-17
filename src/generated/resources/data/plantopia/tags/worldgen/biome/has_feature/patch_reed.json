@@ -14,6 +14,7 @@
 		"minecraft:sunflower_plains",
 		"minecraft:swamp",
 		"minecraft:taiga",
+		"plantopia:marsh",
 		{
 			"id": "hybrid_beta:autumnal_forest",
 			"required": false

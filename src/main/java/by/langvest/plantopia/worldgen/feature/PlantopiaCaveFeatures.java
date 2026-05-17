@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
@@ -37,13 +36,13 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
         return declarations;
     }
 
-    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareConfiguredFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         var key = createKey(name);
         declarations.put(key, builder.build());
         return key;
     }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEA_HANGING_MOSS_CAVE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEA_HANGING_MOSS_CAVE = declareFeature(
         compileNameFrom(patchNameOf(PlantopiaBlocks.SEA_HANGING_MOSS), CAVE),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.SEA_HANGING_MOSS_PATCH, context ->
@@ -66,7 +65,7 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICICLE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICICLE = declareFeature(
         compileNameFrom(LARGE, PlantopiaBlocks.ICICLE),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.LARGE_ICICLE, context ->
@@ -90,7 +89,7 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ICICLE_CLUSTER = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ICICLE_CLUSTER = declareFeature(
         compileNameFrom(PlantopiaBlocks.ICICLE, CLUSTER),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.ICICLE_CLUSTER, context ->
@@ -109,7 +108,7 @@ public class PlantopiaCaveFeatures extends PlantopiaFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ICICLE = declareConfiguredFeature(
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ICICLE = declareFeature(
         compileNameFrom(PlantopiaBlocks.ICICLE),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(Feature.SIMPLE_RANDOM_SELECTOR, context ->

@@ -1,9 +1,9 @@
-package by.langvest.plantopia.datagen.world;
+package by.langvest.plantopia.datagen.registry;
 
 import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeModifiers;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
-import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeModifiers;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.noise.PlantopiaNoises;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;
@@ -17,16 +17,16 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class PlantopiaWorldGenProvider extends DatapackBuiltinEntriesProvider {
+public class PlantopiaRegistryProvider extends DatapackBuiltinEntriesProvider {
 	private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+		.add(Registries.BIOME, PlantopiaBiomes::bootstrap)
+		.add(Registries.NOISE, PlantopiaNoises::bootstrap)
+		.add(Registries.DAMAGE_TYPE, PlantopiaDamageTypes::bootstrap)
 		.add(Registries.CONFIGURED_FEATURE, PlantopiaFeatures::bootstrap)
 		.add(Registries.PLACED_FEATURE, PlantopiaPlacements::bootstrap)
-		.add(Registries.DAMAGE_TYPE, PlantopiaDamageTypes::bootstrap)
-		.add(Registries.NOISE, PlantopiaNoises::bootstrap)
-		.add(Registries.BIOME, PlantopiaBiomes::bootstrap)
 		.add(ForgeRegistries.Keys.BIOME_MODIFIERS, PlantopiaBiomeModifiers::bootstrap);
 
-	public PlantopiaWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+	public PlantopiaRegistryProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(output, lookupProvider, BUILDER, Set.of(Plantopia.MOD_ID));
 	}
 }

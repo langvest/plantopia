@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/pit_quicksand",
+	"features": "plantopia:pit_quicksand",
+	"step": "local_modifications"
+}
