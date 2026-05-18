@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-public class PlantopiaPlacedFeatureDeclaration {
+public class PlantopiaPlacementDeclaration {
     private final Function<BootstapContext<PlacedFeature>, Holder<ConfiguredFeature<?, ?>>> featureFactory;
     private final Function<BootstapContext<PlacedFeature>, List<PlacementModifier>> modifiersFactory;
     private final Function<PlantopiaTagSet<Biome>, PlantopiaTagSet<Biome>> biomesFactory;
     private final GenerationStep.Decoration generationStep;
 
     @Contract(pure = true)
-    protected PlantopiaPlacedFeatureDeclaration(@NotNull Builder builder) {
+    protected PlantopiaPlacementDeclaration(@NotNull Builder builder) {
         this.featureFactory = builder.featureFactory;
         this.modifiersFactory = builder.modifiersFactory;
         this.biomesFactory = Objects.requireNonNullElse(builder.biomesFactory, tagSet -> tagSet);
@@ -33,8 +33,8 @@ public class PlantopiaPlacedFeatureDeclaration {
     }
 
     @Contract(value = " -> new", pure = true)
-    public static PlantopiaPlacedFeatureDeclaration.@NotNull Builder builder() {
-        return new PlantopiaPlacedFeatureDeclaration.Builder();
+    public static PlantopiaPlacementDeclaration.@NotNull Builder builder() {
+        return new PlantopiaPlacementDeclaration.Builder();
     }
 
     public PlacedFeature getPlacedFeature(BootstapContext<PlacedFeature> context) {
@@ -65,8 +65,8 @@ public class PlantopiaPlacedFeatureDeclaration {
         private Function<PlantopiaTagSet<Biome>, PlantopiaTagSet<Biome>> biomesFactory;
         private GenerationStep.Decoration generationStep;
 
-        public PlantopiaPlacedFeatureDeclaration build() {
-            return new PlantopiaPlacedFeatureDeclaration(this);
+        public PlantopiaPlacementDeclaration build() {
+            return new PlantopiaPlacementDeclaration(this);
         }
 
         public Builder feature(Function<BootstapContext<PlacedFeature>, Holder<ConfiguredFeature<?, ?>>> featureFactory) {

@@ -4,7 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
-import by.langvest.plantopia.worldgen.placement.PlantopiaVegetationPlacements;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaVegetationPlacements;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;

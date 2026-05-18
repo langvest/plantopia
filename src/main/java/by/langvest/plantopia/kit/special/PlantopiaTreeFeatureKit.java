@@ -3,7 +3,7 @@ package by.langvest.plantopia.kit.special;
 import by.langvest.plantopia.kit.PlantopiaKit;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
-import by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatures;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaTreeFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatures.*;
+import static by.langvest.plantopia.worldgen.feature.catalog.PlantopiaTreeFeatures.*;
 
 public class PlantopiaTreeFeatureKit extends PlantopiaKit {
     public final ResourceKey<ConfiguredFeature<?, ?>> tree;

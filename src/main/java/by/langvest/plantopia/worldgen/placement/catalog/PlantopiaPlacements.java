@@ -1,7 +1,8 @@
-package by.langvest.plantopia.worldgen.placement;
+package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import com.google.common.collect.Maps;
+import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -14,7 +15,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Map;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
 
@@ -30,22 +30,18 @@ public class PlantopiaPlacements {
 	protected static final String CAVE = "cave";
 	protected static final String MARSH = "marsh";
 
+	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
+		PlantopiaVegetationPlacements.DECLARATION,
+		PlantopiaMiscOverworldPlacements.DECLARATION,
+		PlantopiaCavePlacements.DECLARATION
+	));
+
 	public static void bootstrap(BootstapContext<PlacedFeature> context) {
-		getDeclarations().forEach((key, declaration) -> {
+		DECLARATION.forEach((key, declaration) -> {
 			var placedFeature = declaration.getPlacedFeature(context);
 
 			context.register(key, placedFeature);
 		});
-	}
-
-	public static @NotNull Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> getDeclarations() {
-		Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> result = Maps.newHashMap();
-
-		result.putAll(PlantopiaVegetationPlacements.getDeclarations());
-		result.putAll(PlantopiaMiscOverworldPlacements.getDeclarations());
-		result.putAll(PlantopiaCavePlacements.getDeclarations());
-
-		return result;
 	}
 
 	protected static @NotNull ResourceKey<PlacedFeature> createKey(String name) {

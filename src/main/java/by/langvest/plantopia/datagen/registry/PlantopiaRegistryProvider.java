@@ -2,11 +2,11 @@ package by.langvest.plantopia.datagen.registry;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeModifiers;
-import by.langvest.plantopia.worldgen.biome.PlantopiaBiomes;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaFeatures;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.noise.PlantopiaNoises;
-import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;

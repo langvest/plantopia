@@ -1,12 +1,14 @@
-package by.langvest.plantopia.worldgen.placement;
+package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
-import by.langvest.plantopia.worldgen.biome.PlantopiaOverworldBiomes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaVegetationFeatures;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaVegetationFeatures;
+import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
+import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
-import com.google.common.collect.Maps;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -24,7 +26,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Map;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 
@@ -34,23 +35,19 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
 public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 	protected static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));
 
-	private static final Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> declarations = Maps.newHashMap();
+	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
+		PlantopiaMarshPlacements.DECLARATION
+	));
 
-	public static @NotNull Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> getDeclarations() {
-		return declarations;
-	}
-
-	private static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacedFeatureDeclaration.@NotNull Builder builder) {
-		var key = createKey(name);
-		declarations.put(key, builder.build());
-		return key;
+	public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
+		return DECLARATION.add(createKey(name), builder.build()).getKey();
 	}
 
 	/* VEGETATION PLACEMENTS ******************************************/
 
 	public static final ResourceKey<PlacedFeature> HOGWEED_BONEMEAL = declarePlacement(
 		compileNameFrom(PlantopiaBlocks.HOGWEED, BONEMEAL),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
 			.modifiers(context -> List.of(
 				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.HOGWEED.get())
@@ -59,7 +56,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_HOGWEED = declarePlacement(
 		compileNameFrom("patch", PlantopiaBlocks.HOGWEED),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(380.0F),
@@ -78,7 +75,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> HOGWEED_INFESTED_GRASS_BLOCK = declarePlacement(
 		compileNameFrom(PlantopiaBlocks.HOGWEED, PlantopiaBlocks.INFESTED_GRASS_BLOCK),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
 			.modifiers(context -> List.of(
 				BlockPredicateFilter.forPredicate(
@@ -94,7 +91,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_FIREWEED_MOUNTAIN = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FIREWEED_MOUNTAIN),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED_MOUNTAIN)
 			.modifiers(context -> {
 				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.614D, 501, 402);
@@ -121,7 +118,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_FIREWEED_MOUNTAIN_2 = declarePlacement(
 		compileNameFrom(PATCH_FIREWEED_MOUNTAIN, 2),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FIREWEED_MOUNTAIN)
 			.modifiers(context -> {
 				var bigNoiseConfig = PlantopiaNoiseConfig.of(1.862D, 528, 811);
@@ -147,7 +144,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_TINY_CACTUS = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS_ON_SAND),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_TINY_CACTUS_ON_SAND)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(3.82F),
@@ -163,7 +160,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_REED = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_REED),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REED)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(3.12F, 4.12F),
@@ -190,7 +187,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_REED_SNOWY = declarePlacement(
 		compileNameFrom(PATCH_REED, SNOWY),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REED)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(2.0F),
@@ -213,46 +210,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_REED_MARSH = declarePlacement(
-		compileNameFrom(PATCH_REED, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_REED)
-			.modifiers(context -> List.of(
-				CountPlacement.of(4),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.anyOf(
-						BlockPredicate.matchesFluids(Fluids.WATER),
-						BlockPredicate.matchesBlocks(Blocks.ICE)
-					)
-				)
-			))
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_AZURE_BLUET_MARSH = declarePlacement(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_AZURE_BLUET, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_AZURE_BLUET)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(6),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.MARSH)
-			)
-	);
-
 	public static final ResourceKey<PlacedFeature> PATCH_CHICORY = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CHICORY),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(28.42F, 32.86F),
@@ -268,7 +228,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_TANSY = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TANSY),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_TANSY)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(6.42F, 10.86F),
@@ -284,7 +244,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_TANSY_2 = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TANSY, 2),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_TANSY)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(6.12F),
@@ -316,7 +276,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CARROTWEED_MOUNTAIN = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CARROTWEED_MOUNTAIN),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CARROTWEED_MOUNTAIN)
 			.modifiers(context -> {
 				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.158D, 188, 398);
@@ -341,7 +301,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_GRASS_BONUS = declarePlacement(
 		compileNameFrom(VegetationFeatures.PATCH_GRASS, BONUS),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(VegetationFeatures.PATCH_GRASS)
 			.modifiers(context -> List.of(
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
@@ -355,69 +315,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_SUGAR_CANE_MARSH = declarePlacement(
-		compileNameFrom(VegetationFeatures.PATCH_SUGAR_CANE, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(VegetationFeatures.PATCH_SUGAR_CANE)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(5.24F),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.MARSH)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_GRASS_MARSH = declarePlacement(
-		compileNameFrom(VegetationFeatures.PATCH_GRASS, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(VegetationFeatures.PATCH_GRASS)
-			.modifiers(context -> List.of(
-				CountPlacement.of(12),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.addTag(PlantopiaBiomeTags.MARSH)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_PUMPKIN_MARSH = declarePlacement(
-		compileNameFrom(VegetationFeatures.PATCH_PUMPKIN, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(VegetationFeatures.PATCH_PUMPKIN)
-			.modifiers(context -> List.of(
-				RarityFilter.onAverageOnceEvery(80),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
-			)
-	);
-
-	public static final ResourceKey<PlacedFeature> PATCH_GIANT_GRASS_MARSH = declarePlacement(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_GIANT_GRASS, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_GIANT_GRASS)
-			.modifiers(context -> List.of(
-				CountPlacement.of(UniformInt.of(0, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.addTag(PlantopiaBiomeTags.MARSH)
-			)
-	);
-
 	public static final ResourceKey<PlacedFeature> PATCH_TAIGA_GRASS_BONUS = declarePlacement(
 		compileNameFrom(VegetationFeatures.PATCH_TAIGA_GRASS, BONUS),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(VegetationFeatures.PATCH_TAIGA_GRASS)
 			.modifiers(context -> List.of(
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
@@ -432,7 +332,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_FERN_BONUS = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FERN, BONUS),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FERN)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(5.0F),
@@ -450,7 +350,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_LARGE_FERN_BONUS = declarePlacement(
 		compileNameFrom(VegetationFeatures.PATCH_LARGE_FERN, BONUS),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(VegetationFeatures.PATCH_LARGE_FERN)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(5.0F),
@@ -465,7 +365,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_CATTAIL = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CATTAIL),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(5.0F),
@@ -491,7 +391,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_SWEET_FLAG_SWAMP = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG, SWAMP),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(4.0F),
@@ -513,40 +413,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_SWEET_FLAG_MARSH = declarePlacement(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG)
-			.modifiers(context -> {
-				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 534, 22);
-				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.022D, 43, 884);
-				float bigNoiseLevel = -0.25F;
-				float smallNoiseLevel = -0.1F;
-
-				return List.of(
-					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 22),
-					InSquarePlacement.spread(),
-					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
-					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.15F),
-					PlacementUtils.HEIGHTMAP_TOP_SOLID,
-					WATER_PLANT_RANGE_FILTER,
-					BiomeFilter.biome(),
-					BlockPredicateFilter.forPredicate(
-						BlockPredicate.allOf(
-							BlockPredicate.matchesFluids(Fluids.WATER),
-							BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT)
-						)
-					)
-				);
-			})
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.MARSH)
-			)
-	);
-
 	public static final ResourceKey<PlacedFeature> PATCH_CATTAIL_SWAMP = declarePlacement(
 		compileNameFrom(PATCH_CATTAIL, SWAMP),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_CATTAIL)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(2.32F),
@@ -567,7 +436,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_DUNE_GRASS = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_DUNE_GRASS),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_DUNE_GRASS)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(2.92F),
@@ -583,7 +452,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_SNOWDROP = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SNOWDROP),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SNOWDROP)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(12.32f),
@@ -599,7 +468,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
@@ -614,7 +483,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_FLOWERING_LILY_PAD = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
@@ -632,7 +501,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_FLOWERING_SMALL_PLATTERLEAF = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLOWERING_SMALL_PLATTERLEAF),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_FLOWERING_SMALL_PLATTERLEAF)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
@@ -650,7 +519,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_SMALL_PLATTERLEAF = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_SMALL_PLATTERLEAF),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SMALL_PLATTERLEAF)
 			.modifiers(context -> List.of(
 				CountPlacement.of(2),
@@ -667,7 +536,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
@@ -688,26 +557,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB_MARSH = declarePlacement(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB, MARSH),
-		PlantopiaPlacedFeatureDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(4.42F),
-				CountPlacement.of(UniformInt.of(1, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
-			)
-	);
-
 	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB_RARE = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB, RARE),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(18.24F),
@@ -723,7 +575,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> PATCH_BRANCHING_SHRUB_CAVE = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB_CAVE)
 			.modifiers(context -> List.of(
 				PlantopiaDensityPlacement.of(
@@ -743,7 +595,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 
 	public static final ResourceKey<PlacedFeature> QUAGMIRE_WATER_LEVEL = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.QUAGMIRE_WATER_LEVEL),
-		PlantopiaPlacedFeatureDeclaration.builder()
+		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.QUAGMIRE_WATER_LEVEL)
 			.biomes(biomes -> biomes
 				.addTag(PlantopiaBiomeTags.ALLOWS_QUAGMIRE)
@@ -792,8 +644,8 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	protected static PlantopiaPlacedFeatureDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, FloatProvider chance) {
-		return PlantopiaPlacedFeatureDeclaration.builder()
+	protected static PlantopiaPlacementDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, FloatProvider chance) {
+		return PlantopiaPlacementDeclaration.builder()
 			.feature(feature)
 			.modifiers(context -> List.of(
 				PlantopiaRarityFilter.onAverageOnceEvery(chance),

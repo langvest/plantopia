@@ -3,8 +3,8 @@ package by.langvest.plantopia.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import by.langvest.plantopia.worldgen.biome.PlantopiaOverworldBiomes;
-import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -46,7 +46,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 	}
 
 	private void generateAll() {
-		PlantopiaPlacements.getDeclarations().forEach((placedFeatureKey, declaration) -> {
+		PlantopiaPlacements.DECLARATION.forEach((placedFeatureKey, declaration) -> {
 			var biomeTagSet = declaration.getBiomeTagSet();
 
 			if(biomeTagSet.isEmpty()) return;

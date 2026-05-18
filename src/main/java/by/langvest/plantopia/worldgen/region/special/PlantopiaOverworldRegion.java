@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.region.special;
 
-import by.langvest.plantopia.worldgen.biome.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;

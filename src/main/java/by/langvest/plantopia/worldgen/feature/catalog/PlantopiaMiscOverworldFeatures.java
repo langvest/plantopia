@@ -1,16 +1,18 @@
-package by.langvest.plantopia.worldgen.feature;
+package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
-import com.google.common.collect.Maps;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -30,7 +32,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -41,16 +42,10 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.features.MiscOverworldFeatures
  */
 public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
-    private static final Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> declarations = Maps.newHashMap();
+    public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> getDeclarations() {
-        return declarations;
-    }
-
-    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
-        var key = createKey(name);
-        declarations.put(key, builder.build());
-        return key;
+    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+        return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAKE_WATER_MARSH = declareFeature(

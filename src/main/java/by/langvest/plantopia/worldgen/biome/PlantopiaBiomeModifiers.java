@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.biome;
 
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
-import by.langvest.plantopia.worldgen.placement.PlantopiaPlacements;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -19,7 +19,7 @@ public class PlantopiaBiomeModifiers {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
 
-        PlantopiaPlacements.getDeclarations().forEach((placedFeatureKey, declaration) -> {
+        PlantopiaPlacements.DECLARATION.forEach((placedFeatureKey, declaration) -> {
             var biomeTagSet = declaration.getBiomeTagSet();
 
             if (biomeTagSet.isEmpty()) return;

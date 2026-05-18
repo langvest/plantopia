@@ -1,6 +1,6 @@
 package by.langvest.plantopia.mixin.level.feature;
 
-import by.langvest.plantopia.worldgen.feature.PlantopiaMiscOverworldFeatures;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaMiscOverworldFeatures;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.Heightmap;

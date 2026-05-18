@@ -1,4 +1,4 @@
-package by.langvest.plantopia.worldgen.feature;
+package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
@@ -6,6 +6,8 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaGradientBlockPlacer;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
@@ -13,14 +15,12 @@ import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.toolkit.util.Catalog;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -34,7 +34,6 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
@@ -44,7 +43,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -71,16 +69,10 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         BlockPredicate.solid(BlockPos.ZERO.below())
     );
 
-    private static final Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> declarations = Maps.newHashMap();
+    public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> getDeclarations() {
-        return declarations;
-    }
-
-    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
-        var key = createKey(name);
-        declarations.put(key, builder.build());
-        return key;
+    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+        return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> SINGLE_HOGWEED = declareFeature(

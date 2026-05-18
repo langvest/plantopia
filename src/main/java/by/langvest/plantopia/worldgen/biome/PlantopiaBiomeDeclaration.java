@@ -27,7 +27,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToInt;
-import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomes.calculateSkyColor;
+import static by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes.calculateSkyColor;
 
 public class PlantopiaBiomeDeclaration {
     private boolean hasPrecipitation;

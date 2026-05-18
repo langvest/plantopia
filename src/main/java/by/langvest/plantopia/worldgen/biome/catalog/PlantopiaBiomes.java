@@ -1,6 +1,7 @@
-package by.langvest.plantopia.worldgen.biome;
+package by.langvest.plantopia.worldgen.biome.catalog;
 
-import com.google.common.collect.Maps;
+import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -8,27 +9,21 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBiomes {
     public static final String DEAD = "dead";
 
+    public static final Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
+        PlantopiaOverworldBiomes.DECLARATION
+    ));
+
     public static void bootstrap(BootstapContext<Biome> context) {
-        getDeclarations().forEach((key, declaration) -> {
+        DECLARATION.forEach((key, declaration) -> {
             var biome = declaration.getBiome(context);
 
             context.register(key, biome);
         });
-    }
-
-    public static @NotNull Map<ResourceKey<Biome>, PlantopiaBiomeDeclaration> getDeclarations() {
-        Map<ResourceKey<Biome>, PlantopiaBiomeDeclaration> result = Maps.newHashMap();
-
-        result.putAll(PlantopiaOverworldBiomes.getDeclarations());
-
-        return result;
     }
 
     protected static @NotNull ResourceKey<Biome> createKey(String name) {

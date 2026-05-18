@@ -1,11 +1,13 @@
-package by.langvest.plantopia.worldgen.feature;
+package by.langvest.plantopia.worldgen.feature.catalog;
 
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaVegetationPatchConfiguration;
+import by.langvest.toolkit.util.Catalog;
 import by.langvest.toolkit.util.LocationLike;
-import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -29,7 +31,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -64,23 +65,19 @@ public class PlantopiaFeatures {
 		BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.SAND)
 	);
 
+	public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
+		PlantopiaVegetationFeatures.DECLARATION,
+		PlantopiaMiscOverworldFeatures.DECLARATION,
+		PlantopiaCaveFeatures.DECLARATION,
+		PlantopiaTreeFeatures.DECLARATION
+	));
+
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-		getDeclarations().forEach((key, declaration) -> {
+		DECLARATION.forEach((key, declaration) -> {
 			var configuredFeature = declaration.getConfiguredFeature(context);
 
 			context.register(key, configuredFeature);
 		});
-	}
-
-	public static @NotNull Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> getDeclarations() {
-		Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> result = Maps.newHashMap();
-
-		result.putAll(PlantopiaVegetationFeatures.getDeclarations());
-		result.putAll(PlantopiaMiscOverworldFeatures.getDeclarations());
-		result.putAll(PlantopiaCaveFeatures.getDeclarations());
-		result.putAll(PlantopiaTreeFeatures.getDeclarations());
-
-		return result;
 	}
 
 	protected static @NotNull ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {

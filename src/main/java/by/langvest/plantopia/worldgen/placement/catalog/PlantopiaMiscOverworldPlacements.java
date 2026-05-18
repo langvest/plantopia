@@ -1,11 +1,12 @@
-package by.langvest.plantopia.worldgen.placement;
+package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
-import by.langvest.plantopia.worldgen.biome.PlantopiaOverworldBiomes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaMiscOverworldFeatures;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaMiscOverworldFeatures;
+import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
-import com.google.common.collect.Maps;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -22,7 +23,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Map;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 
@@ -30,21 +30,15 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.placement.MiscOverworldPlacements
  */
 public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
-    private static final Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> declarations = Maps.newHashMap();
+    public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull Map<ResourceKey<PlacedFeature>, PlantopiaPlacedFeatureDeclaration> getDeclarations() {
-        return declarations;
-    }
-
-    private static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacedFeatureDeclaration.@NotNull Builder builder) {
-        var key = createKey(name);
-        declarations.put(key, builder.build());
-        return key;
+    public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
+        return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
     public static final ResourceKey<PlacedFeature> PIT_QUICKSAND = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PIT_QUICKSAND),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .step(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
             .feature(PlantopiaMiscOverworldFeatures.PIT_QUICKSAND)
             .modifiers(context -> List.of(
@@ -61,7 +55,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> LAKE_WATER_MARSH = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.LAKE_WATER_MARSH),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .step(GenerationStep.Decoration.LAKES)
             .feature(PlantopiaMiscOverworldFeatures.LAKE_WATER_MARSH)
             .modifiers(context -> List.of(
@@ -78,7 +72,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_SEA_SHELL = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(8.48F),
@@ -94,7 +88,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_SEA_SHELL_OCEAN = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL, OCEAN),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(4.24F),
@@ -113,7 +107,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_SEA_SHELL_OCEAN_2 = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL, OCEAN, 2),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(1.12F, 2.24F),
@@ -131,7 +125,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(2.86F),
@@ -156,7 +150,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(2.86F),
@@ -173,7 +167,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD_2 = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD, 2),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
@@ -189,7 +183,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_MOSSY_COBBLESTONE_SHARD_2 = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD, 2),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_MOSSY_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 CountPlacement.of(UniformInt.of(1, 3)),
@@ -205,7 +199,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_COBBLESTONE_SHARD_CAVE = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD, CAVE),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_COBBLESTONE_SHARD)
             .modifiers(context -> List.of(
                 PlantopiaDensityPlacement.of(
@@ -231,7 +225,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> SINGLE_ICICLE_STALACTITE = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.SINGLE_ICICLE_STALACTITE),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.SINGLE_ICICLE_STALACTITE)
             .modifiers(context -> List.of(
                 PlantopiaDensityPlacement.of(
@@ -258,7 +252,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> PATCH_ICICLE_STALAGMITE = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_ICICLE_STALAGMITE),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.PATCH_ICICLE_STALAGMITE)
             .modifiers(context -> List.of(
                 CountPlacement.of(6),
@@ -277,7 +271,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
 
     public static final ResourceKey<PlacedFeature> FRAZIL_WATER_LEVEL = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.FRAZIL_WATER_LEVEL),
-        PlantopiaPlacedFeatureDeclaration.builder()
+        PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaMiscOverworldFeatures.FRAZIL_WATER_LEVEL)
             .biomes(biomes -> biomes
                 .addTag(PlantopiaBiomeTags.ALLOWS_FRAZIL)

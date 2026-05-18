@@ -1,13 +1,15 @@
-package by.langvest.plantopia.worldgen.feature;
+package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleClusterConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLargeIcicleConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaSeaHangingMossPatchConfiguration;
 import by.langvest.plantopia.worldgen.feature.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
-import com.google.common.collect.Maps;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -22,24 +24,16 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 
 /**
  * @see net.minecraft.data.worldgen.features.CaveFeatures
  */
 public class PlantopiaCaveFeatures extends PlantopiaFeatures {
-    private static final Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> declarations = Maps.newHashMap();
+    public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull Map<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> getDeclarations() {
-        return declarations;
-    }
-
-    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
-        var key = createKey(name);
-        declarations.put(key, builder.build());
-        return key;
+    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+        return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEA_HANGING_MOSS_CAVE = declareFeature(

@@ -1,7 +1,7 @@
 package by.langvest.plantopia.block;
 
 import by.langvest.plantopia.kit.PlantopiaKits;
-import by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatures;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaTreeFeatures;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.registry.RegistryObject;

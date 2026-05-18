@@ -1,7 +1,8 @@
-package by.langvest.plantopia.worldgen.biome;
+package by.langvest.plantopia.worldgen.biome.catalog;
 
+import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
 import by.langvest.plantopia.worldgen.region.PlantopiaRegions;
-import com.google.common.collect.Maps;
+import by.langvest.toolkit.util.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -14,24 +15,16 @@ import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 
 /**
  * @see net.minecraft.data.worldgen.biome.OverworldBiomes
  */
 public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
-    private static final Map<ResourceKey<Biome>, PlantopiaBiomeDeclaration> declarations = Maps.newHashMap();
+    public static final Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull Map<ResourceKey<Biome>, PlantopiaBiomeDeclaration> getDeclarations() {
-        return declarations;
-    }
-
-    private static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {
-        var key = createKey(name);
-        declarations.put(key, builder.build());
-        return key;
+    public static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {
+        return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
     public static final ResourceKey<Biome> MARSH = declareBiome(
