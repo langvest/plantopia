@@ -59,4 +59,11 @@ public final class PlantopiaTemplateHelper {
 	public static @NotNull String getSoundEventSubtitleKey(String name) {
 		return "subtitles." + Plantopia.MOD_ID + "." + name;
 	}
+
+	/* BIOME *****************************************************************/
+
+	@Contract(pure = true)
+	public static @NotNull String getBiomeTitleKey(@NotNull ResourceLocation identifier) {
+		return "biome." + identifier.getNamespace() + "." + identifier.getPath();
+	}
 }

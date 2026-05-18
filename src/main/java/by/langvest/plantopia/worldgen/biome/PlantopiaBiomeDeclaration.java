@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.random.Weight;
@@ -30,6 +31,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToInt;
 import static by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes.calculateSkyColor;
 
 public class PlantopiaBiomeDeclaration {
+    private String name;
+
     private boolean hasPrecipitation;
     private @Nullable Float temperature;
     private Biome.TemperatureModifier temperatureModifier;
@@ -42,7 +45,9 @@ public class PlantopiaBiomeDeclaration {
     private Function<MobSpawnSettings.Builder, MobSpawnSettings.Builder> modifySpawn;
 
     @Contract(pure = true)
-    protected PlantopiaBiomeDeclaration(@NotNull Builder builder) {
+    protected PlantopiaBiomeDeclaration(String name, @NotNull Builder builder) {
+        this.name = name;
+
         this.hasPrecipitation = builder.hasPrecipitation;
         this.temperature = builder.temperature;
         this.temperatureModifier = builder.temperatureModifier;
@@ -58,6 +63,10 @@ public class PlantopiaBiomeDeclaration {
     @Contract(value = " -> new", pure = true)
     public static PlantopiaBiomeDeclaration.@NotNull Builder builder() {
         return new PlantopiaBiomeDeclaration.Builder();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Biome getBiome(@NotNull BootstapContext<Biome> context) {
@@ -85,12 +94,15 @@ public class PlantopiaBiomeDeclaration {
         private List<RegistryObject<PlantopiaRegion>> regions = Lists.newArrayList();
 
         private Function<Biome.BiomeBuilder, Biome.BiomeBuilder> modifyBiome = biomeBuilder -> biomeBuilder;
-        private Function<BiomeSpecialEffects.Builder, BiomeSpecialEffects.Builder> modifySpecialEffects = specialEffectsBuilder -> specialEffectsBuilder.waterColor(4159204).waterFogColor(329011).fogColor(12638463);
+        private Function<BiomeSpecialEffects.Builder, BiomeSpecialEffects.Builder> modifySpecialEffects = specialEffectsBuilder -> specialEffectsBuilder
+            .waterColor(4159204) // #3F76E4
+            .waterFogColor(329011) // #050533
+            .fogColor(12638463); // #C0D8FF
         private Function<BiomeGenerationSettings.Builder, BiomeGenerationSettings.Builder> modifyGeneration = generationBuilder -> generationBuilder;
         private Function<MobSpawnSettings.Builder, MobSpawnSettings.Builder> modifySpawn = spawnBuilder -> spawnBuilder;
 
-        public PlantopiaBiomeDeclaration build() {
-            return new PlantopiaBiomeDeclaration(this);
+        public PlantopiaBiomeDeclaration build(String name) {
+            return new PlantopiaBiomeDeclaration(name, this);
         }
 
         public Builder apply(@NotNull Consumer<Builder> consumer) {

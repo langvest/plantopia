@@ -53,23 +53,6 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
             )
     );
 
-    public static final ResourceKey<PlacedFeature> LAKE_WATER_MARSH = declarePlacement(
-        compileNameFrom(PlantopiaMiscOverworldFeatures.LAKE_WATER_MARSH),
-        PlantopiaPlacementDeclaration.builder()
-            .step(GenerationStep.Decoration.LAKES)
-            .feature(PlantopiaMiscOverworldFeatures.LAKE_WATER_MARSH)
-            .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(3.12F, 6.24F),
-                CountPlacement.of(UniformInt.of(1, 3)),
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-                BiomeFilter.biome()
-            ))
-            .biomes(biomes -> biomes
-                .addTag(PlantopiaBiomeTags.MARSH)
-            )
-    );
-
     public static final ResourceKey<PlacedFeature> PATCH_SEA_SHELL = declarePlacement(
         compileNameFrom(PlantopiaMiscOverworldFeatures.PATCH_SEA_SHELL),
         PlantopiaPlacementDeclaration.builder()

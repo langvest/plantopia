@@ -23,7 +23,6 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
@@ -199,7 +198,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         compileNameFrom(patchNameOf(PlantopiaBlocks.CARROTWEED), MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(60, 5, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(56, 5, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.CARROTWEED.get().defaultBlockState(), 10)
@@ -218,7 +217,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         compileNameFrom(PATCH, PlantopiaBlocks.FIREWEED, MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(60, 5, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(56, 5, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.FIREWEED.get().defaultBlockState(), 10)
@@ -273,7 +272,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.REED),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(26, 3, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(24, 3, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.REED.get()),
                     WATER_PlANT_PREDICATE
@@ -285,18 +284,13 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.CATTAIL),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(96, 6, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(84, 5, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.CATTAIL.get().defaultBlockState(), 4)
                         .add(PlantopiaBlocks.SWEET_FLAG.get().defaultBlockState(), 1)
                     ),
-                    BlockPredicate.allOf(
-                        WATER_PlANT_PREDICATE,
-                        BlockPredicate.not(
-                            BlockPredicate.matchesTag(BlockTags.ICE)
-                        )
-                    )
+                    WATER_PlANT_PREDICATE
                 ))
             ))
     );
@@ -305,15 +299,10 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         patchNameOf(PlantopiaBlocks.SWEET_FLAG),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(96, 6, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(84, 5, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SWEET_FLAG.get()),
-                    BlockPredicate.allOf(
-                        WATER_PlANT_PREDICATE,
-                        BlockPredicate.not(
-                            BlockPredicate.matchesTag(BlockTags.ICE)
-                        )
-                    )
+                    WATER_PlANT_PREDICATE
                 ))
             ))
     );

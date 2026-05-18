@@ -24,7 +24,7 @@ public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
     public static final Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {
-        return DECLARATION.add(createKey(name), builder.build()).getKey();
+        return DECLARATION.add(createKey(name), builder.build(name)).getKey();
     }
 
     public static final ResourceKey<Biome> MARSH = declareBiome(
@@ -40,8 +40,9 @@ public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
             .applyGeneration(BiomeDefaultFeatures::addSwampClayDisk)
             .addFeature(Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_SWAMP)
             .hasPrecipitation(true)
-            .temperature(0.9F)
+            .temperature(0.85F)
             .downfall(0.7F)
+            .grassColorOverride("#7cbd4b")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
             .region(PlantopiaRegions.OVERWORLD_REGULAR)

@@ -2,12 +2,16 @@
 	"feature": "plantopia:patch_giant_grass",
 	"placement": [
 		{
+			"type": "plantopia:rarity_filter",
+			"chance": 1.64
+		},
+		{
 			"type": "minecraft:count",
 			"count": {
 				"type": "minecraft:uniform",
 				"value": {
 					"max_inclusive": 2,
-					"min_inclusive": 0
+					"min_inclusive": 1
 				}
 			}
 		},

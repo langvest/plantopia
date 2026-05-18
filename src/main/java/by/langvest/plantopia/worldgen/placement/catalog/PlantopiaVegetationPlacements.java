@@ -14,15 +14,12 @@ import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -33,8 +30,6 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
  */
 public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
-	protected static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));
-
 	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
 		PlantopiaMarshPlacements.DECLARATION
 	));
@@ -100,7 +95,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 22),
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 20),
 					InSquarePlacement.spread(),
 					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
 					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.15F),
@@ -167,11 +162,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_FIND_WATER,
 				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.matchesFluids(Fluids.WATER)
-				)
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
@@ -194,14 +187,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_FIND_WATER,
 				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.anyOf(
-						BlockPredicate.matchesFluids(Fluids.WATER),
-						BlockPredicate.matchesBlocks(Blocks.ICE)
-					)
-				)
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.add(Biomes.FROZEN_RIVER)
@@ -254,7 +242,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.add(Biomes.WINDSWEPT_FOREST)
+//				.add(Biomes.WINDSWEPT_FOREST)
 			)
 	);
 
@@ -285,7 +273,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 22),
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 20),
 					InSquarePlacement.spread(),
 					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.15F),
 					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.2F),
@@ -372,14 +360,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 2, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_FIND_WATER,
 				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.allOf(
-						BlockPredicate.matchesFluids(Fluids.WATER),
-						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT)
-					)
-				)
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
@@ -398,14 +381,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 3)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_FIND_WATER,
 				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.allOf(
-						BlockPredicate.matchesFluids(Fluids.WATER),
-						BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT)
-					)
-				)
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addVanillaSwampBiomes)
@@ -422,11 +400,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_FIND_WATER,
 				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.matchesFluids(Fluids.WATER)
-				)
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.apply(PlantopiaPlacements::addVanillaSwampBiomes)
@@ -610,7 +586,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.WINDSWEPT_FOREST)
 				.addTag(BiomeTags.IS_SAVANNA, BiomeTags.IS_JUNGLE)
-				.addTag(PlantopiaBiomeTags.MARSH)
+				.addTag(PlantopiaBiomeTags.IS_MARSH)
 			)
 	);
 

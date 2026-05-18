@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -26,9 +27,10 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements PlantopiaTagProvider<Biome> {
     private static final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
 
+	public static final PlantopiaTagSet<Biome> IS_OVERWORLD = getOrCreateTagSet(BiomeTags.IS_OVERWORLD);
 	public static final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
 	public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
-	public static final PlantopiaTagSet<Biome> MARSH = getOrCreateTagSet(PlantopiaBiomeTags.MARSH);
+	public static final PlantopiaTagSet<Biome> IS_MARSH = getOrCreateTagSet(PlantopiaBiomeTags.IS_MARSH);
 
 	public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
 		super(output, lookupProvider, Plantopia.MOD_ID, existingFileHelper);
@@ -40,7 +42,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 
 		ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 		ALLOWS_FRAZIL.add(Biomes.FROZEN_OCEAN);
-		MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
+		IS_MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
 
 		saveAll();
 	}
@@ -55,6 +57,10 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 			var biomeTagKey = PlantopiaBiomeTags.createBiomeHasFeatureTag(placedFeatureName);
 
 			byTagKeys.put(biomeTagKey, biomeTagSet);
+		});
+
+		PlantopiaOverworldBiomes.DECLARATION.forEach((biomeKey, declaration) -> {
+			IS_OVERWORLD.add(biomeKey);
 		});
 	}
 

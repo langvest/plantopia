@@ -4,13 +4,13 @@
 		{
 			"type": "plantopia:noise_count",
 			"activation_type": "BELOW",
-			"active_count": 22,
+			"active_count": 20,
 			"noise_config": {
 				"offset_x": 534,
 				"offset_z": 22,
-				"scale": 0.046
+				"scale": 0.048
 			},
-			"noise_level": -0.25,
+			"noise_level": -0.26,
 			"passive_count": 0
 		},
 		{
@@ -22,16 +22,16 @@
 			"erosion_level": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": -0.15,
-					"min_inclusive": -0.35
+					"max_exclusive": -0.16,
+					"min_inclusive": -0.36
 				}
 			},
 			"noise_config": {
 				"offset_x": 534,
 				"offset_z": 22,
-				"scale": 0.046
+				"scale": 0.048
 			},
-			"noise_level": -0.25
+			"noise_level": -0.26
 		},
 		{
 			"type": "plantopia:noise_filter",
@@ -55,6 +55,15 @@
 			"heightmap": "OCEAN_FLOOR_WG"
 		},
 		{
+			"type": "minecraft:environment_scan",
+			"direction_of_search": "down",
+			"max_steps": 4,
+			"target_condition": {
+				"type": "minecraft:matching_fluids",
+				"fluids": "minecraft:water"
+			}
+		},
+		{
 			"type": "plantopia:range_filter",
 			"bottom_anchor": {
 				"type": "plantopia:absolute_anchor",
@@ -71,27 +80,6 @@
 		},
 		{
 			"type": "minecraft:biome"
-		},
-		{
-			"type": "minecraft:block_predicate_filter",
-			"predicate": {
-				"type": "minecraft:all_of",
-				"predicates": [
-					{
-						"type": "minecraft:matching_fluids",
-						"fluids": "minecraft:water"
-					},
-					{
-						"type": "minecraft:matching_block_tag",
-						"offset": [
-							0,
-							-1,
-							0
-						],
-						"tag": "minecraft:dirt"
-					}
-				]
-			}
 		}
 	]
 }

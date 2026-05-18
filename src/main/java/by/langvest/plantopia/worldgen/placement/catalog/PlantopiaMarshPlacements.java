@@ -2,22 +2,19 @@ package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaMiscOverworldFeatures;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.util.Catalog;
-import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.*;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,7 +24,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
  */
-public class PlantopiaMarshPlacements extends PlantopiaVegetationPlacements {
+public class PlantopiaMarshPlacements extends PlantopiaPlacements {
 	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
 	public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
@@ -36,22 +33,34 @@ public class PlantopiaMarshPlacements extends PlantopiaVegetationPlacements {
 
 	/* MARSH PLACEMENTS ******************************************/
 
+	public static final ResourceKey<PlacedFeature> LAKE_WATER_MARSH = declarePlacement(
+		compileNameFrom(PlantopiaMiscOverworldFeatures.LAKE_WATER_MARSH),
+		PlantopiaPlacementDeclaration.builder()
+			.step(GenerationStep.Decoration.LAKES)
+			.feature(PlantopiaMiscOverworldFeatures.LAKE_WATER_MARSH)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(2.42F, 5.24F),
+				CountPlacement.of(UniformInt.of(1, 3)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.addTag(PlantopiaBiomeTags.IS_MARSH)
+			)
+	);
+
 	public static final ResourceKey<PlacedFeature> PATCH_REED_MARSH = declarePlacement(
-		compileNameFrom(PATCH_REED, MARSH),
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_REED, MARSH),
 		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_REED)
 			.modifiers(context -> List.of(
-				CountPlacement.of(4),
+				CountPlacement.of(UniformInt.of(2, 4)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				WATER_PLANT_FIND_WATER,
 				WATER_PLANT_RANGE_FILTER,
-				BiomeFilter.biome(),
-				BlockPredicateFilter.forPredicate(
-					BlockPredicate.anyOf(
-						BlockPredicate.matchesFluids(Fluids.WATER),
-						BlockPredicate.matchesBlocks(Blocks.ICE)
-					)
-				)
+				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
 				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
@@ -99,7 +108,7 @@ public class PlantopiaMarshPlacements extends PlantopiaVegetationPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.addTag(PlantopiaBiomeTags.MARSH)
+				.addTag(PlantopiaBiomeTags.IS_MARSH)
 			)
 	);
 
@@ -123,13 +132,14 @@ public class PlantopiaMarshPlacements extends PlantopiaVegetationPlacements {
 		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_GIANT_GRASS)
 			.modifiers(context -> List.of(
-				CountPlacement.of(UniformInt.of(0, 2)),
+				PlantopiaRarityFilter.onAverageOnceEvery(1.64F),
+				CountPlacement.of(UniformInt.of(1, 2)),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.addTag(PlantopiaBiomeTags.MARSH)
+				.addTag(PlantopiaBiomeTags.IS_MARSH)
 			)
 	);
 
@@ -138,25 +148,20 @@ public class PlantopiaMarshPlacements extends PlantopiaVegetationPlacements {
 		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.PATCH_SWEET_FLAG)
 			.modifiers(context -> {
-				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 534, 22);
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.048D, 534, 22);
 				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.022D, 43, 884);
-				float bigNoiseLevel = -0.25F;
+				float bigNoiseLevel = -0.26F;
 				float smallNoiseLevel = -0.1F;
 
 				return List.of(
-					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 22),
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 20),
 					InSquarePlacement.spread(),
 					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
 					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.15F),
 					PlacementUtils.HEIGHTMAP_TOP_SOLID,
+					WATER_PLANT_FIND_WATER,
 					WATER_PLANT_RANGE_FILTER,
-					BiomeFilter.biome(),
-					BlockPredicateFilter.forPredicate(
-						BlockPredicate.allOf(
-							BlockPredicate.matchesFluids(Fluids.WATER),
-							BlockPredicate.matchesTag(BlockPos.ZERO.below(), BlockTags.DIRT)
-						)
-					)
+					BiomeFilter.biome()
 				);
 			})
 			.biomes(biomes -> biomes

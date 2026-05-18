@@ -10,7 +10,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaBiomeTags {
 	public static final TagKey<Biome> ALLOWS_QUAGMIRE = createBiomeTag("allows_quagmire");
 	public static final TagKey<Biome> ALLOWS_FRAZIL = createBiomeTag("allows_frazil");
-	public static final TagKey<Biome> MARSH = createBiomeTag("marsh");
+	public static final TagKey<Biome> IS_MARSH = createBiomeTag("is_marsh");
 
 	public static @NotNull TagKey<Biome> createBiomeTag(String name) {
 		return TagKey.create(Registries.BIOME, plantopia(name));

@@ -4,7 +4,7 @@
 		{
 			"type": "plantopia:noise_count",
 			"activation_type": "BELOW",
-			"active_count": 22,
+			"active_count": 20,
 			"noise_config": {
 				"offset_x": 188,
 				"offset_z": 398,

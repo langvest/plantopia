@@ -2,7 +2,11 @@ package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.util.PlantopiaTagSet;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
+import by.langvest.plantopia.worldgen.placement.special.PlantopiaRangeFilter;
+import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.util.Catalog;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -10,8 +14,11 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -29,6 +36,14 @@ public class PlantopiaPlacements {
 	protected static final String OCEAN = "ocean";
 	protected static final String CAVE = "cave";
 	protected static final String MARSH = "marsh";
+
+	public static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));
+
+	public static final EnvironmentScanPlacement WATER_PLANT_FIND_WATER = EnvironmentScanPlacement.scanningFor(
+		Direction.DOWN,
+		BlockPredicate.matchesFluids(BlockPos.ZERO, Fluids.WATER),
+		4
+	);
 
 	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
 		PlantopiaVegetationPlacements.DECLARATION,

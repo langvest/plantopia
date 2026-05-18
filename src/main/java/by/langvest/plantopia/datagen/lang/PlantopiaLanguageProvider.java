@@ -4,6 +4,7 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.adv.special.PlantopiaSimpleAdvancement;
 import by.langvest.plantopia.adv.PlantopiaAdvancements;
 import by.langvest.plantopia.client.lang.PlantopiaLangKey;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.damage.PlantopiaDamageTypes;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
@@ -17,6 +18,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -65,6 +67,12 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 		add(key, name);
 	}
 
+	private void biome(@NotNull ResourceKey<Biome> tab, String name) {
+		var key = PlantopiaTemplateHelper.getBiomeTitleKey(tab.location());
+
+		add(key, name);
+	}
+
 	private void advancement(@NotNull RegistryObject<PlantopiaSimpleAdvancement> advancement, String title, String description) {
 		var advancementMeta = PlantopiaMetaBuckets.ADVANCEMENT.getValueOrThrow(advancement.getIdentifier());
 
@@ -105,6 +113,10 @@ public class PlantopiaLanguageProvider extends LanguageProvider {
 			var item = itemMeta.get();
 
 			add(item, getDisplayNameById(itemMeta.getName()));
+		});
+
+		PlantopiaBiomes.DECLARATION.forEach((biomeKey, declaration) -> {
+			biome(biomeKey, getDisplayNameById(declaration.getName()));
 		});
 	}
 
