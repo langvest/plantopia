@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaMiscOverworldFeatures;
@@ -13,6 +14,7 @@ import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +49,56 @@ public class PlantopiaMarshPlacements extends PlantopiaPlacements {
 			))
 			.biomes(biomes -> biomes
 				.addTag(PlantopiaBiomeTags.IS_MARSH)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_WATERLILY_MARSH = declarePlacement(
+		compileNameFrom(VegetationFeatures.PATCH_WATERLILY, MARSH),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(VegetationFeatures.PATCH_WATERLILY)
+			.modifiers(context -> List.of(
+				CountPlacement.of(UniformInt.of(0, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(Blocks.LILY_PAD)
+			))
+			.biomes(biomes -> biomes
+				.addTag(PlantopiaBiomeTags.IS_MARSH)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_FLOWERING_LILY_PAD_MARSH = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD_MARSH),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD_MARSH)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.64F),
+				CountPlacement.of(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get())
+			))
+			.biomes(biomes -> biomes
+				.add(PlantopiaOverworldBiomes.MARSH)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_FLOWERING_LILY_PAD_DEAD_MARSH = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD_DEAD_MARSH),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_FLOWERING_LILY_PAD_DEAD_MARSH)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(4.64F),
+				CountPlacement.of(1),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome(),
+				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.RED_FLOWERING_LILY_PAD.get())
+			))
+			.biomes(biomes -> biomes
+				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
 			)
 	);
 

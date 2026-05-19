@@ -6,6 +6,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
@@ -28,6 +29,7 @@ import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SeaPickleBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -217,7 +219,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
         compileNameFrom(PATCH, PlantopiaBlocks.FIREWEED, MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(56, 5, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(60, 5, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.FIREWEED.get().defaultBlockState(), 10)
@@ -374,53 +376,41 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD = declareFeature(
         patchNameOf("flowering_lily_pad"),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(6, 7, 1, PlacementUtils.onlyWhenEmpty(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    new SimpleBlockConfiguration(
-                        new DualNoiseProvider(
-                            new InclusiveRange<>(1, 3),
-                            new NormalNoise.NoiseParameters(-10, 1.0D),
-                            1.0F,
-                            2345L,
-                            new NormalNoise.NoiseParameters(-3, 1.0D),
-                            1.0F,
-                            List.of(
-                                PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get().defaultBlockState(),
-                                PlantopiaBlocks.RED_FLOWERING_LILY_PAD.get().defaultBlockState(),
-                                PlantopiaBlocks.YELLOW_FLOWERING_LILY_PAD.get().defaultBlockState(),
-                                PlantopiaBlocks.PINK_FLOWERING_LILY_PAD.get().defaultBlockState()
-                            )
-                        )
-                    )
-                ))
-            ))
+            .feature(randomPatch(getFloweringWaterlilyConfig(() -> List.of(
+                PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get().defaultBlockState(),
+                PlantopiaBlocks.RED_FLOWERING_LILY_PAD.get().defaultBlockState(),
+                PlantopiaBlocks.YELLOW_FLOWERING_LILY_PAD.get().defaultBlockState(),
+                PlantopiaBlocks.PINK_FLOWERING_LILY_PAD.get().defaultBlockState()
+            ))))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD_MARSH = declareFeature(
+        compileNameFrom(patchNameOf("flowering_lily_pad"), PlantopiaOverworldBiomes.MARSH),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(getFloweringWaterlilyConfig(() -> List.of(
+                PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get().defaultBlockState(),
+                PlantopiaBlocks.PINK_FLOWERING_LILY_PAD.get().defaultBlockState()
+            ))))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD_DEAD_MARSH = declareFeature(
+        compileNameFrom(patchNameOf("flowering_lily_pad"), PlantopiaOverworldBiomes.DEAD_MARSH),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(getFloweringWaterlilyConfig(() -> List.of(
+                PlantopiaBlocks.RED_FLOWERING_LILY_PAD.get().defaultBlockState(),
+                PlantopiaBlocks.YELLOW_FLOWERING_LILY_PAD.get().defaultBlockState()
+            ))))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_SMALL_PLATTERLEAF = declareFeature(
         patchNameOf("flowering_small_platterleaf"),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
-                new RandomPatchConfiguration(6, 7, 1, PlacementUtils.onlyWhenEmpty(
-                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
-                    new SimpleBlockConfiguration(
-                        new DualNoiseProvider(
-                            new InclusiveRange<>(1, 3),
-                            new NormalNoise.NoiseParameters(-10, 1.0D),
-                            1.0F,
-                            2345L,
-                            new NormalNoise.NoiseParameters(-3, 1.0D),
-                            1.0F,
-                            List.of(
-                                PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState(),
-                                PlantopiaBlocks.RED_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState(),
-                                PlantopiaBlocks.YELLOW_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState(),
-                                PlantopiaBlocks.PINK_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState()
-                            )
-                        )
-                    )
-                ))
-            ))
+            .feature(randomPatch(getFloweringWaterlilyConfig(() -> List.of(
+                PlantopiaBlocks.WHITE_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState(),
+                PlantopiaBlocks.RED_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState(),
+                PlantopiaBlocks.YELLOW_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState(),
+                PlantopiaBlocks.PINK_FLOWERING_SMALL_PLATTERLEAF.get().defaultBlockState()
+            ))))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SMALL_PLATTERLEAF = declareFeature(
@@ -499,7 +489,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     /* HELPER METHODS *************************************************************************/
 
     @Contract(pure = true)
-    private static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getCloverConfig(@Nullable Supplier<Block> flowerBlock) {
+    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getCloverConfig(@Nullable Supplier<Block> flowerBlock) {
         return context -> {
             List<PlantopiaBlockPlacer> blocks = Lists.newArrayList();
 
@@ -537,5 +527,23 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                 Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
             );
         };
+    }
+
+    @Contract(pure = true)
+    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> getFloweringWaterlilyConfig(Supplier<List<BlockState>> flowerBlocks) {
+        return context -> new RandomPatchConfiguration(6, 7, 1, PlacementUtils.onlyWhenEmpty(
+            PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+            new SimpleBlockConfiguration(
+                new DualNoiseProvider(
+                    new InclusiveRange<>(1, 3),
+                    new NormalNoise.NoiseParameters(-10, 1.0D),
+                    1.0F,
+                    2345L,
+                    new NormalNoise.NoiseParameters(-3, 1.0D),
+                    1.0F,
+                    flowerBlocks.get()
+                )
+            )
+        ));
     }
 }
