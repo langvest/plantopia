@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/patch_orange_leaf_litter",
+	"features": "plantopia:patch_orange_leaf_litter",
+	"step": "vegetal_decoration"
+}

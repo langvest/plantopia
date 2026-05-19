@@ -45,7 +45,6 @@ public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
             .grassColorOverride("#80be52")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
-            .region(PlantopiaRegions.OVERWORLD_REGULAR)
     );
 
     public static final ResourceKey<Biome> DEAD_MARSH = declareBiome(
@@ -73,7 +72,28 @@ public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
             .foliageColorOverride("#b7965b")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
-            .region(PlantopiaRegions.OVERWORLD_REGULAR)
+    );
+
+    public static final ResourceKey<Biome> SEASONAL_DARK_FOREST = declareBiome(
+        compileNameFrom(SEASONAL, Biomes.DARK_FOREST),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addForestGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#6a7a32")
+            .foliageColorOverride("#74aa2e")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
     /* HELPER METHODS *************************************************************************************************/

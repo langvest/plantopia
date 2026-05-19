@@ -36,6 +36,7 @@ public class PlantopiaPlacements {
 	protected static final String OCEAN = "ocean";
 	protected static final String CAVE = "cave";
 	protected static final String MARSH = "marsh";
+	protected static final String CHECKED = "checked";
 
 	public static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));
 
@@ -48,7 +49,9 @@ public class PlantopiaPlacements {
 	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
 		PlantopiaVegetationPlacements.DECLARATION,
 		PlantopiaMiscOverworldPlacements.DECLARATION,
-		PlantopiaCavePlacements.DECLARATION
+		PlantopiaCavePlacements.DECLARATION,
+		PlantopiaMarshPlacements.DECLARATION,
+		PlantopiaSeasonalPlacements.DECLARATION
 	));
 
 	public static void bootstrap(BootstapContext<PlacedFeature> context) {

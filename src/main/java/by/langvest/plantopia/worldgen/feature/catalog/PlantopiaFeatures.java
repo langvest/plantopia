@@ -51,6 +51,7 @@ public class PlantopiaFeatures {
 	public static final String ANCHOR = "anchor";
 	public static final String CAVE = "cave";
 	public static final String HUGE = "huge";
+	public static final String SEASONAL = "seasonal";
 	public static final String FANCY = "fancy";
 	public static final String CLUSTER = "cluster";
 	public static final String SURFACE = "surface";
@@ -94,6 +95,11 @@ public class PlantopiaFeatures {
 	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> simpleRandomSelector(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleRandomFeatureConfiguration> configFactory) {
 		return configuredFeature(Feature.SIMPLE_RANDOM_SELECTOR, configFactory);
+	}
+
+	@Contract(pure = true)
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> randomSelector(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomFeatureConfiguration> configFactory) {
+		return configuredFeature(Feature.RANDOM_SELECTOR, configFactory);
 	}
 
 	@Contract(pure = true)

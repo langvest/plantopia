@@ -30,9 +30,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
  */
 public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
-	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
-		PlantopiaMarshPlacements.DECLARATION
-	));
+	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
 	public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
 		return DECLARATION.add(createKey(name), builder.build()).getKey();
@@ -175,6 +173,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.BEACH, Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
 				.add(PlantopiaOverworldBiomes.MARSH)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 
@@ -300,6 +299,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			.biomes(biomes -> biomes
 				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
 				.add(Biomes.DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 
@@ -333,6 +333,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.add(Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FOREST)
 				.add(Biomes.SWAMP)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 
@@ -348,6 +349,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			))
 			.biomes(biomes -> biomes
 				.add(Biomes.DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 
@@ -369,6 +371,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.apply(PlantopiaPlacements::addCascadesBiomes)
 				.add(Biomes.RIVER)
 				.add(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 
@@ -530,6 +533,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.addTag(BiomeTags.IS_JUNGLE)
 				.addTag(BiomeTags.IS_BADLANDS)
 				.addTag(BiomeTags.IS_SAVANNA)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 
@@ -597,6 +601,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
 				.add(Biomes.MEADOW)
 				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
 			)
 	);
 

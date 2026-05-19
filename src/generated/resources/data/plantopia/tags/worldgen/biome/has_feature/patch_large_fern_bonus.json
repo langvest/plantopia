@@ -1,5 +1,6 @@
 {
 	"values": [
-		"minecraft:dark_forest"
+		"minecraft:dark_forest",
+		"plantopia:seasonal_dark_forest"
 	]
 }

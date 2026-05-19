@@ -1,9 +1,11 @@
 package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.toolkit.util.Catalog;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
@@ -12,10 +14,13 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import org.jetbrains.annotations.Contract;
@@ -51,6 +56,30 @@ public class PlantopiaTreeFeatures extends PlantopiaFeatures {
                     ),
                     1
                 )
+            ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK = declareFeature(
+        compileNameFrom(SEASONAL, TreeFeatures.DARK_OAK),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(tree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(Blocks.DARK_OAK_LOG),
+                    new DarkOakTrunkPlacer(6, 2, 1),
+                    simpleProvider(PlantopiaKits.MAPLE.orangeLeaves.get()),
+                    new DarkOakFoliagePlacer(
+                        ConstantInt.of(0),
+                        ConstantInt.of(0)
+                    ),
+                    new ThreeLayersFeatureSize(
+                        1,
+                        1,
+                        0,
+                        1,
+                        2,
+                        OptionalInt.empty()
+                    )
+                ).ignoreVines().build()
             ))
     );
 

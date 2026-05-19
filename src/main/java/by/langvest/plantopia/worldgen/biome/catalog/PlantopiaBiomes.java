@@ -13,6 +13,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 
 public class PlantopiaBiomes {
     public static final String DEAD = "dead";
+    public static final String SEASONAL = "seasonal";
 
     public static final Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
         PlantopiaOverworldBiomes.DECLARATION

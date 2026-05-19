@@ -2,6 +2,7 @@ package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
+import by.langvest.plantopia.block.special.PlantopiaLeafLitterBlock;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -16,13 +17,16 @@ import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
 import by.langvest.toolkit.util.Catalog;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.*;
@@ -33,6 +37,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
@@ -468,6 +474,51 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ))
     );
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_FOREST_VEGETATION = declareFeature(
+        compileNameFrom(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, VEGETATION),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var features = lookupFeatures(context);
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(
+                            PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)),
+                            0.025F
+                        ),
+                        new WeightedPlacedFeature(
+                            PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)),
+                            0.05F
+                        ),
+                        new WeightedPlacedFeature(
+//                            PlacementUtils.inlinePlaced(
+//                                features.getOrThrow(PlantopiaTreeFeatures.SEASONAL_DARK_OAK),
+//                                PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+//                            ),
+                            placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_CHECKED),
+                            0.6666667F
+                        ),
+                        new WeightedPlacedFeature(
+                            placements.getOrThrow(TreePlacements.BIRCH_CHECKED),
+                            0.2F
+                        ),
+                        new WeightedPlacedFeature(
+                            placements.getOrThrow(TreePlacements.FANCY_OAK_CHECKED),
+                            0.1F
+                        )
+                    ),
+                    placements.getOrThrow(TreePlacements.OAK_CHECKED)
+                );
+            }))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_LEAF_LITTER = declareFeature(
+        patchNameOf(PlantopiaBlocks.ORANGE_LEAF_LITTER),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.ORANGE_LEAF_LITTER)))
+    );
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CLOVER = declareFeature(
         patchNameOf(PlantopiaBlocks.CLOVER),
         PlantopiaFeatureDeclaration.builder()
@@ -487,6 +538,40 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
     );
 
     /* HELPER METHODS *************************************************************************/
+
+    @Contract(pure = true)
+    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getLeafLitterConfig(Supplier<Block> leafLitterBlock) {
+        return context -> {
+            List<PlantopiaBlockPlacer> blocks = Lists.newArrayList();
+
+            blocks.add(new PlantopiaGradientBlockPlacer(
+                weightedProvider(states -> {
+                    for (var direction : Direction.Plane.HORIZONTAL) {
+                        var state = leafLitterBlock.get().defaultBlockState()
+                            .setValue(PlantopiaLeafLitterBlock.FACING, direction);
+
+                        states.add(state, 1);
+                    }
+
+                    return states;
+                }),
+                PlantopiaIntegerPropertyHolder.of(PlantopiaLeafLitterBlock.AMOUNT),
+                0.68D,
+                49
+            ));
+
+            return new PlantopiaRadialPatchConfiguration(
+                ConstantInt.of(96), // tries
+                UniformInt.of(5, 9), // xzSpread
+                ConstantInt.of(3), // ySpread
+                -0.232D, // sigma
+                0.242D, // erosion
+                blocks,
+                Optional.of(GRASS_PLANT_PREDICATE),
+                Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
+            );
+        };
+    }
 
     @Contract(pure = true)
     public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getCloverConfig(@Nullable Supplier<Block> flowerBlock) {

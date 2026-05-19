@@ -128,6 +128,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
                 .add(Biomes.RIVER, Biomes.FROZEN_RIVER)
                 .add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
                 .add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH)
+                .add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
             )
     );
 
