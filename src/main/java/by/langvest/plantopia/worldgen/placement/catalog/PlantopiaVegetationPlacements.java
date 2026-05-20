@@ -6,6 +6,7 @@ import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
+import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils;
 import by.langvest.plantopia.worldgen.placement.special.*;
 import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.util.Catalog;
@@ -24,12 +25,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
  */
-public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
+public final class PlantopiaVegetationPlacements {
 	public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
 	public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
@@ -62,7 +65,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.addTag(BiomeTags.IS_SAVANNA)
-				.apply(PlantopiaPlacements::addMountainBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaMountainBiomes)
 			)
 	);
 
@@ -104,7 +107,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				);
 			})
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addMountainBiomes)
+				.add(Biomes.PLAINS, Biomes.MEADOW)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_BIRCH_FOREST)
 			)
 	);
@@ -131,7 +134,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				);
 			})
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addMountainBiomes)
+				.add(Biomes.PLAINS, Biomes.MEADOW)
 			)
 	);
 
@@ -165,15 +168,15 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
-				.apply(PlantopiaPlacements::addVanillaSwampBiomes)
-				.apply(PlantopiaPlacements::addCascadesBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaOldGrowthBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaSwampBiomes)
+				.apply(PlantopiaPlacementUtils::addCascadesBiomes)
 				.add(Biomes.SAVANNA)
 				.add(Biomes.RIVER)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.BEACH, Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
 				.add(PlantopiaOverworldBiomes.MARSH)
-				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
 			)
 	);
 
@@ -210,6 +213,22 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			))
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_CHICORY_2 = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CHICORY, 2),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
+			.modifiers(context -> List.of(
+				PlantopiaRarityFilter.onAverageOnceEvery(8.12F, 10.42F),
+				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
 			)
 	);
 
@@ -299,7 +318,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 			.biomes(biomes -> biomes
 				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
 				.add(Biomes.DARK_FOREST)
-				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
 			)
 	);
 
@@ -333,7 +352,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				.add(Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FOREST)
 				.add(Biomes.SWAMP)
 				.add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
 			)
 	);
 
@@ -367,11 +386,11 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
-				.apply(PlantopiaPlacements::addCascadesBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaOldGrowthBiomes)
+				.apply(PlantopiaPlacementUtils::addCascadesBiomes)
 				.add(Biomes.RIVER)
 				.add(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
-				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
 			)
 	);
 
@@ -389,7 +408,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaSwampBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaSwampBiomes)
 				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
 			)
 	);
@@ -408,7 +427,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaSwampBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaSwampBiomes)
 				.add(PlantopiaOverworldBiomes.DEAD_MARSH)
 			)
 	);
@@ -525,10 +544,9 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 				BiomeFilter.biome()
 			))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaSwampBiomes)
-				.apply(PlantopiaPlacements::addCascadesBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaSwampBiomes)
+				.apply(PlantopiaPlacementUtils::addCascadesBiomes)
 				.add(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.DARK_FOREST)
-				.add(Biomes.WINDSWEPT_FOREST)
 				.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
 				.addTag(BiomeTags.IS_JUNGLE)
 				.addTag(BiomeTags.IS_BADLANDS)
@@ -598,7 +616,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CLOVER, 2),
 		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_CLOVER, UniformFloat.of(4.24F, 6.24F))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaOldGrowthBiomes)
 				.add(Biomes.MEADOW)
 				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
 				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
@@ -609,7 +627,7 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM),
 		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_WHITE_CLOVER_BLOSSOM, UniformFloat.of(26.64F, 29.32F))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaOldGrowthBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
 			)
@@ -619,13 +637,15 @@ public class PlantopiaVegetationPlacements extends PlantopiaPlacements {
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM),
 		getCloverDeclaration(PlantopiaVegetationFeatures.PATCH_PINK_CLOVER_BLOSSOM, UniformFloat.of(26.64F, 29.32F))
 			.biomes(biomes -> biomes
-				.apply(PlantopiaPlacements::addVanillaOldGrowthBiomes)
+				.apply(PlantopiaPlacementUtils::addVanillaOldGrowthBiomes)
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
 			)
 	);
 
-	protected static PlantopiaPlacementDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, FloatProvider chance) {
+	/* HELPER METHODS ****************************************************/
+
+	public static PlantopiaPlacementDeclaration.Builder getCloverDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, FloatProvider chance) {
 		return PlantopiaPlacementDeclaration.builder()
 			.feature(feature)
 			.modifiers(context -> List.of(

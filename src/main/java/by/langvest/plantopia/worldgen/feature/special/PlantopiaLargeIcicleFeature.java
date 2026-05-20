@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
-import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtil;
+import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtils;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLargeIcicleConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -33,11 +33,11 @@ public class PlantopiaLargeIcicleFeature extends Feature<PlantopiaLargeIcicleCon
         var config = context.config();
         var random = context.random();
 
-        if (!PlantopiaIcicleUtil.isEmptyOrWater(level, origin)) {
+        if (!PlantopiaIcicleUtils.isEmptyOrWater(level, origin)) {
             return false;
         }
 
-        Optional<Column> optional = Column.scan(level, origin, config.floorToCeilingSearchRange(), PlantopiaIcicleUtil::isEmptyOrWater, PlantopiaIcicleUtil::isValidGround);
+        Optional<Column> optional = Column.scan(level, origin, config.floorToCeilingSearchRange(), PlantopiaIcicleUtils::isEmptyOrWater, PlantopiaIcicleUtils::isValidGround);
         if (optional.isEmpty() || !(optional.get() instanceof Column.Range range)) {
             return false;
         }
@@ -105,7 +105,7 @@ public class PlantopiaLargeIcicleFeature extends Feature<PlantopiaLargeIcicleCon
                 int searchDepth = Math.min(10, this.getHeight());
 
                 for (int i = 0; i < searchDepth; ++i) {
-                    if (PlantopiaIcicleUtil.isCircleMostlyEmbeddedInStone(level, windOffsetter.offset(mutablePos), this.radius)) {
+                    if (PlantopiaIcicleUtils.isCircleMostlyEmbeddedInStone(level, windOffsetter.offset(mutablePos), this.radius)) {
                         this.root = mutablePos;
                         return true;
                     }
@@ -120,7 +120,7 @@ public class PlantopiaLargeIcicleFeature extends Feature<PlantopiaLargeIcicleCon
         }
 
         private int getHeightAtRadius(float radius) {
-            return (int) PlantopiaIcicleUtil.getIcicleHeight(radius, this.radius, this.scale, this.bluntness);
+            return (int) PlantopiaIcicleUtils.getIcicleHeight(radius, this.radius, this.scale, this.bluntness);
         }
 
         void placeBlocks(WorldGenLevel level, RandomSource random, WindOffsetter windOffsetter, PlantopiaLargeIcicleConfiguration config) {
@@ -145,7 +145,7 @@ public class PlantopiaLargeIcicleFeature extends Feature<PlantopiaLargeIcicleCon
 
                     for (int i = 0; i < height && mutablePos.getY() < worldSurfaceY; ++i) {
                         BlockPos pos = windOffsetter.offset(mutablePos);
-                        if (PlantopiaIcicleUtil.isEmptyOrWater(level, pos)) {
+                        if (PlantopiaIcicleUtils.isEmptyOrWater(level, pos)) {
                             BlockState blockState = config.provider().getState(random, pos);
                             level.setBlock(pos, blockState, 2);
                         }

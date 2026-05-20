@@ -23,6 +23,7 @@ public class PlantopiaOverworldRegion extends PlantopiaRegion {
             modifiedVanillaOverworldBuilder.replaceBiome(Biomes.SWAMP, PlantopiaOverworldBiomes.MARSH);
             modifiedVanillaOverworldBuilder.replaceBiome(Biomes.MANGROVE_SWAMP, PlantopiaOverworldBiomes.DEAD_MARSH);
             modifiedVanillaOverworldBuilder.replaceBiome(Biomes.DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST);
+            modifiedVanillaOverworldBuilder.replaceBiome(Biomes.FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST);
         });
     }
 }

@@ -1,0 +1,42 @@
+{
+	"feature": "plantopia:patch_chicory",
+	"placement": [
+		{
+			"type": "plantopia:rarity_filter",
+			"chance": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_exclusive": 10.42,
+					"min_inclusive": 8.12
+				}
+			}
+		},
+		{
+			"type": "minecraft:count",
+			"count": {
+				"type": "minecraft:clamped",
+				"value": {
+					"max_inclusive": 2,
+					"min_inclusive": 1,
+					"source": {
+						"type": "minecraft:uniform",
+						"value": {
+							"max_inclusive": 2,
+							"min_inclusive": 0
+						}
+					}
+				}
+			}
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "MOTION_BLOCKING"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

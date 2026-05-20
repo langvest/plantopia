@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
-import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtil;
+import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtils;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleColumnConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -31,7 +31,7 @@ public class PlantopiaIcicleColumnFeature extends Feature<PlantopiaIcicleColumnC
         }
 
         var level = context.level();
-        var baseState = PlantopiaIcicleUtil.getIcicleState(direction, DripstoneThickness.BASE);
+        var baseState = PlantopiaIcicleUtils.getIcicleState(direction, DripstoneThickness.BASE);
 
         if (!mayPlaceAt(level, originPos, direction)) {
             return false;
@@ -55,7 +55,7 @@ public class PlantopiaIcicleColumnFeature extends Feature<PlantopiaIcicleColumnC
             return false;
         }
 
-        return PlantopiaIcicleUtil.growIcicle(
+        return PlantopiaIcicleUtils.growIcicle(
             level,
             originPos,
             direction,
@@ -70,7 +70,7 @@ public class PlantopiaIcicleColumnFeature extends Feature<PlantopiaIcicleColumnC
         var attachedPos = pos.relative(direction.getOpposite());
         var attachedState = level.getBlockState(attachedPos);
 
-        if (attachedState.is(PlantopiaIcicleUtil.getIcicleBlock())) {
+        if (attachedState.is(PlantopiaIcicleUtils.getIcicleBlock())) {
             return false;
         }
 

@@ -24,12 +24,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.placement.MiscOverworldPlacements
  */
-public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
+public final class PlantopiaMiscOverworldPlacements {
     public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
@@ -128,7 +130,7 @@ public class PlantopiaMiscOverworldPlacements extends PlantopiaPlacements {
                 .add(Biomes.RIVER, Biomes.FROZEN_RIVER)
                 .add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
                 .add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH)
-                .add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+                .add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
             )
     );
 

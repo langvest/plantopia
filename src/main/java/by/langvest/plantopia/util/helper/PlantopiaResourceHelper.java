@@ -48,8 +48,8 @@ public final class PlantopiaResourceHelper {
 	public static @NotNull String compileNameFrom(Object... nameParts) {
 		return Arrays.stream(nameParts)
 			.map(object -> {
-				if(object instanceof String) return (String) object;
-				if(object instanceof Integer) return object.toString();
+				if (object instanceof String) return (String) object;
+				if (object instanceof Number) return object.toString().replace(".", "");
 				return nameOf(object);
 			})
 			.collect(Collectors.joining("_"));

@@ -1,0 +1,17 @@
+{
+	"feature": "plantopia:fancy_orange_maple_bees_0002_litter_055",
+	"placement": [
+		{
+			"type": "minecraft:block_predicate_filter",
+			"predicate": {
+				"type": "minecraft:would_survive",
+				"state": {
+					"Name": "plantopia:orange_maple_sapling",
+					"Properties": {
+						"stage": "0"
+					}
+				}
+			}
+		}
+	]
+}

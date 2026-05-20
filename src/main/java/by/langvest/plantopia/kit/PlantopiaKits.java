@@ -7,7 +7,7 @@ import by.langvest.toolkit.event.RegisterEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class PlantopiaKits {
-    public static final PlantopiaMapleKit MAPLE = PlantopiaMapleKit.registerMapleKit(
+    public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
         "maple",
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.MAPLE)

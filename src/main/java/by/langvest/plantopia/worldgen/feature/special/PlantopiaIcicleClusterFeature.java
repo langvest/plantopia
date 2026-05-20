@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
-import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtil;
+import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtils;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleClusterConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -29,7 +29,7 @@ public class PlantopiaIcicleClusterFeature extends Feature<PlantopiaIcicleCluste
         var config = context.config();
         var random = context.random();
 
-        if (!PlantopiaIcicleUtil.isEmptyOrWater(level, origin)) {
+        if (!PlantopiaIcicleUtils.isEmptyOrWater(level, origin)) {
             return false;
         }
 
@@ -51,7 +51,7 @@ public class PlantopiaIcicleClusterFeature extends Feature<PlantopiaIcicleCluste
 
 
     private void placeColumn(WorldGenLevel level, RandomSource random, BlockPos pos, int x, int z, double chance, int height, float density, @NotNull PlantopiaIcicleClusterConfiguration config) {
-        Optional<Column> optional = Column.scan(level, pos, config.floorToCeilingSearchRange(), PlantopiaIcicleUtil::isEmptyOrWater, PlantopiaIcicleUtil::isNeitherEmptyNorWater);
+        Optional<Column> optional = Column.scan(level, pos, config.floorToCeilingSearchRange(), PlantopiaIcicleUtils::isEmptyOrWater, PlantopiaIcicleUtils::isNeitherEmptyNorWater);
         if (optional.isEmpty()) {
             return;
         }
@@ -105,11 +105,11 @@ public class PlantopiaIcicleClusterFeature extends Feature<PlantopiaIcicleCluste
 
         boolean merge = random.nextBoolean() && finalStalactiteHeight > 0 && finalStalagmiteHeight > 0 && optional.get().getHeight().isPresent() && finalStalactiteHeight + finalStalagmiteHeight == optional.get().getHeight().getAsInt();
         if (ceiling.isPresent()) {
-            PlantopiaIcicleUtil.growIcicleOnIceIfPossible(level, pos.atY(ceiling.getAsInt() - 1), Direction.DOWN, finalStalactiteHeight, merge, random);
+            PlantopiaIcicleUtils.growIcicleOnIceIfPossible(level, pos.atY(ceiling.getAsInt() - 1), Direction.DOWN, finalStalactiteHeight, merge, random);
         }
 
         if (floor.isPresent()) {
-            PlantopiaIcicleUtil.growIcicleOnIceIfPossible(level, pos.atY(floor.getAsInt() + 1), Direction.UP, finalStalagmiteHeight, merge, random);
+            PlantopiaIcicleUtils.growIcicleOnIceIfPossible(level, pos.atY(floor.getAsInt() + 1), Direction.UP, finalStalagmiteHeight, merge, random);
         }
     }
 
@@ -126,7 +126,7 @@ public class PlantopiaIcicleClusterFeature extends Feature<PlantopiaIcicleCluste
     private void replaceBlocksWithIce(WorldGenLevel level, @NotNull BlockPos pos, int thickness, Direction direction) {
         var mutablePos = pos.mutable();
         for (int i = 0; i < thickness; ++i) {
-            if (!PlantopiaIcicleUtil.placeIceBlockIfPossible(level, mutablePos)) {
+            if (!PlantopiaIcicleUtils.placeIceBlockIfPossible(level, mutablePos)) {
                 return;
             }
             mutablePos.move(direction);

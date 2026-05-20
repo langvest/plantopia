@@ -8,7 +8,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.random.Weight;
@@ -28,7 +27,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToInt;
-import static by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes.calculateSkyColor;
 
 public class PlantopiaBiomeDeclaration {
     private String name;
@@ -171,7 +169,7 @@ public class PlantopiaBiomeDeclaration {
             this.temperature = temperature;
             var prevModifyBiome = this.modifyBiome;
             this.modifyBiome = biomeBuilder -> prevModifyBiome.apply(biomeBuilder).temperature(temperature);
-            return this.skyColor(calculateSkyColor(temperature));
+            return this.skyColor(PlantopiaBiomeUtils.calculateSkyColor(temperature));
         }
 
         public Builder downfall(float downfall) {

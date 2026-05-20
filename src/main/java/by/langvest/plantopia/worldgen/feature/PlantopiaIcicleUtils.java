@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import org.jetbrains.annotations.NotNull;
 
-public final class PlantopiaIcicleUtil {
+public final class PlantopiaIcicleUtils {
     public static double getIcicleHeight(double radius, double maxRadius, double scale, double minRadius) {
         if (radius < minRadius) {
             radius = minRadius;
@@ -50,11 +50,11 @@ public final class PlantopiaIcicleUtil {
     }
 
     public static boolean isEmptyOrWater(@NotNull LevelAccessor level, BlockPos pos) {
-        return level.isStateAtPosition(pos, PlantopiaIcicleUtil::isEmptyOrWater);
+        return level.isStateAtPosition(pos, PlantopiaIcicleUtils::isEmptyOrWater);
     }
 
     public static boolean isEmptyOrWaterOrLava(@NotNull LevelAccessor level, BlockPos pos) {
-        return level.isStateAtPosition(pos, PlantopiaIcicleUtil::isEmptyOrWaterOrLava);
+        return level.isStateAtPosition(pos, PlantopiaIcicleUtils::isEmptyOrWaterOrLava);
     }
 
     public static void growIcicleOnIceIfPossible(@NotNull WorldGenLevel level, @NotNull BlockPos pos, @NotNull Direction direction, int height, boolean mergeTip, RandomSource random) {

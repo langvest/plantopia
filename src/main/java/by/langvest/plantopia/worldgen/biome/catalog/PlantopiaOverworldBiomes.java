@@ -14,12 +14,14 @@ import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import org.jetbrains.annotations.NotNull;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.biome.OverworldBiomes
  */
-public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
+public final class PlantopiaOverworldBiomes {
     public static final Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {
@@ -71,6 +73,29 @@ public class PlantopiaOverworldBiomes extends PlantopiaBiomes {
             .foliageColorOverride("#b7965b")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
+    );
+
+    public static final ResourceKey<Biome> SEASONAL_FOREST = declareBiome(
+        compileNameFrom(SEASONAL, Biomes.FOREST),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 5, 4, 4)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addForestGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.7F)
+            .downfall(0.6F)
+            .grassColorOverride("#bf9f3f")
+            .foliageColorOverride("#adac37")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
     public static final ResourceKey<Biome> SEASONAL_DARK_FOREST = declareBiome(

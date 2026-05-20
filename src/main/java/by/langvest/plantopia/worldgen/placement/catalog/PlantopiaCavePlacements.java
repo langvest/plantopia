@@ -19,11 +19,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.placement.CavePlacements
  */
-public class PlantopiaCavePlacements extends PlantopiaPlacements {
+public final class PlantopiaCavePlacements {
     public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {

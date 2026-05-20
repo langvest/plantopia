@@ -12,7 +12,6 @@ import by.langvest.plantopia.entity.PlantopiaBoatType;
 import by.langvest.plantopia.entity.PlantopiaBoatTypes;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.item.special.PlantopiaBoatItem;
-import by.langvest.plantopia.kit.PlantopiaKit;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -57,7 +56,11 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
     public final RegistryObject<Item> signItem;
     public final RegistryObject<Item> hangingSignItem;
 
-    protected PlantopiaTreeStuffKit(String baseName, WoodType woodType, @NotNull PlantopiaTreeKitConfiguration config) {
+    protected PlantopiaTreeStuffKit(
+        String baseName,
+        WoodType woodType,
+        @NotNull PlantopiaTreeKitConfiguration config
+    ) {
         this.baseName = baseName;
         this.config = config;
 
@@ -99,10 +102,6 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
             PlantopiaEntityLayerDefinitions.registerLayerDefinition(boatModelLayerLocation, BoatModel::createBodyModel);
             PlantopiaEntityLayerDefinitions.registerLayerDefinition(chestBoatModelLayerLocation, ChestBoatModel::createBodyModel);
         }
-    }
-
-    public static @NotNull PlantopiaTreeStuffKit registerTreeStuffKit(String baseName, WoodType woodType, PlantopiaTreeKitConfiguration config) {
-        return new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 
     @Override

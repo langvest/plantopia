@@ -3,6 +3,7 @@ package by.langvest.plantopia.worldgen.feature.catalog;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
 import by.langvest.plantopia.block.special.PlantopiaLeafLitterBlock;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -54,28 +55,14 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.VegetationFeatures
  */
-public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
-    protected static final BlockPredicate WATER_PlANT_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GRASS, Blocks.SEAGRASS);
-    protected static final BlockPredicate BRANCHING_SHRUB_VERTICAL_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GLOW_LICHEN, Blocks.SEAGRASS, Blocks.GRASS, Blocks.FERN);
-
-    protected static final BlockPredicate BRANCHING_SHRUB_HORIZONTAL_PREDICATE = BlockPredicate.allOf(
-        BRANCHING_SHRUB_VERTICAL_PREDICATE,
-        BlockPredicate.anyOf(
-            BlockPredicate.matchesBlocks(BlockPos.ZERO.below(), PlantopiaBlocks.BRANCHING_SHRUB.get()),
-            BlockPredicate.replaceable(BlockPos.ZERO.below())
-        )
-    );
-
-    protected static final BlockPredicate GRASS_PLANT_PREDICATE = BlockPredicate.allOf(
-        BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS),
-        BlockPredicate.solid(BlockPos.ZERO.below())
-    );
-
+public final class PlantopiaVegetationFeatures {
     public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
@@ -445,8 +432,8 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                     ConstantFloat.of(0.148F), // shapeErosion
                     ConstantInt.of(6), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
-                    BRANCHING_SHRUB_VERTICAL_PREDICATE,
-                    BRANCHING_SHRUB_HORIZONTAL_PREDICATE,
+                    BRANCHING_SHRUB_VERTICAL_PREDICATE.get(),
+                    BRANCHING_SHRUB_HORIZONTAL_PREDICATE.get(),
                     List.of(Direction.UP)
                 )
             ))
@@ -467,8 +454,8 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                     ConstantFloat.of(0.126F), // shapeErosion
                     ConstantInt.of(12), // searchDistance
                     BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
-                    BRANCHING_SHRUB_VERTICAL_PREDICATE,
-                    BRANCHING_SHRUB_HORIZONTAL_PREDICATE,
+                    BRANCHING_SHRUB_VERTICAL_PREDICATE.get(),
+                    BRANCHING_SHRUB_HORIZONTAL_PREDICATE.get(),
                     List.of(Direction.DOWN, Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)
                 )
             ))
@@ -483,36 +470,58 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
 
                 return new RandomFeatureConfiguration(
                     List.of(
-                        new WeightedPlacedFeature(
-                            PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)),
-                            0.025F
-                        ),
-                        new WeightedPlacedFeature(
-                            PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)),
-                            0.05F
-                        ),
-                        new WeightedPlacedFeature(
-                            placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_LITTER_055),
-                            0.6666667F
-                        ),
-                        new WeightedPlacedFeature(
-                            placements.getOrThrow(TreePlacements.BIRCH_CHECKED),
-                            0.2F
-                        ),
-                        new WeightedPlacedFeature(
-                            placements.getOrThrow(TreePlacements.FANCY_OAK_CHECKED),
-                            0.1F
-                        )
+                        new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
+                        new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_LITTER_055), 0.6666667F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_CHECKED), 0.2F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.1F)
                     ),
                     placements.getOrThrow(TreePlacements.OAK_CHECKED)
                 );
             }))
     );
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_SEASONAL_FOREST = declareFeature(
+        compileNameFrom(TREES, PlantopiaOverworldBiomes.SEASONAL_FOREST),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+                var orangeMaple = PlantopiaKits.MAPLE.orangeFeature.placed;
+                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_0002_PLACED), 0.03F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.05F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.01F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.25F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.treeBees0002litter055), 0.25F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002litter055), 0.1F),
+                        new WeightedPlacedFeature(placements.getOrThrow(orangeMaple.fancyTreeBees0002litter055), 0.1F)
+                    ),
+                    placements.getOrThrow(orangeMaple.treeBees0002litter055)
+                );
+            }))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_YELLOW_LEAF_LITTER = declareFeature(
+        patchNameOf(PlantopiaBlocks.YELLOW_LEAF_LITTER),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.YELLOW_LEAF_LITTER)))
+    );
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_LEAF_LITTER = declareFeature(
         patchNameOf(PlantopiaBlocks.ORANGE_LEAF_LITTER),
         PlantopiaFeatureDeclaration.builder()
             .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.ORANGE_LEAF_LITTER)))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_RED_LEAF_LITTER = declareFeature(
+        patchNameOf(PlantopiaBlocks.RED_LEAF_LITTER),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.RED_LEAF_LITTER)))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CLOVER = declareFeature(
@@ -557,11 +566,14 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
             ));
 
             return new PlantopiaRadialPatchConfiguration(
-                ConstantInt.of(96), // tries
-                UniformInt.of(5, 9), // xzSpread
+                ConstantInt.of(92), // tries
+                weightedListInt(values -> values
+                    .add(UniformInt.of(5, 9), 2)
+                    .add(UniformInt.of(4, 8), 5)
+                ), // xzSpread
                 ConstantInt.of(3), // ySpread
-                -0.323D, // sigma
-                0.242D, // erosion
+                -0.292D, // sigma
+                0.236D, // erosion
                 blocks,
                 Optional.of(GRASS_PLANT_PREDICATE),
                 Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)

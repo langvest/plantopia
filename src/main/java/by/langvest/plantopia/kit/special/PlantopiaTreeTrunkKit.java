@@ -4,7 +4,6 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.datagen.recipe.PlantopiaRecipeProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaBlockTagProvider;
 import by.langvest.plantopia.datagen.tag.PlantopiaItemTagProvider;
-import by.langvest.plantopia.kit.PlantopiaKit;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
@@ -32,7 +31,10 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
     public final TagKey<Block> logsBlockTag;
     public final TagKey<Item> logsItemTag;
 
-    protected PlantopiaTreeTrunkKit(String baseName, @NotNull PlantopiaTreeKitConfiguration config) {
+    public PlantopiaTreeTrunkKit(
+        String baseName,
+        @NotNull PlantopiaTreeKitConfiguration config
+    ) {
         this.baseName = baseName;
         this.config = config;
 
@@ -46,10 +48,6 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
 
         this.logsBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_logs");
         this.logsItemTag = PlantopiaItemTags.createItemTag(baseName + "_logs");
-    }
-
-    public static @NotNull PlantopiaTreeTrunkKit registerTreeTrunkKit(String baseName, PlantopiaTreeKitConfiguration config) {
-        return new PlantopiaTreeTrunkKit(baseName, config);
     }
 
     @Override

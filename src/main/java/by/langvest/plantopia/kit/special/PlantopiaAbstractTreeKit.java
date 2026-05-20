@@ -1,6 +1,5 @@
 package by.langvest.plantopia.kit.special;
 
-import by.langvest.plantopia.kit.PlantopiaKit;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.level.block.state.properties.BlockSetType;

@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleClusterConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleConfiguration;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaLargeIcicleConfiguration;
@@ -24,12 +25,14 @@ import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import org.jetbrains.annotations.NotNull;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.CaveFeatures
  */
-public class PlantopiaCaveFeatures extends PlantopiaFeatures {
+public final class PlantopiaCaveFeatures {
     public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {

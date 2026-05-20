@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
-import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtil;
+import by.langvest.plantopia.worldgen.feature.PlantopiaIcicleUtils;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaIciclePatchConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -92,7 +92,7 @@ public class PlantopiaIciclePatchFeature extends Feature<PlantopiaIciclePatchCon
 
         var allowedPlacement = config.allowedPlacement();
         var allowedAttachment = config.allowedAttachment();
-        var baseState = PlantopiaIcicleUtil.getIcicleState(growthDirection, DripstoneThickness.BASE);
+        var baseState = PlantopiaIcicleUtils.getIcicleState(growthDirection, DripstoneThickness.BASE);
 
         if (!mayPlaceAt(level, columnBasePos, growthDirection, allowedAttachment)) {
             return false;
@@ -116,7 +116,7 @@ public class PlantopiaIciclePatchFeature extends Feature<PlantopiaIciclePatchCon
             return false;
         }
 
-        return PlantopiaIcicleUtil.growIcicle(
+        return PlantopiaIcicleUtils.growIcicle(
                 level,
                 columnBasePos,
                 growthDirection,
@@ -143,7 +143,7 @@ public class PlantopiaIciclePatchFeature extends Feature<PlantopiaIciclePatchCon
         var attachedPos = pos.relative(growthDirection.getOpposite());
         var attachedState = level.getBlockState(attachedPos);
 
-        if (attachedState.is(PlantopiaIcicleUtil.getIcicleBlock())) {
+        if (attachedState.is(PlantopiaIcicleUtils.getIcicleBlock())) {
             return false;
         }
 
@@ -165,7 +165,7 @@ public class PlantopiaIciclePatchFeature extends Feature<PlantopiaIciclePatchCon
         var growthDirections = config.growthDirections();
 
         for (var direction : growthDirections) {
-            var candidateState = PlantopiaIcicleUtil.getIcicleState(direction, DripstoneThickness.BASE);
+            var candidateState = PlantopiaIcicleUtils.getIcicleState(direction, DripstoneThickness.BASE);
 
             for (int i = 0; i < searchDistance; i++) {
                 var candidatePos = originPos.relative(direction.getOpposite(), i);

@@ -1,4 +1,4 @@
-package by.langvest.plantopia.kit;
+package by.langvest.plantopia.kit.special;
 
 import by.langvest.plantopia.Plantopia;
 

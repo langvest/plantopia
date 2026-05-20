@@ -36,12 +36,14 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.MiscOverworldFeatures
  */
-public class PlantopiaMiscOverworldFeatures extends PlantopiaFeatures {
+public final class PlantopiaMiscOverworldFeatures {
     public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
     public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
