@@ -35,6 +35,7 @@ public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaIcicleColumnFeature> ICICLE_COLUMN = registerFeatureType("icicle_column", () -> new PlantopiaIcicleColumnFeature(PlantopiaIcicleColumnConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaLargeIcicleFeature> LARGE_ICICLE = registerFeatureType("large_icicle", () -> new PlantopiaLargeIcicleFeature(PlantopiaLargeIcicleConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaIcicleFeature> ICICLE = registerFeatureType("icicle", () -> new PlantopiaIcicleFeature(PlantopiaIcicleConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaCompositeFeature> COMPOSITE = registerFeatureType("composite", () -> new PlantopiaCompositeFeature(PlantopiaCompositeConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
 		return registerFeatureType(plantopia(name), supplier);

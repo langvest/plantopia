@@ -1,7 +1,6 @@
 package by.langvest.plantopia.worldgen.biome.catalog;
 
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
-import by.langvest.plantopia.worldgen.region.PlantopiaRegions;
 import by.langvest.toolkit.util.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;

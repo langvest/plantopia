@@ -80,7 +80,7 @@
 				}
 			]
 		},
-		"sigma": -0.232,
+		"sigma": -0.323,
 		"tries": 96,
 		"xz_spread": {
 			"type": "minecraft:uniform",

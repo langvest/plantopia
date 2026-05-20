@@ -27,7 +27,7 @@ public class PlantopiaSurfaceRules {
                 SurfaceRules.ON_FLOOR,
                 SurfaceRules.sequence(
                     SurfaceRules.ifTrue(
-                        // Weighted water noise
+                        // Marsh water noise
                         SurfaceRules.isBiome(
                             PlantopiaOverworldBiomes.MARSH,
                             PlantopiaOverworldBiomes.DEAD_MARSH

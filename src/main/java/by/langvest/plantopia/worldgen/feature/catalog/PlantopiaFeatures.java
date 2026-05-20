@@ -2,10 +2,7 @@ package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaLimitedRandomPatchConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaRadialPatchConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaVegetationPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.toolkit.util.Catalog;
 import by.langvest.toolkit.util.LocationLike;
 import net.minecraft.core.BlockPos;
@@ -103,6 +100,11 @@ public class PlantopiaFeatures {
 	}
 
 	@Contract(pure = true)
+	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> composite(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaCompositeConfiguration> configFactory) {
+		return configuredFeature(PlantopiaFeatureTypes.COMPOSITE, configFactory);
+	}
+
+	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> tree(Function<BootstapContext<ConfiguredFeature<?, ?>>, TreeConfiguration> configFactory) {
 		return configuredFeature(Feature.TREE, configFactory);
 	}
@@ -114,7 +116,7 @@ public class PlantopiaFeatures {
 
 	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> naturalBlock(Function<BootstapContext<ConfiguredFeature<?, ?>>, SimpleBlockConfiguration> configFactory) {
-		return configuredFeature(PlantopiaFeatureTypes.NATURAL_BLOCK.get(), configFactory);
+		return configuredFeature(PlantopiaFeatureTypes.NATURAL_BLOCK, configFactory);
 	}
 
 	@Contract(pure = true)
@@ -129,17 +131,17 @@ public class PlantopiaFeatures {
 
 	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> limitedRandomPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaLimitedRandomPatchConfiguration> configFactory) {
-		return configuredFeature(PlantopiaFeatureTypes.LIMITED_RANDOM_PATCH.get(), configFactory);
+		return configuredFeature(PlantopiaFeatureTypes.LIMITED_RANDOM_PATCH, configFactory);
 	}
 
 	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> radialPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> configFactory) {
-		return configuredFeature(PlantopiaFeatureTypes.RADIAL_PATCH.get(), configFactory);
+		return configuredFeature(PlantopiaFeatureTypes.RADIAL_PATCH, configFactory);
 	}
 
 	@Contract(pure = true)
 	public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> pit(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaPitConfiguration> configFactory) {
-		return configuredFeature(PlantopiaFeatureTypes.PIT.get(), configFactory);
+		return configuredFeature(PlantopiaFeatureTypes.PIT, configFactory);
 	}
 
 	@Contract(pure = true)

@@ -492,11 +492,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                             0.05F
                         ),
                         new WeightedPlacedFeature(
-//                            PlacementUtils.inlinePlaced(
-//                                features.getOrThrow(PlantopiaTreeFeatures.SEASONAL_DARK_OAK),
-//                                PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
-//                            ),
-                            placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_CHECKED),
+                            placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_LITTER_055),
                             0.6666667F
                         ),
                         new WeightedPlacedFeature(
@@ -564,7 +560,7 @@ public class PlantopiaVegetationFeatures extends PlantopiaFeatures {
                 ConstantInt.of(96), // tries
                 UniformInt.of(5, 9), // xzSpread
                 ConstantInt.of(3), // ySpread
-                -0.232D, // sigma
+                -0.323D, // sigma
                 0.242D, // erosion
                 blocks,
                 Optional.of(GRASS_PLANT_PREDICATE),

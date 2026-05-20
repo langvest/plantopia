@@ -4,6 +4,8 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
 import by.langvest.toolkit.util.Catalog;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
@@ -12,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
@@ -26,6 +29,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.OptionalInt;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
@@ -81,6 +85,24 @@ public class PlantopiaTreeFeatures extends PlantopiaFeatures {
                     )
                 ).ignoreVines().build()
             ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK_LITTER_055 = declareFeature(
+        compileNameFrom(SEASONAL, TreeFeatures.DARK_OAK, "litter_055"),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(composite(context -> {
+                var placements = lookupPlacements(context);
+
+                return new PlantopiaCompositeConfiguration(
+                    placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_CHECKED),
+                    List.of(
+                        new WeightedPlacedFeature(
+                            placements.getOrThrow(PlantopiaSeasonalPlacements.PATCH_ORANGE_LEAF_LITTER_CHECKED),
+                            0.55F
+                        )
+                    )
+                );
+            }))
     );
 
     /* HELPER METHODS *************************************************************************************************/

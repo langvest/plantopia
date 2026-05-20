@@ -51,11 +51,11 @@ public class Catalog<K, V> implements Streamable<V> {
             if (transitiveCatalog != null && transitiveCatalog != this) {
                 var mergedCatalog = new Catalog<K, V>();
 
-                for (var entry : transitiveCatalog.entrySet()) {
+                for (var entry : storage.entrySet()) {
                     mergedCatalog.add(entry.getKey(), entry.getValue());
                 }
 
-                for (var entry : storage.entrySet()) {
+                for (var entry : transitiveCatalog.entrySet()) {
                     mergedCatalog.add(entry.getKey(), entry.getValue());
                 }
 

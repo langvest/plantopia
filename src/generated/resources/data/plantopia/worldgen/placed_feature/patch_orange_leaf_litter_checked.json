@@ -2,24 +2,19 @@
 	"feature": "plantopia:patch_orange_leaf_litter",
 	"placement": [
 		{
-			"type": "minecraft:count",
-			"count": {
+			"type": "minecraft:random_offset",
+			"xz_spread": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_inclusive": 2,
-					"min_inclusive": 0
+					"max_inclusive": 3,
+					"min_inclusive": -3
 				}
-			}
-		},
-		{
-			"type": "minecraft:in_square"
+			},
+			"y_spread": 0
 		},
 		{
 			"type": "minecraft:heightmap",
 			"heightmap": "WORLD_SURFACE_WG"
-		},
-		{
-			"type": "minecraft:biome"
 		}
 	]
 }

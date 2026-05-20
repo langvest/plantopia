@@ -20,9 +20,9 @@ public class PlantopiaBirchBaseBlockDecorator extends TreeDecorator {
 
 	@Override
 	public void place(@NotNull Context context) {
-		for(BlockPos blockPos : context.logs()) {
-			if(!context.level().isStateAtPosition(blockPos, blockState -> blockState.is(Blocks.BIRCH_LOG))) continue;
-			context.setBlock(blockPos, PlantopiaBlocks.BIRCH_BASE_LOG.get().defaultBlockState());
+		for (BlockPos pos : context.logs()) {
+			if (!context.level().isStateAtPosition(pos, state -> state.is(Blocks.BIRCH_LOG))) continue;
+			context.setBlock(pos, PlantopiaBlocks.BIRCH_BASE_LOG.get().defaultBlockState());
 			break;
 		}
 	}

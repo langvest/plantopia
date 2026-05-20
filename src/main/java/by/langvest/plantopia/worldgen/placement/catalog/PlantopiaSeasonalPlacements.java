@@ -4,13 +4,11 @@ import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaTreeFeatures;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
-import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
 import by.langvest.toolkit.util.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +37,15 @@ public class PlantopiaSeasonalPlacements extends PlantopiaPlacements {
 			))
 	);
 
+	public static final ResourceKey<PlacedFeature> SEASONAL_DARK_OAK_LITTER_055 = declarePlacement(
+		compileNameFrom(PlantopiaTreeFeatures.SEASONAL_DARK_OAK_LITTER_055),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaTreeFeatures.SEASONAL_DARK_OAK_LITTER_055)
+			.modifiers(context -> List.of(
+				PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
+			))
+	);
+
 	public static final ResourceKey<PlacedFeature> SEASONAL_DARK_FOREST_VEGETATION = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.SEASONAL_DARK_FOREST_VEGETATION),
 		PlantopiaPlacementDeclaration.builder()
@@ -55,24 +62,13 @@ public class PlantopiaSeasonalPlacements extends PlantopiaPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_ORANGE_LEAF_LITTER = declarePlacement(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_ORANGE_LEAF_LITTER),
-		getLeafLitterDeclaration(PlantopiaVegetationFeatures.PATCH_ORANGE_LEAF_LITTER, UniformInt.of(0, 2))
-			.biomes(biomes -> biomes
-				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
-			)
-	);
-
-	/* HELPER METHODS ******************************************************/
-
-	protected static PlantopiaPlacementDeclaration.Builder getLeafLitterDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, IntProvider count) {
-		return PlantopiaPlacementDeclaration.builder()
-			.feature(feature)
+	public static final ResourceKey<PlacedFeature> PATCH_ORANGE_LEAF_LITTER_CHECKED = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_ORANGE_LEAF_LITTER, CHECKED),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_ORANGE_LEAF_LITTER)
 			.modifiers(context -> List.of(
-				CountPlacement.of(count),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome()
-			));
-	}
+				RandomOffsetPlacement.horizontal(UniformInt.of(-3, 3)),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE
+			))
+	);
 }
