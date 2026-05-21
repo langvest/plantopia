@@ -551,7 +551,7 @@ public final class PlantopiaVegetationPlacements {
 				.addTag(BiomeTags.IS_JUNGLE)
 				.addTag(BiomeTags.IS_BADLANDS)
 				.addTag(BiomeTags.IS_SAVANNA)
-				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
 			)
 	);
 

@@ -92,7 +92,7 @@ public final class PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.7F)
             .downfall(0.6F)
-            .grassColorOverride("#bf9f3f")
+            .grassColorOverride("#c1a23d")
             .foliageColorOverride("#adac37")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
