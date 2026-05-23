@@ -1,0 +1,59 @@
+package by.langvest.plantopia.kit.special;
+
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaJacarandaLeavesBlock;
+import by.langvest.plantopia.datagen.recipe.PlantopiaRecipeProvider;
+import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
+import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
+import by.langvest.toolkit.registry.RegistryObject;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.material.MapColor;
+import org.jetbrains.annotations.NotNull;
+
+public class PlantopiaJacarandaKit extends PlantopiaAbstractTreeKit {
+    public final PlantopiaTreeStuffKit stuff;
+    public final PlantopiaTreeTrunkKit trunk;
+
+    public final PlantopiaJacarandaFeatureKit feature;
+
+    public final RegistryObject<Block> sapling;
+    public final RegistryObject<Block> leaves;
+
+    public PlantopiaJacarandaKit(
+        String baseName,
+        PlantopiaTreeKitConfiguration config
+    ) {
+        super(baseName, config);
+
+        this.feature = createFeatureKit(baseName, config);
+        this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(feature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_PURPLE)));
+        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", PlantopiaJacarandaLeavesBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_PURPLE)));
+
+        this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
+        this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
+    }
+
+    protected static @NotNull PlantopiaJacarandaFeatureKit createFeatureKit(String baseName, PlantopiaTreeKitConfiguration config) {
+        var supposedLog = PlantopiaBlocks.supposeBlock(baseName + "_log");
+        var supposedLeaves = PlantopiaBlocks.supposeBlock(baseName + "_leaves");
+        var supposedSapling = PlantopiaBlocks.supposeBlock(baseName + "_sapling");
+
+        return new PlantopiaJacarandaFeatureKit(
+            baseName,
+            supposedLog,
+            supposedLeaves,
+            supposedSapling,
+            config
+        );
+    }
+
+    @Override
+    protected void addRecipes() {
+        super.addRecipes();
+
+        PlantopiaRecipeProvider.planksFromLogs(stuff.planks.get(), trunk.logsItemTag, 4);
+        PlantopiaRecipeProvider.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
+    }
+}

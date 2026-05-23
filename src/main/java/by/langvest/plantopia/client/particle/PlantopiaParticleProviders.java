@@ -14,5 +14,6 @@ public class PlantopiaParticleProviders {
         event.registerSpriteSet(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES.get(), PlantopiaMapleLeafParticle.Provider::new);
         event.registerSpriteSet(PlantopiaParticleTypes.ORANGE_MAPLE_LEAVES.get(), PlantopiaMapleLeafParticle.Provider::new);
         event.registerSpriteSet(PlantopiaParticleTypes.RED_MAPLE_LEAVES.get(), PlantopiaMapleLeafParticle.Provider::new);
+        event.registerSpriteSet(PlantopiaParticleTypes.JACARANDA_LEAVES.get(), PlantopiaJacarandaLeafParticle::createParticle);
     }
 }

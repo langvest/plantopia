@@ -4,6 +4,7 @@ public enum PlantopiaOrderType {
 	BLOCK,
 	BIRCH,
 	MAPLE,
+	JACARANDA,
 	ICE,
 	MUSHROOM,
 	PLANT,

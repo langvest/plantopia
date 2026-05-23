@@ -36,15 +36,15 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
     ) {
         super(baseName, config);
 
-        this.yellowFeature = createMapleFeatureKit("yellow_", baseName, config);
+        this.yellowFeature = createFeatureKit("yellow_", baseName, config);
         this.yellowSapling = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_sapling", properties -> new SaplingBlock(yellowFeature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_YELLOW)));
         this.yellowLeaves = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES, properties), config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_YELLOW)));
 
-        this.orangeFeature = createMapleFeatureKit("orange_", baseName, config);
+        this.orangeFeature = createFeatureKit("orange_", baseName, config);
         this.orangeSapling = PlantopiaBlocks.registerBlock("orange_" + baseName + "_sapling", properties -> new SaplingBlock(orangeFeature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_ORANGE)));
         this.orangeLeaves = PlantopiaBlocks.registerBlock("orange_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.ORANGE_MAPLE_LEAVES, properties), config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_ORANGE)));
 
-        this.redFeature = createMapleFeatureKit("red_", baseName, config);
+        this.redFeature = createFeatureKit("red_", baseName, config);
         this.redSapling = PlantopiaBlocks.registerBlock("red_" + baseName + "_sapling", properties -> new SaplingBlock(redFeature.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_RED)));
         this.redLeaves = PlantopiaBlocks.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_RED)));
 
@@ -52,7 +52,7 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 
-    protected static @NotNull PlantopiaMapleFeatureKit createMapleFeatureKit(String colorPrefix, String baseName, PlantopiaTreeKitConfiguration config) {
+    protected static @NotNull PlantopiaMapleFeatureKit createFeatureKit(String colorPrefix, String baseName, PlantopiaTreeKitConfiguration config) {
         var supposedLog = PlantopiaBlocks.supposeBlock(baseName + "_log");
         var supposedLeaves = PlantopiaBlocks.supposeBlock(colorPrefix + baseName + "_leaves");
         var supposedSapling = PlantopiaBlocks.supposeBlock(colorPrefix + baseName + "_sapling");

@@ -637,6 +637,22 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 		public boolean isAbleToBePotted() {
 			return instanceOf(PLANT);
 		}
+
+		public boolean isWoodFamilyLike() {
+			return instanceOf(PLANKS)
+				|| instanceOf(LOG)
+				|| instanceOf(WOOD)
+				|| instanceOf(WOODEN_SLAB)
+				|| instanceOf(WOODEN_STAIRS)
+				|| instanceOf(WOODEN_FENCE)
+				|| instanceOf(WOODEN_FENCE_GATE)
+				|| instanceOf(WOODEN_SIGN)
+				|| instanceOf(WOODEN_HANGING_SIGN)
+				|| instanceOf(WOODEN_DOOR)
+				|| instanceOf(WOODEN_TRAPDOOR)
+				|| instanceOf(WOODEN_PRESSURE_PLATE)
+				|| instanceOf(WOODEN_BUTTON);
+		}
 	}
 
 	public static class MetaProperties extends SimpleMetaObject.MetaProperties<MetaType, MetaProperties> {
