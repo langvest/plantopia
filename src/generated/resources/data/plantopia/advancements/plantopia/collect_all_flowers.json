@@ -325,6 +325,18 @@
 			},
 			"trigger": "minecraft:inventory_changed"
 		},
+		"plantopia:lavender": {
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"plantopia:lavender"
+						]
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		},
 		"plantopia:magenta_foxglove": {
 			"conditions": {
 				"items": [
@@ -806,6 +818,9 @@
 		],
 		[
 			"plantopia:fluffy_dandelion"
+		],
+		[
+			"plantopia:lavender"
 		],
 		[
 			"plantopia:magenta_foxglove"

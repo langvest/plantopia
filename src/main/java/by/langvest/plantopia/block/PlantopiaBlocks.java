@@ -76,6 +76,8 @@ public class PlantopiaBlocks {
 	public static final RegistryObject<Block> SNOWDROP = registerBlock("snowdrop", properties -> new PlantopiaSnowdropBlock(() -> MobEffects.WEAKNESS, 12, properties), MetaProperties.of(MetaType.SMALL_FLOWER).customModel().color(DyeColor.WHITE));
 	public static final RegistryObject<Block> COVERED_SNOWDROP = registerBlock("covered_snowdrop", PlantopiaCoveredSnowdropBlock::new, MetaProperties.of(MetaType.SNOW).noItem().customModel().customDrop().preferredByBees());
 
+	public static final RegistryObject<Block> LAVENDER = registerBlock("lavender", PlantopiaLavenderBlock::new, MetaProperties.of(MetaType.SMALL_FLOWER).color(DyeColor.PURPLE));
+
 	public static final RegistryObject<Block> TINY_CACTUS = registerBlock("tiny_cactus", PlantopiaTinyCactusBlock::new, MetaProperties.of(MetaType.TINY_CACTUS).customModel());
 	public static final RegistryObject<Block> FLOWERING_TINY_CACTUS = registerBlock("flowering_tiny_cactus", PlantopiaTinyCactusBlock::new, MetaProperties.of(MetaType.TINY_CACTUS).customModel());
 
