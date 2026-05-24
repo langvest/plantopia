@@ -1,5 +1,7 @@
 package by.langvest.plantopia.worldgen.biome.catalog;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
 import by.langvest.toolkit.util.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -11,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,12 +32,12 @@ public final class PlantopiaOverworldBiomes {
     }
 
     public static final ResourceKey<Biome> MARSH = declareBiome(
-        "marsh",
+        PlantopiaDictionary.MARSH,
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
             .addSpawn(MobCategory.CREATURE, EntityType.CHICKEN, 8, 2, 4)
-            .addSpawn(MobCategory.MONSTER, EntityType.SLIME, 1, 1, 1)
             .addSpawn(MobCategory.CREATURE, EntityType.FROG, 6, 2, 4)
+            .addSpawn(MobCategory.MONSTER, EntityType.SLIME, 1, 1, 1)
             .applyGeneration(BiomeDefaultFeatures::addFossilDecoration)
             .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
             .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
@@ -92,7 +95,7 @@ public final class PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.7F)
             .downfall(0.6F)
-            .grassColorOverride("#c1a23d")
+            .grassColorOverride("#c1a741")
             .foliageColorOverride("#adac37")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -118,6 +121,27 @@ public final class PlantopiaOverworldBiomes {
             .foliageColorOverride("#74aa2e")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    public static final ResourceKey<Biome> LAVENDER_FIELDS = declareBiome(
+        compileNameFrom(PlantopiaBlocks.LAVENDER, FIELDS),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::plainsSpawns)
+            .creatureGenerationProbability(0.07F)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addPlainGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.8F)
+            .downfall(0.4F)
+            .grassColorOverride("#a5c96e")
+            .foliageColorOverride("#a1cb61")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 
     /* HELPER METHODS *************************************************************************************************/

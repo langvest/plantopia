@@ -340,6 +340,17 @@ public final class PlantopiaVegetationFeatures {
             ))
     );
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = declareFeature(
+        patchNameOf(PlantopiaBlocks.LAVENDER),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(42, 3, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.LAVENDER.get())
+                ))
+            ))
+    );
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> QUAGMIRE_WATER_LEVEL = declareFeature(
         compileNameFrom("quagmire_water_level"),
         PlantopiaFeatureDeclaration.builder()
@@ -502,6 +513,23 @@ public final class PlantopiaVegetationFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(orangeMaple.fancyTreeBees0002litter055), 0.1F)
                     ),
                     placements.getOrThrow(orangeMaple.treeBees0002litter055)
+                );
+            }))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_LAVENDER_FIELDS = declareFeature(
+        compileNameFrom(TREES, PlantopiaOverworldBiomes.LAVENDER_FIELDS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var jacaranda = PlantopiaKits.JACARANDA.feature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(jacaranda.treeBees0002), 0.7F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.OAK_BEES_0002)
                 );
             }))
     );

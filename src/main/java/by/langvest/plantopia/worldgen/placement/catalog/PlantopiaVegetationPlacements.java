@@ -177,6 +177,7 @@ public final class PlantopiaVegetationPlacements {
 				.add(Biomes.BEACH, Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
 				.add(PlantopiaOverworldBiomes.MARSH)
 				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
+				.add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
 			)
 	);
 
@@ -391,6 +392,7 @@ public final class PlantopiaVegetationPlacements {
 				.add(Biomes.RIVER)
 				.add(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
 				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
+				.add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
 			)
 	);
 
@@ -476,6 +478,47 @@ public final class PlantopiaVegetationPlacements {
 			))
 			.biomes(biomes -> biomes
 				.addTag(BiomeTags.IS_JUNGLE)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> PATCH_LAVENDER = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.PATCH_LAVENDER),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.PATCH_LAVENDER)
+			.modifiers(context -> {
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(0.092D, 74, 193);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 12, 543);
+				float bigNoiseLevel = -0.32F;
+				float smallNoiseLevel = -0.1F;
+
+				return List.of(
+					PlantopiaNoiseCountPlacement.above(bigNoiseConfig, bigNoiseLevel, 20),
+					InSquarePlacement.spread(),
+					PlantopiaNoiseFilter.above(bigNoiseConfig, bigNoiseLevel, 0.1F),
+					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F),
+					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+					BiomeFilter.biome(),
+					PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.LAVENDER.get())
+				);
+			})
+			.biomes(biomes -> biomes
+				.add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
+			)
+	);
+
+	public static final ResourceKey<PlacedFeature> TREES_LAVENDER_FIELDS = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.TREES_LAVENDER_FIELDS),
+		PlantopiaPlacementDeclaration.builder()
+			.feature(PlantopiaVegetationFeatures.TREES_LAVENDER_FIELDS)
+			.modifiers(context -> List.of(
+				PlacementUtils.countExtra(0, 0.125F, 1),
+				InSquarePlacement.spread(),
+				TREE_THRESHOLD,
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+				BiomeFilter.biome()
+			))
+			.biomes(biomes -> biomes
+				.add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
 			)
 	);
 
@@ -620,6 +663,7 @@ public final class PlantopiaVegetationPlacements {
 				.add(Biomes.MEADOW)
 				.add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
 				.add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+				.add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
 			)
 	);
 

@@ -131,6 +131,7 @@ public final class PlantopiaMiscOverworldPlacements {
                 .add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
                 .add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH)
                 .add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
+                .add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
             )
     );
 
