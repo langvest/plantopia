@@ -50,18 +50,25 @@ public final class PlantopiaVegetationPlacements {
 			))
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_HOGWEED = declarePlacement(
-		compileNameFrom("patch", PlantopiaBlocks.HOGWEED),
+	public static final ResourceKey<PlacedFeature> HOGWEED_COLONY = declarePlacement(
+		compileNameFrom(PlantopiaVegetationFeatures.HOGWEED_COLONY),
 		PlantopiaPlacementDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.SINGLE_HOGWEED)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(380.0F),
-				CountPlacement.of(UniformInt.of(1, 3)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-				BiomeFilter.biome(),
-				PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.HOGWEED.get())
-			))
+			.feature(PlantopiaVegetationFeatures.HOGWEED_COLONY)
+			.modifiers(context -> {
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(2.932D, 384, 114);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.118D, 562, 98);
+				float bigNoiseLevel = -0.9F;
+				float smallNoiseLevel = -0.2F;
+
+				return List.of(
+					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 1),
+					InSquarePlacement.spread(),
+					PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+					PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.15F),
+					PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+					BiomeFilter.biome()
+				);
+			})
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.addTag(BiomeTags.IS_SAVANNA)

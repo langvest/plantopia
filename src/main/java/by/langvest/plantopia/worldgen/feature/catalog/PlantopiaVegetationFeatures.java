@@ -39,6 +39,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
@@ -75,6 +76,12 @@ public final class PlantopiaVegetationFeatures {
             .feature(naturalBlock(context ->
                 simpleConfig(PlantopiaBlocks.HOGWEED.get())
             ))
+    );
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> HOGWEED_COLONY = declareFeature(
+        compileNameFrom(PlantopiaBlocks.HOGWEED, COLONY),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.HOGWEED_COLONY))
     );
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_MOSS_VEGETATION = declareFeature(

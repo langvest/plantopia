@@ -116,10 +116,14 @@ public class PlantopiaInfestedGrassBlock extends SpreadingSnowyDirtBlock impleme
 
 		// LanGvest: Try to grow a hogweed.
 
-		if(random.nextInt(3) == 0) {
-			var hogweedFeature = level.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(PlantopiaVegetationPlacements.HOGWEED_INFESTED_GRASS_BLOCK);
+		if(random.nextInt(7) == 0) {
+			var hogweedFeature = level.registryAccess()
+				.registryOrThrow(Registries.PLACED_FEATURE)
+				.getHolder(PlantopiaVegetationPlacements.HOGWEED_INFESTED_GRASS_BLOCK);
 
-			hogweedFeature.ifPresent(placedFeatureReference -> placedFeatureReference.value().place(level, level.getChunkSource().getGenerator(), random, pos.above()));
+			hogweedFeature.ifPresent(placedFeatureReference ->
+				placedFeatureReference.value().place(level, level.getChunkSource().getGenerator(), random, pos.above())
+			);
 		}
 	}
 

@@ -1,0 +1,61 @@
+{
+	"feature": "plantopia:hogweed_colony",
+	"placement": [
+		{
+			"type": "plantopia:noise_count",
+			"activation_type": "BELOW",
+			"active_count": 1,
+			"noise_config": {
+				"offset_x": 384,
+				"offset_z": 114,
+				"scale": 2.932
+			},
+			"noise_level": -0.9,
+			"passive_count": 0
+		},
+		{
+			"type": "minecraft:in_square"
+		},
+		{
+			"type": "plantopia:noise_filter",
+			"activation_type": "BELOW",
+			"erosion_level": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_exclusive": -0.8,
+					"min_inclusive": -1.0
+				}
+			},
+			"noise_config": {
+				"offset_x": 384,
+				"offset_z": 114,
+				"scale": 2.932
+			},
+			"noise_level": -0.9
+		},
+		{
+			"type": "plantopia:noise_filter",
+			"activation_type": "ABOVE",
+			"erosion_level": {
+				"type": "minecraft:uniform",
+				"value": {
+					"max_exclusive": -0.05,
+					"min_inclusive": -0.35
+				}
+			},
+			"noise_config": {
+				"offset_x": 562,
+				"offset_z": 98,
+				"scale": 0.118
+			},
+			"noise_level": -0.2
+		},
+		{
+			"type": "minecraft:heightmap",
+			"heightmap": "WORLD_SURFACE_WG"
+		},
+		{
+			"type": "minecraft:biome"
+		}
+	]
+}

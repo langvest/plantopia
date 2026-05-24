@@ -17,6 +17,7 @@ public final class PlantopiaDictionary {
     public static final String STALAGMITE = "stalagmite";
     public static final String BONEMEAL = "bonemeal";
     public static final String VEGETATION = "vegetation";
+    public static final String COLONY = "colony";
     public static final String TREES = "trees";
     public static final String MOUNTAIN = "mountain";
     public static final String JUNGLE = "jungle";

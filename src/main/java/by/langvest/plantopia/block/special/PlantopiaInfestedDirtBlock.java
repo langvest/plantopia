@@ -22,7 +22,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaBlockHelper.copySnowyAb
 
 public class PlantopiaInfestedDirtBlock extends Block {
 	public static final IntegerProperty AGE = PlantopiaBlockStateProperties.INFESTED_DIRT_AGE;
-	public static int MAX_AGE = PlantopiaBlockStateProperties.INFESTED_DIRT_MAX_AGE;
+	public static int MAX_AGE = AGE.max;
+	public static int MIN_AGE = AGE.min;
 
 	public PlantopiaInfestedDirtBlock(Properties properties) {
 		super(properties);
@@ -33,7 +34,7 @@ public class PlantopiaInfestedDirtBlock extends Block {
 		return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get();
 	}
 
-	protected static int increaseAge(@NotNull RandomSource random, int currentAge) {
+	public static int increaseAge(@NotNull RandomSource random, int currentAge) {
 		var inc = 1;
 
 		if(random.nextInt(3) == 0) inc++;
