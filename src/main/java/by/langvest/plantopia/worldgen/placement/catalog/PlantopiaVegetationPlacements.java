@@ -55,10 +55,10 @@ public final class PlantopiaVegetationPlacements {
 		PlantopiaPlacementDeclaration.builder()
 			.feature(PlantopiaVegetationFeatures.HOGWEED_COLONY)
 			.modifiers(context -> {
-				var bigNoiseConfig = PlantopiaNoiseConfig.of(2.932D, 384, 114);
-				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.118D, 562, 98);
-				float bigNoiseLevel = -0.9F;
-				float smallNoiseLevel = -0.2F;
+				var bigNoiseConfig = PlantopiaNoiseConfig.of(2.886D, 384, 114);
+				var smallNoiseConfig = PlantopiaNoiseConfig.of(0.116D, 562, 98);
+				float bigNoiseLevel = -0.88F;
+				float smallNoiseLevel = -0.22F;
 
 				return List.of(
 					PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 1),
@@ -72,6 +72,7 @@ public final class PlantopiaVegetationPlacements {
 			.biomes(biomes -> biomes
 				.add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
 				.addTag(BiomeTags.IS_SAVANNA)
+				.addTag(PlantopiaBiomeTags.IS_MARSH)
 				.apply(PlantopiaPlacementUtils::addVanillaMountainBiomes)
 			)
 	);

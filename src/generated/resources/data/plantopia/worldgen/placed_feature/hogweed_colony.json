@@ -8,9 +8,9 @@
 			"noise_config": {
 				"offset_x": 384,
 				"offset_z": 114,
-				"scale": 2.932
+				"scale": 2.886
 			},
-			"noise_level": -0.9,
+			"noise_level": -0.88,
 			"passive_count": 0
 		},
 		{
@@ -22,16 +22,16 @@
 			"erosion_level": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": -0.8,
-					"min_inclusive": -1.0
+					"max_exclusive": -0.78,
+					"min_inclusive": -0.98
 				}
 			},
 			"noise_config": {
 				"offset_x": 384,
 				"offset_z": 114,
-				"scale": 2.932
+				"scale": 2.886
 			},
-			"noise_level": -0.9
+			"noise_level": -0.88
 		},
 		{
 			"type": "plantopia:noise_filter",
@@ -39,16 +39,16 @@
 			"erosion_level": {
 				"type": "minecraft:uniform",
 				"value": {
-					"max_exclusive": -0.05,
-					"min_inclusive": -0.35
+					"max_exclusive": -0.07,
+					"min_inclusive": -0.37
 				}
 			},
 			"noise_config": {
 				"offset_x": 562,
 				"offset_z": 98,
-				"scale": 0.118
+				"scale": 0.116
 			},
-			"noise_level": -0.2
+			"noise_level": -0.22
 		},
 		{
 			"type": "minecraft:heightmap",
