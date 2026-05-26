@@ -49,9 +49,9 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 
 		var quarter = getQuarterByPlacementDirection(context.getHorizontalDirection());
 		var newState = defaultBlockState().setValue(QUARTER, quarter);
-		var baseBlockPos = getBaseBlockPos(newState, pos);
+		var basePos = getBaseBlockPos(newState, pos);
 
-		return canPlaceAt(level, baseBlockPos) ? newState : null;
+		return canPlaceAt(level, basePos) ? newState : null;
 	}
 
 	@Contract(pure = true)
@@ -128,20 +128,20 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 		var half = state.getValue(HALF);
 
 		if(half == PlantopiaTripleBlockHalf.LOWER) {
-			var baseBlockPos = getBaseBlockPos(state, pos);
-			var northBlockPos = baseBlockPos.north();
-			var northEastBlockPos = baseBlockPos.north().east();
-			var eastBlockPos = baseBlockPos.east();
+			var basePos = getBaseBlockPos(state, pos);
+			var northPos = basePos.north();
+			var northEastPos = basePos.north().east();
+			var eastPos = basePos.east();
 
-			var baseBlockState = level.getBlockState(baseBlockPos);
-			var northBlockState = level.getBlockState(northBlockPos);
-			var northEastBlockState = level.getBlockState(northEastBlockPos);
-			var eastBlockState = level.getBlockState(eastBlockPos);
+			var baseState = level.getBlockState(basePos);
+			var northState = level.getBlockState(northPos);
+			var northEastState = level.getBlockState(northEastPos);
+			var eastState = level.getBlockState(eastPos);
 
-			return isValidEnvironment(baseBlockState, level, baseBlockPos)
-				&& isValidEnvironment(northBlockState, level, northBlockPos)
-				&& isValidEnvironment(northEastBlockState, level, northEastBlockPos)
-				&& isValidEnvironment(eastBlockState, level, eastBlockPos);
+			return isValidEnvironment(baseState, level, basePos)
+				&& isValidEnvironment(northState, level, northPos)
+				&& isValidEnvironment(northEastState, level, northEastPos)
+				&& isValidEnvironment(eastState, level, eastPos);
 		}
 
 		var stateBelow = level.getBlockState(pos.below());
@@ -154,13 +154,13 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	 */
 	@Override
 	public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-		BlockPos baseBlockPos = getBaseBlockPos(state, pos);
-		BlockPos baseBlockPosAbove1 = baseBlockPos.above(1);
-		BlockPos baseBlockPosAbove2 = baseBlockPos.above(2);
+		BlockPos basePos = getBaseBlockPos(state, pos);
+		BlockPos basePosAbove1 = basePos.above(1);
+		BlockPos basePosAbove2 = basePos.above(2);
 
-		placeSliceAt(level, baseBlockPos, state.setValue(HALF, PlantopiaTripleBlockHalf.LOWER), 3, pos);
-		placeSliceAt(level, baseBlockPosAbove1, state.setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL), 3, pos);
-		placeSliceAt(level, baseBlockPosAbove2, state.setValue(HALF, PlantopiaTripleBlockHalf.UPPER), 3, pos);
+		placeSliceAt(level, basePos, state.setValue(HALF, PlantopiaTripleBlockHalf.LOWER), 3, pos);
+		placeSliceAt(level, basePosAbove1, state.setValue(HALF, PlantopiaTripleBlockHalf.CENTRAL), 3, pos);
+		placeSliceAt(level, basePosAbove2, state.setValue(HALF, PlantopiaTripleBlockHalf.UPPER), 3, pos);
 	}
 
 	/**
@@ -205,12 +205,12 @@ public class PlantopiaWideTriplePlantBlock extends BushBlock implements Plantopi
 	}
 
 	protected void preventCreativeDropFromBottomParts(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
-		var baseBlockPos = getBaseBlockPos(state, pos);
+		var basePos = getBaseBlockPos(state, pos);
 
-		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
-		preventCreativeDropFromPos(level, baseBlockPos.north(), state, player, pos);
-		preventCreativeDropFromPos(level, baseBlockPos.north().east(), state, player, pos);
-		preventCreativeDropFromPos(level, baseBlockPos.east(), state, player, pos);
+		preventCreativeDropFromPos(level, basePos, state, player, pos);
+		preventCreativeDropFromPos(level, basePos.north(), state, player, pos);
+		preventCreativeDropFromPos(level, basePos.north().east(), state, player, pos);
+		preventCreativeDropFromPos(level, basePos.east(), state, player, pos);
 	}
 
 	/**

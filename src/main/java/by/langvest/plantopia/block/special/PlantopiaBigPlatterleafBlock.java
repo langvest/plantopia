@@ -97,9 +97,9 @@ public class PlantopiaBigPlatterleafBlock extends BushBlock implements Plantopia
 
 		var quarter = getQuarterByPlacementDirection(context.getHorizontalDirection());
 		var newState = defaultBlockState().setValue(QUARTER, quarter);
-		var baseBlockPos = getBaseBlockPos(newState, pos);
+		var basePos = getBaseBlockPos(newState, pos);
 
-		return canManuallyPlaceAt(context, baseBlockPos) ? newState : null;
+		return canManuallyPlaceAt(context, basePos) ? newState : null;
 	}
 
 	public boolean placeAt(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, int flags, BlockPos skippedPos) {
@@ -116,8 +116,8 @@ public class PlantopiaBigPlatterleafBlock extends BushBlock implements Plantopia
 	 */
 	@Override
 	public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-		BlockPos baseBlockPos = getBaseBlockPos(state, pos);
-		placeSliceAt(level, baseBlockPos, state, 3, pos);
+		BlockPos basePos = getBaseBlockPos(state, pos);
+		placeSliceAt(level, basePos, state, 3, pos);
 	}
 
 	private static void placeSliceAt(@NotNull LevelAccessor level, @NotNull BlockPos southWestPos, @NotNull BlockState state, int flags, BlockPos skippedPos) {
@@ -212,30 +212,30 @@ public class PlantopiaBigPlatterleafBlock extends BushBlock implements Plantopia
 	}
 
 	protected void preventCreativeDropFromBottomParts(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
-		var baseBlockPos = getBaseBlockPos(state, pos);
+		var basePos = getBaseBlockPos(state, pos);
 
-		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
-		preventCreativeDropFromPos(level, baseBlockPos.north(), state, player, pos);
-		preventCreativeDropFromPos(level, baseBlockPos.north().east(), state, player, pos);
-		preventCreativeDropFromPos(level, baseBlockPos.east(), state, player, pos);
+		preventCreativeDropFromPos(level, basePos, state, player, pos);
+		preventCreativeDropFromPos(level, basePos.north(), state, player, pos);
+		preventCreativeDropFromPos(level, basePos.north().east(), state, player, pos);
+		preventCreativeDropFromPos(level, basePos.east(), state, player, pos);
 	}
 
 	@Override
 	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
-		var baseBlockPos = getBaseBlockPos(state, pos);
-		var northBlockPos = baseBlockPos.north();
-		var northEastBlockPos = baseBlockPos.north().east();
-		var eastBlockPos = baseBlockPos.east();
+		var basePos = getBaseBlockPos(state, pos);
+		var northPos = basePos.north();
+		var northEastPos = basePos.north().east();
+		var eastPos = basePos.east();
 
-		var baseBlockState = level.getBlockState(baseBlockPos);
-		var northBlockState = level.getBlockState(northBlockPos);
-		var northEastBlockState = level.getBlockState(northEastBlockPos);
-		var eastBlockState = level.getBlockState(eastBlockPos);
+		var baseState = level.getBlockState(basePos);
+		var northState = level.getBlockState(northPos);
+		var northEastState = level.getBlockState(northEastPos);
+		var eastState = level.getBlockState(eastPos);
 
-		return super.canSurvive(baseBlockState, level, baseBlockPos)
-			&& super.canSurvive(northBlockState, level, northBlockPos)
-			&& super.canSurvive(northEastBlockState, level, northEastBlockPos)
-			&& super.canSurvive(eastBlockState, level, eastBlockPos);
+		return super.canSurvive(baseState, level, basePos)
+			&& super.canSurvive(northState, level, northPos)
+			&& super.canSurvive(northEastState, level, northEastPos)
+			&& super.canSurvive(eastState, level, eastPos);
 	}
 
 	@Override

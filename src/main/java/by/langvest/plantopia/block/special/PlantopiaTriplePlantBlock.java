@@ -117,9 +117,9 @@ public class PlantopiaTriplePlantBlock extends BushBlock implements PlantopiaBas
 	}
 
 	protected void preventCreativeDropFromBottomPart(Level level, BlockPos pos, @NotNull BlockState state, Player player) {
-		var baseBlockPos = getBaseBlockPos(state, pos);
+		var basePos = getBaseBlockPos(state, pos);
 
-		preventCreativeDropFromPos(level, baseBlockPos, state, player, pos);
+		preventCreativeDropFromPos(level, basePos, state, player, pos);
 	}
 
 	protected static void preventCreativeDropFromPos(Level level, BlockPos pos, @NotNull BlockState originalState, Player player, BlockPos skippedPos) {

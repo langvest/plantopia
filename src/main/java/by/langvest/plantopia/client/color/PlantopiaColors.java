@@ -168,10 +168,10 @@ public class PlantopiaColors {
 
         PlantopiaBlockColors.add(block, (state, level, pos, tintIndex) -> {
             var half = state.getValue(DoublePlantBlock.HALF);
-            var baseBlockPos = getBaseBlockPos(state, pos);
+            var basePos = getBaseBlockPos(state, pos);
 
-            if (half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, baseBlockPos);
-            if (half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, baseBlockPos);
+            if (half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, basePos);
+            if (half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, basePos);
             return noColor();
         });
     }

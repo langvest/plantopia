@@ -1,24 +1,19 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.block.special.PlantopiaInfestedDirtBlock;
-import by.langvest.plantopia.block.special.PlantopiaInfestedGrassBlock;
-import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaVegetationPlacements;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+
+import static by.langvest.plantopia.block.PlantopiaHogweedUtils.*;
 
 public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfiguration> {
     private static final int MAX_HEIGHT_DIFFERENCE = 3;
@@ -34,8 +29,7 @@ public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfigurat
         var random = context.random();
         var chunkGenerator = context.chunkGenerator();
 
-        int minAge = PlantopiaInfestedDirtBlock.MIN_AGE;
-        int startAge = random.nextIntBetweenInclusive(minAge, minAge + 8);
+        int startAge = random.nextIntBetweenInclusive(MIN_AGE, MIN_AGE + 8);
 
         Queue<BlockPos> queue = new ArrayDeque<>();
         Map<BlockPos, Integer> colonyPoints = new HashMap<>();
@@ -45,7 +39,7 @@ public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfigurat
         int centerSurfaceY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, origin.getX(), origin.getZ());
         var centerPos = new BlockPos(origin.getX(), centerSurfaceY, origin.getZ());
 
-        if (!isInfestable(level.getBlockState(centerPos.below()))) {
+        if (!canBeInfested(level.getBlockState(centerPos.below()))) {
             return false;
         }
 
@@ -77,11 +71,11 @@ public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfigurat
                     continue;
                 }
 
-                if (!isInfestable(level.getBlockState(neighborPos.below()))) {
+                if (!canBeInfested(level.getBlockState(neighborPos.below()))) {
                     continue;
                 }
 
-                int newAge = PlantopiaInfestedDirtBlock.increaseAge(random, currentAge);
+                int newAge = increaseAge(random, currentAge);
                 if (newAge != currentAge) {
                     var immutableNeighborPos = neighborPos.immutable();
                     queue.add(immutableNeighborPos);
@@ -98,7 +92,7 @@ public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfigurat
             var currentPos = mutablePos.set(entry.getKey().below());
             int currentAge = entry.getValue();
 
-            while (currentAge <= PlantopiaInfestedDirtBlock.MAX_AGE) {
+            while (currentAge <= MAX_AGE) {
                 var originalState = level.getBlockState(currentPos);
                 var infestedState = getInfestedState(originalState, currentAge);
 
@@ -106,7 +100,7 @@ public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfigurat
                     break;
                 }
 
-                setBlock(level, currentPos, infestedState);
+                setBlock(level, currentPos, rollupInfestedState(originalState, infestedState));
 
                 currentAge++;
                 currentPos.move(Direction.DOWN);
@@ -127,25 +121,5 @@ public class PlantopiaHogweedColonyFeature extends Feature<NoneFeatureConfigurat
         }
 
         return true;
-    }
-
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean isInfestable(@NotNull BlockState state) {
-        return state.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO) || state.is(Blocks.GRASS_BLOCK);
-    }
-
-    @Nullable
-    private BlockState getInfestedState(@NotNull BlockState state, int age) {
-        if (state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.FARMLAND) || state.is(Blocks.DIRT_PATH)) {
-            return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get().defaultBlockState()
-                .setValue(PlantopiaInfestedGrassBlock.AGE, age);
-        }
-
-        if (state.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO)) {
-            return PlantopiaBlocks.INFESTED_DIRT.get().defaultBlockState()
-                .setValue(PlantopiaInfestedDirtBlock.AGE, age);
-        }
-
-        return null;
     }
 }

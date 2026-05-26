@@ -21,12 +21,12 @@ public class PlantopiaWideTripleHighBlockItem extends BlockItem {
 	protected boolean placeBlock(@NotNull BlockPlaceContext context, @NotNull BlockState state) {
 		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
-		BlockPos baseBlockPos = getBaseBlockPos(state, pos);
-		BlockPos baseBlockPosAbove1 = baseBlockPos.above(1);
-		BlockPos baseBlockPosAbove2 = baseBlockPos.above(2);
-		clearSliceAt(level, baseBlockPos, 27, pos);
-		clearSliceAt(level, baseBlockPosAbove1, 27, pos);
-		clearSliceAt(level, baseBlockPosAbove2, 27, pos);
+		BlockPos basePos = getBaseBlockPos(state, pos);
+		BlockPos basePosAbove1 = basePos.above(1);
+		BlockPos basePosAbove2 = basePos.above(2);
+		clearSliceAt(level, basePos, 27, pos);
+		clearSliceAt(level, basePosAbove1, 27, pos);
+		clearSliceAt(level, basePosAbove2, 27, pos);
 		return super.placeBlock(context, state);
 	}
 

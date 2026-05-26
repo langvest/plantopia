@@ -1,6 +1,6 @@
 package by.langvest.plantopia.block.special;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaHogweedUtils;
 import by.langvest.plantopia.block.PlantopiaNaturalBlock;
 import by.langvest.plantopia.block.PlantopiaTripleBlockHalf;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -21,119 +21,127 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.NotNull;
 
+import static by.langvest.plantopia.block.PlantopiaHogweedUtils.*;
+
 public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
-	public PlantopiaHogweedBlock(Properties properties) {
-		super(properties);
-	}
+    public PlantopiaHogweedBlock(Properties properties) {
+        super(properties);
+    }
 
-	public static @NotNull Block getDirtBlock() {
-		return PlantopiaBlocks.INFESTED_DIRT.get();
-	}
+    @Override
+    public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
+        return true;
+    }
 
-	public static @NotNull Block getGrassBlock() {
-		return PlantopiaBlocks.INFESTED_GRASS_BLOCK.get();
-	}
+    @Override
+    public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        return true;
+    }
 
-	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull PathComputationType type) {
-		return true;
-	}
+    @Override
+    protected boolean canGrowInto(@NotNull LevelAccessor level, BlockPos pos) {
+        var fluidState = level.getFluidState(pos);
 
-	@Override
-	public boolean propagatesSkylightDown(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return true;
-	}
+        return fluidState.isEmpty() && super.canGrowInto(level, pos);
+    }
 
-	@Override
-	protected boolean canGrowInto(@NotNull LevelAccessor level, BlockPos pos) {
-		var fluidState = level.getFluidState(pos);
+    /**
+     * Called periodically clientside on blocks near the player to show effects (like furnace fire particles).
+     */
+    @Override
+    public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        var basePos = getBaseBlockPos(state, pos);
 
-		return fluidState.isEmpty() && super.canGrowInto(level, pos);
-	}
+        if (pos != basePos) return;
+        if (random.nextInt(16) != 0) return;
 
-	/**
-	 * Called periodically clientside on blocks near the player to show effects (like furnace fire particles).
-	 */
-	@Override
-	public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		var baseBlockPos = getBaseBlockPos(state, pos);
+        var offset = state.getOffset(level, pos);
+        double x = basePos.getX() + 1.0D + offset.x;
+        double y = basePos.getY() + 1.5D + offset.y;
+        double z = basePos.getZ() + 0.0D + offset.z;
 
-		if(pos != baseBlockPos) return;
-		if(random.nextInt(16) != 0) return;
+        level.addParticle(
+            ParticleTypes.SPORE_BLOSSOM_AIR,
+            x + Mth.nextDouble(random, -0.25D, 0.25D),
+            y + Mth.nextDouble(random, -1.0D, 1.0D),
+            z + Mth.nextDouble(random, -0.25D, 0.25D),
+            0.0D,
+            0.0D,
+            0.0D
+        );
+    }
 
-		var offset = state.getOffset(level, pos);
-		double x = baseBlockPos.getX() + 1.0D + offset.x;
-		double y = baseBlockPos.getY() + 1.5D + offset.y;
-		double z = baseBlockPos.getZ() + 0.0D + offset.z;
+    @Override
+    public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
+        var pos = context.origin();
 
-		level.addParticle(
-			ParticleTypes.SPORE_BLOSSOM_AIR,
-			x + Mth.nextDouble(random, -0.25D, 0.25D),
-			y + Mth.nextDouble(random, -1.0D, 1.0D),
-			z + Mth.nextDouble(random, -0.25D, 0.25D),
-			0.0D,
-			0.0D,
-			0.0D
-		);
-	}
+        if (!context.canSpreadInto(pos.above(2))) return false;
+        if (!context.canSpreadInto(pos.north().above(2))) return false;
+        if (!context.canSpreadInto(pos.north().east().above(2))) return false;
+        if (!context.canSpreadInto(pos.east().above(2))) return false;
 
-	@Override
-	public boolean placeNaturally(PlantopiaNaturalBlock.@NotNull PlaceContext context) {
-		var pos = context.origin();
+        return super.placeNaturally(context);
+    }
 
-		if(!context.canSpreadInto(pos.above(2))) return false;
-		if(!context.canSpreadInto(pos.north().above(2))) return false;
-		if(!context.canSpreadInto(pos.north().east().above(2))) return false;
-		if(!context.canSpreadInto(pos.east().above(2))) return false;
+    @Override
+    @SuppressWarnings("deprecation")
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (random.nextInt(3) == 0) {
+            var posBelow = pos.below();
+            var stateBelow = level.getBlockState(posBelow);
 
-		return super.placeNaturally(context);
-	}
+            if (stateBelow.is(Blocks.GRASS_BLOCK)) {
+                level.setBlockAndUpdate(posBelow, getGrassBlock().defaultBlockState());
+            } else if (stateBelow.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO)) {
+                level.setBlockAndUpdate(posBelow, PlantopiaHogweedUtils.getDirtBlock().defaultBlockState());
+            }
+        }
+    }
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
-		if(random.nextInt(3) == 0) {
-			var posBelow = pos.below();
-			var stateBelow = level.getBlockState(posBelow);
+    @Override
+    public boolean isRandomlyTicking(@NotNull BlockState state) {
+        return state.getValue(HALF) == PlantopiaTripleBlockHalf.LOWER;
+    }
 
-			if(stateBelow.is(Blocks.GRASS_BLOCK)) {
-				level.setBlockAndUpdate(posBelow, getGrassBlock().defaultBlockState());
-			} else if(stateBelow.is(PlantopiaBlockTags.INFESTED_DIRT_CAN_SPREAD_TO)) {
-				level.setBlockAndUpdate(posBelow, getDirtBlock().defaultBlockState());
-			}
-		}
-	}
+    @Override
+    @SuppressWarnings("deprecation")
+    public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
+        if (level.isClientSide()) return;
+        if (level.getDifficulty() == Difficulty.PEACEFUL) return;
+        if (!(entity instanceof LivingEntity livingEntity)) return;
+        if (livingEntity.isInvulnerable()) return;
+        if (livingEntity instanceof Player player && player.isCreative()) return;
 
-	@Override
-	public boolean isRandomlyTicking(@NotNull BlockState state) {
-		return state.getValue(HALF) == PlantopiaTripleBlockHalf.LOWER;
-	}
+        if (livingEntity instanceof Zombie || livingEntity instanceof ZombieHorse) {
+            var random = livingEntity.getRandom();
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public void entityInside(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Entity entity) {
-		if(level.isClientSide()) return;
-		if(level.getDifficulty() == Difficulty.PEACEFUL) return;
-		if(!(entity instanceof LivingEntity livingEntity)) return;
-		if(livingEntity.isInvulnerable()) return;
-		if(livingEntity instanceof Player player && player.isCreative()) return;
+            if (random.nextInt(3) == 0 && livingEntity.getHealth() < livingEntity.getMaxHealth()) {
+                livingEntity.heal(0.02F);
+            }
+        } else {
+            if (livingEntity instanceof Enemy) return;
 
-		if(livingEntity instanceof Zombie || livingEntity instanceof ZombieHorse) {
-			var random = livingEntity.getRandom();
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 500));
+        }
+    }
 
-			if(random.nextInt(3) == 0 && livingEntity.getHealth() < livingEntity.getMaxHealth()) {
-				livingEntity.heal(0.02F);
-			}
-		} else {
-			if(livingEntity instanceof Enemy) return;
+    @Override
+    public boolean onDestroyedByPlayer(BlockState state, @NotNull Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluidState) {
+        if (!level.isClientSide() && !player.isCreative()) {
+            var basePos = getBaseBlockPos(state, pos).below();
 
-			livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 500));
-		}
-	}
+            resetInfestedBlock(level, basePos);
+            resetInfestedBlock(level, basePos.north());
+            resetInfestedBlock(level, basePos.north().east());
+            resetInfestedBlock(level, basePos.east());
+        }
+
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluidState);
+    }
 }
