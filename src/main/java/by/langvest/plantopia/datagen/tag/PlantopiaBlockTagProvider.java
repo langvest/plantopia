@@ -163,6 +163,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             .addTag(BlockTags.PLANKS, BlockTags.LOGS)
             .addTag(PlantopiaBlockTags.ORES_OVERWORLD);
 
+        REPLACEABLE_BY_TREES
+            .add(PlantopiaBlocks.BRANCHING_SHRUB.get());
+
         saveAll();
     }
 
