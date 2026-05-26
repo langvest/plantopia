@@ -225,21 +225,21 @@ public final class PlantopiaVegetationPlacements {
 			)
 	);
 
-	public static final ResourceKey<PlacedFeature> PATCH_CHICORY_2 = declarePlacement(
-		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CHICORY, 2),
-		PlantopiaPlacementDeclaration.builder()
-			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
-			.modifiers(context -> List.of(
-				PlantopiaRarityFilter.onAverageOnceEvery(8.12F, 10.42F),
-				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
-				InSquarePlacement.spread(),
-				PlacementUtils.HEIGHTMAP,
-				BiomeFilter.biome()
-			))
-			.biomes(biomes -> biomes
-				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
-			)
-	);
+//	public static final ResourceKey<PlacedFeature> PATCH_CHICORY_2 = declarePlacement(
+//		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CHICORY, 2),
+//		PlantopiaPlacementDeclaration.builder()
+//			.feature(PlantopiaVegetationFeatures.PATCH_CHICORY)
+//			.modifiers(context -> List.of(
+//				PlantopiaRarityFilter.onAverageOnceEvery(8.12F, 10.42F),
+//				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+//				InSquarePlacement.spread(),
+//				PlacementUtils.HEIGHTMAP,
+//				BiomeFilter.biome()
+//			))
+//			.biomes(biomes -> biomes
+//				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
+//			)
+//	);
 
 	public static final ResourceKey<PlacedFeature> PATCH_TANSY = declarePlacement(
 		compileNameFrom(PlantopiaVegetationFeatures.PATCH_TANSY),
