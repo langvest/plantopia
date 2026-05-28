@@ -39,7 +39,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
@@ -449,7 +448,10 @@ public final class PlantopiaVegetationFeatures {
                     ConstantFloat.of(-0.112F), // shapeSigma
                     ConstantFloat.of(0.148F), // shapeErosion
                     ConstantInt.of(6), // searchDistance
-                    BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
+                    BlockPredicate.allOf(
+                        BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
+                        BlockPredicate.not(BlockPredicate.matchesBlocks(PlantopiaBlocks.SEA_MOSS_BLOCK.get()))
+                    ),
                     BRANCHING_SHRUB_VERTICAL_PREDICATE.get(),
                     BRANCHING_SHRUB_HORIZONTAL_PREDICATE.get(),
                     List.of(Direction.UP)
@@ -471,7 +473,10 @@ public final class PlantopiaVegetationFeatures {
                     ConstantFloat.of(-0.232F), // shapeSigma
                     ConstantFloat.of(0.126F), // shapeErosion
                     ConstantInt.of(12), // searchDistance
-                    BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
+                    BlockPredicate.allOf(
+                        BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
+                        BlockPredicate.not(BlockPredicate.matchesBlocks(PlantopiaBlocks.SEA_MOSS_BLOCK.get()))
+                    ),
                     BRANCHING_SHRUB_VERTICAL_PREDICATE.get(),
                     BRANCHING_SHRUB_HORIZONTAL_PREDICATE.get(),
                     List.of(Direction.DOWN, Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)

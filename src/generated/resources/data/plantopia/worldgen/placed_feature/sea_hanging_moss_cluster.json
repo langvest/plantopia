@@ -1,5 +1,5 @@
 {
-	"feature": "plantopia:patch_sea_hanging_moss_cave",
+	"feature": "plantopia:sea_hanging_moss_cluster",
 	"placement": [
 		{
 			"type": "plantopia:density",
@@ -63,17 +63,8 @@
 						"direction_of_search": "down",
 						"max_steps": 12,
 						"target_condition": {
-							"type": "minecraft:any_of",
-							"predicates": [
-								{
-									"type": "minecraft:matching_fluids",
-									"fluids": "minecraft:water"
-								},
-								{
-									"type": "minecraft:matching_blocks",
-									"blocks": "minecraft:water"
-								}
-							]
+							"type": "minecraft:matching_fluids",
+							"fluids": "minecraft:water"
 						}
 					},
 					{
@@ -109,10 +100,7 @@
 			"type": "plantopia:biome_filter",
 			"biomes": [
 				"minecraft:lush_caves",
-				"minecraft:deep_dark",
-				"minecraft:badlands",
-				"minecraft:wooded_badlands",
-				"minecraft:eroded_badlands"
+				"minecraft:deep_dark"
 			],
 			"selection": "EXCLUDE"
 		}

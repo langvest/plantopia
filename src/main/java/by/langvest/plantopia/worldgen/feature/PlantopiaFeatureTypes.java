@@ -19,7 +19,6 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaNaturalBlockFeature> NATURAL_BLOCK = registerFeatureType("natural_block", () -> new PlantopiaNaturalBlockFeature(SimpleBlockConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaNaturalBlockColumnFeature> NATURAL_BLOCK_COLUMN = registerFeatureType("natural_block_column", () -> new PlantopiaNaturalBlockColumnFeature(BlockColumnConfiguration.CODEC));
-	public static final RegistryObject<PlantopiaSeaHangingMossPatchFeature> SEA_HANGING_MOSS_PATCH = registerFeatureType("sea_hanging_moss_patch", () -> new PlantopiaSeaHangingMossPatchFeature(PlantopiaSeaHangingMossPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaRadialPatchFeature> RADIAL_PATCH = registerFeatureType("radial_patch", () -> new PlantopiaRadialPatchFeature(PlantopiaRadialPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaLimitedRandomPatchFeature> LIMITED_RANDOM_PATCH = registerFeatureType("limited_random_patch", () -> new PlantopiaLimitedRandomPatchFeature(PlantopiaLimitedRandomPatchConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaPitFeature> PIT = registerFeatureType("pit", () -> new PlantopiaPitFeature(PlantopiaPitConfiguration.CODEC));
@@ -37,6 +36,7 @@ public class PlantopiaFeatureTypes {
 	public static final RegistryObject<PlantopiaIcicleFeature> ICICLE = registerFeatureType("icicle", () -> new PlantopiaIcicleFeature(PlantopiaIcicleConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaCompositeFeature> COMPOSITE = registerFeatureType("composite", () -> new PlantopiaCompositeFeature(PlantopiaCompositeConfiguration.CODEC));
 	public static final RegistryObject<PlantopiaHogweedColonyFeature> HOGWEED_COLONY = registerFeatureType("hogweed_colony", () -> new PlantopiaHogweedColonyFeature(NoneFeatureConfiguration.CODEC));
+	public static final RegistryObject<PlantopiaSeaHangingMossClusterFeature> SEA_HANGING_MOSS_CLUSTER = registerFeatureType("sea_hanging_moss_cluster", () -> new PlantopiaSeaHangingMossClusterFeature(PlantopiaSeaHangingMossClusterConfiguration.CODEC));
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
 		return registerFeatureType(plantopia(name), supplier);

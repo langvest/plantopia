@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -146,5 +147,29 @@ public final class PlantopiaMathHelper {
         }
 
         return blurredMatrix;
+    }
+
+    public static boolean isWithinShape(@NotNull BlockPos pos, int dx, int dz, int radius, float curvature, double frequency) {
+        return isWithinShape(pos.getX(), pos.getZ(), dx, dz, radius, curvature, frequency);
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean isWithinShape(int x, int z, int dx, int dz, int radius, float curvature, double frequency) {
+        double distanceSq = dx * dx + dz * dz;
+        if (distanceSq > radius * radius) {
+            return false;
+        }
+
+        if (curvature == 0) {
+            return true;
+        }
+
+        double distanceFalloff = Math.sqrt(distanceSq) / radius;
+
+        @SuppressWarnings("removal")
+        double noiseValue = Biome.BIOME_INFO_NOISE.getValue((double) x * frequency, (double) z * frequency, false);
+        double normalizedNoise = (noiseValue + 1.0) / 2.0;
+
+        return normalizedNoise > distanceFalloff;
     }
 }

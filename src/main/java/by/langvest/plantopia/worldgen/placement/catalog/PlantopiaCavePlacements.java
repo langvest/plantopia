@@ -10,7 +10,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
@@ -31,10 +30,25 @@ public final class PlantopiaCavePlacements {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
-    public static final ResourceKey<PlacedFeature> PATCH_SEA_HANGING_MOSS_CAVE = declarePlacement(
-        compileNameFrom(PlantopiaCaveFeatures.PATCH_SEA_HANGING_MOSS_CAVE),
+//    public static final ResourceKey<PlacedFeature> ICICLE_CLUSTER = declarePlacement(
+//        compileNameFrom(PlantopiaCaveFeatures.ICICLE_CLUSTER),
+//        PlantopiaPlacementDeclaration.builder()
+//            .feature(PlantopiaCaveFeatures.ICICLE_CLUSTER)
+//            .modifiers(context -> List.of(
+//                CountPlacement.of(UniformInt.of(48, 96)),
+//                InSquarePlacement.spread(),
+//                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+//                BiomeFilter.biome()
+//            ))
+//            .biomes(biomes -> biomes
+//                .addTag(BiomeTags.IS_OVERWORLD)
+//            )
+//    );
+
+    public static final ResourceKey<PlacedFeature> SEA_HANGING_MOSS_CLUSTER = declarePlacement(
+        compileNameFrom(PlantopiaCaveFeatures.SEA_HANGING_MOSS_CLUSTER),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaCaveFeatures.PATCH_SEA_HANGING_MOSS_CAVE)
+            .feature(PlantopiaCaveFeatures.SEA_HANGING_MOSS_CLUSTER)
             .modifiers(context -> {
                 var bigNoiseConfig = PlantopiaNoiseConfig.of(1.264D, 56, 332);
                 float bigNoiseLevel = -0.286F;
@@ -55,10 +69,7 @@ public final class PlantopiaCavePlacements {
                         List.of(
                             PlantopiaEnvironmentScanFilter.scanningFor(
                                 Direction.DOWN,
-                                BlockPredicate.anyOf(
-                                    BlockPredicate.matchesFluids(Fluids.WATER),
-                                    BlockPredicate.matchesBlocks(Blocks.WATER)
-                                ),
+                                BlockPredicate.matchesFluids(Fluids.WATER),
                                 BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
                                 12
                             ),
@@ -72,7 +83,7 @@ public final class PlantopiaCavePlacements {
                             )
                         )
                     ),
-                    PlantopiaBiomeFilter.exclude(directBiomes(context, Biomes.LUSH_CAVES, Biomes.DEEP_DARK, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.ERODED_BADLANDS))
+                    PlantopiaBiomeFilter.exclude(directBiomes(context, Biomes.LUSH_CAVES, Biomes.DEEP_DARK))
                 );
             })
             .biomes(biomes -> biomes
@@ -80,22 +91,6 @@ public final class PlantopiaCavePlacements {
             )
     );
 
-//    public static final ResourceKey<PlacedFeature> ICICLE_CLUSTER = declarePlacedFeature(
-//        compileNameFrom(PlantopiaCaveFeatures.ICICLE_CLUSTER),
-//        PlantopiaPlacedFeatureDeclaration.builder()
-//            .feature(PlantopiaCaveFeatures.ICICLE_CLUSTER)
-//            .modifiers(context -> List.of(
-//                CountPlacement.of(UniformInt.of(48, 96)),
-//                InSquarePlacement.spread(),
-//                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-//                BiomeFilter.biome()
-//            ))
-//            .biomes(biomes -> biomes
-//                .add(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH, Biomes.SNOWY_SLOPES)
-//                .add(Biomes.ICE_SPIKES, Biomes.GROVE)
-//                .add(Biomes.FROZEN_OCEAN, Biomes.FROZEN_RIVER, Biomes.FROZEN_PEAKS, Biomes.DEEP_FROZEN_OCEAN)
-//            )
-//    );
 //
 //    public static final ResourceKey<PlacedFeature> LARGE_ICICLE = declarePlacedFeature(
 //        compileNameFrom(PlantopiaCaveFeatures.LARGE_ICICLE),

@@ -13,7 +13,6 @@ public class PlantopiaBlockTags {
 	public static final TagKey<Block> BONEMEAL_SPREAD_GROWABLE = createBlockTag("bonemeal_spread_growable");
 	public static final TagKey<Block> BONEMEAL_SPREAD_ON = createBlockTag("bonemeal_spread_on");
 	public static final TagKey<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = createBlockTag("cobblestone_shard_can_generate_on");
-	public static final TagKey<Block> SEA_HANGING_MOSS_CAN_GENERATE_ON = createBlockTag("sea_hanging_moss_can_generate_on");
 	public static final TagKey<Block> WITCHY_TOADSTOOL_CAN_GENERATE_ON = createBlockTag("witchy_toadstool_can_generate_on");
 	public static final TagKey<Block> BRANCHING_SHRUB_CAN_GENERATE_ON = createBlockTag("branching_shrub_can_generate_on");
 	public static final TagKey<Block> INFESTED_DIRT_CAN_SPREAD_TO = createBlockTag("infested_dirt_can_spread_to");
@@ -23,6 +22,7 @@ public class PlantopiaBlockTags {
 	public static final TagKey<Block> GROUND_OVERWORLD = createBlockTag("ground_overworld");
 	public static final TagKey<Block> ORES_OVERWORLD = createBlockTag("ores_overworld");
 	public static final TagKey<Block> PACKED_ICE_REPLACEABLE_BLOCKS = createBlockTag("packed_ice_replaceable_blocks");
+	public static final TagKey<Block> SEA_MOSS_REPLACEABLE_BLOCKS = createBlockTag("sea_moss_replaceable_blocks");
 
 	public static @NotNull TagKey<Block> createBlockTag(String name) {
 		return TagKey.create(Registries.BLOCK, plantopia(name));

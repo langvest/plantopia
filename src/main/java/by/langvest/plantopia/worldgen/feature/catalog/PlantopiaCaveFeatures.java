@@ -4,13 +4,10 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleClusterConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaIcicleConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaLargeIcicleConfiguration;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaSeaHangingMossPatchConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.feature.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
 import by.langvest.toolkit.util.Catalog;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -39,24 +36,45 @@ public final class PlantopiaCaveFeatures {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEA_HANGING_MOSS_CAVE = declareFeature(
-        compileNameFrom(patchNameOf(PlantopiaBlocks.SEA_HANGING_MOSS), CAVE),
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SEA_HANGING_MOSS_CLUSTER = declareFeature(
+        compileNameFrom(PlantopiaBlocks.SEA_HANGING_MOSS, CLUSTER),
         PlantopiaFeatureDeclaration.builder()
-            .feature(configuredFeature(PlantopiaFeatureTypes.SEA_HANGING_MOSS_PATCH, context ->
-                new PlantopiaSeaHangingMossPatchConfiguration(
-                    UniformInt.of(5, 7), // xzSpread
+            .feature(configuredFeature(PlantopiaFeatureTypes.SEA_HANGING_MOSS_CLUSTER, context ->
+                new PlantopiaSeaHangingMossClusterConfiguration(
+                    UniformInt.of(5, 8), // xzSpread
                     ConstantInt.of(2), // ySpread
+                    ConstantInt.of(12), // searchDistance
                     weightedListInt(values -> values
-                        .add(UniformInt.of(2, 3), 8)
-                        .add(UniformInt.of(5, 10), 6)
-                        .add(UniformInt.of(12, 14), 9)
-                        .add(UniformInt.of(16, 20), 4)
+                        .add(ConstantInt.of(1), 1)
+                        .add(ConstantInt.of(2), 2)
+                        .add(ConstantInt.of(3), 3)
+                    ), // depth
+                    UniformFloat.of(0.3F, 0.7F), // curvature
+                    BlockPredicate.allOf(
+                        BlockPredicate.matchesTag(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE),
+                        BlockPredicate.anyOf(
+                            BlockPredicate.not(BlockPredicate.solid(BlockPos.ZERO.below())),
+                            BlockPredicate.allOf(
+                                BlockPredicate.matchesBlocks(BlockPos.ZERO.below(), PlantopiaBlocks.SEA_MOSS_BLOCK.get()),
+                                BlockPredicate.anyOf(
+                                    BlockPredicate.not(BlockPredicate.solid(BlockPos.ZERO.north())),
+                                    BlockPredicate.not(BlockPredicate.solid(BlockPos.ZERO.south())),
+                                    BlockPredicate.not(BlockPredicate.solid(BlockPos.ZERO.east())),
+                                    BlockPredicate.not(BlockPredicate.solid(BlockPos.ZERO.west()))
+                                )
+                            )
+                        ),
+                        BlockPredicate.solid(BlockPos.ZERO.above())
+                    ), // allowedBasisPlacement
+                    weightedListInt(values -> values
+                        .add(UniformInt.of(2, 3), 6)
+                        .add(UniformInt.of(4, 7), 4)
+                        .add(UniformInt.of(8, 15), 2)
+                        .add(UniformInt.of(16, 20), 1)
                     ), // height
-                    UniformFloat.of(0.68F, 0.88F), // heightFalloff
-                    ConstantFloat.of(0.148F), // heightErosion
-                    ConstantFloat.of(0.96F), // edgeErosion
-                    ConstantInt.of(9), // searchDistance
-                    BlockPredicate.matchesTag(PlantopiaBlockTags.SEA_HANGING_MOSS_CAN_GENERATE_ON), // allowedAttachment
+                    UniformFloat.of(0.58F, 0.88F), // heightFalloff
+                    ConstantFloat.of(0.218F), // heightErosion
+                    ConstantFloat.of(0.98F), // edgeErosion
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GLOW_LICHEN) // allowedPlacement
                 )
             ))

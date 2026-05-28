@@ -1,0 +1,6 @@
+{
+	"type": "forge:add_features",
+	"biomes": "#plantopia:has_feature/sea_hanging_moss_cluster",
+	"features": "plantopia:sea_hanging_moss_cluster",
+	"step": "vegetal_decoration"
+}

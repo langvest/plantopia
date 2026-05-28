@@ -1,9 +1,9 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
+import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPitConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -28,59 +28,45 @@ public class PlantopiaPitFeature extends Feature<PlantopiaPitConfiguration> {
         int baseY = level.getHeight(heightmap, centerPos.getX(), centerPos.getZ());
         float curvature = config.curvature().sample(random);
         double frequency = 0.05 + curvature * 0.1;
+        var mutablePos = new BlockPos.MutableBlockPos();
         boolean successfullyPlaced = false;
 
         for (int dx = -xzSpread; dx <= xzSpread; dx++) {
             for (int dz = -xzSpread; dz <= xzSpread; dz++) {
-                var xzPos = centerPos.offset(dx, 0, dz);
+                int x = centerPos.getX() + dx;
+                int z = centerPos.getZ() + dz;
 
-                if (isWithinShape(xzPos, dx, dz, xzSpread, curvature, frequency)) {
-                    int y = level.getHeight(heightmap, xzPos.getX(), xzPos.getZ());
+                if (!PlantopiaMathHelper.isWithinShape(x, z, dx, dz, xzSpread, curvature, frequency)) {
+                    continue;
+                }
 
-                    if (Math.abs(y - baseY) > ySpread) {
-                        continue;
-                    }
+                int y = level.getHeight(heightmap, x, z);
 
-                    var mutablePos = new BlockPos.MutableBlockPos(xzPos.getX(), y, xzPos.getZ());
-                    int depth = config.depth().sample(random);
+                if (Math.abs(y - baseY) > ySpread) {
+                    continue;
+                }
 
-                    for (int i = 0; i < depth; i++) {
-                        mutablePos.move(0, -1, 0);
+                mutablePos.set(x, y, z);
 
-                        if (predicate.map(p -> p.test(level, mutablePos)).orElse(true)) {
-                            level.setBlock(mutablePos, config.toPlace().getState(random, mutablePos), Block.UPDATE_CLIENTS);
-                            successfullyPlaced = true;
+                int depth = config.depth().sample(random);
 
-                            if (i == 0) {
-                                markAboveForPostProcessing(level, mutablePos);
-                            }
-                        } else {
-                            break;
+                for (int i = 0; i < depth; i++) {
+                    mutablePos.move(0, -1, 0);
+
+                    if (predicate.map(p -> p.test(level, mutablePos)).orElse(true)) {
+                        level.setBlock(mutablePos, config.toPlace().getState(random, mutablePos), Block.UPDATE_CLIENTS);
+                        successfullyPlaced = true;
+
+                        if (i == 0) {
+                            markAboveForPostProcessing(level, mutablePos);
                         }
+                    } else {
+                        break;
                     }
                 }
             }
         }
 
         return successfullyPlaced;
-    }
-
-    protected boolean isWithinShape(BlockPos zxPos, int dx, int dz, int radius, float curvature, double frequency) {
-        double distanceSq = dx * dx + dz * dz;
-        if (distanceSq > radius * radius) {
-            return false;
-        }
-
-        if (curvature == 0) {
-            return true;
-        }
-
-        double distanceFalloff = Math.sqrt(distanceSq) / radius;
-
-        @SuppressWarnings("removal")
-        double noiseValue = Biome.BIOME_INFO_NOISE.getValue((double) zxPos.getX() * frequency, (double) zxPos.getZ() * frequency, false);
-        double normalizedNoise = (noiseValue + 1.0) / 2.0;
-
-        return normalizedNoise > distanceFalloff;
     }
 }
