@@ -1,3 +1,35 @@
+//
+//                          _ooOoo_
+//                         o8888888o
+//                         88" . "88
+//                         (| -_- |)
+//                          O\ = /O
+//                      ____/`---'\____
+//                    .   ' \\| |// `.
+//                     / \\||| 8 |||// \
+//                   / _||||| -8- |||||- \
+//                     | | \\\ 8 /// | |
+//                   | \_| ''\-8-/'' | |
+//                    \ .-\__ `8` ___/-. /
+//                 ___`. .' /--8--\ `. . __
+//              ."" '< `.___\_<8>_/___.' >'"".
+//             | | : `- \`.;`\ 8 /`;.`/ - ` : | |
+//               \ \ `-. \_ __\ /__ _/ .-` / /
+//       ======`-.____`-.___\_____/___.-`____.-'======
+//                          `=---='
+//
+//       .............................................
+//                Buddha bless, never bug
+//                   Buddha said:
+//                         The office in the office building, the programmer in the office;
+//                         The programmer writes the program and exchanges the program for wine.
+//                         I only sit on the Internet when waking up, and come to sleep under the Internet when drunk;
+//                         Drunk and sober day after day, online and offline year after year.
+//                         I hope to die in the computer room and not bow to the boss;
+//                         Mercedes-Benz BMW is the most interesting, bus programmer.
+//                         People laugh at me crazy, I laugh at others watching porn;
+//                         If you don’t see all the pretty girls, which one is the programmer?
+
 package by.langvest.plantopia;
 
 import by.langvest.plantopia.adv.trigger.PlantopiaAdvancementTriggers;
