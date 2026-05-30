@@ -1,0 +1,40 @@
+modLoader = "javafml"
+loaderVersion = "${forge_loader_version_range}"
+license = "${mod_license}"
+issueTrackerURL = "${mod_issues}"
+
+[[mixins]]
+	config = "${mod_id}.mixins.json"
+
+[[mixins]]
+	config = "${mod_id}.neoforge.mixins.json"
+
+[[mods]]
+	modId = "plantopia"
+	version = "${mod_version}"
+	displayName = "${mod_name}"
+	description = "${mod_description}"
+	displayURL = "${mod_homepage}"
+	authors = "${mod_author}"
+	logoFile = "logo.png"
+
+[[dependencies.plantopia]]
+	modId = "terrablender"
+	required = true
+	versionRange = "${terrablender_version_range}"
+	ordering = "NONE"
+	side = "BOTH"
+
+[[dependencies.plantopia]]
+	modId = "neoforge"
+	required = true
+	versionRange = "${neoforge_version_range}"
+	ordering = "NONE"
+	side = "BOTH"
+
+[[dependencies.plantopia]]
+	modId = "minecraft"
+	required = true
+	versionRange = "${minecraft_version_range}"
+	ordering = "NONE"
+	side = "BOTH"

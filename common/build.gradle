@@ -1,0 +1,26 @@
+plugins {
+    id "org.spongepowered.gradle.vanilla" version "$spongepowered_gradle_version"
+}
+
+dependencies {
+    compileOnly "org.spongepowered:mixin:$mixin_version"
+    compileOnly "com.github.glitchfiend:TerraBlender-common:$minecraft_version-$terrablender_version"
+    compileOnly "com.google.code.findbugs:jsr305:$findbugs_version"
+}
+
+minecraft {
+    version minecraft_version
+
+    if (file(access_widener_path).exists()) {
+        accessWideners file(access_widener_path)
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir "src/generated/resources"
+            exclude ".cache"
+        }
+    }
+}

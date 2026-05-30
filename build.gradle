@@ -1,164 +1,110 @@
 plugins {
     id "idea"
     id "maven-publish"
-    id "net.minecraftforge.gradle" version "$forge_gradle_version"
-    id "org.spongepowered.mixin" version "$mixin_gradle_version"
-	id "org.parchmentmc.librarian.forgegradle" version "$parchment_gradle_version"
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7" // Required for NeoGradle
 }
 
 JavaLanguageVersion JAVA_VERSION = JavaLanguageVersion.of(java_version)
-SourceSet MAIN_SOURCE_SET = sourceSets.main
-Set<String> FILES_TO_EXPAND = ["pack.mcmeta", "META-INF/mods.toml"]
-String MAIN_RESOURCES_PATH = "src/main/resources"
-String GENERATED_RESOURCES_PATH = "src/generated/resources"
-String ACCESS_TRANSFORMER_PATH = "$MAIN_RESOURCES_PATH/META-INF/accesstransformer.cfg"
-String DATA_PATH = data_package.replaceAll(/\./, "/")
-String DATA_HANDLER_PATH = data_handler.replaceAll(/\./, "/") + ".class"
-
-ext {
-	mixin_config = mod_id + ".mixins.json"
-	mixin_refmap = mod_id + ".refmap.json"
-	java_vm_version = System.getProperty("java.vm.version")
-	java_vm_vendor = System.getProperty("java.vm.vendor")
-}
-
-version = minecraft_version + "-" + mod_version
-group = mod_group_id
-
-base {
-    archivesName = "$mod_archives_base_name-forge"
-}
+String JAVA_VM_VERSION = System.getProperty("java.vm.version")
+String JAVA_VM_VENDOR = System.getProperty("java.vm.vendor")
+Set<String> FILES_TO_EXPAND = ["pack.mcmeta", "fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "*.mixins.json"]
 
 println "$mod_name: $mod_version"
-println "Forge: $forge_version"
+println "Java: $JAVA_VM_VERSION ($JAVA_VM_VENDOR)"
 println "Minecraft: $minecraft_version"
-println "Java: $java_vm_version ($java_vm_vendor)"
 
-dependencies {
-	minecraft "net.minecraftforge:forge:$minecraft_version-$forge_version"
-    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:$minecraft_version-$terrablender_version")
-	annotationProcessor "org.spongepowered:mixin:$mixin_processor_version:processor"
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
-sourceSets {
-	main {
-		resources {
-			srcDir GENERATED_RESOURCES_PATH
-			exclude ".cache"
-		}
-	}
-}
+subprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "maven-publish"
 
-mixin {
-	add MAIN_SOURCE_SET, mixin_refmap
-	config mixin_config
-}
+    ext {
+        platform_name = project.name.toLowerCase()
+        common_mixin_config = "${mod_id}.mixins.json"
+        platform_mixin_config = "${mod_id}.${platform_name}.mixins.json"
+        mixin_refmap = "${mod_id}.refmap.json"
+        datagen_package_path = datagen_package.replaceAll(/\./, "/")
+        datagen_handler_path = datagen_handler.replaceAll(/\./, "/") + ".class"
+        access_widener_path = "src/main/resources/${mod_id}.accesswidener"
+        access_transformer_path = "src/main/resources/META-INF/accesstransformer.cfg"
+    }
 
-minecraft {
-	mappings channel: parchment_channel, version: parchment_version
+    version = minecraft_version + "-" + mod_version
+    group = mod_group_id
 
-	copyIdeResources = true
+    base {
+        archivesName = "$mod_archives_base_name-$platform_name"
+    }
 
-	accessTransformer file(ACCESS_TRANSFORMER_PATH)
+    java {
+        sourceCompatibility = JAVA_VERSION
+        targetCompatibility = JAVA_VERSION
+        toolchain.languageVersion.set(JAVA_VERSION)
+        withSourcesJar()
+        withJavadocJar()
+    }
 
-	runs {
-		configureEach {
-			workingDirectory file("run")
-			property "forge.logging.markers", "REGISTRIES"
-			property "forge.logging.console.level", "info"
-			args "-mixin.config", mixin_config
+    repositories {
+        mavenCentral()
 
-			mods {
-				"$mod_id" {
-					source MAIN_SOURCE_SET
-				}
-			}
-		}
+        maven {
+            name = "SpongePowered"
+            url = "https://repo.spongepowered.org/repository/maven-public"
+        }
 
-		client {
-			taskName "runClient"
-			property "forge.enabledGameTestNamespaces", mod_id
-			args "--username", "LanGvest"
-		}
+        maven {
+            name = "Forge"
+            url = "https://maven.minecraftforge.net"
+        }
+    }
 
-		server {
-			taskName "runServer"
-			property "forge.enabledGameTestNamespaces", mod_id
-		}
+    jar {
+        manifest {
+            attributes "Specification-Title": mod_name
+            attributes "Specification-Version": mod_version
+            attributes "Specification-Vendor": mod_author
+            attributes "Implementation-Title": project.name
+            attributes "Implementation-Version": mod_version
+            attributes "Implementation-Vendor": mod_author
+            attributes "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            attributes "Timestamp": System.currentTimeMillis()
+            attributes "Built-On-Java": "$JAVA_VM_VERSION ($JAVA_VM_VENDOR)"
+            attributes "Built-On-Minecraft": minecraft_version
+        }
 
-		data {
-			taskName "generateData"
-			args "--mod", mod_id, "--all", "--output", file(GENERATED_RESOURCES_PATH), "--existing", file(MAIN_RESOURCES_PATH)
-		}
-	}
-}
+        from "LICENSE"
+        exclude datagen_package_path, datagen_handler_path
+    }
 
-java {
-	sourceCompatibility = JAVA_VERSION
-	targetCompatibility = JAVA_VERSION
-	toolchain.languageVersion.set(JAVA_VERSION)
-}
+    processResources {
+        Properties properties = new Properties()
 
-jar {
-	finalizedBy "reobfJar"
+        file("${rootProject.projectDir}/gradle.properties").withInputStream {
+            properties.load(it)
+        }
 
-	manifest {
-		attributes "Specification-Title": mod_name
-		attributes "Specification-Version": mod_version
-		attributes "Specification-Vendor": mod_author
-		attributes "Implementation-Title": mod_name
-		attributes "Implementation-Version": mod_version
-		attributes "Implementation-Vendor": mod_author
-		attributes "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-		attributes "Timestamp": System.currentTimeMillis()
-		attributes "Built-On-Forge": forge_version
-		attributes "Built-On-Minecraft": minecraft_version
-		attributes "Built-On-Java": "$java_vm_version ($java_vm_vendor)"
-		attributes "MixinConfigs": mixin_config
-	}
+        inputs.properties(properties)
 
-	from "LICENSE"
-	exclude DATA_PATH
-	exclude DATA_HANDLER_PATH
-}
+        filesMatching(FILES_TO_EXPAND) {
+            expand properties
+        }
+    }
 
-processResources {
-	Properties properties = new Properties()
+    // Кодировка и версия Java для компиляции
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = JAVA_VERSION.asInt()
+    }
 
-	file("gradle.properties").withInputStream {
-		properties.load(it)
-	}
-
-	inputs.properties(properties)
-
-	filesMatching(FILES_TO_EXPAND) {
-		expand properties
-	}
-}
-
-idea.module {
-	downloadJavadoc = true
-	downloadSources = true
-}
-
-tasks.withType(JavaCompile).configureEach {
-	options.encoding = "UTF-8"
-	options.release = JAVA_VERSION.asInt()
-}
-
-tasks.withType(GenerateModuleMetadata).configureEach {
-	enabled = false
-}
-
-tasks.withType(JavaExec).configureEach {
-	if (name == minecraft.runs.data.taskName) {
-		doLast {
-			fileTree(GENERATED_RESOURCES_PATH).files.findAll {
-				it.name.endsWith(".json")
-			} each {
-				it.text = it.text.replaceAll(/(?m)(?<=^\s{0,100}) {2}/, "\t")
-				println "Reindent $it succeeded"
-			}
-		}
-	}
+    // Отключаем генерацию метаданных модулей
+    tasks.withType(GenerateModuleMetadata).configureEach {
+        enabled = false
+    }
 }
