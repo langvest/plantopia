@@ -23,12 +23,14 @@ public class PlantopiaLuckyDaisyDyeRecipe implements CraftingRecipe {
     private final CraftingBookCategory category;
     private final ItemStack result;
     private final Ingredient daisy;
+    private final boolean showNotification;
 
-    public PlantopiaLuckyDaisyDyeRecipe(String group, CraftingBookCategory category, ItemStack result, Ingredient daisy) {
+    public PlantopiaLuckyDaisyDyeRecipe(String group, CraftingBookCategory category, ItemStack result, Ingredient daisy, boolean showNotification) {
         this.group = group;
         this.category = category;
         this.daisy = daisy;
         this.result = result;
+        this.showNotification = showNotification;
     }
 
     @Override
@@ -54,6 +56,11 @@ public class PlantopiaLuckyDaisyDyeRecipe implements CraftingRecipe {
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         return NonNullList.of(Ingredient.EMPTY, daisy);
+    }
+
+    @Override
+    public boolean showNotification() {
+        return showNotification;
     }
 
     @Override
@@ -112,7 +119,8 @@ public class PlantopiaLuckyDaisyDyeRecipe implements CraftingRecipe {
             Codec.STRING.fieldOf("group").orElse("").forGetter(it -> it.group),
             CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(it -> it.category),
             ItemStack.CODEC.fieldOf("result").forGetter(it -> it.result),
-            Ingredient.CODEC.fieldOf("daisy").forGetter(it -> it.daisy)
+            Ingredient.CODEC.fieldOf("daisy").forGetter(it -> it.daisy),
+            Codec.BOOL.fieldOf("show_notification").forGetter(it -> it.showNotification)
         ).apply(instance, PlantopiaLuckyDaisyDyeRecipe::new));
 
         @Override
@@ -126,8 +134,9 @@ public class PlantopiaLuckyDaisyDyeRecipe implements CraftingRecipe {
             CraftingBookCategory category = buffer.readEnum(CraftingBookCategory.class);
             Ingredient daisy = Ingredient.fromNetwork(buffer);
             ItemStack result = buffer.readItem();
+            boolean showNotification = buffer.readBoolean();
 
-            return new PlantopiaLuckyDaisyDyeRecipe(group, category, result, daisy);
+            return new PlantopiaLuckyDaisyDyeRecipe(group, category, result, daisy, showNotification);
         }
 
         @Override
@@ -136,6 +145,7 @@ public class PlantopiaLuckyDaisyDyeRecipe implements CraftingRecipe {
             buffer.writeEnum(recipe.category);
             recipe.daisy.toNetwork(buffer);
             buffer.writeItem(recipe.result);
+            buffer.writeBoolean(recipe.showNotification);
         }
     }
 }

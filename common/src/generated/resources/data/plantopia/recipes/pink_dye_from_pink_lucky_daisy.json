@@ -6,7 +6,8 @@
     },
     "group": "pink_dye",
     "result": {
-        "item": "minecraft:pink_dye"
+        "Count": 1,
+        "id": "minecraft:pink_dye"
     },
     "show_notification": true
 }

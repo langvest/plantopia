@@ -2,11 +2,13 @@ package by.langvest.plantopia.neoforge.datagen.recipe.builder;
 
 import by.langvest.plantopia.recipe.PlantopiaRecipeSerializers;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -17,8 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
 
 public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder implements RecipeBuilder {
     protected final RecipeCategory category = RecipeCategory.MISC;
@@ -126,10 +126,10 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder i
 
             json.add("daisy", daisy.toJson(false));
 
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("item", locationOf(result).toString());
-
-            json.add("result", jsonObject);
+            ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, result.getDefaultInstance())
+                .resultOrPartial(e -> { throw new IllegalStateException("Failed to encode result item: " + e); })
+                .ifPresent(resultJson -> json.add("result", resultJson));
+            
             json.addProperty("show_notification", showNotification);
         }
 
