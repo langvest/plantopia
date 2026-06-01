@@ -1,21 +1,21 @@
 {
-	"ambientocclusion": false,
-	"textures": {
-		"particle": "#shards"
-	},
-	"elements": [
-		{
-			"from": [5, 0, 5],
-			"to": [11, 4, 11],
-			"rotation": { "angle": 0, "axis": "y", "origin": [8, 2, 8] },
-			"faces": {
-				"north": { "uv": [0, 6, 6, 10], "texture": "#shards" },
-				"east": { "uv": [0, 6, 6, 10], "texture": "#shards" },
-				"south": { "uv": [0, 6, 6, 10], "texture": "#shards" },
-				"west": { "uv": [0, 6, 6, 10], "texture": "#shards" },
-				"up": { "uv": [0, 0, 6, 6], "texture": "#shards" },
-				"down": { "uv": [9, 16, 15, 10], "texture": "#shards", "cullface": "down" }
-			}
-		}
-	]
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "#shards"
+    },
+    "elements": [
+        {
+            "from": [5, 0, 5],
+            "to": [11, 4, 11],
+            "rotation": { "angle": 0, "axis": "y", "origin": [8, 2, 8] },
+            "faces": {
+                "north": { "uv": [0, 6, 6, 10], "texture": "#shards" },
+                "east": { "uv": [0, 6, 6, 10], "texture": "#shards" },
+                "south": { "uv": [0, 6, 6, 10], "texture": "#shards" },
+                "west": { "uv": [0, 6, 6, 10], "texture": "#shards" },
+                "up": { "uv": [0, 0, 6, 6], "texture": "#shards" },
+                "down": { "uv": [9, 16, 15, 10], "texture": "#shards", "cullface": "down" }
+            }
+        }
+    ]
 }

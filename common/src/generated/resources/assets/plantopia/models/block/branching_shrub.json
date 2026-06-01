@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cross",
-	"textures": {
-		"cross": "plantopia:block/branching_shrub"
-	}
+    "parent": "minecraft:block/cross",
+    "textures": {
+        "cross": "plantopia:block/branching_shrub"
+    }
 }

@@ -1,32 +1,32 @@
 {
-	"feature": "plantopia:patch_cobblestone_shard",
-	"placement": [
-		{
-			"type": "minecraft:count",
-			"count": {
-				"type": "minecraft:clamped",
-				"value": {
-					"max_inclusive": 3,
-					"min_inclusive": 1,
-					"source": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 3,
-							"min_inclusive": 0
-						}
-					}
-				}
-			}
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "OCEAN_FLOOR_WG"
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "plantopia:patch_cobblestone_shard",
+    "placement": [
+        {
+            "type": "minecraft:count",
+            "count": {
+                "type": "minecraft:clamped",
+                "value": {
+                    "max_inclusive": 3,
+                    "min_inclusive": 1,
+                    "source": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 3,
+                            "min_inclusive": 0
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "OCEAN_FLOOR_WG"
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

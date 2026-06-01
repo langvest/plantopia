@@ -1,11 +1,12 @@
 {
-	"type": "plantopia:crafting_lucky_daisy_dye",
-	"category": "misc",
-	"daisy": {
-		"item": "plantopia:white_lucky_daisy"
-	},
-	"group": "light_gray_dye",
-	"result": {
-		"item": "minecraft:light_gray_dye"
-	}
+    "type": "plantopia:crafting_lucky_daisy_dye",
+    "category": "misc",
+    "daisy": {
+        "item": "plantopia:white_lucky_daisy"
+    },
+    "group": "light_gray_dye",
+    "result": {
+        "item": "minecraft:light_gray_dye"
+    },
+    "show_notification": true
 }

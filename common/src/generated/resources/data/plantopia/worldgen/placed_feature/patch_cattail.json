@@ -1,60 +1,60 @@
 {
-	"feature": "plantopia:patch_cattail",
-	"placement": [
-		{
-			"type": "plantopia:rarity_filter",
-			"chance": 5.0
-		},
-		{
-			"type": "minecraft:count",
-			"count": {
-				"type": "minecraft:clamped",
-				"value": {
-					"max_inclusive": 3,
-					"min_inclusive": 2,
-					"source": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 3,
-							"min_inclusive": 1
-						}
-					}
-				}
-			}
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "OCEAN_FLOOR_WG"
-		},
-		{
-			"type": "minecraft:environment_scan",
-			"direction_of_search": "down",
-			"max_steps": 4,
-			"target_condition": {
-				"type": "minecraft:matching_fluids",
-				"fluids": "minecraft:water"
-			}
-		},
-		{
-			"type": "plantopia:range_filter",
-			"bottom_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"absolute": 62
-				}
-			},
-			"top_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"below_top": 0
-				}
-			}
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "plantopia:patch_cattail",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": 5.0
+        },
+        {
+            "type": "minecraft:count",
+            "count": {
+                "type": "minecraft:clamped",
+                "value": {
+                    "max_inclusive": 3,
+                    "min_inclusive": 2,
+                    "source": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 3,
+                            "min_inclusive": 1
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "OCEAN_FLOOR_WG"
+        },
+        {
+            "type": "minecraft:environment_scan",
+            "direction_of_search": "down",
+            "max_steps": 4,
+            "target_condition": {
+                "type": "minecraft:matching_fluids",
+                "fluids": "minecraft:water"
+            }
+        },
+        {
+            "type": "plantopia:range_filter",
+            "bottom_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "absolute": 62
+                }
+            },
+            "top_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "below_top": 0
+                }
+            }
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

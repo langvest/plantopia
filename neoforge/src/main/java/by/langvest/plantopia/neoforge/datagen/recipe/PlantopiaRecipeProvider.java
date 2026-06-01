@@ -2,11 +2,13 @@ package by.langvest.plantopia.neoforge.datagen.recipe;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.neoforge.datagen.recipe.builder.PlantopiaLuckyDaisyDyeRecipeBuilder;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
+import by.langvest.toolkit.platform.EventEmitter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
@@ -28,9 +30,50 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaRecipeProvider extends RecipeProvider implements IConditionBuilder {
     private static RecipeOutput output;
+    private final PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge bridge;
 
-    public PlantopiaRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public PlantopiaRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, @NotNull EventEmitter eventEmitter) {
         super(output, registryLookup);
+        this.bridge = createBridge();
+        eventEmitter.subscribe(this::listenBridge);
+    }
+
+    protected PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge createBridge() {
+        return new PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge() {
+            @Override
+            public void planksFromLogs(ItemLike planks, TagKey<Item> logsTag, int count) {
+                PlantopiaRecipeProvider.planksFromLogs(planks, logsTag, count);
+            }
+
+            @Override
+            public void woodFromLogs(ItemLike wood, ItemLike log) {
+                PlantopiaRecipeProvider.woodFromLogs(wood, log);
+            }
+
+            @Override
+            public void woodenBoat(ItemLike boat, ItemLike planks) {
+                PlantopiaRecipeProvider.woodenBoat(boat, planks);
+            }
+
+            @Override
+            public void chestBoat(ItemLike chestBoat, ItemLike boat) {
+                PlantopiaRecipeProvider.chestBoat(chestBoat, boat);
+            }
+
+            @Override
+            public void hangingSign(ItemLike hangingSign, ItemLike strippedLog) {
+                PlantopiaRecipeProvider.hangingSign(hangingSign, strippedLog);
+            }
+
+            @Override
+            public void blockFamily(BlockFamily blockFamily) {
+                PlantopiaRecipeProvider.blockFamily(blockFamily);
+            }
+        };
+    }
+
+    protected void listenBridge(PlantopiaDatagenBridgeEvent.@NotNull RecipeEvent event) {
+        event.provide(bridge);
     }
 
     @Override
@@ -53,9 +96,19 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
         leafLitterRecipe(PlantopiaBlocks.ORANGE_LEAF_LITTER.get(), PlantopiaKits.MAPLE.orangeLeaves.get());
         leafLitterRecipe(PlantopiaBlocks.RED_LEAF_LITTER.get(), PlantopiaKits.MAPLE.redLeaves.get());
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PlantopiaBlocks.SEA_MOSS_CARPET.get(), 3).pattern("##").define('#', PlantopiaBlocks.SEA_MOSS_BLOCK.get()).unlockedBy(getHasName(PlantopiaBlocks.SEA_MOSS_BLOCK.get()), has(PlantopiaBlocks.SEA_MOSS_BLOCK.get())).save(output, plantopia(getSimpleRecipeName(PlantopiaBlocks.SEA_MOSS_CARPET.get())));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PlantopiaBlocks.SEA_MOSS_CARPET.get(), 3)
+            .pattern("##")
+            .define('#', PlantopiaBlocks.SEA_MOSS_BLOCK.get())
+            .unlockedBy(getHasName(PlantopiaBlocks.SEA_MOSS_BLOCK.get()), has(PlantopiaBlocks.SEA_MOSS_BLOCK.get()))
+            .save(output, plantopia(getSimpleRecipeName(PlantopiaBlocks.SEA_MOSS_CARPET.get())));
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_ICE, 1).pattern("##").pattern("##").group(nameOf(Blocks.PACKED_ICE)).define('#', PlantopiaBlocks.ICICLE.get()).unlockedBy(getHasName(PlantopiaBlocks.ICICLE.get()), has(PlantopiaBlocks.ICICLE.get())).save(output, plantopia(getSimpleRecipeName(Blocks.PACKED_ICE)));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_ICE, 1)
+            .pattern("##")
+            .pattern("##")
+            .group(nameOf(Blocks.PACKED_ICE))
+            .define('#', PlantopiaBlocks.ICICLE.get())
+            .unlockedBy(getHasName(PlantopiaBlocks.ICICLE.get()), has(PlantopiaBlocks.ICICLE.get()))
+            .save(output, plantopia(getSimpleRecipeName(Blocks.PACKED_ICE)));
     }
 
     private static void setRecipeOutput(@NotNull RecipeOutput output) {
@@ -98,7 +151,8 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
         var color = blockMeta.getColor();
         if (color == null) return;
         var dye = DyeItem.byColor(color);
-        oneToOneConversionRecipe(RecipeCategory.MISC, dye, blockMeta.get(), nameOf(dye), blockMeta.getBlockHeightType().getBaseHeight());
+        int amount = blockMeta.getBlockHeightType().getBaseHeight();
+        oneToOneConversionRecipe(RecipeCategory.MISC, dye, blockMeta.get(), nameOf(dye), amount);
     }
 
     public static void luckyDaisyDye(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -108,29 +162,51 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
         Item daisyItem = blockMeta.get().asItem();
         Item colorDye = DyeItem.byColor(color);
 
-        PlantopiaLuckyDaisyDyeRecipeBuilder.of(Ingredient.of(daisyItem), colorDye).group(nameOf(colorDye)).unlockedBy(getHasName(daisyItem), has(daisyItem)).save(output, plantopia(getConversionRecipeName(colorDye, daisyItem)));
+        PlantopiaLuckyDaisyDyeRecipeBuilder.of(Ingredient.of(daisyItem), colorDye)
+            .group(nameOf(colorDye))
+            .unlockedBy(getHasName(daisyItem), has(daisyItem))
+            .save(output, plantopia(getConversionRecipeName(colorDye, daisyItem)));
     }
 
     /* RECIPE GENERATION HELPER METHODS ******************************************/
 
     public static void oneToOneConversionRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, String group, int resultAmount) {
-        ShapelessRecipeBuilder.shapeless(category, result, resultAmount).requires(ingredient).group(group).unlockedBy(getHasName(ingredient), has(ingredient)).save(output, plantopia(getConversionRecipeName(result, ingredient)));
+        ShapelessRecipeBuilder.shapeless(category, result, resultAmount)
+            .requires(ingredient)
+            .group(group)
+            .unlockedBy(getHasName(ingredient), has(ingredient))
+            .save(output, plantopia(getConversionRecipeName(result, ingredient)));
     }
 
     public static void fullBlockRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient) {
-        ShapedRecipeBuilder.shaped(category, result).define('#', ingredient).pattern("###").pattern("###").pattern("###").unlockedBy(getHasName(ingredient), has(ingredient)).save(output, plantopia(getSimpleRecipeName(result)));
+        ShapedRecipeBuilder.shaped(category, result)
+            .define('#', ingredient)
+            .pattern("###")
+            .pattern("###")
+            .pattern("###")
+            .unlockedBy(getHasName(ingredient), has(ingredient))
+            .save(output, plantopia(getSimpleRecipeName(result)));
     }
 
     public static void stonecutterRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, int resultAmount) {
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingredient), category, result, resultAmount).unlockedBy(getHasName(ingredient), has(ingredient)).save(output, plantopia(getConversionRecipeName(result, ingredient) + "_stonecutting"));
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingredient), category, result, resultAmount)
+            .unlockedBy(getHasName(ingredient), has(ingredient))
+            .save(output, plantopia(getConversionRecipeName(result, ingredient) + "_stonecutting"));
     }
 
     public static void smeltingRecipe(RecipeCategory category, ItemLike result, ItemLike ingredient, float experience, int cookingTime) {
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), category, result, experience, cookingTime).unlockedBy(getHasName(ingredient), has(ingredient)).save(output, plantopia(getConversionRecipeName(result, ingredient) + "_smelting"));
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), category, result, experience, cookingTime)
+            .unlockedBy(getHasName(ingredient), has(ingredient))
+            .save(output, plantopia(getConversionRecipeName(result, ingredient) + "_smelting"));
     }
 
     public static void leafLitterRecipe(ItemLike leafLitter, ItemLike leaves) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, leafLitter, 6).define('#', leaves).pattern("##").group("leaf_litter").unlockedBy(getHasName(leaves), has(leaves)).save(output, plantopia(getSimpleRecipeName(leafLitter)));
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, leafLitter, 6)
+            .pattern("##")
+            .define('#', leaves)
+            .group("leaf_litter")
+            .unlockedBy(getHasName(leaves), has(leaves))
+            .save(output, plantopia(getSimpleRecipeName(leafLitter)));
     }
 
     public static void planksFromLogs(ItemLike planks, TagKey<Item> logsTag, int count) {

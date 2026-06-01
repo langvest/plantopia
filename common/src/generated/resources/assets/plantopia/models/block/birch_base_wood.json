@@ -1,8 +1,8 @@
 {
-	"parent": "minecraft:block/cube_bottom_top",
-	"textures": {
-		"bottom": "plantopia:block/birch_base_wood_bottom",
-		"side": "plantopia:block/birch_base_log",
-		"top": "minecraft:block/birch_log"
-	}
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "bottom": "plantopia:block/birch_base_wood_bottom",
+        "side": "plantopia:block/birch_base_log",
+        "top": "minecraft:block/birch_log"
+    }
 }

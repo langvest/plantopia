@@ -1,7 +1,7 @@
 {
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:block/chicory_top",
-		"layer1": "plantopia:block/chicory_top_flowers"
-	}
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "plantopia:block/chicory_top",
+        "layer1": "plantopia:block/chicory_top_flowers"
+    }
 }

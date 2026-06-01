@@ -13,34 +13,34 @@ import org.jetbrains.annotations.NotNull;
 
 public final class PlantopiaClient {
     public static void init(Platform platform) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        PlantopiaClient.addListeners(globalEmitter);
+        PlantopiaClient.addListeners(globalEventEmitter);
     }
 
     @SuppressWarnings("DuplicatedCode")
-    private static void addListeners(@NotNull EventEmitter emitter) {
+    private static void addListeners(@NotNull EventEmitter eventEmitter) {
         // Colors
-        emitter.subscribe(PlantopiaBlockColors::setup);
-        emitter.subscribe(PlantopiaItemColors::setup);
+        eventEmitter.subscribe(PlantopiaBlockColors::setup);
+        eventEmitter.subscribe(PlantopiaItemColors::setup);
 
         // Block rendering
-        emitter.subscribe(PlantopiaBlockRenderLayers::setup);
-        emitter.subscribe(PlantopiaBlockEntityRenderers::setup);
+        eventEmitter.subscribe(PlantopiaBlockRenderLayers::setup);
+        eventEmitter.subscribe(PlantopiaBlockEntityRenderers::setup);
 
         // Entity rendering
-        emitter.subscribe(PlantopiaEntityRenderers::setup);
-        emitter.subscribe(PlantopiaEntityLayerDefinitions::setup);
+        eventEmitter.subscribe(PlantopiaEntityRenderers::setup);
+        eventEmitter.subscribe(PlantopiaEntityLayerDefinitions::setup);
 
         // Item rendering
-        emitter.subscribe(PlantopiaItemRenderers::setup);
-        emitter.subscribe(PlantopiaItemProperties::setup);
+        eventEmitter.subscribe(PlantopiaItemRenderers::setup);
+        eventEmitter.subscribe(PlantopiaItemProperties::setup);
 
         // Particles
-        emitter.subscribe(PlantopiaParticleProviders::setup);
+        eventEmitter.subscribe(PlantopiaParticleProviders::setup);
 
         // Other client work
-        emitter.subscribe(PlantopiaClient::setup);
+        eventEmitter.subscribe(PlantopiaClient::setup);
     }
 
     private static void setup(LifecycleEvent.ClientSetupEvent event) {

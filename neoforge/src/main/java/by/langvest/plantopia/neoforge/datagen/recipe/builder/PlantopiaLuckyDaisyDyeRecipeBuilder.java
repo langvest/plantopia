@@ -15,16 +15,18 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.locationOf;
 
 public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder implements RecipeBuilder {
     protected final RecipeCategory category = RecipeCategory.MISC;
     protected final Ingredient daisy;
     protected final Item result;
-    protected final Advancement.Builder builder = Advancement.Builder.recipeAdvancement();
-    @Nullable
-    protected String group;
-    protected boolean hasAtLeastOneCriteria = false;
+    protected final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
+    protected @Nullable String group;
+    protected boolean showNotification = true;
 
     public PlantopiaLuckyDaisyDyeRecipeBuilder(Ingredient daisy, @NotNull ItemLike result) {
         this.daisy = daisy;
@@ -38,14 +40,18 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder i
 
     @Override
     public @NotNull PlantopiaLuckyDaisyDyeRecipeBuilder unlockedBy(@NotNull String criterionName, @NotNull Criterion<?> criterion) {
-        builder.addCriterion(criterionName, criterion);
-        hasAtLeastOneCriteria = true;
+        criteria.put(criterionName, criterion);
         return this;
     }
 
     @Override
     public @NotNull PlantopiaLuckyDaisyDyeRecipeBuilder group(@Nullable String groupName) {
         group = groupName;
+        return this;
+    }
+
+    public PlantopiaLuckyDaisyDyeRecipeBuilder showNotification(boolean showNotification) {
+        this.showNotification = showNotification;
         return this;
     }
 
@@ -58,10 +64,12 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder i
     public void save(@NotNull RecipeOutput recipeOutput, @NotNull ResourceLocation recipeId) {
         ensureValid(recipeId);
 
-        builder
+        var advancementBuilder = recipeOutput.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
             .rewards(AdvancementRewards.Builder.recipe(recipeId))
             .requirements(AdvancementRequirements.Strategy.OR);
+
+        criteria.forEach(advancementBuilder::addCriterion);
 
         recipeOutput.accept(
             new PlantopiaLuckyDaisyDyeRecipeBuilder.Result(
@@ -70,14 +78,14 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder i
                 group == null ? "" : group,
                 determineBookCategory(category),
                 daisy,
-                builder,
-                recipeId.withPrefix("recipes/" + category.getFolderName() + "/")
+                advancementBuilder.build(recipeId.withPrefix("recipes/" + category.getFolderName() + "/")),
+                showNotification
             )
         );
     }
 
     private void ensureValid(ResourceLocation id) {
-        if (!hasAtLeastOneCriteria) {
+        if (criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + id);
         }
     }
@@ -88,14 +96,24 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder i
         private final String group;
         private final Ingredient daisy;
         private final AdvancementHolder advancement;
+        private final boolean showNotification;
 
-        public Result(ResourceLocation id, Item result, String group, CraftingBookCategory category, Ingredient daisy, Advancement.@NotNull Builder builder, ResourceLocation location) {
+        public Result(
+            ResourceLocation id,
+            Item result,
+            String group,
+            CraftingBookCategory category,
+            Ingredient daisy,
+            AdvancementHolder advancement,
+            boolean showNotification
+        ) {
             super(category);
             this.id = id;
             this.result = result;
             this.group = group;
             this.daisy = daisy;
-            this.advancement = builder.build(location);
+            this.advancement = advancement;
+            this.showNotification = showNotification;
         }
 
         @Override
@@ -112,6 +130,7 @@ public class PlantopiaLuckyDaisyDyeRecipeBuilder extends CraftingRecipeBuilder i
             jsonObject.addProperty("item", locationOf(result).toString());
 
             json.add("result", jsonObject);
+            json.addProperty("show_notification", showNotification);
         }
 
         @Override

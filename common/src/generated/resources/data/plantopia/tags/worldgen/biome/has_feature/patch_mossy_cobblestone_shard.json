@@ -1,8 +1,8 @@
 {
-	"values": [
-		"minecraft:lukewarm_ocean",
-		"minecraft:mangrove_swamp",
-		"minecraft:swamp",
-		"minecraft:warm_ocean"
-	]
+    "values": [
+        "minecraft:lukewarm_ocean",
+        "minecraft:mangrove_swamp",
+        "minecraft:swamp",
+        "minecraft:warm_ocean"
+    ]
 }

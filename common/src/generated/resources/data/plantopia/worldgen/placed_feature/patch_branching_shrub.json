@@ -1,34 +1,34 @@
 {
-	"feature": "plantopia:patch_branching_shrub",
-	"placement": [
-		{
-			"type": "plantopia:rarity_filter",
-			"chance": 8.24
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "OCEAN_FLOOR_WG"
-		},
-		{
-			"type": "plantopia:range_filter",
-			"bottom_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"absolute": 63
-				}
-			},
-			"top_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"below_top": 0
-				}
-			}
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "plantopia:patch_branching_shrub",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": 8.24
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "OCEAN_FLOOR_WG"
+        },
+        {
+            "type": "plantopia:range_filter",
+            "bottom_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "absolute": 63
+                }
+            },
+            "top_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "below_top": 0
+                }
+            }
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

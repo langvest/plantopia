@@ -1,79 +1,79 @@
 {
-	"ambientocclusion": false,
-	"textures": {
-		"stem": "plantopia:block/lily_pad_stem",
-		"texture": "minecraft:block/lily_pad",
-		"overlay": "plantopia:block/lily_pad_flower_overlay",
-		"particle": "#texture"
-	},
-	"elements": [
-		{
-			"from": [0, 0.25, 0],
-			"to": [16, 0.25, 16],
-			"faces": {
-				"up": { "uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0 },
-				"down": { "uv": [0, 16, 16, 0], "texture": "#texture", "tintindex": 0 }
-			}
-		},
-		{
-			"from": [1.3, 0.25, 10],
-			"to": [15.7, 16.25, 10],
-			"shade": false,
-			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
-			"faces": {
-				"north": { "uv": [0, 0, 16, 16], "texture": "#flower" },
-				"south": { "uv": [0, 0, 16, 16], "texture": "#flower" }
-			}
-		},
-		{
-			"from": [8.5, 0.25, 2.8],
-			"to": [8.5, 16.25, 17.2],
-			"shade": false,
-			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
-			"faces": {
-				"east": { "uv": [0, 0, 16, 16], "texture": "#flower" },
-				"west": { "uv": [0, 0, 16, 16], "texture": "#flower" }
-			}
-		},
-		{
-			"from": [1.3, 0.25, 10],
-			"to": [15.7, 16.25, 10],
-			"shade": false,
-			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
-			"faces": {
-				"north": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  },
-				"south": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  }
-			}
-		},
-		{
-			"from": [8.5, 0.25, 2.8],
-			"to": [8.5, 16.25, 17.2],
-			"shade": false,
-			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
-			"faces": {
-				"east": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  },
-				"west": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  }
-			}
-		},
-		{
-			"from": [1.3, -15.75, 10],
-			"to": [15.7, 0.25, 10],
-			"shade": false,
-			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, -7.75, 10], "rescale": true },
-			"faces": {
-				"north": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 },
-				"south": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 }
-			}
-		},
-		{
-			"from": [8.5, -15.75, 2.8],
-			"to": [8.5, 0.25, 17.2],
-			"shade": false,
-			"rotation": { "angle": 45, "axis": "y", "origin": [8.5, -7.75, 10], "rescale": true },
-			"faces": {
-				"east": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 },
-				"west": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 }
-			}
-		}
-	]
+    "ambientocclusion": false,
+    "textures": {
+        "stem": "plantopia:block/lily_pad_stem",
+        "texture": "minecraft:block/lily_pad",
+        "overlay": "plantopia:block/lily_pad_flower_overlay",
+        "particle": "#texture"
+    },
+    "elements": [
+        {
+            "from": [0, 0.25, 0],
+            "to": [16, 0.25, 16],
+            "faces": {
+                "up": { "uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0 },
+                "down": { "uv": [0, 16, 16, 0], "texture": "#texture", "tintindex": 0 }
+            }
+        },
+        {
+            "from": [1.3, 0.25, 10],
+            "to": [15.7, 16.25, 10],
+            "shade": false,
+            "rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
+            "faces": {
+                "north": { "uv": [0, 0, 16, 16], "texture": "#flower" },
+                "south": { "uv": [0, 0, 16, 16], "texture": "#flower" }
+            }
+        },
+        {
+            "from": [8.5, 0.25, 2.8],
+            "to": [8.5, 16.25, 17.2],
+            "shade": false,
+            "rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
+            "faces": {
+                "east": { "uv": [0, 0, 16, 16], "texture": "#flower" },
+                "west": { "uv": [0, 0, 16, 16], "texture": "#flower" }
+            }
+        },
+        {
+            "from": [1.3, 0.25, 10],
+            "to": [15.7, 16.25, 10],
+            "shade": false,
+            "rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
+            "faces": {
+                "north": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  },
+                "south": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  }
+            }
+        },
+        {
+            "from": [8.5, 0.25, 2.8],
+            "to": [8.5, 16.25, 17.2],
+            "shade": false,
+            "rotation": { "angle": 45, "axis": "y", "origin": [8.5, 8.25, 10], "rescale": true },
+            "faces": {
+                "east": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  },
+                "west": { "uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0  }
+            }
+        },
+        {
+            "from": [1.3, -15.75, 10],
+            "to": [15.7, 0.25, 10],
+            "shade": false,
+            "rotation": { "angle": 45, "axis": "y", "origin": [8.5, -7.75, 10], "rescale": true },
+            "faces": {
+                "north": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 },
+                "south": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 }
+            }
+        },
+        {
+            "from": [8.5, -15.75, 2.8],
+            "to": [8.5, 0.25, 17.2],
+            "shade": false,
+            "rotation": { "angle": 45, "axis": "y", "origin": [8.5, -7.75, 10], "rescale": true },
+            "faces": {
+                "east": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 },
+                "west": { "uv": [0, 0, 16, 16], "texture": "#stem", "tintindex": 0 }
+            }
+        }
+    ]
 }

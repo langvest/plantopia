@@ -1,7 +1,7 @@
 {
-	"values": [
-		"minecraft:endermite",
-		"minecraft:rabbit",
-		"minecraft:silverfish"
-	]
+    "values": [
+        "minecraft:endermite",
+        "minecraft:rabbit",
+        "minecraft:silverfish"
+    ]
 }

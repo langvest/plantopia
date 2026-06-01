@@ -1,7 +1,7 @@
 {
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:block/pink_clover_blossom",
-		"layer1": "plantopia:item/clover_blossom_stem"
-	}
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "plantopia:block/pink_clover_blossom",
+        "layer1": "plantopia:item/clover_blossom_stem"
+    }
 }

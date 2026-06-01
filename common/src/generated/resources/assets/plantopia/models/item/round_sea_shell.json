@@ -1,7 +1,7 @@
 {
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:item/round_sea_shell",
-		"layer1": "plantopia:item/round_sea_shell_overlay"
-	}
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "plantopia:item/round_sea_shell",
+        "layer1": "plantopia:item/round_sea_shell_overlay"
+    }
 }

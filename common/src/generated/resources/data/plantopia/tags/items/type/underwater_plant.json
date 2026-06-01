@@ -1,6 +1,6 @@
 {
-	"values": [
-		"#plantopia:type/sea_hanging_moss",
-		"plantopia:seaweed"
-	]
+    "values": [
+        "#plantopia:type/sea_hanging_moss",
+        "plantopia:seaweed"
+    ]
 }

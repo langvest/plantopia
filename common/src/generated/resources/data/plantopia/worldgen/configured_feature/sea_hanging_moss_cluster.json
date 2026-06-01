@@ -1,196 +1,196 @@
 {
-	"type": "plantopia:sea_hanging_moss_cluster",
-	"config": {
-		"allowed_basis_placement": {
-			"type": "minecraft:all_of",
-			"predicates": [
-				{
-					"type": "minecraft:matching_block_tag",
-					"tag": "plantopia:sea_moss_replaceable"
-				},
-				{
-					"type": "minecraft:any_of",
-					"predicates": [
-						{
-							"type": "minecraft:not",
-							"predicate": {
-								"type": "minecraft:solid",
-								"offset": [
-									0,
-									-1,
-									0
-								]
-							}
-						},
-						{
-							"type": "minecraft:all_of",
-							"predicates": [
-								{
-									"type": "minecraft:matching_blocks",
-									"blocks": "plantopia:sea_moss_block",
-									"offset": [
-										0,
-										-1,
-										0
-									]
-								},
-								{
-									"type": "minecraft:any_of",
-									"predicates": [
-										{
-											"type": "minecraft:not",
-											"predicate": {
-												"type": "minecraft:solid",
-												"offset": [
-													0,
-													0,
-													-1
-												]
-											}
-										},
-										{
-											"type": "minecraft:not",
-											"predicate": {
-												"type": "minecraft:solid",
-												"offset": [
-													0,
-													0,
-													1
-												]
-											}
-										},
-										{
-											"type": "minecraft:not",
-											"predicate": {
-												"type": "minecraft:solid",
-												"offset": [
-													1,
-													0,
-													0
-												]
-											}
-										},
-										{
-											"type": "minecraft:not",
-											"predicate": {
-												"type": "minecraft:solid",
-												"offset": [
-													-1,
-													0,
-													0
-												]
-											}
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"type": "minecraft:solid",
-					"offset": [
-						0,
-						1,
-						0
-					]
-				}
-			]
-		},
-		"allowed_plant_placement": {
-			"type": "minecraft:matching_blocks",
-			"blocks": [
-				"minecraft:air",
-				"minecraft:water",
-				"minecraft:glow_lichen"
-			]
-		},
-		"curvature": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_exclusive": 0.7,
-				"min_inclusive": 0.3
-			}
-		},
-		"depth": {
-			"type": "minecraft:weighted_list",
-			"distribution": [
-				{
-					"data": 1,
-					"weight": 1
-				},
-				{
-					"data": 2,
-					"weight": 2
-				},
-				{
-					"data": 3,
-					"weight": 3
-				}
-			]
-		},
-		"edge_erosion": 0.98,
-		"height": {
-			"type": "minecraft:weighted_list",
-			"distribution": [
-				{
-					"data": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 3,
-							"min_inclusive": 2
-						}
-					},
-					"weight": 6
-				},
-				{
-					"data": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 7,
-							"min_inclusive": 4
-						}
-					},
-					"weight": 4
-				},
-				{
-					"data": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 15,
-							"min_inclusive": 8
-						}
-					},
-					"weight": 2
-				},
-				{
-					"data": {
-						"type": "minecraft:uniform",
-						"value": {
-							"max_inclusive": 20,
-							"min_inclusive": 16
-						}
-					},
-					"weight": 1
-				}
-			]
-		},
-		"height_erosion": 0.218,
-		"height_falloff": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_exclusive": 0.88,
-				"min_inclusive": 0.58
-			}
-		},
-		"search_distance": 12,
-		"xz_spread": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_inclusive": 8,
-				"min_inclusive": 5
-			}
-		},
-		"y_spread": 2
-	}
+    "type": "plantopia:sea_hanging_moss_cluster",
+    "config": {
+        "allowed_basis_placement": {
+            "type": "minecraft:all_of",
+            "predicates": [
+                {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "plantopia:sea_moss_replaceable"
+                },
+                {
+                    "type": "minecraft:any_of",
+                    "predicates": [
+                        {
+                            "type": "minecraft:not",
+                            "predicate": {
+                                "type": "minecraft:solid",
+                                "offset": [
+                                    0,
+                                    -1,
+                                    0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "minecraft:all_of",
+                            "predicates": [
+                                {
+                                    "type": "minecraft:matching_blocks",
+                                    "blocks": "plantopia:sea_moss_block",
+                                    "offset": [
+                                        0,
+                                        -1,
+                                        0
+                                    ]
+                                },
+                                {
+                                    "type": "minecraft:any_of",
+                                    "predicates": [
+                                        {
+                                            "type": "minecraft:not",
+                                            "predicate": {
+                                                "type": "minecraft:solid",
+                                                "offset": [
+                                                    0,
+                                                    0,
+                                                    -1
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "minecraft:not",
+                                            "predicate": {
+                                                "type": "minecraft:solid",
+                                                "offset": [
+                                                    0,
+                                                    0,
+                                                    1
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "minecraft:not",
+                                            "predicate": {
+                                                "type": "minecraft:solid",
+                                                "offset": [
+                                                    1,
+                                                    0,
+                                                    0
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "minecraft:not",
+                                            "predicate": {
+                                                "type": "minecraft:solid",
+                                                "offset": [
+                                                    -1,
+                                                    0,
+                                                    0
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "minecraft:solid",
+                    "offset": [
+                        0,
+                        1,
+                        0
+                    ]
+                }
+            ]
+        },
+        "allowed_plant_placement": {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+                "minecraft:air",
+                "minecraft:water",
+                "minecraft:glow_lichen"
+            ]
+        },
+        "curvature": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_exclusive": 0.7,
+                "min_inclusive": 0.3
+            }
+        },
+        "depth": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 1,
+                    "weight": 1
+                },
+                {
+                    "data": 2,
+                    "weight": 2
+                },
+                {
+                    "data": 3,
+                    "weight": 3
+                }
+            ]
+        },
+        "edge_erosion": 0.98,
+        "height": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 3,
+                            "min_inclusive": 2
+                        }
+                    },
+                    "weight": 6
+                },
+                {
+                    "data": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 7,
+                            "min_inclusive": 4
+                        }
+                    },
+                    "weight": 4
+                },
+                {
+                    "data": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 15,
+                            "min_inclusive": 8
+                        }
+                    },
+                    "weight": 2
+                },
+                {
+                    "data": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 20,
+                            "min_inclusive": 16
+                        }
+                    },
+                    "weight": 1
+                }
+            ]
+        },
+        "height_erosion": 0.218,
+        "height_falloff": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_exclusive": 0.88,
+                "min_inclusive": 0.58
+            }
+        },
+        "search_distance": 12,
+        "xz_spread": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 8,
+                "min_inclusive": 5
+            }
+        },
+        "y_spread": 2
+    }
 }

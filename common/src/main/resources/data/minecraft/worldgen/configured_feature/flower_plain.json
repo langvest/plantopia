@@ -1,87 +1,86 @@
 {
-	"type": "minecraft:flower",
-	"config": {
-		"feature": {
-			"feature": {
-				"type": "minecraft:simple_block",
-				"config": {
-					"to_place": {
-						"type": "minecraft:noise_threshold_provider",
-						"default_state": {
-							"Name": "minecraft:dandelion"
-						},
-						"high_chance": 0.33333334,
-						"high_states": [
-							{
-								"Name": "minecraft:poppy"
-							},
-							{
-								"Name": "plantopia:red_wildflowers"
-							},
-							{
-								"Name": "minecraft:azure_bluet"
-							},
-							{
-								"Name": "plantopia:white_wildflowers"
-							},
-							{
-								"Name": "minecraft:oxeye_daisy"
-							},
-							{
-								"Name": "plantopia:yellow_wildflowers"
-							},
-							{
-								"Name": "minecraft:cornflower"
-							},
-							{
-								"Name": "plantopia:fluffy_dandelion"
-							}
-
-						],
-						"low_states": [
-							{
-								"Name": "minecraft:orange_tulip"
-							},
-							{
-								"Name": "minecraft:red_tulip"
-							},
-							{
-								"Name": "minecraft:pink_tulip"
-							},
-							{
-								"Name": "plantopia:pink_wildflowers"
-							},
-							{
-								"Name": "minecraft:white_tulip"
-							},
-							{
-								"Name": "plantopia:red_wildflowers"
-							}
-						],
-						"noise": {
-							"amplitudes": [
-								1.0
-							],
-							"firstOctave": 0
-						},
-						"scale": 0.005,
-						"seed": 2345,
-						"threshold": -0.8
-					}
-				}
-			},
-			"placement": [
-				{
-					"type": "minecraft:block_predicate_filter",
-					"predicate": {
-						"type": "minecraft:matching_blocks",
-						"blocks": "minecraft:air"
-					}
-				}
-			]
-		},
-		"tries": 64,
-		"xz_spread": 6,
-		"y_spread": 2
-	}
+    "type": "minecraft:flower",
+    "config": {
+        "feature": {
+            "feature": {
+                "type": "minecraft:simple_block",
+                "config": {
+                    "to_place": {
+                        "type": "minecraft:noise_threshold_provider",
+                        "default_state": {
+                            "Name": "minecraft:dandelion"
+                        },
+                        "high_chance": 0.33333334,
+                        "high_states": [
+                            {
+                                "Name": "minecraft:poppy"
+                            },
+                            {
+                                "Name": "plantopia:red_wildflowers"
+                            },
+                            {
+                                "Name": "minecraft:azure_bluet"
+                            },
+                            {
+                                "Name": "plantopia:white_wildflowers"
+                            },
+                            {
+                                "Name": "minecraft:oxeye_daisy"
+                            },
+                            {
+                                "Name": "plantopia:yellow_wildflowers"
+                            },
+                            {
+                                "Name": "minecraft:cornflower"
+                            },
+                            {
+                                "Name": "plantopia:fluffy_dandelion"
+                            }
+                        ],
+                        "low_states": [
+                            {
+                                "Name": "minecraft:orange_tulip"
+                            },
+                            {
+                                "Name": "minecraft:red_tulip"
+                            },
+                            {
+                                "Name": "minecraft:pink_tulip"
+                            },
+                            {
+                                "Name": "plantopia:pink_wildflowers"
+                            },
+                            {
+                                "Name": "minecraft:white_tulip"
+                            },
+                            {
+                                "Name": "plantopia:red_wildflowers"
+                            }
+                        ],
+                        "noise": {
+                            "amplitudes": [
+                                1.0
+                            ],
+                            "firstOctave": 0
+                        },
+                        "scale": 0.005,
+                        "seed": 2345,
+                        "threshold": -0.8
+                    }
+                }
+            },
+            "placement": [
+                {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "minecraft:air"
+                    }
+                }
+            ]
+        },
+        "tries": 64,
+        "xz_spread": 6,
+        "y_spread": 2
+    }
 }

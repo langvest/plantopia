@@ -1,6 +1,6 @@
 {
-	"values": [
-		"#plantopia:type/grass_block",
-		"plantopia:infested_dirt"
-	]
+    "values": [
+        "#plantopia:type/grass_block",
+        "plantopia:infested_dirt"
+    ]
 }

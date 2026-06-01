@@ -1,38 +1,38 @@
 {
-	"type": "plantopia:icicle_patch",
-	"config": {
-		"allowed_attachment": {
-			"type": "minecraft:matching_blocks",
-			"blocks": "minecraft:packed_ice"
-		},
-		"allowed_placement": {
-			"type": "minecraft:matching_blocks",
-			"blocks": "minecraft:air"
-		},
-		"growth_directions": [
-			"up"
-		],
-		"height": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_inclusive": 4,
-				"min_inclusive": 3
-			}
-		},
-		"height_erosion": 0.128,
-		"height_falloff": {
-			"type": "minecraft:uniform",
-			"value": {
-				"max_exclusive": 0.56,
-				"min_inclusive": 0.52
-			}
-		},
-		"heightmap": "WORLD_SURFACE_WG",
-		"search_distance": 6,
-		"shape_erosion": 0.354,
-		"shape_sigma": -0.448,
-		"tries": 4,
-		"xz_spread": 3,
-		"y_spread": 1
-	}
+    "type": "plantopia:icicle_patch",
+    "config": {
+        "allowed_attachment": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:packed_ice"
+        },
+        "allowed_placement": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+        },
+        "growth_directions": [
+            "up"
+        ],
+        "height": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 4,
+                "min_inclusive": 3
+            }
+        },
+        "height_erosion": 0.128,
+        "height_falloff": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_exclusive": 0.56,
+                "min_inclusive": 0.52
+            }
+        },
+        "heightmap": "WORLD_SURFACE_WG",
+        "search_distance": 6,
+        "shape_erosion": 0.354,
+        "shape_sigma": -0.448,
+        "tries": 4,
+        "xz_spread": 3,
+        "y_spread": 1
+    }
 }

@@ -2,10 +2,12 @@ package by.langvest.plantopia.neoforge.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
+import by.langvest.toolkit.platform.EventEmitter;
 import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -100,13 +102,18 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
 
     private static PlantopiaBlockTagProvider instance;
 
-    public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper) {
+    public PlantopiaBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper, @NotNull EventEmitter eventEmitter) {
         super(output, registryLookup, Plantopia.MOD_ID, existingFileHelper);
-        instance = this;
+        PlantopiaBlockTagProvider.instance = this;
+        eventEmitter.subscribe(this::listenBridge);
     }
 
     public static PlantopiaBlockTagProvider getInstance() {
         return instance;
+    }
+
+    protected void listenBridge(PlantopiaDatagenBridgeEvent.@NotNull BlockTagEvent event) {
+        event.provide(PlantopiaBlockTagProvider::getOrCreateTagSet);
     }
 
     @Override

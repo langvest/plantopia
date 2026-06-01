@@ -1,12 +1,12 @@
 {
-	"textures": [
-		"plantopia:orange_maple_0",
-		"plantopia:orange_maple_1",
-		"plantopia:orange_maple_2",
-		"plantopia:orange_maple_3",
-		"plantopia:orange_maple_4",
-		"plantopia:orange_maple_5",
-		"plantopia:orange_maple_6",
-		"plantopia:orange_maple_7"
-	]
+    "textures": [
+        "plantopia:orange_maple_0",
+        "plantopia:orange_maple_1",
+        "plantopia:orange_maple_2",
+        "plantopia:orange_maple_3",
+        "plantopia:orange_maple_4",
+        "plantopia:orange_maple_5",
+        "plantopia:orange_maple_6",
+        "plantopia:orange_maple_7"
+    ]
 }

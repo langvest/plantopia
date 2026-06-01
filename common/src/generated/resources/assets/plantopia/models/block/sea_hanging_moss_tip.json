@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cross",
-	"textures": {
-		"cross": "plantopia:block/sea_hanging_moss_tip"
-	}
+    "parent": "minecraft:block/cross",
+    "textures": {
+        "cross": "plantopia:block/sea_hanging_moss_tip"
+    }
 }

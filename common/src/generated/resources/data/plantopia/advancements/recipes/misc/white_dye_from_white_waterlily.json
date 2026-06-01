@@ -1,35 +1,35 @@
 {
-	"parent": "minecraft:recipes/root",
-	"criteria": {
-		"has_the_recipe": {
-			"conditions": {
-				"recipe": "plantopia:white_dye_from_white_waterlily"
-			},
-			"trigger": "minecraft:recipe_unlocked"
-		},
-		"has_white_waterlily": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:white_waterlily"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		}
-	},
-	"requirements": [
-		[
-			"has_white_waterlily",
-			"has_the_recipe"
-		]
-	],
-	"rewards": {
-		"recipes": [
-			"plantopia:white_dye_from_white_waterlily"
-		]
-	},
-	"sends_telemetry_event": false
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:white_dye_from_white_waterlily"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        },
+        "has_white_waterlily": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:white_waterlily"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_white_waterlily"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:white_dye_from_white_waterlily"
+        ]
+    },
+    "sends_telemetry_event": false
 }

@@ -1,7 +1,7 @@
 {
-	"parent": "plantopia:block/template_foxglove_top",
-	"textures": {
-		"cross": "plantopia:block/foxglove_top",
-		"flowers": "plantopia:block/red_foxglove_flowers"
-	}
+    "parent": "plantopia:block/template_foxglove_top",
+    "textures": {
+        "cross": "plantopia:block/foxglove_top",
+        "flowers": "plantopia:block/red_foxglove_flowers"
+    }
 }

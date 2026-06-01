@@ -1,35 +1,35 @@
 {
-	"parent": "minecraft:recipes/root",
-	"criteria": {
-		"has_planks": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:maple_planks"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"has_the_recipe": {
-			"conditions": {
-				"recipe": "plantopia:maple_door"
-			},
-			"trigger": "minecraft:recipe_unlocked"
-		}
-	},
-	"requirements": [
-		[
-			"has_planks",
-			"has_the_recipe"
-		]
-	],
-	"rewards": {
-		"recipes": [
-			"plantopia:maple_door"
-		]
-	},
-	"sends_telemetry_event": false
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_planks": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:maple_planks"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:maple_door"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_planks"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:maple_door"
+        ]
+    },
+    "sends_telemetry_event": false
 }

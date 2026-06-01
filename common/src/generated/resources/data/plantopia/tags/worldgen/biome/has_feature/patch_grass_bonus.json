@@ -1,9 +1,9 @@
 {
-	"values": [
-		"minecraft:dark_forest",
-		"minecraft:windswept_gravelly_hills",
-		"minecraft:windswept_hills",
-		"plantopia:seasonal_dark_forest",
-		"plantopia:seasonal_forest"
-	]
+    "values": [
+        "minecraft:dark_forest",
+        "minecraft:windswept_gravelly_hills",
+        "minecraft:windswept_hills",
+        "plantopia:seasonal_dark_forest",
+        "plantopia:seasonal_forest"
+    ]
 }

@@ -1,6 +1,6 @@
 {
-	"parent": "plantopia:block/template_leaf_litter_2",
-	"textures": {
-		"texture": "plantopia:block/yellow_leaf_litter"
-	}
+    "parent": "plantopia:block/template_leaf_litter_2",
+    "textures": {
+        "texture": "plantopia:block/yellow_leaf_litter"
+    }
 }

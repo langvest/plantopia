@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cube_all",
-	"textures": {
-		"all": "plantopia:block/red_maple_leaves"
-	}
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "plantopia:block/red_maple_leaves"
+    }
 }

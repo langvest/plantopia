@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "plantopia:block/snowdrop"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "plantopia:block/snowdrop"
+        }
+    }
 }

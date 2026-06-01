@@ -1,21 +1,21 @@
 {
-	"variants": {
-		"": [
-			{
-				"model": "plantopia:block/infested_dirt"
-			},
-			{
-				"model": "plantopia:block/infested_dirt",
-				"y": 90
-			},
-			{
-				"model": "plantopia:block/infested_dirt",
-				"y": 180
-			},
-			{
-				"model": "plantopia:block/infested_dirt",
-				"y": 270
-			}
-		]
-	}
+    "variants": {
+        "": [
+            {
+                "model": "plantopia:block/infested_dirt"
+            },
+            {
+                "model": "plantopia:block/infested_dirt",
+                "y": 90
+            },
+            {
+                "model": "plantopia:block/infested_dirt",
+                "y": 180
+            },
+            {
+                "model": "plantopia:block/infested_dirt",
+                "y": 270
+            }
+        ]
+    }
 }

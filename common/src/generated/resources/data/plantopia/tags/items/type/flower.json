@@ -1,6 +1,6 @@
 {
-	"values": [
-		"#plantopia:type/small_flower",
-		"#plantopia:type/tall_flower"
-	]
+    "values": [
+        "#plantopia:type/small_flower",
+        "#plantopia:type/tall_flower"
+    ]
 }

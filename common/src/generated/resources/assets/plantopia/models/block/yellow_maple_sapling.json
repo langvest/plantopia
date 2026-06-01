@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cross",
-	"textures": {
-		"cross": "plantopia:block/yellow_maple_sapling"
-	}
+    "parent": "minecraft:block/cross",
+    "textures": {
+        "cross": "plantopia:block/yellow_maple_sapling"
+    }
 }

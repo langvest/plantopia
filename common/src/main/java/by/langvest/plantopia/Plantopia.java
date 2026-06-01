@@ -66,10 +66,10 @@ public final class Plantopia {
     private static Platform platform;
 
     public static void init(Platform platform) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
         Plantopia.injectPlatform(platform);
-        Plantopia.addListeners(globalEmitter);
+        Plantopia.addListeners(globalEventEmitter);
 
         if (platform.isClient()) {
             PlantopiaClient.init(platform);
@@ -85,31 +85,31 @@ public final class Plantopia {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    private static void addListeners(@NotNull EventEmitter emitter) {
+    private static void addListeners(@NotNull EventEmitter eventEmitter) {
         // Registries
-        emitter.subscribe(PlantopiaBlocks::setup);
-        emitter.subscribe(PlantopiaBlockEntityTypes::setup);
-        emitter.subscribe(PlantopiaItems::setup);
-        emitter.subscribe(PlantopiaKits::setup);
-        emitter.subscribe(PlantopiaCreativeModeTabs::setup);
-        emitter.subscribe(PlantopiaEntityTypes::setup);
-        emitter.subscribe(PlantopiaBoatTypes::setup);
-        emitter.subscribe(PlantopiaParticleTypes::setup);
-        emitter.subscribe(PlantopiaSoundEvents::setup);
-        emitter.subscribe(PlantopiaFeatureTypes::setup);
-        emitter.subscribe(PlantopiaBlockPlacerTypes::setup);
-        emitter.subscribe(PlantopiaVerticalAnchorTypes::setup);
-        emitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
-        emitter.subscribe(PlantopiaBlockStateProviderTypes::setup);
-        emitter.subscribe(PlantopiaPlacementModifierTypes::setup);
-        emitter.subscribe(PlantopiaRecipeSerializers::setup);
+        eventEmitter.subscribe(PlantopiaBlocks::setup);
+        eventEmitter.subscribe(PlantopiaBlockEntityTypes::setup);
+        eventEmitter.subscribe(PlantopiaItems::setup);
+        eventEmitter.subscribe(PlantopiaKits::setup);
+        eventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
+        eventEmitter.subscribe(PlantopiaEntityTypes::setup);
+        eventEmitter.subscribe(PlantopiaBoatTypes::setup);
+        eventEmitter.subscribe(PlantopiaParticleTypes::setup);
+        eventEmitter.subscribe(PlantopiaSoundEvents::setup);
+        eventEmitter.subscribe(PlantopiaFeatureTypes::setup);
+        eventEmitter.subscribe(PlantopiaBlockPlacerTypes::setup);
+        eventEmitter.subscribe(PlantopiaVerticalAnchorTypes::setup);
+        eventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
+        eventEmitter.subscribe(PlantopiaBlockStateProviderTypes::setup);
+        eventEmitter.subscribe(PlantopiaPlacementModifierTypes::setup);
+        eventEmitter.subscribe(PlantopiaRecipeSerializers::setup);
+        eventEmitter.subscribe(PlantopiaCriteriaTriggers::setup);
 
         // Common
-        emitter.subscribe(PlantopiaBoatType::setup);
-        emitter.subscribe(PlantopiaCompats::setup);
-        emitter.subscribe(PlantopiaRegions::setup);
-        emitter.subscribe(PlantopiaSurfaceRules::setup);
-        emitter.subscribe(PlantopiaCommands::setup);
-        emitter.subscribe(PlantopiaCriteriaTriggers::setup);
+        eventEmitter.subscribe(PlantopiaBoatType::setup);
+        eventEmitter.subscribe(PlantopiaCompats::setup);
+        eventEmitter.subscribe(PlantopiaRegions::setup);
+        eventEmitter.subscribe(PlantopiaSurfaceRules::setup);
+        eventEmitter.subscribe(PlantopiaCommands::setup);
     }
 }

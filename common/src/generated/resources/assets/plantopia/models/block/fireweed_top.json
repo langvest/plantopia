@@ -1,7 +1,7 @@
 {
-	"parent": "plantopia:block/inverted_tinted_cross_with_overlay",
-	"textures": {
-		"cross": "plantopia:block/fireweed_top",
-		"overlay": "plantopia:block/fireweed_top_flowers"
-	}
+    "parent": "plantopia:block/inverted_tinted_cross_with_overlay",
+    "textures": {
+        "cross": "plantopia:block/fireweed_top",
+        "overlay": "plantopia:block/fireweed_top_flowers"
+    }
 }

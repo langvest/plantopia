@@ -1,7 +1,7 @@
 {
-	"values": [
-		"minecraft:dirt",
-		"minecraft:dirt_path",
-		"minecraft:farmland"
-	]
+    "values": [
+        "minecraft:dirt",
+        "minecraft:dirt_path",
+        "minecraft:farmland"
+    ]
 }

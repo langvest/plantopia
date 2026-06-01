@@ -1,18 +1,18 @@
 {
-	"values": [
-		"plantopia:big_platterleaf",
-		"plantopia:ice_crust",
-		"plantopia:orange_leaf_litter",
-		"plantopia:pink_flowering_lily_pad",
-		"plantopia:pink_flowering_small_platterleaf",
-		"plantopia:red_flowering_lily_pad",
-		"plantopia:red_flowering_small_platterleaf",
-		"plantopia:red_leaf_litter",
-		"plantopia:small_platterleaf",
-		"plantopia:white_flowering_lily_pad",
-		"plantopia:white_flowering_small_platterleaf",
-		"plantopia:yellow_flowering_lily_pad",
-		"plantopia:yellow_flowering_small_platterleaf",
-		"plantopia:yellow_leaf_litter"
-	]
+    "values": [
+        "plantopia:big_platterleaf",
+        "plantopia:ice_crust",
+        "plantopia:orange_leaf_litter",
+        "plantopia:pink_flowering_lily_pad",
+        "plantopia:pink_flowering_small_platterleaf",
+        "plantopia:red_flowering_lily_pad",
+        "plantopia:red_flowering_small_platterleaf",
+        "plantopia:red_leaf_litter",
+        "plantopia:small_platterleaf",
+        "plantopia:white_flowering_lily_pad",
+        "plantopia:white_flowering_small_platterleaf",
+        "plantopia:yellow_flowering_lily_pad",
+        "plantopia:yellow_flowering_small_platterleaf",
+        "plantopia:yellow_leaf_litter"
+    ]
 }

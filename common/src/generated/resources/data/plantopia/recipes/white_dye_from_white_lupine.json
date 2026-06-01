@@ -1,14 +1,14 @@
 {
-	"type": "minecraft:crafting_shapeless",
-	"category": "misc",
-	"group": "white_dye",
-	"ingredients": [
-		{
-			"item": "plantopia:white_lupine"
-		}
-	],
-	"result": {
-		"count": 2,
-		"item": "minecraft:white_dye"
-	}
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "white_dye",
+    "ingredients": [
+        {
+            "item": "plantopia:white_lupine"
+        }
+    ],
+    "result": {
+        "count": 2,
+        "item": "minecraft:white_dye"
+    }
 }

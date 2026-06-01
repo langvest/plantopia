@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/patch_cattail",
-	"features": "plantopia:patch_cattail",
-	"step": "vegetal_decoration"
-}

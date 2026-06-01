@@ -1,21 +1,21 @@
 {
-	"variants": {
-		"": [
-			{
-				"model": "plantopia:block/yellow_flowering_lily_pad"
-			},
-			{
-				"model": "plantopia:block/yellow_flowering_lily_pad",
-				"y": 90
-			},
-			{
-				"model": "plantopia:block/yellow_flowering_lily_pad",
-				"y": 180
-			},
-			{
-				"model": "plantopia:block/yellow_flowering_lily_pad",
-				"y": 270
-			}
-		]
-	}
+    "variants": {
+        "": [
+            {
+                "model": "plantopia:block/yellow_flowering_lily_pad"
+            },
+            {
+                "model": "plantopia:block/yellow_flowering_lily_pad",
+                "y": 90
+            },
+            {
+                "model": "plantopia:block/yellow_flowering_lily_pad",
+                "y": 180
+            },
+            {
+                "model": "plantopia:block/yellow_flowering_lily_pad",
+                "y": 270
+            }
+        ]
+    }
 }

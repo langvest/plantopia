@@ -1,108 +1,108 @@
 {
-	"feature": "plantopia:sea_hanging_moss_cluster",
-	"placement": [
-		{
-			"type": "plantopia:density",
-			"bottom_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"above_bottom": 12
-				}
-			},
-			"density": 0.18,
-			"top_anchor": {
-				"type": "plantopia:heightmap_anchor",
-				"heightmap": "OCEAN_FLOOR_WG",
-				"offset": -1
-			}
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "plantopia:switch",
-			"placements": [
-				[
-					{
-						"type": "plantopia:biome_filter",
-						"biomes": "minecraft:dripstone_caves",
-						"selection": "INCLUDE"
-					},
-					{
-						"type": "plantopia:noise_filter",
-						"activation_type": "BELOW",
-						"erosion_level": {
-							"type": "minecraft:uniform",
-							"value": {
-								"max_exclusive": -0.236,
-								"min_inclusive": -0.336
-							}
-						},
-						"noise_config": {
-							"offset_x": 56,
-							"offset_z": 332,
-							"scale": 1.264
-						},
-						"noise_level": -0.286
-					},
-					{
-						"type": "plantopia:rarity_filter",
-						"chance": 1.352
-					}
-				],
-				[
-					{
-						"type": "plantopia:environment_scan_filter",
-						"allowed_search_condition": {
-							"type": "minecraft:matching_blocks",
-							"blocks": [
-								"minecraft:air",
-								"minecraft:water"
-							]
-						},
-						"direction_of_search": "down",
-						"max_steps": 12,
-						"target_condition": {
-							"type": "minecraft:matching_fluids",
-							"fluids": "minecraft:water"
-						}
-					},
-					{
-						"type": "plantopia:condition",
-						"if_placement": [
-							{
-								"type": "plantopia:range_filter",
-								"bottom_anchor": {
-									"type": "plantopia:absolute_anchor",
-									"anchor": {
-										"above_bottom": 0
-									}
-								},
-								"top_anchor": {
-									"type": "plantopia:absolute_anchor",
-									"anchor": {
-										"absolute": 56
-									}
-								}
-							}
-						],
-						"then_placement": [
-							{
-								"type": "plantopia:rarity_filter",
-								"chance": 2.854
-							}
-						]
-					}
-				]
-			]
-		},
-		{
-			"type": "plantopia:biome_filter",
-			"biomes": [
-				"minecraft:lush_caves",
-				"minecraft:deep_dark"
-			],
-			"selection": "EXCLUDE"
-		}
-	]
+    "feature": "plantopia:sea_hanging_moss_cluster",
+    "placement": [
+        {
+            "type": "plantopia:density",
+            "bottom_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "above_bottom": 12
+                }
+            },
+            "density": 0.18,
+            "top_anchor": {
+                "type": "plantopia:heightmap_anchor",
+                "heightmap": "OCEAN_FLOOR_WG",
+                "offset": -1
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "plantopia:switch",
+            "placements": [
+                [
+                    {
+                        "type": "plantopia:biome_filter",
+                        "biomes": "minecraft:dripstone_caves",
+                        "selection": "INCLUDE"
+                    },
+                    {
+                        "type": "plantopia:noise_filter",
+                        "activation_type": "BELOW",
+                        "erosion_level": {
+                            "type": "minecraft:uniform",
+                            "value": {
+                                "max_exclusive": -0.236,
+                                "min_inclusive": -0.336
+                            }
+                        },
+                        "noise_config": {
+                            "offset_x": 56,
+                            "offset_z": 332,
+                            "scale": 1.264
+                        },
+                        "noise_level": -0.286
+                    },
+                    {
+                        "type": "plantopia:rarity_filter",
+                        "chance": 1.352
+                    }
+                ],
+                [
+                    {
+                        "type": "plantopia:environment_scan_filter",
+                        "allowed_search_condition": {
+                            "type": "minecraft:matching_blocks",
+                            "blocks": [
+                                "minecraft:air",
+                                "minecraft:water"
+                            ]
+                        },
+                        "direction_of_search": "down",
+                        "max_steps": 12,
+                        "target_condition": {
+                            "type": "minecraft:matching_fluids",
+                            "fluids": "minecraft:water"
+                        }
+                    },
+                    {
+                        "type": "plantopia:condition",
+                        "if_placement": [
+                            {
+                                "type": "plantopia:range_filter",
+                                "bottom_anchor": {
+                                    "type": "plantopia:absolute_anchor",
+                                    "anchor": {
+                                        "above_bottom": 0
+                                    }
+                                },
+                                "top_anchor": {
+                                    "type": "plantopia:absolute_anchor",
+                                    "anchor": {
+                                        "absolute": 56
+                                    }
+                                }
+                            }
+                        ],
+                        "then_placement": [
+                            {
+                                "type": "plantopia:rarity_filter",
+                                "chance": 2.854
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "type": "plantopia:biome_filter",
+            "biomes": [
+                "minecraft:lush_caves",
+                "minecraft:deep_dark"
+            ],
+            "selection": "EXCLUDE"
+        }
+    ]
 }

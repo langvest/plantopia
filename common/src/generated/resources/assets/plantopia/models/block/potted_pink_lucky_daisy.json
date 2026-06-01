@@ -1,6 +1,6 @@
 {
-	"parent": "plantopia:block/template_potted_lucky_daisy",
-	"textures": {
-		"petals": "plantopia:block/potted_pink_lucky_daisy_petals"
-	}
+    "parent": "plantopia:block/template_potted_lucky_daisy",
+    "textures": {
+        "petals": "plantopia:block/potted_pink_lucky_daisy_petals"
+    }
 }

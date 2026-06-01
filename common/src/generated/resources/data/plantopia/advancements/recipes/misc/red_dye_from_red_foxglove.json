@@ -1,35 +1,35 @@
 {
-	"parent": "minecraft:recipes/root",
-	"criteria": {
-		"has_red_foxglove": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:red_foxglove"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"has_the_recipe": {
-			"conditions": {
-				"recipe": "plantopia:red_dye_from_red_foxglove"
-			},
-			"trigger": "minecraft:recipe_unlocked"
-		}
-	},
-	"requirements": [
-		[
-			"has_red_foxglove",
-			"has_the_recipe"
-		]
-	],
-	"rewards": {
-		"recipes": [
-			"plantopia:red_dye_from_red_foxglove"
-		]
-	},
-	"sends_telemetry_event": false
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_red_foxglove": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:red_foxglove"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:red_dye_from_red_foxglove"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_red_foxglove"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:red_dye_from_red_foxglove"
+        ]
+    },
+    "sends_telemetry_event": false
 }

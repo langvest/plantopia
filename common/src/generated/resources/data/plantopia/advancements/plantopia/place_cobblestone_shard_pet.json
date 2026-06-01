@@ -1,49 +1,49 @@
 {
-	"parent": "plantopia:plantopia/root",
-	"criteria": {
-		"place_cobblestone_shard_pet": {
-			"conditions": {
-				"location": [
-					{
-						"block": "plantopia:cobblestone_shard_pet",
-						"condition": "minecraft:block_state_property"
-					}
-				]
-			},
-			"trigger": "minecraft:placed_block"
-		},
-		"place_mossy_cobblestone_shard_pet": {
-			"conditions": {
-				"location": [
-					{
-						"block": "plantopia:mossy_cobblestone_shard_pet",
-						"condition": "minecraft:block_state_property"
-					}
-				]
-			},
-			"trigger": "minecraft:placed_block"
-		}
-	},
-	"display": {
-		"announce_to_chat": true,
-		"description": {
-			"translate": "advancements.plantopia.place_cobblestone_shard_pet.description"
-		},
-		"frame": "task",
-		"hidden": true,
-		"icon": {
-			"item": "plantopia:cobblestone_shard"
-		},
-		"show_toast": true,
-		"title": {
-			"translate": "advancements.plantopia.place_cobblestone_shard_pet.title"
-		}
-	},
-	"requirements": [
-		[
-			"place_cobblestone_shard_pet",
-			"place_mossy_cobblestone_shard_pet"
-		]
-	],
-	"sends_telemetry_event": true
+    "parent": "plantopia:plantopia/root",
+    "criteria": {
+        "place_cobblestone_shard_pet": {
+            "conditions": {
+                "location": [
+                    {
+                        "block": "plantopia:cobblestone_shard_pet",
+                        "condition": "minecraft:block_state_property"
+                    }
+                ]
+            },
+            "trigger": "minecraft:placed_block"
+        },
+        "place_mossy_cobblestone_shard_pet": {
+            "conditions": {
+                "location": [
+                    {
+                        "block": "plantopia:mossy_cobblestone_shard_pet",
+                        "condition": "minecraft:block_state_property"
+                    }
+                ]
+            },
+            "trigger": "minecraft:placed_block"
+        }
+    },
+    "display": {
+        "announce_to_chat": true,
+        "description": {
+            "translate": "advancements.plantopia.place_cobblestone_shard_pet.description"
+        },
+        "frame": "task",
+        "hidden": true,
+        "icon": {
+            "item": "plantopia:cobblestone_shard"
+        },
+        "show_toast": true,
+        "title": {
+            "translate": "advancements.plantopia.place_cobblestone_shard_pet.title"
+        }
+    },
+    "requirements": [
+        [
+            "place_cobblestone_shard_pet",
+            "place_mossy_cobblestone_shard_pet"
+        ]
+    ],
+    "sends_telemetry_event": true
 }

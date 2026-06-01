@@ -15,9 +15,9 @@ import java.util.function.Supplier;
 public final class PlantopiaRegisterHandler {
     @SubscribeEvent
     public static void handleRegister(@NotNull RegisterEvent event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        globalEmitter.emit(new by.langvest.toolkit.event.RegisterEvent() {
+        globalEventEmitter.emit(new by.langvest.toolkit.event.RegisterEvent() {
             @Override
             public <T> void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier) {
                 event.register(registryKey, identifier, supplier);

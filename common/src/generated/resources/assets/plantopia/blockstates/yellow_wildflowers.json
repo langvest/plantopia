@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "plantopia:block/yellow_wildflowers"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "plantopia:block/yellow_wildflowers"
+        }
+    }
 }

@@ -1,18 +1,18 @@
 {
-	"feature": "plantopia:single_hogweed",
-	"placement": [
-		{
-			"type": "minecraft:block_predicate_filter",
-			"predicate": {
-				"type": "minecraft:would_survive",
-				"state": {
-					"Name": "plantopia:hogweed",
-					"Properties": {
-						"half": "lower",
-						"quarter": "south_west"
-					}
-				}
-			}
-		}
-	]
+    "feature": "plantopia:single_hogweed",
+    "placement": [
+        {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                    "Name": "plantopia:hogweed",
+                    "Properties": {
+                        "half": "lower",
+                        "quarter": "south_west"
+                    }
+                }
+            }
+        }
+    ]
 }

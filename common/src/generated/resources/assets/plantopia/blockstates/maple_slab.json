@@ -1,13 +1,13 @@
 {
-	"variants": {
-		"type=bottom": {
-			"model": "plantopia:block/maple_slab"
-		},
-		"type=double": {
-			"model": "plantopia:block/maple_planks"
-		},
-		"type=top": {
-			"model": "plantopia:block/maple_slab_top"
-		}
-	}
+    "variants": {
+        "type=bottom": {
+            "model": "plantopia:block/maple_slab"
+        },
+        "type=double": {
+            "model": "plantopia:block/maple_planks"
+        },
+        "type=top": {
+            "model": "plantopia:block/maple_slab_top"
+        }
+    }
 }

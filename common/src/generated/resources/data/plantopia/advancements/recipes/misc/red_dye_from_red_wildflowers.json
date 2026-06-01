@@ -1,35 +1,35 @@
 {
-	"parent": "minecraft:recipes/root",
-	"criteria": {
-		"has_red_wildflowers": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:red_wildflowers"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"has_the_recipe": {
-			"conditions": {
-				"recipe": "plantopia:red_dye_from_red_wildflowers"
-			},
-			"trigger": "minecraft:recipe_unlocked"
-		}
-	},
-	"requirements": [
-		[
-			"has_red_wildflowers",
-			"has_the_recipe"
-		]
-	],
-	"rewards": {
-		"recipes": [
-			"plantopia:red_dye_from_red_wildflowers"
-		]
-	},
-	"sends_telemetry_event": false
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_red_wildflowers": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:red_wildflowers"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:red_dye_from_red_wildflowers"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_red_wildflowers"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:red_dye_from_red_wildflowers"
+        ]
+    },
+    "sends_telemetry_event": false
 }

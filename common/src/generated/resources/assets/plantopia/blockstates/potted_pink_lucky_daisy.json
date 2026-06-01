@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "plantopia:block/potted_pink_lucky_daisy"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "plantopia:block/potted_pink_lucky_daisy"
+        }
+    }
 }

@@ -1,21 +1,21 @@
 {
-	"variants": {
-		"": [
-			{
-				"model": "plantopia:block/pink_flowering_small_platterleaf"
-			},
-			{
-				"model": "plantopia:block/pink_flowering_small_platterleaf",
-				"y": 90
-			},
-			{
-				"model": "plantopia:block/pink_flowering_small_platterleaf",
-				"y": 180
-			},
-			{
-				"model": "plantopia:block/pink_flowering_small_platterleaf",
-				"y": 270
-			}
-		]
-	}
+    "variants": {
+        "": [
+            {
+                "model": "plantopia:block/pink_flowering_small_platterleaf"
+            },
+            {
+                "model": "plantopia:block/pink_flowering_small_platterleaf",
+                "y": 90
+            },
+            {
+                "model": "plantopia:block/pink_flowering_small_platterleaf",
+                "y": 180
+            },
+            {
+                "model": "plantopia:block/pink_flowering_small_platterleaf",
+                "y": 270
+            }
+        ]
+    }
 }

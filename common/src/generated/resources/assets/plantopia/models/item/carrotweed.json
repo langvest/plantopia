@@ -1,7 +1,7 @@
 {
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:block/carrotweed_top",
-		"layer1": "plantopia:block/carrotweed_top_flowers"
-	}
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "plantopia:block/carrotweed_top",
+        "layer1": "plantopia:block/carrotweed_top_flowers"
+    }
 }

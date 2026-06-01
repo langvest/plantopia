@@ -13,9 +13,9 @@ public final class PlantopiaCommonSetupHandler {
     @SubscribeEvent
     public static void commonSetup(@NotNull FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            var globalEmitter = EventEmitter.getDefaultInstance();
+            var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-            globalEmitter.emit(new LifecycleEvent.CommonSetupEvent());
+            globalEventEmitter.emit(new LifecycleEvent.CommonSetupEvent());
         });
     }
 }

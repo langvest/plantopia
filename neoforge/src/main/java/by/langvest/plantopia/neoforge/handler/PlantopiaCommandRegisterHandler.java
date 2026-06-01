@@ -12,10 +12,10 @@ import org.jetbrains.annotations.NotNull;
 public final class PlantopiaCommandRegisterHandler {
     @SubscribeEvent
     public static void handleRegister(@NotNull RegisterCommandsEvent event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
         var dispatcher = event.getDispatcher();
 
-        globalEmitter.emit(new by.langvest.toolkit.event.RegisterCommandsEvent() {
+        globalEventEmitter.emit(new by.langvest.toolkit.event.RegisterCommandsEvent() {
             @Override
             public void register(LiteralArgumentBuilder<CommandSourceStack> command) {
                 dispatcher.register(command);

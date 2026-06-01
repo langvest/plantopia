@@ -15,9 +15,9 @@ import java.util.function.Supplier;
 public final class PlantopiaRegisterHandler {
     @SubscribeEvent
     public static void handleRegister(@NotNull net.minecraftforge.registries.RegisterEvent event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        globalEmitter.emit(new RegisterEvent() {
+        globalEventEmitter.emit(new RegisterEvent() {
             @Override
             public <T> void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier) {
                 event.register(registryKey, identifier, supplier);

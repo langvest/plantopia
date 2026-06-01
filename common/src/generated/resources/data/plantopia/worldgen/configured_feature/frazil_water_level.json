@@ -1,58 +1,58 @@
 {
-	"type": "plantopia:frazil_water_level",
-	"config": {
-		"activation_type": "BELOW",
-		"allowed_biomes": "#plantopia:allows_frazil",
-		"noise_config": {
-			"entries": [
-				{
-					"noise_config": {
-						"offset_x": 719,
-						"offset_z": 21,
-						"scale": 0.312
-					},
-					"weight": 1.0
-				},
-				{
-					"noise_config": {
-						"offset_x": 32,
-						"offset_z": 75,
-						"scale": 0.138
-					},
-					"weight": 0.64
-				},
-				{
-					"noise_config": {
-						"offset_x": 78,
-						"offset_z": 321,
-						"scale": 0.072
-					},
-					"weight": 0.48
-				}
-			]
-		},
-		"noise_level": -0.032,
-		"predicate": {
-			"type": "minecraft:all_of",
-			"predicates": [
-				{
-					"type": "minecraft:matching_blocks",
-					"blocks": [
-						"minecraft:air",
-						"minecraft:grass",
-						"minecraft:vine"
-					]
-				},
-				{
-					"type": "minecraft:matching_fluids",
-					"fluids": "minecraft:water",
-					"offset": [
-						0,
-						-1,
-						0
-					]
-				}
-			]
-		}
-	}
+    "type": "plantopia:frazil_water_level",
+    "config": {
+        "activation_type": "BELOW",
+        "allowed_biomes": "#plantopia:allows_frazil",
+        "noise_config": {
+            "entries": [
+                {
+                    "noise_config": {
+                        "offset_x": 719,
+                        "offset_z": 21,
+                        "scale": 0.312
+                    },
+                    "weight": 1.0
+                },
+                {
+                    "noise_config": {
+                        "offset_x": 32,
+                        "offset_z": 75,
+                        "scale": 0.138
+                    },
+                    "weight": 0.64
+                },
+                {
+                    "noise_config": {
+                        "offset_x": 78,
+                        "offset_z": 321,
+                        "scale": 0.072
+                    },
+                    "weight": 0.48
+                }
+            ]
+        },
+        "noise_level": -0.032,
+        "predicate": {
+            "type": "minecraft:all_of",
+            "predicates": [
+                {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": [
+                        "minecraft:air",
+                        "minecraft:grass",
+                        "minecraft:vine"
+                    ]
+                },
+                {
+                    "type": "minecraft:matching_fluids",
+                    "fluids": "minecraft:water",
+                    "offset": [
+                        0,
+                        -1,
+                        0
+                    ]
+                }
+            ]
+        }
+    }
 }

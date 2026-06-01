@@ -1,69 +1,69 @@
 {
-	"type": "minecraft:random_patch",
-	"config": {
-		"feature": {
-			"feature": {
-				"type": "plantopia:natural_block",
-				"config": {
-					"to_place": {
-						"type": "minecraft:weighted_state_provider",
-						"entries": [
-							{
-								"data": {
-									"Name": "plantopia:fireweed",
-									"Properties": {
-										"half": "lower"
-									}
-								},
-								"weight": 10
-							},
-							{
-								"data": {
-									"Name": "minecraft:tall_grass",
-									"Properties": {
-										"half": "lower"
-									}
-								},
-								"weight": 2
-							},
-							{
-								"data": {
-									"Name": "minecraft:grass"
-								},
-								"weight": 1
-							}
-						]
-					}
-				}
-			},
-			"placement": [
-				{
-					"type": "minecraft:block_predicate_filter",
-					"predicate": {
-						"type": "minecraft:all_of",
-						"predicates": [
-							{
-								"type": "minecraft:matching_blocks",
-								"blocks": [
-									"minecraft:air",
-									"minecraft:grass"
-								]
-							},
-							{
-								"type": "minecraft:solid",
-								"offset": [
-									0,
-									-1,
-									0
-								]
-							}
-						]
-					}
-				}
-			]
-		},
-		"tries": 60,
-		"xz_spread": 5,
-		"y_spread": 3
-	}
+    "type": "minecraft:random_patch",
+    "config": {
+        "feature": {
+            "feature": {
+                "type": "plantopia:natural_block",
+                "config": {
+                    "to_place": {
+                        "type": "minecraft:weighted_state_provider",
+                        "entries": [
+                            {
+                                "data": {
+                                    "Name": "plantopia:fireweed",
+                                    "Properties": {
+                                        "half": "lower"
+                                    }
+                                },
+                                "weight": 10
+                            },
+                            {
+                                "data": {
+                                    "Name": "minecraft:tall_grass",
+                                    "Properties": {
+                                        "half": "lower"
+                                    }
+                                },
+                                "weight": 2
+                            },
+                            {
+                                "data": {
+                                    "Name": "minecraft:grass"
+                                },
+                                "weight": 1
+                            }
+                        ]
+                    }
+                }
+            },
+            "placement": [
+                {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                        "type": "minecraft:all_of",
+                        "predicates": [
+                            {
+                                "type": "minecraft:matching_blocks",
+                                "blocks": [
+                                    "minecraft:air",
+                                    "minecraft:grass"
+                                ]
+                            },
+                            {
+                                "type": "minecraft:solid",
+                                "offset": [
+                                    0,
+                                    -1,
+                                    0
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "tries": 60,
+        "xz_spread": 5,
+        "y_spread": 3
+    }
 }

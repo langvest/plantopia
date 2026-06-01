@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/tinted_cross",
-	"textures": {
-		"cross": "plantopia:block/fireweed_bottom"
-	}
+    "parent": "minecraft:block/tinted_cross",
+    "textures": {
+        "cross": "plantopia:block/fireweed_bottom"
+    }
 }

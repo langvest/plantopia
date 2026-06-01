@@ -1,6 +1,6 @@
 {
-	"parent": "plantopia:block/template_attached_tiny_cactus",
-	"textures": {
-		"cross": "plantopia:block/flowering_tiny_cactus"
-	}
+    "parent": "plantopia:block/template_attached_tiny_cactus",
+    "textures": {
+        "cross": "plantopia:block/flowering_tiny_cactus"
+    }
 }

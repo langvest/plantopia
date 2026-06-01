@@ -1,10 +1,10 @@
 {
-	"variants": {
-		"half=lower": {
-			"model": "plantopia:block/magenta_mallow_bottom"
-		},
-		"half=upper": {
-			"model": "plantopia:block/magenta_mallow_top"
-		}
-	}
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/magenta_mallow_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/magenta_mallow_top"
+        }
+    }
 }

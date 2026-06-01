@@ -1,26 +1,26 @@
 {
-	"variants": {
-		"facing=east": {
-			"model": "plantopia:block/attached_tiny_cactus",
-			"x": 90,
-			"y": 90
-		},
-		"facing=north": {
-			"model": "plantopia:block/attached_tiny_cactus",
-			"x": 90
-		},
-		"facing=south": {
-			"model": "plantopia:block/attached_tiny_cactus",
-			"x": 90,
-			"y": 180
-		},
-		"facing=up": {
-			"model": "plantopia:block/tiny_cactus"
-		},
-		"facing=west": {
-			"model": "plantopia:block/attached_tiny_cactus",
-			"x": 90,
-			"y": 270
-		}
-	}
+    "variants": {
+        "facing=east": {
+            "model": "plantopia:block/attached_tiny_cactus",
+            "x": 90,
+            "y": 90
+        },
+        "facing=north": {
+            "model": "plantopia:block/attached_tiny_cactus",
+            "x": 90
+        },
+        "facing=south": {
+            "model": "plantopia:block/attached_tiny_cactus",
+            "x": 90,
+            "y": 180
+        },
+        "facing=up": {
+            "model": "plantopia:block/tiny_cactus"
+        },
+        "facing=west": {
+            "model": "plantopia:block/attached_tiny_cactus",
+            "x": 90,
+            "y": 270
+        }
+    }
 }

@@ -164,7 +164,7 @@ public class PlantopiaBlocks {
     public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 
     static {
-        registerPottedBlocks();
+        registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
     }
 
     public static SupposedRegistryObject<Block> supposeBlock(String name) {
@@ -180,20 +180,16 @@ public class PlantopiaBlocks {
 
         PlantopiaItems.registerBlockItem(blockMeta);
 
+        if (blockMeta.isPottable()) {
+            registerPottedBlock(blockMeta.getName(), blockMeta, blockMeta.getTintType());
+        }
+
         return PlantopiaRegistries.BLOCK.register(identifier, () -> factory.apply(blockMeta.createBehaviourProperties()));
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public static RegistryObject<FlowerPotBlock> registerPottedBlock(String plantName, Supplier<? extends Block> plantSupplier, PlantopiaTintType plantTintType) {
         return registerBlock(pottedNameOf(plantName), properties -> new FlowerPotBlock(plantSupplier.get(), properties), MetaProperties.of(MetaType.POTTED).pottedTint(plantTintType));
-    }
-
-    private static void registerPottedBlocks() {
-        registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
-
-        PlantopiaMetaBuckets.BLOCK.findAll(PlantopiaBlockMeta::isPottable).forEach(blockMeta ->
-            registerPottedBlock(blockMeta.getName(), blockMeta, blockMeta.getTintType())
-        );
     }
 
     public static void setup(@NotNull RegisterEvent event) {

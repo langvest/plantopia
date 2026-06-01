@@ -114,7 +114,7 @@ public class PlantopiaLuckyDaisyBlock extends FlowerBlock implements Bonemealabl
                 }
 
                 if (player instanceof ServerPlayer serverPlayer) {
-                    PlantopiaCriteriaTriggers.BLOCK_INTERACT.get().trigger(serverPlayer, pos, itemInHand);
+                    PlantopiaCriteriaTriggers.INTERACTED_WITH_BLOCK.get().trigger(serverPlayer, pos, itemInHand);
                 }
             }
 

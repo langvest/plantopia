@@ -1,85 +1,85 @@
 {
-	"feature": "plantopia:patch_sweet_flag",
-	"placement": [
-		{
-			"type": "plantopia:noise_count",
-			"activation_type": "BELOW",
-			"active_count": 20,
-			"noise_config": {
-				"offset_x": 534,
-				"offset_z": 22,
-				"scale": 0.048
-			},
-			"noise_level": -0.26,
-			"passive_count": 0
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "plantopia:noise_filter",
-			"activation_type": "BELOW",
-			"erosion_level": {
-				"type": "minecraft:uniform",
-				"value": {
-					"max_exclusive": -0.16,
-					"min_inclusive": -0.36
-				}
-			},
-			"noise_config": {
-				"offset_x": 534,
-				"offset_z": 22,
-				"scale": 0.048
-			},
-			"noise_level": -0.26
-		},
-		{
-			"type": "plantopia:noise_filter",
-			"activation_type": "ABOVE",
-			"erosion_level": {
-				"type": "minecraft:uniform",
-				"value": {
-					"max_exclusive": 0.05,
-					"min_inclusive": -0.25
-				}
-			},
-			"noise_config": {
-				"offset_x": 43,
-				"offset_z": 884,
-				"scale": 0.022
-			},
-			"noise_level": -0.1
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "OCEAN_FLOOR_WG"
-		},
-		{
-			"type": "minecraft:environment_scan",
-			"direction_of_search": "down",
-			"max_steps": 4,
-			"target_condition": {
-				"type": "minecraft:matching_fluids",
-				"fluids": "minecraft:water"
-			}
-		},
-		{
-			"type": "plantopia:range_filter",
-			"bottom_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"absolute": 62
-				}
-			},
-			"top_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"below_top": 0
-				}
-			}
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "plantopia:patch_sweet_flag",
+    "placement": [
+        {
+            "type": "plantopia:noise_count",
+            "activation_type": "BELOW",
+            "active_count": 20,
+            "noise_config": {
+                "offset_x": 534,
+                "offset_z": 22,
+                "scale": 0.048
+            },
+            "noise_level": -0.26,
+            "passive_count": 0
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "plantopia:noise_filter",
+            "activation_type": "BELOW",
+            "erosion_level": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": -0.16,
+                    "min_inclusive": -0.36
+                }
+            },
+            "noise_config": {
+                "offset_x": 534,
+                "offset_z": 22,
+                "scale": 0.048
+            },
+            "noise_level": -0.26
+        },
+        {
+            "type": "plantopia:noise_filter",
+            "activation_type": "ABOVE",
+            "erosion_level": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": 0.05,
+                    "min_inclusive": -0.25
+                }
+            },
+            "noise_config": {
+                "offset_x": 43,
+                "offset_z": 884,
+                "scale": 0.022
+            },
+            "noise_level": -0.1
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "OCEAN_FLOOR_WG"
+        },
+        {
+            "type": "minecraft:environment_scan",
+            "direction_of_search": "down",
+            "max_steps": 4,
+            "target_condition": {
+                "type": "minecraft:matching_fluids",
+                "fluids": "minecraft:water"
+            }
+        },
+        {
+            "type": "plantopia:range_filter",
+            "bottom_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "absolute": 62
+                }
+            },
+            "top_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "below_top": 0
+                }
+            }
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

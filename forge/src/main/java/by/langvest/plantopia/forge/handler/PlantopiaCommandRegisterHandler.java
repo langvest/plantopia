@@ -12,10 +12,10 @@ import org.jetbrains.annotations.NotNull;
 public final class PlantopiaCommandRegisterHandler {
     @SubscribeEvent
     public static void handleRegister(@NotNull net.minecraftforge.event.RegisterCommandsEvent event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
         var dispatcher = event.getDispatcher();
 
-        globalEmitter.emit(new RegisterCommandsEvent() {
+        globalEventEmitter.emit(new RegisterCommandsEvent() {
             @Override
             public void register(LiteralArgumentBuilder<CommandSourceStack> command) {
                 dispatcher.register(command);

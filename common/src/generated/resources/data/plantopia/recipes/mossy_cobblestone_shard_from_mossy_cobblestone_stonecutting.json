@@ -1,8 +1,8 @@
 {
-	"type": "minecraft:stonecutting",
-	"count": 9,
-	"ingredient": {
-		"item": "minecraft:mossy_cobblestone"
-	},
-	"result": "plantopia:mossy_cobblestone_shard"
+    "type": "minecraft:stonecutting",
+    "count": 9,
+    "ingredient": {
+        "item": "minecraft:mossy_cobblestone"
+    },
+    "result": "plantopia:mossy_cobblestone_shard"
 }

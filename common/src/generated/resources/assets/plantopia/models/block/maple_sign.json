@@ -1,5 +1,5 @@
 {
-	"textures": {
-		"particle": "plantopia:block/maple_planks"
-	}
+    "textures": {
+        "particle": "plantopia:block/maple_planks"
+    }
 }

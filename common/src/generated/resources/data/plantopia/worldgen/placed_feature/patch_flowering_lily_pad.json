@@ -1,47 +1,47 @@
 {
-	"feature": "plantopia:patch_flowering_lily_pad",
-	"placement": [
-		{
-			"type": "plantopia:rarity_filter",
-			"chance": 4.12
-		},
-		{
-			"type": "minecraft:count",
-			"count": 1
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "WORLD_SURFACE_WG"
-		},
-		{
-			"type": "plantopia:range_filter",
-			"bottom_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"absolute": 62
-				}
-			},
-			"top_anchor": {
-				"type": "plantopia:absolute_anchor",
-				"anchor": {
-					"below_top": 0
-				}
-			}
-		},
-		{
-			"type": "minecraft:biome"
-		},
-		{
-			"type": "minecraft:block_predicate_filter",
-			"predicate": {
-				"type": "minecraft:would_survive",
-				"state": {
-					"Name": "plantopia:white_flowering_lily_pad"
-				}
-			}
-		}
-	]
+    "feature": "plantopia:patch_flowering_lily_pad",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": 4.12
+        },
+        {
+            "type": "minecraft:count",
+            "count": 1
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "WORLD_SURFACE_WG"
+        },
+        {
+            "type": "plantopia:range_filter",
+            "bottom_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "absolute": 62
+                }
+            },
+            "top_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "below_top": 0
+                }
+            }
+        },
+        {
+            "type": "minecraft:biome"
+        },
+        {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                    "Name": "plantopia:white_flowering_lily_pad"
+                }
+            }
+        }
+    ]
 }

@@ -1,7 +1,7 @@
 {
-	"values": [
-		"plantopia:infested_dirt",
-		"plantopia:infested_grass_block",
-		"plantopia:sea_moss_block"
-	]
+    "values": [
+        "plantopia:infested_dirt",
+        "plantopia:infested_grass_block",
+        "plantopia:sea_moss_block"
+    ]
 }

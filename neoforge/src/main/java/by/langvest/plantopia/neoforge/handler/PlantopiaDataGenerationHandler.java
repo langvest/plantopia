@@ -14,6 +14,7 @@ import by.langvest.plantopia.neoforge.datagen.tag.PlantopiaBlockTagProvider;
 import by.langvest.plantopia.neoforge.datagen.tag.PlantopiaEntityTypeTagProvider;
 import by.langvest.plantopia.neoforge.datagen.tag.PlantopiaItemTagProvider;
 
+import by.langvest.plantopia.neoforge.datagen.util.PlantopiaJsonReindentProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -24,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 public final class PlantopiaDataGenerationHandler {
     @SubscribeEvent
     public static void gatherData(@NotNull GatherDataEvent event) {
+        var platform = Plantopia.getPlatform();
+        var eventEmitter = platform.getEventEmitter();
         var generator = event.getGenerator();
         var existingFileHelper = event.getExistingFileHelper();
         var output = generator.getPackOutput();
@@ -33,17 +36,22 @@ public final class PlantopiaDataGenerationHandler {
 
         var registryLookup = registryProvider.getRegistryProvider();
 
-        generator.addProvider(event.includeServer(), new PlantopiaLootTableProvider(output));
-        generator.addProvider(event.includeServer(), new PlantopiaRecipeProvider(output, registryLookup));
+        // Server
+        generator.addProvider(event.includeServer(), new PlantopiaLootTableProvider(output, eventEmitter));
+        generator.addProvider(event.includeServer(), new PlantopiaRecipeProvider(output, registryLookup, eventEmitter));
         generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, registryLookup, existingFileHelper));
         generator.addProvider(event.includeServer(), new PlantopiaAdvancementProvider(output, registryLookup, existingFileHelper));
         generator.addProvider(event.includeServer(), new PlantopiaBiomeTagProvider(output, registryLookup, existingFileHelper));
-        generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, registryLookup, existingFileHelper));
-        generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, registryLookup, existingFileHelper));
+        generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, registryLookup, existingFileHelper, eventEmitter));
+        generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, registryLookup, existingFileHelper, eventEmitter));
 
+        // Client
         generator.addProvider(event.includeClient(), new PlantopiaBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new PlantopiaItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new PlantopiaSoundProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new PlantopiaLanguageProvider(output));
+
+        // Post-Processing
+        generator.addProvider(event.includeDev(), new PlantopiaJsonReindentProvider(output));
     }
 }

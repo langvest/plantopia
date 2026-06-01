@@ -1,35 +1,35 @@
 {
-	"feature": "plantopia:lake_water_marsh",
-	"placement": [
-		{
-			"type": "plantopia:rarity_filter",
-			"chance": {
-				"type": "minecraft:uniform",
-				"value": {
-					"max_exclusive": 5.24,
-					"min_inclusive": 2.42
-				}
-			}
-		},
-		{
-			"type": "minecraft:count",
-			"count": {
-				"type": "minecraft:uniform",
-				"value": {
-					"max_inclusive": 3,
-					"min_inclusive": 1
-				}
-			}
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "WORLD_SURFACE_WG"
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "plantopia:lake_water_marsh",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": 5.24,
+                    "min_inclusive": 2.42
+                }
+            }
+        },
+        {
+            "type": "minecraft:count",
+            "count": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_inclusive": 3,
+                    "min_inclusive": 1
+                }
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "WORLD_SURFACE_WG"
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

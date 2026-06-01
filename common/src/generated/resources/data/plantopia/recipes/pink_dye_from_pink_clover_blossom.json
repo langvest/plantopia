@@ -1,13 +1,13 @@
 {
-	"type": "minecraft:crafting_shapeless",
-	"category": "misc",
-	"group": "pink_dye",
-	"ingredients": [
-		{
-			"item": "plantopia:pink_clover_blossom"
-		}
-	],
-	"result": {
-		"item": "minecraft:pink_dye"
-	}
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "pink_dye",
+    "ingredients": [
+        {
+            "item": "plantopia:pink_clover_blossom"
+        }
+    ],
+    "result": {
+        "item": "minecraft:pink_dye"
+    }
 }

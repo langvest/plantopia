@@ -1,17 +1,17 @@
 {
-	"feature": "plantopia:yellow_maple_bees_0002",
-	"placement": [
-		{
-			"type": "minecraft:block_predicate_filter",
-			"predicate": {
-				"type": "minecraft:would_survive",
-				"state": {
-					"Name": "plantopia:yellow_maple_sapling",
-					"Properties": {
-						"stage": "0"
-					}
-				}
-			}
-		}
-	]
+    "feature": "plantopia:yellow_maple_bees_0002",
+    "placement": [
+        {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                    "Name": "plantopia:yellow_maple_sapling",
+                    "Properties": {
+                        "stage": "0"
+                    }
+                }
+            }
+        }
+    ]
 }

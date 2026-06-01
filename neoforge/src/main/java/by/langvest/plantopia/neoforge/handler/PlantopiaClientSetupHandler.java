@@ -47,26 +47,26 @@ public final class PlantopiaClientSetupHandler {
 
     @SubscribeEvent
     public static void handleClientSetup(@NotNull FMLClientSetupEvent event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
         event.enqueueWork(() -> {
-            globalEmitter.emit(new LifecycleEvent.ClientSetupEvent());
+            globalEventEmitter.emit(new LifecycleEvent.ClientSetupEvent());
 
-            globalEmitter.emit(new RegisterRenderLayersEvent.BlockEvent() {
+            globalEventEmitter.emit(new RegisterRenderLayersEvent.BlockEvent() {
                 @Override
                 public void register(Block block, RenderType renderType) {
                     ItemBlockRenderTypes.setRenderLayer(block, renderType);
                 }
             });
 
-            globalEmitter.emit(new RegisterRenderersEvent.ItemEvent() {
+            globalEventEmitter.emit(new RegisterRenderersEvent.ItemEvent() {
                 @Override
                 public void register(Item item, BlockEntityWithoutLevelRenderer renderer) {
                     PlantopiaClientSetupHandler.setItemRenderer(item, renderer);
                 }
             });
 
-            globalEmitter.emit(new RegisterItemPropertiesEvent() {
+            globalEventEmitter.emit(new RegisterItemPropertiesEvent() {
                 @Override
                 public void registerCustomModelData(ItemPropertyFunction property) {
                     ItemProperties.registerGeneric(minecraft("custom_model_data"), property);
@@ -97,9 +97,9 @@ public final class PlantopiaClientSetupHandler {
 
     @SubscribeEvent
     public static void handleLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        globalEmitter.emit(new RegisterLayerDefinitionsEvent.EntityEvent() {
+        globalEventEmitter.emit(new RegisterLayerDefinitionsEvent.EntityEvent() {
             @Override
             public void register(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {
                 event.registerLayerDefinition(layerLocation, supplier);
@@ -109,16 +109,16 @@ public final class PlantopiaClientSetupHandler {
 
     @SubscribeEvent
     public static void handleEntityRenderers(@NotNull EntityRenderersEvent.RegisterRenderers event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        globalEmitter.emit(new RegisterRenderersEvent.EntityEvent() {
+        globalEventEmitter.emit(new RegisterRenderersEvent.EntityEvent() {
             @Override
             public <T extends Entity> void register(EntityType<? extends T> entityType, EntityRendererProvider<T> provider) {
                 event.registerEntityRenderer(entityType, provider);
             }
         });
 
-        globalEmitter.emit(new RegisterRenderersEvent.BlockEntityEvent() {
+        globalEventEmitter.emit(new RegisterRenderersEvent.BlockEntityEvent() {
             @Override
             public <T extends BlockEntity> void register(BlockEntityType<? extends T> blockEntityType, BlockEntityRendererProvider<T> provider) {
                 event.registerBlockEntityRenderer(blockEntityType, provider);
@@ -128,10 +128,10 @@ public final class PlantopiaClientSetupHandler {
 
     @SubscribeEvent
     public static void handleBlockColors(@NotNull RegisterColorHandlersEvent.Block event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
         var blockColors = event.getBlockColors();
 
-        globalEmitter.emit(new RegisterColorsEvent.BlockEvent(blockColors) {
+        globalEventEmitter.emit(new RegisterColorsEvent.BlockEvent(blockColors) {
             @Override
             protected void register(BlockColor color, Block... blocks) {
                 event.register(color, blocks);
@@ -141,11 +141,11 @@ public final class PlantopiaClientSetupHandler {
 
     @SubscribeEvent
     public static void handleItemColors(@NotNull RegisterColorHandlersEvent.Item event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
         var itemColors = event.getItemColors();
         var blockColors = event.getBlockColors();
 
-        globalEmitter.emit(new RegisterColorsEvent.ItemEvent(itemColors, blockColors) {
+        globalEventEmitter.emit(new RegisterColorsEvent.ItemEvent(itemColors, blockColors) {
             @Override
             protected void register(ItemColor color, Item... items) {
                 event.register(color, items);
@@ -155,9 +155,9 @@ public final class PlantopiaClientSetupHandler {
 
     @SubscribeEvent
     public static void handleParticles(@NotNull net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent event) {
-        var globalEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        globalEmitter.emit(new RegisterParticleProvidersEvent() {
+        globalEventEmitter.emit(new RegisterParticleProvidersEvent() {
             @Override
             public <T extends ParticleOptions> void register(ParticleType<T> particleType, ParticleProvider<T> provider) {
                 event.registerSpecial(particleType, provider);

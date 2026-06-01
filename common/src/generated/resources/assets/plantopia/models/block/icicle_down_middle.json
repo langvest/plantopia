@@ -1,6 +1,6 @@
 {
-	"parent": "plantopia:block/icicle",
-	"textures": {
-		"cross": "plantopia:block/icicle_down_middle"
-	}
+    "parent": "plantopia:block/icicle",
+    "textures": {
+        "cross": "plantopia:block/icicle_down_middle"
+    }
 }

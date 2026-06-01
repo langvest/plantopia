@@ -1,10 +1,10 @@
 {
-	"variants": {
-		"half=lower": {
-			"model": "plantopia:block/carrotweed_bottom"
-		},
-		"half=upper": {
-			"model": "plantopia:block/carrotweed_top"
-		}
-	}
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/carrotweed_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/carrotweed_top"
+        }
+    }
 }

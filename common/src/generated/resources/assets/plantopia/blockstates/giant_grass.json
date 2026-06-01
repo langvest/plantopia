@@ -1,13 +1,13 @@
 {
-	"variants": {
-		"half=central": {
-			"model": "plantopia:block/giant_grass_middle"
-		},
-		"half=lower": {
-			"model": "plantopia:block/giant_grass_bottom"
-		},
-		"half=upper": {
-			"model": "plantopia:block/giant_grass_top"
-		}
-	}
+    "variants": {
+        "half=central": {
+            "model": "plantopia:block/giant_grass_middle"
+        },
+        "half=lower": {
+            "model": "plantopia:block/giant_grass_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/giant_grass_top"
+        }
+    }
 }

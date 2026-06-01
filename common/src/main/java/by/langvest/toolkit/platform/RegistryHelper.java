@@ -79,18 +79,11 @@ public abstract class RegistryHelper extends PlatformHelper {
         super(platform);
     }
 
-    public static @NotNull Optional<Block> getPottedBlock(Block plantBlock) {
-        return Optional.ofNullable(FlowerPotBlock.POTTED_BY_CONTENT.get(plantBlock));
-    }
-
-    public static FireBlock getFireBlock() {
-        return (FireBlock) Blocks.FIRE;
-    }
-
     public abstract void registerBrewable(Potion inputPotion, @NotNull ItemLike ingredient, Potion outputPotion);
 
     public void registerFlammable(Block block, int encouragement, int flammability) {
-        getFireBlock().setFlammable(block, encouragement, flammability);
+        FireBlock fireBlock = (FireBlock) Blocks.FIRE;
+        fireBlock.setFlammable(block, encouragement, flammability);
     }
 
     public void registerCompostable(@NotNull ItemLike itemLike, float compostability) {
@@ -101,7 +94,6 @@ public abstract class RegistryHelper extends PlatformHelper {
     public <T> Optional<RegistryAdapter<T>> getKnownRegistry(@NotNull ResourceKey<? extends Registry<T>> registryKey) {
         var registries = getKnownRegistries();
         var entry = registries.get(registryKey.location());
-
         if (entry == null) return Optional.empty();
         return Optional.of((RegistryAdapter<T>) entry.registry());
     }

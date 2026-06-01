@@ -4,7 +4,6 @@ import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
-import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.registry.RegistryObject;
 import com.google.common.collect.Sets;
 import net.minecraft.core.registries.Registries;
@@ -112,7 +111,12 @@ public final class PlantopiaContentHelper {
     /* POTTED OF *************************************************************************************/
 
     public static @NotNull Optional<Block> pottedBlockOf(Block plant) {
-        return RegistryHelper.getPottedBlock(plant);
+        var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+        var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
+        var plantIdentifier = locationOf(plant);
+        var pottedName = pottedNameOf(plantIdentifier.getPath());
+        var pottedIdentifier = locationFrom(plantIdentifier.getNamespace(), pottedName);
+        return blockRegistry.getValue(pottedIdentifier);
     }
 
     public static @NotNull String pottedNameOf(String baseName) {
@@ -121,13 +125,11 @@ public final class PlantopiaContentHelper {
 
     public static @NotNull String pottedNameOf(RegistryObject<? extends Block> plant) {
         String baseName = nameOf(plant);
-
         return pottedNameOf(baseName);
     }
 
     public static @NotNull String pottedNameOf(Block plant) {
         String baseName = nameOf(plant);
-
         return pottedNameOf(baseName);
     }
 }

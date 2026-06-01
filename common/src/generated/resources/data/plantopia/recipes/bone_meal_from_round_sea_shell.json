@@ -1,13 +1,13 @@
 {
-	"type": "minecraft:crafting_shapeless",
-	"category": "misc",
-	"group": "bone_meal",
-	"ingredients": [
-		{
-			"item": "plantopia:round_sea_shell"
-		}
-	],
-	"result": {
-		"item": "minecraft:bone_meal"
-	}
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "bone_meal",
+    "ingredients": [
+        {
+            "item": "plantopia:round_sea_shell"
+        }
+    ],
+    "result": {
+        "item": "minecraft:bone_meal"
+    }
 }

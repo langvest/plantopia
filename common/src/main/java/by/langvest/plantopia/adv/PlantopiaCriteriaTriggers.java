@@ -1,7 +1,7 @@
 package by.langvest.plantopia.adv;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.toolkit.event.LifecycleEvent;
+import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaCriteriaTriggers {
-    public static final RegistryObject<ItemUsedOnLocationTrigger> BLOCK_INTERACT = registerTrigger("block_interact", ItemUsedOnLocationTrigger::new);
+    public static final RegistryObject<ItemUsedOnLocationTrigger> INTERACTED_WITH_BLOCK = registerTrigger("interacted_with_block", ItemUsedOnLocationTrigger::new);
 
     public static <T extends CriterionTrigger<?>> RegistryObject<T> registerTrigger(String name, Supplier<T> supplier) {
         return registerTrigger(plantopia(name), supplier);
@@ -29,10 +29,10 @@ public class PlantopiaCriteriaTriggers {
         return PlantopiaRegistries.TRIGGER_TYPE.register(identifier, supplier);
     }
 
-    public static void setup(LifecycleEvent.CommonSetupEvent event) {
-        PlantopiaRegistries.TRIGGER_TYPE.forEach(registryObject ->
-            CriteriaTriggers.register(registryObject.getIdentifier().toString(), registryObject.get())
-        );
+    public static void setup(RegisterEvent event) {
+        PlantopiaRegistries.TRIGGER_TYPE
+            .findAll(registryObject -> CriteriaTriggers.getCriterion(registryObject.getIdentifier()) == null)
+            .forEach(registryObject -> CriteriaTriggers.register(registryObject.getIdentifier().toString(), registryObject.get()));
     }
 
     public static @NotNull Criterion<ItemUsedOnLocationTrigger.TriggerInstance> interactedWith(Block block) {
@@ -40,7 +40,7 @@ public class PlantopiaCriteriaTriggers {
             LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).build()
         );
 
-        return PlantopiaCriteriaTriggers.BLOCK_INTERACT.get()
+        return PlantopiaCriteriaTriggers.INTERACTED_WITH_BLOCK.get()
             .createCriterion(new ItemUsedOnLocationTrigger.TriggerInstance(Optional.empty(), Optional.of(contextAwarePredicate)));
     }
 }

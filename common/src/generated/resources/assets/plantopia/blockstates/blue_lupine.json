@@ -1,10 +1,10 @@
 {
-	"variants": {
-		"half=lower": {
-			"model": "plantopia:block/blue_lupine_bottom"
-		},
-		"half=upper": {
-			"model": "plantopia:block/blue_lupine_top"
-		}
-	}
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/blue_lupine_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/blue_lupine_top"
+        }
+    }
 }

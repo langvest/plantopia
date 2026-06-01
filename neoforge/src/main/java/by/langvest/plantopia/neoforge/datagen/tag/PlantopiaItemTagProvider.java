@@ -2,12 +2,14 @@ package by.langvest.plantopia.neoforge.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
+import by.langvest.toolkit.platform.EventEmitter;
 import com.google.common.collect.Maps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -59,8 +61,13 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
     public static final PlantopiaTagSet<Item> BOATS = getOrCreateTagSet(ItemTags.BOATS);
     public static final PlantopiaTagSet<Item> CHEST_BOATS = getOrCreateTagSet(ItemTags.CHEST_BOATS);
 
-    public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper) {
+    public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper, @NotNull EventEmitter eventEmitter) {
         super(output, registryLookup, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
+        eventEmitter.subscribe(this::listenBridge);
+    }
+
+    protected void listenBridge(PlantopiaDatagenBridgeEvent.@NotNull ItemTagEvent event) {
+        event.provide(PlantopiaItemTagProvider::getOrCreateTagSet);
     }
 
     @Override

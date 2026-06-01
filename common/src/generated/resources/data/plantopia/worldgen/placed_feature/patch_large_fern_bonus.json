@@ -1,19 +1,19 @@
 {
-	"feature": "minecraft:patch_large_fern",
-	"placement": [
-		{
-			"type": "plantopia:rarity_filter",
-			"chance": 5.0
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:heightmap",
-			"heightmap": "WORLD_SURFACE_WG"
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "minecraft:patch_large_fern",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": 5.0
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "WORLD_SURFACE_WG"
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

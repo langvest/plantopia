@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "plantopia:block/potted_lavender"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "plantopia:block/potted_lavender"
+        }
+    }
 }

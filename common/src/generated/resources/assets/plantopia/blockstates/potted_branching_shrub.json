@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "plantopia:block/potted_branching_shrub"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "plantopia:block/potted_branching_shrub"
+        }
+    }
 }

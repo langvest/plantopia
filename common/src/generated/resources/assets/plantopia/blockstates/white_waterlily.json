@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "plantopia:block/white_waterlily"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "plantopia:block/white_waterlily"
+        }
+    }
 }

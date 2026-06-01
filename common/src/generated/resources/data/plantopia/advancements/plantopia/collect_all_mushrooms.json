@@ -1,101 +1,101 @@
 {
-	"parent": "plantopia:plantopia/root",
-	"criteria": {
-		"minecraft:brown_mushroom": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"minecraft:brown_mushroom"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"minecraft:crimson_fungus": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"minecraft:crimson_fungus"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"minecraft:red_mushroom": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"minecraft:red_mushroom"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"minecraft:warped_fungus": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"minecraft:warped_fungus"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		},
-		"plantopia:witchy_toadstool": {
-			"conditions": {
-				"items": [
-					{
-						"items": [
-							"plantopia:witchy_toadstool"
-						]
-					}
-				]
-			},
-			"trigger": "minecraft:inventory_changed"
-		}
-	},
-	"display": {
-		"announce_to_chat": true,
-		"description": {
-			"translate": "advancements.plantopia.collect_all_mushrooms.description"
-		},
-		"frame": "challenge",
-		"hidden": false,
-		"icon": {
-			"item": "plantopia:mushrooms_icon"
-		},
-		"show_toast": true,
-		"title": {
-			"translate": "advancements.plantopia.collect_all_mushrooms.title"
-		}
-	},
-	"requirements": [
-		[
-			"minecraft:brown_mushroom"
-		],
-		[
-			"minecraft:crimson_fungus"
-		],
-		[
-			"minecraft:red_mushroom"
-		],
-		[
-			"minecraft:warped_fungus"
-		],
-		[
-			"plantopia:witchy_toadstool"
-		]
-	],
-	"rewards": {
-		"experience": 50
-	},
-	"sends_telemetry_event": true
+    "parent": "plantopia:plantopia/root",
+    "criteria": {
+        "minecraft:brown_mushroom": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "minecraft:brown_mushroom"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "minecraft:crimson_fungus": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "minecraft:crimson_fungus"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "minecraft:red_mushroom": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "minecraft:red_mushroom"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "minecraft:warped_fungus": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "minecraft:warped_fungus"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "plantopia:witchy_toadstool": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:witchy_toadstool"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "display": {
+        "announce_to_chat": true,
+        "description": {
+            "translate": "advancements.plantopia.collect_all_mushrooms.description"
+        },
+        "frame": "challenge",
+        "hidden": false,
+        "icon": {
+            "item": "plantopia:mushrooms_icon"
+        },
+        "show_toast": true,
+        "title": {
+            "translate": "advancements.plantopia.collect_all_mushrooms.title"
+        }
+    },
+    "requirements": [
+        [
+            "minecraft:brown_mushroom"
+        ],
+        [
+            "minecraft:crimson_fungus"
+        ],
+        [
+            "minecraft:red_mushroom"
+        ],
+        [
+            "minecraft:warped_fungus"
+        ],
+        [
+            "plantopia:witchy_toadstool"
+        ]
+    ],
+    "rewards": {
+        "experience": 50
+    },
+    "sends_telemetry_event": true
 }

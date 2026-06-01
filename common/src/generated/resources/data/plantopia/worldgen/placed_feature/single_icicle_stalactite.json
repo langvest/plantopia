@@ -1,48 +1,48 @@
 {
-	"feature": "plantopia:single_icicle_stalactite",
-	"placement": [
-		{
-			"type": "plantopia:density",
-			"bottom_anchor": {
-				"type": "plantopia:heightmap_anchor",
-				"heightmap": "WORLD_SURFACE_WG",
-				"offset": -6
-			},
-			"density": 2.48,
-			"top_anchor": {
-				"type": "plantopia:heightmap_anchor",
-				"heightmap": "WORLD_SURFACE_WG",
-				"offset": 60
-			}
-		},
-		{
-			"type": "minecraft:in_square"
-		},
-		{
-			"type": "minecraft:environment_scan",
-			"direction_of_search": "up",
-			"max_steps": 6,
-			"target_condition": {
-				"type": "minecraft:all_of",
-				"predicates": [
-					{
-						"type": "minecraft:matching_blocks",
-						"blocks": "minecraft:air"
-					},
-					{
-						"type": "minecraft:matching_blocks",
-						"blocks": "minecraft:packed_ice",
-						"offset": [
-							0,
-							1,
-							0
-						]
-					}
-				]
-			}
-		},
-		{
-			"type": "minecraft:biome"
-		}
-	]
+    "feature": "plantopia:single_icicle_stalactite",
+    "placement": [
+        {
+            "type": "plantopia:density",
+            "bottom_anchor": {
+                "type": "plantopia:heightmap_anchor",
+                "heightmap": "WORLD_SURFACE_WG",
+                "offset": -6
+            },
+            "density": 2.48,
+            "top_anchor": {
+                "type": "plantopia:heightmap_anchor",
+                "heightmap": "WORLD_SURFACE_WG",
+                "offset": 60
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:environment_scan",
+            "direction_of_search": "up",
+            "max_steps": 6,
+            "target_condition": {
+                "type": "minecraft:all_of",
+                "predicates": [
+                    {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "minecraft:air"
+                    },
+                    {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "minecraft:packed_ice",
+                        "offset": [
+                            0,
+                            1,
+                            0
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
 }

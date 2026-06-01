@@ -1,7 +1,7 @@
 {
-	"variants": {
-		"": {
-			"model": "minecraft:block/ice"
-		}
-	}
+    "variants": {
+        "": {
+            "model": "minecraft:block/ice"
+        }
+    }
 }
