@@ -7,18 +7,11 @@ plugins {
 JavaLanguageVersion JAVA_VERSION = JavaLanguageVersion.of(java_version)
 String JAVA_VM_VERSION = System.getProperty("java.vm.version")
 String JAVA_VM_VENDOR = System.getProperty("java.vm.vendor")
-Set<String> FILES_TO_EXPAND = ["pack.mcmeta", "fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "*.mixins.json"]
+Set<String> FILES_TO_EXPAND = ["pack.mcmeta", "fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml"]
 
 println "$mod_name: $mod_version"
 println "Java: $JAVA_VM_VERSION ($JAVA_VM_VENDOR)"
 println "Minecraft: $minecraft_version"
-
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
 
 subprojects {
     apply plugin: "java"

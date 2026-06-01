@@ -75,7 +75,11 @@ tasks.named("sourcesJar", Jar) {
 tasks.withType(ProcessResources).matching(notNeoTask).configureEach {
     from project(":Common").sourceSets.main.resources
 
-    filesMatching(common_mixin_config as String) {
-        expand "refmap_target": "${mod_id}."
-    }
+//    filesMatching(common_mixin_config as String) {
+//        // Escape $ before uppercase letters (class names) to prevent Groovy template expansion
+//        filter { line -> line.replaceAll(/\$([A-Z])/, '\\\\\\$$1') }
+//        expand "refmap_target": "${mod_id}."
+//        // Restore original $ after expansion
+//        filter { line -> line.replaceAll(/\\\$([A-Z])/, '\$$1') }
+//    }
 }
