@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_taiga_grass_bonus",
+    "features": "plantopia:patch_taiga_grass_bonus",
+    "step": "vegetal_decoration"
+}

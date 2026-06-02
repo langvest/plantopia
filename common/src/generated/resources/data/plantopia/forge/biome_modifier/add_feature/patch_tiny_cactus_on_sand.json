@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_tiny_cactus_on_sand",
+    "features": "plantopia:patch_tiny_cactus_on_sand",
+    "step": "vegetal_decoration"
+}

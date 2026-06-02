@@ -1,4 +1,4 @@
-package by.langvest.plantopia.neoforge.datagen.util;
+package by.langvest.plantopia.neoforge.datagen.extra;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
-public class PlantopiaJsonReindentProvider implements DataProvider {
+public class PlantopiaJsonPostProcessProvider implements DataProvider {
     // This GSON instance produces a predictably formatted JSON string with 2-space indents.
     private static final Gson GSON = new GsonBuilder()
         .setPrettyPrinting()
@@ -25,7 +25,7 @@ public class PlantopiaJsonReindentProvider implements DataProvider {
 
     private final PackOutput output;
 
-    public PlantopiaJsonReindentProvider(PackOutput output) {
+    public PlantopiaJsonPostProcessProvider(PackOutput output) {
         this.output = output;
     }
 
@@ -101,6 +101,6 @@ public class PlantopiaJsonReindentProvider implements DataProvider {
 
     @Override
     public @NotNull String getName() {
-        return "PlantopiaJsonReindent";
+        return "PlantopiaJsonPostProcess";
     }
 }

@@ -14,7 +14,8 @@ import by.langvest.plantopia.neoforge.datagen.tag.PlantopiaBlockTagProvider;
 import by.langvest.plantopia.neoforge.datagen.tag.PlantopiaEntityTypeTagProvider;
 import by.langvest.plantopia.neoforge.datagen.tag.PlantopiaItemTagProvider;
 
-import by.langvest.plantopia.neoforge.datagen.util.PlantopiaJsonReindentProvider;
+import by.langvest.plantopia.neoforge.datagen.extra.PlantopiaForgeBiomeModifierProvider;
+import by.langvest.plantopia.neoforge.datagen.extra.PlantopiaJsonPostProcessProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -39,8 +40,8 @@ public final class PlantopiaDataGenerationHandler {
         // Server
         generator.addProvider(event.includeServer(), new PlantopiaLootTableProvider(output, eventEmitter));
         generator.addProvider(event.includeServer(), new PlantopiaRecipeProvider(output, registryLookup, eventEmitter));
-        generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, registryLookup, existingFileHelper));
         generator.addProvider(event.includeServer(), new PlantopiaAdvancementProvider(output, registryLookup, existingFileHelper));
+        generator.addProvider(event.includeServer(), new PlantopiaEntityTypeTagProvider(output, registryLookup, existingFileHelper));
         generator.addProvider(event.includeServer(), new PlantopiaBiomeTagProvider(output, registryLookup, existingFileHelper));
         generator.addProvider(event.includeServer(), new PlantopiaBlockTagProvider(output, registryLookup, existingFileHelper, eventEmitter));
         generator.addProvider(event.includeServer(), new PlantopiaItemTagProvider(output, registryLookup, existingFileHelper, eventEmitter));
@@ -51,7 +52,8 @@ public final class PlantopiaDataGenerationHandler {
         generator.addProvider(event.includeClient(), new PlantopiaSoundProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new PlantopiaLanguageProvider(output));
 
-        // Post-Processing
-        generator.addProvider(event.includeDev(), new PlantopiaJsonReindentProvider(output));
+        // Extra
+        generator.addProvider(event.includeDev(), new PlantopiaForgeBiomeModifierProvider(output));
+        generator.addProvider(event.includeDev(), new PlantopiaJsonPostProcessProvider(output));
     }
 }

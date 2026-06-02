@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_sea_shell_ocean",
+    "features": "plantopia:patch_sea_shell_ocean",
+    "step": "vegetal_decoration"
+}

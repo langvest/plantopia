@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_waterlily_marsh",
+    "features": "plantopia:patch_waterlily_marsh",
+    "step": "vegetal_decoration"
+}

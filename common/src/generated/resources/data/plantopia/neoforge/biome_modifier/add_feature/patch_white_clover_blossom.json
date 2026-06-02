@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_white_clover_blossom",
+    "features": "plantopia:patch_white_clover_blossom",
+    "step": "vegetal_decoration"
+}

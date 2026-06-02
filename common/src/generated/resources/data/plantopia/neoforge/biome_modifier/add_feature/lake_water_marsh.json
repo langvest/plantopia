@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/lake_water_marsh",
+    "features": "plantopia:lake_water_marsh",
+    "step": "lakes"
+}

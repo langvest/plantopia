@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_sugar_cane_marsh",
+    "features": "plantopia:patch_sugar_cane_marsh",
+    "step": "vegetal_decoration"
+}

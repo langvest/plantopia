@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_large_fern_bonus",
+    "features": "plantopia:patch_large_fern_bonus",
+    "step": "vegetal_decoration"
+}

@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_carrotweed_mountain",
+    "features": "plantopia:patch_carrotweed_mountain",
+    "step": "vegetal_decoration"
+}

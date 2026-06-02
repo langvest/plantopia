@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_clover_2",
+    "features": "plantopia:patch_clover_2",
+    "step": "vegetal_decoration"
+}
