@@ -1,8 +1,7 @@
 package by.langvest.plantopia.mixin.level;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.PlantopiaFreezableBlock;
-import by.langvest.plantopia.block.special.PlantopiaQuicksandCauldronBlock;
+import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.GameRules;
@@ -10,40 +9,34 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CauldronBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import org.jetbrains.annotations.NotNull;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(ServerLevel.class)
 public abstract class PlantopiaServerLevelMixin {
-    @Inject(
+    @Redirect(
         method = "tickIceAndSnow(ZLnet/minecraft/core/BlockPos;)V",
         at = @At(
-            value = "FIELD",
-            target = "Lnet/minecraft/world/level/biome/Biome$Precipitation;NONE:Lnet/minecraft/world/level/biome/Biome$Precipitation;",
-            opcode = Opcodes.GETSTATIC,
-            ordinal = 0
-        ),
-        locals = LocalCapture.CAPTURE_FAILHARD
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/level/biome/Biome;getPrecipitationAt(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/biome/Biome$Precipitation;"
+        )
     )
-    private void tickIceAndSnow$beforePrecipitationCheck(boolean isRaining, BlockPos origin, CallbackInfo ci, BlockPos pos, BlockPos posBelow, Biome biome, int maxSnowAccumulationHeight, Biome.Precipitation precipitation) {
+    private Biome.Precipitation tickIceAndSnow$getPrecipitationAt(@NotNull Biome biome, BlockPos pos) {
         ServerLevel level = (ServerLevel) (Object) this;
+        var originalPrecipitation = biome.getPrecipitationAt(pos);
 
-        if (precipitation == Biome.Precipitation.NONE) {
-            var stateBelow = level.getBlockState(posBelow);
-            var blockBelow = stateBelow.getBlock();
+        if (originalPrecipitation == Biome.Precipitation.NONE) {
+            var biomeHolder = level.getBiome(pos.above());
 
-            if (blockBelow instanceof PlantopiaQuicksandCauldronBlock || blockBelow instanceof CauldronBlock) {
-                blockBelow.handlePrecipitation(stateBelow, level, posBelow, precipitation);
+            if (biomeHolder.is(PlantopiaBiomeTags.IS_QUICKSAND_PRECIPITABLE)) {
+                return Biome.Precipitation.RAIN; // LanGvest: Imitate rain precipitation.
             }
         }
+
+        return originalPrecipitation;
     }
 
     @Redirect(
@@ -62,7 +55,7 @@ public abstract class PlantopiaServerLevelMixin {
         if (block instanceof PlantopiaFreezableBlock freezableBlock) {
             if (!biome.shouldFreeze(levelReader, pos)) return false;
             var iceState = Blocks.ICE.defaultBlockState();
-            freezableBlock.freezeAt(state, iceState, level, pos, 3);
+            freezableBlock.freezeAt(state, iceState, level, pos, Block.UPDATE_ALL);
             return false;
         }
 
@@ -82,10 +75,6 @@ public abstract class PlantopiaServerLevelMixin {
         var state = level.getBlockState(pos);
         var block = state.getBlock();
 
-        if (state.is(PlantopiaBlocks.COVERED_SNOWDROP.get())) {
-            System.out.println(232);
-        }
-
         if (block instanceof PlantopiaFreezableBlock || block instanceof SnowLayerBlock) {
             if (!biome.shouldSnow(levelReader, pos)) return false;
 
@@ -97,7 +86,7 @@ public abstract class PlantopiaServerLevelMixin {
             if (block instanceof PlantopiaFreezableBlock freezableBlock) {
                 var snowState = Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layers + 1);
 
-                freezableBlock.freezeAt(state, snowState, level, pos, 3);
+                freezableBlock.freezeAt(state, snowState, level, pos, Block.UPDATE_ALL);
                 Block.pushEntitiesUp(state, level.getBlockState(pos), level, pos);
 
                 return false;

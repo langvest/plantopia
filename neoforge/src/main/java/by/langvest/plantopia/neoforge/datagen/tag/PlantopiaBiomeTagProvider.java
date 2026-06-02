@@ -31,7 +31,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
     public static final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
     public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
     public static final PlantopiaTagSet<Biome> IS_MARSH = getOrCreateTagSet(PlantopiaBiomeTags.IS_MARSH);
-    public static final PlantopiaTagSet<Biome> IS_DESERT = getOrCreateTagSet(PlantopiaBiomeTags.IS_DESERT);
+    public static final PlantopiaTagSet<Biome> IS_QUICKSAND_PRECIPITABLE = getOrCreateTagSet(PlantopiaBiomeTags.IS_QUICKSAND_PRECIPITABLE);
 
     public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper) {
         super(output, registryLookup, Plantopia.MOD_ID, existingFileHelper);
@@ -44,7 +44,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
         ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
         ALLOWS_FRAZIL.add(Biomes.FROZEN_OCEAN);
         IS_MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
-        IS_DESERT.add(Biomes.DESERT);
+        IS_QUICKSAND_PRECIPITABLE.add(Biomes.DESERT);
 
         saveAll();
     }

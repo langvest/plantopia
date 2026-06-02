@@ -7,7 +7,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.CauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,8 +21,7 @@ public abstract class PlantopiaCauldronBlockMixin {
     )
     private void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation, CallbackInfo ci) {
         if (PlantopiaQuicksandCauldronBlock.shouldHandlePrecipitation(level, pos, precipitation)) {
-            level.setBlockAndUpdate(pos, PlantopiaBlocks.QUICKSAND_CAULDRON.get().defaultBlockState());
-            level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+            PlantopiaBlocks.QUICKSAND_CAULDRON.get().handlePrecipitation(state, level, pos, precipitation);
             ci.cancel();
         }
     }

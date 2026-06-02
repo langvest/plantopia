@@ -4,26 +4,32 @@ import by.langvest.plantopia.block.PlantopiaCauldronInteraction;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaQuicksandCauldronBlock extends LayeredCauldronBlock {
-    public static final Predicate<Biome.Precipitation> NONE = (precipitation) -> precipitation == Biome.Precipitation.NONE;
-
     protected final Supplier<Block> contentBlock;
 
     public PlantopiaQuicksandCauldronBlock(Supplier<Block> contentBlock, Properties properties) {
-        super(properties, NONE, PlantopiaCauldronInteraction.QUICKSAND);
+        super(properties, RAIN, PlantopiaCauldronInteraction.QUICKSAND);
         this.contentBlock = contentBlock;
+    }
+
+    @Override
+    public @NotNull ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+        return Items.CAULDRON.getDefaultInstance();
     }
 
     public Block getContentBlock() {
@@ -31,19 +37,26 @@ public class PlantopiaQuicksandCauldronBlock extends LayeredCauldronBlock {
     }
 
     public static boolean shouldHandlePrecipitation(Level level, BlockPos pos, Biome.Precipitation precipitation) {
-        if (!NONE.test(precipitation)) return false;
-        if (!level.getBiome(pos).is(PlantopiaBiomeTags.IS_DESERT)) return false;
-        return level.getRandom().nextFloat() < 0.04F;
+        return RAIN.test(precipitation) && level.getBiome(pos).is(PlantopiaBiomeTags.IS_QUICKSAND_PRECIPITABLE);
     }
 
     @Override
     public void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation) {
-        if (isFull(state)) return;
-        if (!shouldHandlePrecipitation(level, pos, precipitation)) return;
+        if (level.getRandom().nextFloat() > 0.04F) return;
 
-        var newState = state.cycle(LEVEL);
-        level.setBlockAndUpdate(pos, newState);
-        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newState));
+        BlockState newState = null;
+        if (state.is(this)) {
+            if (!isFull(state)) {
+                newState = state.cycle(LEVEL);
+            }
+        } else {
+            newState = defaultBlockState();
+        }
+
+        if (newState != null) {
+            level.setBlockAndUpdate(pos, newState);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newState));
+        }
     }
 
     @Override
