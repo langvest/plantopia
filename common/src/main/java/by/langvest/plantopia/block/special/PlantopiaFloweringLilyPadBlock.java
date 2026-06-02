@@ -8,10 +8,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +43,22 @@ public class PlantopiaFloweringLilyPadBlock extends WaterlilyBlock implements Pl
     @Override
     public Block getOriginBlock() {
         return Blocks.LILY_PAD;
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+        var fluidState = level.getFluidState(pos);
+        var fluidStateAbove = level.getFluidState(pos.above());
+
+        return (fluidState.isSourceOfType(Fluids.WATER) || state.getBlock() instanceof IceBlock) && fluidStateAbove.isEmpty();
+    }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        var posBelow = pos.below();
+        var stateBelow = level.getBlockState(posBelow);
+
+        return mayPlaceOn(stateBelow, level, posBelow);
     }
 
     @Override
