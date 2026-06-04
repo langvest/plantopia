@@ -7,10 +7,7 @@ import by.langvest.plantopia.block.PlantopiaFloweringWaterlilyBlock;
 import by.langvest.plantopia.item.special.PlantopiaWaterlilyFlowerBlockItem;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.toolkit.event.LifecycleEvent;
-import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
@@ -19,6 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaCompats {
@@ -55,7 +53,7 @@ public class PlantopiaCompats {
 			}
 
             if (blockMeta.isStrippable()) {
-				registerStrippable(block, blockMeta.getStripped());
+				registerStrippable(block, Objects.requireNonNull(blockMeta.getStripped()));
 			}
 
             if (block instanceof PlantopiaFloweringWaterlilyBlock waterlilyBlock) {
@@ -87,13 +85,13 @@ public class PlantopiaCompats {
     }
 
     public static void registerStrippable(Block log, Block stripped) {
-        AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
-        AxeItem.STRIPPABLES.put(log, stripped);
+        var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+        registryHelper.registerStrippable(log, stripped);
     }
 
     public static void registerFlattenable(Block block, BlockState flattened) {
-        ShovelItem.FLATTENABLES = Maps.newHashMap(ShovelItem.FLATTENABLES);
-        ShovelItem.FLATTENABLES.put(block, flattened);
+        var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+        registryHelper.registerFlattenable(block, flattened);
     }
 
     /**

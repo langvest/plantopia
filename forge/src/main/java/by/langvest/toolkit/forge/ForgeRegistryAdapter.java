@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class ForgeRegistryAdapter<T> extends RegistryAdapter<T> {
     protected IForgeRegistry<T> forgeRegistry;
@@ -27,13 +28,18 @@ public class ForgeRegistryAdapter<T> extends RegistryAdapter<T> {
     }
 
     @Override
-    public Optional<ResourceKey<T>> getResourceKey(T value) {
+    public Optional<ResourceKey<T>> getKey(T value) {
         return getForgeRegistry().getResourceKey(value);
     }
 
     @Override
     public Optional<T> getValue(ResourceLocation key) {
         return Optional.ofNullable(getForgeRegistry().getValue(key));
+    }
+
+    @Override
+    public void register(ResourceLocation identifier, @NotNull Supplier<T> supplier) {
+        getForgeRegistry().register(identifier, supplier.get());
     }
 
     @Override

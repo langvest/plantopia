@@ -4,7 +4,7 @@ import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaTreeFeatures;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaVegetationFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
-import by.langvest.toolkit.util.Catalog;
+import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.*;

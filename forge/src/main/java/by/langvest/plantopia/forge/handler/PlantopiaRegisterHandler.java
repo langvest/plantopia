@@ -19,7 +19,7 @@ public final class PlantopiaRegisterHandler {
 
         globalEventEmitter.emit(new RegisterEvent() {
             @Override
-            public <T> void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier) {
+            public <T> void register(ResourceKey<? extends Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier) {
                 event.register(registryKey, identifier, supplier);
             }
         });

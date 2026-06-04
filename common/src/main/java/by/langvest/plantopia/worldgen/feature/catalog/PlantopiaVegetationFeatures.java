@@ -19,7 +19,7 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
-import by.langvest.toolkit.util.Catalog;
+import by.langvest.toolkit.collection.catalog.Catalog;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

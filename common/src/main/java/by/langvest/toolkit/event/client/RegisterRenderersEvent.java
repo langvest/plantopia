@@ -1,6 +1,6 @@
 package by.langvest.toolkit.event.client;
 
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import by.langvest.toolkit.client.render.item.CustomItemRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
@@ -14,11 +14,11 @@ import java.util.Set;
 
 public abstract class RegisterRenderersEvent extends ClientEvent {
     public static abstract class ItemEvent extends RegisterRenderersEvent {
-        public abstract void register(Item item, BlockEntityWithoutLevelRenderer renderer);
+        public abstract void register(Item item, CustomItemRenderer renderer);
 
-        public void registerAll(@NotNull Set<Item> items, BlockEntityWithoutLevelRenderer renderType) {
+        public void registerAll(@NotNull Set<Item> items, CustomItemRenderer renderer) {
             for (var item : items) {
-                register(item, renderType);
+                register(item, renderer);
             }
         }
     }

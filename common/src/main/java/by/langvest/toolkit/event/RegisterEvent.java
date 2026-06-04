@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class RegisterEvent extends Event {
-    public abstract <T> void register(ResourceKey<Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier);
+    public abstract <T> void register(ResourceKey<? extends Registry<T>> registryKey, ResourceLocation identifier, Supplier<T> supplier);
 
-    public <T> void registerAll(ResourceKey<Registry<T>> registryKey, by.langvest.toolkit.registry.@NotNull Registry<T> sourceRegistry) {
+    public <T> void registerAll(ResourceKey<? extends Registry<T>> registryKey, by.langvest.toolkit.registry.@NotNull Registry<T> sourceRegistry) {
         registerAll(registryKey, sourceRegistry.getAll());
     }
 
     @SafeVarargs
-    public final <T> void registerAll(ResourceKey<Registry<T>> registryKey, RegistryObject<T>... registryObjects) {
+    public final <T> void registerAll(ResourceKey<? extends Registry<T>> registryKey, RegistryObject<T>... registryObjects) {
         registerAll(registryKey, Arrays.asList(registryObjects));
     }
 
-    public <T> void registerAll(ResourceKey<Registry<T>> registryKey, @NotNull List<RegistryObject<T>> registryObjects) {
+    public <T> void registerAll(ResourceKey<? extends Registry<T>> registryKey, @NotNull List<RegistryObject<T>> registryObjects) {
         for (var registryObject : registryObjects) {
             register(registryKey, registryObject.getIdentifier(), registryObject);
         }

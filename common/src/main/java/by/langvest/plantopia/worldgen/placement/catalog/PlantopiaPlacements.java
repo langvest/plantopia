@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
-import by.langvest.toolkit.util.Catalog;
+import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;

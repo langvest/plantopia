@@ -7,26 +7,18 @@ import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.platform.ResourceHelper;
 import by.langvest.toolkit.platform.client.RenderHelper;
 import net.minecraftforge.data.loading.DatagenModLoader;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import org.jetbrains.annotations.NotNull;
 
 public class ForgePlatform extends Platform {
-    protected FMLJavaModLoadingContext context;
     protected ResourceHelper resourceHelper;
     protected RegistryHelper registryHelper;
     protected RenderHelper renderHelper;
 
-    public ForgePlatform(String modId, @NotNull FMLJavaModLoadingContext context) {
+    public ForgePlatform(String modId) {
         super(modId);
-        this.context = context;
         this.resourceHelper = new ForgeResourceHelper(this);
         this.registryHelper = new ForgeRegistryHelper(this);
         this.renderHelper = new ForgeRenderHelper(this);
-    }
-
-    public FMLJavaModLoadingContext getContext() {
-        return context;
     }
 
     @Override

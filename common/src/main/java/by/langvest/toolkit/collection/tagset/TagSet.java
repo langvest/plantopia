@@ -1,4 +1,4 @@
-package by.langvest.toolkit.util;
+package by.langvest.toolkit.collection.tagset;
 
 import com.google.common.collect.Lists;
 import net.minecraft.resources.ResourceKey;

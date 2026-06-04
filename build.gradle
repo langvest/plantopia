@@ -90,13 +90,11 @@ subprojects {
         }
     }
 
-    // Кодировка и версия Java для компиляции
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release = JAVA_VERSION.asInt()
     }
 
-    // Отключаем генерацию метаданных модулей
     tasks.withType(GenerateModuleMetadata).configureEach {
         enabled = false
     }

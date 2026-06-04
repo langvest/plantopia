@@ -3,7 +3,7 @@ package by.langvest.plantopia.worldgen.biome.catalog;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
-import by.langvest.toolkit.util.Catalog;
+import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;

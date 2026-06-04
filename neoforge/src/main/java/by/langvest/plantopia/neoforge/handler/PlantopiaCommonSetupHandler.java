@@ -12,10 +12,8 @@ import org.jetbrains.annotations.NotNull;
 public final class PlantopiaCommonSetupHandler {
     @SubscribeEvent
     public static void commonSetup(@NotNull FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            var globalEventEmitter = EventEmitter.getDefaultInstance();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-            globalEventEmitter.emit(new LifecycleEvent.CommonSetupEvent());
-        });
+        event.enqueueWork(() -> globalEventEmitter.emit(new LifecycleEvent.CommonSetupEvent()));
     }
 }

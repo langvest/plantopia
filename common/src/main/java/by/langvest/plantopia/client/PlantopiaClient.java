@@ -1,51 +1,39 @@
 package by.langvest.plantopia.client;
 
-import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.client.color.PlantopiaBlockColors;
 import by.langvest.plantopia.client.color.PlantopiaItemColors;
 import by.langvest.plantopia.client.particle.PlantopiaParticleProviders;
 import by.langvest.plantopia.client.property.PlantopiaItemProperties;
 import by.langvest.plantopia.client.render.*;
-import by.langvest.toolkit.event.LifecycleEvent;
 import by.langvest.toolkit.platform.EventEmitter;
 import by.langvest.toolkit.platform.Platform;
-import org.jetbrains.annotations.NotNull;
 
 public final class PlantopiaClient {
     public static void init(Platform platform) {
-        var globalEventEmitter = EventEmitter.getDefaultInstance();
-
-        PlantopiaClient.addListeners(globalEventEmitter);
+        PlantopiaClient.addListeners(platform);
     }
 
     @SuppressWarnings("DuplicatedCode")
-    private static void addListeners(@NotNull EventEmitter eventEmitter) {
+    private static void addListeners(Platform platform) {
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
+
         // Colors
-        eventEmitter.subscribe(PlantopiaBlockColors::setup);
-        eventEmitter.subscribe(PlantopiaItemColors::setup);
+        globalEventEmitter.subscribe(PlantopiaBlockColors::setup);
+        globalEventEmitter.subscribe(PlantopiaItemColors::setup);
 
         // Block rendering
-        eventEmitter.subscribe(PlantopiaBlockRenderLayers::setup);
-        eventEmitter.subscribe(PlantopiaBlockEntityRenderers::setup);
+        globalEventEmitter.subscribe(PlantopiaBlockRenderLayers::setup);
+        globalEventEmitter.subscribe(PlantopiaBlockEntityRenderers::setup);
 
         // Entity rendering
-        eventEmitter.subscribe(PlantopiaEntityRenderers::setup);
-        eventEmitter.subscribe(PlantopiaEntityLayerDefinitions::setup);
+        globalEventEmitter.subscribe(PlantopiaEntityRenderers::setup);
+        globalEventEmitter.subscribe(PlantopiaEntityLayerDefinitions::setup);
 
         // Item rendering
-        eventEmitter.subscribe(PlantopiaItemRenderers::setup);
-        eventEmitter.subscribe(PlantopiaItemProperties::setup);
+        globalEventEmitter.subscribe(PlantopiaItemRenderers::setup);
+        globalEventEmitter.subscribe(PlantopiaItemProperties::setup);
 
         // Particles
-        eventEmitter.subscribe(PlantopiaParticleProviders::setup);
-
-        // Other client work
-        eventEmitter.subscribe(PlantopiaClient::setup);
-    }
-
-    private static void setup(LifecycleEvent.ClientSetupEvent event) {
-        var workScheduler = Plantopia.getPlatform().getWorkScheduler();
-
-        workScheduler.executeWork("client_setup");
+        globalEventEmitter.subscribe(PlantopiaParticleProviders::setup);
     }
 }

@@ -1,5 +1,6 @@
-package by.langvest.toolkit.util;
+package by.langvest.toolkit.collection.catalog;
 
+import by.langvest.toolkit.collection.Streamable;
 import com.google.common.collect.Maps;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

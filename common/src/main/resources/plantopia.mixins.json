@@ -52,7 +52,8 @@
         "client.PlantopiaMinecraftMixin",
         "client.gui.PlantopiaGuiMixin",
         "client.render.block.PlantopiaLiquidBlockRendererMixin",
-        "client.render.entity.PlantopiaAbstractZombieRendererMixin"
+        "client.render.entity.PlantopiaAbstractZombieRendererMixin",
+        "client.render.item.PlantopiaItemRendererMixin"
     ],
     "injectors": {
         "defaultRequire": 1

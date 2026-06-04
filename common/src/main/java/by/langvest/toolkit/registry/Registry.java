@@ -1,7 +1,7 @@
 package by.langvest.toolkit.registry;
 
 import by.langvest.toolkit.util.LocationLike;
-import by.langvest.toolkit.util.Streamable;
+import by.langvest.toolkit.collection.Streamable;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import net.minecraft.resources.ResourceKey;

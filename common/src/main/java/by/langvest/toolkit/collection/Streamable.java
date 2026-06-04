@@ -1,4 +1,4 @@
-package by.langvest.toolkit.util;
+package by.langvest.toolkit.collection;
 
 import com.google.common.collect.Streams;
 

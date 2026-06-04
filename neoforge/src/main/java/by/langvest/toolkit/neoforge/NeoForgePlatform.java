@@ -6,27 +6,19 @@ import by.langvest.toolkit.platform.PlatformType;
 import by.langvest.toolkit.platform.RegistryHelper;
 import by.langvest.toolkit.platform.ResourceHelper;
 import by.langvest.toolkit.platform.client.RenderHelper;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.data.loading.DatagenModLoader;
-import org.jetbrains.annotations.NotNull;
 
 public class NeoForgePlatform extends Platform {
-    protected FMLJavaModLoadingContext context;
     protected ResourceHelper resourceHelper;
     protected RegistryHelper registryHelper;
     protected RenderHelper renderHelper;
 
-    public NeoForgePlatform(String modId, @NotNull FMLJavaModLoadingContext context) {
+    public NeoForgePlatform(String modId) {
         super(modId);
-        this.context = context;
         this.resourceHelper = new NeoForgeResourceHelper(this);
         this.registryHelper = new NeoForgeRegistryHelper(this);
         this.renderHelper = new NeoForgeRenderHelper(this);
-    }
-
-    public FMLJavaModLoadingContext getContext() {
-        return context;
     }
 
     @Override

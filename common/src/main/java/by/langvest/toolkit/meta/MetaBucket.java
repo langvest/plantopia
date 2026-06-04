@@ -1,7 +1,7 @@
 package by.langvest.toolkit.meta;
 
 import by.langvest.toolkit.util.LocationLike;
-import by.langvest.toolkit.util.Streamable;
+import by.langvest.toolkit.collection.Streamable;
 import com.google.common.collect.Maps;
 import com.ibm.icu.impl.IllegalIcuArgumentException;
 import net.minecraft.resources.ResourceLocation;

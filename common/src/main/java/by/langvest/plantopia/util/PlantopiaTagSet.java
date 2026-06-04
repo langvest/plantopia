@@ -2,7 +2,7 @@ package by.langvest.plantopia.util;
 
 import by.langvest.plantopia.Plantopia;
 import by.langvest.toolkit.registry.RegistryObject;
-import by.langvest.toolkit.util.TagSet;
+import by.langvest.toolkit.collection.tagset.TagSet;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

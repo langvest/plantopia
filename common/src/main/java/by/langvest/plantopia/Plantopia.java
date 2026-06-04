@@ -57,7 +57,6 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
 import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorTypes;
 import by.langvest.toolkit.platform.EventEmitter;
 import by.langvest.toolkit.platform.Platform;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -66,10 +65,8 @@ public final class Plantopia {
     private static Platform platform;
 
     public static void init(Platform platform) {
-        var globalEventEmitter = EventEmitter.getDefaultInstance();
-
         Plantopia.injectPlatform(platform);
-        Plantopia.addListeners(globalEventEmitter);
+        Plantopia.addListeners(platform);
 
         if (platform.isClient()) {
             PlantopiaClient.init(platform);
@@ -85,31 +82,33 @@ public final class Plantopia {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    private static void addListeners(@NotNull EventEmitter eventEmitter) {
+    private static void addListeners(Platform platform) {
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
+
         // Registries
-        eventEmitter.subscribe(PlantopiaBlocks::setup);
-        eventEmitter.subscribe(PlantopiaBlockEntityTypes::setup);
-        eventEmitter.subscribe(PlantopiaItems::setup);
-        eventEmitter.subscribe(PlantopiaKits::setup);
-        eventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
-        eventEmitter.subscribe(PlantopiaEntityTypes::setup);
-        eventEmitter.subscribe(PlantopiaBoatTypes::setup);
-        eventEmitter.subscribe(PlantopiaParticleTypes::setup);
-        eventEmitter.subscribe(PlantopiaSoundEvents::setup);
-        eventEmitter.subscribe(PlantopiaFeatureTypes::setup);
-        eventEmitter.subscribe(PlantopiaBlockPlacerTypes::setup);
-        eventEmitter.subscribe(PlantopiaVerticalAnchorTypes::setup);
-        eventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
-        eventEmitter.subscribe(PlantopiaBlockStateProviderTypes::setup);
-        eventEmitter.subscribe(PlantopiaPlacementModifierTypes::setup);
-        eventEmitter.subscribe(PlantopiaRecipeSerializers::setup);
-        eventEmitter.subscribe(PlantopiaCriteriaTriggers::setup);
+        globalEventEmitter.subscribe(PlantopiaBlocks::setup);
+        globalEventEmitter.subscribe(PlantopiaBlockEntityTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaItems::setup);
+        globalEventEmitter.subscribe(PlantopiaKits::setup);
+        globalEventEmitter.subscribe(PlantopiaCreativeModeTabs::setup);
+        globalEventEmitter.subscribe(PlantopiaEntityTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaBoatTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaParticleTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaSoundEvents::setup);
+        globalEventEmitter.subscribe(PlantopiaFeatureTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaBlockPlacerTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaVerticalAnchorTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaTreeDecoratorTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaBlockStateProviderTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaPlacementModifierTypes::setup);
+        globalEventEmitter.subscribe(PlantopiaRecipeSerializers::setup);
+        globalEventEmitter.subscribe(PlantopiaCriteriaTriggers::setup);
 
         // Common
-        eventEmitter.subscribe(PlantopiaBoatType::setup);
-        eventEmitter.subscribe(PlantopiaCompats::setup);
-        eventEmitter.subscribe(PlantopiaRegions::setup);
-        eventEmitter.subscribe(PlantopiaSurfaceRules::setup);
-        eventEmitter.subscribe(PlantopiaCommands::setup);
+        globalEventEmitter.subscribe(PlantopiaBoatType::setup);
+        globalEventEmitter.subscribe(PlantopiaCompats::setup);
+        globalEventEmitter.subscribe(PlantopiaCommands::setup);
+        globalEventEmitter.subscribe(PlantopiaRegions::setup);
+        globalEventEmitter.subscribe(PlantopiaSurfaceRules::setup);
     }
 }

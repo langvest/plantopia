@@ -26,9 +26,7 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.entity.schedule.Schedule;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -37,6 +35,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.PositionSourceType;
@@ -88,6 +87,16 @@ public abstract class RegistryHelper extends PlatformHelper {
 
     public void registerCompostable(@NotNull ItemLike itemLike, float compostability) {
         ComposterBlock.COMPOSTABLES.put(itemLike.asItem(), compostability);
+    }
+
+    public void registerStrippable(Block log, Block stripped) {
+        AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
+        AxeItem.STRIPPABLES.put(log, stripped);
+    }
+
+    public void registerFlattenable(Block block, BlockState flattened) {
+        ShovelItem.FLATTENABLES = Maps.newHashMap(ShovelItem.FLATTENABLES);
+        ShovelItem.FLATTENABLES.put(block, flattened);
     }
 
     @SuppressWarnings("unchecked")
@@ -212,7 +221,7 @@ public abstract class RegistryHelper extends PlatformHelper {
 
         for (var entry : matchedRegistryEntries) {
             var registry = (RegistryAdapter<T>) entry.registry();
-            var key = registry.getResourceKey(object);
+            var key = registry.getKey(object);
 
             if (key.isPresent()) {
                 return key;

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
     protected Registry<T> builtInRegistry;
@@ -25,13 +26,18 @@ public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
     }
 
     @Override
-    public Optional<ResourceKey<T>> getResourceKey(T value) {
+    public Optional<ResourceKey<T>> getKey(T value) {
         return getBuiltInRegistry().getResourceKey(value);
     }
 
     @Override
     public Optional<T> getValue(ResourceLocation key) {
         return Optional.ofNullable(getBuiltInRegistry().get(key));
+    }
+
+    @Override
+    public void register(ResourceLocation identifier, @NotNull Supplier<T> supplier) {
+        Registry.register(getBuiltInRegistry(), identifier, supplier.get());
     }
 
     @Override

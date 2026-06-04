@@ -15,10 +15,6 @@ public abstract class PlantopiaKit {
             workScheduler.enqueueWork("recipe_datagen", () -> eventEmitter.emit(RecipeEvent.create(this::addRecipes)));
             workScheduler.enqueueWork("block_loot_table_datagen", () -> eventEmitter.emit(BlockLootTableEvent.create(this::addBlockLootTables)));
         }
-
-        if (platform.isClient()) {
-            workScheduler.enqueueWork("client_setup", this::onClientSetup);
-        }
     }
 
     protected void addBlockTags(BlockTagEvent.Bridge bridge) {}
@@ -28,6 +24,4 @@ public abstract class PlantopiaKit {
     protected void addRecipes(RecipeEvent.Bridge bridge) {}
 
     protected void addBlockLootTables(BlockLootTableEvent.Bridge bridge) {}
-
-    protected void onClientSetup() {}
 }

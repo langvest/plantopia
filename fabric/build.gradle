@@ -13,11 +13,12 @@ dependencies {
     compileOnly project(":Common")
     modImplementation "com.github.glitchfiend:TerraBlender-fabric:$minecraft_version-$terrablender_version"
     implementation "com.google.code.findbugs:jsr305:$findbugs_version"
+    implementation "net.jodah:typetools:0.6.3" // Required for LanGvest Toolkit
 }
 
 loom {
-    if (file(access_widener_path).exists()) {
-        accessWidenerPath = file(access_widener_path)
+    if (project(":Common").file(access_widener_path).exists()) {
+        accessWidenerPath = project(":Common").file(access_widener_path)
     }
 
     mixin {
