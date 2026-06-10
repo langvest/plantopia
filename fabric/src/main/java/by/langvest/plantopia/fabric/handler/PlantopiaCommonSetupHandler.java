@@ -1,26 +1,25 @@
 package by.langvest.plantopia.fabric.handler;
 
+import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.event.LifecycleEvent;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.platform.EventEmitter;
-import by.langvest.toolkit.platform.Platform;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.nameOf;
 
 public class PlantopiaCommonSetupHandler {
-    public static void init(@NotNull Platform platform) {
+    public static void setup() {
         var globalEventEmitter = EventEmitter.getDefaultInstance();
-        var registryHelper = platform.getRegistryHelper();
+        var registryHelper = Plantopia.getPlatform().getRegistryHelper();
 
         globalEventEmitter.emit(new RegisterEvent() {
             @Override

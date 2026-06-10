@@ -1,12 +1,12 @@
 package by.langvest.plantopia.worldgen.region;
 
+import by.langvest.plantopia.event.PlantopiaTerraBlenderEvent;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.worldgen.region.special.PlantopiaPrimaryOverworldRegion;
 import by.langvest.plantopia.worldgen.region.special.PlantopiaRegion;
-import by.langvest.toolkit.event.LifecycleEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.resources.ResourceLocation;
-import terrablender.api.Regions;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -23,9 +23,7 @@ public class PlantopiaRegions {
         return PlantopiaRegistries.REGION.register(identifier, () -> factory.apply(identifier));
     }
 
-    public static void setup(LifecycleEvent.CommonSetupEvent event) {
-        for (var registryObject : PlantopiaRegistries.REGION) {
-            Regions.register(registryObject.get());
-        }
+    public static void setup(PlantopiaTerraBlenderEvent.@NotNull Region event) {
+        event.registerAll(PlantopiaRegistries.REGION);
     }
 }

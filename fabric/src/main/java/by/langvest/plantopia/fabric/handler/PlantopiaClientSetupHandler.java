@@ -37,7 +37,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import java.util.function.Supplier;
 
 public class PlantopiaClientSetupHandler {
-    public static void init() {
+    public static void setup() {
         var globalEventEmitter = EventEmitter.getDefaultInstance();
 
         globalEventEmitter.emit(new RegisterParticleProvidersEvent() {

@@ -1,9 +1,8 @@
 package by.langvest.plantopia.worldgen.surface;
 
-import by.langvest.plantopia.Plantopia;
+import by.langvest.plantopia.event.PlantopiaTerraBlenderEvent;
 import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.noise.PlantopiaNoises;
-import by.langvest.toolkit.event.LifecycleEvent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -48,8 +47,8 @@ public class PlantopiaSurfaceRules {
         );
     }
 
-    public static void setup(LifecycleEvent.CommonSetupEvent event) {
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, Plantopia.MOD_ID, overworld());
+    public static void setup(PlantopiaTerraBlenderEvent.@NotNull SurfaceRules event) {
+        event.register(SurfaceRuleManager.RuleCategory.OVERWORLD, overworld());
     }
 
     @Contract("_ -> new")

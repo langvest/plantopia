@@ -57,6 +57,7 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
 import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorTypes;
 import by.langvest.toolkit.platform.EventEmitter;
 import by.langvest.toolkit.platform.Platform;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -82,8 +83,9 @@ public final class Plantopia {
     }
 
     @SuppressWarnings("DuplicatedCode")
-    private static void addListeners(Platform platform) {
+    private static void addListeners(@NotNull Platform platform) {
         var globalEventEmitter = EventEmitter.getDefaultInstance();
+        var localEventEmitter = platform.getEventEmitter();
 
         // Registries
         globalEventEmitter.subscribe(PlantopiaBlocks::setup);
@@ -108,7 +110,9 @@ public final class Plantopia {
         globalEventEmitter.subscribe(PlantopiaBoatType::setup);
         globalEventEmitter.subscribe(PlantopiaCompats::setup);
         globalEventEmitter.subscribe(PlantopiaCommands::setup);
-        globalEventEmitter.subscribe(PlantopiaRegions::setup);
-        globalEventEmitter.subscribe(PlantopiaSurfaceRules::setup);
+
+        // TerraBlender
+        localEventEmitter.subscribe(PlantopiaRegions::setup);
+        localEventEmitter.subscribe(PlantopiaSurfaceRules::setup);
     }
 }

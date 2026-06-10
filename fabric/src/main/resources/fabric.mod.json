@@ -14,7 +14,8 @@
     "environment": "*",
     "entrypoints": {
         "main": ["by.langvest.plantopia.fabric.PlantopiaFabric"],
-        "client": ["by.langvest.plantopia.fabric.PlantopiaFabric"]
+        "client": ["by.langvest.plantopia.fabric.PlantopiaFabric"],
+        "terrablender": ["by.langvest.plantopia.fabric.PlantopiaFabric"]
     },
     "mixins": ["${mod_id}.mixins.json", "${mod_id}.fabric.mixins.json"],
     "depends": {
