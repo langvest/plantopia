@@ -51,6 +51,7 @@
         "client.PlantopiaCameraMixin",
         "client.PlantopiaMinecraftMixin",
         "client.gui.PlantopiaGuiMixin",
+        "client.render.PlantopiaFogRendererMixin",
         "client.render.block.PlantopiaLiquidBlockRendererMixin",
         "client.render.entity.PlantopiaAbstractZombieRendererMixin",
         "client.render.item.PlantopiaItemRendererMixin"
