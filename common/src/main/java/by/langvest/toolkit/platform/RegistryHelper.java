@@ -80,6 +80,8 @@ public abstract class RegistryHelper extends PlatformHelper {
 
     public abstract void registerBrewable(Potion inputPotion, @NotNull ItemLike ingredient, Potion outputPotion);
 
+    public abstract void registerPottable(Block plantBlock, Block pottedBlock);
+
     public void registerFlammable(Block block, int encouragement, int flammability) {
         FireBlock fireBlock = (FireBlock) Blocks.FIRE;
         fireBlock.setFlammable(block, encouragement, flammability);

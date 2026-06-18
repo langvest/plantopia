@@ -13,6 +13,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -56,6 +57,10 @@ public class PlantopiaCompats {
 				registerStrippable(block, Objects.requireNonNull(blockMeta.getStripped()));
 			}
 
+            if (block instanceof FlowerPotBlock pottedBlock) {
+                registerPottable(pottedBlock);
+            }
+
             if (block instanceof PlantopiaFloweringWaterlilyBlock waterlilyBlock) {
 				registerFloweringWaterlily(waterlilyBlock);
 			}
@@ -67,6 +72,11 @@ public class PlantopiaCompats {
         var originBlock = waterlilyBlock.getOriginBlock();
         var state = ((Block) waterlilyBlock).defaultBlockState();
         PlantopiaWaterlilyFlowerBlockItem.addFloweringWaterlily(Pair.of(flowerBlock, originBlock), state);
+    }
+
+    private static void registerPottable(FlowerPotBlock pottedBlock) {
+        var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+        registryHelper.registerPottable(pottedBlock.getContent(), pottedBlock);
     }
 
     private static void registerFlammable(Block block, int encouragement, int flammability) {

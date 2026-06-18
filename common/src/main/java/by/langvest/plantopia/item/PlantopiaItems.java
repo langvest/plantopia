@@ -70,8 +70,6 @@ public class PlantopiaItems {
     }
 
     public static void registerBlockItem(@NotNull PlantopiaBlockMeta blockMeta) {
-        if (!blockMeta.shouldGenerateItem()) return;
-
         var groups = blockMeta.getGroups();
         var burnTime = blockMeta.getBurnTime();
         var orderType = blockMeta.getOrderType();

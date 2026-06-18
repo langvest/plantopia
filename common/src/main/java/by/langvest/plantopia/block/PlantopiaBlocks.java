@@ -161,11 +161,8 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves));
     public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves));
 
+    public static final RegistryObject<Block> POTTED_GRASS = registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
     public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
-
-    static {
-        registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
-    }
 
     public static SupposedRegistryObject<Block> supposeBlock(String name) {
         return PlantopiaRegistries.BLOCK.supposeValue(plantopia(name));
@@ -178,17 +175,23 @@ public class PlantopiaBlocks {
     public static <T extends Block> RegistryObject<T> registerBlock(ResourceLocation identifier, Function<Properties, T> factory, MetaProperties metaProperties) {
         var blockMeta = PlantopiaMetaBuckets.BLOCK.associate(identifier, new PlantopiaBlockMeta(identifier, metaProperties));
 
-        PlantopiaItems.registerBlockItem(blockMeta);
+        if (blockMeta.shouldGenerateItem()) {
+            PlantopiaItems.registerBlockItem(blockMeta);
+        }
 
         if (blockMeta.isPottable()) {
-            registerPottedBlock(blockMeta.getName(), blockMeta, blockMeta.getTintType());
+            registerPottedBlock(blockMeta);
         }
 
         return PlantopiaRegistries.BLOCK.register(identifier, () -> factory.apply(blockMeta.createBehaviourProperties()));
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    public static RegistryObject<FlowerPotBlock> registerPottedBlock(String plantName, Supplier<? extends Block> plantSupplier, PlantopiaTintType plantTintType) {
+    public static RegistryObject<Block> registerPottedBlock(PlantopiaBlockMeta plantMeta) {
+        return registerPottedBlock(plantMeta.getName(), plantMeta, plantMeta.getTintType());
+    }
+
+    public static RegistryObject<Block> registerPottedBlock(String plantName, Supplier<? extends Block> plantSupplier, PlantopiaTintType plantTintType) {
         return registerBlock(pottedNameOf(plantName), properties -> new FlowerPotBlock(plantSupplier.get(), properties), MetaProperties.of(MetaType.POTTED).pottedTint(plantTintType));
     }
 

@@ -7,6 +7,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import org.jetbrains.annotations.NotNull;
@@ -43,12 +46,16 @@ public class ForgeRegistryHelper extends RegistryHelper {
     }
 
     @Override
+    public void registerPottable(Block plantBlock, Block pottedBlock) {
+        FlowerPotBlock flowerPotBlock = (FlowerPotBlock) Blocks.FLOWER_POT;
+        flowerPotBlock.addPlant(getResourceKeyOrThrow(plantBlock).location(), () -> pottedBlock);
+    }
+
+    @Override
     protected void addKnownRegistries(Map<ResourceLocation, RegistryEntry> registries) {
         super.addKnownRegistries(registries);
         addForgeRegistries(registries);
     }
 
-    protected void addForgeRegistries(Map<ResourceLocation, RegistryEntry> registries) {
-
-    }
+    protected void addForgeRegistries(Map<ResourceLocation, RegistryEntry> registries) {}
 }
