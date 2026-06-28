@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/template_flowering_small_platterleaf",
+    "textures": {
+        "flower": "plantopia:block/red_waterlily"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_fern_bonus",
+    "features": "plantopia:patch_fern_bonus",
+    "step": "vegetal_decoration"
+}

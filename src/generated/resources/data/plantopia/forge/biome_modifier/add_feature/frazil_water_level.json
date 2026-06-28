@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/frazil_water_level",
-	"features": "plantopia:frazil_water_level",
-	"step": "top_layer_modification"
-}

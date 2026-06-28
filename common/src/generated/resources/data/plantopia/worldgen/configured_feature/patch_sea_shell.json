@@ -1,0 +1,102 @@
+{
+    "type": "plantopia:limited_random_patch",
+    "config": {
+        "feature": {
+            "feature": {
+                "type": "plantopia:natural_block",
+                "config": {
+                    "to_place": {
+                        "type": "minecraft:weighted_state_provider",
+                        "entries": [
+                            {
+                                "data": {
+                                    "Name": "plantopia:round_sea_shell",
+                                    "Properties": {
+                                        "facing": "north",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 3
+                            },
+                            {
+                                "data": {
+                                    "Name": "plantopia:twisty_sea_shell",
+                                    "Properties": {
+                                        "facing": "north",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 4
+                            },
+                            {
+                                "data": {
+                                    "Name": "plantopia:tube_sea_shell",
+                                    "Properties": {
+                                        "facing": "north",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 4
+                            }
+                        ]
+                    }
+                }
+            },
+            "placement": [
+                {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": [
+                            "minecraft:air",
+                            "minecraft:water",
+                            "minecraft:seagrass"
+                        ]
+                    }
+                }
+            ]
+        },
+        "limit": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 4,
+                "min_inclusive": 3
+            }
+        },
+        "tries": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 12,
+                "min_inclusive": 8
+            }
+        },
+        "xz_spread": {
+            "type": "minecraft:clamped",
+            "value": {
+                "max_inclusive": 4,
+                "min_inclusive": 2,
+                "source": {
+                    "type": "minecraft:uniform",
+                    "value": {
+                        "max_inclusive": 4,
+                        "min_inclusive": 1
+                    }
+                }
+            }
+        },
+        "y_spread": {
+            "type": "minecraft:clamped",
+            "value": {
+                "max_inclusive": 4,
+                "min_inclusive": 2,
+                "source": {
+                    "type": "minecraft:uniform",
+                    "value": {
+                        "max_inclusive": 4,
+                        "min_inclusive": 1
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,0 @@
-{
-	"parent": "plantopia:item/template_waterlily",
-	"textures": {
-		"layer0": "plantopia:block/red_waterlily",
-		"layer1": "plantopia:block/lily_pad_flower_overlay"
-	}
-}

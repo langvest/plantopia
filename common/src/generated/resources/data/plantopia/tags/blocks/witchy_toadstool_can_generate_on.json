@@ -1,0 +1,12 @@
+{
+    "values": [
+        "#minecraft:base_stone_overworld",
+        "#minecraft:dirt",
+        "#minecraft:logs",
+        "#minecraft:planks",
+        "#plantopia:ores_overworld",
+        "minecraft:clay",
+        "minecraft:dripstone_block",
+        "minecraft:gravel"
+    ]
+}

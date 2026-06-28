@@ -1,6 +1,0 @@
-{
-	"parent": "plantopia:block/template_one_cobblestone_shard",
-	"textures": {
-		"shards": "plantopia:block/mossy_cobblestone_shards"
-	}
-}

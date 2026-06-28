@@ -1,0 +1,12 @@
+{
+    "values": [
+        "minecraft:endermite",
+        "minecraft:husk",
+        "minecraft:iron_golem",
+        "minecraft:silverfish",
+        "minecraft:skeleton",
+        "minecraft:skeleton_horse",
+        "minecraft:wither",
+        "minecraft:wither_skeleton"
+    ]
+}

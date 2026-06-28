@@ -1,6 +1,0 @@
-{
-	"parent": "plantopia:block/template_clover_blossom",
-	"textures": {
-		"blossom": "plantopia:block/pink_clover_blossom"
-	}
-}

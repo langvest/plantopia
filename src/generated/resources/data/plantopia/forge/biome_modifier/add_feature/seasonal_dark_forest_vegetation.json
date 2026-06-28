@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/seasonal_dark_forest_vegetation",
-	"features": "plantopia:seasonal_dark_forest_vegetation",
-	"step": "vegetal_decoration"
-}

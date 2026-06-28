@@ -1,0 +1,36 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "shell": "plantopia:block/round_sea_shell",
+        "overlay": "plantopia:block/round_sea_shell_overlay",
+        "particle": "#shell"
+    },
+    "elements": [
+        {
+            "from": [4, 0, 4],
+            "to": [12, 4, 12],
+            "rotation": { "angle": 0, "axis": "y", "origin": [7, 0, 7] },
+            "faces": {
+                "north": { "uv": [0, 8, 8, 12], "texture": "#shell" },
+                "east": { "uv": [8, 0, 16, 4], "texture": "#shell" },
+                "south": { "uv": [8, 8, 16, 12], "texture": "#shell" },
+                "west": { "uv": [8, 4, 16, 8], "texture": "#shell" },
+                "up": { "uv": [0, 0, 8, 8], "rotation": 180, "texture": "#shell" },
+                "down": { "uv": [8, 0, 0, 8], "texture": "#shell", "cullface": "down" }
+            }
+        },
+        {
+            "from": [4, 0, 4],
+            "to": [12, 4, 12],
+            "rotation": { "angle": 0, "axis": "y", "origin": [7, 0, 7] },
+            "faces": {
+                "north": { "uv": [0, 8, 8, 12], "texture": "#overlay", "tintindex": 1 },
+                "east": { "uv": [8, 0, 16, 4], "texture": "#overlay", "tintindex": 1 },
+                "south": { "uv": [8, 8, 16, 12], "texture": "#overlay", "tintindex": 1 },
+                "west": { "uv": [8, 4, 16, 8], "texture": "#overlay", "tintindex": 1 },
+                "up": { "uv": [0, 0, 8, 8], "rotation": 180, "texture": "#overlay", "tintindex": 1 },
+                "down": { "uv": [8, 0, 0, 8], "texture": "#overlay", "cullface": "down", "tintindex": 1 }
+            }
+        }
+    ]
+}

@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/tinted_cross",
-	"textures": {
-		"cross": "plantopia:block/giant_grass_bottom"
-	}
-}

@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/patch_azure_bluet_marsh",
-	"features": "plantopia:patch_azure_bluet_marsh",
-	"step": "vegetal_decoration"
-}

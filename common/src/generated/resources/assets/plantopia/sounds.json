@@ -1,0 +1,18 @@
+{
+    "entity.drowned.converted_to_zombie": {
+        "sounds": [
+            "mob/zombie/say1",
+            "mob/zombie/say2",
+            "mob/zombie/say3"
+        ],
+        "subtitle": "subtitles.plantopia.entity.drowned.converted_to_zombie"
+    },
+    "entity.zombie.converted_to_husk": {
+        "sounds": [
+            "mob/husk/idle1",
+            "mob/husk/idle2",
+            "mob/husk/idle3"
+        ],
+        "subtitle": "subtitles.plantopia.entity.zombie.converted_to_husk"
+    }
+}

@@ -1,0 +1,59 @@
+plugins {
+    id "fabric-loom" version "$fabric_gradle_version"
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:$minecraft_version"
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment "org.parchmentmc.data:parchment-$minecraft_version:$parchment_version@zip"
+    }
+    modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
+    compileOnly project(":Common")
+    modImplementation "com.github.glitchfiend:TerraBlender-fabric:$minecraft_version-$terrablender_version"
+    implementation "com.google.code.findbugs:jsr305:$findbugs_version"
+    implementation "net.jodah:typetools:0.6.3" // Required for LanGvest Toolkit
+}
+
+loom {
+    if (project(":Common").file(access_widener_path).exists()) {
+        accessWidenerPath = project(":Common").file(access_widener_path)
+    }
+
+    mixin {
+        defaultRefmapName = mixin_refmap
+    }
+
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+
+        server {
+            server()
+            setConfigName("Fabric Server")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    source project(":Common").sourceSets.main.allSource
+}
+
+tasks.withType(Javadoc).configureEach {
+    source project(":Common").sourceSets.main.allJava
+}
+
+tasks.named("sourcesJar", Jar) {
+    from project(":Common").sourceSets.main.allSource
+}
+
+processResources {
+    from project(":Common").sourceSets.main.resources
+}

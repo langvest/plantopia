@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/template_single_face",
-	"textures": {
-		"texture": "plantopia:block/witchy_toadstool_block"
-	}
-}

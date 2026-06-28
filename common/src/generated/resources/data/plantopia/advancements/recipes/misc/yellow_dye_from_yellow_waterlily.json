@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:yellow_dye_from_yellow_waterlily"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        },
+        "has_yellow_waterlily": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:yellow_waterlily"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_yellow_waterlily"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:yellow_dye_from_yellow_waterlily"
+        ]
+    },
+    "sends_telemetry_event": false
+}

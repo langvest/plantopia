@@ -1,7 +1,0 @@
-{
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:block/tansy_top",
-		"layer1": "plantopia:block/tansy_top_flowers"
-	}
-}

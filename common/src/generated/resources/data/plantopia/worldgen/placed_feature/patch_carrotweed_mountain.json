@@ -1,0 +1,73 @@
+{
+    "feature": "plantopia:patch_carrotweed_mountain",
+    "placement": [
+        {
+            "type": "plantopia:noise_count",
+            "activation_type": "BELOW",
+            "active_count": 20,
+            "noise_config": {
+                "offset_x": 188,
+                "offset_z": 398,
+                "scale": 0.158
+            },
+            "noise_level": -0.426,
+            "passive_count": 0
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "plantopia:noise_filter",
+            "activation_type": "BELOW",
+            "erosion_level": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": -0.276,
+                    "min_inclusive": -0.576
+                }
+            },
+            "noise_config": {
+                "offset_x": 188,
+                "offset_z": 398,
+                "scale": 0.158
+            },
+            "noise_level": -0.426
+        },
+        {
+            "type": "plantopia:noise_filter",
+            "activation_type": "ABOVE",
+            "erosion_level": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": 0.1,
+                    "min_inclusive": -0.3
+                }
+            },
+            "noise_config": {
+                "offset_x": 68,
+                "offset_z": 834,
+                "scale": 0.0684
+            },
+            "noise_level": -0.1
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "WORLD_SURFACE_WG"
+        },
+        {
+            "type": "minecraft:biome"
+        },
+        {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                    "Name": "plantopia:carrotweed",
+                    "Properties": {
+                        "half": "lower"
+                    }
+                }
+            }
+        }
+    ]
+}

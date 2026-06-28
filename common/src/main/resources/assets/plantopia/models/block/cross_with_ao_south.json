@@ -1,0 +1,25 @@
+{
+	"textures": {
+		"particle": "#cross"
+	},
+	"elements": [
+		{
+			"from": [8, -2.2, 0],
+			"to": [8, 18.2, 16],
+			"rotation": { "angle": 45, "axis": "z", "origin": [8, 8, 8] },
+			"faces": {
+				"east": { "uv": [0, 16, 16, 0], "rotation": 90, "texture": "#cross" },
+				"west": { "uv": [0, 16, 16, 0], "rotation": 270, "texture": "#cross" }
+			}
+		},
+		{
+			"from": [-2.2, 8, 0],
+			"to": [18.2, 8, 16],
+			"rotation": { "angle": 45, "axis": "z", "origin": [8, 8, 8] },
+			"faces": {
+				"up": { "uv": [0, 16, 16, 0], "texture": "#cross" },
+				"down": { "uv": [0, 16, 16, 0], "rotation": 180, "texture": "#cross" }
+			}
+		}
+	]
+}

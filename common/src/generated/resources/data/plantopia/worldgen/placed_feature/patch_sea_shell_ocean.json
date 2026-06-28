@@ -1,0 +1,58 @@
+{
+    "feature": "plantopia:patch_sea_shell",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": 4.24
+        },
+        {
+            "type": "minecraft:count",
+            "count": {
+                "type": "minecraft:clamped",
+                "value": {
+                    "max_inclusive": 2,
+                    "min_inclusive": 1,
+                    "source": {
+                        "type": "minecraft:uniform",
+                        "value": {
+                            "max_inclusive": 2,
+                            "min_inclusive": -1
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "OCEAN_FLOOR"
+        },
+        {
+            "type": "plantopia:range_filter",
+            "bottom_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "above_bottom": 0
+                }
+            },
+            "top_anchor": {
+                "type": "plantopia:absolute_anchor",
+                "anchor": {
+                    "absolute": 59
+                }
+            }
+        },
+        {
+            "type": "minecraft:biome"
+        },
+        {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+                "type": "minecraft:matching_fluids",
+                "fluids": "minecraft:water"
+            }
+        }
+    ]
+}

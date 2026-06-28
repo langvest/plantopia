@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_flowering_tiny_cactus": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:flowering_tiny_cactus"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:pink_dye_from_flowering_tiny_cactus_smelting"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_flowering_tiny_cactus"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:pink_dye_from_flowering_tiny_cactus_smelting"
+        ]
+    },
+    "sends_telemetry_event": false
+}

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/tall_dune_grass_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/tall_dune_grass_top"
+        }
+    }
+}

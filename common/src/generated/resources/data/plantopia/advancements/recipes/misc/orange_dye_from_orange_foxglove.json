@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_orange_foxglove": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:orange_foxglove"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:orange_dye_from_orange_foxglove"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_orange_foxglove"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:orange_dye_from_orange_foxglove"
+        ]
+    },
+    "sends_telemetry_event": false
+}

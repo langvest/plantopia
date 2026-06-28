@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "half=central": {
+            "model": "plantopia:block/sedge_middle"
+        },
+        "half=lower": {
+            "model": "plantopia:block/sedge_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/sedge_top"
+        }
+    }
+}

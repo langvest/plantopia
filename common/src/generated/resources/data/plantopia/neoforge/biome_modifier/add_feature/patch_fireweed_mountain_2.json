@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_fireweed_mountain_2",
+    "features": "plantopia:patch_fireweed_mountain_2",
+    "step": "vegetal_decoration"
+}

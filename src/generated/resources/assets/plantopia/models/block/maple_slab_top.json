@@ -1,8 +1,0 @@
-{
-	"parent": "minecraft:block/slab_top",
-	"textures": {
-		"bottom": "plantopia:block/maple_planks",
-		"side": "plantopia:block/maple_planks",
-		"top": "plantopia:block/maple_planks"
-	}
-}

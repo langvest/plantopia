@@ -1,0 +1,12 @@
+{
+    "type": "plantopia:composite",
+    "config": {
+        "base_feature": "plantopia:seasonal_dark_oak_checked",
+        "features": [
+            {
+                "chance": 0.55,
+                "feature": "plantopia:patch_orange_leaf_litter_checked"
+            }
+        ]
+    }
+}

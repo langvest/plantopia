@@ -1,6 +1,0 @@
-{
-	"parent": "plantopia:block/template_flowering_lily_pad",
-	"textures": {
-		"flower": "plantopia:block/yellow_waterlily"
-	}
-}

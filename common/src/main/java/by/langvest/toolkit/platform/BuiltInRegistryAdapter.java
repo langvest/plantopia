@@ -1,0 +1,47 @@
+package by.langvest.toolkit.platform;
+
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.function.Supplier;
+
+public class BuiltInRegistryAdapter<T> extends RegistryAdapter<T> {
+    protected Registry<T> builtInRegistry;
+
+    public BuiltInRegistryAdapter(Registry<T> registry) {
+        this.builtInRegistry = registry;
+    }
+
+    public Registry<T> getBuiltInRegistry() {
+        return builtInRegistry;
+    }
+
+    @Override
+    public ResourceKey<? extends Registry<?>> getRegistryKey() {
+        return getBuiltInRegistry().key();
+    }
+
+    @Override
+    public Optional<ResourceKey<T>> getKey(T value) {
+        return getBuiltInRegistry().getResourceKey(value);
+    }
+
+    @Override
+    public Optional<T> getValue(ResourceLocation key) {
+        return Optional.ofNullable(getBuiltInRegistry().get(key));
+    }
+
+    @Override
+    public void register(ResourceLocation identifier, @NotNull Supplier<T> supplier) {
+        Registry.register(getBuiltInRegistry(), identifier, supplier.get());
+    }
+
+    @Override
+    public @NotNull Iterator<T> iterator() {
+        return getBuiltInRegistry().iterator();
+    }
+}

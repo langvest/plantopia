@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${mod_version}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "authors": ["${mod_author}"],
+    "contact": {
+        "homepage": "${mod_homepage}",
+        "sources": "${mod_source}"
+    },
+    "license": "${mod_license}",
+    "icon": "icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": ["by.langvest.plantopia.fabric.PlantopiaFabric"],
+        "client": ["by.langvest.plantopia.fabric.PlantopiaFabric"],
+        "terrablender": ["by.langvest.plantopia.fabric.PlantopiaFabric"]
+    },
+    "mixins": ["${mod_id}.mixins.json", "${mod_id}.fabric.mixins.json"],
+    "depends": {
+        "fabricloader": "*",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}",
+        "java": ">=${java_version}",
+        "terrablender": ">=${terrablender_version}"
+    },
+    "accessWidener": "${mod_id}.accesswidener"
+}

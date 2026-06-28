@@ -1,0 +1,27 @@
+{
+    "type": "plantopia:poi_anchor",
+    "config": {
+        "allowed_thresholds": [
+            "ABOVE"
+        ],
+        "bottom_anchor": {
+            "above_bottom": 32
+        },
+        "dip_type": "SURFACE_OR_CAVE",
+        "feature": "plantopia:fairy_ring",
+        "heightmap": "OCEAN_FLOOR_WG",
+        "origin_avoid_distance": 5,
+        "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "offset": [
+                0,
+                -1,
+                0
+            ],
+            "tag": "plantopia:witchy_toadstool_can_generate_on"
+        },
+        "top_anchor": {
+            "below_top": 32
+        }
+    }
+}

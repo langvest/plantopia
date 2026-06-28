@@ -1,8 +1,0 @@
-{
-	"type": "minecraft:stonecutting",
-	"count": 9,
-	"ingredient": {
-		"item": "minecraft:cobblestone"
-	},
-	"result": "plantopia:cobblestone_shard"
-}

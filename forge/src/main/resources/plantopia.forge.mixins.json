@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "by.langvest.plantopia.forge.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"refmap": "plantopia.refmap.json",
+	"mixins": [],
+	"client": [],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

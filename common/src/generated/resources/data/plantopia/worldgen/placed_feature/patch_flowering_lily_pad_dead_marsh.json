@@ -1,0 +1,32 @@
+{
+    "feature": "plantopia:patch_flowering_lily_pad_dead_marsh",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": 4.64
+        },
+        {
+            "type": "minecraft:count",
+            "count": 1
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "WORLD_SURFACE_WG"
+        },
+        {
+            "type": "minecraft:biome"
+        },
+        {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+                "type": "minecraft:would_survive",
+                "state": {
+                    "Name": "plantopia:red_flowering_lily_pad"
+                }
+            }
+        }
+    ]
+}

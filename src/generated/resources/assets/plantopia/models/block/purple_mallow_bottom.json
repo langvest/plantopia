@@ -1,7 +1,0 @@
-{
-	"parent": "plantopia:block/template_mallow_bottom",
-	"textures": {
-		"cross": "plantopia:block/mallow_bottom",
-		"flowers": "plantopia:block/purple_mallow_flowers_bottom"
-	}
-}

@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_reed_marsh",
+    "features": "plantopia:patch_reed_marsh",
+    "step": "vegetal_decoration"
+}

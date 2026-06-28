@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/magenta_foxglove_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/magenta_foxglove_top"
+        }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "type": "plantopia:limited_random_patch",
+    "config": {
+        "feature": {
+            "feature": {
+                "type": "plantopia:natural_block",
+                "config": {
+                    "to_place": {
+                        "type": "minecraft:simple_state_provider",
+                        "state": {
+                            "Name": "plantopia:carrotweed",
+                            "Properties": {
+                                "half": "lower"
+                            }
+                        }
+                    }
+                }
+            },
+            "placement": [
+                {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                        "type": "minecraft:all_of",
+                        "predicates": [
+                            {
+                                "type": "minecraft:matching_blocks",
+                                "blocks": [
+                                    "minecraft:air",
+                                    "minecraft:grass"
+                                ]
+                            },
+                            {
+                                "type": "minecraft:solid",
+                                "offset": [
+                                    0,
+                                    -1,
+                                    0
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "limit": 6,
+        "tries": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 18,
+                "min_inclusive": 16
+            }
+        },
+        "xz_spread": 3,
+        "y_spread": 2
+    }
+}

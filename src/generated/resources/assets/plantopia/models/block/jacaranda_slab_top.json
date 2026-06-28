@@ -1,8 +1,0 @@
-{
-	"parent": "minecraft:block/slab_top",
-	"textures": {
-		"bottom": "plantopia:block/jacaranda_planks",
-		"side": "plantopia:block/jacaranda_planks",
-		"top": "plantopia:block/jacaranda_planks"
-	}
-}

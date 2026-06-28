@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/cross_with_ao_down",
+    "textures": {
+        "cross": "plantopia:block/icicle_base"
+    }
+}

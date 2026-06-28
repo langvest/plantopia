@@ -1,0 +1,89 @@
+plugins {
+    id "net.minecraftforge.gradle" version "$forge_gradle_version"
+    id "org.spongepowered.mixin" version "$mixin_gradle_version"
+    id "org.parchmentmc.librarian.forgegradle" version "$parchment_gradle_version"
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:$minecraft_version-$forge_version"
+    compileOnly project(":Common")
+    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:$minecraft_version-$terrablender_version")
+    annotationProcessor "org.spongepowered:mixin:$mixin_version:processor"
+}
+
+mixin {
+    add sourceSets.main, mixin_refmap
+    config common_mixin_config as String
+    config platform_mixin_config as String
+}
+
+jar {
+    finalizedBy "reobfJar"
+
+    manifest {
+        attributes "Built-On-Forge": forge_version
+        attributes "MixinConfigs": common_mixin_config + "," + platform_mixin_config
+    }
+}
+
+minecraft {
+    mappings channel: "parchment", version: "$parchment_version-$minecraft_version"
+
+    copyIdeResources = true
+
+    if (file(access_transformer_path).exists()) {
+        accessTransformer file(access_transformer_path)
+    }
+
+    runs {
+        configureEach {
+            workingDirectory file("run")
+            ideaModule "${rootProject.name}.${project.name}.main"
+            property "forge.logging.markers", "REGISTRIES"
+            property "forge.logging.console.level", "info"
+
+            mods {
+                "$mod_id" {
+                    source sourceSets.main as SourceSet
+                }
+            }
+        }
+
+        client {
+            taskName "Client"
+            property "forge.enabledGameTestNamespaces", mod_id
+        }
+
+        server {
+            taskName "Server"
+            property "forge.enabledGameTestNamespaces", mod_id
+            args "--nogui"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    source project(":Common").sourceSets.main.allSource
+}
+
+tasks.withType(Javadoc).configureEach {
+    source project(":Common").sourceSets.main.allJava
+}
+
+tasks.named("sourcesJar", Jar) {
+    from project(":Common").sourceSets.main.allSource
+}
+
+processResources {
+    from project(":Common").sourceSets.main.resources
+}
+
+// Merge the resources and classes into the same directory.
+// This is done because java expects modules to be in a single directory.
+// And if we have it in multiple we have to do performance intensive hacks like having the UnionFileSystem
+// This will eventually be migrated to ForgeGradle so modders don't need to manually do it. But that is later.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}

@@ -1,6 +1,0 @@
-{
-	"parent": "plantopia:block/cube_cross",
-	"textures": {
-		"cross": "plantopia:block/thorny_shrub"
-	}
-}

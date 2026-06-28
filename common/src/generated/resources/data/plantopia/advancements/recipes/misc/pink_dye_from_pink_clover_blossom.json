@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_pink_clover_blossom": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:pink_clover_blossom"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:pink_dye_from_pink_clover_blossom"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_pink_clover_blossom"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:pink_dye_from_pink_clover_blossom"
+        ]
+    },
+    "sends_telemetry_event": false
+}

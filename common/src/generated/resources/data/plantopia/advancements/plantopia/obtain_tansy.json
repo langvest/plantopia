@@ -1,0 +1,38 @@
+{
+    "parent": "plantopia:plantopia/collect_all_herbs",
+    "criteria": {
+        "has_tansy": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:tansy"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "display": {
+        "announce_to_chat": true,
+        "description": {
+            "translate": "advancements.plantopia.obtain_tansy.description"
+        },
+        "frame": "task",
+        "hidden": true,
+        "icon": {
+            "item": "plantopia:tansy"
+        },
+        "show_toast": true,
+        "title": {
+            "translate": "advancements.plantopia.obtain_tansy.title"
+        }
+    },
+    "requirements": [
+        [
+            "has_tansy"
+        ]
+    ],
+    "sends_telemetry_event": true
+}

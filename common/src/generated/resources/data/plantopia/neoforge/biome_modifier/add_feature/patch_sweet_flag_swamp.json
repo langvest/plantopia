@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_sweet_flag_swamp",
+    "features": "plantopia:patch_sweet_flag_swamp",
+    "step": "vegetal_decoration"
+}

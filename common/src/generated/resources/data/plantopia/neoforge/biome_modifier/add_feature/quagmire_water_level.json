@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/quagmire_water_level",
+    "features": "plantopia:quagmire_water_level",
+    "step": "top_layer_modification"
+}

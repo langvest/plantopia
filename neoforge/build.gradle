@@ -1,0 +1,77 @@
+plugins {
+    id "net.neoforged.gradle.userdev" version "$neoforge_gradle_version"
+    id "net.neoforged.gradle.mixin" version "$neoforge_gradle_version"
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:$neoforge_version"
+    compileOnly project(":Common")
+    implementation "com.github.glitchfiend:TerraBlender-neoforge:$minecraft_version-$terrablender_version"
+}
+
+mixin {
+    config common_mixin_config as String
+    config platform_mixin_config as String
+}
+
+minecraft {
+    mappings {
+        channel = official()
+        version.put "minecraft", minecraft_version
+    }
+
+    if (file(access_transformer_path).exists()) {
+        accessTransformers {
+            file access_transformer_path
+        }
+    }
+}
+
+subsystems {
+    parchment {
+        minecraftVersion = minecraft_version
+        mappingsVersion = parchment_version
+    }
+}
+
+runs {
+    configureEach {
+        workingDirectory file("run")
+        systemProperty "forge.logging.markers", "REGISTRIES"
+        systemProperty "forge.logging.console.level", "info"
+
+        modSource sourceSets.main as SourceSet
+    }
+
+    client {
+        systemProperty "forge.enabledGameTestNamespaces", mod_id
+    }
+
+    server {
+        systemProperty "forge.enabledGameTestNamespaces", mod_id
+        programArgument "--nogui"
+    }
+
+    data {
+        programArguments.addAll "--mod", mod_id, "--all", "--output", project(":Common").file("src/generated/resources").getAbsolutePath(), "--existing", project(":Common").file("src/main/resources").getAbsolutePath()
+    }
+}
+
+// NeoGradle compiles the game, but we don't want to add our common code to the game's code
+Spec<Task> notNeoTask = { Task it -> !it.name.startsWith("neo") } as Spec<Task>
+
+tasks.withType(JavaCompile).matching(notNeoTask).configureEach {
+    source project(":Common").sourceSets.main.allSource
+}
+
+tasks.withType(Javadoc).matching(notNeoTask).configureEach {
+    source project(":Common").sourceSets.main.allJava
+}
+
+tasks.named("sourcesJar", Jar) {
+    from project(":Common").sourceSets.main.allSource
+}
+
+tasks.withType(ProcessResources).matching(notNeoTask).configureEach {
+    from project(":Common").sourceSets.main.resources
+}

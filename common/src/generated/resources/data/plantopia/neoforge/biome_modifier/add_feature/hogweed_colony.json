@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/hogweed_colony",
+    "features": "plantopia:hogweed_colony",
+    "step": "vegetal_decoration"
+}

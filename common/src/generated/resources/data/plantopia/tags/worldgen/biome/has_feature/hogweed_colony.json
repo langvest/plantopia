@@ -1,0 +1,12 @@
+{
+    "values": [
+        "#minecraft:is_savanna",
+        "#plantopia:is_marsh",
+        "minecraft:meadow",
+        "minecraft:plains",
+        "minecraft:stony_peaks",
+        "minecraft:sunflower_plains",
+        "minecraft:windswept_gravelly_hills",
+        "minecraft:windswept_hills"
+    ]
+}

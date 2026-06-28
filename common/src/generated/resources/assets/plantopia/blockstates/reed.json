@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/reed_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/reed_top"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "type": "minecraft:random_patch",
+    "config": {
+        "feature": {
+            "feature": {
+                "type": "plantopia:natural_block",
+                "config": {
+                    "to_place": {
+                        "type": "minecraft:simple_state_provider",
+                        "state": {
+                            "Name": "plantopia:snowdrop"
+                        }
+                    }
+                }
+            },
+            "placement": [
+                {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": [
+                            "minecraft:air",
+                            "minecraft:grass",
+                            "minecraft:snow"
+                        ]
+                    }
+                }
+            ]
+        },
+        "tries": 96,
+        "xz_spread": 6,
+        "y_spread": 3
+    }
+}

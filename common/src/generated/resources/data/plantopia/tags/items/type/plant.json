@@ -1,0 +1,12 @@
+{
+    "values": [
+        "#plantopia:type/clover",
+        "#plantopia:type/flower",
+        "#plantopia:type/grass",
+        "#plantopia:type/sapling",
+        "#plantopia:type/tiny_cactus",
+        "#plantopia:type/water_plant",
+        "#plantopia:type/woody_plant",
+        "plantopia:hogweed"
+    ]
+}

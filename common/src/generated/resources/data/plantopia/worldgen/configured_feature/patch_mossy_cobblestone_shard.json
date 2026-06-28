@@ -1,0 +1,87 @@
+{
+    "type": "plantopia:limited_random_patch",
+    "config": {
+        "feature": {
+            "feature": {
+                "type": "plantopia:natural_block",
+                "config": {
+                    "to_place": {
+                        "type": "minecraft:weighted_state_provider",
+                        "entries": [
+                            {
+                                "data": {
+                                    "Name": "plantopia:mossy_cobblestone_shard",
+                                    "Properties": {
+                                        "shards": "1",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 100
+                            },
+                            {
+                                "data": {
+                                    "Name": "plantopia:mossy_cobblestone_shard",
+                                    "Properties": {
+                                        "shards": "2",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 75
+                            },
+                            {
+                                "data": {
+                                    "Name": "plantopia:mossy_cobblestone_shard",
+                                    "Properties": {
+                                        "shards": "3",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 45
+                            },
+                            {
+                                "data": {
+                                    "Name": "plantopia:mossy_cobblestone_shard",
+                                    "Properties": {
+                                        "shards": "4",
+                                        "waterlogged": "false"
+                                    }
+                                },
+                                "weight": 8
+                            }
+                        ]
+                    }
+                }
+            },
+            "placement": [
+                {
+                    "type": "minecraft:block_predicate_filter",
+                    "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": [
+                            "minecraft:air",
+                            "minecraft:grass",
+                            "minecraft:water",
+                            "minecraft:seagrass"
+                        ]
+                    }
+                }
+            ]
+        },
+        "limit": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 3,
+                "min_inclusive": 2
+            }
+        },
+        "tries": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 4,
+                "min_inclusive": 3
+            }
+        },
+        "xz_spread": 1,
+        "y_spread": 1
+    }
+}

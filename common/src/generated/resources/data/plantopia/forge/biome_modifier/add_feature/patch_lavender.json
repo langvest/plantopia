@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_lavender",
+    "features": "plantopia:patch_lavender",
+    "step": "vegetal_decoration"
+}

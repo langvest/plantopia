@@ -1,0 +1,338 @@
+{
+    "type": "minecraft:block",
+    "pools": [
+        {
+            "bonus_rolls": 0.0,
+            "conditions": [
+                {
+                    "block": "plantopia:big_platterleaf",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                        "quarter": "south_west"
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetZ": -1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "west_north"
+                            }
+                        }
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetX": 1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "east_south"
+                            }
+                        }
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "enchantments": [
+                                            {
+                                                "enchantment": "minecraft:silk_touch",
+                                                "levels": {
+                                                    "min": 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "name": "plantopia:big_platterleaf"
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:survives_explosion"
+                                }
+                            ],
+                            "functions": [
+                                {
+                                    "add": false,
+                                    "count": 4.0,
+                                    "function": "minecraft:set_count"
+                                }
+                            ],
+                            "name": "plantopia:small_platterleaf"
+                        }
+                    ]
+                }
+            ],
+            "rolls": 1.0
+        },
+        {
+            "bonus_rolls": 0.0,
+            "conditions": [
+                {
+                    "block": "plantopia:big_platterleaf",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                        "quarter": "west_north"
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetX": 1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "north_east"
+                            }
+                        }
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetZ": 1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "south_west"
+                            }
+                        }
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "enchantments": [
+                                            {
+                                                "enchantment": "minecraft:silk_touch",
+                                                "levels": {
+                                                    "min": 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "name": "plantopia:big_platterleaf"
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:survives_explosion"
+                                }
+                            ],
+                            "functions": [
+                                {
+                                    "add": false,
+                                    "count": 4.0,
+                                    "function": "minecraft:set_count"
+                                }
+                            ],
+                            "name": "plantopia:small_platterleaf"
+                        }
+                    ]
+                }
+            ],
+            "rolls": 1.0
+        },
+        {
+            "bonus_rolls": 0.0,
+            "conditions": [
+                {
+                    "block": "plantopia:big_platterleaf",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                        "quarter": "north_east"
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetZ": 1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "east_south"
+                            }
+                        }
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetX": -1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "west_north"
+                            }
+                        }
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "enchantments": [
+                                            {
+                                                "enchantment": "minecraft:silk_touch",
+                                                "levels": {
+                                                    "min": 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "name": "plantopia:big_platterleaf"
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:survives_explosion"
+                                }
+                            ],
+                            "functions": [
+                                {
+                                    "add": false,
+                                    "count": 4.0,
+                                    "function": "minecraft:set_count"
+                                }
+                            ],
+                            "name": "plantopia:small_platterleaf"
+                        }
+                    ]
+                }
+            ],
+            "rolls": 1.0
+        },
+        {
+            "bonus_rolls": 0.0,
+            "conditions": [
+                {
+                    "block": "plantopia:big_platterleaf",
+                    "condition": "minecraft:block_state_property",
+                    "properties": {
+                        "quarter": "east_south"
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetX": -1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "south_west"
+                            }
+                        }
+                    }
+                },
+                {
+                    "condition": "minecraft:location_check",
+                    "offsetZ": -1,
+                    "predicate": {
+                        "block": {
+                            "blocks": [
+                                "plantopia:big_platterleaf"
+                            ],
+                            "state": {
+                                "quarter": "north_east"
+                            }
+                        }
+                    }
+                }
+            ],
+            "entries": [
+                {
+                    "type": "minecraft:alternatives",
+                    "children": [
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:match_tool",
+                                    "predicate": {
+                                        "enchantments": [
+                                            {
+                                                "enchantment": "minecraft:silk_touch",
+                                                "levels": {
+                                                    "min": 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "name": "plantopia:big_platterleaf"
+                        },
+                        {
+                            "type": "minecraft:item",
+                            "conditions": [
+                                {
+                                    "condition": "minecraft:survives_explosion"
+                                }
+                            ],
+                            "functions": [
+                                {
+                                    "add": false,
+                                    "count": 4.0,
+                                    "function": "minecraft:set_count"
+                                }
+                            ],
+                            "name": "plantopia:small_platterleaf"
+                        }
+                    ]
+                }
+            ],
+            "rolls": 1.0
+        }
+    ],
+    "random_sequence": "plantopia:blocks/big_platterleaf"
+}

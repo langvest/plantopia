@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:white_dye_from_white_lupine"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        },
+        "has_white_lupine": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:white_lupine"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_white_lupine"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:white_dye_from_white_lupine"
+        ]
+    },
+    "sends_telemetry_event": false
+}

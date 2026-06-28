@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "plantopia:block/yellow_mallow_flowers_top"
-	}
-}

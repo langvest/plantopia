@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "half=lower": {
+            "model": "plantopia:block/chicory_bottom"
+        },
+        "half=upper": {
+            "model": "plantopia:block/chicory_top"
+        }
+    }
+}

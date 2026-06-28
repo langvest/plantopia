@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_red_mallow": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:red_mallow"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:red_dye_from_red_mallow"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_red_mallow"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:red_dye_from_red_mallow"
+        ]
+    },
+    "sends_telemetry_event": false
+}

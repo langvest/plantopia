@@ -1,0 +1,134 @@
+{
+    "type": "plantopia:branching_shrub_patch",
+    "config": {
+        "allowed_attachment": {
+            "type": "minecraft:all_of",
+            "predicates": [
+                {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "plantopia:branching_shrub_can_generate_on"
+                },
+                {
+                    "type": "minecraft:not",
+                    "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "plantopia:sea_moss_block"
+                    }
+                }
+            ]
+        },
+        "allowed_horizontal_placement": {
+            "type": "minecraft:all_of",
+            "predicates": [
+                {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": [
+                        "minecraft:air",
+                        "minecraft:water",
+                        "minecraft:glow_lichen",
+                        "minecraft:seagrass",
+                        "minecraft:grass",
+                        "minecraft:fern"
+                    ]
+                },
+                {
+                    "type": "minecraft:any_of",
+                    "predicates": [
+                        {
+                            "type": "minecraft:matching_blocks",
+                            "blocks": "plantopia:branching_shrub",
+                            "offset": [
+                                0,
+                                -1,
+                                0
+                            ]
+                        },
+                        {
+                            "type": "minecraft:replaceable",
+                            "offset": [
+                                0,
+                                -1,
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "allowed_vertical_placement": {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+                "minecraft:air",
+                "minecraft:water",
+                "minecraft:glow_lichen",
+                "minecraft:seagrass",
+                "minecraft:grass",
+                "minecraft:fern"
+            ]
+        },
+        "growth_directions": [
+            "up"
+        ],
+        "height": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 4,
+                    "weight": 1
+                },
+                {
+                    "data": 1,
+                    "weight": 3
+                },
+                {
+                    "data": 2,
+                    "weight": 4
+                },
+                {
+                    "data": 3,
+                    "weight": 3
+                }
+            ]
+        },
+        "height_erosion": 0.364,
+        "height_falloff": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_exclusive": 0.78,
+                "min_inclusive": 0.58
+            }
+        },
+        "search_distance": 6,
+        "shape_erosion": 0.332,
+        "shape_sigma": -0.548,
+        "tries": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 32,
+                "min_inclusive": 22
+            }
+        },
+        "xz_spread": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 1,
+                    "weight": 1
+                },
+                {
+                    "data": 2,
+                    "weight": 2
+                },
+                {
+                    "data": 3,
+                    "weight": 3
+                },
+                {
+                    "data": 4,
+                    "weight": 1
+                }
+            ]
+        },
+        "y_spread": 1
+    }
+}

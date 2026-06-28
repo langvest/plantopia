@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_round_sea_shell": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:round_sea_shell"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:bone_meal_from_round_sea_shell"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_round_sea_shell"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:bone_meal_from_round_sea_shell"
+        ]
+    },
+    "sends_telemetry_event": false
+}

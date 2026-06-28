@@ -1,0 +1,33 @@
+{
+    "values": [
+        "minecraft:birch_forest",
+        "minecraft:cherry_grove",
+        "minecraft:cold_ocean",
+        "minecraft:dark_forest",
+        "minecraft:flower_forest",
+        "minecraft:forest",
+        "minecraft:frozen_ocean",
+        "minecraft:frozen_river",
+        "minecraft:jungle",
+        "minecraft:meadow",
+        "minecraft:mushroom_fields",
+        "minecraft:ocean",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:plains",
+        "minecraft:river",
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:snowy_taiga",
+        "minecraft:sparse_jungle",
+        "minecraft:sunflower_plains",
+        "minecraft:taiga",
+        "minecraft:windswept_forest",
+        "minecraft:windswept_hills",
+        "minecraft:windswept_savanna",
+        "plantopia:dead_marsh",
+        "plantopia:lavender_fields",
+        "plantopia:marsh",
+        "plantopia:seasonal_dark_forest",
+        "plantopia:seasonal_forest"
+    ]
+}

@@ -1,6 +1,0 @@
-{
-	"parent": "plantopia:block/template_attached_tiny_cactus",
-	"textures": {
-		"cross": "plantopia:block/tiny_cactus"
-	}
-}

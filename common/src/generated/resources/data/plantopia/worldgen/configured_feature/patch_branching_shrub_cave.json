@@ -1,0 +1,139 @@
+{
+    "type": "plantopia:branching_shrub_patch",
+    "config": {
+        "allowed_attachment": {
+            "type": "minecraft:all_of",
+            "predicates": [
+                {
+                    "type": "minecraft:matching_block_tag",
+                    "tag": "plantopia:branching_shrub_can_generate_on"
+                },
+                {
+                    "type": "minecraft:not",
+                    "predicate": {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "plantopia:sea_moss_block"
+                    }
+                }
+            ]
+        },
+        "allowed_horizontal_placement": {
+            "type": "minecraft:all_of",
+            "predicates": [
+                {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": [
+                        "minecraft:air",
+                        "minecraft:water",
+                        "minecraft:glow_lichen",
+                        "minecraft:seagrass",
+                        "minecraft:grass",
+                        "minecraft:fern"
+                    ]
+                },
+                {
+                    "type": "minecraft:any_of",
+                    "predicates": [
+                        {
+                            "type": "minecraft:matching_blocks",
+                            "blocks": "plantopia:branching_shrub",
+                            "offset": [
+                                0,
+                                -1,
+                                0
+                            ]
+                        },
+                        {
+                            "type": "minecraft:replaceable",
+                            "offset": [
+                                0,
+                                -1,
+                                0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "allowed_vertical_placement": {
+            "type": "minecraft:matching_blocks",
+            "blocks": [
+                "minecraft:air",
+                "minecraft:water",
+                "minecraft:glow_lichen",
+                "minecraft:seagrass",
+                "minecraft:grass",
+                "minecraft:fern"
+            ]
+        },
+        "growth_directions": [
+            "down",
+            "up",
+            "north",
+            "east",
+            "south",
+            "west"
+        ],
+        "height": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 5,
+                    "weight": 1
+                },
+                {
+                    "data": 2,
+                    "weight": 3
+                },
+                {
+                    "data": 3,
+                    "weight": 4
+                },
+                {
+                    "data": 4,
+                    "weight": 5
+                }
+            ]
+        },
+        "height_erosion": 0.364,
+        "height_falloff": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_exclusive": 0.58,
+                "min_inclusive": 0.48
+            }
+        },
+        "search_distance": 12,
+        "shape_erosion": 0.332,
+        "shape_sigma": -0.548,
+        "tries": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 42,
+                "min_inclusive": 32
+            }
+        },
+        "xz_spread": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 2,
+                    "weight": 1
+                },
+                {
+                    "data": 3,
+                    "weight": 2
+                },
+                {
+                    "data": 4,
+                    "weight": 3
+                },
+                {
+                    "data": 5,
+                    "weight": 1
+                }
+            ]
+        },
+        "y_spread": 1
+    }
+}

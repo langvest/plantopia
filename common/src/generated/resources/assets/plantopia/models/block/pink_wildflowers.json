@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cross",
+    "textures": {
+        "cross": "plantopia:block/pink_wildflowers"
+    }
+}

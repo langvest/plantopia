@@ -1,6 +1,0 @@
-{
-	"type": "forge:add_features",
-	"biomes": "#plantopia:has_feature/patch_tansy",
-	"features": "plantopia:patch_tansy",
-	"step": "vegetal_decoration"
-}

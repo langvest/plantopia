@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_cattail_swamp",
+    "features": "plantopia:patch_cattail_swamp",
+    "step": "vegetal_decoration"
+}

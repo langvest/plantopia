@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cross",
+    "textures": {
+        "cross": "plantopia:block/flowering_tiny_cactus"
+    }
+}

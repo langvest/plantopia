@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/carpet",
+    "textures": {
+        "wool": "plantopia:block/sea_moss_block"
+    }
+}
