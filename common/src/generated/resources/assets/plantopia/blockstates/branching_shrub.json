@@ -1,54 +1,52 @@
 {
     "variants": {
         "base=false,facing=down": {
-            "model": "plantopia:block/branching_shrub",
-            "x": 180
+            "model": "plantopia:block/branching_shrub_down_body"
         },
         "base=false,facing=east": {
-            "model": "plantopia:block/branching_shrub",
+            "model": "plantopia:block/branching_shrub_up_body",
             "x": 90,
             "y": 90
         },
         "base=false,facing=north": {
-            "model": "plantopia:block/branching_shrub",
+            "model": "plantopia:block/branching_shrub_up_body",
             "x": 90
         },
         "base=false,facing=south": {
-            "model": "plantopia:block/branching_shrub",
+            "model": "plantopia:block/branching_shrub_up_body",
             "x": 90,
             "y": 180
         },
         "base=false,facing=up": {
-            "model": "plantopia:block/branching_shrub"
+            "model": "plantopia:block/branching_shrub_up_body"
         },
         "base=false,facing=west": {
-            "model": "plantopia:block/branching_shrub",
+            "model": "plantopia:block/branching_shrub_up_body",
             "x": 90,
             "y": 270
         },
         "base=true,facing=down": {
-            "model": "plantopia:block/branching_shrub_base",
-            "x": 180
+            "model": "plantopia:block/branching_shrub_down_base"
         },
         "base=true,facing=east": {
-            "model": "plantopia:block/branching_shrub_base",
+            "model": "plantopia:block/branching_shrub_up_base",
             "x": 90,
             "y": 90
         },
         "base=true,facing=north": {
-            "model": "plantopia:block/branching_shrub_base",
+            "model": "plantopia:block/branching_shrub_up_base",
             "x": 90
         },
         "base=true,facing=south": {
-            "model": "plantopia:block/branching_shrub_base",
+            "model": "plantopia:block/branching_shrub_up_base",
             "x": 90,
             "y": 180
         },
         "base=true,facing=up": {
-            "model": "plantopia:block/branching_shrub_base"
+            "model": "plantopia:block/branching_shrub_up_base"
         },
         "base=true,facing=west": {
-            "model": "plantopia:block/branching_shrub_base",
+            "model": "plantopia:block/branching_shrub_up_base",
             "x": 90,
             "y": 270
         }

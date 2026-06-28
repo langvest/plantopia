@@ -589,6 +589,7 @@ public final class PlantopiaVegetationPlacements {
             .feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),
@@ -612,6 +613,7 @@ public final class PlantopiaVegetationPlacements {
             .feature(PlantopiaVegetationFeatures.PATCH_BRANCHING_SHRUB)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(18.24F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),

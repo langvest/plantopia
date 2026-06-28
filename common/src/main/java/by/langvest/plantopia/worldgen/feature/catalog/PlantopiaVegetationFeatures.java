@@ -439,14 +439,24 @@ public final class PlantopiaVegetationFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
                 new PlantopiaBranchingShrubPatchConfiguration(
-                    UniformInt.of(1, 2), // xzSpread
+                    weightedListInt(values -> values
+                        .add(ConstantInt.of(1), 1)
+                        .add(ConstantInt.of(2), 2)
+                        .add(ConstantInt.of(3), 3)
+                        .add(ConstantInt.of(4), 1)
+                    ), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    ConstantInt.of(36), // tries
-                    ConstantInt.of(3), // height
-                    UniformFloat.of(0.48F, 0.58F), // heightFalloff
-                    ConstantFloat.of(0.286F), // heightErosion
-                    ConstantFloat.of(-0.112F), // shapeSigma
-                    ConstantFloat.of(0.148F), // shapeErosion
+                    UniformInt.of(22, 32), // tries
+                    weightedListInt(values -> values
+                        .add(ConstantInt.of(4), 1)
+                        .add(ConstantInt.of(1), 3)
+                        .add(ConstantInt.of(2), 4)
+                        .add(ConstantInt.of(3), 3)
+                    ), // height
+                    UniformFloat.of(0.58F, 0.78F), // heightFalloff
+                    ConstantFloat.of(0.364F), // heightErosion
+                    ConstantFloat.of(-0.548F), // shapeSigma
+                    ConstantFloat.of(0.332F), // shapeErosion
                     ConstantInt.of(6), // searchDistance
                     BlockPredicate.allOf(
                         BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),
@@ -464,14 +474,24 @@ public final class PlantopiaVegetationFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.BRANCHING_SHRUB_PATCH, context ->
                 new PlantopiaBranchingShrubPatchConfiguration(
-                    UniformInt.of(2, 3), // xzSpread
+                    weightedListInt(values -> values
+                        .add(ConstantInt.of(2), 1)
+                        .add(ConstantInt.of(3), 2)
+                        .add(ConstantInt.of(4), 3)
+                        .add(ConstantInt.of(5), 1)
+                    ), // xzSpread
                     ConstantInt.of(1), // ySpread
-                    ConstantInt.of(42), // tries
-                    ConstantInt.of(4), // height
+                    UniformInt.of(32, 42), // tries
+                    weightedListInt(values -> values
+                        .add(ConstantInt.of(5), 1)
+                        .add(ConstantInt.of(2), 3)
+                        .add(ConstantInt.of(3), 4)
+                        .add(ConstantInt.of(4), 5)
+                    ), // height
                     UniformFloat.of(0.48F, 0.58F), // heightFalloff
-                    ConstantFloat.of(0.332F), // heightErosion
-                    ConstantFloat.of(-0.232F), // shapeSigma
-                    ConstantFloat.of(0.126F), // shapeErosion
+                    ConstantFloat.of(0.364F), // heightErosion
+                    ConstantFloat.of(-0.548F), // shapeSigma
+                    ConstantFloat.of(0.332F), // shapeErosion
                     ConstantInt.of(12), // searchDistance
                     BlockPredicate.allOf(
                         BlockPredicate.matchesTag(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON),

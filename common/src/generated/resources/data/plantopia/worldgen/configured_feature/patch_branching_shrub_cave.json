@@ -74,8 +74,28 @@
             "south",
             "west"
         ],
-        "height": 4,
-        "height_erosion": 0.332,
+        "height": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 5,
+                    "weight": 1
+                },
+                {
+                    "data": 2,
+                    "weight": 3
+                },
+                {
+                    "data": 3,
+                    "weight": 4
+                },
+                {
+                    "data": 4,
+                    "weight": 5
+                }
+            ]
+        },
+        "height_erosion": 0.364,
         "height_falloff": {
             "type": "minecraft:uniform",
             "value": {
@@ -84,15 +104,35 @@
             }
         },
         "search_distance": 12,
-        "shape_erosion": 0.126,
-        "shape_sigma": -0.232,
-        "tries": 42,
-        "xz_spread": {
+        "shape_erosion": 0.332,
+        "shape_sigma": -0.548,
+        "tries": {
             "type": "minecraft:uniform",
             "value": {
-                "max_inclusive": 3,
-                "min_inclusive": 2
+                "max_inclusive": 42,
+                "min_inclusive": 32
             }
+        },
+        "xz_spread": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 2,
+                    "weight": 1
+                },
+                {
+                    "data": 3,
+                    "weight": 2
+                },
+                {
+                    "data": 4,
+                    "weight": 3
+                },
+                {
+                    "data": 5,
+                    "weight": 1
+                }
+            ]
         },
         "y_spread": 1
     }

@@ -69,25 +69,65 @@
         "growth_directions": [
             "up"
         ],
-        "height": 3,
-        "height_erosion": 0.286,
+        "height": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 4,
+                    "weight": 1
+                },
+                {
+                    "data": 1,
+                    "weight": 3
+                },
+                {
+                    "data": 2,
+                    "weight": 4
+                },
+                {
+                    "data": 3,
+                    "weight": 3
+                }
+            ]
+        },
+        "height_erosion": 0.364,
         "height_falloff": {
             "type": "minecraft:uniform",
             "value": {
-                "max_exclusive": 0.58,
-                "min_inclusive": 0.48
+                "max_exclusive": 0.78,
+                "min_inclusive": 0.58
             }
         },
         "search_distance": 6,
-        "shape_erosion": 0.148,
-        "shape_sigma": -0.112,
-        "tries": 36,
-        "xz_spread": {
+        "shape_erosion": 0.332,
+        "shape_sigma": -0.548,
+        "tries": {
             "type": "minecraft:uniform",
             "value": {
-                "max_inclusive": 2,
-                "min_inclusive": 1
+                "max_inclusive": 32,
+                "min_inclusive": 22
             }
+        },
+        "xz_spread": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+                {
+                    "data": 1,
+                    "weight": 1
+                },
+                {
+                    "data": 2,
+                    "weight": 2
+                },
+                {
+                    "data": 3,
+                    "weight": 3
+                },
+                {
+                    "data": 4,
+                    "weight": 1
+                }
+            ]
         },
         "y_spread": 1
     }

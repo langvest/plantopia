@@ -1,6 +1,6 @@
 {
     "parent": "plantopia:block/cross_with_ao_up",
     "textures": {
-        "cross": "plantopia:block/icicle_frustum"
+        "cross": "plantopia:block/branching_shrub_body"
     }
 }

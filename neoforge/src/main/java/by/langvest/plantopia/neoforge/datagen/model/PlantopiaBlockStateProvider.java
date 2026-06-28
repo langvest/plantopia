@@ -597,18 +597,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         String baseName = nameOf(block);
 
         getVariantBuilder(block).forAllStatesExcept(state -> {
-                var direction = state.getValue(PlantopiaIcicleBlock.TIP_DIRECTION);
-                var thickness = state.getValue(PlantopiaIcicleBlock.THICKNESS);
-                String suffix = "_" + direction + "_" + thickness;
-                var texture = texture(baseName + suffix);
-                var model = icicleModel(baseName + suffix, texture);
+            var direction = state.getValue(PlantopiaIcicleBlock.TIP_DIRECTION);
+            var thickness = state.getValue(PlantopiaIcicleBlock.THICKNESS);
+            String suffix = "_" + direction + "_" + thickness;
+            var texture = texture(baseName + "_" + thickness);
+            var model = crossWithAOModel(baseName + suffix, direction, texture);
 
-                return ConfiguredModel.builder()
-                    .modelFile(model)
-                    .build();
-            },
-            PlantopiaIcicleBlock.WATERLOGGED
-        );
+            return ConfiguredModel.builder()
+                .modelFile(model)
+                .build();
+        }, PlantopiaIcicleBlock.WATERLOGGED);
     }
 
     private void iceCrustBlock(Block block) {
@@ -981,22 +979,29 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private void branchingShrubBlock(Block block) {
         String baseName = nameOf(block);
 
-        var texture = texture(baseName);
         var baseTexture = texture(baseName + "_base");
-
-        var model = crossModel(baseName, texture);
-        var baseModel = crossModel(baseName + "_base", baseTexture);
 
         generatedItemModel(baseName, baseTexture);
 
         getVariantBuilder(block).forAllStatesExcept(state -> {
             boolean isBase = state.getValue(PlantopiaBranchingShrubBlock.BASE);
-            Direction facing = state.getValue(PlantopiaBranchingShrubBlock.FACING);
-            ModelFile modelFile = isBase ? baseModel : model;
+            var facing = state.getValue(PlantopiaBranchingShrubBlock.FACING);
+            String type = isBase ? "base" : "body";
+            var direction = facing == Direction.DOWN ? Direction.DOWN : Direction.UP;
+            String suffix = "_" + direction + "_" + type;
+
+            var texture = texture(baseName + "_" + type);
+            var model = crossWithAOModel(baseName + suffix, direction, texture);
+
+            if (facing == Direction.DOWN) {
+                return ConfiguredModel.builder()
+                    .modelFile(model)
+                    .build();
+            }
 
             return ConfiguredModel.builder()
-                .modelFile(modelFile)
-                .rotationX(facing == Direction.DOWN ? 180 : facing.getAxis().isHorizontal() ? 90 : 0)
+                .modelFile(model)
+                .rotationX(facing.getAxis().isHorizontal() ? 90 : 0)
                 .rotationY(facing.getAxis().isVertical() ? 0 : (((int) facing.toYRot()) + ANGLE_OFFSET) % 360)
                 .build();
         }, BlockStateProperties.WATERLOGGED);
@@ -1332,8 +1337,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             .texture("left", leftTexture);
     }
 
-    private BlockModelBuilder icicleModel(String name, ResourceLocation crossTexture) {
-        return models().withExistingParent(name, parent("icicle"))
+    private BlockModelBuilder crossWithAOModel(String name, Direction direction, ResourceLocation crossTexture) {
+        return models().withExistingParent(name, parent("cross_with_ao_" + direction))
             .texture("cross", crossTexture);
     }
 
