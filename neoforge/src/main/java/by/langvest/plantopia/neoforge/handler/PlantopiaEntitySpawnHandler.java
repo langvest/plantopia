@@ -1,13 +1,10 @@
 package by.langvest.plantopia.neoforge.handler;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.entity.ai.goal.PlantopiaClimbOnTopOfQuicksandGoal;
-import by.langvest.plantopia.entity.ai.goal.PlantopiaZombieFindHogweedGoal;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.monster.Endermite;
-import net.minecraft.world.entity.monster.Silverfish;
-import net.minecraft.world.entity.monster.Zombie;
+import by.langvest.toolkit.event.game.EntitySpawnEvent;
+import by.langvest.toolkit.platform.EventEmitter;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -18,16 +15,18 @@ import org.jetbrains.annotations.NotNull;
 public final class PlantopiaEntitySpawnHandler {
     @SubscribeEvent
     public static void onEntityJoinWorld(@NotNull EntityJoinLevelEvent event) {
-        var entity = event.getEntity();
+        var globalEventEmitter = EventEmitter.getDefaultInstance();
 
-        if (entity instanceof Mob mob) {
-            if (mob instanceof Rabbit || mob instanceof Endermite || mob instanceof Silverfish) {
-                mob.goalSelector.addGoal(1, new PlantopiaClimbOnTopOfQuicksandGoal(mob, mob.level()));
+        globalEventEmitter.emit(new EntitySpawnEvent() {
+            @Override
+            public Entity getEntity() {
+                return event.getEntity();
             }
 
-            if (mob instanceof Zombie zombie) {
-                zombie.goalSelector.addGoal(1, new PlantopiaZombieFindHogweedGoal(zombie, 1.0D));
+            @Override
+            public Level getLevel() {
+                return event.getLevel();
             }
-        }
+        });
     }
 }

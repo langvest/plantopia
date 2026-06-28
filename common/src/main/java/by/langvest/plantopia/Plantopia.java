@@ -41,6 +41,7 @@ import by.langvest.plantopia.compat.PlantopiaCompats;
 import by.langvest.plantopia.entity.PlantopiaBoatType;
 import by.langvest.plantopia.entity.PlantopiaBoatTypes;
 import by.langvest.plantopia.entity.PlantopiaEntityTypes;
+import by.langvest.plantopia.handler.PlantopiaEventHandlers;
 import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
@@ -110,6 +111,7 @@ public final class Plantopia {
         globalEventEmitter.subscribe(PlantopiaBoatType::setup);
         globalEventEmitter.subscribe(PlantopiaCompats::setup);
         globalEventEmitter.subscribe(PlantopiaCommands::setup);
+        globalEventEmitter.subscribe(PlantopiaEventHandlers::setup);
 
         // TerraBlender
         localEventEmitter.subscribe(PlantopiaRegions::setup);
