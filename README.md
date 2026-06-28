@@ -22,3 +22,4 @@
 
 Copyright © 2022-2026 Vyacheslav Logvinets (LanGvest). All Rights Reserved.<br/>
 Licensed under the GNU AGPL v3.0 license. See [LICENSE](LICENSE) for details.
+
