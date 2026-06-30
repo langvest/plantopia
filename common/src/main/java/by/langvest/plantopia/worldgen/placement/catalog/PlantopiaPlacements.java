@@ -8,8 +8,13 @@ import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
 
-public final class PlantopiaPlacements {
-    public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
+public interface PlantopiaPlacements extends
+    PlantopiaVegetationPlacements,
+    PlantopiaMiscOverworldPlacements,
+    PlantopiaCavePlacements,
+    PlantopiaMarshPlacements,
+    PlantopiaSeasonalPlacements {
+    Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
         PlantopiaVegetationPlacements.DECLARATION,
         PlantopiaMiscOverworldPlacements.DECLARATION,
         PlantopiaCavePlacements.DECLARATION,
@@ -17,7 +22,7 @@ public final class PlantopiaPlacements {
         PlantopiaSeasonalPlacements.DECLARATION
     ));
 
-    public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
+    static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 }

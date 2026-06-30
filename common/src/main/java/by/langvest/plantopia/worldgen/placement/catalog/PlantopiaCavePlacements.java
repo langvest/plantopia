@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
-import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaCaveFeatures;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
@@ -23,17 +23,17 @@ import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*
 /**
  * @see net.minecraft.data.worldgen.placement.CavePlacements
  */
-public final class PlantopiaCavePlacements {
-    public static final Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
+public interface PlantopiaCavePlacements {
+    Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
+    static @NotNull ResourceKey<PlacedFeature> declarePlacement(String name, PlantopiaPlacementDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
-    //    public static final ResourceKey<PlacedFeature> ICICLE_CLUSTER = declarePlacement(
-    //        compileNameFrom(PlantopiaCaveFeatures.ICICLE_CLUSTER),
+    //    ResourceKey<PlacedFeature> ICICLE_CLUSTER = declarePlacement(
+    //        compileNameFrom(PlantopiaFeatures.ICICLE_CLUSTER),
     //        PlantopiaPlacementDeclaration.builder()
-    //            .feature(PlantopiaCaveFeatures.ICICLE_CLUSTER)
+    //            .feature(PlantopiaFeatures.ICICLE_CLUSTER)
     //            .modifiers(context -> List.of(
     //                CountPlacement.of(UniformInt.of(48, 96)),
     //                InSquarePlacement.spread(),
@@ -45,10 +45,10 @@ public final class PlantopiaCavePlacements {
     //            )
     //    );
 
-    public static final ResourceKey<PlacedFeature> SEA_HANGING_MOSS_CLUSTER = declarePlacement(
-        compileNameFrom(PlantopiaCaveFeatures.SEA_HANGING_MOSS_CLUSTER),
+    ResourceKey<PlacedFeature> SEA_HANGING_MOSS_CLUSTER = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.SEA_HANGING_MOSS_CLUSTER),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaCaveFeatures.SEA_HANGING_MOSS_CLUSTER)
+            .feature(PlantopiaFeatures.SEA_HANGING_MOSS_CLUSTER)
             .modifiers(context -> {
                 var bigNoiseConfig = PlantopiaNoiseConfig.of(1.264D, 56, 332);
                 float bigNoiseLevel = -0.286F;
@@ -92,10 +92,10 @@ public final class PlantopiaCavePlacements {
     );
 
     //
-    //    public static final ResourceKey<PlacedFeature> LARGE_ICICLE = declarePlacedFeature(
-    //        compileNameFrom(PlantopiaCaveFeatures.LARGE_ICICLE),
+    //    ResourceKey<PlacedFeature> LARGE_ICICLE = declarePlacedFeature(
+    //        compileNameFrom(PlantopiaFeatures.LARGE_ICICLE),
     //        PlantopiaPlacedFeatureDeclaration.builder()
-    //            .feature(PlantopiaCaveFeatures.LARGE_ICICLE)
+    //            .feature(PlantopiaFeatures.LARGE_ICICLE)
     //            .modifiers(context -> List.of(
     //                CountPlacement.of(UniformInt.of(10, 48)),
     //                InSquarePlacement.spread(),
@@ -109,10 +109,10 @@ public final class PlantopiaCavePlacements {
     //            )
     //    );
     //
-    //    public static final ResourceKey<PlacedFeature> ICICLE = declarePlacedFeature(
-    //        compileNameFrom(PlantopiaCaveFeatures.ICICLE),
+    //    ResourceKey<PlacedFeature> ICICLE = declarePlacedFeature(
+    //        compileNameFrom(PlantopiaFeatures.ICICLE),
     //        PlantopiaPlacedFeatureDeclaration.builder()
-    //            .feature(PlantopiaCaveFeatures.ICICLE)
+    //            .feature(PlantopiaFeatures.ICICLE)
     //            .modifiers(context -> List.of(
     //                CountPlacement.of(UniformInt.of(192, 256)),
     //                InSquarePlacement.spread(),

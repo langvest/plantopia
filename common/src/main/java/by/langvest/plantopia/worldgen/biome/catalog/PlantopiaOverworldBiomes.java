@@ -24,14 +24,14 @@ import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.*;
 /**
  * @see net.minecraft.data.worldgen.biome.OverworldBiomes
  */
-public final class PlantopiaOverworldBiomes {
-    public static final Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
+public interface PlantopiaOverworldBiomes {
+    Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {
+    static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build(name)).getKey();
     }
 
-    public static final ResourceKey<Biome> MARSH = declareBiome(
+    ResourceKey<Biome> MARSH = declareBiome(
         PlantopiaDictionary.MARSH,
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
@@ -51,7 +51,7 @@ public final class PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
     );
 
-    public static final ResourceKey<Biome> DEAD_MARSH = declareBiome(
+    ResourceKey<Biome> DEAD_MARSH = declareBiome(
         compileNameFrom(DEAD, MARSH),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
@@ -78,7 +78,7 @@ public final class PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
     );
 
-    public static final ResourceKey<Biome> SEASONAL_FOREST = declareBiome(
+    ResourceKey<Biome> SEASONAL_FOREST = declareBiome(
         compileNameFrom(SEASONAL, Biomes.FOREST),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
@@ -101,7 +101,7 @@ public final class PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
-    public static final ResourceKey<Biome> SEASONAL_DARK_FOREST = declareBiome(
+    ResourceKey<Biome> SEASONAL_DARK_FOREST = declareBiome(
         compileNameFrom(SEASONAL, Biomes.DARK_FOREST),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
@@ -123,7 +123,7 @@ public final class PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
-    public static final ResourceKey<Biome> LAVENDER_FIELDS = declareBiome(
+    ResourceKey<Biome> LAVENDER_FIELDS = declareBiome(
         compileNameFrom(PlantopiaBlocks.LAVENDER, FIELDS),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::plainsSpawns)
@@ -146,7 +146,7 @@ public final class PlantopiaOverworldBiomes {
 
     /* HELPER METHODS *************************************************************************************************/
 
-    public static void globalOverworldGeneration(BiomeGenerationSettings.Builder generationBuilder) {
+    static void globalOverworldGeneration(BiomeGenerationSettings.Builder generationBuilder) {
         BiomeDefaultFeatures.addDefaultCarversAndLakes(generationBuilder);
         BiomeDefaultFeatures.addDefaultCrystalFormations(generationBuilder);
         BiomeDefaultFeatures.addDefaultMonsterRoom(generationBuilder);

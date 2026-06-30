@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.region.special;
 
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -12,8 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import terrablender.api.RegionType;
 
 import java.util.function.Consumer;
-
-import static by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes.*;
 
 /**
  * <code>continentalness</code> - low to generate near coasts, far to generate away from coasts.<br/>
@@ -120,8 +119,8 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_MIDDLE_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
-        { null, null, SEASONAL_FOREST, null, null },
-        { null, null, SEASONAL_FOREST, null, SEASONAL_DARK_FOREST },
+        { null, null, PlantopiaBiomes.SEASONAL_FOREST, null, null },
+        { null, null, PlantopiaBiomes.SEASONAL_FOREST, null, PlantopiaBiomes.SEASONAL_DARK_FOREST },
         { null, null, null, null, null },
         { null, null, null, null, null }
     };
@@ -130,7 +129,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     protected final ResourceKey<Biome>[][] PLANTOPIA_MIDDLE_ALTERNATE_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
         { null, null, null, null, null },
-        { LAVENDER_FIELDS, null, null, null, null },
+        { PlantopiaBiomes.LAVENDER_FIELDS, null, null, null, null },
         { null, null, null, null, null },
         { null, null, null, null, null }
     };
@@ -138,8 +137,8 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_PLATEAU_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
-        { null, null, SEASONAL_FOREST, null, null },
-        { null, null, null, null, SEASONAL_DARK_FOREST },
+        { null, null, PlantopiaBiomes.SEASONAL_FOREST, null, null },
+        { null, null, null, null, PlantopiaBiomes.SEASONAL_DARK_FOREST },
         { null, null, null, null, null },
         { null, null, null, null, null }
     };
@@ -165,10 +164,10 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_SWAMP_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
-        { MARSH, MARSH, null, null, null },
-        { MARSH, MARSH, null, null, null },
-        { DEAD_MARSH, DEAD_MARSH, null, null, null },
-        { DEAD_MARSH, DEAD_MARSH, null, null, null }
+        { PlantopiaBiomes.MARSH, PlantopiaBiomes.MARSH, null, null, null },
+        { PlantopiaBiomes.MARSH, PlantopiaBiomes.MARSH, null, null, null },
+        { PlantopiaBiomes.DEAD_MARSH, PlantopiaBiomes.DEAD_MARSH, null, null, null },
+        { PlantopiaBiomes.DEAD_MARSH, PlantopiaBiomes.DEAD_MARSH, null, null, null }
     };
 
     @SuppressWarnings("unchecked")

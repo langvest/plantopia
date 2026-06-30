@@ -5,7 +5,7 @@ import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
-import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
@@ -32,14 +32,14 @@ import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
  */
-public final class PlantopiaTreeFeatures {
-    public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
+public interface PlantopiaTreeFeatures {
+    Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog();
 
-    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+    static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> HUGE_WITCHY_TOADSTOOL = declareFeature(
+    ResourceKey<ConfiguredFeature<?, ?>> HUGE_WITCHY_TOADSTOOL = declareFeature(
         compileNameFrom(HUGE, PlantopiaBlocks.WITCHY_TOADSTOOL),
         PlantopiaFeatureDeclaration.builder()
             .feature(configuredFeature(PlantopiaFeatureTypes.HUGE_WITCHY_TOADSTOOL, context ->
@@ -58,7 +58,7 @@ public final class PlantopiaTreeFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK = declareFeature(
+    ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK = declareFeature(
         compileNameFrom(SEASONAL, TreeFeatures.DARK_OAK),
         PlantopiaFeatureDeclaration.builder()
             .feature(tree(context ->
@@ -82,16 +82,16 @@ public final class PlantopiaTreeFeatures {
             ))
     );
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK_LITTER_055 = declareFeature(
+    ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK_LITTER_055 = declareFeature(
         compileNameFrom(SEASONAL, TreeFeatures.DARK_OAK, LITTER, CHANCE_055),
         PlantopiaFeatureDeclaration.builder()
             .feature(composite(context -> {
                 var placements = lookupPlacements(context);
 
                 return new PlantopiaCompositeConfiguration(
-                    placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_CHECKED),
+                    placements.getOrThrow(PlantopiaPlacements.SEASONAL_DARK_OAK_CHECKED),
                     List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaSeasonalPlacements.PATCH_ORANGE_LEAF_LITTER_CHECKED), CHANCE_055)
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.PATCH_ORANGE_LEAF_LITTER_CHECKED), CHANCE_055)
                     )
                 );
             }))

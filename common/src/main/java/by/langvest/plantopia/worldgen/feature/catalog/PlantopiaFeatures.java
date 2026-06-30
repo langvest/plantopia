@@ -8,15 +8,19 @@ import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 
-public final class PlantopiaFeatures {
-    public static final Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
+public interface PlantopiaFeatures extends
+    PlantopiaVegetationFeatures,
+    PlantopiaMiscOverworldFeatures,
+    PlantopiaCaveFeatures,
+    PlantopiaTreeFeatures {
+    Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
         PlantopiaVegetationFeatures.DECLARATION,
         PlantopiaMiscOverworldFeatures.DECLARATION,
         PlantopiaCaveFeatures.DECLARATION,
         PlantopiaTreeFeatures.DECLARATION
     ));
 
-    public static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
+    static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 }
