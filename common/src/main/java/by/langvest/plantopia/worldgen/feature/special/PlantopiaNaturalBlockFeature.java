@@ -6,6 +6,7 @@ import by.langvest.plantopia.block.special.PlantopiaTriplePlantBlock;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -60,7 +61,7 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
         return state.isSourceOfType(Fluids.WATER);
     }
 
-    public static boolean place(WorldGenLevel level, BlockState state, BlockPos pos, RandomSource random, int flags) {
+    public static boolean place(ServerLevelAccessor level, BlockState state, BlockPos pos, RandomSource random, int flags) {
         var block = state.getBlock();
 
         if (!state.canSurvive(level, pos)) return false;
@@ -113,7 +114,7 @@ public class PlantopiaNaturalBlockFeature extends Feature<SimpleBlockConfigurati
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean isFavorablePos(BlockState state, WorldGenLevel level, BlockPos pos) {
+    public static boolean isFavorablePos(BlockState state, ServerLevelAccessor level, BlockPos pos) {
         var currentFluidState = level.getFluidState(pos);
 
         if (currentFluidState.isSourceOfType(Fluids.WATER)) {

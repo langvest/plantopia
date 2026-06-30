@@ -324,6 +324,10 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             .pottable()
             .makeType("small_grass");
 
+        public static final MetaType TINY_GRASS = MetaProperties.of(SMALL_GRASS)
+            .notPottable()
+            .makeType("tiny_grass");
+
         public static final MetaType TALL_GRASS = MetaProperties.of(GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .doubleHigh()

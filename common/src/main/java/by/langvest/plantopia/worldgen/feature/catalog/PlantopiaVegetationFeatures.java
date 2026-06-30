@@ -159,6 +159,26 @@ public final class PlantopiaVegetationFeatures {
             ))
     );
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLUFFY_GRASS = declareFeature(
+        patchNameOf(PlantopiaBlocks.FLUFFY_GRASS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(
+                    112,
+                    5,
+                    3,
+                    PlacementUtils.filtered(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        weightedConfig(states -> states
+                            .add(PlantopiaBlocks.FLUFFY_GRASS.get().defaultBlockState(), 1)
+                            .add(PlantopiaBlocks.TALL_FLUFFY_GRASS.get().defaultBlockState(), 1)
+                        ),
+                        GRASS_PLANT_PREDICATE
+                    )
+                )
+            ))
+    );
+
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TANSY = declareFeature(
         patchNameOf(PlantopiaBlocks.TANSY),
         PlantopiaFeatureDeclaration.builder()

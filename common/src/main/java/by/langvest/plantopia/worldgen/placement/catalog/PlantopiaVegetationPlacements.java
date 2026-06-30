@@ -225,6 +225,29 @@ public final class PlantopiaVegetationPlacements {
             )
     );
 
+    public static final ResourceKey<PlacedFeature> PATCH_FLUFFY_GRASS = declarePlacement(
+        compileNameFrom(PlantopiaVegetationFeatures.PATCH_FLUFFY_GRASS),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaVegetationFeatures.PATCH_FLUFFY_GRASS)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(4.12F, 5.24F),
+                CountPlacement.of(weightedListInt(values -> values
+                    .add(ConstantInt.of(1), 3)
+                    .add(ConstantInt.of(2), 2)
+                    .add(ConstantInt.of(3), 1)
+                )),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.DARK_FOREST, Biomes.TAIGA, Biomes.SNOWY_TAIGA)
+                .add(Biomes.WINDSWEPT_FOREST)
+                .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+                .add(PlantopiaOverworldBiomes.SEASONAL_FOREST, PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+            )
+    );
+
     //	public static final ResourceKey<PlacedFeature> PATCH_CHICORY_2 = declarePlacement(
     //		compileNameFrom(PlantopiaVegetationFeatures.PATCH_CHICORY, 2),
     //		PlantopiaPlacementDeclaration.builder()

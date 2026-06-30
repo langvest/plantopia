@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "plantopia:block/fluffy_grass",
+        "layer1": "plantopia:block/fluffy_grass_overlay"
+    }
+}

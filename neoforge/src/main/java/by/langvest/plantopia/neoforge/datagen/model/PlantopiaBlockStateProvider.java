@@ -99,6 +99,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         tinyCactusBlock(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
         icicleBlock(PlantopiaBlocks.ICICLE.get());
         iceCrustBlock(PlantopiaBlocks.ICE_CRUST.get());
+        fluffyGrassBlock(PlantopiaBlocks.FLUFFY_GRASS.get());
+        fluffyGrassBlock(PlantopiaBlocks.TALL_FLUFFY_GRASS.get());
 
         checkAll();
     }
@@ -607,6 +609,18 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                 .modelFile(model)
                 .build();
         }, PlantopiaIcicleBlock.WATERLOGGED);
+    }
+
+    private void fluffyGrassBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var plantTexture = texture(baseName);
+        var overlayTexture = texture(baseName + "_overlay");
+
+        var model = tintedCrossWithTintedOverlayModel(baseName, plantTexture, overlayTexture);
+
+        generatedItemModel(baseName, plantTexture, overlayTexture);
+        simpleBlock(block, model);
     }
 
     private void iceCrustBlock(Block block) {
@@ -1311,6 +1325,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private BlockModelBuilder tintedCrossWithOverlayModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
         return models().withExistingParent(name, parent("tinted_cross_with_overlay"))
+            .texture("cross", crossTexture)
+            .texture("overlay", overlayTexture);
+    }
+
+    private BlockModelBuilder tintedCrossWithTintedOverlayModel(String name, ResourceLocation crossTexture, ResourceLocation overlayTexture) {
+        return models().withExistingParent(name, parent("tinted_cross_with_tinted_overlay"))
             .texture("cross", crossTexture)
             .texture("overlay", overlayTexture);
     }

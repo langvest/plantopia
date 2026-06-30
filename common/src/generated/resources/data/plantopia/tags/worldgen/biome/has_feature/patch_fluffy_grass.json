@@ -1,0 +1,14 @@
+{
+    "values": [
+        "minecraft:birch_forest",
+        "minecraft:dark_forest",
+        "minecraft:old_growth_birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:snowy_taiga",
+        "minecraft:taiga",
+        "minecraft:windswept_forest",
+        "plantopia:seasonal_dark_forest",
+        "plantopia:seasonal_forest"
+    ]
+}
