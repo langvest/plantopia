@@ -1,6 +1,7 @@
 {
     "values": [
         "plantopia:azolla",
+        "plantopia:birch_catkin",
         "plantopia:blue_lupine",
         "plantopia:branching_shrub",
         "plantopia:carrotweed",
@@ -16,6 +17,7 @@
         "plantopia:magenta_mallow",
         "plantopia:orange_foxglove",
         "plantopia:orange_leaf_litter",
+        "plantopia:pinecone",
         "plantopia:pink_foxglove",
         "plantopia:pink_lupine",
         "plantopia:pink_mallow",

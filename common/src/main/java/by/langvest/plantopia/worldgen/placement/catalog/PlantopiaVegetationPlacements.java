@@ -230,7 +230,7 @@ public interface PlantopiaVegetationPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_FLUFFY_GRASS)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(4.12F, 5.24F),
+                PlantopiaRarityFilter.onAverageOnceEvery(5.32F, 6.64F),
                 CountPlacement.of(weightedListInt(values -> values
                     .add(ConstantInt.of(1), 3)
                     .add(ConstantInt.of(2), 2)
@@ -486,7 +486,7 @@ public interface PlantopiaVegetationPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_SNOWDROP)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(12.32f),
+                PlantopiaRarityFilter.onAverageOnceEvery(12.64f),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

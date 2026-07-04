@@ -3,11 +3,31 @@
     "config": {
         "decorators": [
             {
-                "type": "plantopia:birch_base_block"
+                "type": "plantopia:alter_base_log",
+                "provider": {
+                    "type": "minecraft:simple_state_provider",
+                    "state": {
+                        "Name": "plantopia:birch_base_log",
+                        "Properties": {
+                            "facing": "up"
+                        }
+                    }
+                }
             },
             {
                 "type": "minecraft:beehive",
                 "probability": 0.05
+            },
+            {
+                "type": "plantopia:fruit",
+                "provider": {
+                    "type": "minecraft:simple_state_provider",
+                    "state": {
+                        "Name": "plantopia:birch_catkin"
+                    }
+                },
+                "tree_chance": 6,
+                "fruit_chance": 4
             }
         ],
         "dirt_provider": {

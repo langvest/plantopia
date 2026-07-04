@@ -23,6 +23,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -163,6 +164,9 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> YELLOW_LEAF_LITTER = registerBlock("yellow_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_YELLOW).goesAfter(PlantopiaKits.MAPLE.yellowLeaves));
     public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves));
     public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves));
+
+    public static final RegistryObject<Block> BIRCH_CATKIN = registerBlock("birch_catkin", PlantopiaBirchCatkinBlock::new, MetaProperties.of(MetaType.PLANT).offsetType(BlockBehaviour.OffsetType.XZ).customModel().dropSelfByShears());
+    public static final RegistryObject<Block> PINECONE = registerBlock("pinecone", PlantopiaPineconeBlock::new, MetaProperties.of(MetaType.PLANT).offsetType(BlockBehaviour.OffsetType.XZ).customModel());
 
     public static final RegistryObject<Block> POTTED_GRASS = registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
     public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));

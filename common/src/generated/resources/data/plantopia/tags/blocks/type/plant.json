@@ -7,6 +7,8 @@
         "#plantopia:type/tiny_cactus",
         "#plantopia:type/water_plant",
         "#plantopia:type/woody_plant",
-        "plantopia:hogweed"
+        "plantopia:birch_catkin",
+        "plantopia:hogweed",
+        "plantopia:pinecone"
     ]
 }

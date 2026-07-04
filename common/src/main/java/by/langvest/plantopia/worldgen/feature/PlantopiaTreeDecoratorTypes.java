@@ -1,7 +1,8 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaBirchBaseBlockDecorator;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaAlterBaseLogDecorator;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaFruitDecorator;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
@@ -15,7 +16,8 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaTreeDecoratorTypes {
-    public static final RegistryObject<TreeDecoratorType<PlantopiaBirchBaseBlockDecorator>> BIRCH_BASE_BLOCK = registerTreeDecoratorType("birch_base_block", () -> new TreeDecoratorType<>(PlantopiaBirchBaseBlockDecorator.CODEC));
+    public static final RegistryObject<TreeDecoratorType<PlantopiaAlterBaseLogDecorator>> ALTER_BASE_LOG = registerTreeDecoratorType("alter_base_log", () -> new TreeDecoratorType<>(PlantopiaAlterBaseLogDecorator.CODEC));
+    public static final RegistryObject<TreeDecoratorType<PlantopiaFruitDecorator>> FRUIT = registerTreeDecoratorType("fruit", () -> new TreeDecoratorType<>(PlantopiaFruitDecorator.CODEC));
 
     private static <T extends TreeDecorator> RegistryObject<TreeDecoratorType<T>> registerTreeDecoratorType(String name, Supplier<TreeDecoratorType<T>> supplier) {
         return registerTreeDecoratorType(plantopia(name), supplier);

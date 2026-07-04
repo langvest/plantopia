@@ -101,6 +101,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         iceCrustBlock(PlantopiaBlocks.ICE_CRUST.get());
         fluffyGrassBlock(PlantopiaBlocks.FLUFFY_GRASS.get());
         fluffyGrassBlock(PlantopiaBlocks.TALL_FLUFFY_GRASS.get());
+        treeFruitBlock(PlantopiaBlocks.BIRCH_CATKIN.get());
+        treeFruitBlock(PlantopiaBlocks.PINECONE.get());
 
         checkAll();
     }
@@ -620,6 +622,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         var model = tintedCrossWithTintedOverlayModel(baseName, plantTexture, overlayTexture);
 
         generatedItemModel(baseName, plantTexture, overlayTexture);
+        simpleBlock(block, model);
+    }
+
+    private void treeFruitBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var texture = texture(baseName);
+        var itemTexture = itemTexture(baseName);
+        var model = crossWithAOModel(baseName, Direction.UP, texture);
+
+        generatedItemModel(baseName, itemTexture);
         simpleBlock(block, model);
     }
 

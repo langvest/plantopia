@@ -164,7 +164,7 @@ public interface PlantopiaVegetationFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
                 new RandomPatchConfiguration(
-                    112,
+                    116,
                     5,
                     3,
                     PlacementUtils.filtered(
@@ -219,7 +219,7 @@ public interface PlantopiaVegetationFeatures {
         compileNameFrom(patchNameOf(PlantopiaBlocks.CARROTWEED), MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(56, 5, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(50, 5, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.CARROTWEED.get().defaultBlockState(), 10)
@@ -347,7 +347,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.SNOWDROP),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(96, 6, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(86, 6, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.SNOW)
