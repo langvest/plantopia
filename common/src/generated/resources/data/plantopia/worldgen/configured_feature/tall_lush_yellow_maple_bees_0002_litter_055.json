@@ -1,0 +1,12 @@
+{
+    "type": "plantopia:composite",
+    "config": {
+        "base_feature": "plantopia:tall_lush_yellow_maple_bees_0002",
+        "features": [
+            {
+                "chance": 0.55,
+                "feature": "plantopia:patch_yellow_leaf_litter_checked"
+            }
+        ]
+    }
+}

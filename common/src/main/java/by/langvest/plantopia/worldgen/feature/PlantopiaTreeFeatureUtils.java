@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.feature;
 
+import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaLushFoliagePlacer;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
+import java.util.function.Function;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
@@ -41,7 +43,15 @@ public final class PlantopiaTreeFeatureUtils {
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleTree(Block logBlock, Block leavesBlock) {
-        return createStraightBlobTree(logBlock, leavesBlock, 4, 2, 0, 2);
+        return createStraightBlobTree(logBlock, leavesBlock, 4, 2, 0, ConstantInt.of(2));
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleLushTree(Block logBlock, Block leavesBlock) {
+        return createLushTree(logBlock, leavesBlock, 8, 2, 0, ConstantInt.of(2), ConstantInt.of(4));
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createTallLushTree(Block logBlock, Block leavesBlock) {
+        return createLushTree(logBlock, leavesBlock, 10, 2, 0, ConstantInt.of(2), ConstantInt.of(6));
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleFancyTree(Block logBlock, Block leavesBlock) {
@@ -49,36 +59,37 @@ public final class PlantopiaTreeFeatureUtils {
             BlockStateProvider.simple(logBlock),
             new FancyTrunkPlacer(3, 11, 0),
             BlockStateProvider.simple(leavesBlock),
-            new FancyFoliagePlacer(
-                ConstantInt.of(2),
-                ConstantInt.of(4),
-                4
-            ),
-            new TwoLayersFeatureSize(
-                0,
-                0,
-                0,
-                OptionalInt.of(4)
-            )
+            new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
+            new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
         );
     }
 
     @Contract("_, _, _, _, _, _ -> new")
-    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createStraightBlobTree(Block logBlock, Block leavesBlock, int baseHeight, int heightRandA, int heightRandB, int foliageRadius) {
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createStraightBlobTree(Block logBlock, Block leavesBlock, int baseHeight, int heightRandA, int heightRandB, IntProvider foliageRadius) {
         return new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(logBlock),
             new StraightTrunkPlacer(baseHeight, heightRandA, heightRandB),
             BlockStateProvider.simple(leavesBlock),
-            new BlobFoliagePlacer(
-                ConstantInt.of(foliageRadius),
-                ConstantInt.of(0),
-                3
-            ),
-            new TwoLayersFeatureSize(
-                1,
-                0,
-                1
-            )
+            new BlobFoliagePlacer(foliageRadius, ConstantInt.of(0), 3),
+            new TwoLayersFeatureSize(1, 0, 1)
         );
+    }
+
+    @Contract("_, _, _, _, _, _, _ -> new")
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createLushTree(Block logBlock, Block leavesBlock, int baseHeight, int heightRandA, int heightRandB, IntProvider foliageRadius, IntProvider foliageBaseHeight) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            BlockStateProvider.simple(logBlock),
+            new StraightTrunkPlacer(baseHeight, heightRandA, heightRandB),
+            BlockStateProvider.simple(leavesBlock),
+            new PlantopiaLushFoliagePlacer(foliageRadius, ConstantInt.of(2), foliageBaseHeight),
+            new TwoLayersFeatureSize(4, 0, 2)
+        );
+    }
+
+    /* PROVIDER *********************************************/
+
+    @Contract(pure = true)
+    public static @NotNull WeightedListInt weightedListInt(@NotNull Function<SimpleWeightedRandomList.Builder<IntProvider>, SimpleWeightedRandomList.Builder<IntProvider>> values) {
+        return new WeightedListInt(values.apply(SimpleWeightedRandomList.builder()).build());
     }
 }

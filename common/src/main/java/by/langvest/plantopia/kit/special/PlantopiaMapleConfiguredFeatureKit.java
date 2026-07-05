@@ -17,10 +17,16 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.createSimpleLushTree;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.createTallLushTree;
 
 public class PlantopiaMapleConfiguredFeatureKit extends PlantopiaTreeConfiguredFeatureKit {
+    public final ResourceKey<ConfiguredFeature<?, ?>> lushTreeBees0002;
+    public final ResourceKey<ConfiguredFeature<?, ?>> tallLushTreeBees0002;
     public final ResourceKey<ConfiguredFeature<?, ?>> treeBees0002litter055;
     public final ResourceKey<ConfiguredFeature<?, ?>> fancyTreeBees0002litter055;
+    public final ResourceKey<ConfiguredFeature<?, ?>> lushTreeBees0002litter055;
+    public final ResourceKey<ConfiguredFeature<?, ?>> tallLushTreeBees0002litter055;
 
     public PlantopiaMapleConfiguredFeatureKit(
         String baseName,
@@ -31,17 +37,37 @@ public class PlantopiaMapleConfiguredFeatureKit extends PlantopiaTreeConfiguredF
     ) {
         super(baseName, log, leaves, config);
 
-        var supposedTreeBees0002PlacedFeature = PlantopiaPlacementUtils.createKey(treeBees0002.location().getPath());
-        var supposedFancyTreeBees0002PlacedFeature = PlantopiaPlacementUtils.createKey(fancyTreeBees0002.location().getPath());
+        this.lushTreeBees0002 = PlantopiaFeatures.declareFeature(
+            "lush_" + baseName + "_bees_0002",
+            PlantopiaFeatureDeclaration.builder()
+                .feature(tree(context ->
+                    createSimpleLushTree(log.get(), leaves.get())
+                        .ignoreVines()
+                        .decorators(List.of(beehiveDecorator0002))
+                        .build()
+                ))
+        );
+
+        this.tallLushTreeBees0002 = PlantopiaFeatures.declareFeature(
+            "tall_lush_" + baseName + "_bees_0002",
+            PlantopiaFeatureDeclaration.builder()
+                .feature(tree(context ->
+                    createTallLushTree(log.get(), leaves.get())
+                        .ignoreVines()
+                        .decorators(List.of(beehiveDecorator0002))
+                        .build()
+                ))
+        );
 
         this.treeBees0002litter055 = PlantopiaFeatures.declareFeature(
             compileNameFrom(treeBees0002, LITTER, CHANCE_055),
             PlantopiaFeatureDeclaration.builder()
                 .feature(composite(context -> {
                     var placements = lookupPlacements(context);
+                    var treeBees0002Placement = PlantopiaPlacementUtils.createKey(treeBees0002.location().getPath());
 
                     return new PlantopiaCompositeConfiguration(
-                        placements.getOrThrow(supposedTreeBees0002PlacedFeature),
+                        placements.getOrThrow(treeBees0002Placement),
                         List.of(
                             new WeightedPlacedFeature(placements.getOrThrow(leafLitterPlacement), CHANCE_055)
                         )
@@ -54,9 +80,42 @@ public class PlantopiaMapleConfiguredFeatureKit extends PlantopiaTreeConfiguredF
             PlantopiaFeatureDeclaration.builder()
                 .feature(composite(context -> {
                     var placements = lookupPlacements(context);
+                    var fancyTreeBees0002Placement = PlantopiaPlacementUtils.createKey(fancyTreeBees0002.location().getPath());
 
                     return new PlantopiaCompositeConfiguration(
-                        placements.getOrThrow(supposedFancyTreeBees0002PlacedFeature),
+                        placements.getOrThrow(fancyTreeBees0002Placement),
+                        List.of(
+                            new WeightedPlacedFeature(placements.getOrThrow(leafLitterPlacement), CHANCE_055)
+                        )
+                    );
+                }))
+        );
+
+        this.lushTreeBees0002litter055 = PlantopiaFeatures.declareFeature(
+            compileNameFrom(lushTreeBees0002, LITTER, CHANCE_055),
+            PlantopiaFeatureDeclaration.builder()
+                .feature(composite(context -> {
+                    var placements = lookupPlacements(context);
+                    var lushTreeBees0002Placement = PlantopiaPlacementUtils.createKey(lushTreeBees0002.location().getPath());
+
+                    return new PlantopiaCompositeConfiguration(
+                        placements.getOrThrow(lushTreeBees0002Placement),
+                        List.of(
+                            new WeightedPlacedFeature(placements.getOrThrow(leafLitterPlacement), CHANCE_055)
+                        )
+                    );
+                }))
+        );
+
+        this.tallLushTreeBees0002litter055 = PlantopiaFeatures.declareFeature(
+            compileNameFrom(tallLushTreeBees0002, LITTER, CHANCE_055),
+            PlantopiaFeatureDeclaration.builder()
+                .feature(composite(context -> {
+                    var placements = lookupPlacements(context);
+                    var tallLushTreeBees0002Placement = PlantopiaPlacementUtils.createKey(tallLushTreeBees0002.location().getPath());
+
+                    return new PlantopiaCompositeConfiguration(
+                        placements.getOrThrow(tallLushTreeBees0002Placement),
                         List.of(
                             new WeightedPlacedFeature(placements.getOrThrow(leafLitterPlacement), CHANCE_055)
                         )

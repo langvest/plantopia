@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
-import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
@@ -129,9 +129,10 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
                 .add(Biomes.RIVER, Biomes.FROZEN_RIVER)
                 .add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
-                .add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH)
-                .add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, PlantopiaOverworldBiomes.SEASONAL_FOREST)
-                .add(PlantopiaOverworldBiomes.LAVENDER_FIELDS)
+                .add(PlantopiaBiomes.MARSH, PlantopiaBiomes.DEAD_MARSH)
+                .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
+                .add(PlantopiaBiomes.LAVENDER_FIELDS)
+                .add(PlantopiaBiomes.BOREAL_WOODS)
             )
     );
 

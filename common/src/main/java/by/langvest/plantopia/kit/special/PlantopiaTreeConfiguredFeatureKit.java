@@ -22,15 +22,15 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
     public final ResourceKey<ConfiguredFeature<?, ?>> fancyTreeBees005;
     public final ResourceKey<ConfiguredFeature<?, ?>> fancyTreeBees0002;
 
+    public static final BeehiveDecorator beehiveDecorator005 = new BeehiveDecorator(0.05F);
+    public static final BeehiveDecorator beehiveDecorator0002 = new BeehiveDecorator(0.002F);
+
     public PlantopiaTreeConfiguredFeatureKit(
         String baseName,
         Supplier<Block> log,
         Supplier<Block> leaves,
         PlantopiaTreeKitConfiguration config
     ) {
-        var beehiveDecorator005 = new BeehiveDecorator(0.05F);
-        var beehiveDecorator0002 = new BeehiveDecorator(0.002F);
-
         this.tree = PlantopiaFeatures.declareFeature(
             baseName,
             PlantopiaFeatureDeclaration.builder()

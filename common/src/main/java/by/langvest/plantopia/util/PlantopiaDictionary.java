@@ -26,6 +26,8 @@ public final class PlantopiaDictionary {
     public static final String CAVE = "cave";
     public static final String HUGE = "huge";
     public static final String SEASONAL = "seasonal";
+    public static final String BOREAL = "boreal";
+    public static final String WOODS = "woods";
     public static final String FIELDS = "fields";
     public static final String LITTER = "litter";
     public static final String FANCY = "fancy";

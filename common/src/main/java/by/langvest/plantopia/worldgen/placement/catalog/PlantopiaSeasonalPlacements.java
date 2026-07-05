@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
-import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.toolkit.collection.catalog.Catalog;
@@ -60,7 +60,7 @@ public interface PlantopiaSeasonalPlacements {
                 BiomeFilter.biome()
             ))
             .biomes(biomes -> biomes
-                .add(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST)
+                .add(PlantopiaBiomes.SEASONAL_DARK_FOREST)
             )
     );
 
@@ -68,7 +68,15 @@ public interface PlantopiaSeasonalPlacements {
         compileNameFrom(PlantopiaFeatures.TREES_SEASONAL_FOREST),
         getTreeDeclaration(PlantopiaFeatures.TREES_SEASONAL_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
-                .add(PlantopiaOverworldBiomes.SEASONAL_FOREST)
+                .add(PlantopiaBiomes.SEASONAL_FOREST)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_BOREAL_WOODS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_BOREAL_WOODS),
+        getTreeDeclaration(PlantopiaFeatures.TREES_BOREAL_WOODS, PlacementUtils.countExtra(10, 0.1F, 1))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.BOREAL_WOODS)
             )
     );
 

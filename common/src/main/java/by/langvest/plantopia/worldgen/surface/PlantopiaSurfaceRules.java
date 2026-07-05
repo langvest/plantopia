@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.surface;
 
 import by.langvest.plantopia.event.PlantopiaTerraBlenderEvent;
-import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.noise.PlantopiaNoises;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,6 +20,7 @@ public class PlantopiaSurfaceRules {
 
     public static SurfaceRules.@NotNull RuleSource overworld() {
         var water = makeStateRule(Blocks.WATER);
+        var podzol = makeStateRule(Blocks.PODZOL);
 
         return SurfaceRules.sequence(
             SurfaceRules.ifTrue(
@@ -28,8 +29,8 @@ public class PlantopiaSurfaceRules {
                     SurfaceRules.ifTrue(
                         // Marsh water noise
                         SurfaceRules.isBiome(
-                            PlantopiaOverworldBiomes.MARSH,
-                            PlantopiaOverworldBiomes.DEAD_MARSH
+                            PlantopiaBiomes.MARSH,
+                            PlantopiaBiomes.DEAD_MARSH
                         ),
                         SurfaceRules.ifTrue(
                             IS_ABOVE_62,
@@ -40,6 +41,15 @@ public class PlantopiaSurfaceRules {
                                     water
                                 )
                             )
+                        )
+                    ),
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.isBiome(
+                            PlantopiaBiomes.BOREAL_WOODS
+                        ),
+                        SurfaceRules.ifTrue(
+                            SurfaceRules.noiseCondition(PlantopiaNoises.PODZOL, 0.2D),
+                            podzol
                         )
                     )
                 )

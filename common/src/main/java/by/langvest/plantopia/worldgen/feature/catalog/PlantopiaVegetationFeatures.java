@@ -8,7 +8,7 @@ import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaIntegerPropertyHolder;
-import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaBlockPlacer;
@@ -219,7 +219,7 @@ public interface PlantopiaVegetationFeatures {
         compileNameFrom(patchNameOf(PlantopiaBlocks.CARROTWEED), MOUNTAIN),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(50, 5, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(54, 5, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.CARROTWEED.get().defaultBlockState(), 10)
@@ -415,7 +415,7 @@ public interface PlantopiaVegetationFeatures {
     );
 
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD_MARSH = declareFeature(
-        compileNameFrom(patchNameOf("flowering_lily_pad"), PlantopiaOverworldBiomes.MARSH),
+        compileNameFrom(patchNameOf("flowering_lily_pad"), PlantopiaBiomes.MARSH),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(getFloweringWaterlilyConfig(() -> List.of(
                 PlantopiaBlocks.WHITE_FLOWERING_LILY_PAD.get().defaultBlockState(),
@@ -424,7 +424,7 @@ public interface PlantopiaVegetationFeatures {
     );
 
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_FLOWERING_LILY_PAD_DEAD_MARSH = declareFeature(
-        compileNameFrom(patchNameOf("flowering_lily_pad"), PlantopiaOverworldBiomes.DEAD_MARSH),
+        compileNameFrom(patchNameOf("flowering_lily_pad"), PlantopiaBiomes.DEAD_MARSH),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(getFloweringWaterlilyConfig(() -> List.of(
                 PlantopiaBlocks.RED_FLOWERING_LILY_PAD.get().defaultBlockState(),
@@ -525,7 +525,7 @@ public interface PlantopiaVegetationFeatures {
     );
 
     ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_FOREST_VEGETATION = declareFeature(
-        compileNameFrom(PlantopiaOverworldBiomes.SEASONAL_DARK_FOREST, VEGETATION),
+        compileNameFrom(PlantopiaBiomes.SEASONAL_DARK_FOREST, VEGETATION),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var features = lookupFeatures(context);
@@ -544,8 +544,26 @@ public interface PlantopiaVegetationFeatures {
             }))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_BOREAL_WOODS = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.BOREAL_WOODS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.175F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.tallLushTreeBees0002litter055), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
+                );
+            }))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> TREES_SEASONAL_FOREST = declareFeature(
-        compileNameFrom(TREES, PlantopiaOverworldBiomes.SEASONAL_FOREST),
+        compileNameFrom(TREES, PlantopiaBiomes.SEASONAL_FOREST),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
@@ -570,7 +588,7 @@ public interface PlantopiaVegetationFeatures {
     );
 
     ResourceKey<ConfiguredFeature<?, ?>> TREES_LAVENDER_FIELDS = declareFeature(
-        compileNameFrom(TREES, PlantopiaOverworldBiomes.LAVENDER_FIELDS),
+        compileNameFrom(TREES, PlantopiaBiomes.LAVENDER_FIELDS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);

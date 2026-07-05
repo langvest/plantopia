@@ -11,7 +11,7 @@
                     }
                 },
                 "tree_chance": 1,
-                "fruit_chance": 132
+                "fruit_chance": 130
             }
         ],
         "dirt_provider": {

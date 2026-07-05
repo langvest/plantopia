@@ -123,6 +123,34 @@ public interface PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
+    ResourceKey<Biome> BOREAL_WOODS = declareBiome(
+        compileNameFrom(BOREAL, WOODS),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
+            .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 8, 2, 4)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .addFeature(Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .applyGeneration(BiomeDefaultFeatures::addCommonBerryBushes)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#7a9f48")
+            .foliageColorOverride("#87a52c")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
     ResourceKey<Biome> LAVENDER_FIELDS = declareBiome(
         compileNameFrom(PlantopiaBlocks.LAVENDER, FIELDS),
         PlantopiaBiomeDeclaration.builder()

@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/trees_boreal_woods",
+    "features": "plantopia:trees_boreal_woods",
+    "step": "vegetal_decoration"
+}
