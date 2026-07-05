@@ -9,8 +9,8 @@
     "downfall": 0.8,
     "effects": {
         "fog_color": 12638463,
-        "foliage_color": -7887572,
-        "grass_color": -8412848,
+        "foliage_color": -9981562,
+        "grass_color": -9327490,
         "mood_sound": {
             "block_search_extent": 8,
             "offset": 2.0,
@@ -81,9 +81,7 @@
         [
             "minecraft:glow_lichen",
             "minecraft:patch_large_fern",
-            "minecraft:forest_flowers",
             "minecraft:flower_default",
-            "minecraft:patch_dead_bush",
             "minecraft:patch_grass_taiga_2",
             "minecraft:brown_mushroom_taiga",
             "minecraft:red_mushroom_taiga",
@@ -145,12 +143,6 @@
                 "maxCount": 3,
                 "minCount": 2,
                 "weight": 4
-            },
-            {
-                "type": "minecraft:fox",
-                "maxCount": 4,
-                "minCount": 2,
-                "weight": 8
             }
         ],
         "misc": [],

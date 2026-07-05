@@ -22,7 +22,13 @@
                         "Name": "plantopia:birch_catkin"
                     }
                 },
-                "tree_chance": 6,
+                "tree_chance": {
+                    "type": "minecraft:uniform",
+                    "value": {
+                        "max_inclusive": 6,
+                        "min_inclusive": 5
+                    }
+                },
                 "fruit_chance": 4
             }
         ],

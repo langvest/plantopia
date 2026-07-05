@@ -18,11 +18,39 @@ public class PlantopiaSurfaceRules {
     private static final SurfaceRules.ConditionSource IS_ABOVE_62 = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
     private static final SurfaceRules.ConditionSource IS_ABOVE_63 = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(63), 0);
 
+    @Contract(value = "_ -> new", pure = true)
+    private static SurfaceRules.@NotNull ConditionSource gravelNoiseAbove(double value) {
+        return SurfaceRules.noiseCondition(PlantopiaNoises.GRAVEL, value / 8.25F, Double.MAX_VALUE);
+    }
+
+    private static SurfaceRules.RuleSource placeDeep(SurfaceRules.RuleSource toPlace) {
+        return SurfaceRules.sequence(
+            SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, toPlace),
+            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, toPlace),
+            SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, toPlace)
+        );
+    }
+
     public static SurfaceRules.@NotNull RuleSource overworld() {
         var water = makeStateRule(Blocks.WATER);
         var podzol = makeStateRule(Blocks.PODZOL);
+        var gravel = makeStateRule(Blocks.GRAVEL);
+        var stone = makeStateRule(Blocks.STONE);
 
         return SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(PlantopiaBiomes.MAPLE_WOODS),
+                SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.noiseCondition(PlantopiaNoises.GRAVEL, 0.34D, 0.46D),
+                        placeDeep(gravel)
+                    ),
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.noiseCondition(PlantopiaNoises.GRAVEL, 0.26D, 0.34D),
+                        placeDeep(stone)
+                    )
+                )
+            ),
             SurfaceRules.ifTrue(
                 SurfaceRules.ON_FLOOR,
                 SurfaceRules.sequence(

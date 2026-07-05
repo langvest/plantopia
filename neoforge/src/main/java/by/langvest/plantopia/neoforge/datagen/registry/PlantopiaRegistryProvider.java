@@ -56,6 +56,7 @@ public class PlantopiaRegistryProvider extends DatapackBuiltinEntriesProvider {
         context.register(PlantopiaNoises.WEIGHTED, new NormalNoise.NoiseParameters(0, 1.0));
         context.register(PlantopiaNoises.MARSH, new NormalNoise.NoiseParameters(-1, 1.0));
         context.register(PlantopiaNoises.PODZOL, new NormalNoise.NoiseParameters(-3, 0.75, 0.5, 0.75, 0.25));
+        context.register(PlantopiaNoises.GRAVEL, new NormalNoise.NoiseParameters(-4, 0.75, 0.5, 0.75, 0.25));
     }
 
     private static void addDamageTypes(@NotNull BootstapContext<DamageType> context) {

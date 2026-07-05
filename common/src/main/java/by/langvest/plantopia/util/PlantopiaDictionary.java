@@ -22,6 +22,7 @@ public final class PlantopiaDictionary {
     public static final String MOUNTAIN = "mountain";
     public static final String JUNGLE = "jungle";
     public static final String MARSH = "marsh";
+    public static final String ROCK = "rock";
     public static final String ANCHOR = "anchor";
     public static final String CAVE = "cave";
     public static final String HUGE = "huge";

@@ -38,6 +38,23 @@ public interface PlantopiaMiscOverworldPlacements {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
+    ResourceKey<PlacedFeature> ROCK = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.ROCK),
+        PlantopiaPlacementDeclaration.builder()
+            .step(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
+            .feature(PlantopiaFeatures.ROCK)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(2.0F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.MAPLE_WOODS)
+            )
+    );
+
     ResourceKey<PlacedFeature> PIT_QUICKSAND = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PIT_QUICKSAND),
         PlantopiaPlacementDeclaration.builder()
@@ -132,7 +149,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(PlantopiaBiomes.MARSH, PlantopiaBiomes.DEAD_MARSH)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
-                .add(PlantopiaBiomes.BOREAL_WOODS)
+                .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
             )
     );
 

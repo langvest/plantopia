@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/rock",
+    "features": "plantopia:rock",
+    "step": "local_modifications"
+}

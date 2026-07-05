@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCobblestoneShardBlock;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
+import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.config.*;
@@ -26,7 +27,9 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +52,14 @@ public interface PlantopiaMiscOverworldFeatures {
     static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
+
+    ResourceKey<ConfiguredFeature<?, ?>> ROCK = declareFeature(
+        compileNameFrom(PlantopiaDictionary.ROCK),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(Feature.FOREST_ROCK, context ->
+                new BlockStateConfiguration(Blocks.COBBLESTONE.defaultBlockState())
+            ))
+    );
 
     ResourceKey<ConfiguredFeature<?, ?>> LAKE_WATER_MARSH = declareFeature(
         compileNameFrom(LAKE, Blocks.WATER, MARSH),

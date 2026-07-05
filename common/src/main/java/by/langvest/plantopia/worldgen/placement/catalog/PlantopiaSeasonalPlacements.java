@@ -80,6 +80,14 @@ public interface PlantopiaSeasonalPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> TREES_MAPLE_WOODS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_MAPLE_WOODS),
+        getTreeDeclaration(PlantopiaFeatures.TREES_MAPLE_WOODS, PlacementUtils.countExtra(10, 0.1F, 1))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.MAPLE_WOODS)
+            )
+    );
+
     ResourceKey<PlacedFeature> PATCH_YELLOW_LEAF_LITTER_CHECKED = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_YELLOW_LEAF_LITTER, CHECKED),
         getCheckedLeafLitterDeclaration(PlantopiaFeatures.PATCH_YELLOW_LEAF_LITTER)

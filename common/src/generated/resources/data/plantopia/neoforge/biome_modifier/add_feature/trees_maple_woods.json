@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/trees_maple_woods",
+    "features": "plantopia:trees_maple_woods",
+    "step": "vegetal_decoration"
+}

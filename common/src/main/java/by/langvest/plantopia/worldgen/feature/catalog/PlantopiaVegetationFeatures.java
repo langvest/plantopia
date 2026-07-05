@@ -316,6 +316,21 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_SEDGE = declareFeature(
+        patchNameOf(PlantopiaBlocks.SEDGE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(84, 5, 1, PlacementUtils.filtered(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    weightedConfig(states -> states
+                        .add(PlantopiaBlocks.SEDGE.get().defaultBlockState(), 4)
+                        .add(PlantopiaBlocks.SWEET_FLAG.get().defaultBlockState(), 1)
+                    ),
+                    WATER_PlANT_PREDICATE
+                ))
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_SWEET_FLAG = declareFeature(
         patchNameOf(PlantopiaBlocks.SWEET_FLAG),
         PlantopiaFeatureDeclaration.builder()
@@ -556,6 +571,24 @@ public interface PlantopiaVegetationFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.175F),
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.tallLushTreeBees0002litter055), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_MAPLE_WOODS = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.MAPLE_WOODS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.lushTreeBees0002litter055), 0.475F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.tallLushTreeBees0002litter055), 0.4F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
                 );
