@@ -187,6 +187,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.SANDY_RIVER)
             )
     );
 
@@ -500,6 +501,7 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.BEACH)
+                .add(PlantopiaBiomes.SANDY_RIVER)
             )
     );
 

@@ -1,5 +1,7 @@
 {
     "values": [
-        "minecraft:beach"
+        "minecraft:beach",
+        "plantopia:gravelly_river",
+        "plantopia:sandy_river"
     ]
 }

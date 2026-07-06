@@ -5,6 +5,7 @@
         "minecraft:deep_ocean",
         "minecraft:stony_peaks",
         "minecraft:stony_shore",
-        "minecraft:windswept_gravelly_hills"
+        "minecraft:windswept_gravelly_hills",
+        "plantopia:gravelly_river"
     ]
 }

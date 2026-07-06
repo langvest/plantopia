@@ -197,6 +197,50 @@ public interface PlantopiaOverworldBiomes {
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 
+    ResourceKey<Biome> GRAVELLY_RIVER = declareBiome(
+        compileNameFrom(GRAVELLY, Biomes.RIVER),
+        PlantopiaBiomeDeclaration.builder()
+            .addSpawn(MobCategory.WATER_CREATURE, EntityType.SQUID, 2, 1, 4)
+            .addSpawn(MobCategory.WATER_AMBIENT, EntityType.SALMON, 5, 1, 5)
+            .addSpawn(MobCategory.MONSTER, EntityType.DROWNED, 100, 1, 1)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addWaterTrees)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .addFeature(Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.5F)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
+    ResourceKey<Biome> SANDY_RIVER = declareBiome(
+        compileNameFrom(SANDY, Biomes.RIVER),
+        PlantopiaBiomeDeclaration.builder()
+            .addSpawn(MobCategory.WATER_CREATURE, EntityType.SQUID, 2, 1, 4)
+            .addSpawn(MobCategory.WATER_AMBIENT, EntityType.SALMON, 5, 1, 5)
+            .addSpawn(MobCategory.MONSTER, EntityType.DROWNED, 100, 1, 1)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addWaterTrees)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .addFeature(Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.5F)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
     /* HELPER METHODS *************************************************************************************************/
 
     static void globalOverworldGeneration(BiomeGenerationSettings.Builder generationBuilder) {

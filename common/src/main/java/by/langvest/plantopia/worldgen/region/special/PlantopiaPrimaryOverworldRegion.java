@@ -392,15 +392,31 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
 
     @SuppressWarnings("DuplicatedCode")
     protected void addValleys(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper, Climate.Parameter weirdness) {
+        // --- FROZEN RIVERS ---
         addSurfaceBiome(mapper, FROZEN_RANGE, FULL_RANGE, coastContinentalness, Climate.Parameter.span(erosions[0], erosions[1]), weirdness, 0.0F, weirdness.max() < 0L ? Biomes.STONY_SHORE : Biomes.FROZEN_RIVER);
-        addSurfaceBiome(mapper, UNFROZEN_RANGE, FULL_RANGE, coastContinentalness, Climate.Parameter.span(erosions[0], erosions[1]), weirdness, 0.0F, weirdness.max() < 0L ? Biomes.STONY_SHORE : Biomes.RIVER);
         addSurfaceBiome(mapper, FROZEN_RANGE, FULL_RANGE, nearInlandContinentalness, Climate.Parameter.span(erosions[0], erosions[1]), weirdness, 0.0F, Biomes.FROZEN_RIVER);
-        addSurfaceBiome(mapper, UNFROZEN_RANGE, FULL_RANGE, nearInlandContinentalness, Climate.Parameter.span(erosions[0], erosions[1]), weirdness, 0.0F, Biomes.RIVER);
         addSurfaceBiome(mapper, FROZEN_RANGE, FULL_RANGE, Climate.Parameter.span(coastContinentalness, farInlandContinentalness), Climate.Parameter.span(erosions[2], erosions[5]), weirdness, 0.0F, Biomes.FROZEN_RIVER);
-        addSurfaceBiome(mapper, UNFROZEN_RANGE, FULL_RANGE, Climate.Parameter.span(coastContinentalness, farInlandContinentalness), Climate.Parameter.span(erosions[2], erosions[5]), weirdness, 0.0F, Biomes.RIVER);
         addSurfaceBiome(mapper, FROZEN_RANGE, FULL_RANGE, coastContinentalness, erosions[6], weirdness, 0.0F, Biomes.FROZEN_RIVER);
-        addSurfaceBiome(mapper, UNFROZEN_RANGE, FULL_RANGE, coastContinentalness, erosions[6], weirdness, 0.0F, Biomes.RIVER);
         addSurfaceBiome(mapper, FROZEN_RANGE, FULL_RANGE, Climate.Parameter.span(inlandContinentalness, farInlandContinentalness), erosions[6], weirdness, 0.0F, Biomes.FROZEN_RIVER);
+
+        // --- UNFROZEN RIVERS (NEW LOGIC) ---
+        for (int i = 1; i < temperatures.length; i++) {
+            Climate.Parameter temperature = temperatures[i];
+            ResourceKey<Biome> riverBiome;
+            if (i == 1) {
+                riverBiome = PlantopiaBiomes.GRAVELLY_RIVER;
+            } else if (i == 2) {
+                riverBiome = Biomes.RIVER;
+            } else {
+                riverBiome = PlantopiaBiomes.SANDY_RIVER;
+            }
+            addSurfaceBiome(mapper, temperature, FULL_RANGE, coastContinentalness, Climate.Parameter.span(erosions[0], erosions[1]), weirdness, 0.0F, weirdness.max() < 0L ? Biomes.STONY_SHORE : riverBiome);
+            addSurfaceBiome(mapper, temperature, FULL_RANGE, nearInlandContinentalness, Climate.Parameter.span(erosions[0], erosions[1]), weirdness, 0.0F, riverBiome);
+            addSurfaceBiome(mapper, temperature, FULL_RANGE, Climate.Parameter.span(coastContinentalness, farInlandContinentalness), Climate.Parameter.span(erosions[2], erosions[5]), weirdness, 0.0F, riverBiome);
+            addSurfaceBiome(mapper, temperature, FULL_RANGE, coastContinentalness, erosions[6], weirdness, 0.0F, riverBiome);
+        }
+
+        // --- OVERLAPPING BIOMES (SWAMPS, ETC) ---
         for (int i = 0; i < temperatures.length; i++) {
             Climate.Parameter temperature = temperatures[i];
             for (int j = 0; j < humidities.length; j++) {

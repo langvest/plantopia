@@ -44,7 +44,7 @@ public interface PlantopiaMiscOverworldPlacements {
             .step(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
             .feature(PlantopiaFeatures.ROCK)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(2.48F),
+                PlantopiaRarityFilter.onAverageOnceEvery(3.12F),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP,
@@ -85,6 +85,7 @@ public interface PlantopiaMiscOverworldPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.BEACH)
+                .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.GRAVELLY_RIVER)
             )
     );
 
@@ -183,6 +184,7 @@ public interface PlantopiaMiscOverworldPlacements {
             .biomes(biomes -> biomes
                 .add(Biomes.DEEP_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
                 .add(Biomes.STONY_PEAKS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.STONY_SHORE)
+                .add(PlantopiaBiomes.GRAVELLY_RIVER)
             )
     );
 

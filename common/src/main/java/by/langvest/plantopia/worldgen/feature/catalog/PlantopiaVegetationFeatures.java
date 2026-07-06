@@ -320,7 +320,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.SEDGE),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(112, 7, 1, PlacementUtils.filtered(
+                new RandomPatchConfiguration(112, 6, 1, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(PlantopiaBlocks.SEDGE.get().defaultBlockState(), 4)
