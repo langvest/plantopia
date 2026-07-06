@@ -134,6 +134,7 @@ public abstract class RegistryHelper extends PlatformHelper {
         });
     }
 
+    @SuppressWarnings("unchecked")
     protected static @NotNull Map<Registry<?>, Class<?>> getBuiltInRegistries() {
         Map<Registry<?>, Class<?>> map = Maps.newHashMap();
         add(map, BuiltInRegistries.GAME_EVENT, GameEvent.class);

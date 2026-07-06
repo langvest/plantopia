@@ -1,6 +1,7 @@
 package by.langvest.plantopia.mixin.client.render;
 
 import by.langvest.plantopia.block.special.PlantopiaQuicksandBlock;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
@@ -28,22 +29,28 @@ public abstract class PlantopiaFogRendererMixin {
     private static float fogGreen;
     @Shadow
     private static float fogBlue;
+    @Shadow
+    private static long biomeChangedTime;
 
     @Inject(
         method = "setupColor(Lnet/minecraft/client/Camera;FLnet/minecraft/client/multiplayer/ClientLevel;IF)V",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/mojang/blaze3d/systems/RenderSystem;clearColor(FFFF)V",
-            shift = At.Shift.BEFORE
+            target = "Lnet/minecraft/client/Camera;getEntity()Lnet/minecraft/world/entity/Entity;",
+            ordinal = 0
         ),
+        cancellable = true,
         locals = LocalCapture.CAPTURE_FAILSOFT
     )
-    private static void onComputeFogColor(Camera camera, float partialTicks, ClientLevel level, int renderDistanceChunks, float bossColorModifier, CallbackInfo ci, FogType fogType, Entity entity) {
+    private static void setupColor(Camera camera, float partialTicks, ClientLevel level, int renderDistanceChunks, float bossColorModifier, CallbackInfo ci, FogType fogType) {
         if (fogType == FogType.POWDER_SNOW && plantopia$isCameraInsideQuicksand(camera, level)) {
             var dustColor = PlantopiaQuicksandBlock.DUST_COLOR;
             fogRed = red(dustColor);
             fogGreen = green(dustColor);
             fogBlue = blue(dustColor);
+            biomeChangedTime = -1L;
+            RenderSystem.clearColor(fogRed, fogGreen, fogBlue, 0.0F);
+            ci.cancel();
         }
     }
 

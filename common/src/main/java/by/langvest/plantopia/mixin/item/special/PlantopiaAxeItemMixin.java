@@ -25,9 +25,7 @@ public abstract class PlantopiaAxeItemMixin {
     @Inject(
         method = "getStripped(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/Optional;",
         at = @At("HEAD"),
-        cancellable = true,
-        remap = false,
-        require = 1
+        cancellable = true
     )
     private void getStripped(@NotNull BlockState unstrippedState, CallbackInfoReturnable<Optional<BlockState>> cir) {
         Block strippedBlock = STRIPPABLES.get(unstrippedState.getBlock());
