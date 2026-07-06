@@ -145,14 +145,14 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.8F)
-            .grassColorOverride("#80a151")
+            .grassColorOverride("#83a54f")
             .foliageColorOverride("#87a52c")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
     ResourceKey<Biome> MAPLE_WOODS = declareBiome(
-        compileNameFrom("maple", WOODS),
+        compileNameFrom(MAPLE, WOODS),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)

@@ -44,7 +44,7 @@ public interface PlantopiaMiscOverworldPlacements {
             .step(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
             .feature(PlantopiaFeatures.ROCK)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(2.0F),
+                PlantopiaRarityFilter.onAverageOnceEvery(2.48F),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP,
