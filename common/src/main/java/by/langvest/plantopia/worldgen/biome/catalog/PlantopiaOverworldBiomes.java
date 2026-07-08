@@ -216,6 +216,8 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.5F)
+            .grassColorOverride("#8EB971")
+            .foliageColorOverride("#71A74D")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 
@@ -238,6 +240,8 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.5F)
+            .grassColorOverride("#8EB971")
+            .foliageColorOverride("#71A74D")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 

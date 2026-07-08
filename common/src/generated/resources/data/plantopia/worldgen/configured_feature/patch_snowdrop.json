@@ -20,8 +20,7 @@
                         "type": "minecraft:matching_blocks",
                         "blocks": [
                             "minecraft:air",
-                            "minecraft:grass",
-                            "minecraft:snow"
+                            "minecraft:grass"
                         ]
                     }
                 }

@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
+import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.createKey;
 
 public interface PlantopiaPlacements extends
     PlantopiaVegetationPlacements,

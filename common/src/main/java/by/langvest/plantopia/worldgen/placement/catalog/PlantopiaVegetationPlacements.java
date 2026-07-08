@@ -536,10 +536,10 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_LAVENDER = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_LAVENDER),
+    ResourceKey<PlacedFeature> PATCH_LAVENDER_LAVENDER_FIELDS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_LAVENDER_LAVENDER_FIELDS),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.PATCH_LAVENDER)
+            .feature(PlantopiaFeatures.PATCH_LAVENDER_LAVENDER_FIELDS)
             .modifiers(context -> {
                 var bigNoiseConfig = PlantopiaNoiseConfig.of(0.092D, 74, 193);
                 var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 12, 543);
@@ -552,12 +552,35 @@ public interface PlantopiaVegetationPlacements {
                     PlantopiaNoiseFilter.above(bigNoiseConfig, bigNoiseLevel, 0.1F),
                     PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F),
                     PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-                    BiomeFilter.biome(),
-                    PlacementUtils.filteredByBlockSurvival(PlantopiaBlocks.LAVENDER.get())
+                    BiomeFilter.biome()
                 );
             })
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST)
+            .modifiers(context -> {
+                var bigNoiseConfig = PlantopiaNoiseConfig.of(1.456D, 743, 251);
+                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.144D, 844, 134);
+                float bigNoiseLevel = -0.52F;
+                float smallNoiseLevel = -0.1F;
+
+                return List.of(
+                    PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 10),
+                    InSquarePlacement.spread(),
+                    PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+                    PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F),
+                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                    BiomeFilter.biome()
+                );
+            })
+            .biomes(biomes -> biomes
+                .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
             )
     );
 

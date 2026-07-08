@@ -5,6 +5,7 @@ import by.langvest.plantopia.kit.special.PlantopiaJacarandaKit;
 import by.langvest.plantopia.kit.special.PlantopiaMapleKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
+import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.toolkit.event.RegisterEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SoundType;
@@ -16,14 +17,14 @@ import java.util.function.Function;
 
 public class PlantopiaKits {
     public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
-        "maple",
+        PlantopiaDictionary.MAPLE,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.MAPLE)
             .build()
     );
 
     public static final PlantopiaJacarandaKit JACARANDA = new PlantopiaJacarandaKit(
-        "jacaranda",
+        PlantopiaDictionary.JACARANDA,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.JACARANDA)
             .apply(PlantopiaKits::addCherrySounds)

@@ -1,16 +1,16 @@
 {
-    "feature": "plantopia:patch_lavender",
+    "feature": "plantopia:patch_lupine_old_growth_birch_forest",
     "placement": [
         {
             "type": "plantopia:noise_count",
-            "activation_type": "ABOVE",
-            "active_count": 20,
+            "activation_type": "BELOW",
+            "active_count": 10,
             "noise_config": {
-                "offset_x": 74,
-                "offset_z": 193,
-                "scale": 0.092
+                "offset_x": 743,
+                "offset_z": 251,
+                "scale": 1.456
             },
-            "noise_level": -0.32,
+            "noise_level": -0.52,
             "passive_count": 0
         },
         {
@@ -18,20 +18,20 @@
         },
         {
             "type": "plantopia:noise_filter",
-            "activation_type": "ABOVE",
+            "activation_type": "BELOW",
             "erosion_level": {
                 "type": "minecraft:uniform",
                 "value": {
-                    "max_exclusive": -0.22,
-                    "min_inclusive": -0.42
+                    "max_exclusive": -0.42,
+                    "min_inclusive": -0.62
                 }
             },
             "noise_config": {
-                "offset_x": 74,
-                "offset_z": 193,
-                "scale": 0.092
+                "offset_x": 743,
+                "offset_z": 251,
+                "scale": 1.456
             },
-            "noise_level": -0.32
+            "noise_level": -0.52
         },
         {
             "type": "plantopia:noise_filter",
@@ -44,9 +44,9 @@
                 }
             },
             "noise_config": {
-                "offset_x": 12,
-                "offset_z": 543,
-                "scale": 0.046
+                "offset_x": 844,
+                "offset_z": 134,
+                "scale": 0.144
             },
             "noise_level": -0.1
         },
@@ -56,15 +56,6 @@
         },
         {
             "type": "minecraft:biome"
-        },
-        {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-                "type": "minecraft:would_survive",
-                "state": {
-                    "Name": "plantopia:lavender"
-                }
-            }
         }
     ]
 }

@@ -31,6 +31,7 @@ import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SeaPickleBlock;
@@ -365,7 +366,7 @@ public interface PlantopiaVegetationFeatures {
                 new RandomPatchConfiguration(86, 6, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
-                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.SNOW)
+                    BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS)
                 ))
             ))
     );
@@ -381,13 +382,29 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER = declareFeature(
-        patchNameOf(PlantopiaBlocks.LAVENDER),
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER_LAVENDER_FIELDS = declareFeature(
+        compileNameFrom(PATCH, PlantopiaBlocks.LAVENDER, PlantopiaBiomes.LAVENDER_FIELDS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
                 new RandomPatchConfiguration(42, 3, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.LAVENDER.get())
+                ))
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST = declareFeature(
+        compileNameFrom(PATCH, LUPINE, Biomes.OLD_GROWTH_BIRCH_FOREST),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(46, 6, 3, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    new SimpleBlockConfiguration(
+                        weightedProvider(states -> states
+                            .add(PlantopiaBlocks.PURPLE_LUPINE.get().defaultBlockState(), 2)
+                            .add(PlantopiaBlocks.PINK_LUPINE.get().defaultBlockState(), 1)
+                        )
+                    )
                 ))
             ))
     );

@@ -6,9 +6,7 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -102,30 +100,4 @@ public interface PlantopiaSeasonalPlacements {
         compileNameFrom(PlantopiaFeatures.PATCH_RED_LEAF_LITTER, CHECKED),
         getCheckedLeafLitterDeclaration(PlantopiaFeatures.PATCH_RED_LEAF_LITTER)
     );
-
-    /* HELPER METHODS ***********************************************************/
-
-    static PlantopiaPlacementDeclaration.Builder getTreeDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier modifier) {
-        return PlantopiaPlacementDeclaration.builder()
-            .feature(feature)
-            .modifiers(context -> List.of(
-                modifier,
-                InSquarePlacement.spread(),
-                TREE_THRESHOLD,
-                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BiomeFilter.biome()
-            ));
-    }
-
-    static PlantopiaPlacementDeclaration.Builder getCheckedLeafLitterDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature) {
-        return PlantopiaPlacementDeclaration.builder()
-            .feature(feature)
-            .modifiers(context -> List.of(
-                RandomOffsetPlacement.horizontal(weightedListInt(values -> values
-                    .add(UniformInt.of(-3, 3), 2)
-                    .add(UniformInt.of(-2, 2), 5)
-                )),
-                PlacementUtils.HEIGHTMAP_WORLD_SURFACE
-            ));
-    }
 }

@@ -9,23 +9,23 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.cascades;
@@ -98,5 +98,31 @@ public final class PlantopiaPlacementUtils {
             .addOptional(cascades("rainforest"))
             .addOptional(cascades("seasonal_forest"))
             .addOptional(cascades("temperate_rainforest"));
+    }
+
+    /* HELPER METHODS ******************************************/
+
+    public static PlantopiaPlacementDeclaration.Builder getTreeDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier modifier) {
+        return PlantopiaPlacementDeclaration.builder()
+            .feature(feature)
+            .modifiers(context -> List.of(
+                modifier,
+                InSquarePlacement.spread(),
+                TREE_THRESHOLD,
+                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                BiomeFilter.biome()
+            ));
+    }
+
+    public static PlantopiaPlacementDeclaration.Builder getCheckedLeafLitterDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature) {
+        return PlantopiaPlacementDeclaration.builder()
+            .feature(feature)
+            .modifiers(context -> List.of(
+                RandomOffsetPlacement.horizontal(weightedListInt(values -> values
+                    .add(UniformInt.of(-3, 3), 2)
+                    .add(UniformInt.of(-2, 2), 5)
+                )),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE
+            ));
     }
 }
