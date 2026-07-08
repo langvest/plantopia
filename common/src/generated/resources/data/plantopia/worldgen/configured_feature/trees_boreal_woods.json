@@ -8,12 +8,16 @@
                 "feature": "minecraft:pine_checked"
             },
             {
-                "chance": 0.175,
+                "chance": 0.15,
                 "feature": "plantopia:lush_yellow_maple_bees_0002_litter_055"
             },
             {
                 "chance": 0.1,
                 "feature": "plantopia:tall_lush_yellow_maple_bees_0002_litter_055"
+            },
+            {
+                "chance": 0.05,
+                "feature": "plantopia:yellow_maple_bees_0002_litter_055"
             }
         ]
     }

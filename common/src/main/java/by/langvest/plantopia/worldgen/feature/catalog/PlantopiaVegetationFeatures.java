@@ -586,8 +586,9 @@ public interface PlantopiaVegetationFeatures {
                 return new RandomFeatureConfiguration(
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.175F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.tallLushTreeBees0002litter055), 0.1F)
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.15F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.tallLushTreeBees0002litter055), 0.1F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.05F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
                 );
@@ -604,8 +605,9 @@ public interface PlantopiaVegetationFeatures {
                 return new RandomFeatureConfiguration(
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.lushTreeBees0002litter055), 0.475F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.tallLushTreeBees0002litter055), 0.4F)
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.lushTreeBees0002litter055), 0.4F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.tallLushTreeBees0002litter055), 0.35F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.treeBees0002litter055), 0.25F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
                 );
