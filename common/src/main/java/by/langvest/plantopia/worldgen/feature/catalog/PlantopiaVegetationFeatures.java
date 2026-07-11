@@ -18,6 +18,7 @@ import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import com.google.common.collect.Lists;
@@ -587,7 +588,6 @@ public interface PlantopiaVegetationFeatures {
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.tallLushTreeBees0002litter055), 0.1F),
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.05F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
@@ -606,7 +606,6 @@ public interface PlantopiaVegetationFeatures {
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
                         new WeightedPlacedFeature(placements.getOrThrow(redMaple.lushTreeBees0002litter055), 0.4F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.tallLushTreeBees0002litter055), 0.35F),
                         new WeightedPlacedFeature(placements.getOrThrow(redMaple.treeBees0002litter055), 0.25F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
@@ -635,6 +634,22 @@ public interface PlantopiaVegetationFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(orangeMaple.fancyTreeBees0002litter055), 0.1F)
                     ),
                     placements.getOrThrow(orangeMaple.treeBees0002litter055)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_ASPEN_GROVE = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.ASPEN_GROVE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
+                    ),
+                    placements.getOrThrow(PlantopiaPlacements.ASPEN_LITTER_055)
                 );
             }))
     );

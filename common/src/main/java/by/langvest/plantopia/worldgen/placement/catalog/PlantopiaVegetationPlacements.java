@@ -188,6 +188,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.SANDY_RIVER)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -248,6 +249,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -295,7 +297,7 @@ public interface PlantopiaVegetationPlacements {
                 BiomeFilter.biome()
             ))
             .biomes(biomes -> biomes
-                //				.add(Biomes.WINDSWEPT_FOREST)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -370,6 +372,7 @@ public interface PlantopiaVegetationPlacements {
             .biomes(biomes -> biomes
                 .add(Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -429,6 +432,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -659,7 +663,7 @@ public interface PlantopiaVegetationPlacements {
             .feature(PlantopiaFeatures.PATCH_BRANCHING_SHRUB)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
-                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                CountPlacement.of(UniformInt.of(1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),
@@ -675,6 +679,7 @@ public interface PlantopiaVegetationPlacements {
                 .addTag(BiomeTags.IS_SAVANNA)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -684,7 +689,7 @@ public interface PlantopiaVegetationPlacements {
             .feature(PlantopiaFeatures.PATCH_BRANCHING_SHRUB)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(18.24F),
-                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                CountPlacement.of(UniformInt.of(1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel()),
@@ -718,11 +723,11 @@ public interface PlantopiaVegetationPlacements {
     ResourceKey<PlacedFeature> QUAGMIRE_WATER_LEVEL = declarePlacement(
         compileNameFrom(PlantopiaFeatures.QUAGMIRE_WATER_LEVEL),
         PlantopiaPlacementDeclaration.builder()
+            .step(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
             .feature(PlantopiaFeatures.QUAGMIRE_WATER_LEVEL)
             .biomes(biomes -> biomes
                 .addTag(PlantopiaBiomeTags.ALLOWS_QUAGMIRE)
             )
-            .step(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
     );
 
     ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacement(
@@ -746,6 +751,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -757,6 +763,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -768,6 +775,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 

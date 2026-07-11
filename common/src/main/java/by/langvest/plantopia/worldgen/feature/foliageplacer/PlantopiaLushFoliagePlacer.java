@@ -8,14 +8,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaLushFoliagePlacer extends FoliagePlacer {
+public class PlantopiaLushFoliagePlacer extends PlantopiaFoliagePlacer {
     public static final Codec<PlantopiaLushFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
         PlantopiaProportionConfig.CODEC.fieldOf("height").forGetter(it -> it.height)
     ).apply(instance, PlantopiaLushFoliagePlacer::new));
@@ -33,19 +32,17 @@ public class PlantopiaLushFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
-        var origin = attachment.pos();
-
+    protected void createFoliage(LevelSimulatedReader level, FoliageSetter foliageSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         for (int dy = offset; dy > offset - foliageHeight; dy--) {
             int layerIndex = offset - dy;
 
             if (layerIndex == 0 || layerIndex == 1) {
-                placeLeavesRow(level, blockSetter, random, config, origin, 0, dy, attachment.doubleTrunk());
+                placeRow(level, foliageSetter, random, config, attachment, 0, dy, square());
                 continue;
             }
 
             if (layerIndex == 2) {
-                placeLeavesRow(level, blockSetter, random, config, origin, 1, dy, attachment.doubleTrunk());
+                placeRow(level, foliageSetter, random, config, attachment, 1, dy, square());
                 continue;
             }
 
@@ -53,9 +50,9 @@ public class PlantopiaLushFoliagePlacer extends FoliagePlacer {
             boolean isCross = patternIndex % 2 == 0;
 
             if (isCross) {
-                placeLeavesRow(level, blockSetter, random, config, origin, radius.sample(random) / 2, dy, attachment.doubleTrunk());
+                placeRow(level, foliageSetter, random, config, attachment, radius.sample(random) / 2, dy, noCorner());
             } else {
-                placeLeavesRow(level, blockSetter, random, config, origin, radius.sample(random), dy, attachment.doubleTrunk());
+                placeRow(level, foliageSetter, random, config, attachment, radius.sample(random), dy, noCorner());
             }
         }
     }
@@ -63,10 +60,5 @@ public class PlantopiaLushFoliagePlacer extends FoliagePlacer {
     @Override
     public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
         return height.getClampedValue(random, trunkHeight, h -> h % 2 == 0 ? h : h - 1);
-    }
-
-    @Override
-    protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
-        return localX == range && localZ == range && range > 0 && localY < 0;
     }
 }

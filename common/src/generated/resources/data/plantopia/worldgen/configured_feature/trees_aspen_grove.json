@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:random_selector",
+    "config": {
+        "default": "plantopia:aspen_litter_055",
+        "features": [
+            {
+                "chance": 0.1,
+                "feature": "plantopia:fancy_yellow_maple_bees_0002_litter_055"
+            }
+        ]
+    }
+}

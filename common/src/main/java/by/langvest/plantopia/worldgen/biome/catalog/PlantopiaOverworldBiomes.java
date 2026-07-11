@@ -3,6 +3,7 @@ package by.langvest.plantopia.worldgen.biome.catalog;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
+import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -95,7 +96,7 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.7F)
             .downfall(0.6F)
-            .grassColorOverride("#bf9b3d") // Old: #c1a741
+            .grassColorOverride("#c49740") // Old: #c1a741
             .foliageColorOverride("#adac3b") // Old: #adac37
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -172,6 +173,31 @@ public interface PlantopiaOverworldBiomes {
             .downfall(0.8F)
             .grassColorOverride("#71ac7e")
             .foliageColorOverride("#67b181")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> ASPEN_GROVE = declareBiome(
+        compileNameFrom(PlantopiaFeatures.ASPEN, GROVE),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 8, 2, 4)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#ccaa45")
+            .foliageColorOverride("#c2b547")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );

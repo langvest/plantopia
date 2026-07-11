@@ -106,7 +106,7 @@ public final class PlantopiaTreeFeatureUtils {
             BlockStateProvider.simple(logBlock),
             new PlantopiaStraightTrunkPlacer(baseHeight, heightRand),
             BlockStateProvider.simple(leavesBlock),
-            new PlantopiaCypressFoliagePlacer(foliageRadius, ConstantInt.of(0), foliageHeight),
+            new PlantopiaCypressFoliagePlacer(foliageRadius, ConstantInt.of(2), foliageHeight),
             new TwoLayersFeatureSize(4, 0, 2)
         );
     }

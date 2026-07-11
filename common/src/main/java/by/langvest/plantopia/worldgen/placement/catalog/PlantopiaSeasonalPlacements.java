@@ -62,6 +62,32 @@ public interface PlantopiaSeasonalPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.ASPEN, CHECKED),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.ASPEN)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> ASPEN_LITTER_055 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.ASPEN_LITTER_055),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.ASPEN_LITTER_055)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> TREES_ASPEN_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_ASPEN_GROVE),
+        getTreeDeclaration(PlantopiaFeatures.TREES_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_GROVE)
+            )
+    );
+
     ResourceKey<PlacedFeature> TREES_SEASONAL_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SEASONAL_FOREST),
         getTreeDeclaration(PlantopiaFeatures.TREES_SEASONAL_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))

@@ -38,6 +38,7 @@ public class PlantopiaSurfaceRules {
     public static SurfaceRules.@NotNull RuleSource overworld() {
         var water = makeStateRule(Blocks.WATER);
         var podzol = makeStateRule(Blocks.PODZOL);
+        var rottedDirt = makeStateRule(Blocks.ROOTED_DIRT);
         var gravel = makeStateRule(Blocks.GRAVEL);
         var stone = makeStateRule(Blocks.STONE);
         var sand = makeStateRule(Blocks.SAND);
@@ -73,10 +74,7 @@ public class PlantopiaSurfaceRules {
                 SurfaceRules.sequence(
                     SurfaceRules.ifTrue(
                         // Marsh water noise
-                        SurfaceRules.isBiome(
-                            PlantopiaBiomes.MARSH,
-                            PlantopiaBiomes.DEAD_MARSH
-                        ),
+                        SurfaceRules.isBiome(PlantopiaBiomes.MARSH, PlantopiaBiomes.DEAD_MARSH),
                         SurfaceRules.ifTrue(
                             IS_ABOVE_62,
                             SurfaceRules.ifTrue(
@@ -89,12 +87,17 @@ public class PlantopiaSurfaceRules {
                         )
                     ),
                     SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(
-                            PlantopiaBiomes.BOREAL_WOODS
-                        ),
+                        SurfaceRules.isBiome(PlantopiaBiomes.BOREAL_WOODS),
                         SurfaceRules.ifTrue(
                             SurfaceRules.noiseCondition(PlantopiaNoises.PODZOL, 0.2D),
                             podzol
+                        )
+                    ),
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.isBiome(PlantopiaBiomes.ASPEN_GROVE),
+                        SurfaceRules.ifTrue(
+                            SurfaceRules.noiseCondition(PlantopiaNoises.ROTTED_DIRT, 0.2D),
+                            rottedDirt
                         )
                     )
                 )
