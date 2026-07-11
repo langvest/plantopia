@@ -12,10 +12,6 @@
                 "feature": "plantopia:lush_red_maple_bees_0002_litter_055"
             },
             {
-                "chance": 0.35,
-                "feature": "plantopia:tall_lush_red_maple_bees_0002_litter_055"
-            },
-            {
                 "chance": 0.25,
                 "feature": "plantopia:red_maple_bees_0002_litter_055"
             }

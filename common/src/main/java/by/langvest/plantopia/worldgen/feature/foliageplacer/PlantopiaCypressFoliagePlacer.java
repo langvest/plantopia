@@ -15,21 +15,21 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaLushFoliagePlacer extends FoliagePlacer {
-    public static final Codec<PlantopiaLushFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
+public class PlantopiaCypressFoliagePlacer extends FoliagePlacer {
+    public static final Codec<PlantopiaCypressFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
         PlantopiaProportionConfig.CODEC.fieldOf("height").forGetter(it -> it.height)
-    ).apply(instance, PlantopiaLushFoliagePlacer::new));
+    ).apply(instance, PlantopiaCypressFoliagePlacer::new));
 
     private final PlantopiaProportionConfig height;
 
-    public PlantopiaLushFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaProportionConfig height) {
+    public PlantopiaCypressFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaProportionConfig height) {
         super(radius, offset);
         this.height = height;
     }
 
     @Override
     protected @NotNull FoliagePlacerType<?> type() {
-        return PlantopiaFoliagePlacerTypes.LUSH_FOLIAGE_PLACER.get();
+        return PlantopiaFoliagePlacerTypes.CYPRESS_FOLIAGE_PLACER.get();
     }
 
     @Override
@@ -62,11 +62,27 @@ public class PlantopiaLushFoliagePlacer extends FoliagePlacer {
 
     @Override
     public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
-        return height.getClampedValue(random, trunkHeight, h -> h % 2 == 0 ? h : h - 1);
+        return height.getClampedValue(random, trunkHeight);
     }
 
     @Override
     protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large) {
-        return localX == range && localZ == range && range > 0 && localY < 0;
+        if (range > 0) {
+            if (localY < 0) {
+                if (range == 1) {
+                    return false;
+                }
+
+                if (localX == range && localZ == range) {
+                    return true;
+                }
+
+                return (localX == range || localZ == range) && random.nextInt(6) == 0;
+            }
+
+            return localX == range && localZ == range;
+        }
+
+        return false;
     }
 }

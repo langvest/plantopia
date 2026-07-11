@@ -15,11 +15,9 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
 
 public class PlantopiaMaplePlacedFeatureKit extends PlantopiaTreePlacedFeatureKit {
     public final ResourceKey<PlacedFeature> lushTreeBees0002;
-    public final ResourceKey<PlacedFeature> tallLushTreeBees0002;
     public final ResourceKey<PlacedFeature> treeBees0002litter055;
     public final ResourceKey<PlacedFeature> fancyTreeBees0002litter055;
     public final ResourceKey<PlacedFeature> lushTreeBees0002litter055;
-    public final ResourceKey<PlacedFeature> tallLushTreeBees0002litter055;
 
     public PlantopiaMaplePlacedFeatureKit(
         String baseName,
@@ -33,15 +31,6 @@ public class PlantopiaMaplePlacedFeatureKit extends PlantopiaTreePlacedFeatureKi
             compileNameFrom(configured.lushTreeBees0002),
             PlantopiaPlacementDeclaration.builder()
                 .feature(configured.lushTreeBees0002)
-                .modifiers(context -> List.of(
-                    PlacementUtils.filteredByBlockSurvival(sapling.get())
-                ))
-        );
-
-        this.tallLushTreeBees0002 = PlantopiaPlacements.declarePlacement(
-            compileNameFrom(configured.tallLushTreeBees0002),
-            PlantopiaPlacementDeclaration.builder()
-                .feature(configured.tallLushTreeBees0002)
                 .modifiers(context -> List.of(
                     PlacementUtils.filteredByBlockSurvival(sapling.get())
                 ))
@@ -69,15 +58,6 @@ public class PlantopiaMaplePlacedFeatureKit extends PlantopiaTreePlacedFeatureKi
             compileNameFrom(configured.lushTreeBees0002litter055),
             PlantopiaPlacementDeclaration.builder()
                 .feature(configured.lushTreeBees0002litter055)
-                .modifiers(context -> List.of(
-                    PlacementUtils.filteredByBlockSurvival(sapling.get())
-                ))
-        );
-
-        this.tallLushTreeBees0002litter055 = PlantopiaPlacements.declarePlacement(
-            compileNameFrom(configured.tallLushTreeBees0002litter055),
-            PlantopiaPlacementDeclaration.builder()
-                .feature(configured.tallLushTreeBees0002litter055)
                 .modifiers(context -> List.of(
                     PlacementUtils.filteredByBlockSurvival(sapling.get())
                 ))
