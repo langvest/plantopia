@@ -61,6 +61,14 @@ public interface PlantopiaMiscOverworldFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> MOSSY_ROCK = declareFeature(
+        compileNameFrom(MOSSY, PlantopiaDictionary.ROCK),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(Feature.FOREST_ROCK, context ->
+                new BlockStateConfiguration(Blocks.MOSSY_COBBLESTONE.defaultBlockState())
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> LAKE_WATER_MARSH = declareFeature(
         compileNameFrom(LAKE, Blocks.WATER, MARSH),
         PlantopiaFeatureDeclaration.builder()

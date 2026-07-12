@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.BEEHIVE_DECORATOR_0002;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.createSimpleLushTree;
 
 public class PlantopiaMapleConfiguredFeatureKit extends PlantopiaTreeConfiguredFeatureKit {
@@ -40,7 +41,7 @@ public class PlantopiaMapleConfiguredFeatureKit extends PlantopiaTreeConfiguredF
                 .feature(tree(context ->
                     createSimpleLushTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(beehiveDecorator0002))
+                        .decorators(List.of(BEEHIVE_DECORATOR_0002))
                         .build()
                 ))
         );

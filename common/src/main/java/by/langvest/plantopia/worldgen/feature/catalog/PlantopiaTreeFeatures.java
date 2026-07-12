@@ -4,17 +4,12 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
-import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaAlterBaseLogDecorator;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformFloat;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -107,35 +102,32 @@ public interface PlantopiaTreeFeatures {
         "aspen",
         PlantopiaFeatureDeclaration.builder()
             .feature(tree(context ->
-                createCypressTree(
-                    Blocks.BIRCH_LOG,
-                    PlantopiaKits.MAPLE.yellowLeaves.get(),
-                    weightedListInt(values -> values
-                        .add(UniformInt.of(9, 10), 3)
-                        .add(UniformInt.of(11, 12), 2)
-                    ),
-                    UniformInt.of(0, 2),
-                    ConstantInt.of(2),
-                    PlantopiaProportionConfig.of(
-                        UniformFloat.of(0.82F, 0.86F),
-                        ConstantInt.of(8)
-                    )
-                ).ignoreVines().decorators(List.of(
-                    new PlantopiaAlterBaseLogDecorator(
-                        simpleProvider(PlantopiaBlocks.BIRCH_BASE_LOG.get())
-                    )
-                )).build()
+                createAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .build()
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> ASPEN_LITTER_055 = declareFeature(
-        compileNameFrom(ASPEN, LITTER, CHANCE_055),
+    ResourceKey<ConfiguredFeature<?, ?>> ASPEN_BEES_0002 = declareFeature(
+        compileNameFrom(ASPEN, BEES, CHANCE_0002),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(tree(context ->
+                createAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR, BEEHIVE_DECORATOR_0002))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> ASPEN_BEES_0002_LITTER_055 = declareFeature(
+        compileNameFrom(ASPEN_BEES_0002, LITTER, CHANCE_055),
         PlantopiaFeatureDeclaration.builder()
             .feature(composite(context -> {
                 var placements = lookupPlacements(context);
 
                 return new PlantopiaCompositeConfiguration(
-                    placements.getOrThrow(PlantopiaPlacements.ASPEN_CHECKED),
+                    placements.getOrThrow(PlantopiaPlacements.ASPEN_BEES_0002),
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.PATCH_YELLOW_LEAF_LITTER_CHECKED), CHANCE_055)
                     )

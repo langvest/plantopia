@@ -588,6 +588,30 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> PATCH_TANSY_ASPEN_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_TANSY, PlantopiaBiomes.ASPEN_GROVE),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_TANSY)
+            .modifiers(context -> {
+                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.432D, 43, 775);
+                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 123, 65);
+                float bigNoiseLevel = -0.4F;
+                float smallNoiseLevel = -0.1F;
+
+                return List.of(
+                    PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 8),
+                    InSquarePlacement.spread(),
+                    PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+                    PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F),
+                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                    BiomeFilter.biome()
+                );
+            })
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_GROVE)
+            )
+    );
+
     ResourceKey<PlacedFeature> TREES_LAVENDER_FIELDS = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_LAVENDER_FIELDS),
         PlantopiaPlacementDeclaration.builder()
@@ -654,6 +678,22 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.MANGROVE_SWAMP)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_LUCKY_DAISY = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_LUCKY_DAISY),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_LUCKY_DAISY)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -763,7 +803,6 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -775,7 +814,6 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 

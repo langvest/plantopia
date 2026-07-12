@@ -71,10 +71,19 @@ public interface PlantopiaSeasonalPlacements {
             ))
     );
 
-    ResourceKey<PlacedFeature> ASPEN_LITTER_055 = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.ASPEN_LITTER_055),
+    ResourceKey<PlacedFeature> ASPEN_BEES_0002 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.ASPEN_BEES_0002),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.ASPEN_LITTER_055)
+            .feature(PlantopiaFeatures.ASPEN_BEES_0002)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> ASPEN_BEES_0002_LITTER_055 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.ASPEN_BEES_0002_LITTER_055),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.ASPEN_BEES_0002_LITTER_055)
             .modifiers(context -> List.of(
                 PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
             ))

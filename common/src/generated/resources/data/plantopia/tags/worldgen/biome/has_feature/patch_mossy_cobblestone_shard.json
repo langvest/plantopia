@@ -3,6 +3,7 @@
         "minecraft:lukewarm_ocean",
         "minecraft:mangrove_swamp",
         "minecraft:swamp",
-        "minecraft:warm_ocean"
+        "minecraft:warm_ocean",
+        "plantopia:aspen_grove"
     ]
 }

@@ -44,7 +44,7 @@ public interface PlantopiaMiscOverworldPlacements {
             .step(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
             .feature(PlantopiaFeatures.ROCK)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(3.12F),
+                PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
                 CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP,
@@ -52,6 +52,23 @@ public interface PlantopiaMiscOverworldPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.MAPLE_WOODS)
+            )
+    );
+
+    ResourceKey<PlacedFeature> MOSSY_ROCK = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.MOSSY_ROCK),
+        PlantopiaPlacementDeclaration.builder()
+            .step(GenerationStep.Decoration.LOCAL_MODIFICATIONS)
+            .feature(PlantopiaFeatures.MOSSY_ROCK)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(4.12F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 2), 1, 2)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -151,7 +168,6 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 
@@ -169,6 +185,7 @@ public interface PlantopiaMiscOverworldPlacements {
             .biomes(biomes -> biomes
                 .add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN)
                 .add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
+                .add(PlantopiaBiomes.ASPEN_GROVE)
             )
     );
 

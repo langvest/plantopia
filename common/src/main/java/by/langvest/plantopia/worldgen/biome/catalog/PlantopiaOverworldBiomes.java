@@ -96,7 +96,7 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.7F)
             .downfall(0.6F)
-            .grassColorOverride("#c49740") // Old: #c1a741
+            .grassColorOverride("#c79942") // Old: #c1a741
             .foliageColorOverride("#adac3b") // Old: #adac37
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -196,8 +196,8 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.8F)
-            .grassColorOverride("#ccaa45")
-            .foliageColorOverride("#c2b547")
+            .grassColorOverride("#c8aa47")
+            .foliageColorOverride("#d1b754")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );

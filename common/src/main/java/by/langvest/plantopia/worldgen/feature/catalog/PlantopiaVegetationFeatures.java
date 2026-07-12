@@ -398,12 +398,28 @@ public interface PlantopiaVegetationFeatures {
         compileNameFrom(PATCH, LUPINE, Biomes.OLD_GROWTH_BIRCH_FOREST),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(46, 6, 3, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(48, 6, 3, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     new SimpleBlockConfiguration(
                         weightedProvider(states -> states
                             .add(PlantopiaBlocks.PURPLE_LUPINE.get().defaultBlockState(), 2)
                             .add(PlantopiaBlocks.PINK_LUPINE.get().defaultBlockState(), 1)
+                        )
+                    )
+                ))
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_LUCKY_DAISY = declareFeature(
+        patchNameOf("lucky_daisy"),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(20, 7, 3, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    new SimpleBlockConfiguration(
+                        weightedProvider(states -> states
+                            .add(PlantopiaBlocks.WHITE_LUCKY_DAISY.get().defaultBlockState(), 1)
+                            .add(PlantopiaBlocks.PINK_LUCKY_DAISY.get().defaultBlockState(), 1)
                         )
                     )
                 ))
@@ -649,7 +665,7 @@ public interface PlantopiaVegetationFeatures {
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
                     ),
-                    placements.getOrThrow(PlantopiaPlacements.ASPEN_LITTER_055)
+                    placements.getOrThrow(PlantopiaPlacements.ASPEN_BEES_0002_LITTER_055)
                 );
             }))
     );

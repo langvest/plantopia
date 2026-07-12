@@ -1,7 +1,9 @@
 package by.langvest.plantopia.worldgen.feature;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaLushFoliagePlacer;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaAlterBaseLogDecorator;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
@@ -11,6 +13,8 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
@@ -19,12 +23,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
 
-import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.weightedListInt;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
  */
 public final class PlantopiaTreeFeatureUtils {
+    public static final TreeDecorator BEEHIVE_DECORATOR_005 = new BeehiveDecorator(CHANCE_005);
+    public static final TreeDecorator BEEHIVE_DECORATOR_0002 = new BeehiveDecorator(CHANCE_0002);
+    public static final TreeDecorator BIRCH_BASE_LOG_DECORATOR = new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaBlocks.BIRCH_BASE_LOG.get()));
+
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createCherryTree(Block logBlock, Block leavesBlock) {
         var weightedRandomList = weightedListInt(values -> values
             .add(ConstantInt.of(1), 1)
@@ -45,27 +53,38 @@ public final class PlantopiaTreeFeatureUtils {
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleLushTree(Block logBlock, Block leavesBlock) {
-        var baseHeight = weightedListInt(values -> values
-            .add(ConstantInt.of(8), 3)
-            .add(ConstantInt.of(10), 2)
+        return createLushTree(
+            logBlock, // logBlock
+            leavesBlock, // leavesBlock
+            weightedListInt(values -> values
+                .add(ConstantInt.of(8), 3)
+                .add(ConstantInt.of(10), 2)
+            ), // baseHeight
+            UniformInt.of(0, 2), // heightRand
+            ConstantInt.of(2), // foliageRadius
+            PlantopiaProportionConfig.of(
+                ConstantFloat.of(0.925F),
+                ConstantInt.of(8),
+                ConstantInt.of(10)
+            ) // foliageHeight
         );
-        var foliageHeight = PlantopiaProportionConfig.of(
-            ConstantFloat.of(0.925F),
-            ConstantInt.of(8),
-            ConstantInt.of(10)
-        );
-        return createLushTree(logBlock, leavesBlock, baseHeight, UniformInt.of(0, 2), ConstantInt.of(2), foliageHeight);
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createAspenTree(Block logBlock, Block leavesBlock) {
-        var baseHeight = weightedListInt(values -> values
-            .add(ConstantInt.of(8), 3)
-            .add(ConstantInt.of(10), 2)
+        return createCypressTree(
+            logBlock, // logBlock
+            leavesBlock, // leavesBlock
+            weightedListInt(values -> values
+                .add(UniformInt.of(9, 10), 3)
+                .add(UniformInt.of(11, 12), 2)
+            ), // baseHeight
+            UniformInt.of(0, 2), // heightRand
+            ConstantInt.of(2), // foliageRadius
+            PlantopiaProportionConfig.of(
+                UniformFloat.of(0.82F, 0.86F),
+                ConstantInt.of(8)
+            ) // foliageHeight
         );
-        var foliageHeight = PlantopiaProportionConfig.of(
-            ConstantFloat.of(0.72F)
-        );
-        return createCypressTree(logBlock, leavesBlock, baseHeight, UniformInt.of(0, 2), ConstantInt.of(2), foliageHeight);
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleFancyTree(Block logBlock, Block leavesBlock) {

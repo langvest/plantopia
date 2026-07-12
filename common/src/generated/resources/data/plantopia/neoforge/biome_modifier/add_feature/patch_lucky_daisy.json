@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/patch_lucky_daisy",
+    "features": "plantopia:patch_lucky_daisy",
+    "step": "vegetal_decoration"
+}

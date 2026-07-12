@@ -6,7 +6,6 @@ import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -21,9 +20,6 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
     public final ResourceKey<ConfiguredFeature<?, ?>> fancyTree;
     public final ResourceKey<ConfiguredFeature<?, ?>> fancyTreeBees005;
     public final ResourceKey<ConfiguredFeature<?, ?>> fancyTreeBees0002;
-
-    public static final BeehiveDecorator beehiveDecorator005 = new BeehiveDecorator(0.05F);
-    public static final BeehiveDecorator beehiveDecorator0002 = new BeehiveDecorator(0.002F);
 
     public PlantopiaTreeConfiguredFeatureKit(
         String baseName,
@@ -47,7 +43,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
                 .feature(tree(context ->
                     createSimpleTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(beehiveDecorator005))
+                        .decorators(List.of(BEEHIVE_DECORATOR_005))
                         .build()
                 ))
         );
@@ -58,7 +54,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
                 .feature(tree(context ->
                     createSimpleTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(beehiveDecorator0002))
+                        .decorators(List.of(BEEHIVE_DECORATOR_0002))
                         .build()
                 ))
         );
@@ -79,7 +75,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
                 .feature(tree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(beehiveDecorator005))
+                        .decorators(List.of(BEEHIVE_DECORATOR_005))
                         .build()
                 ))
         );
@@ -90,7 +86,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
                 .feature(tree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(beehiveDecorator0002))
+                        .decorators(List.of(BEEHIVE_DECORATOR_0002))
                         .build()
                 ))
         );
