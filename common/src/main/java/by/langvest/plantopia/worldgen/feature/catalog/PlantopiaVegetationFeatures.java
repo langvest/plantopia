@@ -593,8 +593,8 @@ public interface PlantopiaVegetationFeatures {
             }))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_BOREAL_WOODS = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.BOREAL_WOODS),
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_BOREAL_FOREST = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.BOREAL_FOREST),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
@@ -602,9 +602,11 @@ public interface PlantopiaVegetationFeatures {
 
                 return new RandomFeatureConfiguration(
                     List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.05F)
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.13333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.35F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.33333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
                 );

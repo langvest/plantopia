@@ -119,7 +119,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_MIDDLE_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
-        { null, null, PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS },
+        { null, null, PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS },
         { null, null, PlantopiaBiomes.SEASONAL_FOREST, null, PlantopiaBiomes.SEASONAL_DARK_FOREST },
         { null, null, null, null, null },
         { null, null, null, null, null }
@@ -137,7 +137,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_PLATEAU_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
-        { null, null, PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.BOREAL_WOODS, null },
+        { null, null, PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.BOREAL_FOREST, null },
         { null, null, null, null, PlantopiaBiomes.SEASONAL_DARK_FOREST },
         { null, null, null, null, null },
         { null, null, null, null, null }

@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/trees_boreal_forest",
+    "features": "plantopia:trees_boreal_forest",
+    "step": "vegetal_decoration"
+}

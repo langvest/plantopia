@@ -124,8 +124,8 @@ public interface PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
-    ResourceKey<Biome> BOREAL_WOODS = declareBiome(
-        compileNameFrom(BOREAL, WOODS),
+    ResourceKey<Biome> BOREAL_FOREST = declareBiome(
+        compileNameFrom(BOREAL, Biomes.FOREST),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
@@ -146,7 +146,7 @@ public interface PlantopiaOverworldBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.8F)
-            .grassColorOverride("#83a54f")
+            .grassColorOverride("#80a24b")
             .foliageColorOverride("#87a52c")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))

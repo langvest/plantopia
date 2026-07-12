@@ -87,7 +87,7 @@ public class PlantopiaSurfaceRules {
                         )
                     ),
                     SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(PlantopiaBiomes.BOREAL_WOODS),
+                        SurfaceRules.isBiome(PlantopiaBiomes.BOREAL_FOREST),
                         SurfaceRules.ifTrue(
                             SurfaceRules.noiseCondition(PlantopiaNoises.PODZOL, 0.2D),
                             podzol

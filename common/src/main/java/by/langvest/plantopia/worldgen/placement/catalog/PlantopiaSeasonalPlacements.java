@@ -105,7 +105,7 @@ public interface PlantopiaSeasonalPlacements {
         getTreeDeclaration(
             PlantopiaFeatures.TREES_ASPEN_GROVE,
             CountPlacement.of(weightedListInt(values -> values
-                .add(ConstantInt.of(0), 5)
+                .add(ConstantInt.of(0), 4)
                 .add(ConstantInt.of(1), 3)
                 .add(ConstantInt.of(2), 1)
             ))
@@ -123,11 +123,11 @@ public interface PlantopiaSeasonalPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> TREES_BOREAL_WOODS = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.TREES_BOREAL_WOODS),
-        getTreeDeclaration(PlantopiaFeatures.TREES_BOREAL_WOODS, PlacementUtils.countExtra(10, 0.1F, 1))
+    ResourceKey<PlacedFeature> TREES_BOREAL_FOREST = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_BOREAL_FOREST),
+        getTreeDeclaration(PlantopiaFeatures.TREES_BOREAL_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.BOREAL_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST)
             )
     );
 
