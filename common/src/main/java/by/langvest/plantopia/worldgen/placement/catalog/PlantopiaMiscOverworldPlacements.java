@@ -68,7 +68,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 BiomeFilter.biome()
             ))
             .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -185,7 +185,7 @@ public interface PlantopiaMiscOverworldPlacements {
             .biomes(biomes -> biomes
                 .add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN)
                 .add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 

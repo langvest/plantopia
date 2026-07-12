@@ -6,6 +6,9 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ClampedInt;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.jetbrains.annotations.NotNull;
@@ -94,6 +97,21 @@ public interface PlantopiaSeasonalPlacements {
         getTreeDeclaration(PlantopiaFeatures.TREES_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_GROVE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_ASPEN_CLEARING = declarePlacement(
+        compileNameFrom(TREES, PlantopiaBiomes.ASPEN_CLEARING),
+        getTreeDeclaration(
+            PlantopiaFeatures.TREES_ASPEN_GROVE,
+            CountPlacement.of(weightedListInt(values -> values
+                .add(ConstantInt.of(0), 5)
+                .add(ConstantInt.of(1), 3)
+                .add(ConstantInt.of(2), 1)
+            ))
+        )
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 

@@ -202,6 +202,26 @@ public interface PlantopiaOverworldBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
+    ResourceKey<Biome> ASPEN_CLEARING = declareBiome(
+        compileNameFrom(PlantopiaFeatures.ASPEN, CLEARING),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::plainsSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#c8aa47")
+            .foliageColorOverride("#d1b754")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
     ResourceKey<Biome> LAVENDER_FIELDS = declareBiome(
         compileNameFrom(PlantopiaBlocks.LAVENDER, FIELDS),
         PlantopiaBiomeDeclaration.builder()

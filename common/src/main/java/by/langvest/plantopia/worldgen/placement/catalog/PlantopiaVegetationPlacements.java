@@ -74,6 +74,7 @@ public interface PlantopiaVegetationPlacements {
                 .addTag(BiomeTags.IS_SAVANNA)
                 .addTag(PlantopiaBiomeTags.IS_MARSH)
                 .apply(PlantopiaPlacementUtils::addVanillaMountainBiomes)
+                .add(PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -188,7 +189,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.SANDY_RIVER)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -249,7 +250,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -356,6 +357,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
                 .add(Biomes.DARK_FOREST)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
+                .add(PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -432,7 +434,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -608,7 +610,7 @@ public interface PlantopiaVegetationPlacements {
                 );
             })
             .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -693,7 +695,7 @@ public interface PlantopiaVegetationPlacements {
                 BiomeFilter.biome()
             ))
             .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
@@ -791,7 +793,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_WOODS, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
 
