@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/trees_poppy_fields",
+    "features": "plantopia:trees_poppy_fields",
+    "step": "vegetal_decoration"
+}

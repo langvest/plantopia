@@ -41,7 +41,7 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
         boolean shouldPlace(RandomSource random, int dx, int dy, int dz, int range, boolean large);
     }
 
-    // --- Primitives ---
+    /* TEMPLATES **********************************************************************************/
 
     @Contract(pure = true)
     public static @NotNull Template square() {

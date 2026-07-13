@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import org.jetbrains.annotations.NotNull;
@@ -286,6 +287,30 @@ public interface PlantopiaOverworldBiomes {
             .downfall(0.4F)
             .grassColorOverride("#a5c96e")
             .foliageColorOverride("#a1cb61")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
+    ResourceKey<Biome> POPPY_FIELDS = declareBiome(
+        compileNameFrom(Blocks.POPPY, FIELDS),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.HORSE, 1, 2, 6)
+            .addSpawn(MobCategory.CREATURE, EntityType.DONKEY, 1, 1, 1)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .creatureGenerationProbability(0.07F)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addSavannaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addWarmFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(2.0F)
+            .downfall(0.0F)
+            .grassColorOverride("#d5cb64")
+            .foliageColorOverride("#aacb53")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 

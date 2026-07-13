@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaLushFoliagePlacer extends PlantopiaFoliagePlacer {
+public class PlantopiaLushFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
     public static final Codec<PlantopiaLushFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
         PlantopiaProportionConfig.CODEC.fieldOf("height").forGetter(it -> it.height)
     ).apply(instance, PlantopiaLushFoliagePlacer::new));
@@ -32,29 +32,15 @@ public class PlantopiaLushFoliagePlacer extends PlantopiaFoliagePlacer {
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliageSetter foliageSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
-        for (int dy = offset; dy > offset - foliageHeight; dy--) {
-            int layerIndex = offset - dy;
-
-            if (layerIndex == 0 || layerIndex == 1) {
-                placeRow(level, foliageSetter, random, config, attachment, 0, dy, square());
-                continue;
-            }
-
-            if (layerIndex == 2) {
-                placeRow(level, foliageSetter, random, config, attachment, 1, dy, square());
-                continue;
-            }
-
+    protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+        return layerIndex -> {
+            if (layerIndex == 0 || layerIndex == 1) return Layer.row(0, square());
+            if (layerIndex == 2) return Layer.row(1, square());
             int patternIndex = layerIndex - 3;
             boolean isCross = patternIndex % 2 == 0;
-
-            if (isCross) {
-                placeRow(level, foliageSetter, random, config, attachment, radius.sample(random) / 2, dy, noCorner());
-            } else {
-                placeRow(level, foliageSetter, random, config, attachment, radius.sample(random), dy, noCorner());
-            }
-        }
+            if (isCross) return Layer.row(foliageRadius / 2, noCorner());
+            return Layer.row(foliageRadius, noCorner());
+        };
     }
 
     @Override

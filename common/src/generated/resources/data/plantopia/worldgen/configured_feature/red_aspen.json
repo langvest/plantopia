@@ -34,7 +34,8 @@
                 }
             },
             "offset": 2,
-            "radius": 2
+            "radius": 2,
+            "tip_step": 2
         },
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",

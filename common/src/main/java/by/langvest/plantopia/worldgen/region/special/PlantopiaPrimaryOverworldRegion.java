@@ -130,7 +130,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
         { null, null, PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING, null },
         { null, null, null, PlantopiaBiomes.MAPLE_WOODS, null },
         { PlantopiaBiomes.LAVENDER_FIELDS, null, PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING, null },
-        { null, null, null, null, null },
+        { PlantopiaBiomes.POPPY_FIELDS, null, null, null, null },
         { null, null, null, null, null }
     };
 

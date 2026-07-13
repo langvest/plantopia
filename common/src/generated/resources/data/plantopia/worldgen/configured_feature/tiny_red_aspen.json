@@ -40,7 +40,8 @@
                 }
             },
             "offset": 2,
-            "radius": 1
+            "radius": 1,
+            "tip_step": 2
         },
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
@@ -57,9 +58,9 @@
         "ignore_vines": true,
         "minimum_size": {
             "type": "minecraft:two_layers_feature_size",
-            "limit": 4,
+            "limit": 2,
             "lower_size": 0,
-            "upper_size": 2
+            "upper_size": 1
         },
         "trunk_placer": {
             "type": "plantopia:straight_trunk_placer",

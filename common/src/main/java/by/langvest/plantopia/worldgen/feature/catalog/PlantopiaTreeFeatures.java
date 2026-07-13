@@ -4,12 +4,17 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
+import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -17,6 +22,7 @@ import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
@@ -29,7 +35,7 @@ import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
@@ -165,6 +171,37 @@ public interface PlantopiaTreeFeatures {
                 createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> ACACIA_CYPRESS = declareFeature(
+        "acacia_cypress",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(tree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(Blocks.ACACIA_LOG), // logBlock
+                    new PlantopiaStraightTrunkPlacer(
+                        UniformInt.of(7, 8), // baseHeight
+                        UniformInt.of(0, 2) // heightRand
+                    ),
+                    simpleProvider(Blocks.ACACIA_LEAVES), // leavesBlock
+                    new PlantopiaCypressFoliagePlacer(
+                        ConstantInt.of(1), // foliageRadius
+                        ConstantInt.of(3), // foliageOffset,
+                        PlantopiaProportionConfig.of(
+                            ConstantFloat.of(1.233334F),
+                            ConstantInt.of(8)
+                        ), // foliageHeight
+                        ConstantInt.of(3) // foliageTipStep
+                    ),
+                    new TwoLayersFeatureSize(
+                        2, // heightThreshold
+                        0, // lowerRadius
+                        1 // upperRadius
+                    )
+                )
+                    .ignoreVines()
                     .build()
             ))
     );

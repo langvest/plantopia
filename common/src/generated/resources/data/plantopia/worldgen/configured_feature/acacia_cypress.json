@@ -1,20 +1,7 @@
 {
     "type": "minecraft:tree",
     "config": {
-        "decorators": [
-            {
-                "type": "plantopia:alter_base_log",
-                "provider": {
-                    "type": "minecraft:simple_state_provider",
-                    "state": {
-                        "Name": "plantopia:birch_base_log",
-                        "Properties": {
-                            "facing": "up"
-                        }
-                    }
-                }
-            }
-        ],
+        "decorators": [],
         "dirt_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
@@ -24,29 +11,17 @@
         "foliage_placer": {
             "type": "plantopia:cypress_foliage_placer",
             "height": {
-                "min": 6,
-                "ratio": {
-                    "type": "plantopia:weighted_list",
-                    "distribution": [
-                        {
-                            "data": 1.0,
-                            "weight": 1
-                        },
-                        {
-                            "data": 1.2,
-                            "weight": 1
-                        }
-                    ]
-                }
+                "min": 8,
+                "ratio": 1.233334
             },
-            "offset": 2,
+            "offset": 3,
             "radius": 1,
-            "tip_step": 2
+            "tip_step": 3
         },
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "plantopia:yellow_maple_leaves",
+                "Name": "minecraft:acacia_leaves",
                 "Properties": {
                     "distance": "7",
                     "persistent": "false",
@@ -64,7 +39,13 @@
         },
         "trunk_placer": {
             "type": "plantopia:straight_trunk_placer",
-            "base_height": 4,
+            "base_height": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 7
+                }
+            },
             "bonus_height": {
                 "type": "minecraft:uniform",
                 "value": {
@@ -76,7 +57,7 @@
         "trunk_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:birch_log",
+                "Name": "minecraft:acacia_log",
                 "Properties": {
                     "axis": "y"
                 }

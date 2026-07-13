@@ -72,36 +72,58 @@ public final class PlantopiaTreeFeatureUtils {
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleAspenTree(Block logBlock, Block leavesBlock) {
-        return createCypressTree(
-            logBlock, // logBlock
-            leavesBlock, // leavesBlock
-            weightedListInt(values -> values
-                .add(UniformInt.of(9, 10), 3)
-                .add(UniformInt.of(11, 12), 2)
-            ), // baseHeight
-            UniformInt.of(0, 2), // heightRand
-            ConstantInt.of(2), // foliageRadius
-            PlantopiaProportionConfig.of(
-                UniformFloat.of(0.82F, 0.86F),
-                ConstantInt.of(8)
-            ) // foliageHeight
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(logBlock), // logBlock
+            new PlantopiaStraightTrunkPlacer(
+                weightedListInt(values -> values
+                    .add(UniformInt.of(9, 10), 3)
+                    .add(UniformInt.of(11, 12), 2)
+                ), // baseHeight
+                UniformInt.of(0, 2) // heightRand
+            ),
+            simpleProvider(leavesBlock), // leavesBlock
+            new PlantopiaCypressFoliagePlacer(
+                ConstantInt.of(2), // foliageRadius
+                ConstantInt.of(2), // foliageOffset,
+                PlantopiaProportionConfig.of(
+                    UniformFloat.of(0.82F, 0.86F),
+                    ConstantInt.of(8)
+                ), // foliageHeight
+                ConstantInt.of(2) // foliageTipStep
+            ),
+            new TwoLayersFeatureSize(
+                4, // heightThreshold
+                0, // lowerRadius
+                2 // upperRadius
+            )
         );
     }
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createTinyAspenTree(Block logBlock, Block leavesBlock) {
-        return createCypressTree(
-            logBlock, // logBlock
-            leavesBlock, // leavesBlock
-            ConstantInt.of(4), // baseHeight
-            UniformInt.of(0, 2), // heightRand
-            ConstantInt.of(1), // foliageRadius
-            PlantopiaProportionConfig.of(
-                weightedListFloat(values -> values
-                    .add(ConstantFloat.of(1.0F), 1)
-                    .add(ConstantFloat.of(1.2F), 1)
-                ),
-                ConstantInt.of(6)
-            ) // foliageHeight
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(logBlock), // logBlock
+            new PlantopiaStraightTrunkPlacer(
+                ConstantInt.of(4), // baseHeight
+                UniformInt.of(0, 2) // heightRand
+            ),
+            simpleProvider(leavesBlock), // leavesBlock
+            new PlantopiaCypressFoliagePlacer(
+                ConstantInt.of(1), // foliageRadius
+                ConstantInt.of(2), // foliageOffset,
+                PlantopiaProportionConfig.of(
+                    weightedListFloat(values -> values
+                        .add(ConstantFloat.of(1.0F), 1)
+                        .add(ConstantFloat.of(1.2F), 1)
+                    ),
+                    ConstantInt.of(6)
+                ), // foliageHeight
+                ConstantInt.of(2) // foliageTipStep
+            ),
+            new TwoLayersFeatureSize(
+                2, // heightThreshold
+                0, // lowerRadius
+                1 // upperRadius
+            )
         );
     }
 
@@ -133,17 +155,6 @@ public final class PlantopiaTreeFeatureUtils {
             new PlantopiaStraightTrunkPlacer(baseHeight, heightRand),
             BlockStateProvider.simple(leavesBlock),
             new PlantopiaLushFoliagePlacer(foliageRadius, ConstantInt.of(2), foliageHeight),
-            new TwoLayersFeatureSize(4, 0, 2)
-        );
-    }
-
-    @Contract("_, _, _, _, _, _ -> new")
-    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createCypressTree(Block logBlock, Block leavesBlock, IntProvider baseHeight, IntProvider heightRand, IntProvider foliageRadius, PlantopiaProportionConfig foliageHeight) {
-        return new TreeConfiguration.TreeConfigurationBuilder(
-            BlockStateProvider.simple(logBlock),
-            new PlantopiaStraightTrunkPlacer(baseHeight, heightRand),
-            BlockStateProvider.simple(leavesBlock),
-            new PlantopiaCypressFoliagePlacer(foliageRadius, ConstantInt.of(2), foliageHeight),
             new TwoLayersFeatureSize(4, 0, 2)
         );
     }

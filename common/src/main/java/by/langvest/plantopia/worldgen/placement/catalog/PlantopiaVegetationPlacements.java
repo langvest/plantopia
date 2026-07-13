@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -187,7 +188,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.BEACH, Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
                 .add(PlantopiaBiomes.MARSH)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
-                .add(PlantopiaBiomes.LAVENDER_FIELDS)
+                .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.SANDY_RIVER)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
@@ -472,7 +473,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.RIVER)
                 .add(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
-                .add(PlantopiaBiomes.LAVENDER_FIELDS)
+                .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
@@ -606,6 +607,30 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> PATCH_POPPY_POPPY_FIELDS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_POPPY_POPPY_FIELDS),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_POPPY_POPPY_FIELDS)
+            .modifiers(context -> {
+                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.092D, 74, 193);
+                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 12, 543);
+                float bigNoiseLevel = -0.32F;
+                float smallNoiseLevel = -0.1F;
+
+                return List.of(
+                    PlantopiaNoiseCountPlacement.above(bigNoiseConfig, bigNoiseLevel, 20),
+                    InSquarePlacement.spread(),
+                    PlantopiaNoiseFilter.above(bigNoiseConfig, bigNoiseLevel, 0.1F),
+                    PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F),
+                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                    BiomeFilter.biome()
+                );
+            })
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.POPPY_FIELDS)
+            )
+    );
+
     ResourceKey<PlacedFeature> PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST),
         PlantopiaPlacementDeclaration.builder()
@@ -643,6 +668,22 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_POPPY_FIELDS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_POPPY_FIELDS),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.TREES_POPPY_FIELDS)
+            .modifiers(context -> List.of(
+                PlacementUtils.countExtra(0, 0.125F, 1),
+                InSquarePlacement.spread(),
+                TREE_THRESHOLD,
+                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.POPPY_FIELDS)
             )
     );
 
@@ -789,6 +830,31 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> ACACIA_CYPRESS_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.ACACIA_CYPRESS, CHECKED),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.ACACIA_CYPRESS)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> PATCH_ROSE_BUSH = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_ROSE_BUSH),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_ROSE_BUSH)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(7.0F),
+                CountPlacement.of(ClampedInt.of(UniformInt.of(-3, 1), 0, 1)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.POPPY_FIELDS)
+            )
+    );
+
     ResourceKey<PlacedFeature> PATCH_CLOVER = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_CLOVER),
         getCloverDeclaration(PlantopiaFeatures.PATCH_CLOVER, ConstantFloat.of(12.24F))
@@ -808,7 +874,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.MEADOW)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST)
-                .add(PlantopiaBiomes.LAVENDER_FIELDS)
+                .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )

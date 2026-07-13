@@ -395,6 +395,20 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_POPPY_POPPY_FIELDS = declareFeature(
+        compileNameFrom(PATCH, Blocks.POPPY, PlantopiaBiomes.POPPY_FIELDS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(42, 3, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    weightedConfig(states -> states
+                        .add(Blocks.POPPY.defaultBlockState(), 6)
+                        .add(PlantopiaBlocks.RED_WILDFLOWERS.get().defaultBlockState(), 4)
+                    )
+                ))
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST = declareFeature(
         compileNameFrom(PATCH, LUPINE, Biomes.OLD_GROWTH_BIRCH_FOREST),
         PlantopiaFeatureDeclaration.builder()
@@ -501,6 +515,17 @@ public interface PlantopiaVegetationFeatures {
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SMALL_PLATTERLEAF.get())
                 ))
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_ROSE_BUSH = declareFeature(
+        patchNameOf(Blocks.ROSE_BUSH),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simplePatchConfiguration(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(Blocks.ROSE_BUSH)
+                )
             ))
     );
 
@@ -701,6 +726,21 @@ public interface PlantopiaVegetationFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
                     ),
                     placements.getOrThrow(TreePlacements.OAK_BEES_0002)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_POPPY_FIELDS = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.POPPY_FIELDS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.1333334F)
+                    ),
+                    placements.getOrThrow(PlantopiaPlacements.ACACIA_CYPRESS_CHECKED)
                 );
             }))
     );
