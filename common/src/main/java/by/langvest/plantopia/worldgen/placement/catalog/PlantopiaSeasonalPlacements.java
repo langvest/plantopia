@@ -18,6 +18,7 @@ import java.util.List;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
@@ -65,31 +66,74 @@ public interface PlantopiaSeasonalPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> ASPEN_CHECKED = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.ASPEN, CHECKED),
+    ResourceKey<PlacedFeature> YELLOW_ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.YELLOW_ASPEN, CHECKED),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.ASPEN)
+            .feature(PlantopiaFeatures.YELLOW_ASPEN)
             .modifiers(context -> List.of(
                 PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
             ))
     );
 
-    ResourceKey<PlacedFeature> ASPEN_BEES_0002 = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.ASPEN_BEES_0002),
+    ResourceKey<PlacedFeature> YELLOW_ASPEN_BEES_0002 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.YELLOW_ASPEN_BEES_0002),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.ASPEN_BEES_0002)
+            .feature(PlantopiaFeatures.YELLOW_ASPEN_BEES_0002)
             .modifiers(context -> List.of(
                 PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
             ))
     );
 
-    ResourceKey<PlacedFeature> ASPEN_BEES_0002_LITTER_055 = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.ASPEN_BEES_0002_LITTER_055),
+    ResourceKey<PlacedFeature> YELLOW_ASPEN_BEES_0002_LITTER_055 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.YELLOW_ASPEN_BEES_0002_LITTER_055),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.ASPEN_BEES_0002_LITTER_055)
+            .feature(PlantopiaFeatures.YELLOW_ASPEN_BEES_0002_LITTER_055)
             .modifiers(context -> List.of(
                 PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
             ))
+    );
+
+    ResourceKey<PlacedFeature> TINY_YELLOW_ASPEN_ASPEN_CLEARING = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TINY_YELLOW_ASPEN, PlantopiaBiomes.ASPEN_CLEARING),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.TINY_YELLOW_ASPEN)
+            .modifiers(context -> List.of(
+                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 1), 0, 1)),
+                InSquarePlacement.spread(),
+                TREE_THRESHOLD,
+                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                BiomeFilter.biome(),
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_CLEARING)
+            )
+    );
+
+    ResourceKey<PlacedFeature> RED_ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.RED_ASPEN, CHECKED),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.RED_ASPEN)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> TINY_RED_ASPEN = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TINY_RED_ASPEN),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.TINY_RED_ASPEN)
+            .modifiers(context -> List.of(
+                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 1), 0, 1)),
+                InSquarePlacement.spread(),
+                TREE_THRESHOLD,
+                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                BiomeFilter.biome(),
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
+            )
     );
 
     ResourceKey<PlacedFeature> TREES_ASPEN_GROVE = declarePlacement(
@@ -105,13 +149,36 @@ public interface PlantopiaSeasonalPlacements {
         getTreeDeclaration(
             PlantopiaFeatures.TREES_ASPEN_GROVE,
             CountPlacement.of(weightedListInt(values -> values
-                .add(ConstantInt.of(0), 4)
+                .add(ConstantInt.of(0), 5)
                 .add(ConstantInt.of(1), 3)
                 .add(ConstantInt.of(2), 1)
             ))
         )
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE),
+        getTreeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_CLEARING = declarePlacement(
+        compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_CLEARING),
+        getTreeDeclaration(
+            PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE,
+            CountPlacement.of(weightedListInt(values -> values
+                .add(ConstantInt.of(0), 5)
+                .add(ConstantInt.of(1), 3)
+                .add(ConstantInt.of(2), 1)
+            ))
+        )
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 

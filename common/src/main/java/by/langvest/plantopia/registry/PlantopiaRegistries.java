@@ -10,6 +10,7 @@ import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.valueproviders.FloatProviderType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -40,6 +41,7 @@ public class PlantopiaRegistries {
     public static final Registry<TreeDecoratorType<?>> TREE_DECORATOR_TYPE = createSimpleRegistry("tree_decorator_type");
     public static final Registry<TrunkPlacerType<?>> TRUNK_PLACER_TYPE = createSimpleRegistry("trunk_placer_type");
     public static final Registry<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPE = createSimpleRegistry("foliage_placer_type");
+    public static final Registry<FloatProviderType<?>> FLOAT_PROVIDER_TYPE = createSimpleRegistry("float_provider_type");
     public static final Registry<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPE = createSimpleRegistry("block_state_provider_type");
     public static final Registry<PlacementModifierType<?>> PLACEMENT_MODIFIER_TYPE = createSimpleRegistry("placement_modifier_type");
     public static final Registry<PlantopiaBlockPlacerType<?>> BLOCK_PLACER_TYPE = createSimpleRegistry("block_placer_type");

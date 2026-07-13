@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/trees_snowy_aspen_clearing",
+    "features": "plantopia:trees_snowy_aspen_clearing",
+    "step": "vegetal_decoration"
+}

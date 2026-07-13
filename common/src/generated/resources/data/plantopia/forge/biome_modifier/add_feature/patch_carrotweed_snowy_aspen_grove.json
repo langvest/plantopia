@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_carrotweed_snowy_aspen_grove",
+    "features": "plantopia:patch_carrotweed_snowy_aspen_grove",
+    "step": "vegetal_decoration"
+}

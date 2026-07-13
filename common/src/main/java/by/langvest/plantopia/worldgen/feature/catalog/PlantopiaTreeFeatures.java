@@ -29,6 +29,7 @@ import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
@@ -98,40 +99,73 @@ public interface PlantopiaTreeFeatures {
             }))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> ASPEN = declareFeature(
-        "aspen",
+    ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ASPEN = declareFeature(
+        "yellow_aspen",
         PlantopiaFeatureDeclaration.builder()
             .feature(tree(context ->
-                createAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
+                createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
                     .build()
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> ASPEN_BEES_0002 = declareFeature(
-        compileNameFrom(ASPEN, BEES, CHANCE_0002),
+    ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ASPEN_BEES_0002 = declareFeature(
+        compileNameFrom(YELLOW_ASPEN, BEES, CHANCE_0002),
         PlantopiaFeatureDeclaration.builder()
             .feature(tree(context ->
-                createAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
+                createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR, BEEHIVE_DECORATOR_0002))
                     .build()
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> ASPEN_BEES_0002_LITTER_055 = declareFeature(
-        compileNameFrom(ASPEN_BEES_0002, LITTER, CHANCE_055),
+    ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ASPEN_BEES_0002_LITTER_055 = declareFeature(
+        compileNameFrom(YELLOW_ASPEN_BEES_0002, LITTER, CHANCE_055),
         PlantopiaFeatureDeclaration.builder()
             .feature(composite(context -> {
                 var placements = lookupPlacements(context);
 
                 return new PlantopiaCompositeConfiguration(
-                    placements.getOrThrow(PlantopiaPlacements.ASPEN_BEES_0002),
+                    placements.getOrThrow(PlantopiaPlacements.YELLOW_ASPEN_BEES_0002),
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.PATCH_YELLOW_LEAF_LITTER_CHECKED), CHANCE_055)
                     )
                 );
             }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TINY_YELLOW_ASPEN = declareFeature(
+        compileNameFrom(TINY, YELLOW_ASPEN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(tree(context ->
+                createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> RED_ASPEN = declareFeature(
+        "red_aspen",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(tree(context ->
+                createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TINY_RED_ASPEN = declareFeature(
+        compileNameFrom(TINY, RED_ASPEN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(tree(context ->
+                createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .build()
+            ))
     );
 }

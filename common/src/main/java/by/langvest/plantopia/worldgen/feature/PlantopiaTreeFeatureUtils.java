@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.OptionalInt;
 
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
@@ -70,7 +71,7 @@ public final class PlantopiaTreeFeatureUtils {
         );
     }
 
-    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createAspenTree(Block logBlock, Block leavesBlock) {
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSimpleAspenTree(Block logBlock, Block leavesBlock) {
         return createCypressTree(
             logBlock, // logBlock
             leavesBlock, // leavesBlock
@@ -83,6 +84,23 @@ public final class PlantopiaTreeFeatureUtils {
             PlantopiaProportionConfig.of(
                 UniformFloat.of(0.82F, 0.86F),
                 ConstantInt.of(8)
+            ) // foliageHeight
+        );
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createTinyAspenTree(Block logBlock, Block leavesBlock) {
+        return createCypressTree(
+            logBlock, // logBlock
+            leavesBlock, // leavesBlock
+            ConstantInt.of(4), // baseHeight
+            UniformInt.of(0, 2), // heightRand
+            ConstantInt.of(1), // foliageRadius
+            PlantopiaProportionConfig.of(
+                weightedListFloat(values -> values
+                    .add(ConstantFloat.of(1.0F), 1)
+                    .add(ConstantFloat.of(1.2F), 1)
+                ),
+                ConstantInt.of(6)
             ) // foliageHeight
         );
     }

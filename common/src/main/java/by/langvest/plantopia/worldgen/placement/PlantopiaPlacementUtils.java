@@ -11,25 +11,21 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.cascades;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
 
 public final class PlantopiaPlacementUtils {
     public static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));
@@ -65,13 +61,6 @@ public final class PlantopiaPlacementUtils {
     public static @NotNull HolderSet<Biome> directBiomes(@NotNull BootstapContext<PlacedFeature> context, ResourceKey<Biome>... biomeKeys) {
         var biomes = lookupBiomes(context);
         return HolderSet.direct(Arrays.stream(biomeKeys).map(biomes::getOrThrow).toList());
-    }
-
-    /* PROVIDER *********************************************/
-
-    @Contract(pure = true)
-    public static @NotNull WeightedListInt weightedListInt(@NotNull Function<SimpleWeightedRandomList.Builder<IntProvider>, SimpleWeightedRandomList.Builder<IntProvider>> values) {
-        return new WeightedListInt(values.apply(SimpleWeightedRandomList.builder()).build());
     }
 
     /* BIOMES ******************************************/

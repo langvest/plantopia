@@ -60,6 +60,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.VegetationFeatures
@@ -204,10 +205,10 @@ public interface PlantopiaVegetationFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(limitedRandomPatch(context ->
                 new PlantopiaLimitedRandomPatchConfiguration(
-                    UniformInt.of(16, 18),
+                    UniformInt.of(10, 14),
                     ConstantInt.of(6),
-                    ConstantInt.of(3),
                     ConstantInt.of(2),
+                    ConstantInt.of(1),
                     PlacementUtils.filtered(
                         PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                         simpleConfig(PlantopiaBlocks.CARROTWEED.get()),
@@ -517,8 +518,7 @@ public interface PlantopiaVegetationFeatures {
                     ConstantInt.of(1), // ySpread
                     UniformInt.of(22, 32), // tries
                     weightedListInt(values -> values
-                        .add(ConstantInt.of(4), 1)
-                        .add(ConstantInt.of(1), 3)
+                        .add(ConstantInt.of(1), 2)
                         .add(ConstantInt.of(2), 4)
                         .add(ConstantInt.of(3), 3)
                     ), // height
@@ -667,7 +667,23 @@ public interface PlantopiaVegetationFeatures {
                     List.of(
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
                     ),
-                    placements.getOrThrow(PlantopiaPlacements.ASPEN_BEES_0002_LITTER_055)
+                    placements.getOrThrow(PlantopiaPlacements.YELLOW_ASPEN_BEES_0002_LITTER_055)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_SNOWY_ASPEN_GROVE = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_GROVE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002), 0.1F)
+                    ),
+                    placements.getOrThrow(PlantopiaPlacements.RED_ASPEN_CHECKED)
                 );
             }))
     );

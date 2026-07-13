@@ -1,6 +1,8 @@
 {
     "values": [
         "plantopia:aspen_clearing",
-        "plantopia:aspen_grove"
+        "plantopia:aspen_grove",
+        "plantopia:snowy_aspen_clearing",
+        "plantopia:snowy_aspen_grove"
     ]
 }

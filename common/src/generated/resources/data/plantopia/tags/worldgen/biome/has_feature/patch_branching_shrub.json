@@ -15,6 +15,7 @@
         "plantopia:maple_woods",
         "plantopia:seasonal_dark_forest",
         "plantopia:seasonal_forest",
+        "plantopia:snowy_aspen_grove",
         {
             "id": "hybrid_beta:autumnal_forest",
             "required": false

@@ -1,7 +1,7 @@
 {
     "type": "plantopia:composite",
     "config": {
-        "base_feature": "plantopia:aspen_bees_0002",
+        "base_feature": "plantopia:yellow_aspen_bees_0002",
         "features": [
             {
                 "chance": 0.55,

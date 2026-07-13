@@ -28,6 +28,7 @@ import java.util.List;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
@@ -210,6 +211,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.FROZEN_RIVER)
                 .add(Biomes.SNOWY_PLAINS)
                 .add(Biomes.GROVE, Biomes.SNOWY_TAIGA, Biomes.SNOWY_BEACH)
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 
@@ -245,7 +247,7 @@ public interface PlantopiaVegetationPlacements {
                 BiomeFilter.biome()
             ))
             .biomes(biomes -> biomes
-                .add(Biomes.DARK_FOREST, Biomes.TAIGA, Biomes.SNOWY_TAIGA)
+                .add(Biomes.DARK_FOREST, Biomes.TAIGA)
                 .add(Biomes.WINDSWEPT_FOREST)
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.SEASONAL_DARK_FOREST)
@@ -253,22 +255,6 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
-
-    //	public static final ResourceKey<PlacedFeature> PATCH_CHICORY_2 = declarePlacement(
-    //		compileNameFrom(PlantopiaFeatures.PATCH_CHICORY, 2),
-    //		PlantopiaPlacementDeclaration.builder()
-    //			.feature(PlantopiaFeatures.PATCH_CHICORY)
-    //			.modifiers(context -> List.of(
-    //				PlantopiaRarityFilter.onAverageOnceEvery(8.12F, 10.42F),
-    //				CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
-    //				InSquarePlacement.spread(),
-    //				PlacementUtils.HEIGHTMAP,
-    //				BiomeFilter.biome()
-    //			))
-    //			.biomes(biomes -> biomes
-    //				.add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
-    //			)
-    //	);
 
     ResourceKey<PlacedFeature> PATCH_TANSY = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_TANSY),
@@ -286,19 +272,73 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_TANSY_2 = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_TANSY, 2),
+    ResourceKey<PlacedFeature> PATCH_TANSY_ASPEN_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_TANSY, PlantopiaBiomes.ASPEN_GROVE),
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_TANSY)
-            .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(6.12F),
-                CountPlacement.of(ClampedInt.of(UniformInt.of(0, 3), 1, 3)),
-                InSquarePlacement.spread(),
-                PlacementUtils.HEIGHTMAP,
-                BiomeFilter.biome()
-            ))
+            .modifiers(context -> {
+                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.432D, 43, 775);
+                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 123, 65);
+                float bigNoiseLevel = -0.4F;
+                float smallNoiseLevel = -0.1F;
+
+                return List.of(
+                    PlantopiaConditionPlacement.conditional(
+                        List.of(
+                            PlantopiaRarityFilter.onAverageOnceEvery(6.12F)
+                        ),
+                        List.of(
+                            CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                            InSquarePlacement.spread()
+                        ),
+                        List.of(
+                            PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 8),
+                            InSquarePlacement.spread(),
+                            PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+                            PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F)
+                        )
+                    ),
+                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                    BiomeFilter.biome()
+                );
+            })
             .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_CARROTWEED_SNOWY_ASPEN_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_CARROTWEED, PlantopiaBiomes.SNOWY_ASPEN_GROVE),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_CARROTWEED)
+            .modifiers(context -> {
+                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.432D, 43, 775);
+                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 123, 65);
+                float bigNoiseLevel = -0.4F;
+                float smallNoiseLevel = -0.1F;
+
+                return List.of(
+                    PlantopiaConditionPlacement.conditional(
+                        List.of(
+                            PlantopiaRarityFilter.onAverageOnceEvery(6.12F)
+                        ),
+                        List.of(
+                            CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+                            InSquarePlacement.spread()
+                        ),
+                        List.of(
+                            PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 8),
+                            InSquarePlacement.spread(),
+                            PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+                            PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F)
+                        )
+                    ),
+                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                    BiomeFilter.biome()
+                );
+            })
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 
@@ -590,30 +630,6 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_TANSY_ASPEN_GROVE = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_TANSY, PlantopiaBiomes.ASPEN_GROVE),
-        PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.PATCH_TANSY)
-            .modifiers(context -> {
-                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.432D, 43, 775);
-                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 123, 65);
-                float bigNoiseLevel = -0.4F;
-                float smallNoiseLevel = -0.1F;
-
-                return List.of(
-                    PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 8),
-                    InSquarePlacement.spread(),
-                    PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
-                    PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F),
-                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-                    BiomeFilter.biome()
-                );
-            })
-            .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
-            )
-    );
-
     ResourceKey<PlacedFeature> TREES_LAVENDER_FIELDS = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_LAVENDER_FIELDS),
         PlantopiaPlacementDeclaration.builder()
@@ -696,6 +712,7 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 
@@ -721,7 +738,7 @@ public interface PlantopiaVegetationPlacements {
                 .addTag(BiomeTags.IS_SAVANNA)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.ASPEN_GROVE)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_GROVE)
             )
     );
 

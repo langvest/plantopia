@@ -127,7 +127,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
 
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_MIDDLE_ALTERNATE_BIOMES = new ResourceKey[][]{
-        { null, null, null, null, null },
+        { null, null, PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING, null },
         { null, null, null, PlantopiaBiomes.MAPLE_WOODS, null },
         { PlantopiaBiomes.LAVENDER_FIELDS, null, PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING, null },
         { null, null, null, null, null },

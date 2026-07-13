@@ -46,11 +46,11 @@
         "tries": {
             "type": "minecraft:uniform",
             "value": {
-                "max_inclusive": 18,
-                "min_inclusive": 16
+                "max_inclusive": 14,
+                "min_inclusive": 10
             }
         },
-        "xz_spread": 3,
-        "y_spread": 2
+        "xz_spread": 2,
+        "y_spread": 1
     }
 }

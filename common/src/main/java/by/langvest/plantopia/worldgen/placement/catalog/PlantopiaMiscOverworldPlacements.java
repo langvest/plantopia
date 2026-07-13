@@ -52,6 +52,7 @@ public interface PlantopiaMiscOverworldPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 
@@ -102,7 +103,6 @@ public interface PlantopiaMiscOverworldPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.BEACH)
-                .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.GRAVELLY_RIVER)
             )
     );
 
@@ -168,6 +168,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 

@@ -39,6 +39,7 @@ public final class PlantopiaDictionary {
     public static final String FIELDS = "fields";
     public static final String LITTER = "litter";
     public static final String BEES = "bees";
+    public static final String TINY = "tiny";
     public static final String FANCY = "fancy";
     public static final String CLUSTER = "cluster";
     public static final String SURFACE = "surface";

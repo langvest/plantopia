@@ -3,7 +3,6 @@ package by.langvest.plantopia.worldgen.biome.catalog;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
-import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -178,7 +177,7 @@ public interface PlantopiaOverworldBiomes {
     );
 
     ResourceKey<Biome> ASPEN_GROVE = declareBiome(
-        compileNameFrom(PlantopiaFeatures.ASPEN, GROVE),
+        compileNameFrom("aspen", GROVE),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
@@ -203,7 +202,7 @@ public interface PlantopiaOverworldBiomes {
     );
 
     ResourceKey<Biome> ASPEN_CLEARING = declareBiome(
-        compileNameFrom(PlantopiaFeatures.ASPEN, CLEARING),
+        compileNameFrom("aspen", CLEARING),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::plainsSpawns)
             .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
@@ -219,6 +218,53 @@ public interface PlantopiaOverworldBiomes {
             .downfall(0.8F)
             .grassColorOverride("#c8aa47")
             .foliageColorOverride("#d1b754")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
+    ResourceKey<Biome> SNOWY_ASPEN_GROVE = declareBiome(
+        compileNameFrom(SNOWY, ASPEN_GROVE),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
+            .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 8, 2, 4)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .creatureGenerationProbability(0.07F)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(-0.5F)
+            .downfall(0.4F)
+            .grassColorOverride("#af6457")
+            .foliageColorOverride("#d25652")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> SNOWY_ASPEN_CLEARING = declareBiome(
+        compileNameFrom(SNOWY, ASPEN_CLEARING),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::plainsSpawns)
+            .creatureGenerationProbability(0.07F)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(-0.5F)
+            .downfall(0.4F)
+            .grassColorOverride("#af6457")
+            .foliageColorOverride("#d25652")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 

@@ -9,8 +9,6 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,8 +18,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +26,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedProvider;
 
 public final class PlantopiaFeatureUtils {
     public static final float CHANCE_055 = 0.55F;
@@ -162,29 +160,7 @@ public final class PlantopiaFeatureUtils {
         return new SimpleBlockConfiguration(weightedProvider(states));
     }
 
-    /* PROVIDERS ******************************************/
-
-    @Contract(pure = true)
-    public static @NotNull BlockStateProvider simpleProvider(Block block) {
-        return BlockStateProvider.simple(block);
-    }
-
-    @Contract(pure = true)
-    public static @NotNull BlockStateProvider simpleProvider(BlockState state) {
-        return BlockStateProvider.simple(state);
-    }
-
-    @Contract(pure = true)
-    public static @NotNull WeightedStateProvider weightedProvider(@NotNull Function<SimpleWeightedRandomList.Builder<BlockState>, SimpleWeightedRandomList.Builder<BlockState>> states) {
-        return new WeightedStateProvider(states.apply(SimpleWeightedRandomList.builder()));
-    }
-
-    @Contract(pure = true)
-    public static @NotNull WeightedListInt weightedListInt(@NotNull Function<SimpleWeightedRandomList.Builder<IntProvider>, SimpleWeightedRandomList.Builder<IntProvider>> values) {
-        return new WeightedListInt(values.apply(SimpleWeightedRandomList.builder()).build());
-    }
-
-    /* CONTEXT *************************************************/
+    /* CONTEXT ************************************************/
 
     public static @NotNull HolderGetter<ConfiguredFeature<?, ?>> lookupFeatures(@NotNull BootstapContext<ConfiguredFeature<?, ?>> context) {
         return context.lookup(Registries.CONFIGURED_FEATURE);

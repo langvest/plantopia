@@ -42,6 +42,8 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.features.MiscOverworldFeatures

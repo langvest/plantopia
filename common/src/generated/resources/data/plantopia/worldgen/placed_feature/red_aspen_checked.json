@@ -1,5 +1,5 @@
 {
-    "feature": "plantopia:aspen_bees_0002",
+    "feature": "plantopia:red_aspen",
     "placement": [
         {
             "type": "minecraft:block_predicate_filter",

@@ -53,6 +53,7 @@ import by.langvest.plantopia.worldgen.region.PlantopiaRegions;
 import by.langvest.plantopia.worldgen.surface.PlantopiaSurfaceRules;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
 import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorTypes;
+import by.langvest.plantopia.worldgen.value.PlantopiaFloatProviderTypes;
 import by.langvest.toolkit.platform.EventEmitter;
 import by.langvest.toolkit.platform.Platform;
 import org.jetbrains.annotations.NotNull;
@@ -105,6 +106,7 @@ public final class Plantopia {
         globalEventEmitter.subscribe(PlantopiaPlacementModifierTypes::setup);
         globalEventEmitter.subscribe(PlantopiaRecipeSerializers::setup);
         globalEventEmitter.subscribe(PlantopiaCriteriaTriggers::setup);
+        globalEventEmitter.subscribe(PlantopiaFloatProviderTypes::setup);
 
         // Common
         globalEventEmitter.subscribe(PlantopiaBoatType::setup);

@@ -33,6 +33,8 @@ public class PlantopiaCypressFoliagePlacer extends PlantopiaFoliagePlacer {
 
     @Override
     protected void createFoliage(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+        boolean isTiny = foliageRadius == 1;
+
         for (int dy = offset; dy > offset - foliageHeight; dy--) {
             int layerIndex = offset - dy;
 
@@ -47,21 +49,21 @@ public class PlantopiaCypressFoliagePlacer extends PlantopiaFoliagePlacer {
             }
 
             if (layerIndex == 3) {
-                placeRow(level, blockSetter, random, config, attachment, 1, dy, anyOf(noCorner(), withChance(0.4F)));
+                placeRow(level, blockSetter, random, config, attachment, 1, dy, anyOf(noCorner(), withChance(isTiny ? 0.3F : 0.4F)));
                 continue;
             }
 
-            if (layerIndex == 4) {
+            if (layerIndex == 4 || isTiny) {
                 placeRow(level, blockSetter, random, config, attachment, 1, dy, square());
                 continue;
             }
 
             if (layerIndex == 5 || layerIndex == foliageHeight - 2) {
-                placeRow(level, blockSetter, random, config, attachment, 2, dy, anyOf(cross(), square(0.5F)));
+                placeRow(level, blockSetter, random, config, attachment, foliageRadius, dy, anyOf(cross(), square(0.5F)));
                 continue;
             }
 
-            placeRow(level, blockSetter, random, config, attachment, 2, dy, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
+            placeRow(level, blockSetter, random, config, attachment, foliageRadius, dy, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
         }
     }
 

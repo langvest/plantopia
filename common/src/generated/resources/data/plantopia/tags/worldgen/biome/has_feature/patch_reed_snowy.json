@@ -4,6 +4,8 @@
         "minecraft:grove",
         "minecraft:snowy_beach",
         "minecraft:snowy_plains",
-        "minecraft:snowy_taiga"
+        "minecraft:snowy_taiga",
+        "plantopia:snowy_aspen_clearing",
+        "plantopia:snowy_aspen_grove"
     ]
 }

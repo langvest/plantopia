@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/tiny_yellow_aspen_aspen_clearing",
+    "features": "plantopia:tiny_yellow_aspen_aspen_clearing",
+    "step": "vegetal_decoration"
+}
