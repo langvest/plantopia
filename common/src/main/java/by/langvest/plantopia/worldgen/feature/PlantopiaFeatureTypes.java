@@ -37,6 +37,7 @@ public class PlantopiaFeatureTypes {
     public static final RegistryObject<PlantopiaCompositeFeature> COMPOSITE = registerFeatureType("composite", () -> new PlantopiaCompositeFeature(PlantopiaCompositeConfiguration.CODEC));
     public static final RegistryObject<PlantopiaHogweedColonyFeature> HOGWEED_COLONY = registerFeatureType("hogweed_colony", () -> new PlantopiaHogweedColonyFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<PlantopiaSeaHangingMossClusterFeature> SEA_HANGING_MOSS_CLUSTER = registerFeatureType("sea_hanging_moss_cluster", () -> new PlantopiaSeaHangingMossClusterFeature(PlantopiaSeaHangingMossClusterConfiguration.CODEC));
+    public static final RegistryObject<PlantopiaCliffFeature> CLIFF = registerFeatureType("cliff", () -> new PlantopiaCliffFeature(PlantopiaCliffConfiguration.CODEC));
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
         return registerFeatureType(plantopia(name), supplier);

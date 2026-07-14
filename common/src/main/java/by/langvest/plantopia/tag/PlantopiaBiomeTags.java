@@ -10,6 +10,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 public class PlantopiaBiomeTags {
     public static final TagKey<Biome> ALLOWS_QUAGMIRE = createBiomeTag("allows_quagmire");
     public static final TagKey<Biome> ALLOWS_FRAZIL = createBiomeTag("allows_frazil");
+    public static final TagKey<Biome> ALLOWS_STONY_CLIFF = createBiomeTag("allows_stony_cliff");
     public static final TagKey<Biome> IS_MARSH = createBiomeTag("is_marsh");
     public static final TagKey<Biome> IS_QUICKSAND_PRECIPITABLE = createBiomeTag("is_quicksand_precipitable");
 

@@ -7,6 +7,7 @@ import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
 import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
@@ -140,7 +141,7 @@ public interface PlantopiaMiscOverworldFeatures {
                     ConstantInt.of(48),
                     UniformInt.of(3, 5),
                     ConstantInt.of(2),
-                    -4.82,
+                    -6.0F,
                     0,
                     List.of(
                         new PlantopiaSimpleBlockPlacer(
@@ -233,6 +234,23 @@ public interface PlantopiaMiscOverworldFeatures {
                         BlockPredicate.matchesFluids(BlockPos.ZERO.below(), Fluids.WATER)
                     ),
                     lookupBiomes(context).getOrThrow(PlantopiaBiomeTags.ALLOWS_FRAZIL)
+                )
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> STONY_CLIFF = declareFeature(
+        "stony_cliff",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(configuredFeature(PlantopiaFeatureTypes.CLIFF, context ->
+                new PlantopiaCliffConfiguration(
+                    simpleProvider(Blocks.STONE),
+                    PlantopiaProportionConfig.of(
+                        ConstantFloat.of(1.0F),
+                        ConstantInt.of(8)
+                    ),
+                    4,
+                    BlockPredicate.matchesTag(BlockTags.DIRT),
+                    lookupBiomes(context).getOrThrow(PlantopiaBiomeTags.ALLOWS_STONY_CLIFF)
                 )
             ))
     );

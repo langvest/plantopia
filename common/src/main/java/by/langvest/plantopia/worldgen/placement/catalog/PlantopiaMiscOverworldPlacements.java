@@ -298,10 +298,20 @@ public interface PlantopiaMiscOverworldPlacements {
     ResourceKey<PlacedFeature> FRAZIL_WATER_LEVEL = declarePlacement(
         compileNameFrom(PlantopiaFeatures.FRAZIL_WATER_LEVEL),
         PlantopiaPlacementDeclaration.builder()
+            .step(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
             .feature(PlantopiaFeatures.FRAZIL_WATER_LEVEL)
             .biomes(biomes -> biomes
                 .addTag(PlantopiaBiomeTags.ALLOWS_FRAZIL)
             )
-            .step(GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
+    );
+
+    ResourceKey<PlacedFeature> STONY_CLIFF = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.STONY_CLIFF),
+        PlantopiaPlacementDeclaration.builder()
+            .step(GenerationStep.Decoration.UNDERGROUND_DECORATION)
+            .feature(PlantopiaFeatures.STONY_CLIFF)
+            .biomes(biomes -> biomes
+                .addTag(PlantopiaBiomeTags.ALLOWS_STONY_CLIFF)
+            )
     );
 }

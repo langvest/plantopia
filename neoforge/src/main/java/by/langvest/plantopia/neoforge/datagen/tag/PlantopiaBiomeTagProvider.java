@@ -3,6 +3,7 @@ package by.langvest.plantopia.neoforge.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.util.PlantopiaTagSet;
+import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaOverworldBiomes;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import com.google.common.collect.Maps;
@@ -30,6 +31,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
     public static final PlantopiaTagSet<Biome> IS_OVERWORLD = getOrCreateTagSet(BiomeTags.IS_OVERWORLD);
     public static final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
     public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
+    public static final PlantopiaTagSet<Biome> ALLOWS_STONY_CLIFF = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_STONY_CLIFF);
     public static final PlantopiaTagSet<Biome> IS_MARSH = getOrCreateTagSet(PlantopiaBiomeTags.IS_MARSH);
     public static final PlantopiaTagSet<Biome> IS_QUICKSAND_PRECIPITABLE = getOrCreateTagSet(PlantopiaBiomeTags.IS_QUICKSAND_PRECIPITABLE);
 
@@ -43,6 +45,14 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
 
         ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
         ALLOWS_FRAZIL.add(Biomes.FROZEN_OCEAN);
+        ALLOWS_STONY_CLIFF
+            .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW)
+            .add(Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES)
+            .add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
+            .add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST)
+            .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
+            .add(PlantopiaBiomes.ASPEN_CLEARING, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
+            .add(PlantopiaBiomes.MAPLE_WOODS);
         IS_MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
         IS_QUICKSAND_PRECIPITABLE.add(Biomes.DESERT);
 

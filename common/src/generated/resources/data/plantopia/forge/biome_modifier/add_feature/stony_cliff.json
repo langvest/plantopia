@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/stony_cliff",
+    "features": "plantopia:stony_cliff",
+    "step": "underground_decoration"
+}

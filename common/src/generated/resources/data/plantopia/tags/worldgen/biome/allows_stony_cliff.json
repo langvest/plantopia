@@ -1,0 +1,20 @@
+{
+    "values": [
+        "minecraft:ice_spikes",
+        "minecraft:meadow",
+        "minecraft:plains",
+        "minecraft:savanna",
+        "minecraft:savanna_plateau",
+        "minecraft:snowy_plains",
+        "minecraft:sunflower_plains",
+        "minecraft:windswept_forest",
+        "minecraft:windswept_gravelly_hills",
+        "minecraft:windswept_hills",
+        "minecraft:windswept_savanna",
+        "plantopia:aspen_clearing",
+        "plantopia:lavender_fields",
+        "plantopia:maple_woods",
+        "plantopia:poppy_fields",
+        "plantopia:snowy_aspen_clearing"
+    ]
+}
