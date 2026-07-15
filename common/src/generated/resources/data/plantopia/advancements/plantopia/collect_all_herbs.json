@@ -169,6 +169,18 @@
             },
             "trigger": "minecraft:inventory_changed"
         },
+        "plantopia:spiky_grass": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:spiky_grass"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
         "plantopia:tall_dune_grass": {
             "conditions": {
                 "items": [
@@ -187,6 +199,18 @@
                     {
                         "items": [
                             "plantopia:tall_fluffy_grass"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "plantopia:tall_spiky_grass": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:tall_spiky_grass"
                         ]
                     }
                 ]
@@ -265,10 +289,16 @@
             "plantopia:hogweed"
         ],
         [
+            "plantopia:spiky_grass"
+        ],
+        [
             "plantopia:tall_dune_grass"
         ],
         [
             "plantopia:tall_fluffy_grass"
+        ],
+        [
+            "plantopia:tall_spiky_grass"
         ],
         [
             "plantopia:tansy"

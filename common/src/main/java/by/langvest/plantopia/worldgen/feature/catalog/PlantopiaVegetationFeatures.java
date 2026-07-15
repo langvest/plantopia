@@ -182,6 +182,26 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_SPIKY_GRASS = declareFeature(
+        patchNameOf(PlantopiaBlocks.SPIKY_GRASS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(
+                    116,
+                    5,
+                    3,
+                    PlacementUtils.filtered(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        weightedConfig(states -> states
+                            .add(PlantopiaBlocks.SPIKY_GRASS.get().defaultBlockState(), 1)
+                            .add(PlantopiaBlocks.TALL_SPIKY_GRASS.get().defaultBlockState(), 1)
+                        ),
+                        GRASS_PLANT_PREDICATE
+                    )
+                )
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_TANSY = declareFeature(
         patchNameOf(PlantopiaBlocks.TANSY),
         PlantopiaFeatureDeclaration.builder()

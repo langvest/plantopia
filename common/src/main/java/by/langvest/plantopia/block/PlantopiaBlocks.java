@@ -65,6 +65,9 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> FLUFFY_GRASS = registerBlock("fluffy_grass", properties -> new PlantopiaShortBushBlock(properties, () -> supposeBlock("tall_fluffy_grass").get().defaultBlockState()), MetaProperties.of(MetaType.TINY_GRASS).grassTint().customModel());
     public static final RegistryObject<Block> TALL_FLUFFY_GRASS = registerBlock("tall_fluffy_grass", properties -> new PlantopiaBushBlock(properties, () -> FLUFFY_GRASS.get().defaultBlockState()), MetaProperties.of(MetaType.SMALL_GRASS).grassTint().customModel().notPottable());
 
+    public static final RegistryObject<Block> SPIKY_GRASS = registerBlock("spiky_grass", properties -> new PlantopiaShortBushBlock(properties, () -> supposeBlock("tall_spiky_grass").get().defaultBlockState()), MetaProperties.of(MetaType.TINY_GRASS).grassTint().customModel());
+    public static final RegistryObject<Block> TALL_SPIKY_GRASS = registerBlock("tall_spiky_grass", properties -> new PlantopiaBushBlock(properties, () -> SPIKY_GRASS.get().defaultBlockState()), MetaProperties.of(MetaType.SMALL_GRASS).grassTint().customModel().notPottable());
+
     public static final RegistryObject<Block> BRANCHING_SHRUB = registerBlock("branching_shrub", PlantopiaBranchingShrubBlock::new, MetaProperties.of(MetaType.SHRUB).strength(0.8F).sound(SoundType.MANGROVE_ROOTS).hasDynamicShape().customModel().customDrop().pottable());
     public static final RegistryObject<Block> THORNY_SHRUB = registerBlock("thorny_shrub", PlantopiaThornyShrubBlock::new, MetaProperties.of(MetaType.SHRUB).strength(0.2F).sound(SoundType.SWEET_BERRY_BUSH).dropSelfByShears().customModel().mapColor(MapColor.COLOR_GRAY));
 

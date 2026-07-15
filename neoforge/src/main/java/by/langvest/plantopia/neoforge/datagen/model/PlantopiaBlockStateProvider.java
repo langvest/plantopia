@@ -99,8 +99,10 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         tinyCactusBlock(PlantopiaBlocks.FLOWERING_TINY_CACTUS.get());
         icicleBlock(PlantopiaBlocks.ICICLE.get());
         iceCrustBlock(PlantopiaBlocks.ICE_CRUST.get());
-        fluffyGrassBlock(PlantopiaBlocks.FLUFFY_GRASS.get());
-        fluffyGrassBlock(PlantopiaBlocks.TALL_FLUFFY_GRASS.get());
+        bushWithOverlayBlock(PlantopiaBlocks.FLUFFY_GRASS.get());
+        bushWithOverlayBlock(PlantopiaBlocks.TALL_FLUFFY_GRASS.get());
+        bushWithOverlayBlock(PlantopiaBlocks.SPIKY_GRASS.get());
+        bushWithOverlayBlock(PlantopiaBlocks.TALL_SPIKY_GRASS.get());
         treeFruitBlock(PlantopiaBlocks.BIRCH_CATKIN.get());
         treeFruitBlock(PlantopiaBlocks.PINECONE.get());
 
@@ -613,13 +615,13 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         }, PlantopiaIcicleBlock.WATERLOGGED);
     }
 
-    private void fluffyGrassBlock(Block block) {
+    private void bushWithOverlayBlock(Block block) {
         String baseName = nameOf(block);
 
         var plantTexture = texture(baseName);
         var overlayTexture = texture(baseName + "_overlay");
 
-        var model = tintedCrossWithTintedOverlayModel(baseName, plantTexture, overlayTexture);
+        var model = tintedCrossWithOverlayModel(baseName, plantTexture, overlayTexture);
 
         generatedItemModel(baseName, plantTexture, overlayTexture);
         simpleBlock(block, model);

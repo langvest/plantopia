@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "plantopia:block/spiky_grass",
+        "layer1": "plantopia:block/spiky_grass_overlay"
+    }
+}

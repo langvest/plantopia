@@ -248,12 +248,33 @@ public interface PlantopiaVegetationPlacements {
                 BiomeFilter.biome()
             ))
             .biomes(biomes -> biomes
-                .add(Biomes.DARK_FOREST, Biomes.TAIGA)
+                .add(Biomes.DARK_FOREST)
                 .add(Biomes.WINDSWEPT_FOREST)
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_SPIKY_GRASS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_SPIKY_GRASS),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_SPIKY_GRASS)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(5.32F, 6.64F),
+                CountPlacement.of(weightedListInt(values -> values
+                    .add(ConstantInt.of(1), 3)
+                    .add(ConstantInt.of(2), 2)
+                    .add(ConstantInt.of(3), 1)
+                )),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .addTag(BiomeTags.IS_SAVANNA)
+                .add(PlantopiaBiomes.POPPY_FIELDS)
             )
     );
 

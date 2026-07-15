@@ -1,0 +1,7 @@
+{
+    "parent": "plantopia:block/tinted_cross_with_overlay",
+    "textures": {
+        "cross": "plantopia:block/tall_spiky_grass",
+        "overlay": "plantopia:block/tall_spiky_grass_overlay"
+    }
+}

@@ -1,5 +1,5 @@
 {
-    "parent": "plantopia:block/tinted_cross_with_tinted_overlay",
+    "parent": "plantopia:block/tinted_cross_with_overlay",
     "textures": {
         "cross": "plantopia:block/tall_fluffy_grass",
         "overlay": "plantopia:block/tall_fluffy_grass_overlay"
