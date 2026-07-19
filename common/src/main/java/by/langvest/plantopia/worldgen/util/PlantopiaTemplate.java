@@ -133,6 +133,7 @@ public interface PlantopiaTemplate {
         return (random, dx, dy, dz, range) -> {
             int newRange = range + offset;
             if (newRange < 0) return false;
+            if (Math.abs(dx) > newRange || Math.abs(dz) > newRange) return false;
             return template.test(random, dx, dy, dz, newRange);
         };
     }
@@ -142,6 +143,7 @@ public interface PlantopiaTemplate {
         return (random, dx, dy, dz, range) -> {
             int newRange = (int) (range * factor);
             if (newRange < 0) return false;
+            if (Math.abs(dx) > newRange || Math.abs(dz) > newRange) return false;
             return template.test(random, dx, dy, dz, newRange);
         };
     }

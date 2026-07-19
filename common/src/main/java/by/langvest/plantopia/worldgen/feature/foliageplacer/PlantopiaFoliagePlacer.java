@@ -12,8 +12,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
-    public static final int DEFAULT_UPDATE_FLAGS = 19;
-
     public PlantopiaFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);
     }
@@ -44,9 +42,5 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
     @Override
     protected boolean shouldSkipLocation(RandomSource random, int dx, int dy, int dz, int range, boolean large) {
         return false;
-    }
-
-    public int flags(TreeConfiguration config) {
-        return DEFAULT_UPDATE_FLAGS;
     }
 }

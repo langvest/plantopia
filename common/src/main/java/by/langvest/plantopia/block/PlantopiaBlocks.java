@@ -161,6 +161,9 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> WITCHY_TOADSTOOL_BLOCK = registerBlock("witchy_toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_PURPLE).customDrop());
     public static final RegistryObject<Block> WITCHY_TOADSTOOL = registerBlock("witchy_toadstool", properties -> new PlantopiaWitchyToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_WITCHY_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_PURPLE).lightLevel(1));
 
+    public static final RegistryObject<Block> CHANTERELLE_BLOCK = registerBlock("chanterelle_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_YELLOW).customDrop());
+    public static final RegistryObject<Block> CHANTERELLE = registerBlock("chanterelle", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_CHANTERELLE), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_YELLOW));
+
     public static final RegistryObject<Block> ICICLE = registerBlock("icicle", PlantopiaIcicleBlock::new, MetaProperties.of(MetaType.ICICLE).hasDynamicShape().randomlyTicking().customModel());
     public static final RegistryObject<Block> ICE_CRUST = registerBlock("ice_crust", PlantopiaIceCrustBlock::new, MetaProperties.of(MetaType.ICE_CRUST).hasDynamicShape().randomlyTicking().customModel().customItem());
 

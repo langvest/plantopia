@@ -49,6 +49,18 @@
             },
             "trigger": "minecraft:inventory_changed"
         },
+        "plantopia:chanterelle": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:chanterelle"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
         "plantopia:witchy_toadstool": {
             "conditions": {
                 "items": [
@@ -89,6 +101,9 @@
         ],
         [
             "minecraft:warped_fungus"
+        ],
+        [
+            "plantopia:chanterelle"
         ],
         [
             "plantopia:witchy_toadstool"

@@ -3,7 +3,7 @@ package by.langvest.plantopia.worldgen.feature.catalog;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
-import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaChanterelleFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaWitchyToadstoolFoliagePlacer;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
@@ -20,12 +20,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import org.jetbrains.annotations.NotNull;
 
@@ -68,14 +66,36 @@ public interface PlantopiaTreeFeatures {
                     new PlantopiaWitchyToadstoolFoliagePlacer(
                         ConstantInt.of(1), // foliageRadius
                         ConstantInt.of(3), // foliageOffset
-                        PlantopiaIntProportion.fixed(
-                            UniformInt.of(6, 7)
-                        ) // foliageHeight
+                        PlantopiaIntProportion.fixed(UniformInt.of(6, 7)) // foliageHeight
                     ),
                     new TwoLayersFeatureSize(
                         2, // heightThreshold
                         0, // lowerRadius
                         1 // upperRadius
+                    )
+                ).ignoreVines().build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> HUGE_CHANTERELLE = declareFeature(
+        compileNameFrom(HUGE, PlantopiaBlocks.CHANTERELLE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(mushroomTree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(PlantopiaBlocks.CHANTERELLE_BLOCK.get()), // logBlock
+                    new PlantopiaStraightTrunkPlacer(
+                        UniformInt.of(3, 4) // baseHeight
+                    ),
+                    simpleProvider(PlantopiaBlocks.CHANTERELLE_BLOCK.get()), // leavesBlock
+                    new PlantopiaChanterelleFoliagePlacer(
+                        ConstantInt.of(2), // foliageRadius
+                        ConstantInt.of(1), // foliageOffset
+                        PlantopiaIntProportion.fixed(ConstantInt.of(3)) // foliageHeight
+                    ),
+                    new TwoLayersFeatureSize(
+                        2, // heightThreshold
+                        0, // lowerRadius
+                        2 // upperRadius
                     )
                 ).ignoreVines().build()
             ))

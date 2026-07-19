@@ -16,29 +16,29 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import static by.langvest.plantopia.worldgen.util.PlantopiaTemplate.*;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaWitchyToadstoolFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
-    public static final Codec<PlantopiaWitchyToadstoolFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
+public class PlantopiaChanterelleFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
+    public static final Codec<PlantopiaChanterelleFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
         PlantopiaIntProportion.CODEC.fieldOf("height").forGetter(it -> it.height)
-    ).apply(instance, PlantopiaWitchyToadstoolFoliagePlacer::new));
+    ).apply(instance, PlantopiaChanterelleFoliagePlacer::new));
 
     private final PlantopiaIntProportion height;
 
-    public PlantopiaWitchyToadstoolFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaIntProportion height) {
+    public PlantopiaChanterelleFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaIntProportion height) {
         super(radius, offset);
         this.height = height;
     }
 
     @Override
     protected @NotNull FoliagePlacerType<?> type() {
-        return PlantopiaFoliagePlacerTypes.WITCHY_TOADSTOOL_FOLIAGE_PLACER.get();
+        return PlantopiaFoliagePlacerTypes.CHANTERELLE_FOLIAGE_PLACER.get();
     }
 
     @Override
     protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         return layerIndex -> {
-            if (layerIndex <= 1) return Layer.of(0, square());
-            if (layerIndex <= 3) return Layer.of(foliageRadius, cross());
-            return Layer.of(foliageRadius, square());
+            if (layerIndex == 0) return Layer.of(foliageRadius, octagonalOutline());
+            if (layerIndex == 1) return Layer.of(foliageRadius / 2, outline());
+            return Layer.of(1, cross());
         };
     }
 
