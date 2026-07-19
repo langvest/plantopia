@@ -5,6 +5,8 @@ import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoli
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaLushFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaAlterBaseLogDecorator;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
@@ -24,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.OptionalInt;
 
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.*;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
@@ -63,7 +65,7 @@ public final class PlantopiaTreeFeatureUtils {
             ), // baseHeight
             UniformInt.of(0, 2), // heightRand
             ConstantInt.of(2), // foliageRadius
-            PlantopiaProportionConfig.of(
+            PlantopiaIntProportion.relative(
                 ConstantFloat.of(0.925F),
                 ConstantInt.of(8),
                 ConstantInt.of(10)
@@ -84,8 +86,8 @@ public final class PlantopiaTreeFeatureUtils {
             simpleProvider(leavesBlock), // leavesBlock
             new PlantopiaCypressFoliagePlacer(
                 ConstantInt.of(2), // foliageRadius
-                ConstantInt.of(2), // foliageOffset,
-                PlantopiaProportionConfig.of(
+                ConstantInt.of(2), // foliageOffset
+                PlantopiaIntProportion.relative(
                     UniformFloat.of(0.82F, 0.86F),
                     ConstantInt.of(8)
                 ), // foliageHeight
@@ -109,8 +111,8 @@ public final class PlantopiaTreeFeatureUtils {
             simpleProvider(leavesBlock), // leavesBlock
             new PlantopiaCypressFoliagePlacer(
                 ConstantInt.of(1), // foliageRadius
-                ConstantInt.of(2), // foliageOffset,
-                PlantopiaProportionConfig.of(
+                ConstantInt.of(2), // foliageOffset
+                PlantopiaIntProportion.relative(
                     weightedListFloat(values -> values
                         .add(ConstantFloat.of(1.0F), 1)
                         .add(ConstantFloat.of(1.2F), 1)
@@ -149,7 +151,7 @@ public final class PlantopiaTreeFeatureUtils {
     }
 
     @Contract("_, _, _, _, _, _ -> new")
-    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createLushTree(Block logBlock, Block leavesBlock, IntProvider baseHeight, IntProvider heightRand, IntProvider foliageRadius, PlantopiaProportionConfig foliageHeight) {
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createLushTree(Block logBlock, Block leavesBlock, IntProvider baseHeight, IntProvider heightRand, IntProvider foliageRadius, PlantopiaRelativeIntProportion foliageHeight) {
         return new TreeConfiguration.TreeConfigurationBuilder(
             BlockStateProvider.simple(logBlock),
             new PlantopiaStraightTrunkPlacer(baseHeight, heightRand),

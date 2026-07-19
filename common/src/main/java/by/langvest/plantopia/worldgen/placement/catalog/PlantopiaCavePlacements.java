@@ -4,7 +4,7 @@ import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;

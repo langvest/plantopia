@@ -1,7 +1,7 @@
-package by.langvest.plantopia.worldgen.feature;
+package by.langvest.plantopia.worldgen.util;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.feature.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
+import by.langvest.plantopia.worldgen.util.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;

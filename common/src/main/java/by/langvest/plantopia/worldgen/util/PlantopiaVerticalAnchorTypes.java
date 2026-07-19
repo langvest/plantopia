@@ -1,9 +1,9 @@
-package by.langvest.plantopia.worldgen.placement;
+package by.langvest.plantopia.worldgen.util;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaAbsoluteVerticalAnchor;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaHeightmapVerticalAnchor;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaAbsoluteVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaHeightmapVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.resources.ResourceLocation;

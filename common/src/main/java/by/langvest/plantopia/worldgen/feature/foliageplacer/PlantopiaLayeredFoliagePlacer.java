@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
+import by.langvest.plantopia.worldgen.util.PlantopiaTemplate;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -22,7 +23,7 @@ public abstract class PlantopiaLayeredFoliagePlacer extends PlantopiaFoliagePlac
         for (int dy = offset; dy > offset - foliageHeight; dy--) {
             int layerIndex = offset - dy;
             var layer = layerProvider.provide(layerIndex);
-            placeRow(level, blockSetter, random, config, attachment, layer.range, dy, layer.template);
+            placeRow(level, blockSetter, random, config, attachment, dy, layer.range(), layer.template());
         }
     }
 
@@ -35,10 +36,10 @@ public abstract class PlantopiaLayeredFoliagePlacer extends PlantopiaFoliagePlac
 
     public record Layer(
         int range,
-        Template template
+        PlantopiaTemplate template
     ) {
         @Contract("_, _ -> new")
-        public static @NotNull Layer row(int range, Template template) {
+        public static @NotNull Layer of(int range, PlantopiaTemplate template) {
             return new Layer(range, template);
         }
     }

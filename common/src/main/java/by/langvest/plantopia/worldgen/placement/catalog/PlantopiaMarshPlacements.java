@@ -10,7 +10,7 @@ import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseCountPlace
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaNoiseFilter;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaRangeFilter;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaRarityFilter;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;

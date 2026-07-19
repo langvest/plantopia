@@ -4,7 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaAzollaBlock;
 import by.langvest.plantopia.util.helper.PlantopiaMathHelper;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaQuagmireConfiguration;
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorato
 import java.util.List;
 import java.util.function.Supplier;
 
-import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.tree;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.deciduousTree;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.createCherryTree;
 
 public class PlantopiaJacarandaConfiguredFeatureKit extends PlantopiaKit {
@@ -31,7 +31,7 @@ public class PlantopiaJacarandaConfiguredFeatureKit extends PlantopiaKit {
         this.tree = PlantopiaFeatures.declareFeature(
             baseName,
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createCherryTree(log.get(), leaves.get())
                         .ignoreVines()
                         .build()
@@ -41,7 +41,7 @@ public class PlantopiaJacarandaConfiguredFeatureKit extends PlantopiaKit {
         this.treeBees005 = PlantopiaFeatures.declareFeature(
             baseName + "_bees_005",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createCherryTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(beehiveDecorator005))
@@ -52,7 +52,7 @@ public class PlantopiaJacarandaConfiguredFeatureKit extends PlantopiaKit {
         this.treeBees0002 = PlantopiaFeatures.declareFeature(
             baseName + "_bees_0002",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createCherryTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(beehiveDecorator0002))

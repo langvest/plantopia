@@ -43,6 +43,7 @@ public class PlantopiaSurfaceRules {
         var stone = makeStateRule(Blocks.STONE);
         var sand = makeStateRule(Blocks.SAND);
         var sandstone = makeStateRule(Blocks.SANDSTONE);
+        var mud = makeStateRule(Blocks.MUD);
 
         SurfaceRules.RuleSource sandAndSandstone = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, sandstone), sand);
         SurfaceRules.RuleSource gravelAndStone = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, stone), gravel);
@@ -64,6 +65,10 @@ public class PlantopiaSurfaceRules {
             SurfaceRules.ifTrue(
                 SurfaceRules.isBiome(PlantopiaBiomes.GRAVELLY_RIVER),
                 placeDeep(gravelAndStone, stone)
+            ),
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(PlantopiaBiomes.MUDDY_RIVER),
+                placeDeep(mud, stone)
             ),
             SurfaceRules.ifTrue(
                 SurfaceRules.isBiome(PlantopiaBiomes.SANDY_RIVER),

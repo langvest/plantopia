@@ -1,6 +1,6 @@
-package by.langvest.plantopia.worldgen.value.floatprovider;
+package by.langvest.plantopia.worldgen.util.floatprovider;
 
-import by.langvest.plantopia.worldgen.value.PlantopiaFloatProviderTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaFloatProviderTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;

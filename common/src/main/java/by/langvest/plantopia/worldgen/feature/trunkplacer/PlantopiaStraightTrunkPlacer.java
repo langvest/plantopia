@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,10 +30,14 @@ public class PlantopiaStraightTrunkPlacer extends TrunkPlacer {
     protected final IntProvider baseHeight;
     protected final IntProvider bonusHeight;
 
-    public PlantopiaStraightTrunkPlacer(IntProvider baseHeight, IntProvider heightRand) {
+    public PlantopiaStraightTrunkPlacer(IntProvider baseHeight) {
+        this(baseHeight, ConstantInt.of(0));
+    }
+
+    public PlantopiaStraightTrunkPlacer(IntProvider baseHeight, IntProvider bonusHeight) {
         super(0, 0, 0);
         this.baseHeight = baseHeight;
-        this.bonusHeight = heightRand;
+        this.bonusHeight = bonusHeight;
     }
 
     @Override

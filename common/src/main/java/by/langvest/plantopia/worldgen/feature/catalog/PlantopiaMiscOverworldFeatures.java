@@ -7,12 +7,12 @@ import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.feature.config.*;
-import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
+import by.langvest.plantopia.worldgen.util.PlantopiaDipType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPlacer;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.core.BlockPos;
@@ -43,8 +43,8 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.features.MiscOverworldFeatures
@@ -244,7 +244,7 @@ public interface PlantopiaMiscOverworldFeatures {
             .feature(configuredFeature(PlantopiaFeatureTypes.CLIFF, context ->
                 new PlantopiaCliffConfiguration(
                     simpleProvider(Blocks.STONE),
-                    PlantopiaProportionConfig.of(
+                    PlantopiaIntProportion.relative(
                         ConstantFloat.of(1.0F),
                         ConstantInt.of(8)
                     ),

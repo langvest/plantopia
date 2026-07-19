@@ -1,4 +1,4 @@
-package by.langvest.plantopia.worldgen.placement;
+package by.langvest.plantopia.worldgen.util;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;

@@ -1,7 +1,7 @@
-package by.langvest.plantopia.worldgen.placement.verticalanchor;
+package by.langvest.plantopia.worldgen.util.verticalanchor;
 
-import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorType;
-import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaVerticalAnchorType;
+import by.langvest.plantopia.worldgen.util.PlantopiaVerticalAnchorTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.WorldGenLevel;
@@ -30,7 +30,7 @@ public class PlantopiaAbsoluteVerticalAnchor extends PlantopiaVerticalAnchor {
     }
 
     @Override
-    protected PlantopiaVerticalAnchorType<?> type() {
+    public PlantopiaVerticalAnchorType<?> type() {
         return PlantopiaVerticalAnchorTypes.ABSOLUTE.get();
     }
 

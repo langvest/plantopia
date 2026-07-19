@@ -3,6 +3,7 @@
     "config": {
         "allowed_biomes": "#plantopia:allows_stony_cliff",
         "depth": {
+            "type": "plantopia:relative_proportion",
             "min": 8,
             "ratio": 1.0
         },

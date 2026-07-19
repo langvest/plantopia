@@ -30,7 +30,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
         this.tree = PlantopiaFeatures.declareFeature(
             baseName,
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleTree(log.get(), leaves.get())
                         .ignoreVines()
                         .build()
@@ -40,7 +40,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
         this.treeBees005 = PlantopiaFeatures.declareFeature(
             baseName + "_bees_005",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(BEEHIVE_DECORATOR_005))
@@ -51,7 +51,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
         this.treeBees0002 = PlantopiaFeatures.declareFeature(
             baseName + "_bees_0002",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(BEEHIVE_DECORATOR_0002))
@@ -62,7 +62,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
         this.fancyTree = PlantopiaFeatures.declareFeature(
             "fancy_" + baseName,
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
                         .build()
@@ -72,7 +72,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
         this.fancyTreeBees005 = PlantopiaFeatures.declareFeature(
             "fancy_" + baseName + "_bees_005",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(BEEHIVE_DECORATOR_005))
@@ -83,7 +83,7 @@ public class PlantopiaTreeConfiguredFeatureKit extends PlantopiaKit {
         this.fancyTreeBees0002 = PlantopiaFeatures.declareFeature(
             "fancy_" + baseName + "_bees_0002",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(BEEHIVE_DECORATOR_0002))

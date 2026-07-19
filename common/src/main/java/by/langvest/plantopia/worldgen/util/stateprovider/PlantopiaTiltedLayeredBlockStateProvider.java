@@ -1,6 +1,6 @@
-package by.langvest.plantopia.worldgen.feature.stateprovider;
+package by.langvest.plantopia.worldgen.util.stateprovider;
 
-import by.langvest.plantopia.worldgen.feature.PlantopiaBlockStateProviderTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaBlockStateProviderTypes;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

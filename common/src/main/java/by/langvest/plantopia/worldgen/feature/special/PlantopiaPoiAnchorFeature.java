@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaPoiAnchorConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.Heightmap;

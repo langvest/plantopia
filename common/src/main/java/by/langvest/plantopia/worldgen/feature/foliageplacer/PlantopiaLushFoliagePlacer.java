@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
@@ -13,15 +13,17 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static by.langvest.plantopia.worldgen.util.PlantopiaTemplate.*;
+
 @ParametersAreNonnullByDefault
 public class PlantopiaLushFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
     public static final Codec<PlantopiaLushFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
-        PlantopiaProportionConfig.CODEC.fieldOf("height").forGetter(it -> it.height)
+        PlantopiaRelativeIntProportion.CODEC.fieldOf("height").forGetter(it -> it.height)
     ).apply(instance, PlantopiaLushFoliagePlacer::new));
 
-    private final PlantopiaProportionConfig height;
+    private final PlantopiaRelativeIntProportion height;
 
-    public PlantopiaLushFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaProportionConfig height) {
+    public PlantopiaLushFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaRelativeIntProportion height) {
         super(radius, offset);
         this.height = height;
     }
@@ -34,17 +36,17 @@ public class PlantopiaLushFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
     @Override
     protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
         return layerIndex -> {
-            if (layerIndex == 0 || layerIndex == 1) return Layer.row(0, square());
-            if (layerIndex == 2) return Layer.row(1, square());
+            if (layerIndex == 0 || layerIndex == 1) return Layer.of(0, square());
+            if (layerIndex == 2) return Layer.of(1, square());
             int patternIndex = layerIndex - 3;
             boolean isCross = patternIndex % 2 == 0;
-            if (isCross) return Layer.row(foliageRadius / 2, noCorner());
-            return Layer.row(foliageRadius, noCorner());
+            if (isCross) return Layer.of(foliageRadius / 2, noCorner());
+            return Layer.of(foliageRadius, noCorner());
         };
     }
 
     @Override
     public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
-        return height.getClampedValue(random, trunkHeight, h -> h % 2 == 0 ? h : h - 1);
+        return height.sample(random, trunkHeight, h -> h % 2 == 0 ? h : h - 1);
     }
 }

@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.placement.special;
 
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
-import by.langvest.plantopia.worldgen.placement.PlantopiaSelectionType;
+import by.langvest.plantopia.worldgen.util.PlantopiaSelectionType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;

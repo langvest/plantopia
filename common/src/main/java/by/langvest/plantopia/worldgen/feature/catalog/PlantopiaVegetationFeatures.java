@@ -17,7 +17,7 @@ import by.langvest.plantopia.worldgen.feature.blockplacer.PlantopiaSimpleBlockPl
 import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
@@ -60,7 +60,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.*;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.VegetationFeatures

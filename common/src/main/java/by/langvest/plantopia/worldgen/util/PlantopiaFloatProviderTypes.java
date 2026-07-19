@@ -1,7 +1,7 @@
-package by.langvest.plantopia.worldgen.value;
+package by.langvest.plantopia.worldgen.util;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.value.floatprovider.PlantopiaWeightedListFloat;
+import by.langvest.plantopia.worldgen.util.floatprovider.PlantopiaWeightedListFloat;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;

@@ -1,7 +1,7 @@
-package by.langvest.plantopia.worldgen.placement.verticalanchor;
+package by.langvest.plantopia.worldgen.util.verticalanchor;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.placement.PlantopiaVerticalAnchorType;
+import by.langvest.plantopia.worldgen.util.PlantopiaVerticalAnchorType;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -19,7 +19,7 @@ public abstract class PlantopiaVerticalAnchor {
     public static final Codec<PlantopiaVerticalAnchor> CODEC = PlantopiaRegistries.VERTICAL_ANCHOR_TYPE.byNameCodec().dispatch(PlantopiaVerticalAnchor::type, PlantopiaVerticalAnchorType::codec);
     protected static final int SEA_LEVEL = 63;
 
-    protected abstract PlantopiaVerticalAnchorType<?> type();
+    public abstract PlantopiaVerticalAnchorType<?> type();
 
     public int resolveY(WorldGenerationContext context, WorldGenLevel level, BlockPos pos) {
         return resolveY(context, level, pos.getX(), pos.getZ());

@@ -53,7 +53,7 @@ public final class PlantopiaDictionary {
     public static final String SNOWY = "snowy";
     public static final String GRAVELLY = "gravelly";
     public static final String SANDY = "sandy";
-    public static final String MOODY = "moody";
+    public static final String MUDDY = "muddy";
     public static final String SWAMP = "swamp";
     public static final String OCEAN = "ocean";
     public static final String CHECKED = "checked";

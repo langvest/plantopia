@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
@@ -13,18 +13,20 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static by.langvest.plantopia.worldgen.util.PlantopiaTemplate.*;
+
 @ParametersAreNonnullByDefault
 public class PlantopiaCypressFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
     public static final Codec<PlantopiaCypressFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance)
-        .and(PlantopiaProportionConfig.CODEC.fieldOf("height").forGetter(it -> it.height))
+        .and(PlantopiaRelativeIntProportion.CODEC.fieldOf("height").forGetter(it -> it.height))
         .and(IntProvider.CODEC.fieldOf("tip_step").forGetter(it -> it.tipStep))
         .apply(instance, PlantopiaCypressFoliagePlacer::new)
     );
 
-    private final PlantopiaProportionConfig height;
+    private final PlantopiaRelativeIntProportion height;
     private final IntProvider tipStep;
 
-    public PlantopiaCypressFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaProportionConfig height, IntProvider tipStep) {
+    public PlantopiaCypressFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaRelativeIntProportion height, IntProvider tipStep) {
         super(radius, offset);
         this.height = height;
         this.tipStep = tipStep;
@@ -42,17 +44,17 @@ public class PlantopiaCypressFoliagePlacer extends PlantopiaLayeredFoliagePlacer
         int tipHeight = tipStep * 2;
 
         return layerIndex -> {
-            if (layerIndex < tipStep) return Layer.row(0, square());
-            if (layerIndex < tipHeight) return Layer.row(1, layerIndex == tipHeight - 1 ? anyOf(noCorner(), withChance(isThin ? 0.25333334F : 0.4F)) : cross());
-            if (layerIndex == foliageHeight - 1) return Layer.row(1, cross());
-            if (layerIndex == tipHeight || isThin) return Layer.row(1, square());
-            if (layerIndex == tipHeight + 1 || layerIndex == foliageHeight - 2) return Layer.row(foliageRadius, anyOf(cross(), square(0.5F)));
-            return Layer.row(foliageRadius, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
+            if (layerIndex < tipStep) return Layer.of(0, square());
+            if (layerIndex < tipHeight) return Layer.of(1, layerIndex == tipHeight - 1 ? anyOf(noCorner(), withChance(isThin ? 0.25333334F : 0.4F)) : cross());
+            if (layerIndex == foliageHeight - 1) return Layer.of(1, cross());
+            if (layerIndex == tipHeight || isThin) return Layer.of(1, square());
+            if (layerIndex == tipHeight + 1 || layerIndex == foliageHeight - 2) return Layer.of(foliageRadius, anyOf(cross(), square(0.5F)));
+            return Layer.of(foliageRadius, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
         };
     }
 
     @Override
     public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
-        return height.getClampedValue(random, trunkHeight);
+        return height.sample(random, trunkHeight);
     }
 }

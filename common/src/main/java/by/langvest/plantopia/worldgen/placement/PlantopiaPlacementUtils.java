@@ -2,7 +2,7 @@ package by.langvest.plantopia.worldgen.placement;
 
 import by.langvest.plantopia.util.PlantopiaTagSet;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaRangeFilter;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.cascades;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 public final class PlantopiaPlacementUtils {
     public static final PlantopiaRangeFilter WATER_PLANT_RANGE_FILTER = PlantopiaRangeFilter.above(PlantopiaVerticalAnchor.seaLevel(-1));

@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.config;
 
-import by.langvest.plantopia.worldgen.placement.PlantopiaDipType;
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.util.PlantopiaDipType;
+import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;

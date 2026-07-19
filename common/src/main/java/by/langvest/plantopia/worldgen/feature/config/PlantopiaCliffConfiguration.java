@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.config;
 
-import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderSet;
@@ -12,14 +12,14 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 
 public record PlantopiaCliffConfiguration(
     BlockStateProvider provider,
-    PlantopiaProportionConfig depth,
+    PlantopiaIntProportion depth,
     int smoothness,
     BlockPredicate predicate,
     HolderSet<Biome> allowedBiomes
 ) implements FeatureConfiguration {
     public static final Codec<PlantopiaCliffConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         BlockStateProvider.CODEC.fieldOf("provider").forGetter(PlantopiaCliffConfiguration::provider),
-        PlantopiaProportionConfig.CODEC.fieldOf("depth").forGetter(PlantopiaCliffConfiguration::depth),
+        PlantopiaIntProportion.CODEC.fieldOf("depth").forGetter(PlantopiaCliffConfiguration::depth),
         ExtraCodecs.NON_NEGATIVE_INT.fieldOf("smoothness").forGetter(PlantopiaCliffConfiguration::smoothness),
         BlockPredicate.CODEC.fieldOf("predicate").forGetter(PlantopiaCliffConfiguration::predicate),
         Biome.LIST_CODEC.fieldOf("allowed_biomes").forGetter(PlantopiaCliffConfiguration::allowedBiomes)

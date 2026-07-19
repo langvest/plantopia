@@ -406,7 +406,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
             if (i == 1) {
                 riverBiome = PlantopiaBiomes.GRAVELLY_RIVER;
             } else if (i == 2) {
-                riverBiome = Biomes.RIVER;
+                riverBiome = PlantopiaBiomes.MUDDY_RIVER;
             } else {
                 riverBiome = PlantopiaBiomes.SANDY_RIVER;
             }

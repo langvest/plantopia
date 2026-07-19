@@ -5,7 +5,7 @@ import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -187,6 +187,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN)
                 .add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+                .add(PlantopiaBiomes.MUDDY_RIVER)
             )
     );
 

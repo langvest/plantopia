@@ -1,6 +1,6 @@
-package by.langvest.plantopia.worldgen.value;
+package by.langvest.plantopia.worldgen.util;
 
-import by.langvest.plantopia.worldgen.value.floatprovider.PlantopiaWeightedListFloat;
+import by.langvest.plantopia.worldgen.util.floatprovider.PlantopiaWeightedListFloat;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.IntProvider;

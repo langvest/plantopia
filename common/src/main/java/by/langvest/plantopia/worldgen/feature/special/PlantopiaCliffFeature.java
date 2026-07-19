@@ -87,7 +87,7 @@ public class PlantopiaCliffFeature extends Feature<PlantopiaCliffConfiguration> 
                 int eastY = level.getHeight(heightmap, x + 1, z);
 
                 int minY = Math.min(y, Math.min(northY, Math.min(southY, Math.min(westY, eastY))));
-                int depth = config.depth().getClampedValue(random, y - minY);
+                int depth = config.depth().sample(random, y - minY);
 
                 for (int i = 0; i < depth; i++) {
                     mutablePos.set(x, y - 1 - i, z);

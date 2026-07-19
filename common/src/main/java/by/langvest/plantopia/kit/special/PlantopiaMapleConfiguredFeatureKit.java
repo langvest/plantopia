@@ -38,7 +38,7 @@ public class PlantopiaMapleConfiguredFeatureKit extends PlantopiaTreeConfiguredF
         this.lushTreeBees0002 = PlantopiaFeatures.declareFeature(
             "lush_" + baseName + "_bees_0002",
             PlantopiaFeatureDeclaration.builder()
-                .feature(tree(context ->
+                .feature(deciduousTree(context ->
                     createSimpleLushTree(log.get(), leaves.get())
                         .ignoreVines()
                         .decorators(List.of(BEEHIVE_DECORATOR_0002))

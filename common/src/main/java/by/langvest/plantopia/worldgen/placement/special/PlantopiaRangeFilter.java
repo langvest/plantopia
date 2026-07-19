@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.placement.special;
 
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;

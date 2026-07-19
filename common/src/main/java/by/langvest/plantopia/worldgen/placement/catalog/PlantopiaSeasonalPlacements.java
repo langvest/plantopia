@@ -6,7 +6,6 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -18,7 +17,7 @@ import java.util.List;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
@@ -98,7 +97,7 @@ public interface PlantopiaSeasonalPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.TINY_YELLOW_ASPEN)
             .modifiers(context -> List.of(
-                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 1), 0, 1)),
+                CountPlacement.of(UniformInt.of(0, 1)),
                 InSquarePlacement.spread(),
                 TREE_THRESHOLD,
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -124,7 +123,7 @@ public interface PlantopiaSeasonalPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.TINY_RED_ASPEN)
             .modifiers(context -> List.of(
-                CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 1), 0, 1)),
+                CountPlacement.of(UniformInt.of(0, 1)),
                 InSquarePlacement.spread(),
                 TREE_THRESHOLD,
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -161,7 +160,7 @@ public interface PlantopiaSeasonalPlacements {
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_GROVE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE),
-        getTreeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
+        getTreeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(4, 0.1F, 2))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE)
             )

@@ -3,7 +3,6 @@ package by.langvest.plantopia.worldgen.feature;
 import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.feature.special.*;
-import by.langvest.plantopia.worldgen.feature.tree.PlantopiaHugeWitchyToadstoolFeature;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +23,6 @@ public class PlantopiaFeatureTypes {
     public static final RegistryObject<PlantopiaPitFeature> PIT = registerFeatureType("pit", () -> new PlantopiaPitFeature(PlantopiaPitConfiguration.CODEC));
     public static final RegistryObject<PlantopiaBranchingShrubPatchFeature> BRANCHING_SHRUB_PATCH = registerFeatureType("branching_shrub_patch", () -> new PlantopiaBranchingShrubPatchFeature(PlantopiaBranchingShrubPatchConfiguration.CODEC));
     public static final RegistryObject<PlantopiaVegetationPatchFeature> VEGETATION_PATCH = registerFeatureType("vegetation_patch", () -> new PlantopiaVegetationPatchFeature(PlantopiaVegetationPatchConfiguration.CODEC));
-    public static final RegistryObject<PlantopiaHugeWitchyToadstoolFeature> HUGE_WITCHY_TOADSTOOL = registerFeatureType("huge_witchy_toadstool", () -> new PlantopiaHugeWitchyToadstoolFeature(HugeMushroomFeatureConfiguration.CODEC));
     public static final RegistryObject<PlantopiaPoiAnchorFeature> POI_ANCHOR = registerFeatureType("poi_anchor", () -> new PlantopiaPoiAnchorFeature(PlantopiaPoiAnchorConfiguration.CODEC));
     public static final RegistryObject<PlantopiaCactusColumnFeature> CACTUS_COLUMN = registerFeatureType("cactus_column", () -> new PlantopiaCactusColumnFeature(BlockColumnConfiguration.CODEC));
     public static final RegistryObject<PlantopiaQuagmireFeature> QUAGMIRE_WATER_LEVEL = registerFeatureType("quagmire_water_level", () -> new PlantopiaQuagmireFeature(PlantopiaQuagmireConfiguration.CODEC));
@@ -38,6 +36,8 @@ public class PlantopiaFeatureTypes {
     public static final RegistryObject<PlantopiaHogweedColonyFeature> HOGWEED_COLONY = registerFeatureType("hogweed_colony", () -> new PlantopiaHogweedColonyFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<PlantopiaSeaHangingMossClusterFeature> SEA_HANGING_MOSS_CLUSTER = registerFeatureType("sea_hanging_moss_cluster", () -> new PlantopiaSeaHangingMossClusterFeature(PlantopiaSeaHangingMossClusterConfiguration.CODEC));
     public static final RegistryObject<PlantopiaCliffFeature> CLIFF = registerFeatureType("cliff", () -> new PlantopiaCliffFeature(PlantopiaCliffConfiguration.CODEC));
+    public static final RegistryObject<PlantopiaDeciduousTreeFeature> DECIDUOUS_TREE = registerFeatureType("deciduous_tree", () -> new PlantopiaDeciduousTreeFeature(TreeConfiguration.CODEC));
+    public static final RegistryObject<PlantopiaMushroomTreeFeature> MUSHROOM_TREE = registerFeatureType("mushroom_tree", () -> new PlantopiaMushroomTreeFeature(TreeConfiguration.CODEC));
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
         return registerFeatureType(plantopia(name), supplier);

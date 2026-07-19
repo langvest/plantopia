@@ -26,8 +26,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedProvider;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedProvider;
 
 public final class PlantopiaFeatureUtils {
     public static final float CHANCE_055 = 0.55F;
@@ -84,8 +84,13 @@ public final class PlantopiaFeatureUtils {
     }
 
     @Contract(pure = true)
-    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> tree(Function<BootstapContext<ConfiguredFeature<?, ?>>, TreeConfiguration> configFactory) {
-        return configuredFeature(Feature.TREE, configFactory);
+    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> deciduousTree(Function<BootstapContext<ConfiguredFeature<?, ?>>, TreeConfiguration> configFactory) {
+        return configuredFeature(PlantopiaFeatureTypes.DECIDUOUS_TREE, configFactory);
+    }
+
+    @Contract(pure = true)
+    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> mushroomTree(Function<BootstapContext<ConfiguredFeature<?, ?>>, TreeConfiguration> configFactory) {
+        return configuredFeature(PlantopiaFeatureTypes.MUSHROOM_TREE, configFactory);
     }
 
     @Contract(pure = true)

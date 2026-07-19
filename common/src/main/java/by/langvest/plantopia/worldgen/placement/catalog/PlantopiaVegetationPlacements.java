@@ -8,7 +8,7 @@ import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils;
 import by.langvest.plantopia.worldgen.placement.special.*;
-import by.langvest.plantopia.worldgen.placement.verticalanchor.PlantopiaVerticalAnchor;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
@@ -29,7 +29,7 @@ import java.util.List;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
@@ -190,7 +190,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.SANDY_RIVER)
+                .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.MUDDY_RIVER)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
@@ -249,7 +249,6 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.DARK_FOREST)
-                .add(Biomes.WINDSWEPT_FOREST)
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
@@ -553,6 +552,22 @@ public interface PlantopiaVegetationPlacements {
             .biomes(biomes -> biomes
                 .apply(PlantopiaPlacementUtils::addVanillaSwampBiomes)
                 .add(PlantopiaBiomes.DEAD_MARSH)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_CATTAIL_MUDDY_RIVER = declarePlacement(
+        compileNameFrom(PATCH_CATTAIL, PlantopiaBiomes.MUDDY_RIVER),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_CATTAIL)
+            .modifiers(context -> List.of(
+                CountPlacement.of(ConstantInt.of(3)),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                WATER_PLANT_RANGE_FILTER,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.MUDDY_RIVER)
             )
     );
 

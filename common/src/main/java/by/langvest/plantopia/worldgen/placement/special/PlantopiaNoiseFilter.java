@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.placement.special;
 
-import by.langvest.plantopia.worldgen.placement.PlantopiaThresholdType;
+import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementModifierTypes;
 import com.mojang.serialization.Codec;

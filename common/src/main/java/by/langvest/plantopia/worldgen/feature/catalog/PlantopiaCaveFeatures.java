@@ -5,7 +5,7 @@ import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.config.*;
-import by.langvest.plantopia.worldgen.feature.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
+import by.langvest.plantopia.worldgen.util.stateprovider.PlantopiaTiltedLayeredBlockStateProvider;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.simpleProvider;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.weightedListInt;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.features.CaveFeatures

@@ -4,7 +4,8 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
-import by.langvest.plantopia.worldgen.feature.PlantopiaProportionConfig;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaWitchyToadstoolFoliagePlacer;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
@@ -35,7 +36,7 @@ import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.*;
-import static by.langvest.plantopia.worldgen.value.PlantopiaProviderUtils.*;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.*;
 
 /**
  * @see net.minecraft.data.worldgen.features.TreeFeatures
@@ -50,26 +51,40 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> HUGE_WITCHY_TOADSTOOL = declareFeature(
         compileNameFrom(HUGE, PlantopiaBlocks.WITCHY_TOADSTOOL),
         PlantopiaFeatureDeclaration.builder()
-            .feature(configuredFeature(PlantopiaFeatureTypes.HUGE_WITCHY_TOADSTOOL, context ->
-                new HugeMushroomFeatureConfiguration(
-                    BlockStateProvider.simple(
-                        PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get().defaultBlockState()
-                            .setValue(HugeMushroomBlock.DOWN, false)
-                    ),
-                    BlockStateProvider.simple(
+            .feature(mushroomTree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(
                         Blocks.MUSHROOM_STEM.defaultBlockState()
                             .setValue(HugeMushroomBlock.UP, false)
                             .setValue(HugeMushroomBlock.DOWN, false)
+                    ), // logBlock
+                    new PlantopiaStraightTrunkPlacer(
+                        UniformInt.of(5, 6) // baseHeight
                     ),
-                    1
-                )
+                    simpleProvider(
+                        PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get().defaultBlockState()
+                            .setValue(HugeMushroomBlock.DOWN, false)
+                    ), // leavesBlock
+                    new PlantopiaWitchyToadstoolFoliagePlacer(
+                        ConstantInt.of(1), // foliageRadius
+                        ConstantInt.of(3), // foliageOffset
+                        PlantopiaIntProportion.fixed(
+                            UniformInt.of(6, 7)
+                        ) // foliageHeight
+                    ),
+                    new TwoLayersFeatureSize(
+                        2, // heightThreshold
+                        0, // lowerRadius
+                        1 // upperRadius
+                    )
+                ).ignoreVines().build()
             ))
     );
 
     ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_OAK = declareFeature(
         compileNameFrom(SEASONAL, TreeFeatures.DARK_OAK),
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 new TreeConfiguration.TreeConfigurationBuilder(
                     simpleProvider(Blocks.DARK_OAK_LOG),
                     new DarkOakTrunkPlacer(6, 2, 1),
@@ -108,7 +123,7 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ASPEN = declareFeature(
         "yellow_aspen",
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
@@ -119,7 +134,7 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> YELLOW_ASPEN_BEES_0002 = declareFeature(
         compileNameFrom(YELLOW_ASPEN, BEES, CHANCE_0002),
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR, BEEHIVE_DECORATOR_0002))
@@ -145,7 +160,7 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> TINY_YELLOW_ASPEN = declareFeature(
         compileNameFrom(TINY, YELLOW_ASPEN),
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
@@ -156,7 +171,7 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> RED_ASPEN = declareFeature(
         "red_aspen",
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
@@ -167,7 +182,7 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> TINY_RED_ASPEN = declareFeature(
         compileNameFrom(TINY, RED_ASPEN),
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
@@ -178,7 +193,7 @@ public interface PlantopiaTreeFeatures {
     ResourceKey<ConfiguredFeature<?, ?>> ACACIA_CYPRESS = declareFeature(
         "acacia_cypress",
         PlantopiaFeatureDeclaration.builder()
-            .feature(tree(context ->
+            .feature(deciduousTree(context ->
                 new TreeConfiguration.TreeConfigurationBuilder(
                     simpleProvider(Blocks.ACACIA_LOG), // logBlock
                     new PlantopiaStraightTrunkPlacer(
@@ -188,8 +203,8 @@ public interface PlantopiaTreeFeatures {
                     simpleProvider(Blocks.ACACIA_LEAVES), // leavesBlock
                     new PlantopiaCypressFoliagePlacer(
                         ConstantInt.of(1), // foliageRadius
-                        ConstantInt.of(3), // foliageOffset,
-                        PlantopiaProportionConfig.of(
+                        ConstantInt.of(3), // foliageOffset
+                        PlantopiaIntProportion.relative(
                             ConstantFloat.of(1.233334F),
                             ConstantInt.of(8)
                         ), // foliageHeight
@@ -200,9 +215,7 @@ public interface PlantopiaTreeFeatures {
                         0, // lowerRadius
                         1 // upperRadius
                     )
-                )
-                    .ignoreVines()
-                    .build()
+                ).ignoreVines().build()
             ))
     );
 }
