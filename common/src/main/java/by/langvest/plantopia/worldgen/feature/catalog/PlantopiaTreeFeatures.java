@@ -3,12 +3,9 @@ package by.langvest.plantopia.worldgen.feature.catalog;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaChanterelleFoliagePlacer;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaPortobelloFoliagePlacer;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaWitchyToadstoolFoliagePlacer;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.*;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
 import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
@@ -46,6 +43,40 @@ public interface PlantopiaTreeFeatures {
     static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
+
+    ResourceKey<ConfiguredFeature<?, ?>> HUGE_TOADSTOOL = declareFeature(
+        compileNameFrom(HUGE, PlantopiaBlocks.TOADSTOOL),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(mushroomTree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(
+                        Blocks.MUSHROOM_STEM.defaultBlockState()
+                            .setValue(HugeMushroomBlock.UP, false)
+                            .setValue(HugeMushroomBlock.DOWN, false)
+                    ), // logBlock
+                    new PlantopiaStraightTrunkPlacer(
+                        weightedListInt(values -> values
+                            .add(UniformInt.of(8, 9), 3)
+                            .add(UniformInt.of(11, 12), 2)
+                        ) // baseHeight
+                    ),
+                    simpleProvider(
+                        PlantopiaBlocks.TOADSTOOL_BLOCK.get().defaultBlockState()
+                            .setValue(HugeMushroomBlock.DOWN, false)
+                    ), // leavesBlock
+                    new PlantopiaToadstoolFoliagePlacer(
+                        ConstantInt.of(1), // foliageRadius
+                        ConstantInt.of(0), // foliageOffset
+                        PlantopiaIntProportion.fixed(UniformInt.of(3, 4)) // foliageHeight
+                    ),
+                    new TwoLayersFeatureSize(
+                        4, // heightThreshold
+                        0, // lowerRadius
+                        1 // upperRadius
+                    )
+                ).ignoreVines().build()
+            ))
+    );
 
     ResourceKey<ConfiguredFeature<?, ?>> HUGE_WITCHY_TOADSTOOL = declareFeature(
         compileNameFrom(HUGE, PlantopiaBlocks.WITCHY_TOADSTOOL),

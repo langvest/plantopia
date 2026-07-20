@@ -158,6 +158,9 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> WHITE_LUCKY_DAISY = registerBlock("white_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.LIGHT_GRAY));
     public static final RegistryObject<Block> PINK_LUCKY_DAISY = registerBlock("pink_lucky_daisy", properties -> new PlantopiaLuckyDaisyBlock(() -> MobEffects.REGENERATION, 10, properties), MetaProperties.of(MetaType.LUCKY_DAISY).color(DyeColor.PINK));
 
+    public static final RegistryObject<Block> TOADSTOOL_BLOCK = registerBlock("toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_ORANGE).customDrop());
+    public static final RegistryObject<Block> TOADSTOOL = registerBlock("toadstool", properties -> new PlantopiaToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_ORANGE));
+
     public static final RegistryObject<Block> WITCHY_TOADSTOOL_BLOCK = registerBlock("witchy_toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_PURPLE).customDrop());
     public static final RegistryObject<Block> WITCHY_TOADSTOOL = registerBlock("witchy_toadstool", properties -> new PlantopiaWitchyToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_WITCHY_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_PURPLE).lightLevel(1));
 

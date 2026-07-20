@@ -2,6 +2,7 @@
     "values": [
         "plantopia:chanterelle_block",
         "plantopia:portobello_block",
+        "plantopia:toadstool_block",
         "plantopia:witchy_toadstool_block"
     ]
 }
