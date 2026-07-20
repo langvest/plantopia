@@ -61,6 +61,18 @@
             },
             "trigger": "minecraft:inventory_changed"
         },
+        "plantopia:portobello": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:portobello"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
         "plantopia:witchy_toadstool": {
             "conditions": {
                 "items": [
@@ -104,6 +116,9 @@
         ],
         [
             "plantopia:chanterelle"
+        ],
+        [
+            "plantopia:portobello"
         ],
         [
             "plantopia:witchy_toadstool"

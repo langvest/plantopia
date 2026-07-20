@@ -1,10 +1,7 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.registry.PlantopiaRegistries;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaChanterelleFoliagePlacer;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaLushFoliagePlacer;
-import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaWitchyToadstoolFoliagePlacer;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.*;
 import by.langvest.toolkit.event.RegisterEvent;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +19,7 @@ public class PlantopiaFoliagePlacerTypes {
     public static final RegistryObject<FoliagePlacerType<PlantopiaCypressFoliagePlacer>> CYPRESS_FOLIAGE_PLACER = registerFoliagePlacerType("cypress_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaCypressFoliagePlacer.CODEC));
     public static final RegistryObject<FoliagePlacerType<PlantopiaWitchyToadstoolFoliagePlacer>> WITCHY_TOADSTOOL_FOLIAGE_PLACER = registerFoliagePlacerType("witchy_toadstool_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaWitchyToadstoolFoliagePlacer.CODEC));
     public static final RegistryObject<FoliagePlacerType<PlantopiaChanterelleFoliagePlacer>> CHANTERELLE_FOLIAGE_PLACER = registerFoliagePlacerType("chanterelle_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaChanterelleFoliagePlacer.CODEC));
+    public static final RegistryObject<FoliagePlacerType<PlantopiaPortobelloFoliagePlacer>> PORTOBELLO_FOLIAGE_PLACER = registerFoliagePlacerType("portobello_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaPortobelloFoliagePlacer.CODEC));
 
     private static <T extends FoliagePlacer> RegistryObject<FoliagePlacerType<T>> registerFoliagePlacerType(String name, Supplier<FoliagePlacerType<T>> supplier) {
         return registerFoliagePlacerType(plantopia(name), supplier);

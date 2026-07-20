@@ -5,10 +5,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
 @ParametersAreNonnullByDefault
 public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
@@ -16,7 +25,17 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
         super(radius, offset);
     }
 
-    protected void placeRow(LevelSimulatedReader level, FoliageSetter foliageSetter, RandomSource random, TreeConfiguration config, FoliageAttachment attachment, int dy, int range, PlantopiaTemplate template) {
+    protected void placeRow(
+        LevelSimulatedReader level,
+        FoliageSetter foliageSetter,
+        RandomSource random,
+        FoliageAttachment attachment,
+        TreeConfiguration config,
+        int dy,
+        int range,
+        PlantopiaTemplate template,
+        @Nullable BlockStateModifier modifier
+    ) {
         boolean large = attachment.doubleTrunk();
         int i = large ? 1 : 0;
         var mutablePos = new BlockPos.MutableBlockPos();
@@ -33,14 +52,47 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
 
                 if (template.test(random, templateDx, templateDz, range)) {
                     mutablePos.setWithOffset(attachment.pos(), dx, dy, dz);
-                    tryPlaceLeaf(level, foliageSetter, random, config, mutablePos);
+                    var state = config.foliageProvider.getState(random, mutablePos);
+
+                    if (modifier != null) {
+                        state = modifier.modify(level, state, mutablePos, random, dx, dz, templateDx, templateDz, range);
+                    }
+
+                    if (state != null) {
+                        tryPlaceLeaf(level, mutablePos, state, foliageSetter, random);
+                    }
                 }
             }
         }
     }
 
+    @SuppressWarnings("UnusedReturnValue")
+    protected boolean tryPlaceLeaf(LevelSimulatedReader level, BlockPos pos, BlockState state, FoliageSetter foliageSetter, RandomSource random) {
+        if (!TreeFeature.validTreePos(level, pos)) return false;
+        foliageSetter.set(pos, copyWaterloggedFrom(level, pos, state));
+        return true;
+    }
+
     @Override
     protected boolean shouldSkipLocation(RandomSource random, int dx, int dy, int dz, int range, boolean large) {
         return false;
+    }
+
+    @FunctionalInterface
+    protected interface BlockStateModifier {
+        BlockState modify(LevelSimulatedReader level, BlockState state, BlockPos pos, RandomSource random, int realDx, int realDz, int templateDx, int templateDz, int range);
+    }
+
+    @Contract(pure = true)
+    protected static @NotNull BlockStateModifier revealMushroomInsides() {
+        return (level, state, pos, random, realDx, realDz, templateDx, templateDz, range) -> {
+            if (state.getBlock() instanceof HugeMushroomBlock) {
+                if (templateDx > 0) state = state.setValue(BlockStateProperties.WEST, false);
+                if (templateDx < 0) state = state.setValue(BlockStateProperties.EAST, false);
+                if (templateDz > 0) state = state.setValue(BlockStateProperties.NORTH, false);
+                if (templateDz < 0) state = state.setValue(BlockStateProperties.SOUTH, false);
+            }
+            return state;
+        };
     }
 }

@@ -1,0 +1,68 @@
+{
+    "type": "plantopia:mushroom_tree",
+    "config": {
+        "decorators": [],
+        "dirt_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+                "Name": "minecraft:dirt"
+            }
+        },
+        "foliage_placer": {
+            "type": "plantopia:portobello_foliage_placer",
+            "height": {
+                "type": "plantopia:fixed_proportion",
+                "value": 2
+            },
+            "offset": 0,
+            "radius": 3
+        },
+        "foliage_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+                "Name": "plantopia:portobello_block",
+                "Properties": {
+                    "down": "false",
+                    "east": "true",
+                    "north": "true",
+                    "south": "true",
+                    "up": "true",
+                    "west": "true"
+                }
+            }
+        },
+        "force_dirt": false,
+        "ignore_vines": true,
+        "minimum_size": {
+            "type": "minecraft:two_layers_feature_size",
+            "limit": 4,
+            "lower_size": 0,
+            "upper_size": 3
+        },
+        "trunk_placer": {
+            "type": "plantopia:straight_trunk_placer",
+            "base_height": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_inclusive": 7,
+                    "min_inclusive": 5
+                }
+            },
+            "bonus_height": 0
+        },
+        "trunk_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+                "Name": "minecraft:mushroom_stem",
+                "Properties": {
+                    "down": "false",
+                    "east": "true",
+                    "north": "true",
+                    "south": "true",
+                    "up": "false",
+                    "west": "true"
+                }
+            }
+        }
+    }
+}

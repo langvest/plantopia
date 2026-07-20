@@ -96,6 +96,7 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.TALL_DUNE_GRASS.get(), block -> createDoublePlantShearedDrops(block, PlantopiaBlocks.DUNE_GRASS.get()));
         add(PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.WITCHY_TOADSTOOL.get()));
         add(PlantopiaBlocks.CHANTERELLE_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.CHANTERELLE.get()));
+        add(PlantopiaBlocks.PORTOBELLO_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.PORTOBELLO.get()));
         add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_LOG));
         add(PlantopiaBlocks.BIRCH_BASE_WOOD.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_WOOD));
         add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTableSubProvider::createCloverDrops);

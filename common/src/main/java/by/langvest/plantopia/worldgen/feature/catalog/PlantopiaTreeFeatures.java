@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaChanterelleFoliagePlacer;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaPortobelloFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaWitchyToadstoolFoliagePlacer;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
@@ -96,6 +97,37 @@ public interface PlantopiaTreeFeatures {
                         2, // heightThreshold
                         0, // lowerRadius
                         2 // upperRadius
+                    )
+                ).ignoreVines().build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> HUGE_PORTOBELLO = declareFeature(
+        compileNameFrom(HUGE, PlantopiaBlocks.PORTOBELLO),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(mushroomTree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(
+                        Blocks.MUSHROOM_STEM.defaultBlockState()
+                            .setValue(HugeMushroomBlock.UP, false)
+                            .setValue(HugeMushroomBlock.DOWN, false)
+                    ), // logBlock
+                    new PlantopiaStraightTrunkPlacer(
+                        UniformInt.of(5, 7) // baseHeight
+                    ),
+                    simpleProvider(
+                        PlantopiaBlocks.PORTOBELLO_BLOCK.get().defaultBlockState()
+                            .setValue(HugeMushroomBlock.DOWN, false)
+                    ), // leavesBlock
+                    new PlantopiaPortobelloFoliagePlacer(
+                        ConstantInt.of(3), // foliageRadius
+                        ConstantInt.of(0), // foliageOffset
+                        PlantopiaIntProportion.fixed(ConstantInt.of(2)) // foliageHeight
+                    ),
+                    new TwoLayersFeatureSize(
+                        4, // heightThreshold
+                        0, // lowerRadius
+                        3 // upperRadius
                     )
                 ).ignoreVines().build()
             ))
