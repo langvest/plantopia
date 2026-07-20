@@ -105,6 +105,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         bushWithOverlayBlock(PlantopiaBlocks.TALL_SPIKY_GRASS.get());
         treeFruitBlock(PlantopiaBlocks.BIRCH_CATKIN.get());
         treeFruitBlock(PlantopiaBlocks.PINECONE.get());
+        hugeChanterelleBlock(PlantopiaBlocks.CHANTERELLE_BLOCK.get());
 
         checkAll();
     }
@@ -539,30 +540,15 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         String baseName = blockMeta.getName();
 
         var texture = texture(baseName);
-
         var model = singleFaceTemplateModel(baseName, texture);
         var insideModel = existingMinecraftModel("mushroom_block_inside");
 
         if (blockMeta.hasItem()) {
             var inventoryModel = cubeAllModel(baseName + "_inventory", texture);
-
             blockItemModel(baseName, inventoryModel);
         }
 
-        var builder = getMultipartBuilder(blockMeta.get());
-
-        builder.part().modelFile(model).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.UP, true);
-        builder.part().modelFile(insideModel).rotationX(270).addModel().condition(BlockStateProperties.UP, false);
-        builder.part().modelFile(model).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.DOWN, true);
-        builder.part().modelFile(insideModel).rotationX(90).addModel().condition(BlockStateProperties.DOWN, false);
-        builder.part().modelFile(model).addModel().condition(BlockStateProperties.NORTH, true);
-        builder.part().modelFile(insideModel).addModel().condition(BlockStateProperties.NORTH, false);
-        builder.part().modelFile(model).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true);
-        builder.part().modelFile(insideModel).rotationY(180).addModel().condition(BlockStateProperties.SOUTH, false);
-        builder.part().modelFile(model).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.EAST, true);
-        builder.part().modelFile(insideModel).rotationY(90).addModel().condition(BlockStateProperties.EAST, false);
-        builder.part().modelFile(model).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.WEST, true);
-        builder.part().modelFile(insideModel).rotationY(270).addModel().condition(BlockStateProperties.WEST, false);
+        hugeMushroomBlock(blockMeta.get(), model, insideModel);
     }
 
     private void herbBlock(@NotNull PlantopiaBlockMeta blockMeta) {
@@ -598,6 +584,19 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     }
 
     /* CUSTOM MODELS GENERATION ******************************************/
+
+    private void hugeChanterelleBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var texture = texture(baseName);
+        var insideTexture = texture(baseName + "_inside");
+        var insideModel = singleFaceTemplateModel(baseName + "_inside", insideTexture);
+        var model = singleFaceTemplateModel(baseName, texture);
+        var inventoryModel = cubeAllModel(baseName + "_inventory", texture);
+
+        blockItemModel(baseName, inventoryModel);
+        hugeMushroomBlock(block, model, insideModel);
+    }
 
     private void icicleBlock(Block block) {
         String baseName = nameOf(block);
@@ -1253,6 +1252,23 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                 .partialState().with(property, value).modelForState()
                 .modelFile(modelFile).addModel();
         }
+    }
+
+    private void hugeMushroomBlock(Block block, ModelFile model, ModelFile insideModel) {
+        var builder = getMultipartBuilder(block);
+
+        builder.part().modelFile(model).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.UP, true);
+        builder.part().modelFile(insideModel).rotationX(270).addModel().condition(BlockStateProperties.UP, false);
+        builder.part().modelFile(model).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.DOWN, true);
+        builder.part().modelFile(insideModel).rotationX(90).addModel().condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).addModel().condition(BlockStateProperties.NORTH, true);
+        builder.part().modelFile(insideModel).addModel().condition(BlockStateProperties.NORTH, false);
+        builder.part().modelFile(model).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true);
+        builder.part().modelFile(insideModel).rotationY(180).addModel().condition(BlockStateProperties.SOUTH, false);
+        builder.part().modelFile(model).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.EAST, true);
+        builder.part().modelFile(insideModel).rotationY(90).addModel().condition(BlockStateProperties.EAST, false);
+        builder.part().modelFile(model).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.WEST, true);
+        builder.part().modelFile(insideModel).rotationY(270).addModel().condition(BlockStateProperties.WEST, false);
     }
 
     /* BLOCK MODELS ******************************************/

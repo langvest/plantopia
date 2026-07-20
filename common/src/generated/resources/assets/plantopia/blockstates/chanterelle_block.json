@@ -12,7 +12,7 @@
         },
         {
             "apply": {
-                "model": "minecraft:block/mushroom_block_inside",
+                "model": "plantopia:block/chanterelle_block_inside",
                 "x": 270
             },
             "when": {
@@ -31,7 +31,7 @@
         },
         {
             "apply": {
-                "model": "minecraft:block/mushroom_block_inside",
+                "model": "plantopia:block/chanterelle_block_inside",
                 "x": 90
             },
             "when": {
@@ -48,7 +48,7 @@
         },
         {
             "apply": {
-                "model": "minecraft:block/mushroom_block_inside"
+                "model": "plantopia:block/chanterelle_block_inside"
             },
             "when": {
                 "north": "false"
@@ -66,7 +66,7 @@
         },
         {
             "apply": {
-                "model": "minecraft:block/mushroom_block_inside",
+                "model": "plantopia:block/chanterelle_block_inside",
                 "y": 180
             },
             "when": {
@@ -85,7 +85,7 @@
         },
         {
             "apply": {
-                "model": "minecraft:block/mushroom_block_inside",
+                "model": "plantopia:block/chanterelle_block_inside",
                 "y": 90
             },
             "when": {
@@ -104,7 +104,7 @@
         },
         {
             "apply": {
-                "model": "minecraft:block/mushroom_block_inside",
+                "model": "plantopia:block/chanterelle_block_inside",
                 "y": 270
             },
             "when": {

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 @FunctionalInterface
 public interface PlantopiaTemplate {
-    boolean test(RandomSource random, int dx, int dy, int dz, int range);
+    boolean test(RandomSource random, int dx, int dz, int range);
 
     /* TEMPLATES **********************************************************************************/
 
@@ -17,7 +17,7 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate square(float scale) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             if (scale < 0) return false;
             float radius = range * scale;
             return Math.abs(dx) <= radius && Math.abs(dz) <= radius;
@@ -31,7 +31,7 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate circle(float scale) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             if (scale < 0) return false;
             float radius = range * scale;
             return (dx * dx + dz * dz) <= (radius * radius);
@@ -45,7 +45,7 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate cross(int thickness) {
-        return (random, dx, dy, dz, range) -> Math.abs(dx) <= thickness || Math.abs(dz) <= thickness;
+        return (random, dx, dz, range) -> Math.abs(dx) <= thickness || Math.abs(dz) <= thickness;
     }
 
     @Contract(pure = true)
@@ -55,7 +55,7 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate outline(int thickness) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             if (thickness <= 0) return false;
             return Math.abs(dx) > range - thickness || Math.abs(dz) > range - thickness;
         };
@@ -68,7 +68,7 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate corner(int inset) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             if (inset <= 0) return false;
             return Math.abs(dx) > range - inset && Math.abs(dz) > range - inset;
         };
@@ -76,19 +76,19 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate withChance(float chance) {
-        return (random, dx, dy, dz, range) -> random.nextFloat() < chance;
+        return (random, dx, dz, range) -> random.nextFloat() < chance;
     }
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate not(PlantopiaTemplate template) {
-        return (random, dx, dy, dz, range) -> !template.test(random, dx, dy, dz, range);
+        return (random, dx, dz, range) -> !template.test(random, dx, dz, range);
     }
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate anyOf(PlantopiaTemplate... templates) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             for (PlantopiaTemplate template : templates) {
-                if (template.test(random, dx, dy, dz, range)) {
+                if (template.test(random, dx, dz, range)) {
                     return true;
                 }
             }
@@ -98,9 +98,9 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate allOf(PlantopiaTemplate... templates) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             for (PlantopiaTemplate template : templates) {
-                if (!template.test(random, dx, dy, dz, range)) {
+                if (!template.test(random, dx, dz, range)) {
                     return false;
                 }
             }
@@ -130,21 +130,21 @@ public interface PlantopiaTemplate {
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate withRangeOffset(int offset, PlantopiaTemplate template) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             int newRange = range + offset;
             if (newRange < 0) return false;
             if (Math.abs(dx) > newRange || Math.abs(dz) > newRange) return false;
-            return template.test(random, dx, dy, dz, newRange);
+            return template.test(random, dx, dz, newRange);
         };
     }
 
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate withRangeFactor(float factor, PlantopiaTemplate template) {
-        return (random, dx, dy, dz, range) -> {
+        return (random, dx, dz, range) -> {
             int newRange = (int) (range * factor);
             if (newRange < 0) return false;
             if (Math.abs(dx) > newRange || Math.abs(dz) > newRange) return false;
-            return template.test(random, dx, dy, dz, newRange);
+            return template.test(random, dx, dz, newRange);
         };
     }
 

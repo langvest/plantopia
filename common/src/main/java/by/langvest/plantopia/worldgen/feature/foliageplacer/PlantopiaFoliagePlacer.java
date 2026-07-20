@@ -23,15 +23,15 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
 
         for (int dx = -range; dx <= range + i; dx++) {
             for (int dz = -range; dz <= range + i; dz++) {
-                int tdx = dx;
-                int tdz = dz;
+                int templateDx = dx;
+                int templateDz = dz;
 
                 if (large) {
-                    if (dx >= 1) tdx = dx - 1;
-                    if (dz >= 1) tdz = dz - 1;
+                    if (dx >= 1) templateDx = dx - 1;
+                    if (dz >= 1) templateDz = dz - 1;
                 }
 
-                if (template.test(random, tdx, dy, tdz, range)) {
+                if (template.test(random, templateDx, templateDz, range)) {
                     mutablePos.setWithOffset(attachment.pos(), dx, dy, dz);
                     tryPlaceLeaf(level, foliageSetter, random, config, mutablePos);
                 }

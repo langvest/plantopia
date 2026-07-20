@@ -38,7 +38,12 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
     }
 
     protected TreeBlockPool createBlockPool(FeaturePlaceContext<TreeConfiguration> context) {
-        return new TreeBlockPool(Sets.newHashSet(), Sets.newHashSet(), Sets.newHashSet(), Sets.newHashSet());
+        return new TreeBlockPool(
+            Sets.newHashSet(),
+            Sets.newHashSet(),
+            Sets.newHashSet(),
+            Sets.newHashSet()
+        );
     }
 
     protected TreeBlockSetter createBlockSetter(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool) {
