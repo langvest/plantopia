@@ -1,0 +1,25 @@
+{
+    "feature": "plantopia:patch_toadstool",
+    "placement": [
+        {
+            "type": "plantopia:rarity_filter",
+            "chance": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": 20.0,
+                    "min_inclusive": 14.0
+                }
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "WORLD_SURFACE_WG"
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
+}

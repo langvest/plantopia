@@ -30,6 +30,7 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
@@ -71,6 +72,46 @@ public interface PlantopiaVegetationFeatures {
     static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_TOADSTOOL = declareFeature(
+        patchNameOf(PlantopiaBlocks.TOADSTOOL),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simpleRandomPatchConfiguration(
+                    72,
+                    PlacementUtils.filtered(
+                        PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                        simpleConfig(PlantopiaBlocks.TOADSTOOL.get()),
+                        BlockPredicate.allOf(
+                            BlockPredicate.ONLY_IN_AIR_PREDICATE,
+                            BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.TOADSTOOL_CAN_GENERATE_ON)
+                        )
+                    )
+                )
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_PORTOBELLO = declareFeature(
+        patchNameOf(PlantopiaBlocks.PORTOBELLO),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simplePatchConfiguration(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.PORTOBELLO.get())
+                )
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_CHANTERELLE = declareFeature(
+        patchNameOf(PlantopiaBlocks.CHANTERELLE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                FeatureUtils.simplePatchConfiguration(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.CHANTERELLE.get())
+                )
+            ))
+    );
 
     ResourceKey<ConfiguredFeature<?, ?>> SINGLE_HOGWEED = declareFeature(
         singleNameOf(PlantopiaBlocks.HOGWEED),

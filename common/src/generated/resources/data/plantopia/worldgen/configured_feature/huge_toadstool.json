@@ -64,8 +64,8 @@
                         "data": {
                             "type": "minecraft:uniform",
                             "value": {
-                                "max_inclusive": 12,
-                                "min_inclusive": 11
+                                "max_inclusive": 11,
+                                "min_inclusive": 10
                             }
                         },
                         "weight": 2

@@ -1,6 +1,6 @@
 {
     "parent": "plantopia:block/cross_with_ao_up",
     "textures": {
-        "cross": "plantopia:block/pinecone"
+        "cross": "plantopia:block/pine_cone"
     }
 }

@@ -93,7 +93,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     public static final PlantopiaTagSet<Block> BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS = getOrCreateTagSet(PlantopiaBlockTags.BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS);
     public static final PlantopiaTagSet<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = getOrCreateTagSet(PlantopiaBlockTags.COBBLESTONE_SHARD_CAN_GENERATE_ON);
     public static final PlantopiaTagSet<Block> BRANCHING_SHRUB_CAN_GENERATE_ON = getOrCreateTagSet(PlantopiaBlockTags.BRANCHING_SHRUB_CAN_GENERATE_ON);
-    public static final PlantopiaTagSet<Block> WITCHY_TOADSTOOL_CAN_GENERATE_ON = getOrCreateTagSet(PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON);
+    public static final PlantopiaTagSet<Block> TOADSTOOL_CAN_GENERATE_ON = getOrCreateTagSet(PlantopiaBlockTags.TOADSTOOL_CAN_GENERATE_ON);
     public static final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE = getOrCreateTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE);
     public static final PlantopiaTagSet<Block> ORES_OVERWORLD = getOrCreateTagSet(PlantopiaBlockTags.ORES_OVERWORLD);
     public static final PlantopiaTagSet<Block> GROUND_OVERWORLD = getOrCreateTagSet(PlantopiaBlockTags.GROUND_OVERWORLD);
@@ -160,7 +160,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             .add(Blocks.RED_SAND)
             .addTag(BlockTags.DIRT, BlockTags.TERRACOTTA);
 
-        WITCHY_TOADSTOOL_CAN_GENERATE_ON
+        TOADSTOOL_CAN_GENERATE_ON
             .add(Blocks.CLAY, Blocks.GRAVEL, Blocks.DRIPSTONE_BLOCK)
             .addTag(BlockTags.DIRT, BlockTags.BASE_STONE_OVERWORLD)
             .addTag(BlockTags.PLANKS, BlockTags.LOGS)
@@ -168,7 +168,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
 
         REPLACEABLE_BY_TREES
             .add(PlantopiaBlocks.BRANCHING_SHRUB.get())
-            .add(PlantopiaBlocks.BIRCH_CATKIN.get(), PlantopiaBlocks.PINECONE.get());
+            .add(PlantopiaBlocks.BIRCH_CATKIN.get(), PlantopiaBlocks.PINE_CONE.get());
 
         SEA_MOSS_REPLACEABLE_BLOCKS
             .addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT)

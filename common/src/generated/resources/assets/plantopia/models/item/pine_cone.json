@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-        "layer0": "plantopia:item/pinecone"
+        "layer0": "plantopia:item/pine_cone"
     }
 }

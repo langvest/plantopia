@@ -57,7 +57,7 @@ public interface PlantopiaTreeFeatures {
                     new PlantopiaStraightTrunkPlacer(
                         weightedListInt(values -> values
                             .add(UniformInt.of(8, 9), 3)
-                            .add(UniformInt.of(11, 12), 2)
+                            .add(UniformInt.of(10, 11), 2)
                         ) // baseHeight
                     ),
                     simpleProvider(
@@ -144,7 +144,7 @@ public interface PlantopiaTreeFeatures {
                             .setValue(HugeMushroomBlock.DOWN, false)
                     ), // logBlock
                     new PlantopiaStraightTrunkPlacer(
-                        UniformInt.of(5, 7) // baseHeight
+                        UniformInt.of(5, 6) // baseHeight
                     ),
                     simpleProvider(
                         PlantopiaBlocks.PORTOBELLO_BLOCK.get().defaultBlockState()

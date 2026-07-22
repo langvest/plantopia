@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/patch_portobello",
+    "features": "plantopia:patch_portobello",
+    "step": "vegetal_decoration"
+}

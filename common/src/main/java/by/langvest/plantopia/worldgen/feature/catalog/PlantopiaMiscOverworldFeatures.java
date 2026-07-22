@@ -154,7 +154,7 @@ public interface PlantopiaMiscOverworldFeatures {
                                 BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS, Blocks.FERN, Blocks.VINE, PlantopiaBlocks.CLOVER.get()),
                                 BlockPredicate.matchesTag(BlockTags.SMALL_FLOWERS)
                             ),
-                            BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON)
+                            BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.TOADSTOOL_CAN_GENERATE_ON)
                         )
                     ),
                     Optional.empty()
@@ -173,7 +173,7 @@ public interface PlantopiaMiscOverworldFeatures {
                     VerticalAnchor.belowTop(32),
                     ConstantInt.of(5),
                     List.of(PlantopiaThresholdType.ABOVE),
-                    Optional.of(BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.WITCHY_TOADSTOOL_CAN_GENERATE_ON)),
+                    Optional.of(BlockPredicate.matchesTag(BlockPos.ZERO.below(), PlantopiaBlockTags.TOADSTOOL_CAN_GENERATE_ON)),
                     Optional.of(Heightmap.Types.OCEAN_FLOOR_WG)
                 )
             ))

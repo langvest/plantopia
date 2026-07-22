@@ -56,7 +56,7 @@ public abstract class PlantopiaBoneMealItemMixin {
             if (clickedState.is(Blocks.BIRCH_LEAVES)) {
                 blockToPlace = PlantopiaBlocks.BIRCH_CATKIN.get();
             } else if (clickedState.is(Blocks.SPRUCE_LEAVES)) {
-                blockToPlace = PlantopiaBlocks.PINECONE.get();
+                blockToPlace = PlantopiaBlocks.PINE_CONE.get();
             }
 
             if (blockToPlace != null) {

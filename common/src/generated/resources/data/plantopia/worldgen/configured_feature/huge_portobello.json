@@ -44,7 +44,7 @@
             "base_height": {
                 "type": "minecraft:uniform",
                 "value": {
-                    "max_inclusive": 7,
+                    "max_inclusive": 6,
                     "min_inclusive": 5
                 }
             },

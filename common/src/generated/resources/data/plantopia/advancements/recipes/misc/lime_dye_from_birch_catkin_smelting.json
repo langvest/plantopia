@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_birch_catkin": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:birch_catkin"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:lime_dye_from_birch_catkin_smelting"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_birch_catkin"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:lime_dye_from_birch_catkin_smelting"
+        ]
+    },
+    "sends_telemetry_event": false
+}

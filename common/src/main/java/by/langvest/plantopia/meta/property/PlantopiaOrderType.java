@@ -14,6 +14,7 @@ public enum PlantopiaOrderType {
     WET_PLANT,
     SEA_MOSS,
     EXOTIC_PLANT,
+    TREE_FRUIT,
     FLOWER,
     FOOD,
     ITEM;

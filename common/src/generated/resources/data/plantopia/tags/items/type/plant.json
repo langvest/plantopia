@@ -5,10 +5,9 @@
         "#plantopia:type/grass",
         "#plantopia:type/sapling",
         "#plantopia:type/tiny_cactus",
+        "#plantopia:type/tree_fruit",
         "#plantopia:type/water_plant",
         "#plantopia:type/woody_plant",
-        "plantopia:birch_catkin",
-        "plantopia:hogweed",
-        "plantopia:pinecone"
+        "plantopia:hogweed"
     ]
 }

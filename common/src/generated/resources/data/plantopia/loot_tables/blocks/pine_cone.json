@@ -11,11 +11,11 @@
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "plantopia:pinecone"
+                    "name": "plantopia:pine_cone"
                 }
             ],
             "rolls": 1.0
         }
     ],
-    "random_sequence": "plantopia:blocks/pinecone"
+    "random_sequence": "plantopia:blocks/pine_cone"
 }

@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_pine_cone": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:pine_cone"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:brown_dye_from_pine_cone_smelting"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_pine_cone"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:brown_dye_from_pine_cone_smelting"
+        ]
+    },
+    "sends_telemetry_event": false
+}

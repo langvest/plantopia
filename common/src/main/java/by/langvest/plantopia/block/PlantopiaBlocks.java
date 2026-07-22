@@ -23,7 +23,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -161,11 +160,11 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> TOADSTOOL_BLOCK = registerBlock("toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_ORANGE).customDrop());
     public static final RegistryObject<Block> TOADSTOOL = registerBlock("toadstool", properties -> new PlantopiaToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_ORANGE));
 
-    public static final RegistryObject<Block> WITCHY_TOADSTOOL_BLOCK = registerBlock("witchy_toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_PURPLE).customDrop());
-    public static final RegistryObject<Block> WITCHY_TOADSTOOL = registerBlock("witchy_toadstool", properties -> new PlantopiaWitchyToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_WITCHY_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_PURPLE).lightLevel(1));
+    public static final RegistryObject<Block> WITCHY_TOADSTOOL_BLOCK = registerBlock("witchy_toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.COLOR_PURPLE).customDrop());
+    public static final RegistryObject<Block> WITCHY_TOADSTOOL = registerBlock("witchy_toadstool", properties -> new PlantopiaWitchyToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_WITCHY_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.COLOR_PURPLE).lightLevel(1));
 
-    public static final RegistryObject<Block> CHANTERELLE_BLOCK = registerBlock("chanterelle_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_YELLOW).customDrop().customModel());
-    public static final RegistryObject<Block> CHANTERELLE = registerBlock("chanterelle", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_CHANTERELLE), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_YELLOW));
+    public static final RegistryObject<Block> CHANTERELLE_BLOCK = registerBlock("chanterelle_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.COLOR_YELLOW).customDrop().customModel());
+    public static final RegistryObject<Block> CHANTERELLE = registerBlock("chanterelle", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_CHANTERELLE), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.COLOR_YELLOW));
 
     public static final RegistryObject<Block> PORTOBELLO_BLOCK = registerBlock("portobello_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_WHITE).customDrop());
     public static final RegistryObject<Block> PORTOBELLO = registerBlock("portobello", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_PORTOBELLO), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_WHITE));
@@ -177,8 +176,8 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves));
     public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves));
 
-    public static final RegistryObject<Block> BIRCH_CATKIN = registerBlock("birch_catkin", PlantopiaBirchCatkinBlock::new, MetaProperties.of(MetaType.PLANT).offsetType(BlockBehaviour.OffsetType.XZ).customModel().dropSelfByShears());
-    public static final RegistryObject<Block> PINECONE = registerBlock("pinecone", PlantopiaPineconeBlock::new, MetaProperties.of(MetaType.PLANT).offsetType(BlockBehaviour.OffsetType.XZ).customModel());
+    public static final RegistryObject<Block> BIRCH_CATKIN = registerBlock("birch_catkin", PlantopiaBirchCatkinBlock::new, MetaProperties.of(MetaType.TREE_FRUIT).dropSelfByShears().replaceable());
+    public static final RegistryObject<Block> PINE_CONE = registerBlock("pine_cone", PlantopiaPineconeBlock::new, MetaProperties.of(MetaType.TREE_FRUIT));
 
     public static final RegistryObject<Block> POTTED_GRASS = registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
     public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));

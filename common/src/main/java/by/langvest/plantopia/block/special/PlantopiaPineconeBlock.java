@@ -10,6 +10,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Fallable;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -21,7 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import static net.minecraft.world.level.block.FallingBlock.isFree;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaPineconeBlock extends Block implements Fallable {
+public class PlantopiaPineconeBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(5.0D, 6.75D, 5.0D, 11.0D, 16.0D, 11.0D);
 
     public PlantopiaPineconeBlock(Properties properties) {
@@ -47,20 +48,8 @@ public class PlantopiaPineconeBlock extends Block implements Fallable {
     @SuppressWarnings("deprecation")
     public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction == Direction.UP && !canSurvive(state, level, pos)) {
-            level.scheduleTick(pos, this, 2);
+            return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!canSurvive(state, level, pos)) {
-            if (isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight()) {
-                FallingBlockEntity.fall(level, pos, state);
-            } else {
-                level.destroyBlock(pos, true);
-            }
-        }
     }
 }

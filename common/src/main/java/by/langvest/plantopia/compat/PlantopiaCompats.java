@@ -123,7 +123,7 @@ public class PlantopiaCompats {
         public static final float MUSHROOM_STEM = CHANCE_65;
         public static final float MUSHROOM_BLOCK = CHANCE_85;
         public static final float HAS_FLOWERS = 0.05F;
-        public static final float LEAF_LITTER = PLANT_1 * 0.75F;
+        public static final float PARTIAL_PLANT = PLANT_1 * 0.75F;
     }
 
     /**

@@ -103,8 +103,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         bushWithOverlayBlock(PlantopiaBlocks.TALL_FLUFFY_GRASS.get());
         bushWithOverlayBlock(PlantopiaBlocks.SPIKY_GRASS.get());
         bushWithOverlayBlock(PlantopiaBlocks.TALL_SPIKY_GRASS.get());
-        treeFruitBlock(PlantopiaBlocks.BIRCH_CATKIN.get());
-        treeFruitBlock(PlantopiaBlocks.PINECONE.get());
         hugeChanterelleBlock(PlantopiaBlocks.CHANTERELLE_BLOCK.get());
 
         checkAll();
@@ -116,6 +114,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
             var block = blockMeta.get();
             var type = blockMeta.getType();
+
+            if (type.instanceOf(MetaType.TREE_FRUIT)) {
+                treeFruitBlock(blockMeta);
+                return;
+            }
 
             if (block instanceof PlantopiaLeafLitterBlock) {
                 leafLitterBlock(blockMeta);
@@ -456,6 +459,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         simpleBlock(blockMeta.get(), model);
     }
 
+    private void treeFruitBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var texture = texture(baseName);
+        var itemTexture = itemTexture(baseName);
+        var model = crossWithAOModel(baseName, Direction.UP, texture);
+
+        generatedItemModel(baseName, itemTexture);
+        simpleBlock(blockMeta.get(), model);
+    }
+
     private void waterlilyFlowerBlock(@NotNull PlantopiaBlockMeta blockMeta) {
         String baseName = blockMeta.getName();
 
@@ -623,17 +637,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         var model = tintedCrossWithOverlayModel(baseName, plantTexture, overlayTexture);
 
         generatedItemModel(baseName, plantTexture, overlayTexture);
-        simpleBlock(block, model);
-    }
-
-    private void treeFruitBlock(Block block) {
-        String baseName = nameOf(block);
-
-        var texture = texture(baseName);
-        var itemTexture = itemTexture(baseName);
-        var model = crossWithAOModel(baseName, Direction.UP, texture);
-
-        generatedItemModel(baseName, itemTexture);
         simpleBlock(block, model);
     }
 

@@ -40,7 +40,7 @@ public class PlantopiaBirchCatkinBlock extends Block {
     @Override
     @SuppressWarnings("deprecation")
     public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (direction == Direction.UP && !this.canSurvive(state, level, pos)) {
+        if (direction == Direction.UP && !canSurvive(state, level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);

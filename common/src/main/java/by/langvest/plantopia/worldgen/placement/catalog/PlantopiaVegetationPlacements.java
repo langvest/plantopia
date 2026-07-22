@@ -41,7 +41,54 @@ public interface PlantopiaVegetationPlacements {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
-    /* VEGETATION PLACEMENTS ******************************************/
+    ResourceKey<PlacedFeature> PATCH_TOADSTOOL = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_TOADSTOOL),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_TOADSTOOL)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(14.0F, 20.0F),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.SEASONAL_FOREST)
+                .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_PORTOBELLO = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_PORTOBELLO),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_PORTOBELLO)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(26.0F),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.WINDSWEPT_FOREST)
+                .add(PlantopiaBiomes.MAPLE_WOODS)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_CHANTERELLE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_CHANTERELLE),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_CHANTERELLE)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(26.0F),
+                CountPlacement.of(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(Biomes.OLD_GROWTH_PINE_TAIGA)
+                .add(PlantopiaBiomes.BOREAL_FOREST)
+            )
+    );
 
     ResourceKey<PlacedFeature> HOGWEED_BONEMEAL = declarePlacement(
         compileNameFrom(PlantopiaBlocks.HOGWEED, BONEMEAL),

@@ -397,6 +397,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
 
         public static final MetaType MUSHROOM = MetaProperties.create()
             .copyBehaviour(Blocks.BROWN_MUSHROOM)
+            .postProcessable()
             .notLuminous()
             .cutoutRender()
             .pottable()
@@ -439,9 +440,15 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             .pushReaction(PushReaction.DESTROY)
             .cutoutRender()
             .flammable(Encouragement.PLANT, Flammability.PLANT)
-            .compostable(Compostability.LEAF_LITTER)
+            .compostable(Compostability.PARTIAL_PLANT)
             .burnTime(BurnTime.LEAF_LITTER)
             .makeType("leaf_litter");
+
+        public static final MetaType TREE_FRUIT = MetaProperties.of(PLANT)
+            .order(PlantopiaOrderType.TREE_FRUIT)
+            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .compostable(Compostability.PARTIAL_PLANT)
+            .makeType("tree_fruit");
 
         public static final MetaType SEA_MOSS = MetaProperties.create()
             .copyBehaviour(Blocks.MOSS_BLOCK)
@@ -673,6 +680,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
         private PlantopiaTintType tintType = PlantopiaTintType.NONE;
         private PlantopiaTagType tagType = PlantopiaTagType.GENERATED;
         private PlantopiaOrderType orderType = PlantopiaOrderType.BLOCK;
+        private BlockBehaviour.StatePredicate hasPostProcess = MetaProperties::never;
         private @Nullable Supplier<? extends ItemLike> goesAfter = null;
         private PlantopiaBeePreferenceType beePreferenceType = PlantopiaBeePreferenceType.DEFAULT;
         private @Nullable DyeColor color = null;
@@ -778,12 +786,28 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             return modifyBehaviour(properties -> properties.mapColor(mapColor));
         }
 
-        public MetaProperties isRedstoneConductor(BlockBehaviour.StatePredicate predicate) {
+        public MetaProperties postProcessable(BlockBehaviour.StatePredicate predicate) {
+            return modifyBehaviour(properties -> properties.hasPostProcess(predicate));
+        }
+
+        public MetaProperties postProcessable() {
+            return postProcessable(MetaProperties::always);
+        }
+
+        public MetaProperties notPostProcessable() {
+            return postProcessable(MetaProperties::never);
+        }
+
+        public MetaProperties redstoneConductable(BlockBehaviour.StatePredicate predicate) {
             return modifyBehaviour(properties -> properties.isRedstoneConductor(predicate));
         }
 
+        public MetaProperties redstoneConductable() {
+            return redstoneConductable(MetaProperties::always);
+        }
+
         public MetaProperties notRedstoneConductable() {
-            return modifyBehaviour(properties -> properties.isRedstoneConductor(MetaProperties::never));
+            return redstoneConductable(MetaProperties::never);
         }
 
         public MetaProperties isValidSpawn(BlockBehaviour.StateArgumentPredicate<EntityType<?>> predicate) {
