@@ -160,7 +160,7 @@ public interface PlantopiaSeasonalPlacements {
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_GROVE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE),
-        getTreeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(4, 0.1F, 2))
+        getTreeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE)
             )

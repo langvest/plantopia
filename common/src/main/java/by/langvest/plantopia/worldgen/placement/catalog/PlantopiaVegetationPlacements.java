@@ -375,40 +375,40 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_CARROTWEED_SNOWY_ASPEN_GROVE = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_CARROTWEED, PlantopiaBiomes.SNOWY_ASPEN_GROVE),
-        PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.PATCH_CARROTWEED)
-            .modifiers(context -> {
-                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.432D, 43, 775);
-                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 123, 65);
-                float bigNoiseLevel = -0.4F;
-                float smallNoiseLevel = -0.1F;
-
-                return List.of(
-                    PlantopiaConditionPlacement.conditional(
-                        List.of(
-                            PlantopiaRarityFilter.onAverageOnceEvery(6.12F)
-                        ),
-                        List.of(
-                            CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
-                            InSquarePlacement.spread()
-                        ),
-                        List.of(
-                            PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 8),
-                            InSquarePlacement.spread(),
-                            PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
-                            PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F)
-                        )
-                    ),
-                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-                    BiomeFilter.biome()
-                );
-            })
-            .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
-            )
-    );
+//    ResourceKey<PlacedFeature> PATCH_CARROTWEED_SNOWY_ASPEN_GROVE = declarePlacement(
+//        compileNameFrom(PlantopiaFeatures.PATCH_CARROTWEED, PlantopiaBiomes.SNOWY_ASPEN_GROVE),
+//        PlantopiaPlacementDeclaration.builder()
+//            .feature(PlantopiaFeatures.PATCH_CARROTWEED)
+//            .modifiers(context -> {
+//                var bigNoiseConfig = PlantopiaNoiseConfig.of(0.432D, 43, 775);
+//                var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 123, 65);
+//                float bigNoiseLevel = -0.4F;
+//                float smallNoiseLevel = -0.1F;
+//
+//                return List.of(
+//                    PlantopiaConditionPlacement.conditional(
+//                        List.of(
+//                            PlantopiaRarityFilter.onAverageOnceEvery(6.12F)
+//                        ),
+//                        List.of(
+//                            CountPlacement.of(ClampedInt.of(UniformInt.of(0, 2), 1, 2)),
+//                            InSquarePlacement.spread()
+//                        ),
+//                        List.of(
+//                            PlantopiaNoiseCountPlacement.below(bigNoiseConfig, bigNoiseLevel, 8),
+//                            InSquarePlacement.spread(),
+//                            PlantopiaNoiseFilter.below(bigNoiseConfig, bigNoiseLevel, 0.1F),
+//                            PlantopiaNoiseFilter.above(smallNoiseConfig, smallNoiseLevel, 0.1F)
+//                        )
+//                    ),
+//                    PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+//                    BiomeFilter.biome()
+//                );
+//            })
+//            .biomes(biomes -> biomes
+//                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
+//            )
+//    );
 
     //	public static final ResourceKey<PlacedFeature> PATCH_CARROTWEED = declarePlacedFeature(
     //		compileNameFrom(PlantopiaFeatures.PATCH_CARROTWEED),
