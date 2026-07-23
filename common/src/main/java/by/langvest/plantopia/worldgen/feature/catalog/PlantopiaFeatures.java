@@ -10,14 +10,18 @@ import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 
 public interface PlantopiaFeatures extends
     PlantopiaVegetationFeatures,
+    PlantopiaTreeFeatures,
+    PlantopiaArborealFeatures,
     PlantopiaMiscOverworldFeatures,
     PlantopiaCaveFeatures,
-    PlantopiaTreeFeatures {
+    PlantopiaSeasonalFeatures {
     Catalog<ResourceKey<ConfiguredFeature<?, ?>>, PlantopiaFeatureDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
         PlantopiaVegetationFeatures.DECLARATION,
+        PlantopiaTreeFeatures.DECLARATION,
+        PlantopiaArborealFeatures.DECLARATION,
         PlantopiaMiscOverworldFeatures.DECLARATION,
         PlantopiaCaveFeatures.DECLARATION,
-        PlantopiaTreeFeatures.DECLARATION
+        PlantopiaSeasonalFeatures.DECLARATION
     ));
 
     static @NotNull ResourceKey<ConfiguredFeature<?, ?>> declareFeature(String name, PlantopiaFeatureDeclaration.@NotNull Builder builder) {

@@ -739,38 +739,6 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> TREES_LAVENDER_FIELDS = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.TREES_LAVENDER_FIELDS),
-        PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.TREES_LAVENDER_FIELDS)
-            .modifiers(context -> List.of(
-                PlacementUtils.countExtra(0, 0.125F, 1),
-                InSquarePlacement.spread(),
-                TREE_THRESHOLD,
-                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BiomeFilter.biome()
-            ))
-            .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.LAVENDER_FIELDS)
-            )
-    );
-
-    ResourceKey<PlacedFeature> TREES_POPPY_FIELDS = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.TREES_POPPY_FIELDS),
-        PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.TREES_POPPY_FIELDS)
-            .modifiers(context -> List.of(
-                PlacementUtils.countExtra(0, 0.125F, 1),
-                InSquarePlacement.spread(),
-                TREE_THRESHOLD,
-                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BiomeFilter.biome()
-            ))
-            .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.POPPY_FIELDS)
-            )
-    );
-
     ResourceKey<PlacedFeature> PATCH_FLOWERING_LILY_PAD = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_FLOWERING_LILY_PAD),
         PlantopiaPlacementDeclaration.builder()
@@ -912,15 +880,6 @@ public interface PlantopiaVegetationPlacements {
             .biomes(biomes -> biomes
                 .addTag(PlantopiaBiomeTags.ALLOWS_QUAGMIRE)
             )
-    );
-
-    ResourceKey<PlacedFeature> ACACIA_CYPRESS_CHECKED = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.ACACIA_CYPRESS, CHECKED),
-        PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.ACACIA_CYPRESS)
-            .modifiers(context -> List.of(
-                PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING)
-            ))
     );
 
     ResourceKey<PlacedFeature> PATCH_ROSE_BUSH = declarePlacement(

@@ -37,8 +37,6 @@ public interface PlantopiaMarshPlacements {
         return DECLARATION.add(createKey(name), builder.build()).getKey();
     }
 
-    /* MARSH PLACEMENTS ******************************************/
-
     ResourceKey<PlacedFeature> LAKE_WATER_MARSH = declarePlacement(
         compileNameFrom(PlantopiaFeatures.LAKE_WATER_MARSH),
         PlantopiaPlacementDeclaration.builder()

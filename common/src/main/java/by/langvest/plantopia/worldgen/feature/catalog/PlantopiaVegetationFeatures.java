@@ -2,8 +2,6 @@ package by.langvest.plantopia.worldgen.feature.catalog;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaCloverBlock;
-import by.langvest.plantopia.block.special.PlantopiaLeafLitterBlock;
-import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.tag.PlantopiaBiomeTags;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -18,19 +16,14 @@ import by.langvest.plantopia.worldgen.feature.config.*;
 import by.langvest.plantopia.worldgen.placement.PlantopiaMultiNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.util.PlantopiaThresholdType;
-import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
-import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaSeasonalPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
@@ -41,8 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
@@ -659,211 +650,6 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> SEASONAL_DARK_FOREST_VEGETATION = declareFeature(
-        compileNameFrom(PlantopiaBiomes.SEASONAL_DARK_FOREST, VEGETATION),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var features = lookupFeatures(context);
-                var placements = lookupPlacements(context);
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
-                        new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F),
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaSeasonalPlacements.SEASONAL_DARK_OAK_LITTER_055), 0.6666667F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_CHECKED), 0.2F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.1F)
-                    ),
-                    placements.getOrThrow(TreePlacements.OAK_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_BOREAL_FOREST = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.BOREAL_FOREST),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.lushTreeBees0002litter055), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.13333334F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.35F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.33333334F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
-                    ),
-                    placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_MAPLE_WOODS = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.MAPLE_WOODS),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.33333334F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.lushTreeBees0002litter055), 0.4F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.treeBees0002litter055), 0.25F)
-                    ),
-                    placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_SEASONAL_FOREST = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.SEASONAL_FOREST),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
-                var orangeMaple = PlantopiaKits.MAPLE.orangeFeature.placed;
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_0002_PLACED), 0.03F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.05F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.01F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.25F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.treeBees0002litter055), 0.25F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002litter055), 0.1F),
-                        new WeightedPlacedFeature(placements.getOrThrow(orangeMaple.fancyTreeBees0002litter055), 0.1F)
-                    ),
-                    placements.getOrThrow(orangeMaple.treeBees0002litter055)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_ASPEN_GROVE = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.ASPEN_GROVE),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TINY_YELLOW_ASPEN_CHECKED), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
-                    ),
-                    placements.getOrThrow(PlantopiaPlacements.YELLOW_ASPEN_BEES_0002_LITTER_055)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_ASPEN_CLEARING = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.ASPEN_CLEARING),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.YELLOW_ASPEN_BEES_0002_LITTER_055), 0.35F),
-                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
-                    ),
-                    placements.getOrThrow(PlantopiaPlacements.TINY_YELLOW_ASPEN_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_SNOWY_ASPEN_GROVE = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_GROVE),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.35F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.2F),
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TINY_RED_ASPEN_CHECKED), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002), 0.1F)
-                    ),
-                    placements.getOrThrow(PlantopiaPlacements.RED_ASPEN_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_SNOWY_ASPEN_CLEARING= declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_CLEARING),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.25F),
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.RED_ASPEN_CHECKED), 0.2F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002), 0.1F)
-                    ),
-                    placements.getOrThrow(PlantopiaPlacements.TINY_RED_ASPEN_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_LAVENDER_FIELDS = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.LAVENDER_FIELDS),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-                var jacaranda = PlantopiaKits.JACARANDA.feature.placed;
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(jacaranda.treeBees0002), 0.7F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
-                    ),
-                    placements.getOrThrow(TreePlacements.OAK_BEES_0002)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_POPPY_FIELDS = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.POPPY_FIELDS),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(randomSelector(context -> {
-                var placements = lookupPlacements(context);
-
-                return new RandomFeatureConfiguration(
-                    List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.1333334F)
-                    ),
-                    placements.getOrThrow(PlantopiaPlacements.ACACIA_CYPRESS_CHECKED)
-                );
-            }))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_YELLOW_LEAF_LITTER = declareFeature(
-        patchNameOf(PlantopiaBlocks.YELLOW_LEAF_LITTER),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.YELLOW_LEAF_LITTER)))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_LEAF_LITTER = declareFeature(
-        patchNameOf(PlantopiaBlocks.ORANGE_LEAF_LITTER),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.ORANGE_LEAF_LITTER)))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_RED_LEAF_LITTER = declareFeature(
-        patchNameOf(PlantopiaBlocks.RED_LEAF_LITTER),
-        PlantopiaFeatureDeclaration.builder()
-            .feature(radialPatch(getLeafLitterConfig(PlantopiaBlocks.RED_LEAF_LITTER)))
-    );
-
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_CLOVER = declareFeature(
         patchNameOf(PlantopiaBlocks.CLOVER),
         PlantopiaFeatureDeclaration.builder()
@@ -883,43 +669,6 @@ public interface PlantopiaVegetationFeatures {
     );
 
     /* HELPER METHODS *************************************************************************/
-
-    @Contract(pure = true)
-    static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getLeafLitterConfig(Supplier<Block> leafLitterBlock) {
-        return context -> {
-            List<PlantopiaBlockPlacer> blocks = Lists.newArrayList();
-
-            blocks.add(new PlantopiaGradientBlockPlacer(
-                weightedProvider(states -> {
-                    for (var direction : Direction.Plane.HORIZONTAL) {
-                        var state = leafLitterBlock.get().defaultBlockState()
-                            .setValue(PlantopiaLeafLitterBlock.FACING, direction);
-
-                        states.add(state, 1);
-                    }
-
-                    return states;
-                }),
-                PlantopiaIntegerPropertyHolder.of(PlantopiaLeafLitterBlock.AMOUNT),
-                0.68D,
-                49
-            ));
-
-            return new PlantopiaRadialPatchConfiguration(
-                ConstantInt.of(92), // tries
-                weightedListInt(values -> values
-                    .add(UniformInt.of(5, 9), 2)
-                    .add(UniformInt.of(4, 8), 5)
-                ), // xzSpread
-                ConstantInt.of(3), // ySpread
-                -0.292D, // sigma
-                0.236D, // erosion
-                blocks,
-                Optional.of(GRASS_PLANT_PREDICATE),
-                Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES)
-            );
-        };
-    }
 
     @Contract(pure = true)
     static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaRadialPatchConfiguration> getCloverConfig(@Nullable Supplier<Block> flowerBlock) {

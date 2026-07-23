@@ -10,12 +10,16 @@ import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.c
 
 public interface PlantopiaPlacements extends
     PlantopiaVegetationPlacements,
+    PlantopiaTreePlacements,
+    PlantopiaArborealPlacements,
     PlantopiaMiscOverworldPlacements,
     PlantopiaCavePlacements,
     PlantopiaMarshPlacements,
     PlantopiaSeasonalPlacements {
     Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
         PlantopiaVegetationPlacements.DECLARATION,
+        PlantopiaTreePlacements.DECLARATION,
+        PlantopiaArborealPlacements.DECLARATION,
         PlantopiaMiscOverworldPlacements.DECLARATION,
         PlantopiaCavePlacements.DECLARATION,
         PlantopiaMarshPlacements.DECLARATION,
