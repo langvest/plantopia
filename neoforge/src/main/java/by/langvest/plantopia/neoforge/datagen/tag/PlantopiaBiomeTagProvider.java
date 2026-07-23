@@ -29,6 +29,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
     private static final Map<TagKey<Biome>, PlantopiaTagSet<Biome>> byTagKeys = Maps.newHashMap();
 
     public static final PlantopiaTagSet<Biome> IS_OVERWORLD = getOrCreateTagSet(BiomeTags.IS_OVERWORLD);
+    public static final PlantopiaTagSet<Biome> SPAWNS_SNOW_FOXES = getOrCreateTagSet(BiomeTags.SPAWNS_SNOW_FOXES);
     public static final PlantopiaTagSet<Biome> ALLOWS_QUAGMIRE = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_QUAGMIRE);
     public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
     public static final PlantopiaTagSet<Biome> ALLOWS_STONY_CLIFF = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_STONY_CLIFF);
@@ -55,6 +56,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
             .add(PlantopiaBiomes.MAPLE_WOODS);
         IS_MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
         IS_QUICKSAND_PRECIPITABLE.add(Biomes.DESERT);
+        SPAWNS_SNOW_FOXES.add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING);
 
         saveAll();
     }

@@ -92,21 +92,13 @@ public interface PlantopiaSeasonalPlacements {
             ))
     );
 
-    ResourceKey<PlacedFeature> TINY_YELLOW_ASPEN_ASPEN_CLEARING = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.TINY_YELLOW_ASPEN, PlantopiaBiomes.ASPEN_CLEARING),
+    ResourceKey<PlacedFeature> TINY_YELLOW_ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TINY_YELLOW_ASPEN, CHECKED),
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.TINY_YELLOW_ASPEN)
             .modifiers(context -> List.of(
-                CountPlacement.of(UniformInt.of(0, 1)),
-                InSquarePlacement.spread(),
-                TREE_THRESHOLD,
-                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BiomeFilter.biome(),
                 PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
             ))
-            .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.ASPEN_CLEARING)
-            )
     );
 
     ResourceKey<PlacedFeature> RED_ASPEN_CHECKED = declarePlacement(
@@ -118,21 +110,13 @@ public interface PlantopiaSeasonalPlacements {
             ))
     );
 
-    ResourceKey<PlacedFeature> TINY_RED_ASPEN = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.TINY_RED_ASPEN),
+    ResourceKey<PlacedFeature> TINY_RED_ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TINY_RED_ASPEN, CHECKED),
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.TINY_RED_ASPEN)
             .modifiers(context -> List.of(
-                CountPlacement.of(UniformInt.of(0, 1)),
-                InSquarePlacement.spread(),
-                TREE_THRESHOLD,
-                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BiomeFilter.biome(),
                 PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
             ))
-            .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
-            )
     );
 
     ResourceKey<PlacedFeature> TREES_ASPEN_GROVE = declarePlacement(
@@ -144,15 +128,8 @@ public interface PlantopiaSeasonalPlacements {
     );
 
     ResourceKey<PlacedFeature> TREES_ASPEN_CLEARING = declarePlacement(
-        compileNameFrom(TREES, PlantopiaBiomes.ASPEN_CLEARING),
-        getTreeDeclaration(
-            PlantopiaFeatures.TREES_ASPEN_GROVE,
-            CountPlacement.of(weightedListInt(values -> values
-                .add(ConstantInt.of(0), 5)
-                .add(ConstantInt.of(1), 3)
-                .add(ConstantInt.of(2), 1)
-            ))
-        )
+        compileNameFrom(PlantopiaFeatures.TREES_ASPEN_CLEARING),
+        getTreeDeclaration(PlantopiaFeatures.TREES_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
             )
@@ -167,15 +144,8 @@ public interface PlantopiaSeasonalPlacements {
     );
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_CLEARING = declarePlacement(
-        compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_CLEARING),
-        getTreeDeclaration(
-            PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE,
-            CountPlacement.of(weightedListInt(values -> values
-                .add(ConstantInt.of(0), 5)
-                .add(ConstantInt.of(1), 3)
-                .add(ConstantInt.of(2), 1)
-            ))
-        )
+        compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING),
+        getTreeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )

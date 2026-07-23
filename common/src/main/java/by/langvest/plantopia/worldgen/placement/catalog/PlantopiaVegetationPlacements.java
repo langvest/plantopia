@@ -70,6 +70,7 @@ public interface PlantopiaVegetationPlacements {
             .biomes(biomes -> biomes
                 .add(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
     );
 

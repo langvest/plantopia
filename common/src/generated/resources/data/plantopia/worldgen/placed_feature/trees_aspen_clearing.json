@@ -1,5 +1,5 @@
 {
-    "feature": "plantopia:trees_aspen_grove",
+    "feature": "plantopia:trees_aspen_clearing",
     "placement": [
         {
             "type": "minecraft:count",
@@ -7,12 +7,8 @@
                 "type": "minecraft:weighted_list",
                 "distribution": [
                     {
-                        "data": 0,
-                        "weight": 5
-                    },
-                    {
                         "data": 1,
-                        "weight": 3
+                        "weight": 9
                     },
                     {
                         "data": 2,

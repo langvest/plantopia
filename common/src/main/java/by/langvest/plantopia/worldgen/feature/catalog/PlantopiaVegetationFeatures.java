@@ -751,9 +751,27 @@ public interface PlantopiaVegetationFeatures {
 
                 return new RandomFeatureConfiguration(
                     List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TINY_YELLOW_ASPEN_CHECKED), 0.15F),
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
                     ),
                     placements.getOrThrow(PlantopiaPlacements.YELLOW_ASPEN_BEES_0002_LITTER_055)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_ASPEN_CLEARING = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.ASPEN_CLEARING),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.YELLOW_ASPEN_BEES_0002_LITTER_055), 0.35F),
+                        new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.fancyTreeBees0002litter055), 0.1F)
+                    ),
+                    placements.getOrThrow(PlantopiaPlacements.TINY_YELLOW_ASPEN_CHECKED)
                 );
             }))
     );
@@ -767,9 +785,31 @@ public interface PlantopiaVegetationFeatures {
 
                 return new RandomFeatureConfiguration(
                     List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.35F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.2F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TINY_RED_ASPEN_CHECKED), 0.15F),
                         new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002), 0.1F)
                     ),
                     placements.getOrThrow(PlantopiaPlacements.RED_ASPEN_CHECKED)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_SNOWY_ASPEN_CLEARING= declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_CLEARING),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.25F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.RED_ASPEN_CHECKED), 0.2F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.15F),
+                        new WeightedPlacedFeature(placements.getOrThrow(redMaple.fancyTreeBees0002), 0.1F)
+                    ),
+                    placements.getOrThrow(PlantopiaPlacements.TINY_RED_ASPEN_CHECKED)
                 );
             }))
     );
