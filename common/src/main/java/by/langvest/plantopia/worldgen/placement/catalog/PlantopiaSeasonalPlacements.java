@@ -23,16 +23,16 @@ public interface PlantopiaSeasonalPlacements {
 
     ResourceKey<PlacedFeature> PATCH_YELLOW_LEAF_LITTER_CHECKED = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_YELLOW_LEAF_LITTER, CHECKED),
-        getCheckedLeafLitterDeclaration(PlantopiaFeatures.PATCH_YELLOW_LEAF_LITTER)
+        checkedLeafLitterDeclaration(PlantopiaFeatures.PATCH_YELLOW_LEAF_LITTER)
     );
 
     ResourceKey<PlacedFeature> PATCH_ORANGE_LEAF_LITTER_CHECKED = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_ORANGE_LEAF_LITTER, CHECKED),
-        getCheckedLeafLitterDeclaration(PlantopiaFeatures.PATCH_ORANGE_LEAF_LITTER)
+        checkedLeafLitterDeclaration(PlantopiaFeatures.PATCH_ORANGE_LEAF_LITTER)
     );
 
     ResourceKey<PlacedFeature> PATCH_RED_LEAF_LITTER_CHECKED = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_RED_LEAF_LITTER, CHECKED),
-        getCheckedLeafLitterDeclaration(PlantopiaFeatures.PATCH_RED_LEAF_LITTER)
+        checkedLeafLitterDeclaration(PlantopiaFeatures.PATCH_RED_LEAF_LITTER)
     );
 }

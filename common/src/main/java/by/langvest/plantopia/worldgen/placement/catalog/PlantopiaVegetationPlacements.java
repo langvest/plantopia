@@ -17,7 +17,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -240,6 +239,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.MUDDY_RIVER)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 
@@ -544,6 +544,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 
@@ -652,10 +653,10 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE),
+    ResourceKey<PlacedFeature> PATCH_ORANGE_WILDFLOWERS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_ORANGE_WILDFLOWERS),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.PATCH_ORANGE_WILDFLOWERS_JUNGLE)
+            .feature(PlantopiaFeatures.PATCH_ORANGE_WILDFLOWERS)
             .modifiers(context -> List.of(
                 PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
                 InSquarePlacement.spread(),
@@ -664,6 +665,21 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .addTag(BiomeTags.IS_JUNGLE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> PATCH_WHITE_WILDFLOWERS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_WHITE_WILDFLOWERS),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_WHITE_WILDFLOWERS)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 
@@ -832,6 +848,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_GROVE)
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 
@@ -920,6 +937,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 
@@ -931,6 +949,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 
@@ -942,6 +961,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.RAIN_FOREST)
             )
     );
 

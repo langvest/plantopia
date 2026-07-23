@@ -164,7 +164,7 @@ public interface PlantopiaArborealFeatures {
             }))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_SNOWY_ASPEN_CLEARING= declareFeature(
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_SNOWY_ASPEN_CLEARING = declareFeature(
         compileNameFrom(TREES, PlantopiaBiomes.SNOWY_ASPEN_CLEARING),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
@@ -211,6 +211,23 @@ public interface PlantopiaArborealFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.1333334F)
                     ),
                     placements.getOrThrow(PlantopiaPlacements.ACACIA_CYPRESS_CHECKED)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_RAIN_FOREST = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.RAIN_FOREST),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.15F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_002), 0.15F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SUPER_BIRCH_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002)
                 );
             }))
     );

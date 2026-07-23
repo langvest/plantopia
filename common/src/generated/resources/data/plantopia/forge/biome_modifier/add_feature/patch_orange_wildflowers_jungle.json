@@ -1,6 +1,0 @@
-{
-    "type": "forge:add_features",
-    "biomes": "#plantopia:has_feature/patch_orange_wildflowers_jungle",
-    "features": "plantopia:patch_orange_wildflowers_jungle",
-    "step": "vegetal_decoration"
-}

@@ -28,6 +28,7 @@ public final class PlantopiaDictionary {
     public static final String HUGE = "huge";
     public static final String SEASONAL = "seasonal";
     public static final String BOREAL = "boreal";
+    public static final String RAIN = "rain";
     public static final String MAPLE = "maple";
     public static final String JACARANDA = "jacaranda";
     public static final String LUPINE = "lupine";

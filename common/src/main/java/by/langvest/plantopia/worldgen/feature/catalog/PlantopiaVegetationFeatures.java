@@ -425,13 +425,24 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_WILDFLOWERS_JUNGLE = declareFeature(
-        compileNameFrom(patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS), JUNGLE),
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_ORANGE_WILDFLOWERS = declareFeature(
+        patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
                 new RandomPatchConfiguration(42, 5, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.ORANGE_WILDFLOWERS.get())
+                ))
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_WHITE_WILDFLOWERS = declareFeature(
+        patchNameOf(PlantopiaBlocks.WHITE_WILDFLOWERS),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(42, 5, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.WHITE_WILDFLOWERS.get())
                 ))
             ))
     );
