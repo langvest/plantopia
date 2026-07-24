@@ -29,6 +29,7 @@ public final class PlantopiaDictionary {
     public static final String SEASONAL = "seasonal";
     public static final String BOREAL = "boreal";
     public static final String RAIN = "rain";
+    public static final String OLD_GROWTH = "old_growth";
     public static final String MAPLE = "maple";
     public static final String JACARANDA = "jacaranda";
     public static final String LUPINE = "lupine";
@@ -41,6 +42,7 @@ public final class PlantopiaDictionary {
     public static final String LITTER = "litter";
     public static final String BEES = "bees";
     public static final String TINY = "tiny";
+    public static final String TALL = "tall";
     public static final String FANCY = "fancy";
     public static final String CLUSTER = "cluster";
     public static final String SURFACE = "surface";

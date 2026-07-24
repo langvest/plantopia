@@ -9,8 +9,8 @@
     "downfall": 0.8,
     "effects": {
         "fog_color": 12638463,
-        "foliage_color": -10048942,
-        "grass_color": -9522844,
+        "foliage_color": -8604910,
+        "grass_color": -7160510,
         "mood_sound": {
             "block_search_extent": 8,
             "offset": 2.0,
@@ -82,8 +82,9 @@
             "minecraft:glow_lichen",
             "minecraft:patch_large_fern",
             "minecraft:forest_flowers",
+            "minecraft:flower_plains",
             "minecraft:flower_default",
-            "minecraft:patch_grass_jungle",
+            "minecraft:patch_grass_forest",
             "minecraft:brown_mushroom_normal",
             "minecraft:red_mushroom_normal",
             "minecraft:patch_sugar_cane",

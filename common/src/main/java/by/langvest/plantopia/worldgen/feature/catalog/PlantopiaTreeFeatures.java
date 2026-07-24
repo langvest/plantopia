@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import org.jetbrains.annotations.NotNull;
@@ -299,6 +300,31 @@ public interface PlantopiaTreeFeatures {
                         1 // upperRadius
                     )
                 ).ignoreVines().build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TALL_OAK_BEES_0002 = declareFeature(
+        compileNameFrom(TALL, "oak", BEES, CHANCE_0002),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(mushroomTree(context ->
+                new TreeConfiguration.TreeConfigurationBuilder(
+                    simpleProvider(Blocks.OAK_LOG), // logBlock
+                    new PlantopiaStraightTrunkPlacer(
+                        ConstantInt.of(6), // baseHeight
+                        UniformInt.of(0, 2) // bonusHeight
+                    ),
+                    simpleProvider(Blocks.OAK_LEAVES), // leavesBlock
+                    new BlobFoliagePlacer(
+                        ConstantInt.of(2), // foliageRadius
+                        ConstantInt.of(0), // foliageOffset
+                        3 // foliageHeight
+                    ),
+                    new TwoLayersFeatureSize(
+                        4, // heightThreshold
+                        0, // lowerRadius
+                        2 // upperRadius
+                    )
+                ).decorators(List.of(BEEHIVE_DECORATOR_0002)).ignoreVines().build()
             ))
     );
 }

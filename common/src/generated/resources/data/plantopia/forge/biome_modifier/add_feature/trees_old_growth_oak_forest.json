@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/trees_old_growth_oak_forest",
+    "features": "plantopia:trees_old_growth_oak_forest",
+    "step": "vegetal_decoration"
+}

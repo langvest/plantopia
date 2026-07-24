@@ -1,5 +1,5 @@
 {
-    "feature": "plantopia:trees_rain_forest",
+    "feature": "minecraft:birch_tall",
     "placement": [
         {
             "type": "minecraft:count",
@@ -8,7 +8,7 @@
                 "distribution": [
                     {
                         "data": 8,
-                        "weight": 9
+                        "weight": 3
                     },
                     {
                         "data": 9,

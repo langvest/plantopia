@@ -111,11 +111,19 @@ public interface PlantopiaArborealPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> TREES_RAIN_FOREST = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.TREES_RAIN_FOREST),
-        treeDeclaration(PlantopiaFeatures.TREES_RAIN_FOREST, PlacementUtils.countExtra(8, 0.1F, 1))
+    ResourceKey<PlacedFeature> TREES_TREES_OAK_FOREST = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_OAK_FOREST),
+        treeDeclaration(PlantopiaFeatures.TREES_OAK_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
-                .add(PlantopiaBiomes.RAIN_FOREST)
+                .add(PlantopiaBiomes.OAK_FOREST)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_TREES_OLD_GROWTH_OAK_FOREST = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST),
+        treeDeclaration(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST, PlacementUtils.countExtra(8, 0.25F, 1))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
             )
     );
 }

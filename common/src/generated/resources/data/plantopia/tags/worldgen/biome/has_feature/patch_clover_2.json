@@ -12,8 +12,9 @@
         "plantopia:boreal_forest",
         "plantopia:lavender_fields",
         "plantopia:maple_woods",
+        "plantopia:oak_forest",
+        "plantopia:old_growth_oak_forest",
         "plantopia:poppy_fields",
-        "plantopia:rain_forest",
         "plantopia:seasonal_dark_forest"
     ]
 }

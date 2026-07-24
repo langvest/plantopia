@@ -48,7 +48,7 @@ public interface PlantopiaForestBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.8F)
-            .grassColorOverride("#82a54a")
+            .grassColorOverride("#83a74a")
             .foliageColorOverride("#87a52c")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
@@ -79,25 +79,49 @@ public interface PlantopiaForestBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
-    ResourceKey<Biome> RAIN_FOREST = declareBiome(
-        compileNameFrom(RAIN, Biomes.FOREST),
+    ResourceKey<Biome> OAK_FOREST = declareBiome(
+        compileNameFrom("oak", Biomes.FOREST),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.FLOWER_PLAINS)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addForestGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.8F)
+            .downfall(0.8F)
+            .grassColorOverride("#92bd42")
+            .foliageColorOverride("#7cb312")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> OLD_GROWTH_OAK_FOREST = declareBiome(
+        compileNameFrom(OLD_GROWTH, OAK_FOREST),
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
             .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
             .applyGeneration(BiomeDefaultFeatures::addFerns)
             .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.FLOWER_PLAINS)
             .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
             .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
             .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
-            .applyGeneration(BiomeDefaultFeatures::addJungleGrass)
+            .applyGeneration(BiomeDefaultFeatures::addForestGrass)
             .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
             .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
             .hasPrecipitation(true)
             .temperature(0.8F)
             .downfall(0.8F)
-            .grassColorOverride("#6eb164")
-            .foliageColorOverride("#66aa52")
+            .grassColorOverride("#92bd42")
+            .foliageColorOverride("#7cb312")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );

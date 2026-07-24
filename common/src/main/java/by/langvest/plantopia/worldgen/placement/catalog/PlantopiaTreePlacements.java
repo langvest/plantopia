@@ -102,4 +102,13 @@ public interface PlantopiaTreePlacements {
                 PlacementUtils.filteredByBlockSurvival(Blocks.ACACIA_SAPLING)
             ))
     );
+
+    ResourceKey<PlacedFeature> TALL_OAK_BEES_0002 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TALL_OAK_BEES_0002),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.TALL_OAK_BEES_0002)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+            ))
+    );
 }

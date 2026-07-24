@@ -121,7 +121,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
         { null, null, null, null, null },
         { null, null, PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS },
         { null, null, PlantopiaBiomes.SEASONAL_FOREST, null, PlantopiaBiomes.SEASONAL_DARK_FOREST },
-        { null, null, null, null, null },
+        { null, null, PlantopiaBiomes.OAK_FOREST, null, null },
         { null, null, null, null, null }
     };
 
@@ -130,7 +130,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
         { null, null, PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING, null },
         { null, null, null, PlantopiaBiomes.MAPLE_WOODS, null },
         { PlantopiaBiomes.LAVENDER_FIELDS, null, PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING, null },
-        { PlantopiaBiomes.POPPY_FIELDS, null, PlantopiaBiomes.RAIN_FOREST, null, null },
+        { PlantopiaBiomes.POPPY_FIELDS, null, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST, null, null },
         { null, null, null, null, null }
     };
 

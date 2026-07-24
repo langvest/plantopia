@@ -215,17 +215,31 @@ public interface PlantopiaArborealFeatures {
             }))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> TREES_RAIN_FOREST = declareFeature(
-        compileNameFrom(TREES, PlantopiaBiomes.RAIN_FOREST),
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_OAK_FOREST = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.OAK_FOREST),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
 
                 return new RandomFeatureConfiguration(
                     List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_002), 0.15F),
-                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SUPER_BIRCH_BEES_0002), 0.1F)
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.OAK_BEES_0002)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_OLD_GROWTH_OAK_FOREST = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.3F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.2F)
                     ),
                     placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002)
                 );
