@@ -167,7 +167,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(PlantopiaBiomes.MARSH, PlantopiaBiomes.DEAD_MARSH)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
-                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE)

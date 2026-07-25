@@ -15,6 +15,9 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.treeDeclaration;
 
+/**
+ * @see net.minecraft.data.worldgen.placement.VegetationPlacements
+ */
 public interface PlantopiaArborealPlacements {
     Catalog<ResourceKey<PlacedFeature>, PlantopiaPlacementDeclaration> DECLARATION = Catalog.newCatalog();
 
@@ -65,7 +68,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_ASPEN_CLEARING = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_ASPEN_CLEARING),
-        treeDeclaration(PlantopiaFeatures.TREES_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.1F, 1))
+        treeDeclaration(PlantopiaFeatures.TREES_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.25F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
             )
@@ -81,7 +84,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_CLEARING = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING),
-        treeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.1F, 1))
+        treeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.25F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
@@ -97,7 +100,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_BOREAL_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_BOREAL_FOREST),
-        treeDeclaration(PlantopiaFeatures.TREES_BOREAL_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
+        treeDeclaration(PlantopiaFeatures.TREES_BOREAL_FOREST, PlacementUtils.countExtra(12, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.BOREAL_FOREST)
             )
@@ -108,6 +111,14 @@ public interface PlantopiaArborealPlacements {
         treeDeclaration(PlantopiaFeatures.TREES_MAPLE_WOODS, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.MAPLE_WOODS)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_AMBER_THICKET = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_AMBER_THICKET),
+        treeDeclaration(PlantopiaFeatures.TREES_AMBER_THICKET, PlacementUtils.countExtra(14, 0.1F, 1))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.AMBER_THICKET)
             )
     );
 

@@ -502,7 +502,7 @@ public interface PlantopiaVegetationFeatures {
         compileNameFrom(PATCH, LUPINE, Biomes.OLD_GROWTH_BIRCH_FOREST),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(48, 6, 3, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(42, 6, 3, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     new SimpleBlockConfiguration(
                         weightedProvider(states -> states

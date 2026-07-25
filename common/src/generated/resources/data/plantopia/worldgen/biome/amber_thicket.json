@@ -9,8 +9,8 @@
     "downfall": 0.8,
     "effects": {
         "fog_color": 12638463,
-        "foliage_color": -4151746,
-        "grass_color": -3624120,
+        "foliage_color": -7823566,
+        "grass_color": -6376372,
         "mood_sound": {
             "block_search_extent": 8,
             "offset": 2.0,
@@ -83,13 +83,15 @@
             "minecraft:patch_large_fern",
             "minecraft:forest_flowers",
             "minecraft:flower_default",
+            "minecraft:patch_dead_bush",
             "minecraft:patch_grass_taiga_2",
             "minecraft:brown_mushroom_taiga",
             "minecraft:red_mushroom_taiga",
             "minecraft:brown_mushroom_normal",
             "minecraft:red_mushroom_normal",
             "minecraft:patch_sugar_cane",
-            "minecraft:patch_pumpkin"
+            "minecraft:patch_pumpkin",
+            "minecraft:patch_berry_common"
         ],
         [
             "minecraft:freeze_top_layer"
@@ -128,6 +130,12 @@
             },
             {
                 "type": "minecraft:cow",
+                "maxCount": 4,
+                "minCount": 4,
+                "weight": 8
+            },
+            {
+                "type": "minecraft:wolf",
                 "maxCount": 4,
                 "minCount": 4,
                 "weight": 8

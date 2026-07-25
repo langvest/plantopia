@@ -86,7 +86,7 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA)
-                .add(PlantopiaBiomes.BOREAL_FOREST)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.AMBER_THICKET)
             )
     );
 
@@ -236,7 +236,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.MARSH)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
-                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.MUDDY_RIVER)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
@@ -300,7 +300,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.DARK_FOREST)
                 .add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_FOREST, PlantopiaBiomes.SEASONAL_DARK_FOREST)
-                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
             )
     );
@@ -485,7 +485,7 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.WINDSWEPT_FOREST)
-                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE)
                 .add(PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
             )
@@ -547,7 +547,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
-                .add(PlantopiaBiomes.BOREAL_FOREST)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE)
@@ -867,7 +867,7 @@ public interface PlantopiaVegetationPlacements {
                 .addTag(BiomeTags.IS_BADLANDS)
                 .addTag(BiomeTags.IS_SAVANNA)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
-                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_GROVE)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
             )
@@ -956,7 +956,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST)
                 .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
-                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE)

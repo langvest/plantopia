@@ -61,6 +61,7 @@ public interface PlantopiaArborealFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(yellowMaple.treeBees0002litter055), 0.13333334F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.35F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.33333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.15F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
@@ -82,6 +83,28 @@ public interface PlantopiaArborealFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(redMaple.treeBees0002litter055), 0.25F)
                     ),
                     placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_AMBER_THICKET = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.AMBER_THICKET),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+                var orangeMaple = PlantopiaKits.MAPLE.orangeFeature.placed;
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.2533334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.2333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(orangeMaple.lushTreeBees0002litter055), 0.3333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(orangeMaple.treeBees0002litter055), 0.25F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_002), 0.2333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.15F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.FANCY_OAK_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.OAK_BEES_0002)
                 );
             }))
     );

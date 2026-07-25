@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:random_selector",
+    "config": {
+        "default": "minecraft:oak_bees_0002",
+        "features": [
+            {
+                "chance": 0.2533334,
+                "feature": "minecraft:spruce_checked"
+            },
+            {
+                "chance": 0.2333334,
+                "feature": "minecraft:pine_checked"
+            },
+            {
+                "chance": 0.3333334,
+                "feature": "plantopia:lush_orange_maple_bees_0002_litter_055"
+            },
+            {
+                "chance": 0.25,
+                "feature": "plantopia:orange_maple_bees_0002_litter_055"
+            },
+            {
+                "chance": 0.2333334,
+                "feature": "minecraft:birch_bees_002"
+            },
+            {
+                "chance": 0.15,
+                "feature": "plantopia:tall_oak_bees_0002"
+            },
+            {
+                "chance": 0.1,
+                "feature": "minecraft:fancy_oak_bees_0002"
+            }
+        ]
+    }
+}

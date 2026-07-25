@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/trees_amber_thicket",
+    "features": "plantopia:trees_amber_thicket",
+    "step": "vegetal_decoration"
+}
