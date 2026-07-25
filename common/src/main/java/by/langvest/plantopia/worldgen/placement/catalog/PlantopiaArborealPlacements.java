@@ -111,7 +111,7 @@ public interface PlantopiaArborealPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> TREES_TREES_OAK_FOREST = declarePlacement(
+    ResourceKey<PlacedFeature> TREES_OAK_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_OAK_FOREST),
         treeDeclaration(PlantopiaFeatures.TREES_OAK_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
@@ -119,11 +119,19 @@ public interface PlantopiaArborealPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> TREES_TREES_OLD_GROWTH_OAK_FOREST = declarePlacement(
+    ResourceKey<PlacedFeature> TREES_OLD_GROWTH_OAK_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST),
         treeDeclaration(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST, PlacementUtils.countExtra(8, 0.25F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_BLOOMING_GLADE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_BLOOMING_GLADE),
+        treeDeclaration(PlantopiaFeatures.TREES_BLOOMING_GLADE, PlacementUtils.countExtra(2, 0.1F, 1))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 }

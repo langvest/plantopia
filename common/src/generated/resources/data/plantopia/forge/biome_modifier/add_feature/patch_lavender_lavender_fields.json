@@ -1,6 +1,0 @@
-{
-    "type": "forge:add_features",
-    "biomes": "#plantopia:has_feature/patch_lavender_lavender_fields",
-    "features": "plantopia:patch_lavender_lavender_fields",
-    "step": "vegetal_decoration"
-}

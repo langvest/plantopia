@@ -10,22 +10,18 @@ import net.minecraft.world.level.biome.*;
  * @see net.minecraft.data.worldgen.biome.OverworldBiomes
  */
 public interface PlantopiaOverworldBiomes extends
-    PlantopiaColdBiomes,
+    PlantopiaFieldBiomes,
     PlantopiaForestBiomes,
     PlantopiaRiverBiomes,
-    PlantopiaSeasonalBiomes,
-    PlantopiaSwampBiomes,
-    PlantopiaWarmBiomes {
+    PlantopiaSwampBiomes {
     Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog(catalog -> Catalog.merge(
-        PlantopiaColdBiomes.DECLARATION,
+        PlantopiaFieldBiomes.DECLARATION,
         PlantopiaForestBiomes.DECLARATION,
         PlantopiaRiverBiomes.DECLARATION,
-        PlantopiaSeasonalBiomes.DECLARATION,
-        PlantopiaSwampBiomes.DECLARATION,
-        PlantopiaWarmBiomes.DECLARATION
+        PlantopiaSwampBiomes.DECLARATION
     ));
 
-    /* HELPER METHODS *************************************************************************************************/
+    /* HELPER METHODS *******************************************************/
 
     static void globalOverworldGeneration(BiomeGenerationSettings.Builder generationBuilder) {
         BiomeDefaultFeatures.addDefaultCarversAndLakes(generationBuilder);

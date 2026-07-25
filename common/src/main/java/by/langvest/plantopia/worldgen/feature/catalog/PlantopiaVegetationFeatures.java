@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
@@ -447,10 +448,10 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_LAVENDER_LAVENDER_FIELDS = declareFeature(
-        compileNameFrom(PATCH, PlantopiaBlocks.LAVENDER, PlantopiaBiomes.LAVENDER_FIELDS),
+    ResourceKey<ConfiguredFeature<?, ?>> FLOWER_LAVENDER_FIELDS = declareFeature(
+        compileNameFrom(FLOWER, PlantopiaBiomes.LAVENDER_FIELDS),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
+            .feature(flower(context ->
                 new RandomPatchConfiguration(42, 3, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.LAVENDER.get())
@@ -458,15 +459,40 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
-    ResourceKey<ConfiguredFeature<?, ?>> PATCH_POPPY_POPPY_FIELDS = declareFeature(
-        compileNameFrom(PATCH, Blocks.POPPY, PlantopiaBiomes.POPPY_FIELDS),
+    ResourceKey<ConfiguredFeature<?, ?>> FLOWER_POPPY_FIELDS = declareFeature(
+        compileNameFrom(FLOWER, PlantopiaBiomes.POPPY_FIELDS),
         PlantopiaFeatureDeclaration.builder()
-            .feature(randomPatch(context ->
+            .feature(flower(context ->
                 new RandomPatchConfiguration(42, 3, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     weightedConfig(states -> states
                         .add(Blocks.POPPY.defaultBlockState(), 6)
                         .add(PlantopiaBlocks.RED_WILDFLOWERS.get().defaultBlockState(), 4)
+                    )
+                ))
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> FLOWER_BLOOMING_GLADE = declareFeature(
+        compileNameFrom(FLOWER, PlantopiaBiomes.BLOOMING_GLADE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(flower(context ->
+                new RandomPatchConfiguration(72, 6, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    new SimpleBlockConfiguration(
+                        new DualNoiseProvider(
+                            new InclusiveRange(1, 3),
+                            new NormalNoise.NoiseParameters(-10, 1.0F),
+                            1.0F,
+                            2345L,
+                            new NormalNoise.NoiseParameters(-3, 1.0F),
+                            1.0F,
+                            List.of(
+                                Blocks.BLUE_ORCHID.defaultBlockState(),
+                                Blocks.AZURE_BLUET.defaultBlockState(),
+                                Blocks.GRASS.defaultBlockState()
+                            )
+                        )
                     )
                 ))
             ))

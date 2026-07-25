@@ -240,6 +240,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.MUDDY_RIVER)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 
@@ -468,6 +469,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 
@@ -548,6 +550,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.BOREAL_FOREST)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 
@@ -661,7 +664,7 @@ public interface PlantopiaVegetationPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_ORANGE_WILDFLOWERS)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
+                PlantopiaRarityFilter.onAverageOnceEvery(8),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 BiomeFilter.biome()
@@ -676,7 +679,7 @@ public interface PlantopiaVegetationPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_WHITE_WILDFLOWERS)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
+                PlantopiaRarityFilter.onAverageOnceEvery(8),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 BiomeFilter.biome()
@@ -686,10 +689,25 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_LAVENDER_LAVENDER_FIELDS = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_LAVENDER_LAVENDER_FIELDS),
+    ResourceKey<PlacedFeature> FLOWER_BLOOMING_GLADE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.FLOWER_BLOOMING_GLADE),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.PATCH_LAVENDER_LAVENDER_FIELDS)
+            .feature(PlantopiaFeatures.FLOWER_BLOOMING_GLADE)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> FLOWER_LAVENDER_FIELDS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.FLOWER_LAVENDER_FIELDS),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.FLOWER_LAVENDER_FIELDS)
             .modifiers(context -> {
                 var bigNoiseConfig = PlantopiaNoiseConfig.of(0.092D, 74, 193);
                 var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 12, 543);
@@ -710,10 +728,10 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
-    ResourceKey<PlacedFeature> PATCH_POPPY_POPPY_FIELDS = declarePlacement(
-        compileNameFrom(PlantopiaFeatures.PATCH_POPPY_POPPY_FIELDS),
+    ResourceKey<PlacedFeature> FLOWER_POPPY_FIELDS = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.FLOWER_POPPY_FIELDS),
         PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.PATCH_POPPY_POPPY_FIELDS)
+            .feature(PlantopiaFeatures.FLOWER_POPPY_FIELDS)
             .modifiers(context -> {
                 var bigNoiseConfig = PlantopiaNoiseConfig.of(0.092D, 74, 193);
                 var smallNoiseConfig = PlantopiaNoiseConfig.of(0.046D, 12, 543);
@@ -941,6 +959,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 
@@ -952,6 +971,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 
@@ -963,6 +983,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 

@@ -117,6 +117,11 @@ public final class PlantopiaFeatureUtils {
     }
 
     @Contract(pure = true)
+    public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> flower(Function<BootstapContext<ConfiguredFeature<?, ?>>, RandomPatchConfiguration> configFactory) {
+        return configuredFeature(Feature.FLOWER, configFactory);
+    }
+
+    @Contract(pure = true)
     public static @NotNull Function<BootstapContext<ConfiguredFeature<?, ?>>, ConfiguredFeature<?, ?>> vegetationPatch(Function<BootstapContext<ConfiguredFeature<?, ?>>, PlantopiaVegetationPatchConfiguration> configFactory) {
         return configuredFeature(PlantopiaFeatureTypes.VEGETATION_PATCH, configFactory);
     }

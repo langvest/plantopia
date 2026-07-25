@@ -1,9 +1,9 @@
 {
-    "feature": "plantopia:patch_white_wildflowers",
+    "feature": "plantopia:flower_blooming_glade",
     "placement": [
         {
             "type": "plantopia:rarity_filter",
-            "chance": 8.0
+            "chance": 4.0
         },
         {
             "type": "minecraft:in_square"

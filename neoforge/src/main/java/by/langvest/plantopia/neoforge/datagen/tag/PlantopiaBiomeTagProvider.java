@@ -53,7 +53,8 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
             .add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST)
             .add(PlantopiaBiomes.LAVENDER_FIELDS, PlantopiaBiomes.POPPY_FIELDS)
             .add(PlantopiaBiomes.ASPEN_CLEARING, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
-            .add(PlantopiaBiomes.MAPLE_WOODS);
+            .add(PlantopiaBiomes.MAPLE_WOODS)
+            .add(PlantopiaBiomes.BLOOMING_GLADE);
         IS_MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
         IS_QUICKSAND_PRECIPITABLE.add(Biomes.DESERT);
         SPAWNS_SNOW_FOXES.add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING);

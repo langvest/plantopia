@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/trees_blooming_glade",
+    "features": "plantopia:trees_blooming_glade",
+    "step": "vegetal_decoration"
+}

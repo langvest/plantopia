@@ -18,7 +18,10 @@ import static by.langvest.plantopia.util.PlantopiaDictionary.FIELDS;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
-public interface PlantopiaWarmBiomes {
+/**
+ * @see net.minecraft.data.worldgen.biome.OverworldBiomes
+ */
+public interface PlantopiaFieldBiomes {
     Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
 
     static @NotNull ResourceKey<Biome> declareBiome(String name, PlantopiaBiomeDeclaration.@NotNull Builder builder) {

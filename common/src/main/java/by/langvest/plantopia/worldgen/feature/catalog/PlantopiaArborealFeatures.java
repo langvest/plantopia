@@ -245,4 +245,20 @@ public interface PlantopiaArborealFeatures {
                 );
             }))
     );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_BLOOMING_GLADE = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.BLOOMING_GLADE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.OAK_BEES_0002), 0.3F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.SPRUCE_CHECKED)
+                );
+            }))
+    );
 }

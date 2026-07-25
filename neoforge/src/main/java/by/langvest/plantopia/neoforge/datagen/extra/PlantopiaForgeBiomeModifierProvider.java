@@ -37,10 +37,32 @@ public class PlantopiaForgeBiomeModifierProvider implements DataProvider {
         Path neoforgePath = output.getOutputFolder().resolve("data/" + modId + "/neoforge/biome_modifier");
         Path forgePath = output.getOutputFolder().resolve("data/" + modId + "/forge/biome_modifier");
 
+        deleteOutdatedFiles(neoforgePath, forgePath);
+
         if (!Files.exists(neoforgePath)) return;
 
         Files.createDirectories(forgePath);
         copyAndModifyFiles(neoforgePath, forgePath, cache);
+    }
+
+    private void deleteOutdatedFiles(Path neoforgeDir, Path forgeDir) throws IOException {
+        if (!Files.exists(forgeDir)) {
+            return;
+        }
+
+        try (Stream<Path> stream = Files.walk(forgeDir)) {
+            stream.filter(Files::isRegularFile).forEach(forgeFile -> {
+                try {
+                    Path relativePath = forgeDir.relativize(forgeFile);
+                    Path neoforgeFile = neoforgeDir.resolve(relativePath);
+                    if (!Files.exists(neoforgeFile)) {
+                        Files.delete(forgeFile);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to delete outdated file: " + forgeFile, e);
+                }
+            });
+        }
     }
 
     private void copyAndModifyFiles(Path sourceDir, Path targetDir, @NotNull CachedOutput cache) throws IOException {

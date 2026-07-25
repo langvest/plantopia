@@ -170,6 +170,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
+                .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
     );
 

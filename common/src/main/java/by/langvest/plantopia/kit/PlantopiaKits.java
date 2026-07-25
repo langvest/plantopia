@@ -27,7 +27,7 @@ public class PlantopiaKits {
         PlantopiaDictionary.JACARANDA,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.JACARANDA)
-            .apply(PlantopiaKits::addCherrySounds)
+            .apply(PlantopiaKits::cherrySounds)
             .build()
     );
 
@@ -35,7 +35,7 @@ public class PlantopiaKits {
 
     /* HELPER METHODS ***********************************************************************************/
 
-    private static void addCherrySounds(PlantopiaTreeKitConfiguration.@NotNull Builder builder) {
+    private static void cherrySounds(PlantopiaTreeKitConfiguration.@NotNull Builder builder) {
         builder.blockSetType(copyBlockSetType(BlockSetType.CHERRY));
         builder.blockMeta(leavesSelector(), metaProperties -> metaProperties.sound(SoundType.CHERRY_LEAVES));
         builder.blockMeta(saplingSelector(), metaProperties -> metaProperties.sound(SoundType.CHERRY_SAPLING));

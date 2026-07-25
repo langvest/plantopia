@@ -15,10 +15,16 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import static by.langvest.plantopia.util.PlantopiaDictionary.*;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
+/**
+ * @see net.minecraft.data.worldgen.biome.OverworldBiomes
+ */
+@ParametersAreNonnullByDefault
 public interface PlantopiaForestBiomes {
     Catalog<ResourceKey<Biome>, PlantopiaBiomeDeclaration> DECLARATION = Catalog.newCatalog();
 
@@ -79,6 +85,138 @@ public interface PlantopiaForestBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
 
+    ResourceKey<Biome> SEASONAL_FOREST = declareBiome(
+        compileNameFrom(SEASONAL, Biomes.FOREST),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 5, 4, 4)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addForestGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.7F)
+            .downfall(0.6F)
+            .grassColorOverride("#c79942")
+            .foliageColorOverride("#adac3b")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> SEASONAL_DARK_FOREST = declareBiome(
+        compileNameFrom(SEASONAL, Biomes.DARK_FOREST),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addForestGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#6a7a32")
+            .foliageColorOverride("#74aa2e")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> ASPEN_GROVE = declareBiome(
+        compileNameFrom("aspen", GROVE),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 8, 2, 4)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addForestFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .apply(PlantopiaForestBiomes::aspenGroveColors)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> ASPEN_CLEARING = declareBiome(
+        compileNameFrom("aspen", CLEARING),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::plainsSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .apply(PlantopiaForestBiomes::aspenGroveColors)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
+    ResourceKey<Biome> SNOWY_ASPEN_GROVE = declareBiome(
+        compileNameFrom(SNOWY, ASPEN_GROVE),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
+            .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
+            .addSpawn(MobCategory.CREATURE, EntityType.FOX, 8, 2, 4)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .creatureGenerationProbability(0.07F)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addFerns)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(-0.5F)
+            .downfall(0.4F)
+            .apply(PlantopiaForestBiomes::snowyAspenGroveColors)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
+    );
+
+    ResourceKey<Biome> SNOWY_ASPEN_CLEARING = declareBiome(
+        compileNameFrom(SNOWY, ASPEN_CLEARING),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::plainsSpawns)
+            .creatureGenerationProbability(0.07F)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(-0.5F)
+            .downfall(0.4F)
+            .apply(PlantopiaForestBiomes::snowyAspenGroveColors)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
     ResourceKey<Biome> OAK_FOREST = declareBiome(
         compileNameFrom("oak", Biomes.FOREST),
         PlantopiaBiomeDeclaration.builder()
@@ -96,8 +234,7 @@ public interface PlantopiaForestBiomes {
             .hasPrecipitation(true)
             .temperature(0.8F)
             .downfall(0.8F)
-            .grassColorOverride("#92bd42")
-            .foliageColorOverride("#7cb312")
+            .apply(PlantopiaForestBiomes::oakForestColors)
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
@@ -120,9 +257,47 @@ public interface PlantopiaForestBiomes {
             .hasPrecipitation(true)
             .temperature(0.8F)
             .downfall(0.8F)
-            .grassColorOverride("#92bd42")
-            .foliageColorOverride("#7cb312")
+            .apply(PlantopiaForestBiomes::oakForestColors)
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_FOREST))
     );
+
+    ResourceKey<Biome> BLOOMING_GLADE = declareBiome(
+        compileNameFrom("blooming", GLADE),
+        PlantopiaBiomeDeclaration.builder()
+            .addSpawn(MobCategory.CREATURE, EntityType.DONKEY, 1, 1, 2)
+            .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 2, 2, 6)
+            .addSpawn(MobCategory.CREATURE, EntityType.SHEEP, 2, 2, 4)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .applyGeneration(BiomeDefaultFeatures::addExtraEmeralds)
+            .applyGeneration(BiomeDefaultFeatures::addInfestedStone)
+            .applyGeneration(BiomeDefaultFeatures::addTaigaGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#83BB6D")
+            .foliageColorOverride("#6cab53")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_MEADOW))
+    );
+
+    /* HELPER METHODS *******************************************************/
+
+    static void aspenGroveColors(PlantopiaBiomeDeclaration.Builder builder) {
+        builder.grassColorOverride("#caaf4c").foliageColorOverride("#d1b754");
+    }
+
+    static void snowyAspenGroveColors(PlantopiaBiomeDeclaration.Builder builder) {
+        builder.grassColorOverride("#c06459").foliageColorOverride("#b3795a");
+    }
+
+    static void oakForestColors(PlantopiaBiomeDeclaration.Builder builder) {
+        builder.grassColorOverride("#92bd42").foliageColorOverride("#7cb312");
+    }
 }
