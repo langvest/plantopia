@@ -1,8 +1,9 @@
 package by.langvest.plantopia.kit;
 
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
-import by.langvest.plantopia.kit.special.PlantopiaJacarandaKit;
-import by.langvest.plantopia.kit.special.PlantopiaMapleKit;
+import by.langvest.plantopia.kit.tree.deadwood.PlantopiaDeadwoodKit;
+import by.langvest.plantopia.kit.tree.jacaranda.PlantopiaJacarandaKit;
+import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.util.PlantopiaDictionary;
@@ -28,6 +29,13 @@ public class PlantopiaKits {
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.JACARANDA)
             .apply(PlantopiaKits::cherrySounds)
+            .build()
+    );
+
+    public static final PlantopiaDeadwoodKit DEADWOOD = new PlantopiaDeadwoodKit(
+        PlantopiaDictionary.DEADWOOD,
+        PlantopiaTreeKitConfiguration.builder()
+            .orderType(PlantopiaOrderType.DEADWOOD)
             .build()
     );
 

@@ -33,6 +33,8 @@ public final class PlantopiaDictionary {
     public static final String OLD_GROWTH = "old_growth";
     public static final String MAPLE = "maple";
     public static final String JACARANDA = "jacaranda";
+    public static final String DEADWOOD = "deadwood";
+    public static final String DEAD = "dead";
     public static final String LUPINE = "lupine";
     public static final String SPARSE = "sparse";
     public static final String GROVE = "grove";
@@ -43,6 +45,7 @@ public final class PlantopiaDictionary {
     public static final String FIELDS = "fields";
     public static final String VALE = "vale";
     public static final String LITTER = "litter";
+    public static final String LUSH = "lush";
     public static final String BEES = "bees";
     public static final String TINY = "tiny";
     public static final String TALL = "tall";
@@ -63,7 +66,6 @@ public final class PlantopiaDictionary {
     public static final String SWAMP = "swamp";
     public static final String OCEAN = "ocean";
     public static final String CHECKED = "checked";
-    public static final String DEAD = "dead";
     public static final String MOSSY = "mossy";
 
     /* HELPER METHODS ******************************************/

@@ -338,4 +338,13 @@ public interface PlantopiaTreeFeatures {
                     .build()
             ))
     );
+
+    ResourceKey<ConfiguredFeature<?, ?>> DEADWOOD_SPIRE = declareFeature(
+        "deadwood_spire",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createSpireTree(PlantopiaKits.DEADWOOD.trunk.log.get(), PlantopiaKits.DEADWOOD.leaves.get())
+                    .build()
+            ))
+    );
 }

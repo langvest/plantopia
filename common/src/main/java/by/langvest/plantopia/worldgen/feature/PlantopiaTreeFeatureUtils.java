@@ -3,6 +3,7 @@ package by.langvest.plantopia.worldgen.feature;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaLushFoliagePlacer;
+import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaStragglyFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaAlterBaseLogDecorator;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
@@ -65,7 +66,7 @@ public final class PlantopiaTreeFeatureUtils {
                 .add(ConstantInt.of(8), 3)
                 .add(ConstantInt.of(10), 2)
             ), // baseHeight
-            UniformInt.of(0, 2), // heightRand
+            UniformInt.of(0, 2), // bonusHeight
             ConstantInt.of(2), // foliageRadius
             PlantopiaIntProportion.relative(
                 ConstantFloat.of(0.925F),
@@ -83,7 +84,7 @@ public final class PlantopiaTreeFeatureUtils {
                     .add(UniformInt.of(9, 10), 3)
                     .add(UniformInt.of(11, 12), 2)
                 ), // baseHeight
-                UniformInt.of(0, 2) // heightRand
+                UniformInt.of(0, 2) // bonusHeight
             ),
             simpleProvider(leavesBlock), // leavesBlock
             new PlantopiaCypressFoliagePlacer(
@@ -108,7 +109,7 @@ public final class PlantopiaTreeFeatureUtils {
             simpleProvider(logBlock), // logBlock
             new PlantopiaStraightTrunkPlacer(
                 ConstantInt.of(4), // baseHeight
-                UniformInt.of(0, 2) // heightRand
+                UniformInt.of(0, 2) // bonusHeight
             ),
             simpleProvider(leavesBlock), // leavesBlock
             new PlantopiaCypressFoliagePlacer(
@@ -136,7 +137,7 @@ public final class PlantopiaTreeFeatureUtils {
             simpleProvider(logBlock), // logBlock
             new PlantopiaStraightTrunkPlacer(
                 UniformInt.of(7, 8), // baseHeight
-                UniformInt.of(0, 2) // heightRand
+                UniformInt.of(0, 2) // bonusHeight
             ),
             simpleProvider(leavesBlock), // leavesBlock
             new PlantopiaCypressFoliagePlacer(
@@ -167,6 +168,30 @@ public final class PlantopiaTreeFeatureUtils {
                 2 // foliageHeight
             ),
             new TwoLayersFeatureSize(0, 0, 0)
+        );
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSpireTree(Block logBlock, Block leavesBlock) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(logBlock), // logBlock
+            new PlantopiaStraightTrunkPlacer(
+                UniformInt.of(6, 8), // baseHeight
+                UniformInt.of(0, 2) // bonusHeight
+            ),
+            simpleProvider(leavesBlock), // leavesBlock
+            new PlantopiaStragglyFoliagePlacer(
+                ConstantInt.of(1), // foliageRadius
+                ConstantInt.of(0), // foliageOffset
+                PlantopiaIntProportion.relative(
+                    UniformFloat.of(0.5F, 0.7F),
+                    ConstantInt.of(4)
+                ) // foliageHeight
+            ),
+            new TwoLayersFeatureSize(
+                3, // heightThreshold
+                0, // lowerRadius
+                1 // upperRadius
+            )
         );
     }
 

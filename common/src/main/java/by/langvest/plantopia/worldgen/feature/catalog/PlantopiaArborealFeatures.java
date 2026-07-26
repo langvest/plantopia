@@ -53,7 +53,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+                var yellowMaple = PlantopiaKits.MAPLE.yellowWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -74,7 +74,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+                var redMaple = PlantopiaKits.MAPLE.redWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -92,7 +92,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var orangeMaple = PlantopiaKits.MAPLE.orangeFeature.placed;
+                var orangeMaple = PlantopiaKits.MAPLE.orangeWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -114,9 +114,9 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
-                var orangeMaple = PlantopiaKits.MAPLE.orangeFeature.placed;
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+                var yellowMaple = PlantopiaKits.MAPLE.yellowWorldgen.placement;
+                var orangeMaple = PlantopiaKits.MAPLE.orangeWorldgen.placement;
+                var redMaple = PlantopiaKits.MAPLE.redWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -139,7 +139,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+                var yellowMaple = PlantopiaKits.MAPLE.yellowWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -156,7 +156,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var yellowMaple = PlantopiaKits.MAPLE.yellowFeature.placed;
+                var yellowMaple = PlantopiaKits.MAPLE.yellowWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -173,7 +173,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+                var redMaple = PlantopiaKits.MAPLE.redWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -192,7 +192,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var redMaple = PlantopiaKits.MAPLE.redFeature.placed;
+                var redMaple = PlantopiaKits.MAPLE.redWorldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -211,7 +211,7 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
-                var jacaranda = PlantopiaKits.JACARANDA.feature.placed;
+                var jacaranda = PlantopiaKits.JACARANDA.worldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
@@ -298,6 +298,24 @@ public interface PlantopiaArborealFeatures {
                         new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.SPRUCE_CYPRESS_CHECKED), 0.5F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_002), 0.1333334F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.1333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.OAK_BEES_0002)
+                );
+            }))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_FEN = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.FEN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.DEADWOOD_SPIRE), 0.4F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.15F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.15F),
                         new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.1F)
                     ),
                     placements.getOrThrow(TreePlacements.OAK_BEES_0002)

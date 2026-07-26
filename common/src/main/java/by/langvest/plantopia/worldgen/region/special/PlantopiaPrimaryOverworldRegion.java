@@ -164,8 +164,8 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     @SuppressWarnings("unchecked")
     protected final ResourceKey<Biome>[][] PLANTOPIA_SWAMP_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
-        { PlantopiaBiomes.MARSH, PlantopiaBiomes.MARSH, null, null, null },
-        { PlantopiaBiomes.MARSH, PlantopiaBiomes.MARSH, null, null, null },
+        { PlantopiaBiomes.MARSH, PlantopiaBiomes.MARSH, PlantopiaBiomes.FEN, null, null },
+        { PlantopiaBiomes.MARSH, PlantopiaBiomes.MARSH, PlantopiaBiomes.FEN, null, null },
         { PlantopiaBiomes.DEAD_MARSH, PlantopiaBiomes.DEAD_MARSH, null, null, null },
         { PlantopiaBiomes.DEAD_MARSH, PlantopiaBiomes.DEAD_MARSH, null, null, null }
     };

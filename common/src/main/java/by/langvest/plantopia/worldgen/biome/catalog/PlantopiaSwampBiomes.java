@@ -73,4 +73,30 @@ public interface PlantopiaSwampBiomes {
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
     );
+
+    ResourceKey<Biome> FEN = declareBiome(
+        "fen",
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .addSpawn(MobCategory.CREATURE, EntityType.PIG, 8, 2, 4)
+            .addSpawn(MobCategory.CREATURE, EntityType.CHICKEN, 8, 2, 4)
+            .addSpawn(MobCategory.MONSTER, EntityType.SLIME, 1, 1, 1)
+            .addSpawn(MobCategory.CREATURE, EntityType.FROG, 6, 2, 4)
+            .applyGeneration(BiomeDefaultFeatures::addFossilDecoration)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addSwampClayDisk)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_SWAMP)
+            .hasPrecipitation(true)
+            .temperature(0.8F)
+            .downfall(0.9F)
+            .waterColor("#528d7c")
+            .waterFogColor("#57a08a")
+            .grassColorOverride("#9fb783")
+            .foliageColorOverride("#68a054")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+            .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SWAMP))
+    );
 }

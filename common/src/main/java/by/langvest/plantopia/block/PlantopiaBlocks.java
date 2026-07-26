@@ -39,6 +39,7 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopi
 
 /**
  * @see net.minecraft.world.level.block.Blocks
+ * @see <a href="https://mcreator.net/wiki/list-block-map-colors">Map Color List</a>
  */
 public class PlantopiaBlocks {
     public static final RegistryObject<Block> BIRCH_BASE_LOG = registerBlock("birch_base_log", PlantopiaDirectionalPillarBlock::new, MetaProperties.of(MetaType.LOG).order(PlantopiaOrderType.BIRCH).mapColor(birchBaseLogMapColor()).customModel().customDrop().strippable(() -> Blocks.STRIPPED_BIRCH_LOG));

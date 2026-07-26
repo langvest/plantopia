@@ -243,6 +243,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.FEN)
             )
     );
 
@@ -591,6 +592,7 @@ public interface PlantopiaVegetationPlacements {
             .biomes(biomes -> biomes
                 .apply(PlantopiaPlacementUtils::addVanillaSwampBiomes)
                 .add(PlantopiaBiomes.DEAD_MARSH)
+                .add(PlantopiaBiomes.FEN)
             )
     );
 
@@ -613,12 +615,29 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> PATCH_CATTAIL_FEN = declarePlacement(
+        compileNameFrom(PATCH_CATTAIL, PlantopiaBiomes.FEN),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_CATTAIL)
+            .modifiers(context -> List.of(
+                CountPlacement.of(2),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                WATER_PLANT_FIND_WATER,
+                WATER_PLANT_RANGE_FILTER,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.FEN)
+            )
+    );
+
     ResourceKey<PlacedFeature> PATCH_CATTAIL_MUDDY_RIVER = declarePlacement(
         compileNameFrom(PATCH_CATTAIL, PlantopiaBiomes.MUDDY_RIVER),
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_CATTAIL)
             .modifiers(context -> List.of(
-                CountPlacement.of(ConstantInt.of(3)),
+                CountPlacement.of(2),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_TOP_SOLID,
                 WATER_PLANT_RANGE_FILTER,

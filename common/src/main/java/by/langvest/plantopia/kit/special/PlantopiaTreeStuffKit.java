@@ -29,8 +29,11 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
+@ParametersAreNonnullByDefault
 public class PlantopiaTreeStuffKit extends PlantopiaKit {
     protected final String baseName;
     protected final PlantopiaTreeKitConfiguration config;
@@ -56,7 +59,7 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
     public final RegistryObject<Item> signItem;
     public final RegistryObject<Item> hangingSignItem;
 
-    protected PlantopiaTreeStuffKit(
+    public PlantopiaTreeStuffKit(
         String baseName,
         WoodType woodType,
         @NotNull PlantopiaTreeKitConfiguration config

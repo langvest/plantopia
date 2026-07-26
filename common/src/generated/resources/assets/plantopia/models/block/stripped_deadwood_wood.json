@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "plantopia:block/stripped_deadwood_log",
+        "side": "plantopia:block/stripped_deadwood_log"
+    }
+}

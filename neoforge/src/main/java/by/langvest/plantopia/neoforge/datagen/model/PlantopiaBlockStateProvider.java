@@ -3,6 +3,7 @@ package by.langvest.plantopia.neoforge.datagen.model;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.block.special.*;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -104,6 +105,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         bushWithOverlayBlock(PlantopiaBlocks.SPIKY_GRASS.get());
         bushWithOverlayBlock(PlantopiaBlocks.TALL_SPIKY_GRASS.get());
         hugeChanterelleBlock(PlantopiaBlocks.CHANTERELLE_BLOCK.get());
+        deadwoodLeavesBlock(PlantopiaKits.DEADWOOD.leaves.get());
 
         checkAll();
     }
@@ -745,6 +747,14 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         var plant = flowerPotBlock.getContent();
 
         tintedFlowerPotCrossModel(idOf(flowerPotBlock), blockTexture(plant));
+    }
+
+    private void deadwoodLeavesBlock(Block block) {
+        String baseName = nameOf(block);
+        var model = blockModel(Blocks.OAK_LEAVES);
+
+        blockItemModel(baseName, model);
+        simpleBlock(block, model);
     }
 
     private void cloverBlossomBlock(Block block) {

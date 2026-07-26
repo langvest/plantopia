@@ -3,6 +3,9 @@ package by.langvest.plantopia.kit.special;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent.*;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public abstract class PlantopiaKit {
     protected PlantopiaKit() {
         var platform = Plantopia.getPlatform();

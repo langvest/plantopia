@@ -4,6 +4,7 @@ public enum PlantopiaTintType {
     NONE,
     CUSTOM,
     GRASS,
+    DRY,
     FOLIAGE,
     RAINBOW,
     LILY_PAD,

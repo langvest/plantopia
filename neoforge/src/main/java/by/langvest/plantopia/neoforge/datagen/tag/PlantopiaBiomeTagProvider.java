@@ -44,7 +44,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
     protected void addTags(HolderLookup.@NotNull Provider registryLookup) {
         generateAll();
 
-        ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+        ALLOWS_QUAGMIRE.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP, PlantopiaBiomes.FEN);
         ALLOWS_FRAZIL.add(Biomes.FROZEN_OCEAN);
         ALLOWS_STONY_CLIFF
             .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW)

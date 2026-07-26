@@ -1,12 +1,10 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.*;
-import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -18,7 +16,7 @@ import java.util.List;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
-import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.treeDeclaration;
+import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.treesDeclaration;
 import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 /**
@@ -33,15 +31,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> SEASONAL_DARK_FOREST_VEGETATION = declarePlacement(
         compileNameFrom(PlantopiaFeatures.SEASONAL_DARK_FOREST_VEGETATION),
-        PlantopiaPlacementDeclaration.builder()
-            .feature(PlantopiaFeatures.SEASONAL_DARK_FOREST_VEGETATION)
-            .modifiers(context -> List.of(
-                CountPlacement.of(16),
-                InSquarePlacement.spread(),
-                SurfaceWaterDepthFilter.forMaxDepth(0),
-                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BiomeFilter.biome()
-            ))
+        treesDeclaration(PlantopiaFeatures.SEASONAL_DARK_FOREST_VEGETATION, CountPlacement.of(16))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST)
             )
@@ -49,7 +39,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_LAVENDER_FIELDS = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_LAVENDER_FIELDS),
-        treeDeclaration(PlantopiaFeatures.TREES_LAVENDER_FIELDS, PlacementUtils.countExtra(0, 0.125F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_LAVENDER_FIELDS, PlacementUtils.countExtra(0, 0.125F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.LAVENDER_FIELDS)
             )
@@ -57,16 +47,15 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_POPPY_FIELDS = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_POPPY_FIELDS),
-        treeDeclaration(PlantopiaFeatures.TREES_POPPY_FIELDS, PlacementUtils.countExtra(0, 0.125F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_POPPY_FIELDS, PlacementUtils.countExtra(0, 0.125F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.POPPY_FIELDS)
             )
     );
 
-
     ResourceKey<PlacedFeature> TREES_ASPEN_GROVE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_ASPEN_GROVE),
-        treeDeclaration(PlantopiaFeatures.TREES_ASPEN_GROVE, PlacementUtils.countExtra(6, 0.2F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_ASPEN_GROVE, PlacementUtils.countExtra(6, 0.2F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_GROVE)
             )
@@ -74,7 +63,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_ASPEN_CLEARING = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_ASPEN_CLEARING),
-        treeDeclaration(PlantopiaFeatures.TREES_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.25F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.25F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
             )
@@ -82,7 +71,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_GROVE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE),
-        treeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(6, 0.2F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(6, 0.2F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE)
             )
@@ -90,7 +79,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_CLEARING = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING),
-        treeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.25F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_CLEARING, PlacementUtils.countExtra(1, 0.25F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             )
@@ -98,7 +87,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_SEASONAL_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SEASONAL_FOREST),
-        treeDeclaration(PlantopiaFeatures.TREES_SEASONAL_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_SEASONAL_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SEASONAL_FOREST)
             )
@@ -106,7 +95,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_BOREAL_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_BOREAL_FOREST),
-        treeDeclaration(PlantopiaFeatures.TREES_BOREAL_FOREST, PlacementUtils.countExtra(12, 0.1F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_BOREAL_FOREST, PlacementUtils.countExtra(12, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.BOREAL_FOREST)
             )
@@ -114,7 +103,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_MAPLE_WOODS = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_MAPLE_WOODS),
-        treeDeclaration(PlantopiaFeatures.TREES_MAPLE_WOODS, PlacementUtils.countExtra(10, 0.1F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_MAPLE_WOODS, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.MAPLE_WOODS)
             )
@@ -122,7 +111,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_AMBER_THICKET = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_AMBER_THICKET),
-        treeDeclaration(PlantopiaFeatures.TREES_AMBER_THICKET, PlacementUtils.countExtra(14, 0.1F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_AMBER_THICKET, PlacementUtils.countExtra(14, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.AMBER_THICKET)
             )
@@ -130,7 +119,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_OAK_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_OAK_FOREST),
-        treeDeclaration(PlantopiaFeatures.TREES_OAK_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_OAK_FOREST, PlacementUtils.countExtra(10, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.OAK_FOREST)
             )
@@ -138,7 +127,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_OLD_GROWTH_OAK_FOREST = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST),
-        treeDeclaration(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST, PlacementUtils.countExtra(8, 0.25F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_OLD_GROWTH_OAK_FOREST, PlacementUtils.countExtra(8, 0.25F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
             )
@@ -146,7 +135,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_BLOOMING_GLADE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_BLOOMING_GLADE),
-        treeDeclaration(PlantopiaFeatures.TREES_BLOOMING_GLADE, PlacementUtils.countExtra(2, 0.1F, 1))
+        treesDeclaration(PlantopiaFeatures.TREES_BLOOMING_GLADE, PlacementUtils.countExtra(2, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.BLOOMING_GLADE)
             )
@@ -184,6 +173,22 @@ public interface PlantopiaArborealPlacements {
             })
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.TEMPERATE_GLADE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_FEN = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_FEN),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.TREES_FEN)
+            .modifiers(context -> List.of(
+                PlacementUtils.countExtra(6, 0.1F, 1),
+                InSquarePlacement.spread(),
+                SurfaceWaterDepthFilter.forMaxDepth(2),
+                PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.FEN)
             )
     );
 }

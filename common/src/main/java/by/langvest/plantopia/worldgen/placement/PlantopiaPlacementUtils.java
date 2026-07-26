@@ -1,8 +1,6 @@
 package by.langvest.plantopia.worldgen.placement;
 
-import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.util.PlantopiaTagSet;
-import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.placement.special.PlantopiaRangeFilter;
 import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import net.minecraft.core.BlockPos;
@@ -12,26 +10,23 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.cascades;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
-import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.randomSelector;
 import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 public final class PlantopiaPlacementUtils {
@@ -98,7 +93,7 @@ public final class PlantopiaPlacementUtils {
 
     /* HELPER METHODS ******************************************/
 
-    public static PlantopiaPlacementDeclaration.Builder treeDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier modifier) {
+    public static PlantopiaPlacementDeclaration.Builder treesDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier modifier) {
         return PlantopiaPlacementDeclaration.builder()
             .feature(feature)
             .modifiers(context -> List.of(
@@ -107,6 +102,18 @@ public final class PlantopiaPlacementUtils {
                 TREE_THRESHOLD,
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                 BiomeFilter.biome()
+            ));
+    }
+
+    public static PlantopiaPlacementDeclaration.Builder checkedTreeDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, Block saplingBlock) {
+        return checkedTreeDeclaration(feature, () -> saplingBlock);
+    }
+
+    public static PlantopiaPlacementDeclaration.Builder checkedTreeDeclaration(ResourceKey<ConfiguredFeature<?, ?>> feature, Supplier<Block> saplingBlock) {
+        return PlantopiaPlacementDeclaration.builder()
+            .feature(feature)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(saplingBlock.get())
             ));
     }
 

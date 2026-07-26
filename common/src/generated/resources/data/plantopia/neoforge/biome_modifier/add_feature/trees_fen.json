@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/trees_fen",
+    "features": "plantopia:trees_fen",
+    "step": "vegetal_decoration"
+}

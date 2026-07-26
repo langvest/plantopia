@@ -6,8 +6,11 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
+@ParametersAreNonnullByDefault
 public abstract class PlantopiaAbstractTreeKit extends PlantopiaKit {
     protected final String baseName;
     protected final PlantopiaTreeKitConfiguration config;

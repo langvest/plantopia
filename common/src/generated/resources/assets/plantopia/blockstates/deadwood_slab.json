@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "plantopia:block/deadwood_slab"
+        },
+        "type=double": {
+            "model": "plantopia:block/deadwood_planks"
+        },
+        "type=top": {
+            "model": "plantopia:block/deadwood_slab_top"
+        }
+    }
+}

@@ -1199,6 +1199,11 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             return this;
         }
 
+        public MetaProperties dryTint() {
+            this.tintType = PlantopiaTintType.DRY;
+            return this;
+        }
+
         public MetaProperties foliageTint() {
             this.tintType = PlantopiaTintType.FOLIAGE;
             return this;
