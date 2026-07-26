@@ -306,9 +306,10 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             }
 
             if (type.instanceOf(MetaType.FLOWER)) {
+                REPLACEABLE_BY_TREES.add(block);
+
                 if (baseHeight > 1) {
                     TALL_FLOWERS.add(block);
-                    REPLACEABLE_BY_TREES.add(block);
                 } else {
                     SMALL_FLOWERS.add(block);
                 }

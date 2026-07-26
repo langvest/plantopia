@@ -3,8 +3,16 @@
     "config": {
         "decorators": [
             {
-                "type": "minecraft:beehive",
-                "probability": 0.002
+                "type": "plantopia:alter_base_log",
+                "provider": {
+                    "type": "minecraft:simple_state_provider",
+                    "state": {
+                        "Name": "plantopia:birch_base_log",
+                        "Properties": {
+                            "facing": "up"
+                        }
+                    }
+                }
             }
         ],
         "dirt_provider": {
@@ -14,15 +22,19 @@
             }
         },
         "foliage_placer": {
-            "type": "minecraft:blob_foliage_placer",
-            "height": 3,
-            "offset": 0,
-            "radius": 2
+            "type": "plantopia:cypress_foliage_placer",
+            "height": {
+                "min": 8,
+                "ratio": 1.233334
+            },
+            "offset": 3,
+            "radius": 1,
+            "tip_step": 3
         },
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:oak_leaves",
+                "Name": "minecraft:birch_leaves",
                 "Properties": {
                     "distance": "7",
                     "persistent": "false",
@@ -34,13 +46,19 @@
         "ignore_vines": true,
         "minimum_size": {
             "type": "minecraft:two_layers_feature_size",
-            "limit": 4,
+            "limit": 2,
             "lower_size": 0,
-            "upper_size": 2
+            "upper_size": 1
         },
         "trunk_placer": {
             "type": "plantopia:straight_trunk_placer",
-            "base_height": 6,
+            "base_height": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 7
+                }
+            },
             "bonus_height": {
                 "type": "minecraft:uniform",
                 "value": {
@@ -52,7 +70,7 @@
         "trunk_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:oak_log",
+                "Name": "minecraft:birch_log",
                 "Properties": {
                     "axis": "y"
                 }

@@ -9,9 +9,11 @@ import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -126,6 +128,45 @@ public final class PlantopiaTreeFeatureUtils {
                 0, // lowerRadius
                 1 // upperRadius
             )
+        );
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createCypressTree(Block logBlock, Block leavesBlock) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(logBlock), // logBlock
+            new PlantopiaStraightTrunkPlacer(
+                UniformInt.of(7, 8), // baseHeight
+                UniformInt.of(0, 2) // heightRand
+            ),
+            simpleProvider(leavesBlock), // leavesBlock
+            new PlantopiaCypressFoliagePlacer(
+                ConstantInt.of(1), // foliageRadius
+                ConstantInt.of(3), // foliageOffset
+                PlantopiaIntProportion.relative(
+                    ConstantFloat.of(1.233334F),
+                    ConstantInt.of(8)
+                ), // foliageHeight
+                ConstantInt.of(3) // foliageTipStep
+            ),
+            new TwoLayersFeatureSize(
+                2, // heightThreshold
+                0, // lowerRadius
+                1 // upperRadius
+            )
+        );
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createBushTree(Block logBlock, Block leavesBlock) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(logBlock), // logBlock
+            new StraightTrunkPlacer(1, 0, 0),
+            simpleProvider(leavesBlock), // leavesBlock
+            new BushFoliagePlacer(
+                ConstantInt.of(2), // foliageRadius
+                ConstantInt.of(1), // foliageOffset
+                2 // foliageHeight
+            ),
+            new TwoLayersFeatureSize(0, 0, 0)
         );
     }
 

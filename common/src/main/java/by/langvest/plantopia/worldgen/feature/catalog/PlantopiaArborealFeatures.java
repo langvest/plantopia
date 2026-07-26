@@ -284,4 +284,24 @@ public interface PlantopiaArborealFeatures {
                 );
             }))
     );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_TEMPERATE_GLADE = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.TEMPERATE_GLADE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.OAK_BUSH), 0.4F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.BIRCH_CYPRESS_CHECKED), 0.45F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.SPRUCE_CYPRESS_CHECKED), 0.5F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_BEES_002), 0.1333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.1333334F),
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.TALL_OAK_BEES_0002), 0.1F)
+                    ),
+                    placements.getOrThrow(TreePlacements.OAK_BEES_0002)
+                );
+            }))
+    );
 }

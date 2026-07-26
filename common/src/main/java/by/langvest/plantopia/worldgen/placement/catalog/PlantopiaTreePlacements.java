@@ -103,10 +103,37 @@ public interface PlantopiaTreePlacements {
             ))
     );
 
+    ResourceKey<PlacedFeature> BIRCH_CYPRESS_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.BIRCH_CYPRESS, CHECKED),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.BIRCH_CYPRESS)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> SPRUCE_CYPRESS_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.SPRUCE_CYPRESS, CHECKED),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.SPRUCE_CYPRESS)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING)
+            ))
+    );
+
     ResourceKey<PlacedFeature> TALL_OAK_BEES_0002 = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TALL_OAK_BEES_0002),
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.TALL_OAK_BEES_0002)
+            .modifiers(context -> List.of(
+                PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
+            ))
+    );
+
+    ResourceKey<PlacedFeature> OAK_BUSH = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.OAK_BUSH),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.OAK_BUSH)
             .modifiers(context -> List.of(
                 PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
             ))

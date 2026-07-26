@@ -29,6 +29,7 @@
         "plantopia:sandy_river",
         "plantopia:seasonal_dark_forest",
         "plantopia:seasonal_forest",
+        "plantopia:temperate_glade",
         {
             "id": "hybrid_beta:autumnal_forest",
             "required": false

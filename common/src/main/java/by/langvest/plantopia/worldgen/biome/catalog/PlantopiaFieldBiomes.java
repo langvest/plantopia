@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
 import static by.langvest.plantopia.util.PlantopiaDictionary.FIELDS;
+import static by.langvest.plantopia.util.PlantopiaDictionary.VALE;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 

@@ -1,0 +1,76 @@
+{
+    "feature": "plantopia:trees_temperate_glade",
+    "placement": [
+        {
+            "type": "plantopia:switch",
+            "placements": [
+                [
+                    {
+                        "type": "plantopia:noise_count",
+                        "activation_type": "BELOW",
+                        "active_count": {
+                            "type": "minecraft:weighted_list",
+                            "distribution": [
+                                {
+                                    "data": 4,
+                                    "weight": 4
+                                },
+                                {
+                                    "data": 5,
+                                    "weight": 1
+                                }
+                            ]
+                        },
+                        "noise_config": {
+                            "offset_x": 67,
+                            "offset_z": 788,
+                            "scale": 0.432
+                        },
+                        "noise_level": 0.0,
+                        "passive_count": 0
+                    },
+                    {
+                        "type": "minecraft:in_square"
+                    },
+                    {
+                        "type": "plantopia:noise_filter",
+                        "activation_type": "BELOW",
+                        "erosion_level": {
+                            "type": "minecraft:uniform",
+                            "value": {
+                                "max_exclusive": 0.1,
+                                "min_inclusive": -0.1
+                            }
+                        },
+                        "noise_config": {
+                            "offset_x": 67,
+                            "offset_z": 788,
+                            "scale": 0.432
+                        },
+                        "noise_level": 0.0
+                    }
+                ],
+                [
+                    {
+                        "type": "plantopia:rarity_filter",
+                        "chance": 6.0
+                    },
+                    {
+                        "type": "minecraft:in_square"
+                    }
+                ]
+            ]
+        },
+        {
+            "type": "minecraft:surface_water_depth_filter",
+            "max_water_depth": 0
+        },
+        {
+            "type": "minecraft:heightmap",
+            "heightmap": "OCEAN_FLOOR"
+        },
+        {
+            "type": "minecraft:biome"
+        }
+    ]
+}

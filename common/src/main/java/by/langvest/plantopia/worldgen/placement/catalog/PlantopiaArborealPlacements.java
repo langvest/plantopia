@@ -1,11 +1,16 @@
 package by.langvest.plantopia.worldgen.placement.catalog;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.biome.catalog.PlantopiaBiomes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
+import by.langvest.plantopia.worldgen.placement.PlantopiaNoiseConfig;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
+import by.langvest.plantopia.worldgen.placement.special.*;
+import by.langvest.plantopia.worldgen.util.verticalanchor.PlantopiaVerticalAnchor;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +19,7 @@ import java.util.List;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.*;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.treeDeclaration;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 /**
  * @see net.minecraft.data.worldgen.placement.VegetationPlacements
@@ -60,7 +66,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_ASPEN_GROVE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_ASPEN_GROVE),
-        treeDeclaration(PlantopiaFeatures.TREES_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
+        treeDeclaration(PlantopiaFeatures.TREES_ASPEN_GROVE, PlacementUtils.countExtra(6, 0.2F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.ASPEN_GROVE)
             )
@@ -76,7 +82,7 @@ public interface PlantopiaArborealPlacements {
 
     ResourceKey<PlacedFeature> TREES_SNOWY_ASPEN_GROVE = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE),
-        treeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(5, 0.1F, 2))
+        treeDeclaration(PlantopiaFeatures.TREES_SNOWY_ASPEN_GROVE, PlacementUtils.countExtra(6, 0.2F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE)
             )
@@ -143,6 +149,41 @@ public interface PlantopiaArborealPlacements {
         treeDeclaration(PlantopiaFeatures.TREES_BLOOMING_GLADE, PlacementUtils.countExtra(2, 0.1F, 1))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.BLOOMING_GLADE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> TREES_TEMPERATE_GLADE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_TEMPERATE_GLADE),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.TREES_TEMPERATE_GLADE)
+            .modifiers(context -> {
+                var noiseConfig = PlantopiaNoiseConfig.of(0.432D, 67, 788);
+                float noiseLevel = 0.0F;
+
+                var count = weightedListInt(values -> values
+                    .add(ConstantInt.of(4), 4)
+                    .add(ConstantInt.of(5), 1)
+                );
+
+                return List.of(
+                    PlantopiaSwitchPlacement.switched(
+                        List.of(
+                            PlantopiaNoiseCountPlacement.below(noiseConfig, noiseLevel, count),
+                            InSquarePlacement.spread(),
+                            PlantopiaNoiseFilter.below(noiseConfig, noiseLevel, 0.1F)
+                        ),
+                        List.of(
+                            PlantopiaRarityFilter.onAverageOnceEvery(6),
+                            InSquarePlacement.spread()
+                        )
+                    ),
+                    TREE_THRESHOLD,
+                    PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                    BiomeFilter.biome()
+                );
+            })
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 }

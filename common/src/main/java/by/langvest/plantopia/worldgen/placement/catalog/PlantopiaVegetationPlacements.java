@@ -70,6 +70,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
+                .add(PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -124,6 +125,7 @@ public interface PlantopiaVegetationPlacements {
                 .addTag(PlantopiaBiomeTags.IS_MARSH)
                 .apply(PlantopiaPlacementUtils::addVanillaMountainBiomes)
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
+                .add(PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -240,7 +242,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SANDY_RIVER, PlantopiaBiomes.MUDDY_RIVER)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
-                .add(PlantopiaBiomes.BLOOMING_GLADE)
+                .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -508,6 +510,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.OAK_FOREST)
+                .add(PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -550,7 +553,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
-                .add(PlantopiaBiomes.BLOOMING_GLADE)
+                .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -701,6 +704,21 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.BLOOMING_GLADE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> FLOWER_TEMPERATE_GLADE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.FLOWER_TEMPERATE_GLADE),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.FLOWER_TEMPERATE_GLADE)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -959,7 +977,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS, PlantopiaBiomes.AMBER_THICKET)
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
-                .add(PlantopiaBiomes.BLOOMING_GLADE)
+                .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -971,7 +989,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.BLOOMING_GLADE)
+                .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 
@@ -983,7 +1001,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
-                .add(PlantopiaBiomes.BLOOMING_GLADE)
+                .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
             )
     );
 

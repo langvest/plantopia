@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/flower_temperate_glade",
+    "features": "plantopia:flower_temperate_glade",
+    "step": "vegetal_decoration"
+}

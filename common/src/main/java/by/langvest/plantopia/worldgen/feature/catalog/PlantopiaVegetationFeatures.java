@@ -498,6 +498,31 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> FLOWER_TEMPERATE_GLADE = declareFeature(
+        compileNameFrom(FLOWER, PlantopiaBiomes.TEMPERATE_GLADE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(flower(context ->
+                new RandomPatchConfiguration(72, 6, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    new SimpleBlockConfiguration(
+                        new DualNoiseProvider(
+                            new InclusiveRange(1, 3),
+                            new NormalNoise.NoiseParameters(-10, 1.0F),
+                            1.0F,
+                            2345L,
+                            new NormalNoise.NoiseParameters(-3, 1.0F),
+                            1.0F,
+                            List.of(
+                                Blocks.ALLIUM.defaultBlockState(),
+                                PlantopiaBlocks.WHITE_WILDFLOWERS.get().defaultBlockState(),
+                                Blocks.GRASS.defaultBlockState()
+                            )
+                        )
+                    )
+                ))
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> PATCH_LUPINE_OLD_GROWTH_BIRCH_FOREST = declareFeature(
         compileNameFrom(PATCH, LUPINE, Biomes.OLD_GROWTH_BIRCH_FOREST),
         PlantopiaFeatureDeclaration.builder()

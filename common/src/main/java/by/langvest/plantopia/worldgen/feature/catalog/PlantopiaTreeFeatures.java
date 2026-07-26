@@ -11,7 +11,6 @@ import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -278,35 +277,37 @@ public interface PlantopiaTreeFeatures {
         "acacia_cypress",
         PlantopiaFeatureDeclaration.builder()
             .feature(deciduousTree(context ->
-                new TreeConfiguration.TreeConfigurationBuilder(
-                    simpleProvider(Blocks.ACACIA_LOG), // logBlock
-                    new PlantopiaStraightTrunkPlacer(
-                        UniformInt.of(7, 8), // baseHeight
-                        UniformInt.of(0, 2) // heightRand
-                    ),
-                    simpleProvider(Blocks.ACACIA_LEAVES), // leavesBlock
-                    new PlantopiaCypressFoliagePlacer(
-                        ConstantInt.of(1), // foliageRadius
-                        ConstantInt.of(3), // foliageOffset
-                        PlantopiaIntProportion.relative(
-                            ConstantFloat.of(1.233334F),
-                            ConstantInt.of(8)
-                        ), // foliageHeight
-                        ConstantInt.of(3) // foliageTipStep
-                    ),
-                    new TwoLayersFeatureSize(
-                        2, // heightThreshold
-                        0, // lowerRadius
-                        1 // upperRadius
-                    )
-                ).ignoreVines().build()
+                createCypressTree(Blocks.ACACIA_LOG, Blocks.ACACIA_LEAVES)
+                    .ignoreVines()
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> BIRCH_CYPRESS = declareFeature(
+        "birch_cypress",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createCypressTree(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES)
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> SPRUCE_CYPRESS = declareFeature(
+        "spruce_cypress",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createCypressTree(Blocks.SPRUCE_LOG, Blocks.SPRUCE_LEAVES)
+                    .ignoreVines()
+                    .build()
             ))
     );
 
     ResourceKey<ConfiguredFeature<?, ?>> TALL_OAK_BEES_0002 = declareFeature(
         compileNameFrom(TALL, "oak", BEES, CHANCE_0002),
         PlantopiaFeatureDeclaration.builder()
-            .feature(mushroomTree(context ->
+            .feature(deciduousTree(context ->
                 new TreeConfiguration.TreeConfigurationBuilder(
                     simpleProvider(Blocks.OAK_LOG), // logBlock
                     new PlantopiaStraightTrunkPlacer(
@@ -325,6 +326,16 @@ public interface PlantopiaTreeFeatures {
                         2 // upperRadius
                     )
                 ).decorators(List.of(BEEHIVE_DECORATOR_0002)).ignoreVines().build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> OAK_BUSH = declareFeature(
+        "oak_bush",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createBushTree(Blocks.OAK_LOG, Blocks.OAK_LEAVES)
+                    .ignoreVines()
+                    .build()
             ))
     );
 }

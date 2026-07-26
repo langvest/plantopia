@@ -315,6 +315,30 @@ public interface PlantopiaForestBiomes {
             .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_MEADOW))
     );
 
+    ResourceKey<Biome> TEMPERATE_GLADE = declareBiome(
+        compileNameFrom("temperate", GLADE),
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::farmAnimals)
+            .addSpawn(MobCategory.CREATURE, EntityType.HORSE, 1, 2, 6)
+            .addSpawn(MobCategory.CREATURE, EntityType.DONKEY, 1, 1, 1)
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addPlainGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultExtraVegetation)
+            .applyGeneration(BiomeDefaultFeatures::addCommonBerryBushes)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .grassColorOverride("#699c5e")
+            .foliageColorOverride("#5a9340")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
     /* HELPER METHODS *******************************************************/
 
     static void aspenGroveColors(PlantopiaBiomeDeclaration.Builder builder) {
