@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
@@ -27,16 +28,16 @@ public class PlantopiaLushPalmFoliagePlacer extends PlantopiaLayeredFoliagePlace
     }
 
     @Override
-    protected LayerProvider getLayerProvider(PlaceContext context) {
+    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
 
-        return layerIndex -> {
-            if (layerIndex == 0) return Layer.of(1, corner());
-            if (layerIndex == 1) return Layer.of(radius, anyOf(center(), corner(2)));
-            if (layerIndex == 2) return Layer.of(radius, anyOf(center(1), corner()));
-            if (layerIndex == 3) return Layer.of(radius, cross());
-            if (layerIndex == 4) return Layer.of(radius, allOf(cross(), outline()));
-            return Layer.empty();
+        return row -> {
+            if (row == 0) return helper.layer(1, corner());
+            if (row == 1) return helper.layer(radius, anyOf(center(), corner(2)));
+            if (row == 2) return helper.layer(radius, anyOf(center(1), corner()));
+            if (row == 3) return helper.layer(radius, cross());
+            if (row == 4) return helper.layer(radius, allOf(cross(), outline()));
+            return helper.empty();
         };
     }
 

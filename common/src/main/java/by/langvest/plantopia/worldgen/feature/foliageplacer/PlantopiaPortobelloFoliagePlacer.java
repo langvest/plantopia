@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static by.langvest.plantopia.worldgen.util.PlantopiaPrinter.revealMushroomInsides;
 import static by.langvest.plantopia.worldgen.util.PlantopiaTemplate.*;
 
 @ParametersAreNonnullByDefault
@@ -33,12 +35,12 @@ public class PlantopiaPortobelloFoliagePlacer extends PlantopiaLayeredFoliagePla
     }
 
     @Override
-    protected LayerProvider getLayerProvider(PlaceContext context) {
+    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
 
-        return layerIndex -> {
-            if (layerIndex == 0) return Layer.of(radius - 1, noCorner());
-            return Layer.of(radius, octagonalOutline(), revealMushroomInsides());
+        return row -> {
+            if (row == 0) return helper.layer(radius - 1, noCorner());
+            return helper.layer(radius, octagonalOutline(), revealMushroomInsides());
         };
     }
 

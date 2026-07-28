@@ -1,12 +1,15 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
+import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
 import by.langvest.plantopia.worldgen.util.PlantopiaTemplate;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import org.jetbrains.annotations.Contract;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 
 @ParametersAreNonnullByDefault
 public abstract class PlantopiaLayeredFoliagePlacer extends PlantopiaFoliagePlacer {
@@ -16,42 +19,53 @@ public abstract class PlantopiaLayeredFoliagePlacer extends PlantopiaFoliagePlac
 
     @Override
     protected void createFoliage(PlaceContext context) {
-        int offset = context.offset();
-        int height = context.height();
-        var layerProvider = getLayerProvider(context);
-
-        for (int dy = offset; dy > offset - height; dy--) {
-            int layerIndex = offset - dy;
-            var layer = layerProvider.provide(layerIndex);
-            placeRow(context, dy, layer.range(), layer.template(), layer.modifier());
-        }
+        var layerHelper = getLayerHelper(context);
+        var layerProvider = getLayerProvider(context, layerHelper);
+        PlantopiaPrinter.printBox(context.ceiling(), context.random(), context.height(), layerProvider);
     }
 
-    protected abstract LayerProvider getLayerProvider(PlaceContext context);
+    protected abstract PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper);
 
-    @FunctionalInterface
-    protected interface LayerProvider {
-        Layer provide(int layerIndex);
+    protected LayerHelper getLayerHelper(PlaceContext context) {
+        return new LayerHelper(context);
     }
 
-    protected record Layer(
-        int range,
-        @Nullable PlantopiaTemplate template,
-        @Nullable LeafModifier modifier
-    ) {
-        @Contract(" -> new")
-        protected static @NotNull Layer empty() {
-            return new Layer(-1, null, null);
+    protected static class LayerHelper {
+        protected final PlaceContext context;
+        protected final PlantopiaPrinter.LayerContext layerContext;
+
+        protected LayerHelper(PlaceContext context) {
+            this.context = context;
+
+            this.layerContext = new PlantopiaPrinter.LayerContext() {
+                @Override
+                public BlockState getState(BlockPos pos, RandomSource random) {
+                    return context.getFoliageState(pos);
+                }
+
+                @Override
+                public boolean setBlock(BlockPos pos, BlockState state) {
+                    return context.tryPlaceLeaf(pos, state);
+                }
+            };
         }
 
-        @Contract("_, _ -> new")
-        protected static @NotNull Layer of(int range, PlantopiaTemplate template) {
-            return new Layer(range, template, null);
+        protected PlantopiaPrinter.@NotNull Layer layer(int range, PlantopiaTemplate template, PlantopiaPrinter.LayerModifier... modifiers) {
+            return new PlantopiaPrinter.Layer(
+                range,
+                context.hasDoubleTrunk(),
+                PlantopiaPrinter.templateFilter(template),
+                PlantopiaPrinter.pipelinePlacer(layerContext, List.of(modifiers))
+            );
         }
 
-        @Contract("_, _, _ -> new")
-        protected static @NotNull Layer of(int range, PlantopiaTemplate template, LeafModifier modifier) {
-            return new Layer(range, template, modifier);
+        protected PlantopiaPrinter.@NotNull Layer empty() {
+            return new PlantopiaPrinter.Layer(
+                -1,
+                context.hasDoubleTrunk(),
+                PlantopiaPrinter.declineFilter(),
+                PlantopiaPrinter.declinePlacer()
+            );
         }
     }
 }

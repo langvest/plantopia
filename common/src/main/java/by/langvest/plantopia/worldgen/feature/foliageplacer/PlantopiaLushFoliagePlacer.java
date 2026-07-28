@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -33,16 +34,16 @@ public class PlantopiaLushFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
     }
 
     @Override
-    protected LayerProvider getLayerProvider(PlaceContext context) {
+    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
 
-        return layerIndex -> {
-            if (layerIndex == 0 || layerIndex == 1) return Layer.of(0, square());
-            if (layerIndex == 2) return Layer.of(1, square());
-            int patternIndex = layerIndex - 3;
+        return row -> {
+            if (row == 0 || row == 1) return helper.layer(0, square());
+            if (row == 2) return helper.layer(1, square());
+            int patternIndex = row - 3;
             boolean isCross = patternIndex % 2 == 0;
-            if (isCross) return Layer.of(radius / 2, noCorner());
-            return Layer.of(radius, noCorner());
+            if (isCross) return helper.layer(radius / 2, noCorner());
+            return helper.layer(radius, noCorner());
         };
     }
 

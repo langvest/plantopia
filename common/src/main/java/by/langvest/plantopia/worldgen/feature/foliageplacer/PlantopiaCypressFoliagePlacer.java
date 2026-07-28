@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -37,7 +38,7 @@ public class PlantopiaCypressFoliagePlacer extends PlantopiaLayeredFoliagePlacer
     }
 
     @Override
-    protected LayerProvider getLayerProvider(PlaceContext context) {
+    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
         int height = context.height();
         var random = context.random();
@@ -45,13 +46,13 @@ public class PlantopiaCypressFoliagePlacer extends PlantopiaLayeredFoliagePlacer
         int tipStep = this.tipStep.sample(random);
         int tipHeight = tipStep * 2;
 
-        return layerIndex -> {
-            if (layerIndex < tipStep) return Layer.of(0, square());
-            if (layerIndex < tipHeight) return Layer.of(1, layerIndex == tipHeight - 1 ? anyOf(noCorner(), withChance(isThin ? 0.25333334F : 0.4F)) : cross());
-            if (layerIndex == height - 1) return Layer.of(1, cross());
-            if (layerIndex == tipHeight || isThin) return Layer.of(1, square());
-            if (layerIndex == tipHeight + 1 || layerIndex == height - 2) return Layer.of(radius, anyOf(cross(), square(0.5F)));
-            return Layer.of(radius, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
+        return row -> {
+            if (row < tipStep) return helper.layer(0, square());
+            if (row < tipHeight) return helper.layer(1, row == tipHeight - 1 ? anyOf(noCorner(), withChance(isThin ? 0.25333334F : 0.4F)) : cross());
+            if (row == height - 1) return helper.layer(1, cross());
+            if (row == tipHeight || isThin) return helper.layer(1, square());
+            if (row == tipHeight + 1 || row == height - 2) return helper.layer(radius, anyOf(cross(), square(0.5F)));
+            return helper.layer(radius, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
         };
     }
 

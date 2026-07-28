@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
+import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -33,13 +34,13 @@ public class PlantopiaChanterelleFoliagePlacer extends PlantopiaLayeredFoliagePl
     }
 
     @Override
-    protected LayerProvider getLayerProvider(PlaceContext context) {
+    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
 
-        return layerIndex -> {
-            if (layerIndex == 0) return Layer.of(radius, octagonalOutline());
-            if (layerIndex == 1) return Layer.of(radius / 2, outline());
-            return Layer.of(1, cross());
+        return row -> {
+            if (row == 0) return helper.layer(radius, octagonalOutline());
+            if (row == 1) return helper.layer(radius / 2, outline());
+            return helper.layer(1, cross());
         };
     }
 
