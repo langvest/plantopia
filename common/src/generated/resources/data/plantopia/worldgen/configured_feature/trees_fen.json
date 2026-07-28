@@ -4,6 +4,10 @@
         "default": "minecraft:oak_bees_0002",
         "features": [
             {
+                "chance": 0.2,
+                "feature": "plantopia:palm_checked"
+            },
+            {
                 "chance": 0.4,
                 "feature": "plantopia:deadwood_spire"
             },

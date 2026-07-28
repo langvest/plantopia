@@ -22,6 +22,9 @@ public class PlantopiaFoliagePlacerTypes {
     public static final RegistryObject<FoliagePlacerType<PlantopiaChanterelleFoliagePlacer>> CHANTERELLE_FOLIAGE_PLACER = registerFoliagePlacerType("chanterelle_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaChanterelleFoliagePlacer.CODEC));
     public static final RegistryObject<FoliagePlacerType<PlantopiaPortobelloFoliagePlacer>> PORTOBELLO_FOLIAGE_PLACER = registerFoliagePlacerType("portobello_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaPortobelloFoliagePlacer.CODEC));
     public static final RegistryObject<FoliagePlacerType<PlantopiaStragglyFoliagePlacer>> STRAGGLY_FOLIAGE_PLACER = registerFoliagePlacerType("straggly_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaStragglyFoliagePlacer.CODEC));
+    public static final RegistryObject<FoliagePlacerType<PlantopiaRandomSelectorFoliagePlacer>> RANDOM_SELECTOR_FOLIAGE_PLACER = registerFoliagePlacerType("random_selector_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaRandomSelectorFoliagePlacer.CODEC));
+    public static final RegistryObject<FoliagePlacerType<PlantopiaBlobPalmFoliagePlacer>> BLOB_PALM_FOLIAGE_PLACER = registerFoliagePlacerType("blob_palm_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaBlobPalmFoliagePlacer.CODEC));
+    public static final RegistryObject<FoliagePlacerType<PlantopiaLushPalmFoliagePlacer>> LUSH_PALM_FOLIAGE_PLACER = registerFoliagePlacerType("lush_palm_foliage_placer", () -> new FoliagePlacerType<>(PlantopiaLushPalmFoliagePlacer.CODEC));
 
     private static <T extends FoliagePlacer> RegistryObject<FoliagePlacerType<T>> registerFoliagePlacerType(String name, Supplier<FoliagePlacerType<T>> supplier) {
         return registerFoliagePlacerType(plantopia(name), supplier);

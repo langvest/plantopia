@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
@@ -38,18 +37,21 @@ public class PlantopiaCypressFoliagePlacer extends PlantopiaLayeredFoliagePlacer
     }
 
     @Override
-    protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
-        boolean isThin = foliageRadius == 1;
+    protected LayerProvider getLayerProvider(PlaceContext context) {
+        int radius = context.radius();
+        int height = context.height();
+        var random = context.random();
+        boolean isThin = radius == 1;
         int tipStep = this.tipStep.sample(random);
         int tipHeight = tipStep * 2;
 
         return layerIndex -> {
             if (layerIndex < tipStep) return Layer.of(0, square());
             if (layerIndex < tipHeight) return Layer.of(1, layerIndex == tipHeight - 1 ? anyOf(noCorner(), withChance(isThin ? 0.25333334F : 0.4F)) : cross());
-            if (layerIndex == foliageHeight - 1) return Layer.of(1, cross());
+            if (layerIndex == height - 1) return Layer.of(1, cross());
             if (layerIndex == tipHeight || isThin) return Layer.of(1, square());
-            if (layerIndex == tipHeight + 1 || layerIndex == foliageHeight - 2) return Layer.of(foliageRadius, anyOf(cross(), square(0.5F)));
-            return Layer.of(foliageRadius, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
+            if (layerIndex == tipHeight + 1 || layerIndex == height - 2) return Layer.of(radius, anyOf(cross(), square(0.5F)));
+            return Layer.of(radius, allOf(noCorner(), anyOf(noOutline(), withChance(0.75F))));
         };
     }
 

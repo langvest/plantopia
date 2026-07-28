@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
@@ -34,11 +33,13 @@ public class PlantopiaWitchyToadstoolFoliagePlacer extends PlantopiaLayeredFolia
     }
 
     @Override
-    protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected LayerProvider getLayerProvider(PlaceContext context) {
+        int radius = context.radius();
+
         return layerIndex -> {
             if (layerIndex <= 1) return Layer.of(0, square());
-            if (layerIndex <= 3) return Layer.of(foliageRadius, cross());
-            return Layer.of(foliageRadius, square());
+            if (layerIndex <= 3) return Layer.of(radius, cross());
+            return Layer.of(radius, square());
         };
     }
 

@@ -313,6 +313,7 @@ public interface PlantopiaArborealFeatures {
 
                 return new RandomFeatureConfiguration(
                     List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.PALM_CHECKED), 0.2F),
                         new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.DEADWOOD_SPIRE), 0.4F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.15F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.15F),

@@ -44,8 +44,8 @@ public interface PlantopiaTemplate {
     }
 
     @Contract(pure = true)
-    static @NotNull PlantopiaTemplate cross(int thickness) {
-        return (random, dx, dz, range) -> Math.abs(dx) <= thickness || Math.abs(dz) <= thickness;
+    static @NotNull PlantopiaTemplate cross(int radius) {
+        return (random, dx, dz, range) -> Math.abs(dx) <= radius || Math.abs(dz) <= radius;
     }
 
     @Contract(pure = true)
@@ -72,6 +72,16 @@ public interface PlantopiaTemplate {
             if (inset <= 0) return false;
             return Math.abs(dx) > range - inset && Math.abs(dz) > range - inset;
         };
+    }
+
+    @Contract(pure = true)
+    static @NotNull PlantopiaTemplate center() {
+        return center(0);
+    }
+
+    @Contract(pure = true)
+    static @NotNull PlantopiaTemplate center(int radius) {
+        return (random, dx, dz, range) -> Math.abs(dx) <= radius && Math.abs(dz) <= radius;
     }
 
     @Contract(pure = true)

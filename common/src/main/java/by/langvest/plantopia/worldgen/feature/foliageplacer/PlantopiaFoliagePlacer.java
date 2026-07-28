@@ -2,7 +2,9 @@ package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.util.PlantopiaTemplate;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -18,26 +20,56 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedListInt;
 
 @ParametersAreNonnullByDefault
 public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
+    protected static final IntProvider DEFAULT_HANGING_LEAVES_DEPTH = weightedListInt(values -> values
+        .add(ConstantInt.of(2), 2)
+        .add(ConstantInt.of(1), 1)
+    );
+
     public PlantopiaFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);
     }
 
-    protected void placeRow(
+    protected record PlaceContext(
         LevelSimulatedReader level,
-        FoliageSetter foliageSetter,
+        FoliageSetter setter,
         RandomSource random,
         FoliageAttachment attachment,
         TreeConfiguration config,
-        int dy,
-        int range,
-        PlantopiaTemplate template,
-        @Nullable BlockStateModifier modifier
+        int maxFreeTreeHeight,
+        int height,
+        int radius,
+        int offset
     ) {
-        boolean large = attachment.doubleTrunk();
-        int i = large ? 1 : 0;
+        protected @NotNull BlockState getFoliageState(BlockPos pos) {
+            return config.foliageProvider.getState(random, pos);
+        }
+
+        protected boolean tryPlaceLeaf(BlockPos pos, BlockState state) {
+            if (!TreeFeature.validTreePos(level, pos)) return false;
+            setter.set(pos, copyWaterloggedFrom(level, pos, state));
+            return true;
+        }
+    }
+
+    @Override
+    protected void createFoliage(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+        var context = new PlaceContext(level, blockSetter, random, attachment, config, maxFreeTreeHeight, foliageHeight, foliageRadius, offset);
+        createFoliage(context);
+    }
+
+    protected abstract void createFoliage(PlaceContext context);
+
+    protected void placeRow(PlaceContext context, int dy, int range, @Nullable PlantopiaTemplate template, @Nullable LeafModifier modifier) {
+        if (range < 0) return;
+
+        var attachment = context.attachment();
+        var random = context.random();
+        boolean isLarge = attachment.doubleTrunk();
+        int i = isLarge ? 1 : 0;
         var mutablePos = new BlockPos.MutableBlockPos();
 
         for (int dx = -range; dx <= range + i; dx++) {
@@ -45,32 +77,25 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
                 int templateDx = dx;
                 int templateDz = dz;
 
-                if (large) {
+                if (isLarge) {
                     if (dx >= 1) templateDx = dx - 1;
                     if (dz >= 1) templateDz = dz - 1;
                 }
 
-                if (template.test(random, templateDx, templateDz, range)) {
+                if (template == null || template.test(random, templateDx, templateDz, range)) {
                     mutablePos.setWithOffset(attachment.pos(), dx, dy, dz);
-                    var state = config.foliageProvider.getState(random, mutablePos);
+                    var state = context.getFoliageState(mutablePos);
 
                     if (modifier != null) {
-                        state = modifier.modify(level, state, mutablePos, random, dx, dz, templateDx, templateDz, range);
+                        state = modifier.apply(context, mutablePos, state, dx, dz, templateDx, templateDz, range);
                     }
 
                     if (state != null) {
-                        tryPlaceLeaf(level, mutablePos, state, foliageSetter, random);
+                        context.tryPlaceLeaf(mutablePos, state);
                     }
                 }
             }
         }
-    }
-
-    @SuppressWarnings("UnusedReturnValue")
-    protected boolean tryPlaceLeaf(LevelSimulatedReader level, BlockPos pos, BlockState state, FoliageSetter foliageSetter, RandomSource random) {
-        if (!TreeFeature.validTreePos(level, pos)) return false;
-        foliageSetter.set(pos, copyWaterloggedFrom(level, pos, state));
-        return true;
     }
 
     @Override
@@ -79,18 +104,63 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
     }
 
     @FunctionalInterface
-    protected interface BlockStateModifier {
-        BlockState modify(LevelSimulatedReader level, BlockState state, BlockPos pos, RandomSource random, int realDx, int realDz, int templateDx, int templateDz, int range);
+    protected interface LeafModifier {
+        @Nullable BlockState apply(PlaceContext context, BlockPos pos, BlockState state, int realDx, int realDz, int templateDx, int templateDz, int range);
     }
 
     @Contract(pure = true)
-    protected static @NotNull BlockStateModifier revealMushroomInsides() {
-        return (level, state, pos, random, realDx, realDz, templateDx, templateDz, range) -> {
+    protected static @NotNull LeafModifier revealMushroomInsides() {
+        return (context, pos, state, realDx, realDz, templateDx, templateDz, range) -> {
             if (state.getBlock() instanceof HugeMushroomBlock) {
                 if (templateDx > 0) state = state.setValue(BlockStateProperties.WEST, false);
                 if (templateDx < 0) state = state.setValue(BlockStateProperties.EAST, false);
                 if (templateDz > 0) state = state.setValue(BlockStateProperties.NORTH, false);
                 if (templateDz < 0) state = state.setValue(BlockStateProperties.SOUTH, false);
+            }
+            return state;
+        };
+    }
+
+    @FunctionalInterface
+    protected interface HangingLeafProvider {
+        @Nullable BlockState provide(PlaceContext context, BlockPos pos, BlockState state, int currentDepth, int totalDepth);
+    }
+
+    @Contract(pure = true)
+    protected static @NotNull LeafModifier placeHangingLeaves(float chance, IntProvider depth, HangingLeafProvider hangingLeafProvider) {
+        return (context, pos, state, realDx, realDz, templateDx, templateDz, range) -> {
+            var random = context.random();
+            if (random.nextFloat() < chance) {
+                var mutablePos = pos.mutable();
+                int totalDepth = depth.sample(random);
+
+                for (int currentDepth = 1; currentDepth <= totalDepth; currentDepth++) {
+                    mutablePos.move(Direction.DOWN);
+                    var hangingState = hangingLeafProvider.provide(context, mutablePos, state, currentDepth, totalDepth);
+                    if (hangingState != null) {
+                        context.tryPlaceLeaf(mutablePos, hangingState);
+                    }
+                }
+            }
+            return state;
+        };
+    }
+
+    @Contract(pure = true)
+    protected static @NotNull LeafModifier placeHangingLeaves(float chance) {
+        return placeHangingLeaves(chance, DEFAULT_HANGING_LEAVES_DEPTH, (context, pos, state, currentDepth, totalDepth) -> context.getFoliageState(pos));
+    }
+
+    @Contract(pure = true)
+    protected static @NotNull LeafModifier placeHangingLeaves(float chance, int depth) {
+        return placeHangingLeaves(chance, ConstantInt.of(depth), (context, pos, state, currentDepth, totalDepth) -> context.getFoliageState(pos));
+    }
+
+    @Contract(pure = true)
+    protected static @NotNull LeafModifier filteredByTemplate(PlantopiaTemplate template, LeafModifier modifier) {
+        return (context, pos, state, realDx, realDz, templateDx, templateDz, range) -> {
+            if (template.test(context.random(), templateDx, templateDz, range)) {
+                return modifier.apply(context, pos, state, realDx, realDz, templateDx, templateDz, range);
             }
             return state;
         };

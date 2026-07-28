@@ -9,17 +9,19 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaMushroomTreeFeature extends PlantopiaAbstractTreeFeature {
-    protected final List<TreeModifier> pipeline;
-
+public class PlantopiaMushroomTreeFeature extends PlantopiaAbstractTreeFeature<TreeConfiguration> {
     public PlantopiaMushroomTreeFeature(Codec<TreeConfiguration> codec) {
         super(codec);
-        this.pipeline = List.of(this::makeStructure, this::applyDecorators);
     }
 
     @Override
     protected List<TreeModifier> getTreePipeline(FeaturePlaceContext<TreeConfiguration> context) {
-        return pipeline;
+        var config = context.config();
+
+        return List.of(
+            makeStructure(config),
+            applyDecorators(config.decorators)
+        );
     }
 
     @Override

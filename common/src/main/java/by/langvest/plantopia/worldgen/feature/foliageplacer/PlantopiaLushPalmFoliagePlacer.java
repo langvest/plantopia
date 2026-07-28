@@ -1,7 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
-import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
@@ -15,21 +14,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import static by.langvest.plantopia.worldgen.util.PlantopiaTemplate.*;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaStragglyFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
-    public static final Codec<PlantopiaStragglyFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).and(
-        PlantopiaIntProportion.CODEC.fieldOf("height").forGetter(it -> it.height)
-    ).apply(instance, PlantopiaStragglyFoliagePlacer::new));
+public class PlantopiaLushPalmFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
+    public static final Codec<PlantopiaLushPalmFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> foliagePlacerParts(instance).apply(instance, PlantopiaLushPalmFoliagePlacer::new));
 
-    private final PlantopiaIntProportion height;
-
-    public PlantopiaStragglyFoliagePlacer(IntProvider radius, IntProvider offset, PlantopiaIntProportion height) {
+    public PlantopiaLushPalmFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);
-        this.height = height;
     }
 
     @Override
     protected @NotNull FoliagePlacerType<?> type() {
-        return PlantopiaFoliagePlacerTypes.STRAGGLY_FOLIAGE_PLACER.get();
+        return PlantopiaFoliagePlacerTypes.LUSH_PALM_FOLIAGE_PLACER.get();
     }
 
     @Override
@@ -37,13 +31,17 @@ public class PlantopiaStragglyFoliagePlacer extends PlantopiaLayeredFoliagePlace
         int radius = context.radius();
 
         return layerIndex -> {
-            if (layerIndex == 0) return Layer.of(0, square());
-            return Layer.of(radius, allOf(noCorner(), withChance(0.5F)));
+            if (layerIndex == 0) return Layer.of(1, corner());
+            if (layerIndex == 1) return Layer.of(radius, anyOf(center(), corner(2)));
+            if (layerIndex == 2) return Layer.of(radius, anyOf(center(1), corner()));
+            if (layerIndex == 3) return Layer.of(radius, cross());
+            if (layerIndex == 4) return Layer.of(radius, allOf(cross(), outline()));
+            return Layer.empty();
         };
     }
 
     @Override
     public int foliageHeight(RandomSource random, int trunkHeight, TreeConfiguration config) {
-        return height.sample(random, trunkHeight);
+        return 5;
     }
 }

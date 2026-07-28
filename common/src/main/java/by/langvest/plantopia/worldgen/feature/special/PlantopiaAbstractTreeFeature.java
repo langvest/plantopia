@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -23,6 +24,8 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -30,14 +33,14 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 @ParametersAreNonnullByDefault
-public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfiguration> {
+public abstract class PlantopiaAbstractTreeFeature<FC extends FeatureConfiguration> extends Feature<FC> {
     public static final int DEFAULT_BLOCK_UPDATE_FLAGS = Block.UPDATE_NEIGHBORS | Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE;
 
-    public PlantopiaAbstractTreeFeature(Codec<TreeConfiguration> codec) {
+    public PlantopiaAbstractTreeFeature(Codec<FC> codec) {
         super(codec);
     }
 
-    protected TreeBlockPool createBlockPool(FeaturePlaceContext<TreeConfiguration> context) {
+    protected TreeBlockPool createBlockPool(FeaturePlaceContext<FC> context) {
         return new TreeBlockPool(
             Sets.newHashSet(),
             Sets.newHashSet(),
@@ -46,7 +49,7 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
         );
     }
 
-    protected TreeBlockSetter createBlockSetter(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool) {
+    protected TreeBlockSetter createBlockSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
         return new TreeBlockSetter(
             createRootSetter(context, pool),
             createTrunkSetter(context, pool),
@@ -55,21 +58,21 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
         );
     }
 
-    protected BiConsumer<BlockPos, BlockState> createRootSetter(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool) {
+    protected BiConsumer<BlockPos, BlockState> createRootSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
         return (pos, state) -> {
             pool.root().add(pos.immutable());
             setBlock(context.level(), pos, state);
         };
     }
 
-    protected BiConsumer<BlockPos, BlockState> createTrunkSetter(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool) {
+    protected BiConsumer<BlockPos, BlockState> createTrunkSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
         return (pos, state) -> {
             pool.trunk().add(pos.immutable());
             setBlock(context.level(), pos, state);
         };
     }
 
-    protected FoliagePlacer.FoliageSetter createFoliageSetter(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool) {
+    protected FoliagePlacer.FoliageSetter createFoliageSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
         return new FoliagePlacer.FoliageSetter() {
             public void set(BlockPos pos, BlockState state) {
                 pool.foliage().add(pos.immutable());
@@ -82,7 +85,7 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
         };
     }
 
-    protected BiConsumer<BlockPos, BlockState> createDecorSetter(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool) {
+    protected BiConsumer<BlockPos, BlockState> createDecorSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
         return (pos, state) -> {
             pool.decor().add(pos.immutable());
             setBlock(context.level(), pos, state);
@@ -105,13 +108,13 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
 
     @FunctionalInterface
     protected interface TreeModifier {
-        boolean apply(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool, TreeBlockSetter setter);
+        boolean apply(FeaturePlaceContext<?> context, TreeBlockPool pool, TreeBlockSetter setter);
     }
 
-    protected abstract List<TreeModifier> getTreePipeline(FeaturePlaceContext<TreeConfiguration> context);
+    protected abstract List<TreeModifier> getTreePipeline(FeaturePlaceContext<FC> context);
 
     @Override
-    public boolean place(FeaturePlaceContext<TreeConfiguration> context) {
+    public boolean place(FeaturePlaceContext<FC> context) {
         var pipeline = getTreePipeline(context);
         if (pipeline.isEmpty()) return false;
 
@@ -127,42 +130,53 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
         return true;
     }
 
-    protected boolean makeStructure(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool, TreeBlockSetter setter) {
-        var config = context.config();
-        var random = context.random();
-        var origin = context.origin();
-        var level = context.level();
-
-        int treeHeight = config.trunkPlacer.getTreeHeight(random);
-        int foliageHeight = config.foliagePlacer.foliageHeight(random, treeHeight, config);
-        int foliageRadius = config.foliagePlacer.foliageRadius(random, treeHeight - foliageHeight);
-
-        var trunkOrigin = config.rootPlacer.map(rootPlacer -> rootPlacer.getTrunkOrigin(origin, random)).orElse(origin);
-
-        int minY = Math.min(origin.getY(), trunkOrigin.getY());
-        int maxY = Math.max(origin.getY(), trunkOrigin.getY()) + treeHeight + 1;
-
-        if (minY < level.getMinBuildHeight() + 1 || maxY > level.getMaxBuildHeight()) {
-            return false;
-        }
-
-        var minClippedHeight = config.minimumSize.minClippedHeight();
-        int maxFreeTreeHeight = getMaxFreeTreeHeight(level, treeHeight, trunkOrigin, config);
-
-        if (maxFreeTreeHeight < treeHeight && (minClippedHeight.isEmpty() || maxFreeTreeHeight < minClippedHeight.getAsInt())) {
-            return false;
-        }
-
-        if (config.rootPlacer.isPresent() && !config.rootPlacer.get().placeRoots(level, setter.root(), random, origin, trunkOrigin, config)) {
-            return false;
-        }
-
-        var foliageAttachments = config.trunkPlacer.placeTrunk(level, setter.trunk(), random, maxFreeTreeHeight, trunkOrigin, config);
-        foliageAttachments.forEach(foliageAttachment -> config.foliagePlacer.createFoliage(level, setter.foliage(), random, config, maxFreeTreeHeight, foliageAttachment, foliageHeight, foliageRadius));
-        return true;
+    @Override
+    protected void setBlock(LevelWriter level, BlockPos pos, BlockState state) {
+        level.setBlock(pos, state, getBlockUpdateFlags());
     }
 
-    protected int getMaxFreeTreeHeight(LevelSimulatedReader level, int trunkHeight, BlockPos topPosition, TreeConfiguration config) {
+    protected int getBlockUpdateFlags() {
+        return DEFAULT_BLOCK_UPDATE_FLAGS;
+    }
+
+    @Contract(pure = true)
+    protected static @NotNull TreeModifier makeStructure(TreeConfiguration config) {
+        return (context, pool, setter) -> {
+            var random = context.random();
+            var origin = context.origin();
+            var level = context.level();
+
+            int treeHeight = config.trunkPlacer.getTreeHeight(random);
+            int foliageHeight = config.foliagePlacer.foliageHeight(random, treeHeight, config);
+            int foliageRadius = config.foliagePlacer.foliageRadius(random, treeHeight - foliageHeight);
+
+            var trunkOrigin = config.rootPlacer.map(rootPlacer -> rootPlacer.getTrunkOrigin(origin, random)).orElse(origin);
+
+            int minY = Math.min(origin.getY(), trunkOrigin.getY());
+            int maxY = Math.max(origin.getY(), trunkOrigin.getY()) + treeHeight + 1;
+
+            if (minY < level.getMinBuildHeight() + 1 || maxY > level.getMaxBuildHeight()) {
+                return false;
+            }
+
+            var minClippedHeight = config.minimumSize.minClippedHeight();
+            int maxFreeTreeHeight = getMaxFreeTreeHeight(level, treeHeight, trunkOrigin, config);
+
+            if (maxFreeTreeHeight < treeHeight && (minClippedHeight.isEmpty() || maxFreeTreeHeight < minClippedHeight.getAsInt())) {
+                return false;
+            }
+
+            if (config.rootPlacer.isPresent() && !config.rootPlacer.get().placeRoots(level, setter.root(), random, origin, trunkOrigin, config)) {
+                return false;
+            }
+
+            var foliageAttachments = config.trunkPlacer.placeTrunk(level, setter.trunk(), random, maxFreeTreeHeight, trunkOrigin, config);
+            foliageAttachments.forEach(foliageAttachment -> config.foliagePlacer.createFoliage(level, setter.foliage(), random, config, maxFreeTreeHeight, foliageAttachment, foliageHeight, foliageRadius));
+            return true;
+        };
+    }
+
+    protected static int getMaxFreeTreeHeight(LevelSimulatedReader level, int trunkHeight, BlockPos topPosition, TreeConfiguration config) {
         var mutableBlockPos = new BlockPos.MutableBlockPos();
 
         for (int dy = 0; dy <= trunkHeight + 1; dy++) {
@@ -181,50 +195,41 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
         return trunkHeight;
     }
 
-    protected boolean applyDecorators(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool, TreeBlockSetter setter) {
-        var level = context.level();
-        var random = context.random();
-        var config = context.config();
+    @Contract(pure = true)
+    protected static @NotNull TreeModifier applyDecorators(List<TreeDecorator> decorators) {
+        return (context, pool, setter) -> {
+            if (decorators.isEmpty()) return true;
 
-        if (config.decorators.isEmpty()) return true;
+            var decoratorContext = new TreeDecorator.Context(context.level(), setter.decor(), context.random(), pool.trunk(), pool.foliage(), pool.root());
+            for (var decorator : decorators) {
+                decorator.place(decoratorContext);
+            }
 
-        var decoratorContext = new TreeDecorator.Context(level, setter.decor(), random, pool.trunk(), pool.foliage(), pool.root());
-        for (var decorator : config.decorators) {
-            decorator.place(decoratorContext);
-        }
-
-        return true;
+            return true;
+        };
     }
 
     public static boolean isVine(LevelSimulatedReader level, BlockPos pos) {
         return level.isStateAtPosition(pos, state -> state.is(Blocks.VINE));
     }
 
-    @Override
-    protected void setBlock(LevelWriter level, BlockPos pos, BlockState state) {
-        level.setBlock(pos, state, getBlockUpdateFlags());
+    @Contract(pure = true)
+    protected static @NotNull TreeModifier updateLeaves() {
+        return (context, pool, setter) -> {
+            if (pool.foliage().isEmpty()) return true;
+            if (pool.trunk().isEmpty()) return false;
+
+            return BoundingBox.encapsulatingPositions(
+                Iterables.concat(pool.root(), pool.trunk(), pool.foliage(), pool.decor())
+            ).map(box -> {
+                var shape = getUpdatedLeavesShape(context.level(), box, setter, pool.trunk(), Sets.union(pool.root(), pool.decor()));
+                StructureTemplate.updateShapeAtEdge(context.level(), Block.UPDATE_ALL, shape, box.minX(), box.minY(), box.minZ());
+                return true;
+            }).orElse(false);
+        };
     }
 
-    protected int getBlockUpdateFlags() {
-        return DEFAULT_BLOCK_UPDATE_FLAGS;
-    }
-
-    protected boolean updateLeaves(FeaturePlaceContext<TreeConfiguration> context, TreeBlockPool pool, TreeBlockSetter setter) {
-        var level = context.level();
-
-        if (pool.foliage().isEmpty()) return true;
-        if (pool.trunk().isEmpty()) return false;
-
-        return BoundingBox.encapsulatingPositions(
-            Iterables.concat(pool.root(), pool.trunk(), pool.foliage(), pool.decor())
-        ).map(box -> {
-            var shape = getUpdatedLeavesShape(level, box, pool.trunk(), Sets.union(pool.root(), pool.decor()));
-            StructureTemplate.updateShapeAtEdge(level, Block.UPDATE_ALL, shape, box.minX(), box.minY(), box.minZ());
-            return true;
-        }).orElse(false);
-    }
-
-    protected DiscreteVoxelShape getUpdatedLeavesShape(LevelAccessor level, BoundingBox box, Set<BlockPos> trunkPool, Set<BlockPos> skipPool) {
+    protected static DiscreteVoxelShape getUpdatedLeavesShape(LevelAccessor level, BoundingBox box, TreeBlockSetter setter, Set<BlockPos> trunkPool, Set<BlockPos> skipPool) {
         var shape = new BitSetDiscreteVoxelShape(box.getXSpan(), box.getYSpan(), box.getZSpan());
         List<Set<BlockPos>> distanceQueue = Lists.newArrayList();
 
@@ -258,7 +263,7 @@ public abstract class PlantopiaAbstractTreeFeature extends Feature<TreeConfigura
 
                 if (currentDistance != 0) {
                     BlockState leafState = level.getBlockState(currentPos);
-                    setBlock(level, currentPos, leafState.setValue(BlockStateProperties.DISTANCE, currentDistance));
+                    setter.foliage().set(currentPos, leafState.setValue(BlockStateProperties.DISTANCE, currentDistance));
                 }
 
                 shape.fill(currentPos.getX() - box.minX(), currentPos.getY() - box.minY(), currentPos.getZ() - box.minZ());

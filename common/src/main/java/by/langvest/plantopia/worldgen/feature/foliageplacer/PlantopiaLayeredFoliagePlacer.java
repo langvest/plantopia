@@ -1,10 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.util.PlantopiaTemplate;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,17 +15,19 @@ public abstract class PlantopiaLayeredFoliagePlacer extends PlantopiaFoliagePlac
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
-        var layerProvider = getLayerProvider(level, blockSetter, random, config, maxFreeTreeHeight, attachment, foliageHeight, foliageRadius, offset);
+    protected void createFoliage(PlaceContext context) {
+        int offset = context.offset();
+        int height = context.height();
+        var layerProvider = getLayerProvider(context);
 
-        for (int dy = offset; dy > offset - foliageHeight; dy--) {
+        for (int dy = offset; dy > offset - height; dy--) {
             int layerIndex = offset - dy;
             var layer = layerProvider.provide(layerIndex);
-            placeRow(level, blockSetter, random, attachment, config, dy, layer.range(), layer.template(), layer.modifier());
+            placeRow(context, dy, layer.range(), layer.template(), layer.modifier());
         }
     }
 
-    protected abstract LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset);
+    protected abstract LayerProvider getLayerProvider(PlaceContext context);
 
     @FunctionalInterface
     protected interface LayerProvider {
@@ -37,16 +36,21 @@ public abstract class PlantopiaLayeredFoliagePlacer extends PlantopiaFoliagePlac
 
     protected record Layer(
         int range,
-        PlantopiaTemplate template,
-        @Nullable BlockStateModifier modifier
+        @Nullable PlantopiaTemplate template,
+        @Nullable LeafModifier modifier
     ) {
+        @Contract(" -> new")
+        protected static @NotNull Layer empty() {
+            return new Layer(-1, null, null);
+        }
+
         @Contract("_, _ -> new")
         protected static @NotNull Layer of(int range, PlantopiaTemplate template) {
             return new Layer(range, template, null);
         }
 
         @Contract("_, _, _ -> new")
-        protected static @NotNull Layer of(int range, PlantopiaTemplate template, BlockStateModifier modifier) {
+        protected static @NotNull Layer of(int range, PlantopiaTemplate template, LeafModifier modifier) {
             return new Layer(range, template, modifier);
         }
     }

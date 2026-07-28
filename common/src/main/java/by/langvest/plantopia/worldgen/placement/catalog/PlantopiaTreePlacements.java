@@ -90,4 +90,9 @@ public interface PlantopiaTreePlacements {
         compileNameFrom(PlantopiaFeatures.DEADWOOD_SPIRE),
         checkedTreeDeclaration(PlantopiaFeatures.DEADWOOD_SPIRE, PlantopiaKits.DEADWOOD.sapling)
     );
+
+    ResourceKey<PlacedFeature> PALM_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PALM, CHECKED),
+        checkedTreeDeclaration(PlantopiaFeatures.PALM, Blocks.OAK_SAPLING)
+    );
 }

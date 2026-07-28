@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
@@ -34,14 +33,16 @@ public class PlantopiaLushFoliagePlacer extends PlantopiaLayeredFoliagePlacer {
     }
 
     @Override
-    protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected LayerProvider getLayerProvider(PlaceContext context) {
+        int radius = context.radius();
+
         return layerIndex -> {
             if (layerIndex == 0 || layerIndex == 1) return Layer.of(0, square());
             if (layerIndex == 2) return Layer.of(1, square());
             int patternIndex = layerIndex - 3;
             boolean isCross = patternIndex % 2 == 0;
-            if (isCross) return Layer.of(foliageRadius / 2, noCorner());
-            return Layer.of(foliageRadius, noCorner());
+            if (isCross) return Layer.of(radius / 2, noCorner());
+            return Layer.of(radius, noCorner());
         };
     }
 

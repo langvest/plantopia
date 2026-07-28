@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
@@ -34,10 +33,12 @@ public class PlantopiaPortobelloFoliagePlacer extends PlantopiaLayeredFoliagePla
     }
 
     @Override
-    protected LayerProvider getLayerProvider(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset) {
+    protected LayerProvider getLayerProvider(PlaceContext context) {
+        int radius = context.radius();
+
         return layerIndex -> {
-            if (layerIndex == 0) return Layer.of(foliageRadius - 1, noCorner());
-            return Layer.of(foliageRadius, octagonalOutline(), revealMushroomInsides());
+            if (layerIndex == 0) return Layer.of(radius - 1, noCorner());
+            return Layer.of(radius, octagonalOutline(), revealMushroomInsides());
         };
     }
 
