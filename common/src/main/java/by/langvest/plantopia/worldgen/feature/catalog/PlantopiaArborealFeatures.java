@@ -310,10 +310,11 @@ public interface PlantopiaArborealFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(randomSelector(context -> {
                 var placements = lookupPlacements(context);
+                var palm = PlantopiaKits.PALM.worldgen.placement;
 
                 return new RandomFeatureConfiguration(
                     List.of(
-                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.PALM_CHECKED), 0.2F),
+                        new WeightedPlacedFeature(placements.getOrThrow(palm.tree), 0.2F),
                         new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.DEADWOOD_SPIRE), 0.4F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.SPRUCE_CHECKED), 0.15F),
                         new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.PINE_CHECKED), 0.15F),

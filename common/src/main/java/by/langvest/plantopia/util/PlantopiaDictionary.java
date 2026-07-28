@@ -34,6 +34,7 @@ public final class PlantopiaDictionary {
     public static final String MAPLE = "maple";
     public static final String JACARANDA = "jacaranda";
     public static final String DEADWOOD = "deadwood";
+    public static final String PALM = "palm";
     public static final String DEAD = "dead";
     public static final String LUPINE = "lupine";
     public static final String SPARSE = "sparse";

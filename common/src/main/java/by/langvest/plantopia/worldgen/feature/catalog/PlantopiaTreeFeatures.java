@@ -11,7 +11,6 @@ import by.langvest.plantopia.worldgen.placement.catalog.PlantopiaPlacements;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeature
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import org.jetbrains.annotations.NotNull;
 
@@ -347,32 +345,6 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSpireTree(PlantopiaKits.DEADWOOD.trunk.log.get(), PlantopiaKits.DEADWOOD.leaves.get())
                     .build()
-            ))
-    );
-
-    ResourceKey<ConfiguredFeature<?, ?>> PALM = declareFeature(
-        "palm",
-        PlantopiaFeatureDeclaration.builder()
-            .feature(deciduousTree(context ->
-                new TreeConfiguration.TreeConfigurationBuilder(
-                    simpleProvider(Blocks.OAK_LOG), // logBlock
-                    new PlantopiaStraightTrunkPlacer(
-                        ConstantInt.of(10), // baseHeight
-                        UniformInt.of(0, 2) // bonusHeight
-                    ),
-                    simpleProvider(Blocks.AZALEA_LEAVES), // leavesBlock
-                    new PlantopiaRandomSelectorFoliagePlacer(
-                        SimpleWeightedRandomList.<FoliagePlacer>builder()
-                            .add(new PlantopiaLushPalmFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1)), 3)
-                            .add(new PlantopiaBlobPalmFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), 1)
-                            .build()
-                    ),
-                    new TwoLayersFeatureSize(
-                        6, // heightThreshold
-                        0, // lowerRadius
-                        2 // upperRadius
-                    )
-                ).ignoreVines().build()
             ))
     );
 }

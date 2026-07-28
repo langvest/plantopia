@@ -4,6 +4,7 @@ import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.tree.deadwood.PlantopiaDeadwoodKit;
 import by.langvest.plantopia.kit.tree.jacaranda.PlantopiaJacarandaKit;
 import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
+import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.util.PlantopiaDictionary;
@@ -36,6 +37,13 @@ public class PlantopiaKits {
         PlantopiaDictionary.DEADWOOD,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.DEADWOOD)
+            .build()
+    );
+
+    public static final PlantopiaPalmKit PALM = new PlantopiaPalmKit(
+        PlantopiaDictionary.PALM,
+        PlantopiaTreeKitConfiguration.builder()
+            .orderType(PlantopiaOrderType.PALM)
             .build()
     );
 

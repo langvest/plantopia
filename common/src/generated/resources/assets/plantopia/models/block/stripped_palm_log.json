@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "plantopia:block/stripped_palm_log_top",
+        "side": "plantopia:block/stripped_palm_log"
+    }
+}

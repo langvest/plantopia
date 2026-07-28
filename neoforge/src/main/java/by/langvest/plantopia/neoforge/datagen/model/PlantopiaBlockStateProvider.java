@@ -227,6 +227,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
                 return;
             }
 
+            if (type.instanceOf(MetaType.LEAVES) && blockMeta.isTinted()) {
+                leavesBlock(blockMeta);
+                return;
+            }
+
             simpleBlock(blockMeta);
         });
     }
@@ -269,6 +274,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         var texture = texture(baseName);
 
         var model = cubeAllModel(baseName, texture);
+
+        generatedBlockItem(blockMeta, () -> blockItemModel(baseName, model));
+        simpleBlock(blockMeta.get(), model);
+    }
+
+    private void leavesBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var texture = texture(baseName);
+
+        var model = leavesModel(baseName, texture);
 
         generatedBlockItem(blockMeta, () -> blockItemModel(baseName, model));
         simpleBlock(blockMeta.get(), model);
@@ -1315,6 +1331,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private BlockModelBuilder cubeAllModel(String name, ResourceLocation texture) {
         return models().cubeAll(name, texture);
+    }
+
+    private BlockModelBuilder leavesModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, "leaves")
+            .texture("all", texture);
     }
 
     private BlockModelBuilder crossModel(String name, ResourceLocation crossTexture, boolean tinted) {

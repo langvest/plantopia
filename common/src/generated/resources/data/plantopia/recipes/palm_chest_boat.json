@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "chest_boat",
+    "ingredients": [
+        {
+            "item": "minecraft:chest"
+        },
+        {
+            "item": "plantopia:palm_boat"
+        }
+    ],
+    "result": {
+        "item": "plantopia:palm_chest_boat"
+    }
+}

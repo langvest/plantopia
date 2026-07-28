@@ -4,8 +4,10 @@
         "plantopia:deadwood_wood",
         "plantopia:jacaranda_wood",
         "plantopia:maple_wood",
+        "plantopia:palm_wood",
         "plantopia:stripped_deadwood_wood",
         "plantopia:stripped_jacaranda_wood",
-        "plantopia:stripped_maple_wood"
+        "plantopia:stripped_maple_wood",
+        "plantopia:stripped_palm_wood"
     ]
 }

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/door_top_right",
+    "textures": {
+        "bottom": "plantopia:block/palm_door_bottom",
+        "top": "plantopia:block/palm_door_top"
+    }
+}
