@@ -8,8 +8,6 @@ import org.jetbrains.annotations.NotNull;
 public interface PlantopiaTemplate {
     boolean test(RandomSource random, int dx, int dz, int range);
 
-    /* TEMPLATES **********************************************************************************/
-
     @Contract(pure = true)
     static @NotNull PlantopiaTemplate square() {
         return square(1.0F);

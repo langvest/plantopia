@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
-import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
+import by.langvest.plantopia.worldgen.util.PlantopiaLayer;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.RandomSource;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static by.langvest.plantopia.worldgen.util.PlantopiaPrinter.filteredByTemplate;
-import static by.langvest.plantopia.worldgen.util.PlantopiaPrinter.placeHangingLeaves;
+import static by.langvest.plantopia.worldgen.util.PlantopiaLayerUtils.filteredByTemplate;
+import static by.langvest.plantopia.worldgen.util.PlantopiaLayerUtils.placeHangingLeaves;
 import static by.langvest.plantopia.worldgen.util.PlantopiaTemplate.*;
 
 @ParametersAreNonnullByDefault
@@ -30,7 +30,7 @@ public class PlantopiaBlobPalmFoliagePlacer extends PlantopiaLayeredFoliagePlace
     }
 
     @Override
-    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
+    protected PlantopiaLayer.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
 
         return row -> {

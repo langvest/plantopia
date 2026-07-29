@@ -1,7 +1,7 @@
 package by.langvest.plantopia.worldgen.feature.foliageplacer;
 
 import by.langvest.plantopia.worldgen.feature.PlantopiaFoliagePlacerTypes;
-import by.langvest.plantopia.worldgen.util.PlantopiaPrinter;
+import by.langvest.plantopia.worldgen.util.PlantopiaLayer;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -34,7 +34,7 @@ public class PlantopiaWitchyToadstoolFoliagePlacer extends PlantopiaLayeredFolia
     }
 
     @Override
-    protected PlantopiaPrinter.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
+    protected PlantopiaLayer.LayerProvider getLayerProvider(PlaceContext context, LayerHelper helper) {
         int radius = context.radius();
 
         return row -> {

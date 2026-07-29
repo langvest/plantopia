@@ -39,7 +39,7 @@ public abstract class PlantopiaFoliagePlacer extends FoliagePlacer {
             return attachment.pos().offset(0, offset, 0);
         }
 
-        protected @NotNull BlockState getFoliageState(BlockPos pos) {
+        protected @NotNull BlockState getFoliageState(RandomSource random, BlockPos pos) {
             return config.foliageProvider.getState(random, pos);
         }
 
