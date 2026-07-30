@@ -1,7 +1,10 @@
 {
     "variants": {
-        "": {
-            "model": "plantopia:block/pine_cone"
+        "vertical_direction=down": {
+            "model": "plantopia:block/pine_cone_down"
+        },
+        "vertical_direction=up": {
+            "model": "plantopia:block/pine_cone_up"
         }
     }
 }

@@ -1,17 +1,22 @@
 package by.langvest.plantopia.kit.tree.fir;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaPineconeBlock;
 import by.langvest.plantopia.kit.special.PlantopiaKit;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaMegaFirTreeConfiguration;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaFruitDecorator;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
@@ -32,6 +37,13 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
         Supplier<Block> log,
         Supplier<Block> leaves
     ) {
+        Supplier<TreeDecorator> pineconeDecorator = () -> new PlantopiaFruitDecorator(
+            simpleProvider(PlantopiaBlocks.PINE_CONE.get().defaultBlockState().setValue(PlantopiaPineconeBlock.DIRECTION, Direction.UP)),
+            ConstantInt.of(1),
+            ConstantInt.of(130),
+            Direction.UP
+        );
+
         this.tree = PlantopiaFeatures.declareFeature(
             baseName,
             PlantopiaFeatureDeclaration.builder()
@@ -44,7 +56,7 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
                             UniformFloat.of(0.2F, 0.3F)
                         ),
                         ConstantInt.of(1),
-                        List.of()
+                        List.of(pineconeDecorator.get())
                     )
                 ))
         );
@@ -61,7 +73,7 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
                             UniformFloat.of(0.2F, 0.3F)
                         ),
                         ConstantInt.of(2),
-                        List.of()
+                        List.of(pineconeDecorator.get())
                     )
                 ))
         );

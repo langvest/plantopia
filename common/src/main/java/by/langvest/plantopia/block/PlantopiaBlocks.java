@@ -177,8 +177,8 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> ORANGE_LEAF_LITTER = registerBlock("orange_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_ORANGE).goesAfter(PlantopiaKits.MAPLE.orangeLeaves));
     public static final RegistryObject<Block> RED_LEAF_LITTER = registerBlock("red_leaf_litter", PlantopiaLeafLitterBlock::new, MetaProperties.of(MetaType.LEAF_LITTER).mapColor(MapColor.COLOR_RED).goesAfter(PlantopiaKits.MAPLE.redLeaves));
 
-    public static final RegistryObject<Block> BIRCH_CATKIN = registerBlock("birch_catkin", PlantopiaBirchCatkinBlock::new, MetaProperties.of(MetaType.TREE_FRUIT).dropSelfByShears().replaceable());
-    public static final RegistryObject<Block> PINE_CONE = registerBlock("pine_cone", PlantopiaPineconeBlock::new, MetaProperties.of(MetaType.TREE_FRUIT));
+    public static final RegistryObject<Block> BIRCH_CATKIN = registerBlock("birch_catkin", PlantopiaBirchCatkinBlock::new, MetaProperties.of(MetaType.TREE_FRUIT).customModel().dropSelfByShears().replaceable());
+    public static final RegistryObject<Block> PINE_CONE = registerBlock("pine_cone", PlantopiaPineconeBlock::new, MetaProperties.of(MetaType.TREE_FRUIT).customModel());
 
     public static final RegistryObject<Block> POTTED_GRASS = registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
     public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));

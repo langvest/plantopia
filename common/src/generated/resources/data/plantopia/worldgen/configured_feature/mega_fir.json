@@ -1,7 +1,23 @@
 {
     "type": "plantopia:fir_tree",
     "config": {
-        "decorators": [],
+        "decorators": [
+            {
+                "type": "plantopia:fruit",
+                "direction": "up",
+                "fruit_chance": 130,
+                "provider": {
+                    "type": "minecraft:simple_state_provider",
+                    "state": {
+                        "Name": "plantopia:pine_cone",
+                        "Properties": {
+                            "vertical_direction": "up"
+                        }
+                    }
+                },
+                "tree_chance": 1
+            }
+        ],
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {

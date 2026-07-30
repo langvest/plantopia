@@ -106,6 +106,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         bushWithOverlayBlock(PlantopiaBlocks.TALL_SPIKY_GRASS.get());
         hugeChanterelleBlock(PlantopiaBlocks.CHANTERELLE_BLOCK.get());
         deadwoodLeavesBlock(PlantopiaKits.DEADWOOD.leaves.get());
+        birchCatkinBlock(PlantopiaBlocks.BIRCH_CATKIN.get());
+        pineConeBlock(PlantopiaBlocks.PINE_CONE.get());
 
         checkAll();
     }
@@ -116,11 +118,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
             var block = blockMeta.get();
             var type = blockMeta.getType();
-
-            if (type.instanceOf(MetaType.TREE_FRUIT)) {
-                treeFruitBlock(blockMeta);
-                return;
-            }
 
             if (block instanceof PlantopiaLeafLitterBlock) {
                 leafLitterBlock(blockMeta);
@@ -477,17 +474,6 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         simpleBlock(blockMeta.get(), model);
     }
 
-    private void treeFruitBlock(@NotNull PlantopiaBlockMeta blockMeta) {
-        String baseName = blockMeta.getName();
-
-        var texture = texture(baseName);
-        var itemTexture = itemTexture(baseName);
-        var model = crossWithAOModel(baseName, Direction.UP, texture);
-
-        generatedItemModel(baseName, itemTexture);
-        simpleBlock(blockMeta.get(), model);
-    }
-
     private void waterlilyFlowerBlock(@NotNull PlantopiaBlockMeta blockMeta) {
         String baseName = blockMeta.getName();
 
@@ -616,6 +602,36 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     }
 
     /* CUSTOM MODELS GENERATION ******************************************/
+
+    private void birchCatkinBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var texture = texture(baseName);
+        var itemTexture = itemTexture(baseName);
+        var model = crossWithAOModel(baseName, Direction.UP, texture);
+
+        generatedItemModel(baseName, itemTexture);
+        simpleBlock(block, model);
+    }
+
+    private void pineConeBlock(Block block) {
+        String baseName = nameOf(block);
+
+        var texture = texture(baseName);
+        var itemTexture = itemTexture(baseName);
+
+        var modelDown = crossWithAOModel(baseName + "_down", Direction.UP, texture);
+        var modelUp = crossWithAOModel(baseName + "_up", Direction.DOWN, texture);
+
+        generatedItemModel(baseName, itemTexture);
+
+        getVariantBuilder(block).forAllStates(state -> {
+            var direction = state.getValue(PlantopiaPineconeBlock.DIRECTION);
+            return ConfiguredModel.builder()
+                .modelFile(direction == Direction.UP ? modelUp : modelDown)
+                .build();
+        });
+    }
 
     private void hugeChanterelleBlock(Block block) {
         String baseName = nameOf(block);
@@ -1422,8 +1438,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             .texture("left", leftTexture);
     }
 
-    private BlockModelBuilder crossWithAOModel(String name, Direction direction, ResourceLocation crossTexture) {
-        return models().withExistingParent(name, parent("cross_with_ao_" + direction))
+    private BlockModelBuilder crossWithAOModel(String name, Direction aoDirection, ResourceLocation crossTexture) {
+        return models().withExistingParent(name, parent("cross_with_ao_" + aoDirection))
             .texture("cross", crossTexture);
     }
 
