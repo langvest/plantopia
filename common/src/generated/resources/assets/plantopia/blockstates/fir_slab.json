@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "plantopia:block/fir_slab"
+        },
+        "type=double": {
+            "model": "plantopia:block/fir_planks"
+        },
+        "type=top": {
+            "model": "plantopia:block/fir_slab_top"
+        }
+    }
+}

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
+import static by.langvest.plantopia.util.PlantopiaDictionary.CHECKED;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils.checkedTreeDeclaration;
 
@@ -24,12 +25,12 @@ public class PlantopiaDeadwoodPlacementKit extends PlantopiaAbstractTreePlacemen
         Supplier<Block> sapling
     ) {
         this.tree = PlantopiaPlacements.declarePlacement(
-            compileNameFrom(feature.tree),
+            compileNameFrom(feature.tree, CHECKED),
             checkedTreeDeclaration(feature.tree, sapling)
         );
 
         this.fancyTree = PlantopiaPlacements.declarePlacement(
-            compileNameFrom(feature.fancyTree),
+            compileNameFrom(feature.fancyTree, CHECKED),
             checkedTreeDeclaration(feature.fancyTree, sapling)
         );
     }

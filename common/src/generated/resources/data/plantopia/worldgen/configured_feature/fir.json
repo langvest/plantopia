@@ -1,0 +1,44 @@
+{
+    "type": "plantopia:fir_tree",
+    "config": {
+        "decorators": [],
+        "foliage_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+                "Name": "plantopia:fir_leaves",
+                "Properties": {
+                    "distance": "7",
+                    "persistent": "false",
+                    "waterlogged": "false"
+                }
+            }
+        },
+        "tree_height": {
+            "type": "minecraft:uniform",
+            "value": {
+                "max_inclusive": 20,
+                "min_inclusive": 10
+            }
+        },
+        "trunk_height": {
+            "type": "plantopia:relative_proportion",
+            "ratio": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": 0.3,
+                    "min_inclusive": 0.2
+                }
+            }
+        },
+        "trunk_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+                "Name": "plantopia:fir_log",
+                "Properties": {
+                    "axis": "y"
+                }
+            }
+        },
+        "trunk_width": 1
+    }
+}

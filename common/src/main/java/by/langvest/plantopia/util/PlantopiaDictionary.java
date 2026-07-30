@@ -35,6 +35,7 @@ public final class PlantopiaDictionary {
     public static final String JACARANDA = "jacaranda";
     public static final String DEADWOOD = "deadwood";
     public static final String PALM = "palm";
+    public static final String FIR = "fir";
     public static final String DEAD = "dead";
     public static final String LUPINE = "lupine";
     public static final String SPARSE = "sparse";
@@ -51,6 +52,7 @@ public final class PlantopiaDictionary {
     public static final String TINY = "tiny";
     public static final String TALL = "tall";
     public static final String FANCY = "fancy";
+    public static final String MEGA = "mega";
     public static final String CLUSTER = "cluster";
     public static final String SURFACE = "surface";
     public static final String LARGE = "large";

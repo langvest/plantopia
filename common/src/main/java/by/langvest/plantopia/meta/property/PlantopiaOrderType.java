@@ -7,6 +7,7 @@ public enum PlantopiaOrderType {
     JACARANDA,
     DEADWOOD,
     PALM,
+    FIR,
     ICE,
     MUSHROOM,
     PLANT,

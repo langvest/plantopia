@@ -2,6 +2,7 @@ package by.langvest.plantopia.kit;
 
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.tree.deadwood.PlantopiaDeadwoodKit;
+import by.langvest.plantopia.kit.tree.fir.PlantopiaFirKit;
 import by.langvest.plantopia.kit.tree.jacaranda.PlantopiaJacarandaKit;
 import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
 import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
@@ -44,6 +45,13 @@ public class PlantopiaKits {
         PlantopiaDictionary.PALM,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.PALM)
+            .build()
+    );
+
+    public static final PlantopiaFirKit FIR = new PlantopiaFirKit(
+        PlantopiaDictionary.FIR,
+        PlantopiaTreeKitConfiguration.builder()
+            .orderType(PlantopiaOrderType.FIR)
             .build()
     );
 

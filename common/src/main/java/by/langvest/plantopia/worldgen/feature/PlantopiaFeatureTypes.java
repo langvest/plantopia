@@ -38,6 +38,7 @@ public class PlantopiaFeatureTypes {
     public static final RegistryObject<PlantopiaCliffFeature> CLIFF = registerFeatureType("cliff", () -> new PlantopiaCliffFeature(PlantopiaCliffConfiguration.CODEC));
     public static final RegistryObject<PlantopiaDeciduousTreeFeature> DECIDUOUS_TREE = registerFeatureType("deciduous_tree", () -> new PlantopiaDeciduousTreeFeature(TreeConfiguration.CODEC));
     public static final RegistryObject<PlantopiaMushroomTreeFeature> MUSHROOM_TREE = registerFeatureType("mushroom_tree", () -> new PlantopiaMushroomTreeFeature(TreeConfiguration.CODEC));
+    public static final RegistryObject<PlantopiaFirTreeFeature> FIR_TREE = registerFeatureType("fir_tree", () -> new PlantopiaFirTreeFeature(PlantopiaMegaFirTreeConfiguration.CODEC));
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> RegistryObject<F> registerFeatureType(String name, Supplier<F> supplier) {
         return registerFeatureType(plantopia(name), supplier);
