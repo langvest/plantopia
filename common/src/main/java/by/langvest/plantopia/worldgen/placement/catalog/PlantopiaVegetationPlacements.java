@@ -468,7 +468,7 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS)
-                .add(Biomes.DARK_FOREST)
+                .add(Biomes.DARK_FOREST, Biomes.FLOWER_FOREST)
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)

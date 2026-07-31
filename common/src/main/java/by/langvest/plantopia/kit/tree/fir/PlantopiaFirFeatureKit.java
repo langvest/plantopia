@@ -6,7 +6,7 @@ import by.langvest.plantopia.kit.special.PlantopiaKit;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureTypes;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaMegaFirTreeConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaFirTreeConfiguration;
 import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaFruitDecorator;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import net.minecraft.core.Direction;
@@ -40,7 +40,7 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
         Supplier<TreeDecorator> pineconeDecorator = () -> new PlantopiaFruitDecorator(
             simpleProvider(PlantopiaBlocks.PINE_CONE.get().defaultBlockState().setValue(PlantopiaPineconeBlock.DIRECTION, Direction.UP)),
             ConstantInt.of(1),
-            ConstantInt.of(130),
+            ConstantInt.of(100),
             Direction.UP
         );
 
@@ -48,7 +48,7 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
             baseName,
             PlantopiaFeatureDeclaration.builder()
                 .feature(configuredFeature(PlantopiaFeatureTypes.FIR_TREE, context ->
-                    new PlantopiaMegaFirTreeConfiguration(
+                    new PlantopiaFirTreeConfiguration(
                         simpleProvider(log.get()),
                         simpleProvider(leaves.get()),
                         UniformInt.of(10, 20),
@@ -65,7 +65,7 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
             compileNameFrom(MEGA, baseName),
             PlantopiaFeatureDeclaration.builder()
                 .feature(configuredFeature(PlantopiaFeatureTypes.FIR_TREE, context ->
-                    new PlantopiaMegaFirTreeConfiguration(
+                    new PlantopiaFirTreeConfiguration(
                         simpleProvider(log.get()),
                         simpleProvider(leaves.get()),
                         UniformInt.of(20, 40),

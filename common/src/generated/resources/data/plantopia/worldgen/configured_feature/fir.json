@@ -5,7 +5,7 @@
             {
                 "type": "plantopia:fruit",
                 "direction": "up",
-                "fruit_chance": 130,
+                "fruit_chance": 100,
                 "provider": {
                     "type": "minecraft:simple_state_provider",
                     "state": {

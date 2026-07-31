@@ -2,7 +2,11 @@ package by.langvest.plantopia.mixin.item.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.block.special.PlantopiaAzollaBlock;
+import by.langvest.plantopia.block.special.PlantopiaPineconeBlock;
+import by.langvest.plantopia.kit.PlantopiaKits;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BoneMealItem;
@@ -12,9 +16,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,38 +42,47 @@ public abstract class PlantopiaBoneMealItemMixin {
         var clickedPos = context.getClickedPos();
 
         if (plantopia$growCatkinOrPinecone(context.getItemInHand(), level, clickedPos)) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 if (context.getPlayer() != null) {
                     context.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 }
                 level.levelEvent(1505, clickedPos, 0);
             }
-            cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
+            cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide()));
         }
     }
 
     @Unique
     private static boolean plantopia$growCatkinOrPinecone(ItemStack stack, @NotNull Level level, BlockPos clickedPos) {
-        var clickedState = level.getBlockState(clickedPos);
-        var posBelow = clickedPos.below();
+        var placement = plantopia$getTreeFruitPlacement(level, clickedPos, level.getBlockState(clickedPos));
+        if (placement == null) return false;
 
-        if (level.getBlockState(posBelow).isAir()) {
-            Block blockToPlace = null;
-            if (clickedState.is(Blocks.BIRCH_LEAVES)) {
-                blockToPlace = PlantopiaBlocks.BIRCH_CATKIN.get();
-            } else if (clickedState.is(Blocks.SPRUCE_LEAVES)) {
-                blockToPlace = PlantopiaBlocks.PINE_CONE.get();
-            }
+        var candidatePos = placement.getFirst();
+        if (!level.isEmptyBlock(candidatePos)) return false;
 
-            if (blockToPlace != null) {
-                if (!level.isClientSide) {
-                    level.setBlock(posBelow, blockToPlace.defaultBlockState(), Block.UPDATE_ALL);
-                    stack.shrink(1);
-                }
-                return true;
-            }
+        if (!level.isClientSide()) {
+            level.setBlock(candidatePos, placement.getSecond(), Block.UPDATE_ALL);
+            stack.shrink(1);
         }
-        return false;
+
+        return true;
+    }
+
+    @Unique
+    private static @Nullable Pair<BlockPos, BlockState> plantopia$getTreeFruitPlacement(Level level, BlockPos clickedPos, @NotNull BlockState clickedState) {
+        if (clickedState.is(Blocks.BIRCH_LEAVES)) {
+            return Pair.of(clickedPos.below(), PlantopiaBlocks.BIRCH_CATKIN.get().defaultBlockState());
+        }
+
+        if (clickedState.is(Blocks.SPRUCE_LEAVES)) {
+            return Pair.of(clickedPos.below(), PlantopiaPineconeBlock.getStateForDirection(Direction.DOWN));
+        }
+
+        if (clickedState.is(PlantopiaKits.FIR.leaves.get())) {
+            return Pair.of(clickedPos.above(), PlantopiaPineconeBlock.getStateForDirection(Direction.UP));
+        }
+
+        return null;
     }
 
     @Inject(

@@ -1,6 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.special;
 
-import by.langvest.plantopia.worldgen.feature.config.PlantopiaMegaFirTreeConfiguration;
+import by.langvest.plantopia.worldgen.feature.config.PlantopiaFirTreeConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,8 +27,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterlo
  * для создания более реалистичной и детализированной формы дерева.
  */
 @ParametersAreNonnullByDefault
-public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<PlantopiaMegaFirTreeConfiguration> {
-    public PlantopiaFirTreeFeature(Codec<PlantopiaMegaFirTreeConfiguration> codec) {
+public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<PlantopiaFirTreeConfiguration> {
+    public PlantopiaFirTreeFeature(Codec<PlantopiaFirTreeConfiguration> codec) {
         super(codec);
     }
 
@@ -36,7 +36,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
      * Определяет пайплайн (последовательность) операций для генерации дерева.
      */
     @Override
-    protected List<TreeModifier> getTreePipeline(FeaturePlaceContext<PlantopiaMegaFirTreeConfiguration> context) {
+    protected List<TreeModifier> getTreePipeline(FeaturePlaceContext<PlantopiaFirTreeConfiguration> context) {
         var config = context.config();
 
         return List.of(
@@ -50,7 +50,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
      * Создает основной {@link TreeModifier}, который отвечает за генерацию ствола и листвы ели.
      */
     @Contract(pure = true)
-    protected static @NotNull TreeModifier makeFirStructure(PlantopiaMegaFirTreeConfiguration config) {
+    protected static @NotNull TreeModifier makeFirStructure(PlantopiaFirTreeConfiguration config) {
         return (context, pool, setter) -> {
             var level = context.level();
             var random = context.random();
@@ -141,7 +141,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
         int treeHeight,
         int maxTrunkWidth,
         TreeBlockSetter setter,
-        PlantopiaMegaFirTreeConfiguration config
+        PlantopiaFirTreeConfiguration config
     ) {
         var mutablePos = new BlockPos.MutableBlockPos();
 
@@ -179,7 +179,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
         int treeHeight,
         int maxTrunkWidth,
         TreeBlockSetter setter,
-        PlantopiaMegaFirTreeConfiguration config
+        PlantopiaFirTreeConfiguration config
     ) {
         int leavesHeight = treeHeight - trunkHeight;
 
@@ -219,7 +219,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
         int trunkEnd,
         int radius,
         TreeBlockSetter setter,
-        PlantopiaMegaFirTreeConfiguration config
+        PlantopiaFirTreeConfiguration config
     ) {
         // Если радиус 0, ставим один блок листвы (самая верхушка дерева)
         if (radius == 0) {
@@ -263,7 +263,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
         int trunkStart,
         int trunkEnd,
         FoliagePlacer.FoliageSetter leaves,
-        PlantopiaMegaFirTreeConfiguration config
+        PlantopiaFirTreeConfiguration config
     ) {
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
@@ -304,7 +304,7 @@ public class PlantopiaFirTreeFeature extends PlantopiaAbstractTreeFeature<Planto
         int length,
         java.util.function.BiConsumer<BlockPos, BlockState> logs,
         FoliagePlacer.FoliageSetter leaves,
-        PlantopiaMegaFirTreeConfiguration config
+        PlantopiaFirTreeConfiguration config
     ) {
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
         // Направление, перпендикулярное росту ветки

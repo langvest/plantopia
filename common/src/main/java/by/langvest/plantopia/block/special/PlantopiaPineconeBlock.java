@@ -1,5 +1,6 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -35,6 +36,10 @@ public class PlantopiaPineconeBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(DIRECTION);
+    }
+
+    public static @NotNull BlockState getStateForDirection(Direction direction) {
+        return PlantopiaBlocks.PINE_CONE.get().defaultBlockState().setValue(DIRECTION, direction);
     }
 
     @Nullable
@@ -76,7 +81,9 @@ public class PlantopiaPineconeBlock extends Block {
     @Override
     @SuppressWarnings("deprecation")
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return state.getValue(DIRECTION) == Direction.UP ? SHAPE_UP : SHAPE_DOWN;
+        var vec3 = state.getOffset(level, pos);
+        var shape = state.getValue(DIRECTION) == Direction.UP ? SHAPE_UP : SHAPE_DOWN;
+        return shape.move(vec3.x, vec3.y, vec3.z);
     }
 
     @Override
