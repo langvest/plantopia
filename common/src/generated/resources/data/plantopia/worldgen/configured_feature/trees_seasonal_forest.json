@@ -5,7 +5,7 @@
         "features": [
             {
                 "chance": 0.03,
-                "feature": "minecraft:birch_bees_0002"
+                "feature": "plantopia:birch_bees_0002_catkin_055"
             },
             {
                 "chance": 0.05,

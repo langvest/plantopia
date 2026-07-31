@@ -90,4 +90,9 @@ public interface PlantopiaTreePlacements {
         compileNameFrom(PlantopiaFeatures.DEADWOOD_SPIRE),
         checkedTreeDeclaration(PlantopiaFeatures.DEADWOOD_SPIRE, PlantopiaKits.DEADWOOD.sapling)
     );
+
+    ResourceKey<PlacedFeature> BIRCH_BEES_0002_CATKIN_055 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.BIRCH_BEES_0002_CATKIN_055),
+        checkedTreeDeclaration(PlantopiaFeatures.BIRCH_BEES_0002_CATKIN_055, Blocks.BIRCH_SAPLING)
+    );
 }

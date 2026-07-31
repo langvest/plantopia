@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:tree",
+    "type": "plantopia:deciduous_tree",
     "config": {
         "decorators": [
             {
@@ -17,6 +17,18 @@
             {
                 "type": "minecraft:beehive",
                 "probability": 0.002
+            },
+            {
+                "type": "plantopia:fruit",
+                "direction": "down",
+                "fruit_probability": 0.25,
+                "provider": {
+                    "type": "minecraft:simple_state_provider",
+                    "state": {
+                        "Name": "plantopia:birch_catkin"
+                    }
+                },
+                "tree_probability": 0.55
             }
         ],
         "dirt_provider": {
@@ -52,9 +64,9 @@
         },
         "trunk_placer": {
             "type": "minecraft:straight_trunk_placer",
-            "base_height": 6,
+            "base_height": 5,
             "height_rand_a": 2,
-            "height_rand_b": 5
+            "height_rand_b": 0
         },
         "trunk_provider": {
             "type": "minecraft:simple_state_provider",

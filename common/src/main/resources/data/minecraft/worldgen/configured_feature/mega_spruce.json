@@ -25,8 +25,8 @@
                         }
                     }
                 },
-                "tree_chance": 1,
-                "fruit_chance": 130
+                "tree_probability": 1.0,
+                "fruit_probability": 0.0077
             }
         ],
         "dirt_provider": {

@@ -1,13 +1,16 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaPineconeBlock;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaLushFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaStragglyFoliagePlacer;
 import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaAlterBaseLogDecorator;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaFruitDecorator;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntProportion;
+import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,6 +30,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.OptionalInt;
+import java.util.function.Supplier;
 
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.*;
@@ -35,9 +39,12 @@ import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.*;
  * @see net.minecraft.data.worldgen.features.TreeFeatures
  */
 public final class PlantopiaTreeFeatureUtils {
+    public static final TreeDecorator BEEHIVE_DECORATOR_002 = new BeehiveDecorator(CHANCE_002);
     public static final TreeDecorator BEEHIVE_DECORATOR_005 = new BeehiveDecorator(CHANCE_005);
     public static final TreeDecorator BEEHIVE_DECORATOR_0002 = new BeehiveDecorator(CHANCE_0002);
-    public static final TreeDecorator BIRCH_BASE_LOG_DECORATOR = new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaBlocks.BIRCH_BASE_LOG.get()));
+    public static final Supplier<TreeDecorator> BIRCH_BASE_LOG_DECORATOR = () -> new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaBlocks.BIRCH_BASE_LOG.get()));
+    public static final Supplier<TreeDecorator> BIRCH_CATKIN_DECORATOR_055 = () -> new PlantopiaFruitDecorator(CHANCE_055, CHANCE_025, simpleProvider(PlantopiaBlocks.BIRCH_CATKIN.get()), Direction.DOWN);
+    public static final Supplier<TreeDecorator> PINE_CONE_DECORATOR_1 = () -> new PlantopiaFruitDecorator(1.0F, CHANCE_001, simpleProvider(PlantopiaPineconeBlock.getStateForDirection(Direction.UP)), Direction.UP);
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createCherryTree(Block logBlock, Block leavesBlock) {
         var weightedRandomList = weightedListInt(values -> values
@@ -203,6 +210,10 @@ public final class PlantopiaTreeFeatureUtils {
             new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
             new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
         );
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createBirchTree(Block logBlock, Block leavesBlock) {
+        return createStraightBlobTree(logBlock, leavesBlock, 5, 2, 0, ConstantInt.of(2));
     }
 
     @Contract("_, _, _, _, _, _ -> new")

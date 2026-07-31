@@ -209,7 +209,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
                     .build()
             ))
     );
@@ -220,7 +220,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR, BEEHIVE_DECORATOR_0002))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get(), BEEHIVE_DECORATOR_0002))
                     .build()
             ))
     );
@@ -246,7 +246,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
                     .build()
             ))
     );
@@ -257,7 +257,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
                     .build()
             ))
     );
@@ -268,7 +268,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
                     .build()
             ))
     );
@@ -289,7 +289,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createCypressTree(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES)
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
                     .build()
             ))
     );
@@ -344,6 +344,17 @@ public interface PlantopiaTreeFeatures {
         PlantopiaFeatureDeclaration.builder()
             .feature(deciduousTree(context ->
                 createSpireTree(PlantopiaKits.DEADWOOD.trunk.log.get(), PlantopiaKits.DEADWOOD.leaves.get())
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> BIRCH_BEES_0002_CATKIN_055 = declareFeature(
+        "birch_bees_0002_catkin_055",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createBirchTree(Blocks.BIRCH_LOG, Blocks.BIRCH_LEAVES)
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get(), BEEHIVE_DECORATOR_0002, BIRCH_CATKIN_DECORATOR_055.get()))
                     .build()
             ))
     );

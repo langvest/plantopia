@@ -1,17 +1,11 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.config.*;
-import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementDeclaration;
-import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -23,13 +17,11 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
-import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -38,9 +30,13 @@ import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleP
 import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedProvider;
 
 public final class PlantopiaFeatureUtils {
+    public static final float CHANCE_001 = 0.01F;
+    public static final float CHANCE_025 = 0.25F;
     public static final float CHANCE_055 = 0.55F;
     public static final float CHANCE_005 = 0.05F;
+    public static final float CHANCE_002 = 0.02F;
     public static final float CHANCE_0002 = 0.002F;
+    public static final float CHANCE_00077 = 0.0077F;
 
     public static final BlockPredicate WATER_PlANT_PREDICATE = BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.WATER, Blocks.GRASS, Blocks.SEAGRASS);
 
