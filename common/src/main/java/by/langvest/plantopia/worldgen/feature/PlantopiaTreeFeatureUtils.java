@@ -13,7 +13,6 @@ import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntPro
 import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -44,7 +43,7 @@ public final class PlantopiaTreeFeatureUtils {
     public static final TreeDecorator BEEHIVE_DECORATOR_0002 = new BeehiveDecorator(CHANCE_0002);
     public static final Supplier<TreeDecorator> BIRCH_BASE_LOG_DECORATOR = () -> new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaBlocks.BIRCH_BASE_LOG.get()));
     public static final Supplier<TreeDecorator> BIRCH_CATKIN_DECORATOR_055 = () -> new PlantopiaFruitDecorator(CHANCE_055, CHANCE_025, simpleProvider(PlantopiaBlocks.BIRCH_CATKIN.get()), Direction.DOWN);
-    public static final Supplier<TreeDecorator> PINE_CONE_DECORATOR_1 = () -> new PlantopiaFruitDecorator(1.0F, CHANCE_001, simpleProvider(PlantopiaPineconeBlock.getStateForDirection(Direction.UP)), Direction.UP);
+    public static final Supplier<TreeDecorator> UPWARD_PINE_CONE_DECORATOR_0015 = () -> new PlantopiaFruitDecorator(1.0F, CHANCE_0015, simpleProvider(PlantopiaPineconeBlock.getStateForDirection(Direction.UP)), Direction.UP);
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createCherryTree(Block logBlock, Block leavesBlock) {
         var weightedRandomList = weightedListInt(values -> values

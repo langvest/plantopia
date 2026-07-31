@@ -5,7 +5,7 @@
             {
                 "type": "plantopia:fruit",
                 "direction": "up",
-                "fruit_probability": 0.01,
+                "fruit_probability": 0.015,
                 "provider": {
                     "type": "minecraft:simple_state_provider",
                     "state": {
@@ -32,8 +32,8 @@
         "tree_height": {
             "type": "minecraft:uniform",
             "value": {
-                "max_inclusive": 40,
-                "min_inclusive": 20
+                "max_inclusive": 35,
+                "min_inclusive": 25
             }
         },
         "trunk_height": {
@@ -41,7 +41,7 @@
             "ratio": {
                 "type": "minecraft:uniform",
                 "value": {
-                    "max_exclusive": 0.3,
+                    "max_exclusive": 0.25,
                     "min_inclusive": 0.2
                 }
             }

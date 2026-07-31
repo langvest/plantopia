@@ -35,6 +35,7 @@ public final class PlantopiaFeatureUtils {
     public static final float CHANCE_055 = 0.55F;
     public static final float CHANCE_005 = 0.05F;
     public static final float CHANCE_002 = 0.02F;
+    public static final float CHANCE_0015 = 0.015F;
     public static final float CHANCE_0002 = 0.002F;
     public static final float CHANCE_00077 = 0.0077F;
 

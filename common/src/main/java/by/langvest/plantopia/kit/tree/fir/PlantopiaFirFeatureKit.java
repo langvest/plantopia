@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.PlantopiaDictionary.MEGA;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.configuredFeature;
-import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.PINE_CONE_DECORATOR_1;
+import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.UPWARD_PINE_CONE_DECORATOR_0015;
 import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleProvider;
 
 @ParametersAreNonnullByDefault
@@ -40,12 +40,12 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
                     new PlantopiaFirTreeConfiguration(
                         simpleProvider(log.get()),
                         simpleProvider(leaves.get()),
-                        UniformInt.of(10, 20),
+                        UniformInt.of(10, 13),
                         PlantopiaIntProportion.relative(
-                            UniformFloat.of(0.2F, 0.3F)
+                            UniformFloat.of(0.2F, 0.25F)
                         ),
                         ConstantInt.of(1),
-                        List.of(PINE_CONE_DECORATOR_1.get())
+                        List.of(UPWARD_PINE_CONE_DECORATOR_0015.get())
                     )
                 ))
         );
@@ -57,12 +57,12 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
                     new PlantopiaFirTreeConfiguration(
                         simpleProvider(log.get()),
                         simpleProvider(leaves.get()),
-                        UniformInt.of(20, 40),
+                        UniformInt.of(25, 35),
                         PlantopiaIntProportion.relative(
-                            UniformFloat.of(0.2F, 0.3F)
+                            UniformFloat.of(0.2F, 0.25F)
                         ),
                         ConstantInt.of(2),
-                        List.of(PINE_CONE_DECORATOR_1.get())
+                        List.of(UPWARD_PINE_CONE_DECORATOR_0015.get())
                     )
                 ))
         );
