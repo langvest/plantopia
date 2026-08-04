@@ -202,6 +202,10 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             if (type.instanceOf(MetaType.STONE)) MINEABLE_WITH_PICKAXE.add(block);
             if (type.instanceOf(MetaType.POTTED)) FLOWER_POTS.add(block);
 
+            if (type.instanceOf(MetaType.SEA_SHELL)) {
+                INSIDE_STEP_SOUND_BLOCKS.add(block);
+            }
+
             if (type.isSimplePlantLike()) {
                 MINEABLE_WITH_AXE.add(block);
 
