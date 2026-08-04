@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.LevelWriter;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -31,6 +33,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
+
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
 @ParametersAreNonnullByDefault
 public abstract class PlantopiaAbstractTreeFeature<FC extends FeatureConfiguration> extends Feature<FC> {
@@ -58,38 +63,32 @@ public abstract class PlantopiaAbstractTreeFeature<FC extends FeatureConfigurati
         );
     }
 
-    protected BiConsumer<BlockPos, BlockState> createRootSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
-        return (pos, state) -> {
+    protected TreeCommonSetter createRootSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
+        return new TreeCommonSetter(context.level(), (pos, state) -> {
             pool.root().add(pos.immutable());
             setBlock(context.level(), pos, state);
-        };
+        });
     }
 
-    protected BiConsumer<BlockPos, BlockState> createTrunkSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
-        return (pos, state) -> {
+    protected TreeCommonSetter createTrunkSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
+        return new TreeCommonSetter(context.level(), (pos, state) -> {
             pool.trunk().add(pos.immutable());
             setBlock(context.level(), pos, state);
-        };
+        });
     }
 
-    protected FoliagePlacer.FoliageSetter createFoliageSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
-        return new FoliagePlacer.FoliageSetter() {
-            public void set(BlockPos pos, BlockState state) {
-                pool.foliage().add(pos.immutable());
-                setBlock(context.level(), pos, state);
-            }
-
-            public boolean isSet(BlockPos pos) {
-                return pool.foliage().contains(pos);
-            }
-        };
+    protected TreeFoliageSetter createFoliageSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
+        return new TreeFoliageSetter(context.level(), (pos, state) -> {
+            pool.foliage().add(pos.immutable());
+            setBlock(context.level(), pos, state);
+        }, pos -> pool.foliage().contains(pos));
     }
 
-    protected BiConsumer<BlockPos, BlockState> createDecorSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
-        return (pos, state) -> {
+    protected TreeCommonSetter createDecorSetter(FeaturePlaceContext<FC> context, TreeBlockPool pool) {
+        return new TreeCommonSetter(context.level(), (pos, state) -> {
             pool.decor().add(pos.immutable());
             setBlock(context.level(), pos, state);
-        };
+        });
     }
 
     protected record TreeBlockPool(
@@ -100,11 +99,53 @@ public abstract class PlantopiaAbstractTreeFeature<FC extends FeatureConfigurati
     ) {}
 
     protected record TreeBlockSetter(
-        BiConsumer<BlockPos, BlockState> root,
-        BiConsumer<BlockPos, BlockState> trunk,
-        FoliagePlacer.FoliageSetter foliage,
-        BiConsumer<BlockPos, BlockState> decor
+        TreeCommonSetter root,
+        TreeCommonSetter trunk,
+        TreeFoliageSetter foliage,
+        TreeCommonSetter decor
     ) {}
+
+    protected interface TreeSafeSetter {
+        void setSafely(BlockPos pos, BlockState state);
+    }
+
+    protected record TreeCommonSetter(
+        WorldGenLevel level,
+        BiConsumer<BlockPos, BlockState> setFn
+    ) implements BiConsumer<BlockPos, BlockState>, TreeSafeSetter {
+        @Override
+        public void accept(BlockPos pos, BlockState state) {
+            setFn.accept(pos, state);
+        }
+
+        @Override
+        public void setSafely(BlockPos pos, BlockState state) {
+            if (!TreeFeature.validTreePos(level, pos)) return;
+            setFn.accept(pos, copyWaterloggedFrom(level, pos, state));
+        }
+    }
+
+    protected record TreeFoliageSetter(
+        WorldGenLevel level,
+        BiConsumer<BlockPos, BlockState> setFn,
+        Function<BlockPos, Boolean> checkFn
+    ) implements FoliagePlacer.FoliageSetter, TreeSafeSetter {
+        @Override
+        public void set(BlockPos pos, BlockState state) {
+            setFn.accept(pos, state);
+        }
+
+        @Override
+        public void setSafely(BlockPos pos, BlockState state) {
+            if (!TreeFeature.validTreePos(level, pos)) return;
+            setFn.accept(pos, copyWaterloggedFrom(level, pos, state));
+        }
+
+        @Override
+        public boolean isSet(BlockPos pos) {
+            return checkFn.apply(pos);
+        }
+    }
 
     @FunctionalInterface
     protected interface TreeModifier {
@@ -176,16 +217,16 @@ public abstract class PlantopiaAbstractTreeFeature<FC extends FeatureConfigurati
         };
     }
 
-    protected static int getMaxFreeTreeHeight(LevelSimulatedReader level, int trunkHeight, BlockPos topPosition, TreeConfiguration config) {
-        var mutableBlockPos = new BlockPos.MutableBlockPos();
+    protected static int getMaxFreeTreeHeight(LevelSimulatedReader level, int trunkHeight, BlockPos trunkOrigin, TreeConfiguration config) {
+        var mutablePos = new BlockPos.MutableBlockPos();
 
         for (int dy = 0; dy <= trunkHeight + 1; dy++) {
             int sizeAtHeight = config.minimumSize.getSizeAtHeight(trunkHeight, dy);
 
             for (int dx = -sizeAtHeight; dx <= sizeAtHeight; dx++) {
                 for (int dz = -sizeAtHeight; dz <= sizeAtHeight; dz++) {
-                    mutableBlockPos.setWithOffset(topPosition, dx, dy, dz);
-                    if (!config.trunkPlacer.isFree(level, mutableBlockPos) || !config.ignoreVines && isVine(level, mutableBlockPos)) {
+                    mutablePos.setWithOffset(trunkOrigin, dx, dy, dz);
+                    if (!config.trunkPlacer.isFree(level, mutablePos) || !config.ignoreVines && isVine(level, mutablePos)) {
                         return dy - 2;
                     }
                 }

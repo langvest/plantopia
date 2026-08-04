@@ -39,10 +39,13 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
                 .feature(configuredFeature(PlantopiaFeatureTypes.FIR_TREE, context ->
                     new PlantopiaFirTreeConfiguration(
                         simpleProvider(log.get()),
+                        UniformInt.of(9, 11),
+                        ConstantInt.of(1),
                         simpleProvider(leaves.get()),
-                        UniformInt.of(10, 13),
                         PlantopiaIntProportion.relative(
-                            UniformFloat.of(0.2F, 0.25F)
+                            UniformFloat.of(0.82F, 0.92F),
+                            ConstantInt.of(8),
+                            ConstantInt.of(10)
                         ),
                         ConstantInt.of(1),
                         List.of(UPWARD_PINE_CONE_DECORATOR_0015.get())
@@ -56,12 +59,13 @@ public class PlantopiaFirFeatureKit extends PlantopiaKit {
                 .feature(configuredFeature(PlantopiaFeatureTypes.FIR_TREE, context ->
                     new PlantopiaFirTreeConfiguration(
                         simpleProvider(log.get()),
-                        simpleProvider(leaves.get()),
                         UniformInt.of(25, 35),
-                        PlantopiaIntProportion.relative(
-                            UniformFloat.of(0.2F, 0.25F)
-                        ),
                         ConstantInt.of(2),
+                        simpleProvider(leaves.get()),
+                        PlantopiaIntProportion.relative(
+                            UniformFloat.of(0.76F, 0.82F)
+                        ),
+                        ConstantInt.of(1),
                         List.of(UPWARD_PINE_CONE_DECORATOR_0015.get())
                     )
                 ))

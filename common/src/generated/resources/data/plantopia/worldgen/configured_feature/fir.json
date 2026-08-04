@@ -18,6 +18,19 @@
                 "tree_probability": 1.0
             }
         ],
+        "foliage_height": {
+            "type": "plantopia:relative_proportion",
+            "max": 10,
+            "min": 8,
+            "ratio": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_exclusive": 0.92,
+                    "min_inclusive": 0.82
+                }
+            }
+        },
+        "foliage_offset": 1,
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
@@ -29,21 +42,11 @@
                 }
             }
         },
-        "tree_height": {
+        "trunk_height": {
             "type": "minecraft:uniform",
             "value": {
-                "max_inclusive": 13,
-                "min_inclusive": 10
-            }
-        },
-        "trunk_height": {
-            "type": "plantopia:relative_proportion",
-            "ratio": {
-                "type": "minecraft:uniform",
-                "value": {
-                    "max_exclusive": 0.25,
-                    "min_inclusive": 0.2
-                }
+                "max_inclusive": 11,
+                "min_inclusive": 9
             }
         },
         "trunk_provider": {

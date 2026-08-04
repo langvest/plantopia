@@ -12,18 +12,20 @@ import java.util.List;
 
 public record PlantopiaFirTreeConfiguration(
     BlockStateProvider trunkProvider,
-    BlockStateProvider foliageProvider,
-    IntProvider treeHeight,
-    PlantopiaIntProportion trunkHeight,
+    IntProvider trunkHeight,
     IntProvider trunkWidth,
+    BlockStateProvider foliageProvider,
+    PlantopiaIntProportion foliageHeight,
+    IntProvider foliageOffset,
     List<TreeDecorator> decorators
 ) implements FeatureConfiguration {
     public static final Codec<PlantopiaFirTreeConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter(PlantopiaFirTreeConfiguration::trunkProvider),
-        BlockStateProvider.CODEC.fieldOf("foliage_provider").forGetter(PlantopiaFirTreeConfiguration::foliageProvider),
-        IntProvider.CODEC.fieldOf("tree_height").forGetter(PlantopiaFirTreeConfiguration::treeHeight),
-        PlantopiaIntProportion.CODEC.fieldOf("trunk_height").forGetter(PlantopiaFirTreeConfiguration::trunkHeight),
+        IntProvider.CODEC.fieldOf("trunk_height").forGetter(PlantopiaFirTreeConfiguration::trunkHeight),
         IntProvider.CODEC.fieldOf("trunk_width").forGetter(PlantopiaFirTreeConfiguration::trunkWidth),
+        BlockStateProvider.CODEC.fieldOf("foliage_provider").forGetter(PlantopiaFirTreeConfiguration::foliageProvider),
+        PlantopiaIntProportion.CODEC.fieldOf("foliage_height").forGetter(PlantopiaFirTreeConfiguration::foliageHeight),
+        IntProvider.CODEC.fieldOf("foliage_offset").forGetter(PlantopiaFirTreeConfiguration::foliageOffset),
         TreeDecorator.CODEC.listOf().fieldOf("decorators").forGetter(PlantopiaFirTreeConfiguration::decorators)
     ).apply(instance, PlantopiaFirTreeConfiguration::new));
 }
