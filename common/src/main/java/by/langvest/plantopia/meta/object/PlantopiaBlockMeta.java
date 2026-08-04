@@ -7,6 +7,7 @@ import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.toolkit.meta.*;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -17,9 +18,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -487,6 +490,16 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             .copyBehaviour(Blocks.OAK_LOG)
             .flammable(Encouragement.WOOD, Flammability.WOOD)
             .makeType("log");
+
+        public static final MetaType BALK = MetaProperties.create()
+            .copyBehaviour(Blocks.OAK_LOG)
+            .mapColor(state -> state.getValue(BlockStateProperties.FACING).getAxis().isVertical() ? MapColor.WOOD : MapColor.PODZOL)
+            .flammable(Encouragement.WOOD, Flammability.WOOD)
+            .makeType("balk");
+
+        public static final MetaType BALK_STUB = MetaProperties.of(BALK)
+            .noItem()
+            .makeType("balk_stub");
 
         public static final MetaType PLANKS = MetaProperties.create()
             .copyBehaviour(Blocks.OAK_PLANKS)

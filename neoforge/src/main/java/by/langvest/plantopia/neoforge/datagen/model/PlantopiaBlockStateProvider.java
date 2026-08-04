@@ -119,6 +119,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             var block = blockMeta.get();
             var type = blockMeta.getType();
 
+            if (block instanceof PlantopiaBalkBlock) {
+                balkBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof PlantopiaBalkStubBlock) {
+                balkStubBlock(blockMeta);
+                return;
+            }
+
             if (block instanceof PlantopiaLeafLitterBlock) {
                 leafLitterBlock(blockMeta);
                 return;
@@ -599,6 +609,50 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
         generatedItemModel(baseName, topTexture, topFlowersTexture);
         doubleHighBlock(blockMeta.get(), topModel, bottomModel);
+    }
+
+    private void balkBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var texture = texture(baseName);
+
+        var upModel = balkTemplateModel(baseName + "_up", "up", texture);
+        var downModel = balkTemplateModel(baseName + "_down", "down", texture);
+        var northModel = balkTemplateModel(baseName + "_north", "north", texture);
+        var southModel = balkTemplateModel(baseName + "_south", "south", texture);
+        var westModel = balkTemplateModel(baseName + "_west", "west", texture);
+        var eastModel = balkTemplateModel(baseName + "_east", "east", texture);
+        var centerXModel = balkTemplateModel(baseName + "_center_x", "center_x", texture);
+        var centerYModel = balkTemplateModel(baseName + "_center_y", "center_y", texture);
+        var centerZModel = balkTemplateModel(baseName + "_center_z", "center_z", texture);
+        var inventoryModel = balkInventoryTemplateModel(baseName + "_inventory", texture);
+
+        blockItemModel(baseName, inventoryModel);
+
+        var builder = getMultipartBuilder(blockMeta.get());
+
+        builder.part().modelFile(upModel).addModel().condition(PlantopiaBalkBlock.UP, true);
+        builder.part().modelFile(downModel).addModel().condition(PlantopiaBalkBlock.DOWN, true);
+        builder.part().modelFile(northModel).addModel().condition(PlantopiaBalkBlock.NORTH, true);
+        builder.part().modelFile(southModel).addModel().condition(PlantopiaBalkBlock.SOUTH, true);
+        builder.part().modelFile(westModel).addModel().condition(PlantopiaBalkBlock.WEST, true);
+        builder.part().modelFile(eastModel).addModel().condition(PlantopiaBalkBlock.EAST, true);
+        builder.part().modelFile(centerXModel).addModel().condition(PlantopiaBalkBlock.FACING, Direction.EAST, Direction.WEST);
+        builder.part().modelFile(centerYModel).addModel().condition(PlantopiaBalkBlock.FACING, Direction.UP, Direction.DOWN);
+        builder.part().modelFile(centerZModel).addModel().condition(PlantopiaBalkBlock.FACING, Direction.NORTH, Direction.SOUTH);
+    }
+
+    private void balkStubBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        PlantopiaBalkStubBlock block = (PlantopiaBalkStubBlock) blockMeta.get();
+
+        var texture = blockTexture(block.getBulkBlock());
+
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            var facing = state.getValue(PlantopiaBalkStubBlock.FACING);
+            var model = balkStubTemplateModel(baseName + "_" + facing, facing.getName(), texture);
+            return ConfiguredModel.builder().modelFile(model).build();
+        }, PlantopiaBalkStubBlock.WATERLOGGED);
     }
 
     /* CUSTOM MODELS GENERATION ******************************************/
@@ -1446,6 +1500,21 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
     private BlockModelBuilder cloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {
         return models().withExistingParent(name, parent("template_clover_blossom"))
             .texture("blossom", blossomTexture);
+    }
+
+    private BlockModelBuilder balkTemplateModel(String name, String type, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("balk_" + type))
+            .texture("texture", texture);
+    }
+
+    private BlockModelBuilder balkStubTemplateModel(String name, String type, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("balk_stub_" + type))
+            .texture("texture", texture);
+    }
+
+    private BlockModelBuilder balkInventoryTemplateModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("balk_inventory"))
+            .texture("texture", texture);
     }
 
     private BlockModelBuilder pottedCloverBlossomTemplateModel(String name, ResourceLocation blossomTexture) {

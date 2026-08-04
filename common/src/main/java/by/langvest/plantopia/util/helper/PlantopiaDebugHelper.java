@@ -53,7 +53,7 @@ public final class PlantopiaDebugHelper {
         }
     }
 
-    public static void spawnParticles(Level level, BlockPos pos) {
+    public static void spawnParticles(LevelAccessor level, BlockPos pos) {
         level.addParticle(
             ParticleTypes.HAPPY_VILLAGER,
             pos.getX() + 0.5D,

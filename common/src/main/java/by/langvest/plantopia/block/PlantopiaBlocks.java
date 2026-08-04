@@ -180,6 +180,9 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> BIRCH_CATKIN = registerBlock("birch_catkin", PlantopiaBirchCatkinBlock::new, MetaProperties.of(MetaType.TREE_FRUIT).customModel().dropSelfByShears().replaceable());
     public static final RegistryObject<Block> PINE_CONE = registerBlock("pine_cone", PlantopiaPineconeBlock::new, MetaProperties.of(MetaType.TREE_FRUIT).customModel());
 
+    public static final RegistryObject<Block> MAPLE_BALK = registerBlock("maple_balk", properties -> new PlantopiaBalkBlock(properties, supposeBlock("maple_balk_stub")), MetaProperties.of(MetaType.BALK));
+    public static final RegistryObject<Block> MAPLE_BALK_STUB = registerBlock("maple_balk_stub", properties -> new PlantopiaBalkStubBlock(properties, MAPLE_BALK), MetaProperties.of(MetaType.BALK_STUB));
+
     public static final RegistryObject<Block> POTTED_GRASS = registerPottedBlock(nameOf(Blocks.GRASS), () -> Blocks.GRASS, PlantopiaTintType.GRASS);
     public static final SupposedRegistryObject<Block> POTTED_BRANCHING_SHRUB = supposeBlock(pottedNameOf(BRANCHING_SHRUB));
 
