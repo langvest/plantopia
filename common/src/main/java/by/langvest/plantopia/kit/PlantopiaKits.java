@@ -2,20 +2,20 @@ package by.langvest.plantopia.kit;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
-import by.langvest.plantopia.kit.tree.birch.PlantopiaBirchKit;
+import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaTreeKit;
+import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaBirchKit;
 import by.langvest.plantopia.kit.tree.deadwood.PlantopiaDeadwoodKit;
 import by.langvest.plantopia.kit.tree.fir.PlantopiaFirKit;
 import by.langvest.plantopia.kit.tree.jacaranda.PlantopiaJacarandaKit;
 import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
-import by.langvest.plantopia.kit.tree.oak.PlantopiaOakKit;
 import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
-import by.langvest.plantopia.kit.tree.spruce.PlantopiaSpruceKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.toolkit.event.RegisterEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import org.jetbrains.annotations.Contract;
@@ -28,26 +28,38 @@ import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaKits {
-    public static final PlantopiaBirchKit BIRCH = new PlantopiaBirchKit(
+    public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
         PlantopiaDictionary.BIRCH,
+        () -> Blocks.BIRCH_LOG,
+        () -> Blocks.STRIPPED_BIRCH_LOG,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.BIRCH)
             .build()
     );
 
-    public static final PlantopiaOakKit OAK = new PlantopiaOakKit(
+    public static final PlantopiaExtraVanillaTreeKit OAK = new PlantopiaExtraVanillaTreeKit(
         PlantopiaDictionary.OAK,
+        () -> Blocks.OAK_LOG,
+        () -> Blocks.STRIPPED_OAK_LOG,
         PlantopiaTreeKitConfiguration.builder()
-            .orderType(PlantopiaOrderType.OAK)
             .build()
     );
 
-    public static final PlantopiaSpruceKit SPRUCE = new PlantopiaSpruceKit(
+    public static final PlantopiaExtraVanillaTreeKit SPRUCE = new PlantopiaExtraVanillaTreeKit(
         PlantopiaDictionary.SPRUCE,
+        () -> Blocks.SPRUCE_LOG,
+        () -> Blocks.STRIPPED_SPRUCE_LOG,
         PlantopiaTreeKitConfiguration.builder()
-            .orderType(PlantopiaOrderType.SPRUCE)
             .build()
     );
+
+//    public static final PlantopiaExtraVanillaTreeKit DARK_OAK = new PlantopiaExtraVanillaTreeKit(
+//        PlantopiaDictionary.DARK_OAK,
+//        () -> Blocks.DARK_OAK_LOG,
+//        () -> Blocks.STRIPPED_DARK_OAK_LOG,
+//        PlantopiaTreeKitConfiguration.builder()
+//            .build()
+//    );
 
     public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
         PlantopiaDictionary.MAPLE,

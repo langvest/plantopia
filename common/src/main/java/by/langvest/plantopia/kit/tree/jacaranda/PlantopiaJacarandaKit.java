@@ -58,7 +58,7 @@ public class PlantopiaJacarandaKit extends PlantopiaAbstractTreeKit {
     protected void addRecipes(PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge bridge) {
         super.addRecipes(bridge);
 
-        bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag, 4);
+        bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag);
         bridge.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
     }
 }
