@@ -4,7 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeKit;
-import by.langvest.plantopia.kit.special.PlantopiaSimpleTreeTrunkKit;
+import by.langvest.plantopia.kit.special.PlantopiaTreeTrunkKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeStuffKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -20,7 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class PlantopiaPalmKit extends PlantopiaAbstractTreeKit {
     public final PlantopiaTreeStuffKit stuff;
-    public final PlantopiaSimpleTreeTrunkKit trunk;
+    public final PlantopiaTreeTrunkKit trunk;
 
     public final PlantopiaPalmWorldgenKit worldgen;
 
@@ -37,7 +37,7 @@ public class PlantopiaPalmKit extends PlantopiaAbstractTreeKit {
         this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.WOOD)));
         this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", LeavesBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.WOOD).foliageTint()));
 
-        this.trunk = new PlantopiaSimpleTreeTrunkKit(baseName, config);
+        this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 
@@ -58,7 +58,7 @@ public class PlantopiaPalmKit extends PlantopiaAbstractTreeKit {
     protected void addRecipes(PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge bridge) {
         super.addRecipes(bridge);
 
-        bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag, 4);
+        bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag);
         bridge.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
     }
 }

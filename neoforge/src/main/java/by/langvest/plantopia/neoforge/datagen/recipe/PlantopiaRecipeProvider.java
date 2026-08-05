@@ -46,6 +46,11 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
             }
 
             @Override
+            public void balksFromLogs(ItemLike balk, ItemLike log, int count) {
+                PlantopiaRecipeProvider.balksFromLogs(balk, log, count);
+            }
+
+            @Override
             public void woodFromLogs(ItemLike wood, ItemLike log) {
                 PlantopiaRecipeProvider.woodFromLogs(wood, log);
             }
@@ -217,6 +222,16 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 
     public static void woodFromLogs(ItemLike wood, ItemLike log) {
         RecipeProvider.woodFromLogs(output, wood, log);
+    }
+
+    public static void balksFromLogs(ItemLike balk, ItemLike log, int count) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, balk, count)
+            .define('#', log)
+            .pattern("#")
+            .pattern("#")
+            .group("balk")
+            .unlockedBy(getHasName(log), has(log))
+            .save(output);
     }
 
     public static void woodenBoat(ItemLike boat, ItemLike planks) {

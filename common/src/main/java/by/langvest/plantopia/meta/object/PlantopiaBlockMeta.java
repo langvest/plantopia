@@ -495,6 +495,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             .copyBehaviour(Blocks.OAK_LOG)
             .mapColor(state -> state.getValue(BlockStateProperties.FACING).getAxis().isVertical() ? MapColor.WOOD : MapColor.PODZOL)
             .flammable(Encouragement.WOOD, Flammability.WOOD)
+            .burnTime(BurnTime.BALK)
             .makeType("balk");
 
         public static final MetaType BALK_STUB = MetaProperties.of(BALK)

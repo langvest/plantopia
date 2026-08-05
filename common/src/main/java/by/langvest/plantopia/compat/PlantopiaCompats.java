@@ -152,6 +152,7 @@ public class PlantopiaCompats {
      * @see net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity#getFuel()
      */
     public static final class BurnTime {
+        public static final int BALK = 200;
         public static final int WOODY_PLANT = 100;
         public static final int LEAF_LITTER = 67;
     }

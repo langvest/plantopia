@@ -5,7 +5,7 @@ import by.langvest.plantopia.block.special.PlantopiaJacarandaLeavesBlock;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeKit;
-import by.langvest.plantopia.kit.special.PlantopiaSimpleTreeTrunkKit;
+import by.langvest.plantopia.kit.special.PlantopiaTreeTrunkKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeStuffKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -20,7 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class PlantopiaJacarandaKit extends PlantopiaAbstractTreeKit {
     public final PlantopiaTreeStuffKit stuff;
-    public final PlantopiaSimpleTreeTrunkKit trunk;
+    public final PlantopiaTreeTrunkKit trunk;
 
     public final PlantopiaJacarandaWorldgenKit worldgen;
 
@@ -37,7 +37,7 @@ public class PlantopiaJacarandaKit extends PlantopiaAbstractTreeKit {
         this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_PURPLE)));
         this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", PlantopiaJacarandaLeavesBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_PURPLE)));
 
-        this.trunk = new PlantopiaSimpleTreeTrunkKit(baseName, config);
+        this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 

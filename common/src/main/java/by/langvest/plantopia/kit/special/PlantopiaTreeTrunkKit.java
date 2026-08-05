@@ -22,7 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.metaOf;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaSimpleTreeTrunkKit extends PlantopiaKit {
+public class PlantopiaTreeTrunkKit extends PlantopiaKit {
     protected final String baseName;
     protected final PlantopiaTreeKitConfiguration config;
 
@@ -34,7 +34,7 @@ public class PlantopiaSimpleTreeTrunkKit extends PlantopiaKit {
     public final TagKey<Block> logsBlockTag;
     public final TagKey<Item> logsItemTag;
 
-    public PlantopiaSimpleTreeTrunkKit(
+    public PlantopiaTreeTrunkKit(
         String baseName,
         @NotNull PlantopiaTreeKitConfiguration config
     ) {
