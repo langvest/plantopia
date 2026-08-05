@@ -644,11 +644,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private void balkStubBlock(@NotNull PlantopiaBlockMeta blockMeta) {
         String baseName = blockMeta.getName();
-        PlantopiaBalkStubBlock block = (PlantopiaBalkStubBlock) blockMeta.get();
+        Block parentBlock = blockMeta.getParent();
 
-        var texture = blockTexture(block.getBulkBlock());
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
 
-        getVariantBuilder(block).forAllStatesExcept(state -> {
+        getVariantBuilder(blockMeta.get()).forAllStatesExcept(state -> {
             var facing = state.getValue(PlantopiaBalkStubBlock.FACING);
             var model = balkStubTemplateModel(baseName + "_" + facing, facing.getName(), texture);
             return ConfiguredModel.builder().modelFile(model).build();

@@ -1,9 +1,11 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaStrippableBlock;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -20,6 +22,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
@@ -27,7 +30,7 @@ import java.util.function.Supplier;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock {
+public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
@@ -205,5 +208,18 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock 
         }
 
         return state;
+    }
+
+    @Override
+    public @Nullable BlockState getStrippedState(UseOnContext context, BlockState unstrippedState, Block strippedBlock) {
+        return strippedBlock.defaultBlockState()
+            .setValue(FACING, unstrippedState.getValue(FACING))
+            .setValue(UP, unstrippedState.getValue(UP))
+            .setValue(DOWN, unstrippedState.getValue(DOWN))
+            .setValue(NORTH, unstrippedState.getValue(NORTH))
+            .setValue(SOUTH, unstrippedState.getValue(SOUTH))
+            .setValue(EAST, unstrippedState.getValue(EAST))
+            .setValue(WEST, unstrippedState.getValue(WEST))
+            .setValue(WATERLOGGED, unstrippedState.getValue(WATERLOGGED));
     }
 }

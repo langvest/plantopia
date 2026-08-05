@@ -1,0 +1,22 @@
+{
+    "variants": {
+        "facing=down": {
+            "model": "plantopia:block/stripped_maple_stub_down"
+        },
+        "facing=east": {
+            "model": "plantopia:block/stripped_maple_stub_east"
+        },
+        "facing=north": {
+            "model": "plantopia:block/stripped_maple_stub_north"
+        },
+        "facing=south": {
+            "model": "plantopia:block/stripped_maple_stub_south"
+        },
+        "facing=up": {
+            "model": "plantopia:block/stripped_maple_stub_up"
+        },
+        "facing=west": {
+            "model": "plantopia:block/stripped_maple_stub_west"
+        }
+    }
+}

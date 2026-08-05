@@ -1,6 +1,7 @@
 {
     "values": [
         "#plantopia:type/balk_stub",
-        "plantopia:maple_balk"
+        "plantopia:maple_balk",
+        "plantopia:stripped_maple_balk"
     ]
 }

@@ -1,9 +1,11 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaStrippableBlock;
 import by.langvest.plantopia.util.helper.PlantopiaShapeHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -17,12 +19,13 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaBalkStubBlock extends Block implements SimpleWaterloggedBlock {
+public class PlantopiaBalkStubBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -65,5 +68,12 @@ public class PlantopiaBalkStubBlock extends Block implements SimpleWaterloggedBl
     @Override
     public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return state.getFluidState().isEmpty();
+    }
+
+    @Override
+    public @Nullable BlockState getStrippedState(UseOnContext context, BlockState unstrippedState, Block strippedBlock) {
+        return strippedBlock.defaultBlockState()
+            .setValue(FACING, unstrippedState.getValue(FACING))
+            .setValue(WATERLOGGED, unstrippedState.getValue(WATERLOGGED));
     }
 }
