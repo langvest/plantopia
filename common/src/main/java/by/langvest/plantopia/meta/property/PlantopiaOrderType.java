@@ -3,6 +3,7 @@ package by.langvest.plantopia.meta.property;
 public enum PlantopiaOrderType {
     BLOCK,
     BIRCH,
+    OAK,
     MAPLE,
     JACARANDA,
     DEADWOOD,

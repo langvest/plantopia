@@ -3,7 +3,9 @@
         "#plantopia:type/balk_stub",
         "plantopia:birch_balk",
         "plantopia:maple_balk",
+        "plantopia:oak_balk",
         "plantopia:stripped_birch_balk",
-        "plantopia:stripped_maple_balk"
+        "plantopia:stripped_maple_balk",
+        "plantopia:stripped_oak_balk"
     ]
 }

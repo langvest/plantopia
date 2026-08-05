@@ -1,0 +1,76 @@
+{
+    "multipart": [
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_up"
+            },
+            "when": {
+                "up": "true"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_down"
+            },
+            "when": {
+                "down": "true"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_north"
+            },
+            "when": {
+                "north": "true"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_south"
+            },
+            "when": {
+                "south": "true"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_west"
+            },
+            "when": {
+                "west": "true"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_east"
+            },
+            "when": {
+                "east": "true"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_center_x"
+            },
+            "when": {
+                "facing": "east|west"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_center_y"
+            },
+            "when": {
+                "facing": "up|down"
+            }
+        },
+        {
+            "apply": {
+                "model": "plantopia:block/stripped_oak_balk_center_z"
+            },
+            "when": {
+                "facing": "north|south"
+            }
+        }
+    ]
+}
