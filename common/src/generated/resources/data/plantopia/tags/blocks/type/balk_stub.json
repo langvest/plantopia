@@ -1,6 +1,8 @@
 {
     "values": [
+        "plantopia:birch_stub",
         "plantopia:maple_stub",
+        "plantopia:stripped_birch_stub",
         "plantopia:stripped_maple_stub"
     ]
 }

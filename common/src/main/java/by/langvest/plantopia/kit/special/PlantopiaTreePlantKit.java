@@ -19,13 +19,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import java.util.function.Supplier;
-
 @ParametersAreNonnullByDefault
-public class PlantopiaTreeTimberKit extends PlantopiaKit {
+public class PlantopiaTreePlantKit extends PlantopiaKit {
     protected final String baseName;
-    protected final Supplier<Block> log;
-    protected final Supplier<Block> strippedLog;
     protected final PlantopiaTreeKitConfiguration config;
 
     public final RegistryObject<Block> balk;
@@ -36,27 +32,21 @@ public class PlantopiaTreeTimberKit extends PlantopiaKit {
     public final TagKey<Block> balksBlockTag;
     public final TagKey<Item> balksItemTag;
 
-    public PlantopiaTreeTimberKit(
+    public PlantopiaTreePlantKit(
         String baseName,
-        Supplier<Block> log,
-        Supplier<Block> strippedLog,
-        Supplier<Block> balkGoesAfter,
-        Supplier<Block> strippedBalkGoesAfter,
         @NotNull PlantopiaTreeKitConfiguration config
     ) {
         this.baseName = baseName;
-        this.log = log;
-        this.strippedLog = strippedLog;
         this.config = config;
 
         var supposedStub = PlantopiaBlocks.supposeBlock(baseName + "_stub");
         var supposedStrippedBalk = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_balk");
         var supposedStrippedStub = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_stub");
 
-        this.balk = PlantopiaBlocks.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), config.applyBlockMeta(MetaProperties.of(MetaType.BALK).goesAfter(balkGoesAfter).strippable(supposedStrippedBalk)));
-        this.stub = PlantopiaBlocks.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), config.applyBlockMeta(MetaProperties.of(MetaType.BALK_STUB).parent(balk).strippable(supposedStrippedStub)));
-        this.strippedBalk = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), config.applyBlockMeta(MetaProperties.of(MetaType.BALK).goesAfter(strippedBalkGoesAfter)));
-        this.strippedStub = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), config.applyBlockMeta(MetaProperties.of(MetaType.BALK_STUB).parent(strippedBalk)));
+        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).strippable(supposedStrippedBalk));
+        this.stub = config.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), MetaProperties.of(MetaType.BALK_STUB).parent(balk).strippable(supposedStrippedStub));
+        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK));
+        this.strippedStub = config.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), MetaProperties.of(MetaType.BALK_STUB).parent(strippedBalk));
 
         this.balksBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_balks");
         this.balksItemTag = PlantopiaItemTags.createItemTag(baseName + "_balks");
@@ -83,13 +73,5 @@ public class PlantopiaTreeTimberKit extends PlantopiaKit {
         var balks = bridge.getOrCreateTagSet(balksItemTag);
 
         balks.add(balk.get().asItem(), stub.get().asItem(), strippedBalk.get().asItem(), strippedStub.get().asItem());
-    }
-
-    @Override
-    protected void addRecipes(PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge bridge) {
-        super.addRecipes(bridge);
-
-        bridge.balksFromLogs(balk.get(), log.get());
-        bridge.balksFromLogs(strippedBalk.get(), strippedLog.get());
     }
 }

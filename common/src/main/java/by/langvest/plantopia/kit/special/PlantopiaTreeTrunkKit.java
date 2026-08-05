@@ -44,10 +44,10 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
         var supposedStrippedLog = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_log");
         var supposedStrippedWood = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_wood");
 
-        this.log = PlantopiaBlocks.registerBlock(baseName + "_log", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LOG).mapColor(config.logMapColor()).strippable(supposedStrippedLog)));
-        this.wood = PlantopiaBlocks.registerBlock(baseName + "_wood", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log).strippable(supposedStrippedWood)));
-        this.strippedLog = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LOG).mapColor(config.woodMapColor())));
-        this.strippedWood = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.WOOD).mapColor(config.woodMapColor()).parent(strippedLog)));
+        this.log = config.registerBlock(baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.logMapColor()).strippable(supposedStrippedLog));
+        this.wood = config.registerBlock(baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log).strippable(supposedStrippedWood));
+        this.strippedLog = config.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.plankMapColor()));
+        this.strippedWood = config.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.plankMapColor()).parent(strippedLog));
 
         this.logsBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_logs");
         this.logsItemTag = PlantopiaItemTags.createItemTag(baseName + "_logs");

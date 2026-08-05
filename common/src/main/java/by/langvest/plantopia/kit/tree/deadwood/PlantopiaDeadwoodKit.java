@@ -34,8 +34,8 @@ public class PlantopiaDeadwoodKit extends PlantopiaAbstractTreeKit {
         super(baseName, config);
 
         this.worldgen = createWorldgenKit(baseName);
-        this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.WOOD)));
-        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", LeavesBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.WOOD).customModel().dryTint()));
+        this.sapling = config.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.WOOD));
+        this.leaves = config.registerBlock(baseName + "_leaves", LeavesBlock::new, MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.WOOD).customModel().dryTint());
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
@@ -58,7 +58,7 @@ public class PlantopiaDeadwoodKit extends PlantopiaAbstractTreeKit {
     protected void addRecipes(PlantopiaDatagenBridgeEvent.RecipeEvent.Bridge bridge) {
         super.addRecipes(bridge);
 
-        bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag, 4);
+        bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag);
         bridge.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
     }
 }

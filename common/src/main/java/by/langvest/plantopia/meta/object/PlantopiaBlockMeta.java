@@ -694,7 +694,6 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
         private PlantopiaTintType tintType = PlantopiaTintType.NONE;
         private PlantopiaTagType tagType = PlantopiaTagType.GENERATED;
         private PlantopiaOrderType orderType = PlantopiaOrderType.BLOCK;
-        private BlockBehaviour.StatePredicate hasPostProcess = MetaProperties::never;
         private @Nullable Supplier<? extends ItemLike> goesAfter = null;
         private PlantopiaBeePreferenceType beePreferenceType = PlantopiaBeePreferenceType.DEFAULT;
         private @Nullable DyeColor color = null;

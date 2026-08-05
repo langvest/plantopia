@@ -34,8 +34,8 @@ public class PlantopiaJacarandaKit extends PlantopiaAbstractTreeKit {
         super(baseName, config);
 
         this.worldgen = createWorldgenKit(baseName);
-        this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyBlockMeta(MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_PURPLE)));
-        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", PlantopiaJacarandaLeavesBlock::new, config.applyBlockMeta(MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_PURPLE)));
+        this.sapling = config.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_PURPLE));
+        this.leaves = config.registerBlock(baseName + "_leaves", PlantopiaJacarandaLeavesBlock::new, MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_PURPLE));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
