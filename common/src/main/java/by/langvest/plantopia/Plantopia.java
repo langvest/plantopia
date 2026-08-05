@@ -47,6 +47,7 @@ import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.recipe.PlantopiaRecipeSerializers;
 import by.langvest.plantopia.sound.PlantopiaSoundEvents;
+import by.langvest.plantopia.tab.PlantopiaCreativeModeTabContents;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.worldgen.feature.*;
 import by.langvest.plantopia.worldgen.region.PlantopiaRegions;
@@ -112,6 +113,7 @@ public final class Plantopia {
         globalEventEmitter.subscribe(PlantopiaIntProportionTypes::setup);
 
         // Common
+        globalEventEmitter.subscribe(PlantopiaCreativeModeTabContents::setup);
         globalEventEmitter.subscribe(PlantopiaBoatType::setup);
         globalEventEmitter.subscribe(PlantopiaCompats::setup);
         globalEventEmitter.subscribe(PlantopiaCommands::setup);

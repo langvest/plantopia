@@ -65,6 +65,11 @@ public class PlantopiaItemMeta extends SimpleMetaObject<Item> {
         return groups;
     }
 
+    public boolean isBelongsToGroup(ResourceKey<CreativeModeTab> key) {
+        if (type.instanceOf(MetaType.ICON)) return false;
+        return groups.isEmpty() || groups.contains(key);
+    }
+
     public PlantopiaModelType getModelType() {
         return modelType;
     }

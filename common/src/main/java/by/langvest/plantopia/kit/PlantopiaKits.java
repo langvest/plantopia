@@ -14,6 +14,7 @@ import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.toolkit.event.RegisterEvent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -37,29 +38,21 @@ public class PlantopiaKits {
             .build()
     );
 
-    public static final PlantopiaExtraVanillaTreeKit OAK = new PlantopiaExtraVanillaTreeKit(
+    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit(
         PlantopiaDictionary.OAK,
-        () -> Blocks.OAK_LOG,
-        () -> Blocks.STRIPPED_OAK_LOG,
-        PlantopiaTreeKitConfiguration.builder()
-            .build()
+        Blocks.OAK_LOG,
+        Blocks.STRIPPED_OAK_LOG,
+        Blocks.OAK_WOOD,
+        Blocks.STRIPPED_OAK_WOOD
     );
 
-    public static final PlantopiaExtraVanillaTreeKit SPRUCE = new PlantopiaExtraVanillaTreeKit(
+    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit(
         PlantopiaDictionary.SPRUCE,
-        () -> Blocks.SPRUCE_LOG,
-        () -> Blocks.STRIPPED_SPRUCE_LOG,
-        PlantopiaTreeKitConfiguration.builder()
-            .build()
+        Blocks.SPRUCE_LOG,
+        Blocks.STRIPPED_SPRUCE_LOG,
+        Blocks.SPRUCE_WOOD,
+        Blocks.STRIPPED_SPRUCE_WOOD
     );
-
-//    public static final PlantopiaExtraVanillaTreeKit DARK_OAK = new PlantopiaExtraVanillaTreeKit(
-//        PlantopiaDictionary.DARK_OAK,
-//        () -> Blocks.DARK_OAK_LOG,
-//        () -> Blocks.STRIPPED_DARK_OAK_LOG,
-//        PlantopiaTreeKitConfiguration.builder()
-//            .build()
-//    );
 
     public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
         PlantopiaDictionary.MAPLE,
@@ -101,6 +94,34 @@ public class PlantopiaKits {
     public static void setup(@NotNull RegisterEvent event) {}
 
     /* HELPER METHODS ***********************************************************************************/
+
+    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(
+        String baseName,
+        Block log,
+        Block strippedLog,
+        Block wood,
+        Block strippedWood
+    ) {
+        return createExtraVanillaTreeKit(baseName, () -> log, () -> strippedLog, () -> wood, () -> strippedWood);
+    }
+
+    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(
+        String baseName,
+        Supplier<Block> log,
+        Supplier<Block> strippedLog,
+        Supplier<Block> wood,
+        Supplier<Block> strippedWood
+    ) {
+        return new PlantopiaExtraVanillaTreeKit(
+            baseName,
+            log,
+            strippedLog,
+            PlantopiaTreeKitConfiguration.builder()
+                .blockMeta(metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS))
+                .apply(balksGoesAfterWood(wood, strippedWood))
+                .build()
+        );
+    }
 
     @Contract(pure = true)
     private static @NotNull Consumer<PlantopiaTreeKitConfiguration.Builder> balksGoesAfterWood(String baseName) {

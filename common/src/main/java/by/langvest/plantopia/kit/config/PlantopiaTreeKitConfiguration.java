@@ -248,12 +248,16 @@ public record PlantopiaTreeKitConfiguration(
         }
 
         public Builder orderType(PlantopiaOrderType orderType) {
-            return blockMeta(entry -> true, metaProperties -> metaProperties.order(orderType))
-                .itemMeta(entry -> true, metaProperties -> metaProperties.order(orderType));
+            return blockMeta(metaProperties -> metaProperties.order(orderType))
+                .itemMeta(metaProperties -> metaProperties.order(orderType));
         }
 
         public Builder blockMeta(BlockMiddleware.Matcher matcher, Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> refiner) {
             return blockMiddleware(matcher, entry -> entry.modifyMeta(refiner));
+        }
+
+        public Builder blockMeta(Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> refiner) {
+            return blockMiddleware(entry -> true, entry -> entry.modifyMeta(refiner));
         }
 
         public Builder blockMiddleware(BlockMiddleware.Matcher matcher, BlockMiddleware middleware) {
@@ -270,6 +274,10 @@ public record PlantopiaTreeKitConfiguration(
 
         public Builder itemMeta(ItemMiddleware.Matcher matcher, Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> refiner) {
             return itemMiddleware(matcher, entry -> entry.modifyMeta(refiner));
+        }
+
+        public Builder itemMeta(Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> refiner) {
+            return itemMiddleware(entry -> true, entry -> entry.modifyMeta(refiner));
         }
 
         public Builder itemMiddleware(ItemMiddleware.Matcher matcher, ItemMiddleware middleware) {
