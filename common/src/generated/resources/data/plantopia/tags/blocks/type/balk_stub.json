@@ -3,8 +3,10 @@
         "plantopia:birch_stub",
         "plantopia:maple_stub",
         "plantopia:oak_stub",
+        "plantopia:spruce_stub",
         "plantopia:stripped_birch_stub",
         "plantopia:stripped_maple_stub",
-        "plantopia:stripped_oak_stub"
+        "plantopia:stripped_oak_stub",
+        "plantopia:stripped_spruce_stub"
     ]
 }

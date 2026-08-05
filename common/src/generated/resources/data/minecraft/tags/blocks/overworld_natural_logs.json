@@ -11,6 +11,8 @@
         "plantopia:maple_stub",
         "plantopia:oak_balk",
         "plantopia:oak_stub",
-        "plantopia:palm_log"
+        "plantopia:palm_log",
+        "plantopia:spruce_balk",
+        "plantopia:spruce_stub"
     ]
 }

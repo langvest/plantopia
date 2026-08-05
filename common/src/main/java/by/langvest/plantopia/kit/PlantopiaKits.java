@@ -9,6 +9,7 @@ import by.langvest.plantopia.kit.tree.jacaranda.PlantopiaJacarandaKit;
 import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
 import by.langvest.plantopia.kit.tree.oak.PlantopiaOakKit;
 import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
+import by.langvest.plantopia.kit.tree.spruce.PlantopiaSpruceKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.util.PlantopiaDictionary;
@@ -38,6 +39,13 @@ public class PlantopiaKits {
         PlantopiaDictionary.OAK,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.OAK)
+            .build()
+    );
+
+    public static final PlantopiaSpruceKit SPRUCE = new PlantopiaSpruceKit(
+        PlantopiaDictionary.SPRUCE,
+        PlantopiaTreeKitConfiguration.builder()
+            .orderType(PlantopiaOrderType.SPRUCE)
             .build()
     );
 
