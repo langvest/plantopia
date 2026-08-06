@@ -667,6 +667,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
         public boolean isWoodFamilyLike() {
             return instanceOf(PLANKS)
                 || instanceOf(LOG)
+                || instanceOf(BALK)
                 || instanceOf(WOOD)
                 || instanceOf(WOODEN_SLAB)
                 || instanceOf(WOODEN_STAIRS)
