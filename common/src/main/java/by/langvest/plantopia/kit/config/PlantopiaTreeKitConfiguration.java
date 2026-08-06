@@ -14,10 +14,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Contract;
@@ -31,9 +31,9 @@ import java.util.function.Predicate;
 
 @ParametersAreNonnullByDefault
 public record PlantopiaTreeKitConfiguration(
-    Function<BlockState, MapColor> plankMapColor,
-    Function<BlockState, MapColor> trunkMapColor,
-    Function<BlockState, MapColor> logMapColor,
+    MapColor plankMapColor,
+    MapColor trunkMapColor,
+    MapColor strippedTrunkMapColor,
     PressurePlateBlock.Sensitivity pressurePlateSensitivity,
     int buttonTicksToStayPressed,
     boolean canArrowsPressButton,
@@ -43,6 +43,16 @@ public record PlantopiaTreeKitConfiguration(
     Function<ResourceLocation, BlockSetType> blockSetTypeFactory,
     Function<Pair<ResourceLocation, BlockSetType>, WoodType> woodTypeFactory
 ) {
+    @Contract(pure = true)
+    public @NotNull Function<BlockState, MapColor> logMapColor() {
+        return state -> state.getValue(BlockStateProperties.AXIS).isVertical() ? plankMapColor : trunkMapColor;
+    }
+
+    @Contract(pure = true)
+    public @NotNull Function<BlockState, MapColor> strippedLogMapColor() {
+        return state -> state.getValue(BlockStateProperties.AXIS).isVertical() ? plankMapColor : strippedTrunkMapColor;
+    }
+
     public <T extends Block> RegistryObject<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> factory, PlantopiaBlockMeta.MetaProperties metaProperties) {
         return PlantopiaBlocks.registerBlock(name, factory, blockMetaModifier.apply(metaProperties));
     }
@@ -60,9 +70,9 @@ public record PlantopiaTreeKitConfiguration(
      * Builder for creating {@link PlantopiaTreeKitConfiguration} instances.
      */
     public static class Builder {
-        private Function<BlockState, MapColor> woodMapColor = state -> MapColor.WOOD;
-        private Function<BlockState, MapColor> trunkMapColor = state -> MapColor.PODZOL;
-        private Function<BlockState, MapColor> logMapColor = state -> state.getValue(RotatedPillarBlock.AXIS).isVertical() ? woodMapColor.apply(state) : trunkMapColor.apply(state);
+        private MapColor plankMapColor = MapColor.WOOD;
+        private MapColor trunkMapColor = MapColor.PODZOL;
+        private MapColor strippedTrunkMapColor = MapColor.PODZOL;
         private PressurePlateBlock.Sensitivity pressurePlateSensitivity = PressurePlateBlock.Sensitivity.EVERYTHING;
         private int buttonTicksToStayPressed = 30;
         private boolean canArrowsPressButton = true;
@@ -98,9 +108,9 @@ public record PlantopiaTreeKitConfiguration(
 
         public PlantopiaTreeKitConfiguration build() {
             return new PlantopiaTreeKitConfiguration(
-                woodMapColor,
+                plankMapColor,
                 trunkMapColor,
-                logMapColor,
+                strippedTrunkMapColor,
                 pressurePlateSensitivity,
                 buttonTicksToStayPressed,
                 canArrowsPressButton,
@@ -219,33 +229,18 @@ public record PlantopiaTreeKitConfiguration(
             return this;
         }
 
-        public Builder woodMapColor(MapColor color) {
-            this.woodMapColor = state -> color;
-            return this;
-        }
-
-        public Builder woodMapColor(Function<BlockState, MapColor> color) {
-            this.woodMapColor = color;
+        public Builder plankMapColor(MapColor color) {
+            this.plankMapColor = color;
             return this;
         }
 
         public Builder trunkMapColor(MapColor color) {
-            this.trunkMapColor = state -> color;
-            return this;
-        }
-
-        public Builder trunkMapColor(Function<BlockState, MapColor> color) {
             this.trunkMapColor = color;
             return this;
         }
 
-        public Builder logMapColor(MapColor color) {
-            this.logMapColor = state -> color;
-            return this;
-        }
-
-        public Builder logMapColor(Function<BlockState, MapColor> color) {
-            this.logMapColor = color;
+        public Builder strippedTrunkMapColor(MapColor color) {
+            this.strippedTrunkMapColor = color;
             return this;
         }
 

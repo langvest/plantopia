@@ -2,6 +2,7 @@
     "values": [
         "plantopia:acacia_stub",
         "plantopia:birch_stub",
+        "plantopia:cherry_stub",
         "plantopia:dark_oak_stub",
         "plantopia:jungle_stub",
         "plantopia:mangrove_stub",
@@ -10,6 +11,7 @@
         "plantopia:spruce_stub",
         "plantopia:stripped_acacia_stub",
         "plantopia:stripped_birch_stub",
+        "plantopia:stripped_cherry_stub",
         "plantopia:stripped_dark_oak_stub",
         "plantopia:stripped_jungle_stub",
         "plantopia:stripped_mangrove_stub",

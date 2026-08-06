@@ -46,8 +46,8 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
 
         this.log = config.registerBlock(baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.logMapColor()).strippable(supposedStrippedLog));
         this.wood = config.registerBlock(baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log).strippable(supposedStrippedWood));
-        this.strippedLog = config.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.plankMapColor()));
-        this.strippedWood = config.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.plankMapColor()).parent(strippedLog));
+        this.strippedLog = config.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.strippedLogMapColor()));
+        this.strippedWood = config.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.strippedTrunkMapColor()).parent(strippedLog));
 
         this.logsBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_logs");
         this.logsItemTag = PlantopiaItemTags.createItemTag(baseName + "_logs");
