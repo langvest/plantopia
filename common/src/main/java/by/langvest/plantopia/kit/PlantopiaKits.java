@@ -12,7 +12,6 @@ import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
-import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.toolkit.event.RegisterEvent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -33,11 +32,12 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.minecraf
 
 @ParametersAreNonnullByDefault
 public class PlantopiaKits {
-    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit(PlantopiaDictionary.OAK);
-    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit(PlantopiaDictionary.SPRUCE);
+    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit("oak");
+    public static final PlantopiaExtraVanillaTreeKit DARK_OAK = createExtraVanillaTreeKit("dark_oak");
+    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit("spruce");
 
     public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
-        PlantopiaDictionary.BIRCH,
+        "birch",
         () -> Blocks.BIRCH_LOG,
         () -> Blocks.BIRCH_WOOD,
         () -> Blocks.STRIPPED_BIRCH_LOG,
@@ -49,14 +49,14 @@ public class PlantopiaKits {
     );
 
     public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
-        PlantopiaDictionary.MAPLE,
+        "maple",
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.MAPLE)
             .build()
     );
 
     public static final PlantopiaJacarandaKit JACARANDA = new PlantopiaJacarandaKit(
-        PlantopiaDictionary.JACARANDA,
+        "jacaranda",
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.JACARANDA)
             .apply(PlantopiaKits::cherrySounds)
@@ -64,21 +64,21 @@ public class PlantopiaKits {
     );
 
     public static final PlantopiaDeadwoodKit DEADWOOD = new PlantopiaDeadwoodKit(
-        PlantopiaDictionary.DEADWOOD,
+        "deadwood",
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.DEADWOOD)
             .build()
     );
 
     public static final PlantopiaPalmKit PALM = new PlantopiaPalmKit(
-        PlantopiaDictionary.PALM,
+        "palm",
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.PALM)
             .build()
     );
 
     public static final PlantopiaFirKit FIR = new PlantopiaFirKit(
-        PlantopiaDictionary.FIR,
+        "fir",
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.FIR)
             .build()

@@ -9,13 +9,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaDictionary.*;
-import static by.langvest.plantopia.util.PlantopiaDictionary.MUDDY;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
 public interface PlantopiaRiverBiomes {
@@ -26,7 +22,7 @@ public interface PlantopiaRiverBiomes {
     }
 
     ResourceKey<Biome> GRAVELLY_RIVER = declareBiome(
-        compileNameFrom(GRAVELLY, Biomes.RIVER),
+        "gravelly_river",
         PlantopiaBiomeDeclaration.builder()
             .addSpawn(MobCategory.WATER_CREATURE, EntityType.SQUID, 2, 1, 4)
             .addSpawn(MobCategory.WATER_AMBIENT, EntityType.SALMON, 5, 1, 5)
@@ -46,7 +42,7 @@ public interface PlantopiaRiverBiomes {
     );
 
     ResourceKey<Biome> SANDY_RIVER = declareBiome(
-        compileNameFrom(SANDY, Biomes.RIVER),
+        "sandy_river",
         PlantopiaBiomeDeclaration.builder()
             .addSpawn(MobCategory.WATER_CREATURE, EntityType.SQUID, 2, 1, 4)
             .addSpawn(MobCategory.WATER_AMBIENT, EntityType.SALMON, 5, 1, 5)
@@ -66,7 +62,7 @@ public interface PlantopiaRiverBiomes {
     );
 
     ResourceKey<Biome> MUDDY_RIVER = declareBiome(
-        compileNameFrom(MUDDY, Biomes.RIVER),
+        "muddy_river",
         PlantopiaBiomeDeclaration.builder()
             .addSpawn(MobCategory.WATER_CREATURE, EntityType.SQUID, 2, 1, 4)
             .addSpawn(MobCategory.WATER_AMBIENT, EntityType.SALMON, 5, 1, 5)

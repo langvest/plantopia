@@ -1,6 +1,5 @@
 package by.langvest.plantopia.worldgen.biome.catalog;
 
-import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -16,8 +15,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaDictionary.DEAD;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
 public interface PlantopiaSwampBiomes {
@@ -28,7 +25,7 @@ public interface PlantopiaSwampBiomes {
     }
 
     ResourceKey<Biome> MARSH = declareBiome(
-        PlantopiaDictionary.MARSH,
+        "marsh",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
             .addSpawn(MobCategory.CREATURE, EntityType.CHICKEN, 8, 2, 4)
@@ -48,7 +45,7 @@ public interface PlantopiaSwampBiomes {
     );
 
     ResourceKey<Biome> DEAD_MARSH = declareBiome(
-        compileNameFrom(DEAD, MARSH),
+        "dead_marsh",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
             .addSpawn(MobCategory.CREATURE, EntityType.PIG, 8, 2, 4)

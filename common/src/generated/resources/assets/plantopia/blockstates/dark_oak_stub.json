@@ -1,0 +1,22 @@
+{
+    "variants": {
+        "facing=down": {
+            "model": "plantopia:block/dark_oak_stub_down"
+        },
+        "facing=east": {
+            "model": "plantopia:block/dark_oak_stub_east"
+        },
+        "facing=north": {
+            "model": "plantopia:block/dark_oak_stub_north"
+        },
+        "facing=south": {
+            "model": "plantopia:block/dark_oak_stub_south"
+        },
+        "facing=up": {
+            "model": "plantopia:block/dark_oak_stub_up"
+        },
+        "facing=west": {
+            "model": "plantopia:block/dark_oak_stub_west"
+        }
+    }
+}

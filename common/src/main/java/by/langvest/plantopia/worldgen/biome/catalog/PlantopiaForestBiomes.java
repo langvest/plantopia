@@ -11,14 +11,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static by.langvest.plantopia.util.PlantopiaDictionary.*;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
 /**
@@ -33,7 +30,7 @@ public interface PlantopiaForestBiomes {
     }
 
     ResourceKey<Biome> BOREAL_FOREST = declareBiome(
-        compileNameFrom(BOREAL, Biomes.FOREST),
+        "boreal_forest",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
@@ -61,7 +58,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> MAPLE_WOODS = declareBiome(
-        compileNameFrom(MAPLE, WOODS),
+        "maple_woods",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
@@ -86,7 +83,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> AMBER_THICKET = declareBiome(
-        compileNameFrom("amber", THICKET),
+        "amber_thicket",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
@@ -114,7 +111,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> SEASONAL_FOREST = declareBiome(
-        compileNameFrom(SEASONAL, Biomes.FOREST),
+        "seasonal_forest",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
@@ -137,7 +134,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> SEASONAL_DARK_FOREST = declareBiome(
-        compileNameFrom(SEASONAL, Biomes.DARK_FOREST),
+        "seasonal_dark_forest",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
@@ -159,7 +156,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> ASPEN_GROVE = declareBiome(
-        compileNameFrom("aspen", GROVE),
+        "aspen_grove",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 4, 2, 3)
@@ -183,7 +180,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> ASPEN_CLEARING = declareBiome(
-        compileNameFrom("aspen", CLEARING),
+        "aspen_clearing",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::plainsSpawns)
             .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
@@ -202,7 +199,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> SNOWY_ASPEN_GROVE = declareBiome(
-        compileNameFrom(SNOWY, ASPEN_GROVE),
+        "snowy_aspen_grove",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.WOLF, 8, 4, 4)
@@ -227,7 +224,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> SNOWY_ASPEN_CLEARING = declareBiome(
-        compileNameFrom(SNOWY, ASPEN_CLEARING),
+        "snowy_aspen_clearing",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::plainsSpawns)
             .creatureGenerationProbability(0.07F)
@@ -246,7 +243,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> OAK_FOREST = declareBiome(
-        compileNameFrom("oak", Biomes.FOREST),
+        "oak_forest",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
@@ -268,7 +265,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> OLD_GROWTH_OAK_FOREST = declareBiome(
-        compileNameFrom(OLD_GROWTH, OAK_FOREST),
+        "old_growth_oak_forest",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .applySpawn(BiomeDefaultFeatures::commonSpawns)
@@ -291,7 +288,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> BLOOMING_GLADE = declareBiome(
-        compileNameFrom("blooming", GLADE),
+        "blooming_glade",
         PlantopiaBiomeDeclaration.builder()
             .addSpawn(MobCategory.CREATURE, EntityType.DONKEY, 1, 1, 2)
             .addSpawn(MobCategory.CREATURE, EntityType.RABBIT, 2, 2, 6)
@@ -316,7 +313,7 @@ public interface PlantopiaForestBiomes {
     );
 
     ResourceKey<Biome> TEMPERATE_GLADE = declareBiome(
-        compileNameFrom("temperate", GLADE),
+        "temperate_glade",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.HORSE, 1, 2, 6)

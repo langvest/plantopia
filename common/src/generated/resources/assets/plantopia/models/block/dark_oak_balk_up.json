@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_up",
+    "textures": {
+        "texture": "plantopia:block/dark_oak_balk"
+    }
+}

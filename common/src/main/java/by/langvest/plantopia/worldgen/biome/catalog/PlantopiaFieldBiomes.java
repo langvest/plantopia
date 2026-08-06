@@ -1,6 +1,5 @@
 package by.langvest.plantopia.worldgen.biome.catalog;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.worldgen.biome.PlantopiaBiomeDeclaration;
 import by.langvest.toolkit.collection.catalog.Catalog;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -10,13 +9,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.NotNull;
 
-import static by.langvest.plantopia.util.PlantopiaDictionary.FIELDS;
-import static by.langvest.plantopia.util.PlantopiaDictionary.VALE;
-import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileNameFrom;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
 /**
@@ -30,7 +25,7 @@ public interface PlantopiaFieldBiomes {
     }
 
     ResourceKey<Biome> LAVENDER_FIELDS = declareBiome(
-        compileNameFrom(PlantopiaBlocks.LAVENDER, FIELDS),
+        "lavender_fields",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::plainsSpawns)
             .creatureGenerationProbability(0.07F)
@@ -51,7 +46,7 @@ public interface PlantopiaFieldBiomes {
     );
 
     ResourceKey<Biome> POPPY_FIELDS = declareBiome(
-        compileNameFrom(Blocks.POPPY, FIELDS),
+        "poppy_fields",
         PlantopiaBiomeDeclaration.builder()
             .applySpawn(BiomeDefaultFeatures::farmAnimals)
             .addSpawn(MobCategory.CREATURE, EntityType.HORSE, 1, 2, 6)

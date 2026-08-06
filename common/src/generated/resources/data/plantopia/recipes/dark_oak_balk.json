@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "balk",
+    "key": {
+        "#": {
+            "item": "minecraft:dark_oak_log"
+        }
+    },
+    "pattern": [
+        "#",
+        "#"
+    ],
+    "result": {
+        "count": 6,
+        "item": "plantopia:dark_oak_balk"
+    },
+    "show_notification": true
+}
