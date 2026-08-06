@@ -46,7 +46,8 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     public static final PlantopiaTagSet<Block> REPLACEABLE_BY_TREES = getOrCreateTagSet(BlockTags.REPLACEABLE_BY_TREES);
     public static final PlantopiaTagSet<Block> SWORD_EFFICIENT = getOrCreateTagSet(BlockTags.SWORD_EFFICIENT);
     public static final PlantopiaTagSet<Block> BIRCH_LOGS = getOrCreateTagSet(BlockTags.BIRCH_LOGS);
-    public static final PlantopiaTagSet<Block> LOGS_THAT_BURN = getOrCreateTagSet(BlockTags.LOGS_THAT_BURN);
+    public static final PlantopiaTagSet<Block> COMPLETES_FIND_TREE_TUTORIAL = getOrCreateTagSet(BlockTags.COMPLETES_FIND_TREE_TUTORIAL);
+    public static final PlantopiaTagSet<Block> LAVA_POOL_STONE_CANNOT_REPLACE = getOrCreateTagSet(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE);
     public static final PlantopiaTagSet<Block> OVERWORLD_NATURAL_LOGS = getOrCreateTagSet(BlockTags.OVERWORLD_NATURAL_LOGS);
     public static final PlantopiaTagSet<Block> DIRT = getOrCreateTagSet(BlockTags.DIRT);
     public static final PlantopiaTagSet<Block> SNIFFER_DIGGABLE_BLOCK = getOrCreateTagSet(BlockTags.SNIFFER_DIGGABLE_BLOCK);
@@ -99,6 +100,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     public static final PlantopiaTagSet<Block> GROUND_OVERWORLD = getOrCreateTagSet(PlantopiaBlockTags.GROUND_OVERWORLD);
     public static final PlantopiaTagSet<Block> PACKED_ICE_REPLACEABLE_BLOCKS = getOrCreateTagSet(PlantopiaBlockTags.PACKED_ICE_REPLACEABLE_BLOCKS);
     public static final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE_BLOCKS = getOrCreateTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE_BLOCKS);
+    public static final PlantopiaTagSet<Block> LEAVES_CAN_SURVIVE_ON = getOrCreateTagSet(PlantopiaBlockTags.LEAVES_CAN_SURVIVE_ON);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -122,6 +124,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
 
         DIRT.add(PlantopiaBlocks.SEA_MOSS_BLOCK.get());
         MINEABLE_WITH_HOE.add(PlantopiaBlocks.SEA_MOSS_BLOCK.get(), PlantopiaBlocks.SEA_MOSS_CARPET.get());
+        MINEABLE_WITH_AXE.addTag(PlantopiaBlockTags.BALKS);
         SWORD_EFFICIENT.add(PlantopiaBlocks.SEA_MOSS_CARPET.get());
         COMBINATION_STEP_SOUND_BLOCKS.add(PlantopiaBlocks.SEA_MOSS_CARPET.get());
         IGNORED_BY_BEES.add(Blocks.WITHER_ROSE);
@@ -134,6 +137,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         SEA_MOSS_REPLACEABLE.addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT, BlockTags.SAND);
         PACKED_ICE_REPLACEABLE_BLOCKS.addTag(BlockTags.BASE_STONE_OVERWORLD);
         INSIDE_STEP_SOUND_BLOCKS.add(PlantopiaBlocks.ICE_CRUST.get());
+        COMPLETES_FIND_TREE_TUTORIAL.addTag(PlantopiaBlockTags.BALKS);
+        LAVA_POOL_STONE_CANNOT_REPLACE.addTag(PlantopiaBlockTags.BALKS);
+        LEAVES_CAN_SURVIVE_ON.addTag(BlockTags.LOGS, PlantopiaBlockTags.BALKS);
 
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS
             .add(Blocks.ICE)

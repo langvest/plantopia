@@ -47,10 +47,10 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
         var supposedStrippedBalk = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_balk");
         var supposedStrippedStub = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_stub");
 
-        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).goesAfter(balkGoesAfter).strippable(supposedStrippedBalk));
-        this.stub = config.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), MetaProperties.of(MetaType.BALK_STUB).parent(balk).strippable(supposedStrippedStub));
-        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK).goesAfter(strippedBalkGoesAfter));
-        this.strippedStub = config.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), MetaProperties.of(MetaType.BALK_STUB).parent(strippedBalk));
+        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).mapColor(config.trunkMapColor()).goesAfter(balkGoesAfter).strippable(supposedStrippedBalk));
+        this.stub = config.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), MetaProperties.of(MetaType.BALK_STUB).mapColor(config.trunkMapColor()).parent(balk).strippable(supposedStrippedStub));
+        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK).mapColor(config.strippedTrunkMapColor()).goesAfter(strippedBalkGoesAfter));
+        this.strippedStub = config.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), MetaProperties.of(MetaType.BALK_STUB).mapColor(config.strippedTrunkMapColor()).parent(strippedBalk));
 
         this.balksBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_balks");
         this.balksItemTag = PlantopiaItemTags.createItemTag(baseName + "_balks");
@@ -60,10 +60,12 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
     protected void addBlockTags(PlantopiaDatagenBridgeEvent.BlockTagEvent.Bridge bridge) {
         super.addBlockTags(bridge);
 
-        var balks = bridge.getOrCreateTagSet(balksBlockTag);
+        var currentBalks = bridge.getOrCreateTagSet(balksBlockTag);
+        var allBalks = bridge.getOrCreateTagSet(PlantopiaBlockTags.BALKS);
         var overworldNaturalBlocks = bridge.getOrCreateTagSet(BlockTags.OVERWORLD_NATURAL_LOGS);
 
-        balks.add(balk.get(), stub.get(), strippedBalk.get(), strippedStub.get());
+        currentBalks.add(balk.get(), stub.get(), strippedBalk.get(), strippedStub.get());
+        allBalks.addTag(balksBlockTag);
 
         if (config.dimensionType() == Level.OVERWORLD) {
             overworldNaturalBlocks.add(balk.get(), stub.get());
@@ -74,8 +76,10 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
     protected void addItemTags(PlantopiaDatagenBridgeEvent.ItemTagEvent.Bridge bridge) {
         super.addItemTags(bridge);
 
-        var balks = bridge.getOrCreateTagSet(balksItemTag);
+        var currentBalks = bridge.getOrCreateTagSet(balksItemTag);
+        var allBalks = bridge.getOrCreateTagSet(PlantopiaItemTags.BALKS);
 
-        balks.add(balk.get().asItem(), stub.get().asItem(), strippedBalk.get().asItem(), strippedStub.get().asItem());
+        currentBalks.add(balk.get().asItem(), stub.get().asItem(), strippedBalk.get().asItem(), strippedStub.get().asItem());
+        allBalks.addTag(balksItemTag);
     }
 }

@@ -57,12 +57,12 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
     protected void addBlockTags(PlantopiaDatagenBridgeEvent.BlockTagEvent.Bridge bridge) {
         super.addBlockTags(bridge);
 
-        var logs = bridge.getOrCreateTagSet(logsBlockTag);
+        var currentLogs = bridge.getOrCreateTagSet(logsBlockTag);
         var logsThatBurn = bridge.getOrCreateTagSet(BlockTags.LOGS_THAT_BURN);
         var overworldNaturalBlocks = bridge.getOrCreateTagSet(BlockTags.OVERWORLD_NATURAL_LOGS);
         boolean isFlameable = metaOf(log.get()).map(PlantopiaBlockMeta::isFlammable).orElse(false);
 
-        logs.add(log.get(), wood.get(), strippedLog.get(), strippedWood.get());
+        currentLogs.add(log.get(), wood.get(), strippedLog.get(), strippedWood.get());
 
         if (isFlameable) {
             logsThatBurn.addTag(logsBlockTag);
@@ -77,11 +77,11 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
     protected void addItemTags(PlantopiaDatagenBridgeEvent.ItemTagEvent.Bridge bridge) {
         super.addItemTags(bridge);
 
-        var logs = bridge.getOrCreateTagSet(logsItemTag);
+        var currentLogs = bridge.getOrCreateTagSet(logsItemTag);
         var logsThatBurn = bridge.getOrCreateTagSet(ItemTags.LOGS_THAT_BURN);
         boolean isFlameable = metaOf(log.get()).map(PlantopiaBlockMeta::isFlammable).orElse(false);
 
-        logs.add(log.get().asItem(), wood.get().asItem(), strippedLog.get().asItem(), strippedWood.get().asItem());
+        currentLogs.add(log.get().asItem(), wood.get().asItem(), strippedLog.get().asItem(), strippedWood.get().asItem());
 
         if (isFlameable) {
             logsThatBurn.addTag(logsItemTag);

@@ -23,6 +23,8 @@ public class PlantopiaBlockTags {
     public static final TagKey<Block> ORES_OVERWORLD = createBlockTag("ores_overworld");
     public static final TagKey<Block> PACKED_ICE_REPLACEABLE_BLOCKS = createBlockTag("packed_ice_replaceable_blocks");
     public static final TagKey<Block> SEA_MOSS_REPLACEABLE_BLOCKS = createBlockTag("sea_moss_replaceable_blocks");
+    public static final TagKey<Block> BALKS = createBlockTag("balks");
+    public static final TagKey<Block> LEAVES_CAN_SURVIVE_ON = createBlockTag("leaves_can_survive_on");
 
     public static @NotNull TagKey<Block> createBlockTag(String name) {
         return TagKey.create(Registries.BLOCK, plantopia(name));
