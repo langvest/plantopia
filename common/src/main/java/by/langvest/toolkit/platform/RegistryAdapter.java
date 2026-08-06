@@ -30,6 +30,10 @@ public abstract class RegistryAdapter<T> implements LocationLike, Streamable<T> 
         throw new NoSuchElementException(String.format("Cannot get value for the key '%s' as it does not exist in the registry %s", key, this));
     }
 
+    public Supplier<T> getValueDelegate(ResourceLocation key) {
+        return () -> getValueOrThrow(key);
+    }
+
     public boolean containsKey(ResourceLocation key) {
         return getValue(key).isPresent();
     }

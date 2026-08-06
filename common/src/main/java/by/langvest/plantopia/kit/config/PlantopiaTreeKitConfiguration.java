@@ -27,6 +27,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 @ParametersAreNonnullByDefault
 public record PlantopiaTreeKitConfiguration(
@@ -37,88 +38,22 @@ public record PlantopiaTreeKitConfiguration(
     int buttonTicksToStayPressed,
     boolean canArrowsPressButton,
     ResourceKey<Level> dimensionType,
-    BlockMiddleware blockMiddleware,
-    ItemMiddleware itemMiddleware,
+    Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> blockMetaModifier,
+    Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> itemMetaModifier,
     Function<ResourceLocation, BlockSetType> blockSetTypeFactory,
     Function<Pair<ResourceLocation, BlockSetType>, WoodType> woodTypeFactory
 ) {
-    @SuppressWarnings("unchecked")
     public <T extends Block> RegistryObject<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> factory, PlantopiaBlockMeta.MetaProperties metaProperties) {
-        var entry = blockMiddleware.apply(new BlockMiddleware.Entry(name, factory, metaProperties));
-        return (RegistryObject<T>) PlantopiaBlocks.registerBlock(entry.name, entry.factory, entry.metaProperties);
+        return PlantopiaBlocks.registerBlock(name, factory, blockMetaModifier.apply(metaProperties));
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends Item> RegistryObject<T> registerItem(String name, Function<Item.Properties, T> factory, PlantopiaItemMeta.MetaProperties metaProperties) {
-        var entry = itemMiddleware.apply(new ItemMiddleware.Entry(name, factory, metaProperties));
-        return (RegistryObject<T>) PlantopiaItems.registerItem(entry.name, entry.factory, entry.metaProperties);
+        return PlantopiaItems.registerItem(name, factory, itemMetaModifier.apply(metaProperties));
     }
 
     @Contract(" -> new")
     public static @NotNull Builder builder() {
         return new Builder();
-    }
-
-    @FunctionalInterface
-    public interface BlockMiddleware {
-        Entry apply(Entry entry);
-
-        @FunctionalInterface
-        interface Matcher {
-            boolean matches(Entry entry);
-        }
-
-        class Entry {
-            public String name;
-            public Function<BlockBehaviour.Properties, ? extends Block> factory;
-            public PlantopiaBlockMeta.MetaProperties metaProperties;
-
-            public Entry(String name, Function<BlockBehaviour.Properties, ? extends Block> factory, PlantopiaBlockMeta.MetaProperties metaProperties) {
-                this.name = name;
-                this.factory = factory;
-                this.metaProperties = metaProperties;
-            }
-
-            public PlantopiaBlockMeta.MetaType metaType() {
-                return MetaAccessor.getMetaTypeFrom(metaProperties);
-            }
-
-            public Entry modifyMeta(Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> refiner) {
-                metaProperties = refiner.apply(metaProperties);
-                return this;
-            }
-        }
-    }
-
-    @FunctionalInterface
-    public interface ItemMiddleware {
-        Entry apply(Entry entry);
-
-        @FunctionalInterface
-        interface Matcher {
-            boolean matches(Entry entry);
-        }
-
-        class Entry {
-            public String name;
-            public Function<Item.Properties, ? extends Item> factory;
-            public PlantopiaItemMeta.MetaProperties metaProperties;
-
-            public Entry(String name, Function<Item.Properties, ? extends Item> factory, PlantopiaItemMeta.MetaProperties metaProperties) {
-                this.name = name;
-                this.factory = factory;
-                this.metaProperties = metaProperties;
-            }
-
-            public PlantopiaItemMeta.MetaType metaType() {
-                return MetaAccessor.getMetaTypeFrom(metaProperties);
-            }
-
-            public Entry modifyMeta(Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> refiner) {
-                metaProperties = refiner.apply(metaProperties);
-                return this;
-            }
-        }
     }
 
     /**
@@ -132,8 +67,8 @@ public record PlantopiaTreeKitConfiguration(
         private int buttonTicksToStayPressed = 30;
         private boolean canArrowsPressButton = true;
         private ResourceKey<Level> dimensionType = Level.OVERWORLD;
-        private BlockMiddleware blockMiddleware = entry -> entry;
-        private ItemMiddleware itemMiddleware = entry -> entry;
+        Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> blockMetaModifier = metaProperties -> metaProperties;
+        Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> itemMetaModifier = metaProperties -> metaProperties;
         private Function<ResourceLocation, BlockSetType> blockSetTypeFactory = identifier -> {
             var blockSetType = new BlockSetType(identifier.toString());
             return registerBlockSetType(blockSetType);
@@ -170,8 +105,8 @@ public record PlantopiaTreeKitConfiguration(
                 buttonTicksToStayPressed,
                 canArrowsPressButton,
                 dimensionType,
-                blockMiddleware,
-                itemMiddleware,
+                blockMetaModifier,
+                itemMetaModifier,
                 blockSetTypeFactory,
                 woodTypeFactory
             );
@@ -252,42 +187,34 @@ public record PlantopiaTreeKitConfiguration(
                 .itemMeta(metaProperties -> metaProperties.order(orderType));
         }
 
-        public Builder blockMeta(BlockMiddleware.Matcher matcher, Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> refiner) {
-            return blockMiddleware(matcher, entry -> entry.modifyMeta(refiner));
+        public Builder blockMeta(Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> modifier) {
+            return blockMeta(metaType -> true, modifier);
         }
 
-        public Builder blockMeta(Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> refiner) {
-            return blockMiddleware(entry -> true, entry -> entry.modifyMeta(refiner));
-        }
-
-        public Builder blockMiddleware(BlockMiddleware.Matcher matcher, BlockMiddleware middleware) {
-            var prevMiddleware = this.blockMiddleware;
-            this.blockMiddleware = entry -> {
-                var newEntry = prevMiddleware.apply(entry);
-                if (matcher.matches(newEntry)) {
-                    return middleware.apply(newEntry);
+        public Builder blockMeta(Predicate<PlantopiaBlockMeta.MetaType> predicate, Function<PlantopiaBlockMeta.MetaProperties, PlantopiaBlockMeta.MetaProperties> modifier) {
+            var prevModifier = this.blockMetaModifier;
+            this.blockMetaModifier = metaProperties -> {
+                var newMetaProperties = prevModifier.apply(metaProperties);
+                if (predicate.test(MetaAccessor.getMetaTypeFrom(newMetaProperties))) {
+                    return modifier.apply(newMetaProperties);
                 }
-                return newEntry;
+                return newMetaProperties;
             };
             return this;
         }
 
-        public Builder itemMeta(ItemMiddleware.Matcher matcher, Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> refiner) {
-            return itemMiddleware(matcher, entry -> entry.modifyMeta(refiner));
+        public Builder itemMeta(Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> modifier) {
+            return itemMeta(metaType -> true, modifier);
         }
 
-        public Builder itemMeta(Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> refiner) {
-            return itemMiddleware(entry -> true, entry -> entry.modifyMeta(refiner));
-        }
-
-        public Builder itemMiddleware(ItemMiddleware.Matcher matcher, ItemMiddleware middleware) {
-            var prevMiddleware = this.itemMiddleware;
-            this.itemMiddleware = entry -> {
-                var newEntry = prevMiddleware.apply(entry);
-                if (matcher.matches(newEntry)) {
-                    return middleware.apply(newEntry);
+        public Builder itemMeta(Predicate<PlantopiaItemMeta.MetaType> predicate, Function<PlantopiaItemMeta.MetaProperties, PlantopiaItemMeta.MetaProperties> modifier) {
+            var prevModifier = this.itemMetaModifier;
+            this.itemMetaModifier = metaProperties -> {
+                var newMetaProperties = prevModifier.apply(metaProperties);
+                if (predicate.test(MetaAccessor.getMetaTypeFrom(newMetaProperties))) {
+                    return modifier.apply(newMetaProperties);
                 }
-                return newEntry;
+                return newMetaProperties;
             };
             return this;
         }

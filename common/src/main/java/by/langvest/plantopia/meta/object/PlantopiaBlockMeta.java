@@ -947,12 +947,12 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             return this;
         }
 
-        public MetaProperties goesAfter(RegistryObject<? extends ItemLike> itemLike) {
+        public MetaProperties goesAfter(@Nullable RegistryObject<? extends ItemLike> itemLike) {
             this.goesAfter = itemLike;
             return this;
         }
 
-        public MetaProperties goesAfter(Supplier<? extends ItemLike> itemLike) {
+        public MetaProperties goesAfter(@Nullable Supplier<? extends ItemLike> itemLike) {
             this.goesAfter = itemLike;
             return this;
         }

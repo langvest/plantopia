@@ -16,8 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaTreePlantKit extends PlantopiaKit {
@@ -34,6 +36,8 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
 
     public PlantopiaTreePlantKit(
         String baseName,
+        @Nullable Supplier<Block> balkGoesAfter,
+        @Nullable Supplier<Block> strippedBalkGoesAfter,
         @NotNull PlantopiaTreeKitConfiguration config
     ) {
         this.baseName = baseName;
@@ -43,9 +47,9 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
         var supposedStrippedBalk = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_balk");
         var supposedStrippedStub = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_stub");
 
-        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).strippable(supposedStrippedBalk));
+        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).goesAfter(balkGoesAfter).strippable(supposedStrippedBalk));
         this.stub = config.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), MetaProperties.of(MetaType.BALK_STUB).parent(balk).strippable(supposedStrippedStub));
-        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK));
+        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK).goesAfter(strippedBalkGoesAfter));
         this.strippedStub = config.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), MetaProperties.of(MetaType.BALK_STUB).parent(strippedBalk));
 
         this.balksBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_balks");

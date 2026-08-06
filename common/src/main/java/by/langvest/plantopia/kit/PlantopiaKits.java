@@ -1,6 +1,6 @@
 package by.langvest.plantopia.kit;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaTreeKit;
 import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaBirchKit;
@@ -11,8 +11,10 @@ import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
 import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
+import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.plantopia.util.PlantopiaDictionary;
 import by.langvest.toolkit.event.RegisterEvent;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
@@ -23,42 +25,33 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.minecraft;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaKits {
+    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit(PlantopiaDictionary.OAK);
+    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit(PlantopiaDictionary.SPRUCE);
+
     public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
         PlantopiaDictionary.BIRCH,
         () -> Blocks.BIRCH_LOG,
+        () -> Blocks.BIRCH_WOOD,
         () -> Blocks.STRIPPED_BIRCH_LOG,
+        () -> Blocks.STRIPPED_BIRCH_WOOD,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.BIRCH)
+            .blockMeta(balkSelector(), metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS, PlantopiaCreativeModeTabs.MAIN))
             .build()
-    );
-
-    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit(
-        PlantopiaDictionary.OAK,
-        Blocks.OAK_LOG,
-        Blocks.STRIPPED_OAK_LOG,
-        Blocks.OAK_WOOD,
-        Blocks.STRIPPED_OAK_WOOD
-    );
-
-    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit(
-        PlantopiaDictionary.SPRUCE,
-        Blocks.SPRUCE_LOG,
-        Blocks.STRIPPED_SPRUCE_LOG,
-        Blocks.SPRUCE_WOOD,
-        Blocks.STRIPPED_SPRUCE_WOOD
     );
 
     public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
         PlantopiaDictionary.MAPLE,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.MAPLE)
-            .apply(balksGoesAfterWood(PlantopiaDictionary.MAPLE))
             .build()
     );
 
@@ -95,58 +88,49 @@ public class PlantopiaKits {
 
     /* HELPER METHODS ***********************************************************************************/
 
-    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(
-        String baseName,
-        Block log,
-        Block strippedLog,
-        Block wood,
-        Block strippedWood
-    ) {
-        return createExtraVanillaTreeKit(baseName, () -> log, () -> strippedLog, () -> wood, () -> strippedWood);
+    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(String baseName) {
+        return createExtraVanillaTreeKit(baseName, PlantopiaTreeKitConfiguration.builder());
+    }
+
+    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(String baseName, PlantopiaTreeKitConfiguration.Builder configBuilder) {
+        var registryHelper = Plantopia.getPlatform().getRegistryHelper();
+        var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
+
+        return createExtraVanillaTreeKit(
+            baseName,
+            blockRegistry.getValueDelegate(minecraft(baseName + "_log")),
+            blockRegistry.getValueDelegate(minecraft(baseName + "_wood")),
+            blockRegistry.getValueDelegate(minecraft("stripped_" + baseName + "_log")),
+            blockRegistry.getValueDelegate(minecraft("stripped_" + baseName + "_wood")),
+            configBuilder
+        );
     }
 
     private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(
         String baseName,
         Supplier<Block> log,
-        Supplier<Block> strippedLog,
         Supplier<Block> wood,
-        Supplier<Block> strippedWood
+        Supplier<Block> strippedLog,
+        Supplier<Block> strippedWood,
+        PlantopiaTreeKitConfiguration.Builder configBuilder
     ) {
         return new PlantopiaExtraVanillaTreeKit(
             baseName,
             log,
+            wood,
             strippedLog,
-            PlantopiaTreeKitConfiguration.builder()
+            strippedWood,
+            configBuilder
                 .blockMeta(metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS))
-                .apply(balksGoesAfterWood(wood, strippedWood))
                 .build()
-        );
-    }
-
-    @Contract(pure = true)
-    private static @NotNull Consumer<PlantopiaTreeKitConfiguration.Builder> balksGoesAfterWood(String baseName) {
-        var supposedWood = PlantopiaBlocks.supposeBlock(baseName + "_wood");
-        var supposedStrippedWood = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_wood");
-        return balksGoesAfterWood(supposedWood, supposedStrippedWood);
-    }
-
-    @Contract(pure = true)
-    private static @NotNull Consumer<PlantopiaTreeKitConfiguration.Builder> balksGoesAfterWood(Supplier<Block> wood, Supplier<Block> strippedWood) {
-        return builder -> builder.blockMiddleware(
-            entry -> entry.metaType().instanceOf(PlantopiaBlockMeta.MetaType.BALK),
-            entry -> {
-                boolean isStripped = entry.name.contains("stripped_");
-                var target = isStripped ? strippedWood : wood;
-                return entry.modifyMeta(metaProperties -> metaProperties.goesAfter(target));
-            }
         );
     }
 
     private static void cherrySounds(PlantopiaTreeKitConfiguration.Builder builder) {
         builder.blockSetType(copyBlockSetType(BlockSetType.CHERRY));
-        builder.blockMeta(leavesMatcher(), metaProperties -> metaProperties.sound(SoundType.CHERRY_LEAVES));
-        builder.blockMeta(saplingMatcher(), metaProperties -> metaProperties.sound(SoundType.CHERRY_SAPLING));
-        builder.blockMeta(woodFamilyMatcher(), metaProperties -> metaProperties.sound(SoundType.CHERRY_WOOD));
+        builder.blockMeta(leavesSelector(), metaProperties -> metaProperties.sound(SoundType.CHERRY_LEAVES));
+        builder.blockMeta(saplingSelector(), metaProperties -> metaProperties.sound(SoundType.CHERRY_SAPLING));
+        builder.blockMeta(woodFamilySelector(), metaProperties -> metaProperties.sound(SoundType.CHERRY_WOOD));
     }
 
     @Contract(pure = true)
@@ -167,17 +151,22 @@ public class PlantopiaKits {
     }
 
     @Contract(pure = true)
-    private static @NotNull PlantopiaTreeKitConfiguration.BlockMiddleware.Matcher leavesMatcher() {
-        return entry -> entry.metaType().instanceOf(PlantopiaBlockMeta.MetaType.LEAVES);
+    private static @NotNull Predicate<PlantopiaBlockMeta.MetaType> balkSelector() {
+        return metaType -> metaType.instanceOf(PlantopiaBlockMeta.MetaType.BALK);
     }
 
     @Contract(pure = true)
-    private static @NotNull PlantopiaTreeKitConfiguration.BlockMiddleware.Matcher saplingMatcher() {
-        return entry -> entry.metaType().instanceOf(PlantopiaBlockMeta.MetaType.SAPLING);
+    private static @NotNull Predicate<PlantopiaBlockMeta.MetaType> leavesSelector() {
+        return metaType -> metaType.instanceOf(PlantopiaBlockMeta.MetaType.LEAVES);
     }
 
     @Contract(pure = true)
-    private static @NotNull PlantopiaTreeKitConfiguration.BlockMiddleware.Matcher woodFamilyMatcher() {
-        return entry -> entry.metaType().isWoodFamilyLike();
+    private static @NotNull Predicate<PlantopiaBlockMeta.MetaType> saplingSelector() {
+        return metaType -> metaType.instanceOf(PlantopiaBlockMeta.MetaType.SAPLING);
+    }
+
+    @Contract(pure = true)
+    private static @NotNull Predicate<PlantopiaBlockMeta.MetaType> woodFamilySelector() {
+        return PlantopiaBlockMeta.MetaType::isWoodFamilyLike;
     }
 }

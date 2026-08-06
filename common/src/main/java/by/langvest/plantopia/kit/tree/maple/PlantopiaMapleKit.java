@@ -57,7 +57,7 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
         this.redLeaves = config.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_RED));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
-        this.plant = new PlantopiaTreePlantKit(baseName, config);
+        this.plant = new PlantopiaTreePlantKit(baseName, trunk.wood, trunk.strippedWood, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 

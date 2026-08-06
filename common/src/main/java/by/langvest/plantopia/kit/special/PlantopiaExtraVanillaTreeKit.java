@@ -15,12 +15,14 @@ public class PlantopiaExtraVanillaTreeKit extends PlantopiaKit {
     public PlantopiaExtraVanillaTreeKit(
         String baseName,
         Supplier<Block> log,
+        Supplier<Block> wood,
         Supplier<Block> strippedLog,
+        Supplier<Block> strippedWood,
         PlantopiaTreeKitConfiguration config
     ) {
         this.log = log;
         this.strippedLog = strippedLog;
-        this.plant = new PlantopiaTreePlantKit(baseName, config);
+        this.plant = new PlantopiaTreePlantKit(baseName, wood, strippedWood, config);
     }
 
     @Override
