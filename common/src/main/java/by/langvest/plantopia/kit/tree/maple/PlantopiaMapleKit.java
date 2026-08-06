@@ -81,6 +81,7 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
         super.addRecipes(bridge);
 
         bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag);
+        bridge.planksFromBalks(stuff.planks.get(), plant.balksItemTag);
         bridge.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
         bridge.balksFromLogs(plant.balk.get(), trunk.log.get());
         bridge.balksFromLogs(plant.strippedBalk.get(), trunk.strippedLog.get());

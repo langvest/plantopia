@@ -46,6 +46,11 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
             }
 
             @Override
+            public void planksFromBalks(ItemLike planks, TagKey<Item> balksTag, int count) {
+                PlantopiaRecipeProvider.planksFromBalks(planks, balksTag, count);
+            }
+
+            @Override
             public void balksFromLogs(ItemLike balk, ItemLike log, int count) {
                 PlantopiaRecipeProvider.balksFromLogs(balk, log, count);
             }
@@ -220,6 +225,14 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
         RecipeProvider.planksFromLogs(output, planks, logsTag, count);
     }
 
+    public static void planksFromBalks(ItemLike planks, TagKey<Item> balksTag, int count) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, count)
+            .requires(balksTag)
+            .group("planks")
+            .unlockedBy("has_balks", has(balksTag))
+            .save(output, plantopia(getConversionRecipeName(planks, nameOf(balksTag))));
+    }
+
     public static void woodFromLogs(ItemLike wood, ItemLike log) {
         RecipeProvider.woodFromLogs(output, wood, log);
     }
@@ -248,5 +261,9 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
 
     public static void blockFamily(BlockFamily blockFamily) {
         RecipeProvider.generateRecipes(output, blockFamily);
+    }
+
+    protected static @NotNull String getConversionRecipeName(ItemLike result, String ingredient) {
+        return getItemName(result) + "_from_" + ingredient;
     }
 }

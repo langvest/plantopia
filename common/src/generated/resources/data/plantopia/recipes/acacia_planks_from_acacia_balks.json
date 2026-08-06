@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "planks",
+    "ingredients": [
+        {
+            "tag": "plantopia:acacia_balks"
+        }
+    ],
+    "result": {
+        "item": "minecraft:acacia_planks"
+    }
+}

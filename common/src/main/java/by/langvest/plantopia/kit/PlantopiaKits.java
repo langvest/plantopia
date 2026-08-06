@@ -42,6 +42,7 @@ public class PlantopiaKits {
 
     public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
         "birch",
+        () -> Blocks.BIRCH_PLANKS,
         () -> Blocks.BIRCH_LOG,
         () -> Blocks.BIRCH_WOOD,
         () -> Blocks.STRIPPED_BIRCH_LOG,
@@ -102,6 +103,7 @@ public class PlantopiaKits {
 
         return createExtraVanillaTreeKit(
             baseName,
+            blockRegistry.getValueDelegate(minecraft(baseName + "_planks")),
             blockRegistry.getValueDelegate(minecraft(baseName + "_log")),
             blockRegistry.getValueDelegate(minecraft(baseName + "_wood")),
             blockRegistry.getValueDelegate(minecraft("stripped_" + baseName + "_log")),
@@ -112,6 +114,7 @@ public class PlantopiaKits {
 
     private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(
         String baseName,
+        Supplier<Block> planks,
         Supplier<Block> log,
         Supplier<Block> wood,
         Supplier<Block> strippedLog,
@@ -120,6 +123,7 @@ public class PlantopiaKits {
     ) {
         return new PlantopiaExtraVanillaTreeKit(
             baseName,
+            planks,
             log,
             wood,
             strippedLog,

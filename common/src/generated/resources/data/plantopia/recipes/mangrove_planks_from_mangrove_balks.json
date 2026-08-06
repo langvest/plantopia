@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "planks",
+    "ingredients": [
+        {
+            "tag": "plantopia:mangrove_balks"
+        }
+    ],
+    "result": {
+        "item": "minecraft:mangrove_planks"
+    }
+}

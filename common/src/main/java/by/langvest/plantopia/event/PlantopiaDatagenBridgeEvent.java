@@ -77,6 +77,12 @@ public abstract class PlantopiaDatagenBridgeEvent extends Event {
                 balksFromLogs(balk, log, 6);
             }
 
+            void planksFromBalks(ItemLike planks, TagKey<Item> balksTag, int count);
+
+            default void planksFromBalks(ItemLike planks, TagKey<Item> balksTag) {
+                planksFromBalks(planks, balksTag, 1);
+            }
+
             void woodenBoat(ItemLike boat, ItemLike planks);
 
             void chestBoat(ItemLike chestBoat, ItemLike boat);

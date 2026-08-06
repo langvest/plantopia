@@ -1,0 +1,33 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_balks": {
+            "conditions": {
+                "items": [
+                    {
+                        "tag": "plantopia:spruce_balks"
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:spruce_planks_from_spruce_balks"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_balks"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:spruce_planks_from_spruce_balks"
+        ]
+    },
+    "sends_telemetry_event": false
+}

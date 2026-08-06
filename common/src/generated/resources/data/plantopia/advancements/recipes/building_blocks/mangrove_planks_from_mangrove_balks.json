@@ -1,0 +1,33 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_balks": {
+            "conditions": {
+                "items": [
+                    {
+                        "tag": "plantopia:mangrove_balks"
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:mangrove_planks_from_mangrove_balks"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_balks"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:mangrove_planks_from_mangrove_balks"
+        ]
+    },
+    "sends_telemetry_event": false
+}
