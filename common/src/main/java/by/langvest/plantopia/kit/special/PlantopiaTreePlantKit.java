@@ -47,10 +47,13 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
         var supposedStrippedBalk = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_balk");
         var supposedStrippedStub = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_stub");
 
-        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).mapColor(config.trunkMapColor()).goesAfter(balkGoesAfter).strippable(supposedStrippedBalk));
-        this.stub = config.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), MetaProperties.of(MetaType.BALK_STUB).mapColor(config.trunkMapColor()).parent(balk).strippable(supposedStrippedStub));
-        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK).mapColor(config.strippedTrunkMapColor()).goesAfter(strippedBalkGoesAfter));
-        this.strippedStub = config.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), MetaProperties.of(MetaType.BALK_STUB).mapColor(config.strippedTrunkMapColor()).parent(strippedBalk));
+        var trunkColor = config.trunkMapColor();
+        var strippedTrunkColor = config.strippedTrunkMapColor();
+
+        this.balk = config.registerBlock(baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStub), MetaProperties.of(MetaType.BALK).mapColor(trunkColor).goesAfter(balkGoesAfter).strippable(supposedStrippedBalk));
+        this.stub = config.registerBlock(baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, balk), MetaProperties.of(MetaType.BALK_STUB).mapColor(trunkColor).parent(balk).strippable(supposedStrippedStub));
+        this.strippedBalk = config.registerBlock("stripped_" + baseName + "_balk", properties -> new PlantopiaBalkBlock(properties, supposedStrippedStub), MetaProperties.of(MetaType.BALK).mapColor(strippedTrunkColor).goesAfter(strippedBalkGoesAfter));
+        this.strippedStub = config.registerBlock("stripped_" + baseName + "_stub", properties -> new PlantopiaBalkStubBlock(properties, strippedBalk), MetaProperties.of(MetaType.BALK_STUB).mapColor(strippedTrunkColor).parent(strippedBalk));
 
         this.balksBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_balks");
         this.balksItemTag = PlantopiaItemTags.createItemTag(baseName + "_balks");

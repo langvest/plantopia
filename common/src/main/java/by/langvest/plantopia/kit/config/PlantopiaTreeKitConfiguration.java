@@ -72,7 +72,7 @@ public record PlantopiaTreeKitConfiguration(
     public static class Builder {
         private MapColor plankMapColor = MapColor.WOOD;
         private MapColor trunkMapColor = MapColor.PODZOL;
-        private MapColor strippedTrunkMapColor = MapColor.PODZOL;
+        private MapColor strippedTrunkMapColor = MapColor.WOOD;
         private PressurePlateBlock.Sensitivity pressurePlateSensitivity = PressurePlateBlock.Sensitivity.EVERYTHING;
         private int buttonTicksToStayPressed = 30;
         private boolean canArrowsPressButton = true;
@@ -227,6 +227,14 @@ public record PlantopiaTreeKitConfiguration(
                 return newMetaProperties;
             };
             return this;
+        }
+
+        public Builder mapColors(MapColor plankColor, MapColor trunkColor) {
+            return mapColors(plankColor, trunkColor, plankColor);
+        }
+
+        public Builder mapColors(MapColor plankColor, MapColor trunkColor, MapColor strippedTrunkColor) {
+            return plankMapColor(plankColor).trunkMapColor(trunkColor).strippedTrunkMapColor(strippedTrunkColor);
         }
 
         public Builder plankMapColor(MapColor color) {

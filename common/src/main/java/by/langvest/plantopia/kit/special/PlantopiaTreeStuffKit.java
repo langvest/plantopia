@@ -68,22 +68,24 @@ public class PlantopiaTreeStuffKit extends PlantopiaKit {
 
         /* BUILDING BLOCKS ********************************************************************************************/
 
-        this.planks = config.registerBlock(baseName + "_planks", Block::new, MetaProperties.of(MetaType.PLANKS));
-        this.stairs = config.registerBlock(baseName + "_stairs", properties -> new StairBlock(planks.get().defaultBlockState(), properties), MetaProperties.of(MetaType.WOODEN_STAIRS).parent(planks));
-        this.slab = config.registerBlock(baseName + "_slab", SlabBlock::new, MetaProperties.of(MetaType.WOODEN_SLAB).parent(planks));
-        this.fence = config.registerBlock(baseName + "_fence", FenceBlock::new, MetaProperties.of(MetaType.WOODEN_FENCE).parent(planks));
-        this.fenceGate = config.registerBlock(baseName + "_fence_gate", properties -> new FenceGateBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_FENCE_GATE).parent(planks));
-        this.door = config.registerBlock(baseName + "_door", properties -> new DoorBlock(properties, woodType.setType()), MetaProperties.of(MetaType.WOODEN_DOOR).parent(planks));
-        this.trapdoor = config.registerBlock(baseName + "_trapdoor", properties -> new TrapDoorBlock(properties, woodType.setType()), MetaProperties.of(MetaType.WOODEN_TRAPDOOR).parent(planks));
-        this.pressurePlate = config.registerBlock(baseName + "_pressure_plate", properties -> new PressurePlateBlock(config.pressurePlateSensitivity(), properties, woodType.setType()), MetaProperties.of(MetaType.WOODEN_PRESSURE_PLATE).parent(planks));
-        this.button = config.registerBlock(baseName + "_button", properties -> new ButtonBlock(properties, woodType.setType(), config.buttonTicksToStayPressed(), config.canArrowsPressButton()), MetaProperties.of(MetaType.WOODEN_BUTTON).parent(planks));
+        var plankColor = config.plankMapColor();
+
+        this.planks = config.registerBlock(baseName + "_planks", Block::new, MetaProperties.of(MetaType.PLANKS).mapColor(plankColor));
+        this.stairs = config.registerBlock(baseName + "_stairs", properties -> new StairBlock(planks.get().defaultBlockState(), properties), MetaProperties.of(MetaType.WOODEN_STAIRS).mapColor(plankColor).parent(planks));
+        this.slab = config.registerBlock(baseName + "_slab", SlabBlock::new, MetaProperties.of(MetaType.WOODEN_SLAB).mapColor(plankColor).parent(planks));
+        this.fence = config.registerBlock(baseName + "_fence", FenceBlock::new, MetaProperties.of(MetaType.WOODEN_FENCE).mapColor(plankColor).parent(planks));
+        this.fenceGate = config.registerBlock(baseName + "_fence_gate", properties -> new FenceGateBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_FENCE_GATE).mapColor(plankColor).parent(planks));
+        this.door = config.registerBlock(baseName + "_door", properties -> new DoorBlock(properties, woodType.setType()), MetaProperties.of(MetaType.WOODEN_DOOR).mapColor(plankColor).parent(planks));
+        this.trapdoor = config.registerBlock(baseName + "_trapdoor", properties -> new TrapDoorBlock(properties, woodType.setType()), MetaProperties.of(MetaType.WOODEN_TRAPDOOR).mapColor(plankColor).parent(planks));
+        this.pressurePlate = config.registerBlock(baseName + "_pressure_plate", properties -> new PressurePlateBlock(config.pressurePlateSensitivity(), properties, woodType.setType()), MetaProperties.of(MetaType.WOODEN_PRESSURE_PLATE).mapColor(plankColor).parent(planks));
+        this.button = config.registerBlock(baseName + "_button", properties -> new ButtonBlock(properties, woodType.setType(), config.buttonTicksToStayPressed(), config.canArrowsPressButton()), MetaProperties.of(MetaType.WOODEN_BUTTON).mapColor(plankColor).parent(planks));
 
         /* SIGNS ******************************************************************************************************/
 
-        this.sign = config.registerBlock(baseName + "_sign", properties -> new PlantopiaStandingSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).customItem());
-        this.wallSign = config.registerBlock(baseName + "_wall_sign", properties -> new PlantopiaWallSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_SIGN).parent(planks).noItem());
-        this.hangingSign = config.registerBlock(baseName + "_hanging_sign", properties -> new PlantopiaCeilingHangingSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).customItem());
-        this.wallHangingSign = config.registerBlock(baseName + "_wall_hanging_sign", properties -> new PlantopiaWallHangingSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).parent(planks).noItem());
+        this.sign = config.registerBlock(baseName + "_sign", properties -> new PlantopiaStandingSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_SIGN).mapColor(plankColor).parent(planks).customItem());
+        this.wallSign = config.registerBlock(baseName + "_wall_sign", properties -> new PlantopiaWallSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_SIGN).mapColor(plankColor).parent(planks).noItem());
+        this.hangingSign = config.registerBlock(baseName + "_hanging_sign", properties -> new PlantopiaCeilingHangingSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).mapColor(plankColor).parent(planks).customItem());
+        this.wallHangingSign = config.registerBlock(baseName + "_wall_hanging_sign", properties -> new PlantopiaWallHangingSignBlock(properties, woodType), MetaProperties.of(MetaType.WOODEN_HANGING_SIGN).mapColor(plankColor).parent(planks).noItem());
 
         this.signItem = config.registerItem(baseName + "_sign", properties -> new SignItem(properties, sign.get(), wallSign.get()), PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN));
         this.hangingSignItem = config.registerItem(baseName + "_hanging_sign", properties -> new HangingSignItem(hangingSign.get(), wallHangingSign.get(), properties), PlantopiaItemMeta.MetaProperties.of(PlantopiaItemMeta.MetaType.SIGN));

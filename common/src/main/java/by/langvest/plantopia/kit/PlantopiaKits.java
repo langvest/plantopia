@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,13 +33,63 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.minecraf
 
 @ParametersAreNonnullByDefault
 public class PlantopiaKits {
-    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit("oak");
-    public static final PlantopiaExtraVanillaTreeKit DARK_OAK = createExtraVanillaTreeKit("dark_oak");
-    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit("spruce");
-    public static final PlantopiaExtraVanillaTreeKit ACACIA = createExtraVanillaTreeKit("acacia");
-    public static final PlantopiaExtraVanillaTreeKit JUNGLE = createExtraVanillaTreeKit("jungle");
-    public static final PlantopiaExtraVanillaTreeKit MANGROVE = createExtraVanillaTreeKit("mangrove");
-    public static final PlantopiaExtraVanillaTreeKit CHERRY = createExtraVanillaTreeKit("cherry");
+    public static final PlantopiaExtraVanillaTreeKit OAK = createExtraVanillaTreeKit(
+        "oak",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.WOOD, MapColor.PODZOL)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .build()
+    );
+
+    public static final PlantopiaExtraVanillaTreeKit DARK_OAK = createExtraVanillaTreeKit(
+        "dark_oak",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .build()
+    );
+
+    public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit(
+        "spruce",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.PODZOL, MapColor.COLOR_BROWN)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .build()
+    );
+
+    public static final PlantopiaExtraVanillaTreeKit ACACIA = createExtraVanillaTreeKit(
+        "acacia",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.COLOR_ORANGE, MapColor.STONE)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .build()
+    );
+
+    public static final PlantopiaExtraVanillaTreeKit JUNGLE = createExtraVanillaTreeKit(
+        "jungle",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.DIRT, MapColor.PODZOL)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .build()
+    );
+
+    public static final PlantopiaExtraVanillaTreeKit MANGROVE = createExtraVanillaTreeKit(
+        "mangrove",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.COLOR_RED, MapColor.PODZOL)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .build()
+    );
+
+    public static final PlantopiaExtraVanillaTreeKit CHERRY = createExtraVanillaTreeKit(
+        "cherry",
+        PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
+            .apply(PlantopiaKits::cherrySounds)
+            .blockSetType(BlockSetType.CHERRY) // LanGvest: Override blockSetType from cherrySounds to reuse the vanilla instance.
+            .build()
+    );
 
     public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
         "birch",
@@ -49,6 +100,7 @@ public class PlantopiaKits {
         () -> Blocks.STRIPPED_BIRCH_WOOD,
         PlantopiaTreeKitConfiguration.builder()
             .orderType(PlantopiaOrderType.BIRCH)
+            .mapColors(MapColor.SAND, MapColor.QUARTZ)
             .blockMeta(balkSelector(), metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS, PlantopiaCreativeModeTabs.MAIN))
             .build()
     );
@@ -93,11 +145,7 @@ public class PlantopiaKits {
 
     /* HELPER METHODS ***********************************************************************************/
 
-    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(String baseName) {
-        return createExtraVanillaTreeKit(baseName, PlantopiaTreeKitConfiguration.builder());
-    }
-
-    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(String baseName, PlantopiaTreeKitConfiguration.Builder configBuilder) {
+    private static @NotNull PlantopiaExtraVanillaTreeKit createExtraVanillaTreeKit(String baseName, PlantopiaTreeKitConfiguration config) {
         var registryHelper = Plantopia.getPlatform().getRegistryHelper();
         var blockRegistry = registryHelper.getKnownRegistryOrThrow(Registries.BLOCK);
 
@@ -108,7 +156,7 @@ public class PlantopiaKits {
             blockRegistry.getValueDelegate(minecraft(baseName + "_wood")),
             blockRegistry.getValueDelegate(minecraft("stripped_" + baseName + "_log")),
             blockRegistry.getValueDelegate(minecraft("stripped_" + baseName + "_wood")),
-            configBuilder
+            config
         );
     }
 
@@ -119,7 +167,7 @@ public class PlantopiaKits {
         Supplier<Block> wood,
         Supplier<Block> strippedLog,
         Supplier<Block> strippedWood,
-        PlantopiaTreeKitConfiguration.Builder configBuilder
+        PlantopiaTreeKitConfiguration config
     ) {
         return new PlantopiaExtraVanillaTreeKit(
             baseName,
@@ -128,10 +176,12 @@ public class PlantopiaKits {
             wood,
             strippedLog,
             strippedWood,
-            configBuilder
-                .blockMeta(metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS))
-                .build()
+            config
         );
+    }
+
+    private static void directBalksIntoBuildingBlocksGroup(PlantopiaTreeKitConfiguration.Builder builder) {
+        builder.blockMeta(balkSelector(), metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS));
     }
 
     private static void cherrySounds(PlantopiaTreeKitConfiguration.Builder builder) {
