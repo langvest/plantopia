@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_inventory",
+    "textures": {
+        "texture": "plantopia:block/mangrove_balk"
+    }
+}

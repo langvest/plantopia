@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_center_x",
+    "textures": {
+        "texture": "plantopia:block/mangrove_balk"
+    }
+}
