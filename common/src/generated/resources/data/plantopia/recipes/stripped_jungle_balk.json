@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "balk",
+    "key": {
+        "#": {
+            "item": "minecraft:stripped_jungle_log"
+        }
+    },
+    "pattern": [
+        "#",
+        "#"
+    ],
+    "result": {
+        "count": 6,
+        "item": "plantopia:stripped_jungle_balk"
+    },
+    "show_notification": true
+}

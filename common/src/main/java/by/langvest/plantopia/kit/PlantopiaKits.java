@@ -36,6 +36,7 @@ public class PlantopiaKits {
     public static final PlantopiaExtraVanillaTreeKit DARK_OAK = createExtraVanillaTreeKit("dark_oak");
     public static final PlantopiaExtraVanillaTreeKit SPRUCE = createExtraVanillaTreeKit("spruce");
     public static final PlantopiaExtraVanillaTreeKit ACACIA = createExtraVanillaTreeKit("acacia");
+    public static final PlantopiaExtraVanillaTreeKit JUNGLE = createExtraVanillaTreeKit("jungle");
 
     public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
         "birch",

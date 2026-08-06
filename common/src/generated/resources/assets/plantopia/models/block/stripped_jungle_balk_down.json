@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_down",
+    "textures": {
+        "texture": "plantopia:block/stripped_jungle_balk"
+    }
+}
