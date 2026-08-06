@@ -195,6 +195,11 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
             return;
         }
 
+        if (block instanceof PlantopiaBalkStubBlock) {
+            generatedBalkStubDrops(blockMeta);
+            return;
+        }
+
         if (block instanceof AbstractCauldronBlock) {
             generatedCauldronDrops(blockMeta);
             return;
@@ -271,6 +276,18 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         var lootEntry = withSurvivesExplosionCondition(block, item(Items.CAULDRON));
 
         addTable(block, createTable(blockMeta, lootEntry));
+    }
+
+    public static void generatedBalkStubDrops(@NotNull PlantopiaBlockMeta blockMeta) {
+        var block = (PlantopiaBalkStubBlock) blockMeta.get();
+
+        var lootTable = LootTable.lootTable()
+            .withPool(
+                withSurvivesExplosionCondition(block, LootPool.lootPool())
+                    .add(item(block.getBulkBlock()))
+            );
+
+        addTable(block, lootTable);
     }
 
     /* SIMPLE DROPS GENERATION ******************************************/

@@ -79,7 +79,7 @@ public class PlantopiaTreePlantKit extends PlantopiaKit {
         var currentBalks = bridge.getOrCreateTagSet(balksItemTag);
         var allBalks = bridge.getOrCreateTagSet(PlantopiaItemTags.BALKS);
 
-        currentBalks.add(balk.get().asItem(), stub.get().asItem(), strippedBalk.get().asItem(), strippedStub.get().asItem());
+        currentBalks.add(balk.get().asItem(), strippedBalk.get().asItem());
         allBalks.addTag(balksItemTag);
     }
 }

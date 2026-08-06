@@ -11,7 +11,7 @@
             "entries": [
                 {
                     "type": "minecraft:item",
-                    "name": "minecraft:air"
+                    "name": "plantopia:stripped_spruce_balk"
                 }
             ],
             "rolls": 1.0
