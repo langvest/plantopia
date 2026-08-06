@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_south",
+    "textures": {
+        "texture": "plantopia:block/stripped_acacia_balk"
+    }
+}

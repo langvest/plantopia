@@ -1,10 +1,12 @@
 {
     "values": [
+        "plantopia:acacia_balk",
         "plantopia:birch_balk",
         "plantopia:dark_oak_balk",
         "plantopia:maple_balk",
         "plantopia:oak_balk",
         "plantopia:spruce_balk",
+        "plantopia:stripped_acacia_balk",
         "plantopia:stripped_birch_balk",
         "plantopia:stripped_dark_oak_balk",
         "plantopia:stripped_maple_balk",
