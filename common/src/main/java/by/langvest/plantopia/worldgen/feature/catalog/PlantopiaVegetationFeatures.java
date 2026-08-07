@@ -430,7 +430,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(42, 5, 2, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(32, 5, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.ORANGE_WILDFLOWERS.get())
                 ))
@@ -441,7 +441,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.WHITE_WILDFLOWERS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(42, 5, 2, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(32, 5, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.WHITE_WILDFLOWERS.get())
                 ))
