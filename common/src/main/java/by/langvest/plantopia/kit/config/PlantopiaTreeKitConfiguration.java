@@ -1,20 +1,14 @@
 package by.langvest.plantopia.kit.config;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
-import by.langvest.plantopia.item.PlantopiaItems;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
 import by.langvest.toolkit.meta.MetaAccessor;
-import by.langvest.toolkit.registry.RegistryObject;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -53,12 +47,20 @@ public record PlantopiaTreeKitConfiguration(
         return state -> state.getValue(BlockStateProperties.AXIS).isVertical() ? plankMapColor : strippedTrunkMapColor;
     }
 
-    public <T extends Block> RegistryObject<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> factory, PlantopiaBlockMeta.MetaProperties metaProperties) {
-        return PlantopiaBlocks.registerBlock(name, factory, blockMetaModifier.apply(metaProperties));
+    public PlantopiaBlockMeta.MetaProperties applyMeta(PlantopiaBlockMeta.MetaType metaType) {
+        return applyMeta(PlantopiaBlockMeta.MetaProperties.of(metaType));
     }
 
-    public <T extends Item> RegistryObject<T> registerItem(String name, Function<Item.Properties, T> factory, PlantopiaItemMeta.MetaProperties metaProperties) {
-        return PlantopiaItems.registerItem(name, factory, itemMetaModifier.apply(metaProperties));
+    public PlantopiaBlockMeta.MetaProperties applyMeta(PlantopiaBlockMeta.MetaProperties metaProperties) {
+        return blockMetaModifier.apply(metaProperties);
+    }
+
+    public PlantopiaItemMeta.MetaProperties applyMeta(PlantopiaItemMeta.MetaType metaType) {
+        return applyMeta(PlantopiaItemMeta.MetaProperties.of(metaType));
+    }
+
+    public PlantopiaItemMeta.MetaProperties applyMeta(PlantopiaItemMeta.MetaProperties metaProperties) {
+        return itemMetaModifier.apply(metaProperties);
     }
 
     @Contract(" -> new")
@@ -190,6 +192,14 @@ public record PlantopiaTreeKitConfiguration(
         public Builder blockSetType(BiFunction<ResourceLocation, Function<BlockSetType, BlockSetType>, BlockSetType> factory) {
             this.blockSetTypeFactory = identifier -> factory.apply(identifier, Builder::registerBlockSetType);
             return this;
+        }
+
+        public Builder referType(WoodType woodType) {
+            return woodType(woodType).blockSetType(woodType.setType());
+        }
+
+        public Builder referType(WoodType woodType, BlockSetType blockSetType) {
+            return woodType(woodType).blockSetType(blockSetType);
         }
 
         public Builder orderType(PlantopiaOrderType orderType) {

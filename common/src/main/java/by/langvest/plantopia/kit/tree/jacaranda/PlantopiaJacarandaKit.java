@@ -7,7 +7,6 @@ import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeTrunkKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeStuffKit;
-import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.world.level.block.Block;
@@ -33,9 +32,11 @@ public class PlantopiaJacarandaKit extends PlantopiaAbstractTreeKit {
     ) {
         super(baseName, config);
 
+        var foliageColor = MapColor.ICE;
+
         this.worldgen = createWorldgenKit(baseName);
-        this.sapling = config.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_PURPLE));
-        this.leaves = config.registerBlock(baseName + "_leaves", PlantopiaJacarandaLeavesBlock::new, MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_PURPLE));
+        this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(foliageColor));
+        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", PlantopiaJacarandaLeavesBlock::new, config.applyMeta(MetaType.LEAVES).mapColor(foliageColor));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);

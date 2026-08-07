@@ -4,7 +4,6 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
-import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.tag.PlantopiaItemTags;
@@ -44,10 +43,10 @@ public class PlantopiaTreeTrunkKit extends PlantopiaKit {
         var supposedStrippedLog = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_log");
         var supposedStrippedWood = PlantopiaBlocks.supposeBlock("stripped_" + baseName + "_wood");
 
-        this.log = config.registerBlock(baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.logMapColor()).strippable(supposedStrippedLog));
-        this.wood = config.registerBlock(baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log).strippable(supposedStrippedWood));
-        this.strippedLog = config.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, MetaProperties.of(MetaType.LOG).mapColor(config.strippedLogMapColor()));
-        this.strippedWood = config.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, MetaProperties.of(MetaType.WOOD).mapColor(config.strippedTrunkMapColor()).parent(strippedLog));
+        this.log = PlantopiaBlocks.registerBlock(baseName + "_log", RotatedPillarBlock::new, config.applyMeta(MetaType.LOG).mapColor(config.logMapColor()).strippable(supposedStrippedLog));
+        this.wood = PlantopiaBlocks.registerBlock(baseName + "_wood", RotatedPillarBlock::new, config.applyMeta(MetaType.WOOD).mapColor(config.trunkMapColor()).parent(log).strippable(supposedStrippedWood));
+        this.strippedLog = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_log", RotatedPillarBlock::new, config.applyMeta(MetaType.LOG).mapColor(config.strippedLogMapColor()));
+        this.strippedWood = PlantopiaBlocks.registerBlock("stripped_" + baseName + "_wood", RotatedPillarBlock::new, config.applyMeta(MetaType.WOOD).mapColor(config.strippedTrunkMapColor()).parent(strippedLog));
 
         this.logsBlockTag = PlantopiaBlockTags.createBlockTag(baseName + "_logs");
         this.logsItemTag = PlantopiaItemTags.createItemTag(baseName + "_logs");

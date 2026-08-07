@@ -8,7 +8,6 @@ import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreePlantKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeTrunkKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeStuffKit;
-import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils;
@@ -44,17 +43,21 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
     ) {
         super(baseName, config);
 
+        var yellowFoliageColor = MapColor.COLOR_YELLOW;
+        var orangeFoliageColor = MapColor.COLOR_ORANGE;
+        var redFoliageColor = MapColor.COLOR_RED;
+
         this.yellowWorldgen = createWorldgenKit("yellow_", baseName);
-        this.yellowSapling = config.registerBlock("yellow_" + baseName + "_sapling", properties -> new SaplingBlock(yellowWorldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_YELLOW));
-        this.yellowLeaves = config.registerBlock("yellow_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES, properties), MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_YELLOW));
+        this.yellowSapling = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_sapling", properties -> new SaplingBlock(yellowWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(yellowFoliageColor));
+        this.yellowLeaves = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(yellowFoliageColor));
 
         this.orangeWorldgen = createWorldgenKit("orange_", baseName);
-        this.orangeSapling = config.registerBlock("orange_" + baseName + "_sapling", properties -> new SaplingBlock(orangeWorldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_ORANGE));
-        this.orangeLeaves = config.registerBlock("orange_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.ORANGE_MAPLE_LEAVES, properties), MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_ORANGE));
+        this.orangeSapling = PlantopiaBlocks.registerBlock("orange_" + baseName + "_sapling", properties -> new SaplingBlock(orangeWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(orangeFoliageColor));
+        this.orangeLeaves = PlantopiaBlocks.registerBlock("orange_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.ORANGE_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(orangeFoliageColor));
 
         this.redWorldgen = createWorldgenKit("red_", baseName);
-        this.redSapling = config.registerBlock("red_" + baseName + "_sapling", properties -> new SaplingBlock(redWorldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.COLOR_RED));
-        this.redLeaves = config.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.COLOR_RED));
+        this.redSapling = PlantopiaBlocks.registerBlock("red_" + baseName + "_sapling", properties -> new SaplingBlock(redWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(redFoliageColor));
+        this.redLeaves = PlantopiaBlocks.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(redFoliageColor));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.plant = new PlantopiaTreePlantKit(baseName, trunk.wood, trunk.strippedWood, config);

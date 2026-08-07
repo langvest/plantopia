@@ -6,13 +6,11 @@ import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeTrunkKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeStuffKit;
-import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaProperties;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.toolkit.registry.RegistryObject;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -34,8 +32,8 @@ public class PlantopiaFirKit extends PlantopiaAbstractTreeKit {
         super(baseName, config);
 
         this.worldgen = createWorldgenKit(baseName);
-        this.sapling = config.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), MetaProperties.of(MetaType.SAPLING).mapColor(MapColor.WOOD));
-        this.leaves = config.registerBlock(baseName + "_leaves", LeavesBlock::new, MetaProperties.of(MetaType.LEAVES).mapColor(MapColor.WOOD));
+        this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING));
+        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", LeavesBlock::new, config.applyMeta(MetaType.LEAVES));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);

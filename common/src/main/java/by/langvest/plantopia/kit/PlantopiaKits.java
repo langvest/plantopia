@@ -3,7 +3,7 @@ package by.langvest.plantopia.kit;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaTreeKit;
-import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaBirchKit;
+import by.langvest.plantopia.kit.special.PlantopiaExtraVanillaBirchTreeKit;
 import by.langvest.plantopia.kit.tree.deadwood.PlantopiaDeadwoodKit;
 import by.langvest.plantopia.kit.tree.fir.PlantopiaFirKit;
 import by.langvest.plantopia.kit.tree.jacaranda.PlantopiaJacarandaKit;
@@ -11,7 +11,6 @@ import by.langvest.plantopia.kit.tree.maple.PlantopiaMapleKit;
 import by.langvest.plantopia.kit.tree.palm.PlantopiaPalmKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.property.PlantopiaOrderType;
-import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.toolkit.event.RegisterEvent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +37,7 @@ public class PlantopiaKits {
         "oak",
         PlantopiaTreeKitConfiguration.builder()
             .mapColors(MapColor.WOOD, MapColor.PODZOL)
+            .referType(WoodType.OAK)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
@@ -45,6 +46,7 @@ public class PlantopiaKits {
         "dark_oak",
         PlantopiaTreeKitConfiguration.builder()
             .mapColors(MapColor.COLOR_BROWN, MapColor.COLOR_BROWN)
+            .referType(WoodType.DARK_OAK)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
@@ -53,6 +55,7 @@ public class PlantopiaKits {
         "spruce",
         PlantopiaTreeKitConfiguration.builder()
             .mapColors(MapColor.PODZOL, MapColor.COLOR_BROWN)
+            .referType(WoodType.SPRUCE)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
@@ -61,6 +64,7 @@ public class PlantopiaKits {
         "acacia",
         PlantopiaTreeKitConfiguration.builder()
             .mapColors(MapColor.COLOR_ORANGE, MapColor.STONE)
+            .referType(WoodType.ACACIA)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
@@ -69,6 +73,7 @@ public class PlantopiaKits {
         "jungle",
         PlantopiaTreeKitConfiguration.builder()
             .mapColors(MapColor.DIRT, MapColor.PODZOL)
+            .referType(WoodType.JUNGLE)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
@@ -77,6 +82,7 @@ public class PlantopiaKits {
         "mangrove",
         PlantopiaTreeKitConfiguration.builder()
             .mapColors(MapColor.COLOR_RED, MapColor.PODZOL)
+            .referType(WoodType.MANGROVE)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
@@ -84,14 +90,14 @@ public class PlantopiaKits {
     public static final PlantopiaExtraVanillaTreeKit CHERRY = createExtraVanillaTreeKit(
         "cherry",
         PlantopiaTreeKitConfiguration.builder()
-            .mapColors(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY)
+            .mapColors(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, MapColor.TERRACOTTA_PINK)
+            .referType(WoodType.CHERRY)
             .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
-            .apply(PlantopiaKits::cherrySounds)
-            .blockSetType(BlockSetType.CHERRY) // LanGvest: Override blockSetType from cherrySounds to reuse the vanilla instance.
+            .blockMeta(woodFamilySelector(), metaProperties -> metaProperties.sound(SoundType.CHERRY_WOOD))
             .build()
     );
 
-    public static final PlantopiaExtraVanillaBirchKit BIRCH = new PlantopiaExtraVanillaBirchKit(
+    public static final PlantopiaExtraVanillaBirchTreeKit BIRCH = new PlantopiaExtraVanillaBirchTreeKit(
         "birch",
         () -> Blocks.BIRCH_PLANKS,
         () -> Blocks.BIRCH_LOG,
@@ -99,15 +105,17 @@ public class PlantopiaKits {
         () -> Blocks.STRIPPED_BIRCH_LOG,
         () -> Blocks.STRIPPED_BIRCH_WOOD,
         PlantopiaTreeKitConfiguration.builder()
-            .orderType(PlantopiaOrderType.BIRCH)
             .mapColors(MapColor.SAND, MapColor.QUARTZ)
-            .blockMeta(balkSelector(), metaProperties -> metaProperties.group(CreativeModeTabs.BUILDING_BLOCKS, PlantopiaCreativeModeTabs.MAIN))
+            .referType(WoodType.BIRCH)
+            .orderType(PlantopiaOrderType.BIRCH)
+            .apply(PlantopiaKits::directBalksIntoBuildingBlocksGroup)
             .build()
     );
 
     public static final PlantopiaMapleKit MAPLE = new PlantopiaMapleKit(
         "maple",
         PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.WOOD, MapColor.PODZOL)
             .orderType(PlantopiaOrderType.MAPLE)
             .build()
     );
@@ -115,6 +123,7 @@ public class PlantopiaKits {
     public static final PlantopiaJacarandaKit JACARANDA = new PlantopiaJacarandaKit(
         "jacaranda",
         PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.ICE, MapColor.TERRACOTTA_BLUE, MapColor.TERRACOTTA_LIGHT_BLUE)
             .orderType(PlantopiaOrderType.JACARANDA)
             .apply(PlantopiaKits::cherrySounds)
             .build()
@@ -123,6 +132,7 @@ public class PlantopiaKits {
     public static final PlantopiaDeadwoodKit DEADWOOD = new PlantopiaDeadwoodKit(
         "deadwood",
         PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.METAL, MapColor.STONE)
             .orderType(PlantopiaOrderType.DEADWOOD)
             .build()
     );
@@ -130,6 +140,7 @@ public class PlantopiaKits {
     public static final PlantopiaPalmKit PALM = new PlantopiaPalmKit(
         "palm",
         PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.TERRACOTTA_YELLOW, MapColor.PODZOL)
             .orderType(PlantopiaOrderType.PALM)
             .build()
     );
@@ -137,6 +148,7 @@ public class PlantopiaKits {
     public static final PlantopiaFirKit FIR = new PlantopiaFirKit(
         "fir",
         PlantopiaTreeKitConfiguration.builder()
+            .mapColors(MapColor.WOOD, MapColor.PODZOL)
             .orderType(PlantopiaOrderType.FIR)
             .build()
     );

@@ -8,8 +8,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaExtraVanillaBirchKit extends PlantopiaExtraVanillaTreeKit {
-    public PlantopiaExtraVanillaBirchKit(
+public class PlantopiaExtraVanillaBirchTreeKit extends PlantopiaExtraVanillaTreeKit {
+    public PlantopiaExtraVanillaBirchTreeKit(
         String baseName,
         Supplier<Block> planks,
         Supplier<Block> log,
