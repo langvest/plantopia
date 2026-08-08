@@ -1,6 +1,6 @@
 package by.langvest.plantopia.client.particle;
 
-import by.langvest.plantopia.client.particle.provider.*;
+import by.langvest.plantopia.client.particle.special.*;
 import by.langvest.plantopia.particle.PlantopiaParticleTypes;
 import by.langvest.toolkit.event.client.RegisterParticleProvidersEvent;
 import org.jetbrains.annotations.NotNull;

@@ -1,6 +1,5 @@
 package by.langvest.plantopia.client.color;
 
-import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.blockentity.special.PlantopiaSeaShellBlockEntity;
 import by.langvest.plantopia.block.special.PlantopiaSeaShellBlock;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
@@ -18,9 +17,7 @@ import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -32,19 +29,13 @@ import static by.langvest.plantopia.util.helper.PlantopiaColorHelper.hexToInt;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaColors {
-    private static final Set<Block> BLOCK_GRASS_COLOR_0 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_GRASS_COLOR_1 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_FOLIAGE_COLOR_0 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_FOLIAGE_COLOR_1 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_LILY_PAD_COLOR_0 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_LILY_PAD_COLOR_1 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_WATERLILY_COLOR_0 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_WATERLILY_COLOR_1 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_DRY_COLOR_0 = Sets.newHashSet();
-    private static final Set<Block> BLOCK_DRY_COLOR_1 = Sets.newHashSet();
+    private static final Set<Block> BLOCK_GRASS_COLOR_ALL = Sets.newHashSet();
+    private static final Set<Block> BLOCK_FOLIAGE_COLOR_ALL = Sets.newHashSet();
+    private static final Set<Block> BLOCK_LILY_PAD_COLOR_ALL = Sets.newHashSet();
+    private static final Set<Block> BLOCK_WATERLILY_COLOR_ALL = Sets.newHashSet();
+    private static final Set<Block> BLOCK_DRY_COLOR_ALL = Sets.newHashSet();
     private static final Set<Item> ITEM_GRASS_COLOR_0 = Sets.newHashSet();
-    private static final Set<Item> ITEM_GRASS_COLOR_1 = Sets.newHashSet();
-    private static final Set<Item> ITEM_BLOCK_COLOR_INHERIT = Sets.newHashSet();
+    private static final Set<Item> ITEM_INHERIT_BLOCK_COLOR_0 = Sets.newHashSet();
 
     private static final int LILY_PAD_BLOCK_COLOR = hexToInt("#208030");
     private static final int LILY_PAD_ITEM_COLOR = hexToInt("#71C35C");
@@ -64,37 +55,23 @@ public class PlantopiaColors {
 
             seaShellBlocks();
             pottedFernBlock(Blocks.POTTED_FERN);
-            herbBlock(PlantopiaBlocks.FIREWEED.get());
-            herbBlock(PlantopiaBlocks.CHICORY.get());
-            herbBlock(PlantopiaBlocks.CARROTWEED.get());
-            herbBlock(PlantopiaBlocks.TANSY.get());
         });
     }
 
     public static void setupBlockColors() {
         runColorPhaseOnce(ColorPhase.BLOCK, () -> {
-            PlantopiaBlockColors.add(BLOCK_DRY_COLOR_0, (state, level, pos, tintIndex) -> dryTint(state, level, pos, tintIndex, 0));
-            PlantopiaBlockColors.add(BLOCK_DRY_COLOR_1, (state, level, pos, tintIndex) -> dryTint(state, level, pos, tintIndex, 1));
-            PlantopiaBlockColors.add(BLOCK_GRASS_COLOR_0, (state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, 0));
-            PlantopiaBlockColors.add(BLOCK_GRASS_COLOR_1, (state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, 1));
-            PlantopiaBlockColors.add(BLOCK_FOLIAGE_COLOR_0, (state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 0));
-            PlantopiaBlockColors.add(BLOCK_FOLIAGE_COLOR_1, (state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, 1));
-            PlantopiaBlockColors.add(BLOCK_LILY_PAD_COLOR_0, (state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 0));
-            PlantopiaBlockColors.add(BLOCK_LILY_PAD_COLOR_1, (state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, 1));
-            PlantopiaBlockColors.add(BLOCK_WATERLILY_COLOR_0, (state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 0));
-            PlantopiaBlockColors.add(BLOCK_WATERLILY_COLOR_1, (state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, 1));
+            PlantopiaBlockColors.add(BLOCK_DRY_COLOR_ALL, (state, level, pos, tintIndex) -> dryTint(state, level, pos, tintIndex, tintIndex));
+            PlantopiaBlockColors.add(BLOCK_GRASS_COLOR_ALL, (state, level, pos, tintIndex) -> grassTint(state, level, pos, tintIndex, tintIndex));
+            PlantopiaBlockColors.add(BLOCK_FOLIAGE_COLOR_ALL, (state, level, pos, tintIndex) -> foliageTint(state, level, pos, tintIndex, tintIndex));
+            PlantopiaBlockColors.add(BLOCK_LILY_PAD_COLOR_ALL, (state, level, pos, tintIndex) -> lilyPadTint(state, level, pos, tintIndex, tintIndex));
+            PlantopiaBlockColors.add(BLOCK_WATERLILY_COLOR_ALL, (state, level, pos, tintIndex) -> waterlilyTint(state, level, pos, tintIndex, tintIndex));
         });
     }
 
     public static void setupItemColors(BlockColors blockColors) {
         runColorPhaseOnce(ColorPhase.ITEM, () -> {
             PlantopiaItemColors.add(ITEM_GRASS_COLOR_0, (itemStuck, tintIndex) -> grassTint(tintIndex, 0));
-            PlantopiaItemColors.add(ITEM_GRASS_COLOR_1, (itemStuck, tintIndex) -> grassTint(tintIndex, 1));
-            PlantopiaItemColors.add(ITEM_BLOCK_COLOR_INHERIT, (itemStack, tintIndex) -> {
-                var item = (BlockItem) itemStack.getItem();
-                var state = item.getBlock().defaultBlockState();
-                return blockColors.getColor(state, null, null, tintIndex);
-            });
+            PlantopiaItemColors.add(ITEM_INHERIT_BLOCK_COLOR_0, (itemStack, tintIndex) -> inheritBlockTint(blockColors, (BlockItem) itemStack.getItem(), tintIndex, 0));
         });
     }
 
@@ -107,34 +84,28 @@ public class PlantopiaColors {
             var block = blockMeta.get();
             var tintType = blockMeta.getTintType();
 
-            if (blockMeta.shouldApplyTintToItem()) ITEM_BLOCK_COLOR_INHERIT.add(block.asItem());
+            if (blockMeta.shouldApplyTintToItem()) {
+                ITEM_INHERIT_BLOCK_COLOR_0.add(block.asItem());
+            }
 
             if (tintType == PlantopiaTintType.GRASS) {
-                if (blockMeta.shouldApplyTintToParticles()) BLOCK_GRASS_COLOR_0.add(block);
-                else BLOCK_GRASS_COLOR_1.add(block);
-                return;
+                BLOCK_GRASS_COLOR_ALL.add(block);
             }
 
             if (tintType == PlantopiaTintType.LILY_PAD) {
-                if (blockMeta.shouldApplyTintToParticles()) BLOCK_LILY_PAD_COLOR_0.add(block);
-                else BLOCK_LILY_PAD_COLOR_1.add(block);
-                return;
+                BLOCK_LILY_PAD_COLOR_ALL.add(block);
             }
 
             if (tintType == PlantopiaTintType.WATERLILY) {
-                if (blockMeta.shouldApplyTintToParticles()) BLOCK_WATERLILY_COLOR_0.add(block);
-                else BLOCK_WATERLILY_COLOR_1.add(block);
-                return;
+                BLOCK_WATERLILY_COLOR_ALL.add(block);
             }
 
             if (tintType == PlantopiaTintType.FOLIAGE) {
-                if (blockMeta.shouldApplyTintToParticles()) BLOCK_FOLIAGE_COLOR_0.add(block);
-                else BLOCK_FOLIAGE_COLOR_1.add(block);
+                BLOCK_FOLIAGE_COLOR_ALL.add(block);
             }
 
             if (tintType == PlantopiaTintType.DRY) {
-                if (blockMeta.shouldApplyTintToParticles()) BLOCK_DRY_COLOR_0.add(block);
-                else BLOCK_DRY_COLOR_1.add(block);
+                BLOCK_DRY_COLOR_ALL.add(block);
             }
         });
     }
@@ -155,41 +126,25 @@ public class PlantopiaColors {
             if (tintIndex == 1 && level != null && pos != null && level.getBlockEntity(pos) instanceof PlantopiaSeaShellBlockEntity seaShellBlockEntity) {
                 return seaShellBlockEntity.getColor();
             }
-
             return noColor();
         });
 
         PlantopiaItemColors.add(seaShellItems, (itemStack, tintIndex) -> {
             if (tintIndex == 1) {
                 var tag = BlockItem.getBlockEntityData(itemStack);
-
                 if (tag != null && tag.contains("Color")) {
                     return tag.getInt("Color");
                 } else {
                     return PlantopiaSeaShellBlockEntity.DEFAULT_COLOR;
                 }
             }
-
-            return noColor();
-        });
-    }
-
-    private static void herbBlock(Block block) {
-        ITEM_GRASS_COLOR_0.add(block.asItem());
-
-        PlantopiaBlockColors.add(block, (state, level, pos, tintIndex) -> {
-            var half = state.getValue(DoublePlantBlock.HALF);
-            var basePos = getBaseBlockPos(state, pos);
-
-            if (half == DoubleBlockHalf.UPPER && tintIndex == 1) return grassColor(level, basePos);
-            if (half == DoubleBlockHalf.LOWER && tintIndex == 0) return grassColor(level, basePos);
             return noColor();
         });
     }
 
     @SuppressWarnings("SameParameterValue")
     private static void pottedFernBlock(Block block) {
-        BLOCK_GRASS_COLOR_1.add(block);
+        BLOCK_GRASS_COLOR_ALL.add(block);
     }
 
     /* COLORS ******************************************/
@@ -225,6 +180,12 @@ public class PlantopiaColors {
 
     private static int grassTint(int tintIndex, int targetTintIndex) {
         return grassTint(null, null, null, tintIndex, targetTintIndex);
+    }
+
+    private static int inheritBlockTint(BlockColors blockColors, BlockItem item, int tintIndex, int targetTintIndex) {
+        if (tintIndex != targetTintIndex) return noColor();
+        var state = item.getBlock().defaultBlockState();
+        return blockColors.getColor(state, null, null, tintIndex);
     }
 
     private static int grassTint(@Nullable BlockState state, @Nullable BlockAndTintGetter level, @Nullable BlockPos pos, int tintIndex, int targetTintIndex) {

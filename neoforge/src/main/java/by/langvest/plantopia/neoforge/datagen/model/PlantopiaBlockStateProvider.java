@@ -488,12 +488,12 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         String baseName = blockMeta.getName();
 
         var flowerTexture = texture(baseName);
-        var overlayTexture = texture("lily_pad_flower_overlay");
+        var stemTexture = texture("lily_pad_flower_stem");
 
         var model = models().withExistingParent(baseName, parent("template_waterlily"))
             .texture("flower", flowerTexture);
 
-        waterlilyFlowerTemplateItemModel(baseName, flowerTexture, overlayTexture);
+        waterlilyFlowerTemplateItemModel(baseName, stemTexture, flowerTexture);
         simpleBlock(blockMeta.get(), model);
     }
 
@@ -851,7 +851,7 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
         var model = cloverBlossomTemplateModel(baseName, blossomTexture);
 
-        generatedItemModel(baseName, blossomTexture, stemItemTexture);
+        generatedItemModel(baseName, stemItemTexture, blossomTexture);
         simpleBlock(block, model);
 
         pottedBlockOf(block).ifPresent(pottedBlock -> {

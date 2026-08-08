@@ -1,7 +1,7 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "overlay": "plantopia:block/lily_pad_flower_overlay",
+        "overlay": "plantopia:block/lily_pad_flower_stem",
         "particle": "#flower"
     },
     "elements": [

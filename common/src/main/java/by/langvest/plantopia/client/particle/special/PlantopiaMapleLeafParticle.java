@@ -1,4 +1,4 @@
-package by.langvest.plantopia.client.particle.provider;
+package by.langvest.plantopia.client.particle.special;
 
 import by.langvest.plantopia.particle.PlantopiaParticleGroups;
 import net.minecraft.client.multiplayer.ClientLevel;

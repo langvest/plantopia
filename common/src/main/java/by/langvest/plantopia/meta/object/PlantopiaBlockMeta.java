@@ -6,8 +6,8 @@ import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.tab.PlantopiaCreativeModeTabs;
 import by.langvest.toolkit.meta.*;
 import by.langvest.toolkit.registry.RegistryObject;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -18,14 +18,13 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,7 +59,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
     private final @Nullable Supplier<Block> parent;
     private final @Nullable Supplier<Block> stripped;
     private final boolean isPottable;
-    private final boolean shouldTintParticles;
+    private final TriFunction<BlockState, ClientLevel, BlockPos, Boolean> shouldTintParticles;
     private final boolean shouldTintItem;
     private final float compostability;
     private final int encouragement;
@@ -212,8 +211,8 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
         return tintType != PlantopiaTintType.NONE && tintType != PlantopiaTintType.CUSTOM;
     }
 
-    public boolean shouldApplyTintToParticles() {
-        return shouldApplyTint() && shouldTintParticles;
+    public boolean shouldApplyTintToParticles(BlockState state, ClientLevel level, BlockPos pos) {
+        return shouldApplyTint() && shouldTintParticles.apply(state, level, pos);
     }
 
     public boolean shouldApplyTintToItem() {
@@ -341,6 +340,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             .dropSelfByShears()
             .preferredByBees()
             .compostable(Compostability.PLANT_2 + Compostability.HAS_FLOWERS)
+            .grassTint()
             .makeType("herb");
 
         public static final MetaType FLOWER = MetaProperties.of(PLANT)
@@ -702,7 +702,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
         private @Nullable Supplier<Block> parent = null;
         private @Nullable Supplier<Block> stripped = null;
         private boolean isPottable = false;
-        private boolean shouldTintParticles = true;
+        private TriFunction<BlockState, ClientLevel, BlockPos, Boolean> shouldTintParticles = MetaProperties::always;
         private boolean shouldTintItem = true;
         private float compostability = 0.0F;
         private int encouragement = 0;
@@ -959,14 +959,17 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
             return this;
         }
 
-        public MetaProperties tintedParticles() {
-            this.shouldTintParticles = true;
+        public MetaProperties tintedParticles(TriFunction<BlockState, ClientLevel, BlockPos, Boolean> predicate) {
+            this.shouldTintParticles = predicate;
             return this;
         }
 
+        public MetaProperties tintedParticles() {
+            return tintedParticles(MetaProperties::always);
+        }
+
         public MetaProperties notTintedParticles() {
-            this.shouldTintParticles = false;
-            return this;
+            return tintedParticles(MetaProperties::never);
         }
 
         public MetaProperties tintedItem() {
