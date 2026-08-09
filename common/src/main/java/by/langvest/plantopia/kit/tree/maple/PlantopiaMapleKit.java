@@ -68,6 +68,8 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
         var supposedLog = PlantopiaBlocks.supposeBlock(baseName + "_log");
         var supposedLeaves = PlantopiaBlocks.supposeBlock(colorPrefix + baseName + "_leaves");
         var supposedSapling = PlantopiaBlocks.supposeBlock(colorPrefix + baseName + "_sapling");
+        var supposedBalk = PlantopiaBlocks.supposeBlock(baseName + "_balk");
+        var supposedStub = PlantopiaBlocks.supposeBlock(baseName + "_stub");
         var leafLitterPlacement = PlantopiaPlacementUtils.createKey("patch_" + colorPrefix + "leaf_litter_checked");
 
         return new PlantopiaMapleWorldgenKit(
@@ -75,6 +77,8 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
             supposedLog,
             supposedLeaves,
             supposedSapling,
+            supposedBalk,
+            supposedStub,
             leafLitterPlacement
         );
     }

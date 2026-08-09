@@ -1,13 +1,18 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaStrippableBlock;
+import by.langvest.plantopia.util.helper.PlantopiaFluidHelper;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SupportType;
@@ -28,6 +33,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTickIfNeeded;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock {
@@ -39,6 +45,7 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
     public static final BooleanProperty UP = BlockStateProperties.UP;
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
     protected static final VoxelShape CENTER_SHAPE = Block.box(4, 4, 4, 12, 12, 12);
     protected static final VoxelShape NORTH_SHAPE = Block.box(4, 4, 0, 12, 12, 4);
@@ -83,6 +90,7 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
                 .setValue(UP, false)
                 .setValue(DOWN, false)
                 .setValue(WATERLOGGED, false)
+                .setValue(PERSISTENT, false)
         );
     }
 
@@ -92,7 +100,7 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, NORTH, SOUTH, EAST, WEST, UP, DOWN, WATERLOGGED);
+        builder.add(FACING, NORTH, SOUTH, EAST, WEST, UP, DOWN, WATERLOGGED, PERSISTENT);
     }
 
     public static BooleanProperty getSegmentProperty(Direction direction) {
@@ -122,25 +130,22 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
         return shape;
     }
 
+    public static @NotNull BlockState getDirectedStraightState(BlockState state, Direction facing) {
+        return switch (facing.getAxis()) {
+            case X -> state.setValue(EAST, true).setValue(WEST, true);
+            case Y -> state.setValue(UP, true).setValue(DOWN, true);
+            case Z -> state.setValue(NORTH, true).setValue(SOUTH, true);
+        };
+    }
+
     @Override
     public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
         var level = context.getLevel();
         var pos = context.getClickedPos();
         var clickedFace = context.getClickedFace();
         boolean isSneaking = context.getPlayer() != null && context.getPlayer().isSecondaryUseActive();
-
-        BlockState newState;
-        if (isSneaking) {
-            newState = getStubBlock().defaultBlockState();
-        } else {
-            newState = switch (clickedFace.getAxis()) {
-                case X -> defaultBlockState().setValue(EAST, true).setValue(WEST, true);
-                case Y -> defaultBlockState().setValue(UP, true).setValue(DOWN, true);
-                case Z -> defaultBlockState().setValue(NORTH, true).setValue(SOUTH, true);
-            };
-        }
-
-        return copyWaterloggedFrom(level, pos, newState.setValue(FACING, clickedFace));
+        var newState = isSneaking ? getStubBlock().defaultBlockState() : getDirectedStraightState(defaultBlockState(), clickedFace);
+        return copyWaterloggedFrom(level, pos, newState.setValue(FACING, clickedFace).setValue(PERSISTENT, true));
     }
 
     protected boolean isStraight(BlockState state) {
@@ -176,11 +181,21 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
 
     @Override
     @SuppressWarnings("deprecation")
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        if (!state.canSurvive(level, pos)) {
+            level.scheduleTick(pos, this, 1);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
     public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         var facing = state.getValue(FACING);
 
-        if (state.getValue(WATERLOGGED)) {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        scheduleWaterTickIfNeeded(state, level, pos);
+
+        if (!state.canSurvive(level, pos)) {
+            level.scheduleTick(pos, this, 1);
         }
 
         if (direction == facing.getOpposite()) {
@@ -208,6 +223,30 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
         }
 
         return state;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!state.canSurvive(level, pos)) {
+            level.destroyBlock(pos, true);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        if (state.getValue(PERSISTENT)) return true;
+
+        var facing = state.getValue(FACING);
+        var supportPos = pos.relative(facing.getOpposite());
+        var supportState = level.getBlockState(supportPos);
+
+        if (supportState.getBlock() instanceof PlantopiaBalkBlock) {
+            return supportState.getValue(getSegmentProperty(facing));
+        }
+
+        return supportState.isFaceSturdy(level, supportPos, facing, SupportType.RIGID);
     }
 
     @Override

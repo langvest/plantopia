@@ -5,6 +5,30 @@
             {
                 "type": "minecraft:beehive",
                 "probability": 0.002
+            },
+            {
+                "type": "plantopia:branch",
+                "entries": [
+                    {
+                        "provider": {
+                            "type": "minecraft:simple_state_provider",
+                            "state": {
+                                "Name": "plantopia:maple_stub",
+                                "Properties": {
+                                    "facing": "up",
+                                    "persistent": "false",
+                                    "waterlogged": "false"
+                                }
+                            }
+                        },
+                        "start_height": {
+                            "type": "plantopia:fixed_proportion",
+                            "value": 4
+                        }
+                    }
+                ],
+                "max_branches_per_block": 1,
+                "probability": 0.1
             }
         ],
         "dirt_provider": {

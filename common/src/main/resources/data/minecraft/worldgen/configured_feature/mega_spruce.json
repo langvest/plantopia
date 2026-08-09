@@ -27,6 +27,81 @@
                 },
                 "tree_probability": 1.0,
                 "fruit_probability": 0.0077
+            },
+            {
+                "type": "plantopia:branch",
+                "entries": [
+                    {
+                        "provider": {
+                            "type": "minecraft:simple_state_provider",
+                            "state": {
+                                "Name": "minecraft:air"
+                            }
+                        },
+                        "start_height": {
+                            "type": "plantopia:relative_proportion",
+                            "ratio": 0.8
+                        }
+                    },
+                    {
+                        "provider": {
+                            "type": "minecraft:weighted_state_provider",
+                            "entries": [
+                                {
+                                    "data": {
+                                        "Name": "plantopia:spruce_balk",
+                                        "Properties": {
+                                            "down": "false",
+                                            "east": "false",
+                                            "facing": "up",
+                                            "north": "false",
+                                            "persistent": "false",
+                                            "south": "false",
+                                            "up": "false",
+                                            "waterlogged": "false",
+                                            "west": "false"
+                                        }
+                                    },
+                                    "weight": 3
+                                },
+                                {
+                                    "data": {
+                                        "Name": "plantopia:spruce_stub",
+                                        "Properties": {
+                                            "facing": "up",
+                                            "waterlogged": "false"
+                                        }
+                                    },
+                                    "weight": 1
+                                }
+                            ]
+                        },
+                        "start_height": {
+                            "type": "plantopia:relative_proportion",
+                            "min": 6,
+                            "ratio": 0.25
+                        }
+                    },
+                    {
+                        "provider": {
+                            "type": "minecraft:simple_state_provider",
+                            "state": {
+                                "Name": "plantopia:spruce_stub",
+                                "Properties": {
+                                    "facing": "up",
+                                    "waterlogged": "false"
+                                }
+                            }
+                        },
+                        "start_height": {
+                            "type": "plantopia:relative_proportion",
+                            "min": 4,
+                            "ratio": 0.15
+                        }
+                    }
+                ],
+                "max_branches_per_block": 2,
+                "probability": 0.04
             }
         ],
         "dirt_provider": {

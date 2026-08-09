@@ -36,8 +36,6 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
     public static final PlantopiaTagSet<Item> SMALL_FLOWERS = getOrCreateTagSet(ItemTags.SMALL_FLOWERS);
     public static final PlantopiaTagSet<Item> LEAVES = getOrCreateTagSet(ItemTags.LEAVES);
     public static final PlantopiaTagSet<Item> SAPLINGS = getOrCreateTagSet(ItemTags.SAPLINGS);
-    public static final PlantopiaTagSet<Item> IGNORED_BY_BEES = getOrCreateTagSet(PlantopiaItemTags.IGNORED_BY_BEES);
-    public static final PlantopiaTagSet<Item> PREFERRED_BY_BEES = getOrCreateTagSet(PlantopiaItemTags.PREFERRED_BY_BEES);
     public static final PlantopiaTagSet<Item> BIRCH_LOGS = getOrCreateTagSet(ItemTags.BIRCH_LOGS);
     public static final PlantopiaTagSet<Item> DIRT = getOrCreateTagSet(ItemTags.DIRT);
     public static final PlantopiaTagSet<Item> PLANKS = getOrCreateTagSet(ItemTags.PLANKS);
@@ -57,9 +55,11 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
     public static final PlantopiaTagSet<Item> WOODEN_BUTTONS = getOrCreateTagSet(ItemTags.WOODEN_BUTTONS);
     public static final PlantopiaTagSet<Item> SIGNS = getOrCreateTagSet(ItemTags.SIGNS);
     public static final PlantopiaTagSet<Item> HANGING_SIGNS = getOrCreateTagSet(ItemTags.HANGING_SIGNS);
-    public static final PlantopiaTagSet<Item> LOGS_THAT_BURN = getOrCreateTagSet(ItemTags.LOGS_THAT_BURN);
     public static final PlantopiaTagSet<Item> BOATS = getOrCreateTagSet(ItemTags.BOATS);
     public static final PlantopiaTagSet<Item> CHEST_BOATS = getOrCreateTagSet(ItemTags.CHEST_BOATS);
+    public static final PlantopiaTagSet<Item> IGNORED_BY_BEES = getOrCreateTagSet(PlantopiaItemTags.IGNORED_BY_BEES);
+    public static final PlantopiaTagSet<Item> PREFERRED_BY_BEES = getOrCreateTagSet(PlantopiaItemTags.PREFERRED_BY_BEES);
+    public static final PlantopiaTagSet<Item> COBBLESTONE_SHARDS = getOrCreateTagSet(PlantopiaItemTags.COBBLESTONE_SHARDS);
 
     public PlantopiaItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper, @NotNull EventEmitter eventEmitter) {
         super(output, registryLookup, PlantopiaBlockTagProvider.getInstance().contentsGetter(), Plantopia.MOD_ID, existingFileHelper);
@@ -112,6 +112,10 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
 
             if (blockMeta.isIgnoredByBees()) IGNORED_BY_BEES.add(item);
             if (blockMeta.isPreferredByBees()) PREFERRED_BY_BEES.add(item);
+
+            if (type.instanceOf(PlantopiaBlockMeta.MetaType.COBBLESTONE_SHARD)) {
+                COBBLESTONE_SHARDS.add(item);
+            }
 
             if (type.instanceOf(PlantopiaBlockMeta.MetaType.FLOWER)) {
                 if (baseHeight > 1) TALL_FLOWERS.add(item);

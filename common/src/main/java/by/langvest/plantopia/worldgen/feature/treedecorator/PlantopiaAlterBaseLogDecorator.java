@@ -1,5 +1,6 @@
 package by.langvest.plantopia.worldgen.feature.treedecorator;
 
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import by.langvest.plantopia.worldgen.feature.PlantopiaTreeDecoratorTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -31,7 +32,7 @@ public class PlantopiaAlterBaseLogDecorator extends TreeDecorator {
     @Override
     public void place(Context context) {
         for (var pos : context.logs()) {
-            if (!context.level().isStateAtPosition(pos, state -> state.is(BlockTags.LOGS))) continue;
+            if (!context.level().isStateAtPosition(pos, state -> state.is(BlockTags.LOGS) || state.is(PlantopiaBlockTags.BALKS))) continue;
             context.setBlock(pos, provider.getState(context.random(), pos));
             break;
         }

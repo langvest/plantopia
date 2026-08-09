@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTick;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTickIfNeeded;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaFrozenReedBlock extends IceBlock implements EntityBlock {
@@ -83,7 +83,7 @@ public class PlantopiaFrozenReedBlock extends IceBlock implements EntityBlock {
             newState = getMeltedState();
         }
 
-        scheduleWaterTick(newState, level, pos);
+        scheduleWaterTickIfNeeded(newState, level, pos);
         level.setBlock(pos, newState, level.isClientSide ? 11 : 3);
     }
 

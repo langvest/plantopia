@@ -50,7 +50,7 @@ public class PlantopiaPalmFeatureKit extends PlantopiaKit {
                                 .build()
                         ),
                         new TwoLayersFeatureSize(
-                            6, // heightThreshold
+                            6, // startHeight
                             0, // lowerRadius
                             2 // upperRadius
                         )

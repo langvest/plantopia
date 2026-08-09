@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
-import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTick;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTickIfNeeded;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaSeaMossCarpetBlock extends Block implements SimpleWaterloggedBlock {
@@ -84,7 +84,7 @@ public class PlantopiaSeaMossCarpetBlock extends Block implements SimpleWaterlog
             return Blocks.AIR.defaultBlockState();
         }
 
-        scheduleWaterTick(state, level, pos);
+        scheduleWaterTickIfNeeded(state, level, pos);
 
         return copyWaterloggedFrom(level, pos, super.updateShape(state, direction, facingState, level, pos, facingPos));
     }

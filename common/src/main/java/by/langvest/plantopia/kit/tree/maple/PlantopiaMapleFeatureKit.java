@@ -4,11 +4,14 @@ import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeFeatureKit;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.catalog.PlantopiaFeatures;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaBranchDecorator;
 import by.langvest.plantopia.worldgen.placement.PlantopiaPlacementUtils;
+import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -20,6 +23,8 @@ import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.compileN
 import static by.langvest.plantopia.worldgen.feature.PlantopiaFeatureUtils.*;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.*;
 import static by.langvest.plantopia.worldgen.feature.PlantopiaTreeFeatureUtils.createSimpleFancyTree;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleProvider;
+import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedProvider;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaMapleFeatureKit extends PlantopiaAbstractTreeFeatureKit {
@@ -40,9 +45,23 @@ public class PlantopiaMapleFeatureKit extends PlantopiaAbstractTreeFeatureKit {
         String baseName,
         Supplier<Block> log,
         Supplier<Block> leaves,
+        Supplier<Block> balk,
+        Supplier<Block> stub,
         ResourceKey<PlacedFeature> leafLitterPlacement
     ) {
         super();
+
+        Supplier<TreeDecorator> fancyBranchDecorator = () -> PlantopiaBranchDecorator.builder(CHANCE_01, 1)
+            .add(PlantopiaIntProportion.fixed(5), weightedProvider(states -> states
+                .add(balk.get().defaultBlockState(), 3)
+                .add(stub.get().defaultBlockState(), 2)
+            ))
+            .add(PlantopiaIntProportion.fixed(4), simpleProvider(stub.get()))
+            .build();
+
+        Supplier<TreeDecorator> lushBranchDecorator = () -> PlantopiaBranchDecorator.builder(CHANCE_01, 1)
+            .add(PlantopiaIntProportion.fixed(4), simpleProvider(stub.get()))
+            .build();
 
         this.tree = PlantopiaFeatures.declareFeature(
             baseName,
@@ -98,6 +117,7 @@ public class PlantopiaMapleFeatureKit extends PlantopiaAbstractTreeFeatureKit {
                 .feature(deciduousTree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
+                        .decorators(List.of(fancyBranchDecorator.get()))
                         .build()
                 ))
         );
@@ -108,7 +128,7 @@ public class PlantopiaMapleFeatureKit extends PlantopiaAbstractTreeFeatureKit {
                 .feature(deciduousTree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(BEEHIVE_DECORATOR_005))
+                        .decorators(List.of(BEEHIVE_DECORATOR_005, fancyBranchDecorator.get()))
                         .build()
                 ))
         );
@@ -119,7 +139,7 @@ public class PlantopiaMapleFeatureKit extends PlantopiaAbstractTreeFeatureKit {
                 .feature(deciduousTree(context ->
                     createSimpleFancyTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(BEEHIVE_DECORATOR_0002))
+                        .decorators(List.of(BEEHIVE_DECORATOR_0002, fancyBranchDecorator.get()))
                         .build()
                 ))
         );
@@ -146,7 +166,7 @@ public class PlantopiaMapleFeatureKit extends PlantopiaAbstractTreeFeatureKit {
                 .feature(deciduousTree(context ->
                     createSimpleLushTree(log.get(), leaves.get())
                         .ignoreVines()
-                        .decorators(List.of(BEEHIVE_DECORATOR_0002))
+                        .decorators(List.of(BEEHIVE_DECORATOR_0002, lushBranchDecorator.get()))
                         .build()
                 ))
         );

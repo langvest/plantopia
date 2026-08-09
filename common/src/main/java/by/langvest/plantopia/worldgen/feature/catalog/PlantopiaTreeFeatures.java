@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.PlantopiaFeatureDeclaration;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.*;
+import by.langvest.plantopia.worldgen.feature.treedecorator.PlantopiaBranchDecorator;
 import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaIntProportion;
 import by.langvest.plantopia.worldgen.feature.config.PlantopiaCompositeConfiguration;
 import by.langvest.plantopia.worldgen.feature.trunkplacer.PlantopiaStraightTrunkPlacer;
@@ -184,7 +185,7 @@ public interface PlantopiaTreeFeatures {
                         2,
                         OptionalInt.empty()
                     )
-                ).ignoreVines().build()
+                ).ignoreVines().decorators(List.of(DARK_OAK_BRANCH_DECORATOR_008.get())).build()
             ))
     );
 
@@ -209,7 +210,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get(), BIRCH_BRANCH_DECORATOR_01.get()))
                     .build()
             ))
     );
@@ -220,7 +221,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.yellowLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get(), BEEHIVE_DECORATOR_0002))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get(), BEEHIVE_DECORATOR_0002, BIRCH_BRANCH_DECORATOR_01.get()))
                     .build()
             ))
     );
@@ -257,7 +258,7 @@ public interface PlantopiaTreeFeatures {
             .feature(deciduousTree(context ->
                 createSimpleAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
-                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
+                    .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get(), BIRCH_BRANCH_DECORATOR_01.get()))
                     .build()
             ))
     );
@@ -321,11 +322,16 @@ public interface PlantopiaTreeFeatures {
                         3 // foliageHeight
                     ),
                     new TwoLayersFeatureSize(
-                        4, // heightThreshold
+                        4, // startHeight
                         0, // lowerRadius
                         2 // upperRadius
                     )
-                ).decorators(List.of(BEEHIVE_DECORATOR_0002)).ignoreVines().build()
+                ).ignoreVines().decorators(List.of(
+                    BEEHIVE_DECORATOR_0002,
+                    PlantopiaBranchDecorator.builder(CHANCE_01, 1)
+                        .add(PlantopiaIntProportion.fixed(4), simpleProvider(PlantopiaKits.OAK.plant.stub.get()))
+                        .build()
+                )).build()
             ))
     );
 

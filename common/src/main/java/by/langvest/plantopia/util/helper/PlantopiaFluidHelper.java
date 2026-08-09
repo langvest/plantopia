@@ -59,7 +59,7 @@ public final class PlantopiaFluidHelper {
         return state.getFluidState().isSourceOfType(Fluids.WATER);
     }
 
-    public static void scheduleWaterTick(BlockState state, LevelAccessor level, BlockPos pos) {
+    public static void scheduleWaterTickIfNeeded(BlockState state, LevelAccessor level, BlockPos pos) {
         if (isWaterlogged(state)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }

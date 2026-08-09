@@ -1,21 +1,39 @@
 {
     "variants": {
-        "facing=down": {
+        "facing=down,persistent=false": {
             "model": "plantopia:block/dark_oak_stub_down"
         },
-        "facing=east": {
+        "facing=down,persistent=true": {
+            "model": "plantopia:block/dark_oak_stub_down"
+        },
+        "facing=east,persistent=false": {
             "model": "plantopia:block/dark_oak_stub_east"
         },
-        "facing=north": {
+        "facing=east,persistent=true": {
+            "model": "plantopia:block/dark_oak_stub_east"
+        },
+        "facing=north,persistent=false": {
             "model": "plantopia:block/dark_oak_stub_north"
         },
-        "facing=south": {
+        "facing=north,persistent=true": {
+            "model": "plantopia:block/dark_oak_stub_north"
+        },
+        "facing=south,persistent=false": {
             "model": "plantopia:block/dark_oak_stub_south"
         },
-        "facing=up": {
+        "facing=south,persistent=true": {
+            "model": "plantopia:block/dark_oak_stub_south"
+        },
+        "facing=up,persistent=false": {
             "model": "plantopia:block/dark_oak_stub_up"
         },
-        "facing=west": {
+        "facing=up,persistent=true": {
+            "model": "plantopia:block/dark_oak_stub_up"
+        },
+        "facing=west,persistent=false": {
+            "model": "plantopia:block/dark_oak_stub_west"
+        },
+        "facing=west,persistent=true": {
             "model": "plantopia:block/dark_oak_stub_west"
         }
     }

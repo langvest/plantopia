@@ -1,7 +1,71 @@
 {
     "type": "plantopia:deciduous_tree",
     "config": {
-        "decorators": [],
+        "decorators": [
+            {
+                "type": "plantopia:branch",
+                "entries": [
+                    {
+                        "provider": {
+                            "type": "minecraft:weighted_state_provider",
+                            "entries": [
+                                {
+                                    "data": {
+                                        "Name": "plantopia:dark_oak_balk",
+                                        "Properties": {
+                                            "down": "false",
+                                            "east": "false",
+                                            "facing": "up",
+                                            "north": "false",
+                                            "persistent": "false",
+                                            "south": "false",
+                                            "up": "false",
+                                            "waterlogged": "false",
+                                            "west": "false"
+                                        }
+                                    },
+                                    "weight": 3
+                                },
+                                {
+                                    "data": {
+                                        "Name": "plantopia:dark_oak_stub",
+                                        "Properties": {
+                                            "facing": "up",
+                                            "persistent": "false",
+                                            "waterlogged": "false"
+                                        }
+                                    },
+                                    "weight": 2
+                                }
+                            ]
+                        },
+                        "start_height": {
+                            "type": "plantopia:fixed_proportion",
+                            "value": 5
+                        }
+                    },
+                    {
+                        "provider": {
+                            "type": "minecraft:simple_state_provider",
+                            "state": {
+                                "Name": "plantopia:dark_oak_stub",
+                                "Properties": {
+                                    "facing": "up",
+                                    "persistent": "false",
+                                    "waterlogged": "false"
+                                }
+                            }
+                        },
+                        "start_height": {
+                            "type": "plantopia:fixed_proportion",
+                            "value": 4
+                        }
+                    }
+                ],
+                "max_branches_per_block": 2,
+                "probability": 0.08
+            }
+        ],
         "dirt_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {

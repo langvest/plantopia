@@ -64,7 +64,7 @@ public class PlantopiaWaterloggedDoublePlantBlock extends DoublePlantBlock imple
 
     @Override
     public @NotNull BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
-        scheduleWaterTick(state, level, pos);
+        scheduleWaterTickIfNeeded(state, level, pos);
         return copyWaterloggedFrom(level, pos, super.updateShape(state, facing, facingState, level, pos, facingPos));
     }
 

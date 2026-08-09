@@ -17,6 +17,69 @@
             {
                 "type": "minecraft:beehive",
                 "probability": 0.002
+            },
+            {
+                "type": "plantopia:branch",
+                "entries": [
+                    {
+                        "provider": {
+                            "type": "minecraft:weighted_state_provider",
+                            "entries": [
+                                {
+                                    "data": {
+                                        "Name": "plantopia:birch_balk",
+                                        "Properties": {
+                                            "down": "false",
+                                            "east": "false",
+                                            "facing": "up",
+                                            "north": "false",
+                                            "persistent": "false",
+                                            "south": "false",
+                                            "up": "false",
+                                            "waterlogged": "false",
+                                            "west": "false"
+                                        }
+                                    },
+                                    "weight": 3
+                                },
+                                {
+                                    "data": {
+                                        "Name": "plantopia:birch_stub",
+                                        "Properties": {
+                                            "facing": "up",
+                                            "persistent": "false",
+                                            "waterlogged": "false"
+                                        }
+                                    },
+                                    "weight": 2
+                                }
+                            ]
+                        },
+                        "start_height": {
+                            "type": "plantopia:fixed_proportion",
+                            "value": 5
+                        }
+                    },
+                    {
+                        "provider": {
+                            "type": "minecraft:simple_state_provider",
+                            "state": {
+                                "Name": "plantopia:birch_stub",
+                                "Properties": {
+                                    "facing": "up",
+                                    "persistent": "false",
+                                    "waterlogged": "false"
+                                }
+                            }
+                        },
+                        "start_height": {
+                            "type": "plantopia:fixed_proportion",
+                            "value": 4
+                        }
+                    }
+                ],
+                "max_branches_per_block": 1,
+                "probability": 0.1
             }
         ],
         "dirt_provider": {

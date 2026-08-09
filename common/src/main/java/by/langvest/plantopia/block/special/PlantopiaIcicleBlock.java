@@ -39,7 +39,7 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTick;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTickIfNeeded;
 
 /**
  * @see net.minecraft.world.level.block.PointedDripstoneBlock
@@ -115,7 +115,7 @@ public class PlantopiaIcicleBlock extends Block implements Fallable, SimpleWater
     @SuppressWarnings("deprecation")
     public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         // Standard waterlogged logic.
-        scheduleWaterTick(state, level, pos);
+        scheduleWaterTickIfNeeded(state, level, pos);
 
         // Ignore horizontal updates, as they don't affect the icicle's vertical structure.
         if (direction != Direction.UP && direction != Direction.DOWN) {

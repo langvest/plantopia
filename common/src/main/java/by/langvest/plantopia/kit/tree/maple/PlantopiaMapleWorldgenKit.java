@@ -24,12 +24,16 @@ public class PlantopiaMapleWorldgenKit extends PlantopiaKit {
         Supplier<Block> log,
         Supplier<Block> leaves,
         Supplier<Block> sapling,
+        Supplier<Block> balk,
+        Supplier<Block> stub,
         ResourceKey<PlacedFeature> leafLitterPlacement
     ) {
         this.feature = new PlantopiaMapleFeatureKit(
             baseName,
             log,
             leaves,
+            balk,
+            stub,
             leafLitterPlacement
         );
 

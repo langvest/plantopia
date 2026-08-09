@@ -12,6 +12,7 @@ public class PlantopiaBlockTags {
     public static final TagKey<Block> PREFERRED_BY_BEES = createBlockTag("preferred_by_bees");
     public static final TagKey<Block> BONEMEAL_SPREAD_GROWABLE = createBlockTag("bonemeal_spread_growable");
     public static final TagKey<Block> BONEMEAL_SPREAD_ON = createBlockTag("bonemeal_spread_on");
+    public static final TagKey<Block> COBBLESTONE_SHARDS = createBlockTag("cobblestone_shards");
     public static final TagKey<Block> COBBLESTONE_SHARD_CAN_GENERATE_ON = createBlockTag("cobblestone_shard_can_generate_on");
     public static final TagKey<Block> TOADSTOOL_CAN_GENERATE_ON = createBlockTag("toadstool_can_generate_on");
     public static final TagKey<Block> BRANCHING_SHRUB_CAN_GENERATE_ON = createBlockTag("branching_shrub_can_generate_on");

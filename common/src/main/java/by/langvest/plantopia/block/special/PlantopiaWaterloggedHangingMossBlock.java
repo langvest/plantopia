@@ -60,7 +60,7 @@ public class PlantopiaWaterloggedHangingMossBlock extends PlantopiaHangingMossBl
 
     @Override
     public @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState facingState, LevelAccessor level, BlockPos pos, BlockPos facingPos) {
-        scheduleWaterTick(state, level, pos);
+        scheduleWaterTickIfNeeded(state, level, pos);
         return super.updateShape(state, direction, facingState, level, pos, facingPos);
     }
 

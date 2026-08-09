@@ -3,53 +3,15 @@
     "config": {
         "decorators": [
             {
-                "type": "minecraft:alter_ground",
-                "provider": {
-                    "type": "minecraft:simple_state_provider",
-                    "state": {
-                        "Name": "minecraft:podzol",
-                        "Properties": {
-                            "snowy": "false"
-                        }
-                    }
-                }
-            },
-            {
-                "type": "plantopia:fruit",
-                "provider": {
-                    "type": "minecraft:simple_state_provider",
-                    "state": {
-                        "Name": "plantopia:pine_cone",
-                        "Properties": {
-                            "vertical_direction": "down"
-                        }
-                    }
-                },
-                "tree_probability": 1.0,
-                "fruit_probability": 0.0077
-            },
-            {
                 "type": "plantopia:branch",
                 "entries": [
-                    {
-                        "provider": {
-                            "type": "minecraft:simple_state_provider",
-                            "state": {
-                                "Name": "minecraft:air"
-                            }
-                        },
-                        "start_height": {
-                            "type": "plantopia:relative_proportion",
-                            "ratio": 0.95
-                        }
-                    },
                     {
                         "provider": {
                             "type": "minecraft:weighted_state_provider",
                             "entries": [
                                 {
                                     "data": {
-                                        "Name": "plantopia:spruce_balk",
+                                        "Name": "plantopia:dark_oak_balk",
                                         "Properties": {
                                             "down": "false",
                                             "east": "false",
@@ -66,27 +28,26 @@
                                 },
                                 {
                                     "data": {
-                                        "Name": "plantopia:spruce_stub",
+                                        "Name": "plantopia:dark_oak_stub",
                                         "Properties": {
                                             "facing": "up",
                                             "waterlogged": "false"
                                         }
                                     },
-                                    "weight": 1
+                                    "weight": 2
                                 }
                             ]
                         },
                         "start_height": {
-                            "type": "plantopia:relative_proportion",
-                            "min": 6,
-                            "ratio": 0.3
+                            "type": "plantopia:fixed_proportion",
+                            "value": 5
                         }
                     },
                     {
                         "provider": {
                             "type": "minecraft:simple_state_provider",
                             "state": {
-                                "Name": "plantopia:spruce_stub",
+                                "Name": "plantopia:dark_oak_stub",
                                 "Properties": {
                                     "facing": "up",
                                     "waterlogged": "false"
@@ -94,14 +55,13 @@
                             }
                         },
                         "start_height": {
-                            "type": "plantopia:relative_proportion",
-                            "min": 4,
-                            "ratio": 0.15
+                            "type": "plantopia:fixed_proportion",
+                            "value": 4
                         }
                     }
                 ],
                 "max_branches_per_block": 2,
-                "probability": 0.04
+                "probability": 0.08
             }
         ],
         "dirt_provider": {
@@ -111,21 +71,14 @@
             }
         },
         "foliage_placer": {
-            "type": "minecraft:mega_pine_foliage_placer",
-            "crown_height": {
-                "type": "minecraft:uniform",
-                "value": {
-                    "max_inclusive": 7,
-                    "min_inclusive": 3
-                }
-            },
+            "type": "minecraft:dark_oak_foliage_placer",
             "offset": 0,
             "radius": 0
         },
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:spruce_leaves",
+                "Name": "minecraft:dark_oak_leaves",
                 "Properties": {
                     "distance": "7",
                     "persistent": "false",
@@ -134,23 +87,25 @@
             }
         },
         "force_dirt": false,
-        "ignore_vines": false,
+        "ignore_vines": true,
         "minimum_size": {
-            "type": "minecraft:two_layers_feature_size",
+            "type": "minecraft:three_layers_feature_size",
             "limit": 1,
-            "lower_size": 1,
+            "lower_size": 0,
+            "middle_size": 1,
+            "upper_limit": 1,
             "upper_size": 2
         },
         "trunk_placer": {
-            "type": "minecraft:giant_trunk_placer",
-            "base_height": 13,
+            "type": "minecraft:dark_oak_trunk_placer",
+            "base_height": 6,
             "height_rand_a": 2,
-            "height_rand_b": 14
+            "height_rand_b": 1
         },
         "trunk_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:spruce_log",
+                "Name": "minecraft:dark_oak_log",
                 "Properties": {
                     "axis": "y"
                 }

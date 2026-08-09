@@ -30,6 +30,8 @@ import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.simpleP
 import static by.langvest.plantopia.worldgen.util.PlantopiaProviderUtils.weightedProvider;
 
 public final class PlantopiaFeatureUtils {
+    public static final float CHANCE_01 = 0.1F;
+    public static final float CHANCE_008 = 0.08F;
     public static final float CHANCE_001 = 0.01F;
     public static final float CHANCE_025 = 0.25F;
     public static final float CHANCE_055 = 0.55F;

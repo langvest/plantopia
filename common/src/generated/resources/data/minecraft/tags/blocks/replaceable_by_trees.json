@@ -1,5 +1,8 @@
 {
     "values": [
+        "#minecraft:flowers",
+        "#plantopia:cobblestone_shards",
+        "minecraft:sweet_berry_bush",
         "plantopia:azolla",
         "plantopia:birch_catkin",
         "plantopia:blue_lupine",
@@ -47,6 +50,7 @@
         "plantopia:tall_fluffy_grass",
         "plantopia:tall_spiky_grass",
         "plantopia:tansy",
+        "plantopia:thorny_shrub",
         "plantopia:white_clover_blossom",
         "plantopia:white_foxglove",
         "plantopia:white_lucky_daisy",

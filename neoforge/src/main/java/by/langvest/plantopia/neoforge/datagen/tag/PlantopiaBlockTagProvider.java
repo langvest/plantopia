@@ -101,6 +101,7 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     public static final PlantopiaTagSet<Block> PACKED_ICE_REPLACEABLE_BLOCKS = getOrCreateTagSet(PlantopiaBlockTags.PACKED_ICE_REPLACEABLE_BLOCKS);
     public static final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE_BLOCKS = getOrCreateTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE_BLOCKS);
     public static final PlantopiaTagSet<Block> LEAVES_CAN_SURVIVE_ON = getOrCreateTagSet(PlantopiaBlockTags.LEAVES_CAN_SURVIVE_ON);
+    public static final PlantopiaTagSet<Block> COBBLESTONE_SHARDS = getOrCreateTagSet(PlantopiaBlockTags.COBBLESTONE_SHARDS);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -173,8 +174,11 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             .addTag(PlantopiaBlockTags.ORES_OVERWORLD);
 
         REPLACEABLE_BY_TREES
-            .add(PlantopiaBlocks.BRANCHING_SHRUB.get())
-            .add(PlantopiaBlocks.BIRCH_CATKIN.get(), PlantopiaBlocks.PINE_CONE.get());
+            .add(PlantopiaBlocks.BRANCHING_SHRUB.get(), PlantopiaBlocks.THORNY_SHRUB.get())
+            .add(PlantopiaBlocks.BIRCH_CATKIN.get(), PlantopiaBlocks.PINE_CONE.get())
+            .add(Blocks.SWEET_BERRY_BUSH)
+            .addTag(PlantopiaBlockTags.COBBLESTONE_SHARDS)
+            .addTag(BlockTags.FLOWERS);
 
         SEA_MOSS_REPLACEABLE_BLOCKS
             .addTag(BlockTags.BASE_STONE_OVERWORLD, BlockTags.DIRT)
@@ -207,6 +211,10 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
             if (blockMeta.isPreferredByBees()) PREFERRED_BY_BEES.add(block);
             if (type.instanceOf(MetaType.STONE)) MINEABLE_WITH_PICKAXE.add(block);
             if (type.instanceOf(MetaType.POTTED)) FLOWER_POTS.add(block);
+
+            if (type.instanceOf(MetaType.COBBLESTONE_SHARD)) {
+                COBBLESTONE_SHARDS.add(block);
+            }
 
             if (type.instanceOf(MetaType.SEA_SHELL)) {
                 INSIDE_STEP_SOUND_BLOCKS.add(block);
