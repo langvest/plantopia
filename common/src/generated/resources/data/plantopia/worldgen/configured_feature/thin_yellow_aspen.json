@@ -1,5 +1,5 @@
 {
-    "type": "minecraft:tree",
+    "type": "plantopia:deciduous_tree",
     "config": {
         "decorators": [
             {
@@ -7,16 +7,14 @@
                 "provider": {
                     "type": "minecraft:simple_state_provider",
                     "state": {
-                        "Name": "plantopia:birch_base_log",
+                        "Name": "plantopia:birch_base_balk",
                         "Properties": {
-                            "facing": "up"
+                            "facing": "up",
+                            "persistent": "true",
+                            "waterlogged": "false"
                         }
                     }
                 }
-            },
-            {
-                "type": "minecraft:beehive",
-                "probability": 0.002
             },
             {
                 "type": "plantopia:branch",
@@ -27,59 +25,43 @@
                             "entries": [
                                 {
                                     "data": {
-                                        "Name": "plantopia:birch_balk",
+                                        "Name": "plantopia:birch_stub",
                                         "Properties": {
-                                            "down": "false",
-                                            "east": "false",
                                             "facing": "up",
-                                            "north": "false",
                                             "persistent": "false",
-                                            "south": "false",
-                                            "up": "false",
-                                            "waterlogged": "false",
-                                            "west": "false"
+                                            "waterlogged": "false"
                                         }
                                     },
                                     "weight": 3
                                 },
                                 {
                                     "data": {
-                                        "Name": "plantopia:birch_stub",
-                                        "Properties": {
-                                            "facing": "up",
-                                            "waterlogged": "false"
-                                        }
+                                        "Name": "minecraft:air"
                                     },
-                                    "weight": 1
+                                    "weight": 2
                                 }
                             ]
                         },
                         "start_height": {
-                            "type": "plantopia:relative_proportion",
-                            "min": 5,
-                            "ratio": 0.6
+                            "type": "plantopia:fixed_proportion",
+                            "value": 5
                         }
                     },
                     {
                         "provider": {
                             "type": "minecraft:simple_state_provider",
                             "state": {
-                                "Name": "plantopia:birch_stub",
-                                "Properties": {
-                                    "facing": "up",
-                                    "waterlogged": "false"
-                                }
+                                "Name": "minecraft:air"
                             }
                         },
                         "start_height": {
-                            "type": "plantopia:relative_proportion",
-                            "min": 4,
-                            "ratio": 0.45
+                            "type": "plantopia:fixed_proportion",
+                            "value": 4
                         }
                     }
                 ],
                 "max_branches_per_block": 1,
-                "probability": 0.075
+                "probability": 0.1
             }
         ],
         "dirt_provider": {
@@ -89,15 +71,20 @@
             }
         },
         "foliage_placer": {
-            "type": "minecraft:blob_foliage_placer",
-            "height": 3,
-            "offset": 0,
-            "radius": 2
+            "type": "plantopia:cypress_foliage_placer",
+            "height": {
+                "max": 8,
+                "min": 6,
+                "ratio": 0.8
+            },
+            "offset": 2,
+            "radius": 1,
+            "tip_step": 2
         },
         "foliage_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:birch_leaves",
+                "Name": "plantopia:yellow_maple_leaves",
                 "Properties": {
                     "distance": "7",
                     "persistent": "false",
@@ -109,22 +96,59 @@
         "ignore_vines": true,
         "minimum_size": {
             "type": "minecraft:two_layers_feature_size",
-            "limit": 1,
+            "limit": 4,
             "lower_size": 0,
             "upper_size": 1
         },
         "trunk_placer": {
-            "type": "minecraft:straight_trunk_placer",
-            "base_height": 6,
-            "height_rand_a": 2,
-            "height_rand_b": 5
+            "type": "plantopia:straight_trunk_placer",
+            "base_height": {
+                "type": "minecraft:weighted_list",
+                "distribution": [
+                    {
+                        "data": {
+                            "type": "minecraft:uniform",
+                            "value": {
+                                "max_inclusive": 8,
+                                "min_inclusive": 7
+                            }
+                        },
+                        "weight": 3
+                    },
+                    {
+                        "data": {
+                            "type": "minecraft:uniform",
+                            "value": {
+                                "max_inclusive": 10,
+                                "min_inclusive": 9
+                            }
+                        },
+                        "weight": 2
+                    }
+                ]
+            },
+            "bonus_height": {
+                "type": "minecraft:uniform",
+                "value": {
+                    "max_inclusive": 2,
+                    "min_inclusive": 0
+                }
+            }
         },
         "trunk_provider": {
             "type": "minecraft:simple_state_provider",
             "state": {
-                "Name": "minecraft:birch_log",
+                "Name": "plantopia:birch_balk",
                 "Properties": {
-                    "axis": "y"
+                    "down": "true",
+                    "east": "false",
+                    "facing": "up",
+                    "north": "false",
+                    "persistent": "true",
+                    "south": "false",
+                    "up": "true",
+                    "waterlogged": "false",
+                    "west": "false"
                 }
             }
         }

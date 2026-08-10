@@ -57,7 +57,7 @@
                         "start_height": {
                             "type": "plantopia:relative_proportion",
                             "min": 5,
-                            "ratio": 0.5
+                            "ratio": 0.6
                         }
                     },
                     {
@@ -74,12 +74,12 @@
                         "start_height": {
                             "type": "plantopia:relative_proportion",
                             "min": 4,
-                            "ratio": 0.4
+                            "ratio": 0.45
                         }
                     }
                 ],
                 "max_branches_per_block": 1,
-                "probability": 0.08
+                "probability": 0.075
             }
         ],
         "dirt_provider": {

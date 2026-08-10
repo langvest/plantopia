@@ -33,6 +33,7 @@ public final class PlantopiaDictionary {
     public static final String LUSH = "lush";
     public static final String BEES = "bees";
     public static final String TINY = "tiny";
+    public static final String THIN = "thin";
     public static final String TALL = "tall";
     public static final String FANCY = "fancy";
     public static final String MEGA = "mega";

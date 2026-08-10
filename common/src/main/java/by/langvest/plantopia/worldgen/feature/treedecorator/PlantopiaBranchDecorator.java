@@ -131,6 +131,7 @@ public class PlantopiaBranchDecorator extends TreeDecorator {
 
             mutablePos.setWithOffset(pos, direction);
             if (context.isAir(mutablePos) && !trunkBox.isInside(mutablePos)) {
+                updateLog(context, pos, direction);
                 placeBranch(context, mutablePos, direction, provider);
                 branchesPlaced++;
             }
@@ -144,6 +145,15 @@ public class PlantopiaBranchDecorator extends TreeDecorator {
             }
         }
         return null;
+    }
+
+    private void updateLog(Context context, BlockPos pos, Direction direction) {
+        context.level().isStateAtPosition(pos, state -> {
+            if (state.is(PlantopiaBlockTags.BALKS)) {
+                context.setBlock(pos, state.setValue(PlantopiaBalkBlock.getSegmentProperty(direction), true));
+            }
+            return true;
+        });
     }
 
     private void placeBranch(Context context, BlockPos pos, Direction direction, BlockStateProvider provider) {

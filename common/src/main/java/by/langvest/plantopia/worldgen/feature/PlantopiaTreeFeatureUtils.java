@@ -1,6 +1,7 @@
 package by.langvest.plantopia.worldgen.feature;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.special.PlantopiaBalkBlock;
 import by.langvest.plantopia.block.special.PlantopiaPineconeBlock;
 import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.worldgen.feature.foliageplacer.PlantopiaCypressFoliagePlacer;
@@ -15,6 +16,8 @@ import by.langvest.plantopia.worldgen.util.intproportion.PlantopiaRelativeIntPro
 import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -45,6 +48,7 @@ public final class PlantopiaTreeFeatureUtils {
     public static final TreeDecorator BEEHIVE_DECORATOR_0002 = new BeehiveDecorator(CHANCE_0002);
 
     public static final Supplier<TreeDecorator> BIRCH_BASE_LOG_DECORATOR = () -> new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaKits.BIRCH.baseLog.get()));
+    public static final Supplier<TreeDecorator> BIRCH_BASE_BALK_DECORATOR = () -> new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaKits.BIRCH.baseBalk.get().defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true)));
     public static final Supplier<TreeDecorator> BIRCH_CATKIN_DECORATOR_055 = () -> new PlantopiaFruitDecorator(CHANCE_055, CHANCE_025, simpleProvider(PlantopiaBlocks.BIRCH_CATKIN.get()), Direction.DOWN);
     public static final Supplier<TreeDecorator> UPWARD_PINE_CONE_DECORATOR_0015 = () -> new PlantopiaFruitDecorator(1.0F, CHANCE_0015, simpleProvider(PlantopiaPineconeBlock.getStateForDirection(Direction.UP)), Direction.UP);
 
@@ -54,6 +58,14 @@ public final class PlantopiaTreeFeatureUtils {
             .add(PlantopiaKits.BIRCH.plant.stub.get().defaultBlockState(), 2)
         ))
         .add(PlantopiaIntProportion.fixed(4), simpleProvider(PlantopiaKits.BIRCH.plant.stub.get()))
+        .build();
+
+    public static final Supplier<TreeDecorator> THIN_BIRCH_BRANCH_DECORATOR_01 = () -> PlantopiaBranchDecorator.builder(CHANCE_01, 1)
+        .add(PlantopiaIntProportion.fixed(5), weightedProvider(states -> states
+            .add(PlantopiaKits.BIRCH.plant.stub.get().defaultBlockState(), 3)
+            .add(Blocks.AIR.defaultBlockState(), 2)
+        ))
+        .add(PlantopiaIntProportion.fixed(4), simpleProvider(Blocks.AIR))
         .build();
 
     public static final Supplier<TreeDecorator> DARK_OAK_BRANCH_DECORATOR_008 = () -> PlantopiaBranchDecorator.builder(CHANCE_008, 2)
@@ -151,6 +163,39 @@ public final class PlantopiaTreeFeatureUtils {
             ),
             new TwoLayersFeatureSize(
                 2, // startHeight
+                0, // lowerRadius
+                1 // upperRadius
+            )
+        );
+    }
+
+    @Contract("_, _ -> new")
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createThinAspenTree(@NotNull Block balkBlock, Block leavesBlock) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(PlantopiaBalkBlock.getDirectedStraightState(
+                balkBlock.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true),
+                Direction.UP
+            )), // logBlock
+            new PlantopiaStraightTrunkPlacer(
+                weightedListInt(values -> values
+                    .add(UniformInt.of(7, 8), 3)
+                    .add(UniformInt.of(9, 10), 2)
+                ), // baseHeight
+                UniformInt.of(0, 2) // bonusHeight
+            ),
+            simpleProvider(leavesBlock), // leavesBlock
+            new PlantopiaCypressFoliagePlacer(
+                ConstantInt.of(1), // foliageRadius
+                ConstantInt.of(2), // foliageOffset
+                PlantopiaIntProportion.relative(
+                    ConstantFloat.of(0.8F),
+                    ConstantInt.of(6),
+                    ConstantInt.of(8)
+                ), // foliageHeight
+                ConstantInt.of(2) // foliageTipStep
+            ),
+            new TwoLayersFeatureSize(
+                4, // startHeight
                 0, // lowerRadius
                 1 // upperRadius
             )

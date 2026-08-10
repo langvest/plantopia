@@ -51,6 +51,16 @@ public interface PlantopiaTreePlacements {
         checkedTreeDeclaration(PlantopiaFeatures.TINY_YELLOW_ASPEN, Blocks.BIRCH_SAPLING)
     );
 
+    ResourceKey<PlacedFeature> THIN_YELLOW_ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.THIN_YELLOW_ASPEN, CHECKED),
+        checkedTreeDeclaration(PlantopiaFeatures.THIN_YELLOW_ASPEN, Blocks.BIRCH_SAPLING)
+    );
+
+    ResourceKey<PlacedFeature> THIN_YELLOW_ASPEN_LITTER_055 = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.THIN_YELLOW_ASPEN_LITTER_055, CHECKED),
+        checkedTreeDeclaration(PlantopiaFeatures.THIN_YELLOW_ASPEN_LITTER_055, Blocks.BIRCH_SAPLING)
+    );
+
     ResourceKey<PlacedFeature> RED_ASPEN_CHECKED = declarePlacement(
         compileNameFrom(PlantopiaFeatures.RED_ASPEN, CHECKED),
         checkedTreeDeclaration(PlantopiaFeatures.RED_ASPEN, Blocks.BIRCH_SAPLING)
@@ -59,6 +69,11 @@ public interface PlantopiaTreePlacements {
     ResourceKey<PlacedFeature> TINY_RED_ASPEN_CHECKED = declarePlacement(
         compileNameFrom(PlantopiaFeatures.TINY_RED_ASPEN, CHECKED),
         checkedTreeDeclaration(PlantopiaFeatures.TINY_RED_ASPEN, Blocks.BIRCH_SAPLING)
+    );
+
+    ResourceKey<PlacedFeature> THIN_RED_ASPEN_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.THIN_RED_ASPEN, CHECKED),
+        checkedTreeDeclaration(PlantopiaFeatures.THIN_RED_ASPEN, Blocks.BIRCH_SAPLING)
     );
 
     ResourceKey<PlacedFeature> ACACIA_CYPRESS_CHECKED = declarePlacement(

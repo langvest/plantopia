@@ -252,6 +252,32 @@ public interface PlantopiaTreeFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> THIN_YELLOW_ASPEN = declareFeature(
+        compileNameFrom(THIN, YELLOW_ASPEN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createThinAspenTree(PlantopiaKits.BIRCH.plant.balk.get(), PlantopiaKits.MAPLE.yellowLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_BALK_DECORATOR.get(), THIN_BIRCH_BRANCH_DECORATOR_01.get()))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> THIN_YELLOW_ASPEN_LITTER_055 = declareFeature(
+        compileNameFrom(THIN_YELLOW_ASPEN, LITTER, CHANCE_055),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(composite(context -> {
+                var placements = lookupPlacements(context);
+
+                return new PlantopiaCompositeConfiguration(
+                    placements.getOrThrow(PlantopiaPlacements.THIN_YELLOW_ASPEN_CHECKED),
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.PATCH_YELLOW_LEAF_LITTER_CHECKED), CHANCE_055)
+                    )
+                );
+            }))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> RED_ASPEN = declareFeature(
         "red_aspen",
         PlantopiaFeatureDeclaration.builder()
@@ -270,6 +296,17 @@ public interface PlantopiaTreeFeatures {
                 createTinyAspenTree(Blocks.BIRCH_LOG, PlantopiaKits.MAPLE.redLeaves.get())
                     .ignoreVines()
                     .decorators(List.of(BIRCH_BASE_LOG_DECORATOR.get()))
+                    .build()
+            ))
+    );
+
+    ResourceKey<ConfiguredFeature<?, ?>> THIN_RED_ASPEN = declareFeature(
+        compileNameFrom(THIN, RED_ASPEN),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createThinAspenTree(PlantopiaKits.BIRCH.plant.balk.get(), PlantopiaKits.MAPLE.redLeaves.get())
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_BALK_DECORATOR.get(), THIN_BIRCH_BRANCH_DECORATOR_01.get()))
                     .build()
             ))
     );

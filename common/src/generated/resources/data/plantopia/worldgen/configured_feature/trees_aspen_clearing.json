@@ -5,6 +5,10 @@
         "features": [
             {
                 "chance": 0.35,
+                "feature": "plantopia:thin_yellow_aspen_litter_055_checked"
+            },
+            {
+                "chance": 0.3,
                 "feature": "plantopia:yellow_aspen_bees_0002_litter_055"
             },
             {

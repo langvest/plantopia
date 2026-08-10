@@ -4,7 +4,11 @@
         "default": "plantopia:tiny_red_aspen_checked",
         "features": [
             {
-                "chance": 0.25,
+                "chance": 0.3,
+                "feature": "plantopia:thin_red_aspen_checked"
+            },
+            {
+                "chance": 0.2533334,
                 "feature": "minecraft:spruce_checked"
             },
             {
