@@ -3,7 +3,7 @@
     "textures": {
         "stem": "plantopia:block/lily_pad_stem",
         "texture": "minecraft:block/lily_pad",
-        "overlay": "plantopia:block/lily_pad_flower_overlay",
+        "overlay": "plantopia:block/lily_pad_flower_stem",
         "particle": "#texture"
     },
     "elements": [
