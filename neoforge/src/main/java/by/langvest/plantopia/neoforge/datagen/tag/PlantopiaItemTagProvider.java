@@ -1,8 +1,8 @@
 package by.langvest.plantopia.neoforge.datagen.tag;
 
 import by.langvest.plantopia.Plantopia;
-import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaItemMeta;
@@ -75,7 +75,7 @@ public class PlantopiaItemTagProvider extends ItemTagsProvider implements Planto
         generateAll();
 
         IGNORED_BY_BEES.add(Blocks.WITHER_ROSE.asItem());
-        BIRCH_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get().asItem(), PlantopiaBlocks.BIRCH_BASE_WOOD.get().asItem());
+        BIRCH_LOGS.add(PlantopiaKits.BIRCH.baseLog.get().asItem(), PlantopiaKits.BIRCH.baseWood.get().asItem());
 
         saveAll();
     }

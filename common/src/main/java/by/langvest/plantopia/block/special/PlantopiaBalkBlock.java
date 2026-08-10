@@ -1,7 +1,7 @@
 package by.langvest.plantopia.block.special;
 
+import by.langvest.plantopia.block.PlantopiaBalkLikeBlock;
 import by.langvest.plantopia.block.PlantopiaStrippableBlock;
-import by.langvest.plantopia.util.helper.PlantopiaFluidHelper;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -36,16 +35,13 @@ import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterlo
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTickIfNeeded;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock, PlantopiaBalkLikeBlock {
     public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
     public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
     public static final BooleanProperty EAST = BlockStateProperties.EAST;
     public static final BooleanProperty WEST = BlockStateProperties.WEST;
     public static final BooleanProperty UP = BlockStateProperties.UP;
     public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
     protected static final VoxelShape CENTER_SHAPE = Block.box(4, 4, 4, 12, 12, 12);
     protected static final VoxelShape NORTH_SHAPE = Block.box(4, 4, 0, 12, 12, 4);
@@ -172,6 +168,10 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
             return true;
         }
 
+        if (tipState.getBlock() instanceof PlantopiaStraightBalkBlock && tipState.getValue(FACING).getAxis() == facing.getAxis()) {
+            return true;
+        }
+
         if (tipState.getBlock() instanceof PlantopiaBalkStubBlock && tipState.getValue(FACING) == facing) {
             return true;
         }
@@ -202,7 +202,7 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
             return state;
         }
 
-        boolean isNeighborBalk = neighborState.getBlock() instanceof PlantopiaBalkBlock || neighborState.getBlock() instanceof PlantopiaBalkStubBlock;
+        boolean isNeighborBalk = neighborState.getBlock() instanceof PlantopiaBalkLikeBlock;
 
         if (isNeighborBalk) {
             var neighborFacing = neighborState.getValue(FACING);
@@ -252,13 +252,14 @@ public class PlantopiaBalkBlock extends Block implements SimpleWaterloggedBlock,
     @Override
     public @Nullable BlockState getStrippedState(UseOnContext context, BlockState unstrippedState, Block strippedBlock) {
         return strippedBlock.defaultBlockState()
-            .setValue(FACING, unstrippedState.getValue(FACING))
             .setValue(UP, unstrippedState.getValue(UP))
             .setValue(DOWN, unstrippedState.getValue(DOWN))
             .setValue(NORTH, unstrippedState.getValue(NORTH))
             .setValue(SOUTH, unstrippedState.getValue(SOUTH))
             .setValue(EAST, unstrippedState.getValue(EAST))
             .setValue(WEST, unstrippedState.getValue(WEST))
-            .setValue(WATERLOGGED, unstrippedState.getValue(WATERLOGGED));
+            .setValue(FACING, unstrippedState.getValue(FACING))
+            .setValue(WATERLOGGED, unstrippedState.getValue(WATERLOGGED))
+            .setValue(PERSISTENT, unstrippedState.getValue(PERSISTENT));
     }
 }

@@ -102,8 +102,6 @@ public class PlantopiaRecipeProvider extends RecipeProvider implements IConditio
         smeltingRecipe(RecipeCategory.MISC, Items.BROWN_DYE, PlantopiaBlocks.PINE_CONE.get(), 1.0F, 200);
         smeltingRecipe(RecipeCategory.MISC, Items.LIME_DYE, PlantopiaBlocks.BIRCH_CATKIN.get(), 1.0F, 200);
 
-        woodFromLogs(PlantopiaBlocks.BIRCH_BASE_WOOD.get(), PlantopiaBlocks.BIRCH_BASE_LOG.get());
-
         leafLitterRecipe(PlantopiaBlocks.YELLOW_LEAF_LITTER.get(), PlantopiaKits.MAPLE.yellowLeaves.get());
         leafLitterRecipe(PlantopiaBlocks.ORANGE_LEAF_LITTER.get(), PlantopiaKits.MAPLE.orangeLeaves.get());
         leafLitterRecipe(PlantopiaBlocks.RED_LEAF_LITTER.get(), PlantopiaKits.MAPLE.redLeaves.get());

@@ -1,6 +1,8 @@
 {
     "values": [
         "plantopia:birch_balk",
+        "plantopia:birch_base_balk",
+        "plantopia:birch_base_stub",
         "plantopia:birch_stub",
         "plantopia:stripped_birch_balk",
         "plantopia:stripped_birch_stub"

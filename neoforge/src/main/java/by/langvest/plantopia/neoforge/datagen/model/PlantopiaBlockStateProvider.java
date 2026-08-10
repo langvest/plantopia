@@ -58,8 +58,8 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         cobblestoneShardBlock(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD.get());
         cobblestoneShardPetBlock(PlantopiaBlocks.COBBLESTONE_SHARD_PET.get());
         cobblestoneShardPetBlock(PlantopiaBlocks.MOSSY_COBBLESTONE_SHARD_PET.get());
-        birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_LOG.get());
-        birchBaseBlock(PlantopiaBlocks.BIRCH_BASE_WOOD.get());
+        birchBaseBlock(PlantopiaKits.BIRCH.baseLog.get());
+        birchBaseBlock(PlantopiaKits.BIRCH.baseWood.get());
         foxgloveBlock(PlantopiaBlocks.RED_FOXGLOVE.get());
         foxgloveBlock(PlantopiaBlocks.ORANGE_FOXGLOVE.get());
         foxgloveBlock(PlantopiaBlocks.YELLOW_FOXGLOVE.get());
@@ -118,6 +118,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
             var block = blockMeta.get();
             var type = blockMeta.getType();
+
+            if (block instanceof PlantopiaStraightBalkBlock) {
+                straightBalkBlock(blockMeta);
+                return;
+            }
+
+            if (block instanceof PlantopiaStraightBalkStubBlock) {
+                straightBalkStubBlock(blockMeta);
+                return;
+            }
 
             if (block instanceof PlantopiaBalkBlock) {
                 balkBlock(blockMeta);
@@ -625,9 +635,11 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         var centerXModel = balkTemplateModel(baseName + "_center_x", "center_x", texture);
         var centerYModel = balkTemplateModel(baseName + "_center_y", "center_y", texture);
         var centerZModel = balkTemplateModel(baseName + "_center_z", "center_z", texture);
-        var inventoryModel = balkInventoryTemplateModel(baseName + "_inventory", texture);
 
-        blockItemModel(baseName, inventoryModel);
+        if (blockMeta.hasItem()) {
+            var inventoryModel = balkInventoryTemplateModel(baseName + "_inventory", texture);
+            blockItemModel(baseName, inventoryModel);
+        }
 
         var builder = getMultipartBuilder(blockMeta.get());
 
@@ -653,6 +665,29 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
             var model = balkStubTemplateModel(baseName + "_" + facing, facing.getName(), texture);
             return ConfiguredModel.builder().modelFile(model).build();
         }, PlantopiaBalkStubBlock.WATERLOGGED);
+    }
+
+    private void straightBalkBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+
+        var texture = texture(baseName);
+        var model = straightBalkTemplateModel(baseName, texture);
+
+        if (blockMeta.hasItem()) {
+            blockItemModel(baseName, model);
+        }
+
+        directionalBalkLikeBlock(blockMeta.get(), model);
+    }
+
+    private void straightBalkStubBlock(@NotNull PlantopiaBlockMeta blockMeta) {
+        String baseName = blockMeta.getName();
+        Block parentBlock = blockMeta.getParent();
+
+        var texture = parentBlock != null ? blockTexture(parentBlock) : texture(baseName);
+        var model = straightBalkStubTemplateModel(baseName, texture);
+
+        directionalBalkLikeBlock(blockMeta.get(), model);
     }
 
     /* CUSTOM MODELS GENERATION ******************************************/
@@ -1370,6 +1405,17 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
         builder.part().modelFile(insideModel).rotationY(270).addModel().condition(BlockStateProperties.WEST, false);
     }
 
+    private void directionalBalkLikeBlock(Block block, BlockModelBuilder model) {
+        getVariantBuilder(block).forAllStatesExcept(state -> {
+            var facing = state.getValue(BlockStateProperties.FACING);
+            return ConfiguredModel.builder()
+                .modelFile(model)
+                .rotationX(facing == Direction.DOWN ? 180 : facing.getAxis().isHorizontal() ? 90 : 0)
+                .rotationY(facing.getAxis().isVertical() ? 0 : (((int) facing.toYRot()) + ANGLE_OFFSET) % 360)
+                .build();
+        }, BlockStateProperties.WATERLOGGED, BlockStateProperties.PERSISTENT);
+    }
+
     /* BLOCK MODELS ******************************************/
 
     @Contract("_ -> new")
@@ -1514,6 +1560,16 @@ public class PlantopiaBlockStateProvider extends BlockStateProvider {
 
     private BlockModelBuilder balkInventoryTemplateModel(String name, ResourceLocation texture) {
         return models().withExistingParent(name, parent("balk_inventory"))
+            .texture("texture", texture);
+    }
+
+    private BlockModelBuilder straightBalkTemplateModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("straight_balk"))
+            .texture("texture", texture);
+    }
+
+    private BlockModelBuilder straightBalkStubTemplateModel(String name, ResourceLocation texture) {
+        return models().withExistingParent(name, parent("straight_balk_stub"))
             .texture("texture", texture);
     }
 

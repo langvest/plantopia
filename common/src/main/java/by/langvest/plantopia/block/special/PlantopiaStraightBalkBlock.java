@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -29,27 +29,23 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
 import static by.langvest.plantopia.block.special.PlantopiaBalkBlock.getSegmentProperty;
+import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.copyWaterloggedFrom;
 import static by.langvest.plantopia.util.helper.PlantopiaFluidHelper.scheduleWaterTickIfNeeded;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaBalkStubBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock, PlantopiaBalkLikeBlock {
-    protected static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 8, 12);
+public class PlantopiaStraightBalkBlock extends Block implements SimpleWaterloggedBlock, PlantopiaStrippableBlock, PlantopiaBalkLikeBlock {
+    protected static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 16, 12);
 
-    protected final Supplier<Block> bulkBlock;
+    protected final Supplier<Block> stubBlock;
 
-    public PlantopiaBalkStubBlock(Properties properties, Supplier<Block> bulkBlock) {
+    public PlantopiaStraightBalkBlock(Properties properties, Supplier<Block> stubBlock) {
         super(properties);
-        this.bulkBlock = bulkBlock;
+        this.stubBlock = stubBlock;
         registerDefaultState(defaultBlockState().setValue(FACING, Direction.UP).setValue(WATERLOGGED, false).setValue(PERSISTENT, false));
     }
 
-    public Block getBulkBlock() {
-        return bulkBlock.get();
-    }
-
-    @Override
-    public @NotNull ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
-        return getBulkBlock().asItem().getDefaultInstance();
+    public Block getStubBlock() {
+        return stubBlock.get();
     }
 
     @Override
@@ -103,6 +99,16 @@ public class PlantopiaBalkStubBlock extends Block implements SimpleWaterloggedBl
     }
 
     @Override
+    public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
+        var level = context.getLevel();
+        var pos = context.getClickedPos();
+        var clickedFace = context.getClickedFace();
+        boolean isSneaking = context.getPlayer() != null && context.getPlayer().isSecondaryUseActive();
+        var newState = isSneaking ? getStubBlock().defaultBlockState() : defaultBlockState();
+        return copyWaterloggedFrom(level, pos, newState.setValue(FACING, clickedFace).setValue(PERSISTENT, true));
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (state.getValue(PERSISTENT)) return true;
@@ -120,7 +126,13 @@ public class PlantopiaBalkStubBlock extends Block implements SimpleWaterloggedBl
 
     @Override
     public @Nullable BlockState getStrippedState(UseOnContext context, BlockState unstrippedState, Block strippedBlock) {
-        return strippedBlock.defaultBlockState()
+        var newState = strippedBlock.defaultBlockState();
+
+        if (strippedBlock instanceof PlantopiaBalkBlock) {
+            newState = PlantopiaBalkBlock.getDirectedStraightState(strippedBlock.defaultBlockState(), unstrippedState.getValue(FACING));
+        }
+
+        return newState
             .setValue(FACING, unstrippedState.getValue(FACING))
             .setValue(WATERLOGGED, unstrippedState.getValue(WATERLOGGED))
             .setValue(PERSISTENT, unstrippedState.getValue(PERSISTENT));

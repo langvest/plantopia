@@ -44,7 +44,7 @@ public final class PlantopiaTreeFeatureUtils {
     public static final TreeDecorator BEEHIVE_DECORATOR_005 = new BeehiveDecorator(CHANCE_005);
     public static final TreeDecorator BEEHIVE_DECORATOR_0002 = new BeehiveDecorator(CHANCE_0002);
 
-    public static final Supplier<TreeDecorator> BIRCH_BASE_LOG_DECORATOR = () -> new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaBlocks.BIRCH_BASE_LOG.get()));
+    public static final Supplier<TreeDecorator> BIRCH_BASE_LOG_DECORATOR = () -> new PlantopiaAlterBaseLogDecorator(simpleProvider(PlantopiaKits.BIRCH.baseLog.get()));
     public static final Supplier<TreeDecorator> BIRCH_CATKIN_DECORATOR_055 = () -> new PlantopiaFruitDecorator(CHANCE_055, CHANCE_025, simpleProvider(PlantopiaBlocks.BIRCH_CATKIN.get()), Direction.DOWN);
     public static final Supplier<TreeDecorator> UPWARD_PINE_CONE_DECORATOR_0015 = () -> new PlantopiaFruitDecorator(1.0F, CHANCE_0015, simpleProvider(PlantopiaPineconeBlock.getStateForDirection(Direction.UP)), Direction.UP);
 

@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/straight_balk",
+    "textures": {
+        "texture": "plantopia:block/birch_base_balk"
+    }
+}

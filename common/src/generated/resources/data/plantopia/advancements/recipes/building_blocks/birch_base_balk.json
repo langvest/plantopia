@@ -1,0 +1,35 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_birch_base_log": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:birch_base_log"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:birch_base_balk"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_birch_base_log"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:birch_base_balk"
+        ]
+    },
+    "sends_telemetry_event": false
+}

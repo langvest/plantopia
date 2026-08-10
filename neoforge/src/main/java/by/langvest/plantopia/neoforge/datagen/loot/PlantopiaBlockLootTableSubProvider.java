@@ -5,6 +5,7 @@ import by.langvest.plantopia.block.*;
 import by.langvest.plantopia.block.special.*;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.item.PlantopiaItems;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -46,9 +47,11 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 
+import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.metaOf;
 import static by.langvest.plantopia.util.helper.PlantopiaResourceHelper.plantopia;
 
 public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
@@ -98,8 +101,10 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         add(PlantopiaBlocks.TOADSTOOL_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.TOADSTOOL.get()));
         add(PlantopiaBlocks.CHANTERELLE_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.CHANTERELLE.get()));
         add(PlantopiaBlocks.PORTOBELLO_BLOCK.get(), block -> createMushroomBlockDrop(block, PlantopiaBlocks.PORTOBELLO.get()));
-        add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_LOG));
-        add(PlantopiaBlocks.BIRCH_BASE_WOOD.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_WOOD));
+        add(PlantopiaKits.BIRCH.baseLog.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_LOG));
+        add(PlantopiaKits.BIRCH.baseWood.get(), block -> createBirchBaseDrops(block, Blocks.BIRCH_WOOD));
+        add(PlantopiaKits.BIRCH.baseBalk.get(), block -> createBirchBaseDrops(block, PlantopiaKits.BIRCH.plant.balk.get()));
+        add(PlantopiaKits.BIRCH.baseStub.get(), block -> createBirchBaseDrops(block, PlantopiaKits.BIRCH.plant.balk.get()));
         add(PlantopiaBlocks.CLOVER.get(), PlantopiaBlockLootTableSubProvider::createCloverDrops);
         add(PlantopiaBlocks.AZOLLA.get(), PlantopiaBlockLootTableSubProvider::createAzollaDrops);
         add(PlantopiaBlocks.COBBLESTONE_SHARD.get(), PlantopiaBlockLootTableSubProvider::createCobblestoneShardDrops);
@@ -349,8 +354,13 @@ public class PlantopiaBlockLootTableSubProvider extends BlockLootSubProvider {
         return createTripleHighPlantTable(block, lootEntry);
     }
 
-    public static LootTable.@NotNull Builder createBirchBaseDrops(Block block, Block simpleBirch) {
-        LootPoolEntryContainer.Builder<?> lootEntry = item(block)
+    public static LootTable.@NotNull Builder createBirchBaseDrops(@NotNull Block block, Block simpleBirch) {
+        ItemLike itemToDrop = metaOf(block)
+            .filter(blockMeta -> !blockMeta.hasItem())
+            .map(PlantopiaBlockMeta::getParent)
+            .orElse(block);
+
+        LootPoolEntryContainer.Builder<?> lootEntry = item(itemToDrop)
             .when(HAS_SILK_TOUCH)
             .otherwise(
                 withSurvivesExplosionCondition(block, item(simpleBirch))

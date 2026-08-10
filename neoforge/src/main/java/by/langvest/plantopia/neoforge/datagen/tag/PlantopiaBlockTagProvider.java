@@ -3,6 +3,7 @@ package by.langvest.plantopia.neoforge.datagen.tag;
 import by.langvest.plantopia.Plantopia;
 import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
+import by.langvest.plantopia.kit.PlantopiaKits;
 import by.langvest.plantopia.meta.PlantopiaMetaBuckets;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
 import by.langvest.plantopia.tag.PlantopiaBlockTags;
@@ -129,8 +130,8 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         SWORD_EFFICIENT.add(PlantopiaBlocks.SEA_MOSS_CARPET.get());
         COMBINATION_STEP_SOUND_BLOCKS.add(PlantopiaBlocks.SEA_MOSS_CARPET.get());
         IGNORED_BY_BEES.add(Blocks.WITHER_ROSE);
-        BIRCH_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get(), PlantopiaBlocks.BIRCH_BASE_WOOD.get());
-        OVERWORLD_NATURAL_LOGS.add(PlantopiaBlocks.BIRCH_BASE_LOG.get());
+        BIRCH_LOGS.add(PlantopiaKits.BIRCH.baseLog.get(), PlantopiaKits.BIRCH.baseWood.get());
+        OVERWORLD_NATURAL_LOGS.add(PlantopiaKits.BIRCH.baseLog.get());
         CONVERTABLE_TO_MUD.add(PlantopiaBlocks.INFESTED_DIRT.get());
         BONEMEAL_SPREAD_ON.add(Blocks.GRASS_BLOCK, PlantopiaBlocks.INFESTED_GRASS_BLOCK.get());
         INFESTED_DIRT_CAN_SPREAD_TO.add(Blocks.DIRT, Blocks.FARMLAND, Blocks.DIRT_PATH);
