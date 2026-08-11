@@ -33,7 +33,7 @@ public class PlantopiaPalmKit extends PlantopiaAbstractTreeKit {
 
         this.worldgen = createWorldgenKit(baseName);
         this.sapling = PlantopiaBlocks.registerBlock(baseName + "_sapling", properties -> new SaplingBlock(worldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING));
-        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", LeavesBlock::new, config.applyMeta(MetaType.LEAVES).foliageTint());
+        this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", LeavesBlock::new, config.applyMeta(MetaType.LEAVES));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
