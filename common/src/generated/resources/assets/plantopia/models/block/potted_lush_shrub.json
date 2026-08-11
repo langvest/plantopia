@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/tinted_flower_pot_cross",
+    "textures": {
+        "plant": "plantopia:block/potted_lush_shrub"
+    }
+}

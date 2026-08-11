@@ -15,23 +15,21 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
 public class PlantopiaShortBushBlock extends BushBlock implements BonemealableBlock {
 	protected static final VoxelShape SHAPE = Block.box(2.0F, 0.0F, 2.0F, 14.0F, 10.0F, 14.0F);
-	protected @Nullable Supplier<BlockState> tallBushStateSupplier;
+	protected Supplier<Block> tallVariant;
 
-	public PlantopiaShortBushBlock(Properties properties) {
+	public PlantopiaShortBushBlock(Properties properties, Supplier<Block> tallVariant) {
 		super(properties);
+		this.tallVariant = tallVariant;
 	}
 
-	public PlantopiaShortBushBlock(Properties properties, @Nullable Supplier<BlockState> tallBushStateSupplier) {
-		super(properties);
-		this.tallBushStateSupplier = tallBushStateSupplier;
+	public Block getTallVariant() {
+		return tallVariant.get();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -41,7 +39,7 @@ public class PlantopiaShortBushBlock extends BushBlock implements BonemealableBl
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		return tallBushStateSupplier != null;
+		return true;
 	}
 
 	@Override
@@ -51,6 +49,6 @@ public class PlantopiaShortBushBlock extends BushBlock implements BonemealableBl
 
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		PlantopiaNaturalBlockFeature.place(level, Objects.requireNonNull(tallBushStateSupplier).get(), pos, random, Block.UPDATE_ALL);
+		PlantopiaNaturalBlockFeature.place(level, getTallVariant().defaultBlockState(), pos, random, Block.UPDATE_ALL);
 	}
 }

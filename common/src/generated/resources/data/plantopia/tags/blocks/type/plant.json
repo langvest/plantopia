@@ -8,6 +8,7 @@
         "#plantopia:type/tree_fruit",
         "#plantopia:type/water_plant",
         "#plantopia:type/woody_plant",
-        "plantopia:hogweed"
+        "plantopia:hogweed",
+        "plantopia:lush_shrub"
     ]
 }

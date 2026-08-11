@@ -8,31 +8,22 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaBushBlock extends BushBlock implements BonemealableBlock {
-	protected static final VoxelShape SHAPE = Block.box(1.0F, 0.0F, 1.0F, 15.0F, 16.0F, 15.0F);
-	protected @Nullable Supplier<BlockState> shortBushStateSupplier;
+public class PlantopiaShrubBlock extends BushBlock implements BonemealableBlock {
+	protected static final VoxelShape SHAPE = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 13.0F, 16.0F);
 
-	public PlantopiaBushBlock(BlockBehaviour.Properties properties) {
+	public PlantopiaShrubBlock(Properties properties) {
 		super(properties);
-	}
-
-	public PlantopiaBushBlock(BlockBehaviour.Properties properties, @Nullable Supplier<BlockState> shortBushStateSupplier) {
-		super(properties);
-		this.shortBushStateSupplier = shortBushStateSupplier;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -42,9 +33,8 @@ public class PlantopiaBushBlock extends BushBlock implements BonemealableBlock {
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		var newState = Optional.ofNullable(shortBushStateSupplier).map(Supplier::get).orElse(null);
-
-		return newState != null && Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> {
+		var newState = defaultBlockState();
+		return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> {
 			var candidatePos = pos.relative(direction);
 			return level.isEmptyBlock(candidatePos) && newState.canSurvive(level, candidatePos);
 		});
@@ -58,7 +48,7 @@ public class PlantopiaBushBlock extends BushBlock implements BonemealableBlock {
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		var directions = Direction.Plane.HORIZONTAL.shuffledCopy(random);
-		var newState = Objects.requireNonNull(shortBushStateSupplier).get();
+		var newState = defaultBlockState();
 
 		for (var direction : directions) {
 			var candidatePos = pos.relative(direction);
