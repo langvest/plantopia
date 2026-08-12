@@ -2,6 +2,7 @@ package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.block.PlantopiaSegmentableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -19,20 +20,26 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.function.Function;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock {
-    protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
-    public static final int MIN_LEAFS = 1;
-    public static final int MAX_LEAFS = 4;
+public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock, PlantopiaSegmentableBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.SEGMENT_AMOUNT;
+    protected final Function<BlockState, VoxelShape> shapes;
 
     public PlantopiaCloverBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AMOUNT, MIN_LEAFS));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AMOUNT, MIN_SEGMENT));
+        this.shapes = makeShapes();
+    }
+
+    @Override
+    public double getShapeHeight() {
+        return 3.0D;
     }
 
     @Override
@@ -50,20 +57,18 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
     @Override
     @SuppressWarnings("deprecation")
     public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-        return !context.isSecondaryUseActive() && context.getItemInHand().is(this.asItem()) && state.getValue(AMOUNT) < MAX_LEAFS || super.canBeReplaced(state, context);
+        return canBeReplaced(state, context, getSegmentAmountProperty()) || super.canBeReplaced(state, context);
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return shapes.apply(state);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = context.getLevel().getBlockState(context.getClickedPos());
-        if (state.is(this)) return state.setValue(AMOUNT, Math.min(MAX_LEAFS, state.getValue(AMOUNT) + 1));
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return getStateForPlacement(context, this, getSegmentAmountProperty(), FACING);
     }
 
     @Override
@@ -83,16 +88,14 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
 
     protected boolean isValidBonemealCandidate(ServerLevel level, BlockPos pos) {
         var state = level.getBlockState(pos);
-
         if (state.is(this)) return true;
-
         return state.isAir() && canSurvive(state, level, pos);
     }
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
         var basePos = new BlockPos(pos);
-        boolean shouldGrowBigClover = state.getValue(AMOUNT) == MAX_LEAFS;
+        boolean shouldGrowBigClover = state.getValue(AMOUNT) == MAX_SEGMENT;
 
         label49:
         for (int i = 0; i < 128; i++) {
@@ -110,7 +113,7 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
 
             var candidateState = level.getBlockState(candidatePos);
 
-            if (candidateState.is(this) && candidateState.getValue(AMOUNT) < MAX_LEAFS && random.nextInt(10) == 0) {
+            if (candidateState.is(this) && candidateState.getValue(AMOUNT) < MAX_SEGMENT && random.nextInt(10) == 0) {
                 var newState = candidateState
                     .setValue(AMOUNT, candidateState.getValue(AMOUNT) + 1);
 
@@ -121,7 +124,7 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
             if (candidateState.isAir()) {
                 var newState = defaultBlockState()
                     .setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random))
-                    .setValue(AMOUNT, MIN_LEAFS);
+                    .setValue(AMOUNT, MIN_SEGMENT);
 
                 level.setBlock(candidatePos, newState, Block.UPDATE_ALL);
             }
@@ -134,5 +137,9 @@ public class PlantopiaCloverBlock extends BushBlock implements BonemealableBlock
 
     protected void growBigClover(ServerLevel level, BlockPos pos) {
         level.setBlock(pos, PlantopiaBlocks.BIG_CLOVER.get().defaultBlockState(), 3);
+    }
+
+    private @NotNull @Unmodifiable Function<BlockState, VoxelShape> makeShapes() {
+        return getShapeForEachState(getShapeCalculator(FACING, AMOUNT))::get;
     }
 }

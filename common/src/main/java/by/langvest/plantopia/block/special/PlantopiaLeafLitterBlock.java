@@ -1,6 +1,7 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlockStateProperties;
+import by.langvest.plantopia.block.PlantopiaSegmentableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -15,27 +16,31 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.function.Function;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaLeafLitterBlock extends BushBlock {
-	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
-	public static final int MIN_LEAFS = 1;
-	public static final int MAX_LEAFS = 4;
+public class PlantopiaLeafLitterBlock extends BushBlock implements PlantopiaSegmentableBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final IntegerProperty AMOUNT = PlantopiaBlockStateProperties.SEGMENT_AMOUNT;
+	protected final Function<BlockState, VoxelShape> shapes;
 
 	public PlantopiaLeafLitterBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AMOUNT, MIN_LEAFS));
+		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AMOUNT, MIN_SEGMENT));
+		this.shapes = makeShapes();
+	}
+
+	private @NotNull @Unmodifiable Function<BlockState, VoxelShape> makeShapes() {
+		return getShapeForEachState(getShapeCalculator(FACING, AMOUNT))::get;
 	}
 
     @Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		var posBelow = pos.below();
 		var stateBelow = level.getBlockState(posBelow);
-
 		return stateBelow.isFaceSturdy(level, posBelow, Direction.UP);
 	}
 
@@ -54,24 +59,18 @@ public class PlantopiaLeafLitterBlock extends BushBlock {
 	@Override
 	@SuppressWarnings("deprecation")
 	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
-		return !context.isSecondaryUseActive() && context.getItemInHand().is(asItem()) && state.getValue(AMOUNT) < MAX_LEAFS || super.canBeReplaced(state, context);
+		return canBeReplaced(state, context, getSegmentAmountProperty()) || super.canBeReplaced(state, context);
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return SHAPE;
+		return shapes.apply(state);
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		var state = context.getLevel().getBlockState(context.getClickedPos());
-
-		if(state.is(this)) {
-			return state.setValue(AMOUNT, Math.min(MAX_LEAFS, state.getValue(AMOUNT) + 1));
-		}
-
-		return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+		return getStateForPlacement(context, this, getSegmentAmountProperty(), FACING);
 	}
 
 	@Override
