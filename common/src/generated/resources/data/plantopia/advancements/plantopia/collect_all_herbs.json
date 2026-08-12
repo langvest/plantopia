@@ -97,6 +97,18 @@
             },
             "trigger": "minecraft:inventory_changed"
         },
+        "plantopia:dead_grass": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:dead_grass"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
         "plantopia:dune_grass": {
             "conditions": {
                 "items": [
@@ -175,6 +187,18 @@
                     {
                         "items": [
                             "plantopia:spiky_grass"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "plantopia:tall_dead_grass": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:tall_dead_grass"
                         ]
                     }
                 ]
@@ -271,6 +295,9 @@
             "plantopia:clover"
         ],
         [
+            "plantopia:dead_grass"
+        ],
+        [
             "plantopia:dune_grass"
         ],
         [
@@ -290,6 +317,9 @@
         ],
         [
             "plantopia:spiky_grass"
+        ],
+        [
+            "plantopia:tall_dead_grass"
         ],
         [
             "plantopia:tall_dune_grass"
