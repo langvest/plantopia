@@ -25,17 +25,17 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
     public final PlantopiaTreeTrunkKit trunk;
     public final PlantopiaTreePlantKit plant;
 
-    public final PlantopiaMapleWorldgenKit yellowWorldgen;
-    public final PlantopiaMapleWorldgenKit orangeWorldgen;
     public final PlantopiaMapleWorldgenKit redWorldgen;
+    public final PlantopiaMapleWorldgenKit orangeWorldgen;
+    public final PlantopiaMapleWorldgenKit yellowWorldgen;
 
-    public final RegistryObject<Block> yellowSapling;
-    public final RegistryObject<Block> orangeSapling;
     public final RegistryObject<Block> redSapling;
+    public final RegistryObject<Block> orangeSapling;
+    public final RegistryObject<Block> yellowSapling;
 
-    public final RegistryObject<Block> yellowLeaves;
-    public final RegistryObject<Block> orangeLeaves;
     public final RegistryObject<Block> redLeaves;
+    public final RegistryObject<Block> orangeLeaves;
+    public final RegistryObject<Block> yellowLeaves;
 
     public PlantopiaMapleKit(
         String baseName,
@@ -43,21 +43,21 @@ public class PlantopiaMapleKit extends PlantopiaAbstractTreeKit {
     ) {
         super(baseName, config);
 
-        var yellowFoliageColor = MapColor.COLOR_YELLOW;
-        var orangeFoliageColor = MapColor.COLOR_ORANGE;
         var redFoliageColor = MapColor.COLOR_RED;
+        var orangeFoliageColor = MapColor.COLOR_ORANGE;
+        var yellowFoliageColor = MapColor.COLOR_YELLOW;
 
-        this.yellowWorldgen = createWorldgenKit("yellow_", baseName);
-        this.yellowSapling = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_sapling", properties -> new SaplingBlock(yellowWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(yellowFoliageColor));
-        this.yellowLeaves = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(yellowFoliageColor));
+        this.redWorldgen = createWorldgenKit("red_", baseName);
+        this.redSapling = PlantopiaBlocks.registerBlock("red_" + baseName + "_sapling", properties -> new SaplingBlock(redWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(redFoliageColor));
+        this.redLeaves = PlantopiaBlocks.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(redFoliageColor));
 
         this.orangeWorldgen = createWorldgenKit("orange_", baseName);
         this.orangeSapling = PlantopiaBlocks.registerBlock("orange_" + baseName + "_sapling", properties -> new SaplingBlock(orangeWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(orangeFoliageColor));
         this.orangeLeaves = PlantopiaBlocks.registerBlock("orange_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.ORANGE_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(orangeFoliageColor));
 
-        this.redWorldgen = createWorldgenKit("red_", baseName);
-        this.redSapling = PlantopiaBlocks.registerBlock("red_" + baseName + "_sapling", properties -> new SaplingBlock(redWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(redFoliageColor));
-        this.redLeaves = PlantopiaBlocks.registerBlock("red_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.RED_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(redFoliageColor));
+        this.yellowWorldgen = createWorldgenKit("yellow_", baseName);
+        this.yellowSapling = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_sapling", properties -> new SaplingBlock(yellowWorldgen.treeGrower, properties), config.applyMeta(MetaType.SAPLING).mapColor(yellowFoliageColor));
+        this.yellowLeaves = PlantopiaBlocks.registerBlock("yellow_" + baseName + "_leaves", properties -> new PlantopiaMapleLeavesBlock(PlantopiaParticleTypes.YELLOW_MAPLE_LEAVES, properties), config.applyMeta(MetaType.LEAVES).mapColor(yellowFoliageColor));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
         this.plant = new PlantopiaTreePlantKit(baseName, trunk.wood, trunk.strippedWood, config);
