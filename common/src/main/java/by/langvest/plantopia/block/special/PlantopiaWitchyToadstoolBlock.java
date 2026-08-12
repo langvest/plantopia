@@ -63,12 +63,10 @@ public class PlantopiaWitchyToadstoolBlock extends PlantopiaToadstoolBlock {
 
         if (level.isClientSide()) return;
         if (level.getDifficulty() == Difficulty.PEACEFUL) return;
-        if (entity instanceof Monster) return;
-        if (entity instanceof Player player && player.isCreative()) return;
 
-        if (entity instanceof LivingEntity livingEntity) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 50));
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 180, 1, true, false, false));
+        if (entity instanceof LivingEntity livingEntity && !(entity instanceof Monster)) {
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 50, 1, true, true));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 180, 1, true, false, true));
         }
     }
 }

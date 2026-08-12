@@ -118,7 +118,6 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
         if (level.getDifficulty() == Difficulty.PEACEFUL) return;
         if (!(entity instanceof LivingEntity livingEntity)) return;
         if (livingEntity.isInvulnerable()) return;
-        if (livingEntity instanceof Player player && player.isCreative()) return;
 
         if (livingEntity instanceof Zombie || livingEntity instanceof ZombieHorse) {
             var random = livingEntity.getRandom();
@@ -129,7 +128,7 @@ public class PlantopiaHogweedBlock extends PlantopiaWideTriplePlantBlock {
         } else {
             if (livingEntity instanceof Enemy) return;
 
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 500));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 500, 1, true, true));
         }
     }
 
