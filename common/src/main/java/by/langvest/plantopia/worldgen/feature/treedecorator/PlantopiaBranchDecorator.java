@@ -161,6 +161,8 @@ public class PlantopiaBranchDecorator extends TreeDecorator {
         var random = context.random();
         var state = provider.getState(random, pos);
 
+        if (state.isAir()) return;
+
         if (state.hasProperty(BlockStateProperties.FACING)) {
             state = state.setValue(BlockStateProperties.FACING, direction);
         } else if (state.hasProperty(BlockStateProperties.AXIS)) {
@@ -171,9 +173,7 @@ public class PlantopiaBranchDecorator extends TreeDecorator {
             state = PlantopiaBalkBlock.getDirectedStraightState(state, direction);
         }
 
-        if (!state.isAir()) {
-            context.setBlock(pos, copyWaterloggedFrom(level, pos, state));
-        }
+        context.setBlock(pos, copyWaterloggedFrom(level, pos, state));
     }
     
     protected List<ResolvedEntry> resolveEntries(RandomSource random, int treeHeight, List<Entry> entries) {

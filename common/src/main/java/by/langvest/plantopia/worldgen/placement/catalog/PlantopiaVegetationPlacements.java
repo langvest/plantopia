@@ -866,6 +866,21 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> PATCH_ALLIUM = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_ALLIUM),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_ALLIUM)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(6.46F),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.ASPEN_CLEARING)
+            )
+    );
+
     ResourceKey<PlacedFeature> PATCH_LUCKY_DAISY = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_LUCKY_DAISY),
         PlantopiaPlacementDeclaration.builder()
