@@ -160,7 +160,6 @@ public class PlantopiaBranchDecorator extends TreeDecorator {
         var level = context.level();
         var random = context.random();
         var state = provider.getState(random, pos);
-
         if (state.isAir()) return;
 
         if (state.hasProperty(BlockStateProperties.FACING)) {

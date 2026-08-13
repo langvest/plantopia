@@ -577,6 +577,18 @@
             },
             "trigger": "minecraft:inventory_changed"
         },
+        "plantopia:violet": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "plantopia:violet"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
         "plantopia:white_clover_blossom": {
             "conditions": {
                 "items": [
@@ -881,6 +893,9 @@
         ],
         [
             "plantopia:snowdrop"
+        ],
+        [
+            "plantopia:violet"
         ],
         [
             "plantopia:white_clover_blossom"
