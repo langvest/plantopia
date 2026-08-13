@@ -866,12 +866,27 @@ public interface PlantopiaVegetationPlacements {
             )
     );
 
+    ResourceKey<PlacedFeature> PATCH_VIOLET = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.PATCH_VIOLET),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.PATCH_VIOLET)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.MAPLE_WOODS)
+            )
+    );
+
     ResourceKey<PlacedFeature> PATCH_ALLIUM = declarePlacement(
         compileNameFrom(PlantopiaFeatures.PATCH_ALLIUM),
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_ALLIUM)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(6.46F),
+                PlantopiaRarityFilter.onAverageOnceEvery(6.42F),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 BiomeFilter.biome()

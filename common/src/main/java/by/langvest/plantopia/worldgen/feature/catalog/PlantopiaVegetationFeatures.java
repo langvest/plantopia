@@ -447,6 +447,17 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> PATCH_VIOLET = declareFeature(
+        patchNameOf(PlantopiaBlocks.VIOLET),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomPatch(context ->
+                new RandomPatchConfiguration(32, 5, 2, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    simpleConfig(PlantopiaBlocks.VIOLET.get())
+                ))
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> FLOWER_LAVENDER_FIELDS = declareFeature(
         compileNameFrom(FLOWER, PlantopiaBiomes.LAVENDER_FIELDS),
         PlantopiaFeatureDeclaration.builder()

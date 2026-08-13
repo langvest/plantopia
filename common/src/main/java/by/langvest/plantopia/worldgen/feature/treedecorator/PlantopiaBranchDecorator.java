@@ -129,6 +129,9 @@ public class PlantopiaBranchDecorator extends TreeDecorator {
             if (branchesPlaced >= maxBranchesPerBlock) break;
             if (random.nextFloat() >= probability) continue;
 
+            mutablePos.setWithOffset(pos, direction.getStepX(), -1, direction.getStepZ());
+            if (!context.isAir(mutablePos)) continue;
+
             mutablePos.setWithOffset(pos, direction);
             if (context.isAir(mutablePos) && !trunkBox.isInside(mutablePos)) {
                 updateLog(context, pos, direction);
