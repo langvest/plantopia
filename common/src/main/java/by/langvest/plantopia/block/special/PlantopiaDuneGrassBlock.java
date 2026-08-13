@@ -1,9 +1,9 @@
 package by.langvest.plantopia.block.special;
 
 import by.langvest.plantopia.block.PlantopiaBlocks;
+import by.langvest.plantopia.tag.PlantopiaBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -35,7 +35,7 @@ public class PlantopiaDuneGrassBlock extends BushBlock implements BonemealableBl
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return super.mayPlaceOn(state, level, pos) || state.is(BlockTags.SAND);
+        return state.is(PlantopiaBlockTags.DUNE_GRASS_MAY_PLACE_ON);
     }
 
     @Override

@@ -103,6 +103,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
     public static final PlantopiaTagSet<Block> SEA_MOSS_REPLACEABLE_BLOCKS = getOrCreateTagSet(PlantopiaBlockTags.SEA_MOSS_REPLACEABLE_BLOCKS);
     public static final PlantopiaTagSet<Block> LEAVES_CAN_SURVIVE_ON = getOrCreateTagSet(PlantopiaBlockTags.LEAVES_CAN_SURVIVE_ON);
     public static final PlantopiaTagSet<Block> COBBLESTONE_SHARDS = getOrCreateTagSet(PlantopiaBlockTags.COBBLESTONE_SHARDS);
+    public static final PlantopiaTagSet<Block> BRANCHING_SHRUB_MAY_PLACE_ON = getOrCreateTagSet(PlantopiaBlockTags.BRANCHING_SHRUB_MAY_PLACE_ON);
+    public static final PlantopiaTagSet<Block> DUNE_GRASS_MAY_PLACE_ON = getOrCreateTagSet(PlantopiaBlockTags.DUNE_GRASS_MAY_PLACE_ON);
+    public static final PlantopiaTagSet<Block> DEAD_GRASS_MAY_PLACE_ON = getOrCreateTagSet(PlantopiaBlockTags.DEAD_GRASS_MAY_PLACE_ON);
 
     private static PlantopiaBlockTagProvider instance;
 
@@ -142,6 +145,9 @@ public class PlantopiaBlockTagProvider extends BlockTagsProvider implements Plan
         COMPLETES_FIND_TREE_TUTORIAL.addTag(PlantopiaBlockTags.BALKS);
         LAVA_POOL_STONE_CANNOT_REPLACE.addTag(PlantopiaBlockTags.BALKS);
         LEAVES_CAN_SURVIVE_ON.addTag(BlockTags.LOGS, PlantopiaBlockTags.BALKS);
+        BRANCHING_SHRUB_MAY_PLACE_ON.addTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON).add(Blocks.CLAY);
+        DEAD_GRASS_MAY_PLACE_ON.addTag(BlockTags.DEAD_BUSH_MAY_PLACE_ON);
+        DUNE_GRASS_MAY_PLACE_ON.addTag(BlockTags.DIRT, BlockTags.SAND);
 
         BREAKS_INTO_WATER_BY_COBBLESTONE_SHARDS
             .add(Blocks.ICE)

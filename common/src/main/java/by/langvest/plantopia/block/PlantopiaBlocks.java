@@ -63,10 +63,11 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> SPIKY_GRASS = registerBlock("spiky_grass", properties -> new PlantopiaShortBushBlock(properties, supposeBlock("tall_spiky_grass")), MetaProperties.of(MetaType.TINY_GRASS).grassTint().customModel());
     public static final RegistryObject<Block> TALL_SPIKY_GRASS = registerBlock("tall_spiky_grass", properties -> new PlantopiaTallBushBlock(properties, SPIKY_GRASS), MetaProperties.of(MetaType.SMALL_GRASS).grassTint().customModel().notPottable());
 
-    public static final RegistryObject<Block> DEAD_GRASS = registerBlock("dead_grass", properties -> new PlantopiaShortBushBlock(properties, supposeBlock("tall_dead_grass")), MetaProperties.of(MetaType.TINY_GRASS).dropSelfByShears());
-    public static final RegistryObject<Block> TALL_DEAD_GRASS = registerBlock("tall_dead_grass", properties -> new PlantopiaTallBushBlock(properties, DEAD_GRASS), MetaProperties.of(MetaType.SMALL_GRASS).dropSelfByShears().notPottable());
+    public static final RegistryObject<Block> DEAD_GRASS = registerBlock("dead_grass", properties -> new PlantopiaShortDeadGrassBlock(properties, supposeBlock("tall_dead_grass")), MetaProperties.of(MetaType.TINY_GRASS).dropSelfByShears());
+    public static final RegistryObject<Block> TALL_DEAD_GRASS = registerBlock("tall_dead_grass", properties -> new PlantopiaTallDeadGrassBlock(properties, DEAD_GRASS), MetaProperties.of(MetaType.SMALL_GRASS).dropSelfByShears().notPottable());
 
     public static final RegistryObject<Block> LUSH_SHRUB = registerBlock("lush_shrub", PlantopiaShrubBlock::new, MetaProperties.of(MetaType.PLANT).grassTint().dropSelfByShears().pottable());
+
     public static final RegistryObject<Block> BRANCHING_SHRUB = registerBlock("branching_shrub", PlantopiaBranchingShrubBlock::new, MetaProperties.of(MetaType.SHRUB).strength(0.8F).sound(SoundType.MANGROVE_ROOTS).hasDynamicShape().customModel().customDrop().pottable());
     public static final RegistryObject<Block> THORNY_SHRUB = registerBlock("thorny_shrub", PlantopiaThornyShrubBlock::new, MetaProperties.of(MetaType.SHRUB).strength(0.2F).sound(SoundType.SWEET_BERRY_BUSH).dropSelfByShears().customModel().mapColor(MapColor.COLOR_GRAY));
 

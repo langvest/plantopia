@@ -26,6 +26,9 @@ public class PlantopiaBlockTags {
     public static final TagKey<Block> SEA_MOSS_REPLACEABLE_BLOCKS = createBlockTag("sea_moss_replaceable_blocks");
     public static final TagKey<Block> BALKS = createBlockTag("balks");
     public static final TagKey<Block> LEAVES_CAN_SURVIVE_ON = createBlockTag("leaves_can_survive_on");
+    public static final TagKey<Block> BRANCHING_SHRUB_MAY_PLACE_ON = createBlockTag("branching_shrub_may_place_on");
+    public static final TagKey<Block> DUNE_GRASS_MAY_PLACE_ON = createBlockTag("dune_grass_may_place_on");
+    public static final TagKey<Block> DEAD_GRASS_MAY_PLACE_ON = createBlockTag("dead_grass_may_place_on");
 
     public static @NotNull TagKey<Block> createBlockTag(String name) {
         return TagKey.create(Registries.BLOCK, plantopia(name));
