@@ -59,7 +59,8 @@ public interface PlantopiaTreeFeatures {
                         weightedListInt(values -> values
                             .add(UniformInt.of(8, 9), 3)
                             .add(UniformInt.of(10, 11), 2)
-                        ) // baseHeight
+                        ), // baseHeight
+                        false // convertDirt
                     ),
                     simpleProvider(
                         PlantopiaBlocks.TOADSTOOL_BLOCK.get().defaultBlockState()
@@ -90,7 +91,8 @@ public interface PlantopiaTreeFeatures {
                             .setValue(HugeMushroomBlock.DOWN, false)
                     ), // logBlock
                     new PlantopiaStraightTrunkPlacer(
-                        UniformInt.of(5, 6) // baseHeight
+                        UniformInt.of(5, 6), // baseHeight
+                        false // convertDirt
                     ),
                     simpleProvider(
                         PlantopiaBlocks.WITCHY_TOADSTOOL_BLOCK.get().defaultBlockState()
@@ -117,7 +119,8 @@ public interface PlantopiaTreeFeatures {
                 new TreeConfiguration.TreeConfigurationBuilder(
                     simpleProvider(PlantopiaBlocks.CHANTERELLE_BLOCK.get()), // logBlock
                     new PlantopiaStraightTrunkPlacer(
-                        UniformInt.of(3, 4) // baseHeight
+                        UniformInt.of(3, 4), // baseHeight
+                        false // convertDirt
                     ),
                     simpleProvider(PlantopiaBlocks.CHANTERELLE_BLOCK.get()), // leavesBlock
                     new PlantopiaChanterelleFoliagePlacer(
@@ -145,7 +148,8 @@ public interface PlantopiaTreeFeatures {
                             .setValue(HugeMushroomBlock.DOWN, false)
                     ), // logBlock
                     new PlantopiaStraightTrunkPlacer(
-                        UniformInt.of(5, 6) // baseHeight
+                        UniformInt.of(5, 6), // baseHeight
+                        false // convertDirt
                     ),
                     simpleProvider(
                         PlantopiaBlocks.PORTOBELLO_BLOCK.get().defaultBlockState()

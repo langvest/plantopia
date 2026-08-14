@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class PlantopiaHogweedUtils {
+public final class PlantopiaHogweedUtils {
     public static final IntegerProperty AGE = PlantopiaBlockStateProperties.INFESTED_AGE;
     public static final int MAX_AGE = AGE.max;
     public static final int MIN_AGE = AGE.min;

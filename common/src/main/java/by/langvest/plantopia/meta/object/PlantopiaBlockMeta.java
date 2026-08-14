@@ -629,6 +629,7 @@ public class PlantopiaBlockMeta extends SimpleMetaObject<Block> {
         public static final MetaType ICICLE = MetaProperties.of(ICE)
             .notValidSpawn()
             .cutoutRender()
+            .mapColor(MapColor.ICE)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY)
             .makeType("icicle");

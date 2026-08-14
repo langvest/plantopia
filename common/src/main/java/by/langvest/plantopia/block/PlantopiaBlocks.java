@@ -17,6 +17,8 @@ import by.langvest.plantopia.meta.property.PlantopiaTintType;
 import by.langvest.toolkit.registry.SupposedRegistryObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
@@ -165,11 +167,11 @@ public class PlantopiaBlocks {
     public static final RegistryObject<Block> WITCHY_TOADSTOOL_BLOCK = registerBlock("witchy_toadstool_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.COLOR_PURPLE).customDrop());
     public static final RegistryObject<Block> WITCHY_TOADSTOOL = registerBlock("witchy_toadstool", properties -> new PlantopiaWitchyToadstoolBlock(properties, PlantopiaTreeFeatures.HUGE_WITCHY_TOADSTOOL), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.COLOR_PURPLE).lightLevel(1));
 
-    public static final RegistryObject<Block> CHANTERELLE_BLOCK = registerBlock("chanterelle_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.COLOR_YELLOW).customDrop().customModel());
-    public static final RegistryObject<Block> CHANTERELLE = registerBlock("chanterelle", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_CHANTERELLE), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.COLOR_YELLOW));
+    public static final RegistryObject<Block> CHANTERELLE_BLOCK = registerBlock("chanterelle_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_YELLOW).customDrop().customModel());
+    public static final RegistryObject<Block> CHANTERELLE = registerBlock("chanterelle", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_CHANTERELLE), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_YELLOW));
 
-    public static final RegistryObject<Block> PORTOBELLO_BLOCK = registerBlock("portobello_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.TERRACOTTA_WHITE).customDrop());
-    public static final RegistryObject<Block> PORTOBELLO = registerBlock("portobello", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_PORTOBELLO), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.TERRACOTTA_WHITE));
+    public static final RegistryObject<Block> PORTOBELLO_BLOCK = registerBlock("portobello_block", HugeMushroomBlock::new, MetaProperties.of(MetaType.MUSHROOM_BLOCK).mapColor(MapColor.QUARTZ).customDrop());
+    public static final RegistryObject<Block> PORTOBELLO = registerBlock("portobello", properties -> new MushroomBlock(properties, PlantopiaTreeFeatures.HUGE_PORTOBELLO), MetaProperties.of(MetaType.MUSHROOM).mapColor(MapColor.QUARTZ));
 
     public static final RegistryObject<Block> ICICLE = registerBlock("icicle", PlantopiaIcicleBlock::new, MetaProperties.of(MetaType.ICICLE).hasDynamicShape().randomlyTicking().customModel());
     public static final RegistryObject<Block> ICE_CRUST = registerBlock("ice_crust", PlantopiaIceCrustBlock::new, MetaProperties.of(MetaType.ICE_CRUST).hasDynamicShape().randomlyTicking().customModel().customItem());

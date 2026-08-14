@@ -72,7 +72,8 @@
                     }
                 ]
             },
-            "bonus_height": 0
+            "bonus_height": 0,
+            "convert_dirt": false
         },
         "trunk_provider": {
             "type": "minecraft:simple_state_provider",

@@ -181,7 +181,8 @@ public final class PlantopiaTreeFeatureUtils {
                     .add(UniformInt.of(7, 8), 3)
                     .add(UniformInt.of(9, 10), 2)
                 ), // baseHeight
-                UniformInt.of(0, 2) // bonusHeight
+                UniformInt.of(0, 2), // bonusHeight
+                false // convertDirt
             ),
             simpleProvider(leavesBlock), // leavesBlock
             new PlantopiaCypressFoliagePlacer(
