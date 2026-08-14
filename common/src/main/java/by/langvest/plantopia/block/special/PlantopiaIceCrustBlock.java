@@ -174,21 +174,28 @@ public class PlantopiaIceCrustBlock extends MultifaceBlock implements PlantopiaN
     }
 
     @Nullable
+    protected BlockState accumulateStateForPlacement(BlockPlaceContext context) {
+        var level = context.getLevel();
+        var clickedPos = context.getClickedPos();
+        var currentState = level.getBlockState(clickedPos);
+        var primaryDirection = context.getClickedFace().getOpposite();
+
+        if (!(currentState.is(this) && hasFace(currentState, primaryDirection))) {
+            return getStateForPlacement(currentState, level, clickedPos, primaryDirection);
+        }
+
+        return super.getStateForPlacement(context);
+    }
+
+    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         var level = context.getLevel();
         var clickedPos = context.getClickedPos();
-        var fluidState = level.getFluidState(clickedPos);
+        if (level.getFluidState(clickedPos).isSource()) return null;
 
-        if (fluidState.isSource()) {
-            return null;
-        }
-
-        var newState = super.getStateForPlacement(context);
-
-        if (newState == null) {
-            return null;
-        }
+        var newState = accumulateStateForPlacement(context);
+        if (newState == null) return null;
 
         boolean isFloating = hasFace(newState, Direction.DOWN) && isWaterSource(level, clickedPos.below());
         return newState.setValue(FLOATING, isFloating);

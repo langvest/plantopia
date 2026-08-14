@@ -1,5 +1,6 @@
 package by.langvest.plantopia.item.special;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -29,20 +31,20 @@ public class PlantopiaIceCrustBlockItem extends BlockItem {
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel();
-        var replaceContext = new BlockPlaceContext(context);
+        var placeContext = new BlockPlaceContext(context);
 
         BlockState stateToInspect = null;
 
         var targetPos = context.getClickedPos();
         var targetState = level.getBlockState(targetPos);
 
-        if (canPlaceInto(targetState, replaceContext)) {
+        if (canPlaceInto(targetState, placeContext)) {
             stateToInspect = targetState;
         } else {
             var attachedPos = targetPos.relative(context.getClickedFace());
             var attachedState = level.getBlockState(attachedPos);
 
-            if (canPlaceInto(attachedState, replaceContext)) {
+            if (canPlaceInto(attachedState, placeContext)) {
                 stateToInspect = attachedState;
             }
         }
@@ -65,8 +67,20 @@ public class PlantopiaIceCrustBlockItem extends BlockItem {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var blockHitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
-        var blockHitResultAbove = blockHitResult.withPosition(blockHitResult.getBlockPos().above());
-        var interactionResult = super.useOn(new UseOnContext(player, hand, blockHitResultAbove));
+
+        var clickedPos = blockHitResult.getBlockPos();
+        if (!level.isFluidAtPosition(clickedPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER))) {
+            return InteractionResultHolder.pass(player.getItemInHand(hand));
+        }
+
+        var newBlockHitResult = new BlockHitResult(
+            blockHitResult.getLocation(),
+            Direction.UP,
+            clickedPos.above(),
+            blockHitResult.isInside()
+        );
+
+        var interactionResult = super.useOn(new UseOnContext(player, hand, newBlockHitResult));
         return new InteractionResultHolder<>(interactionResult, player.getItemInHand(hand));
     }
 }

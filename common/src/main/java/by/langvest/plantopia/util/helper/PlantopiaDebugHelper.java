@@ -3,6 +3,7 @@ package by.langvest.plantopia.util.helper;
 import by.langvest.plantopia.Plantopia;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -53,9 +54,9 @@ public final class PlantopiaDebugHelper {
         }
     }
 
-    public static void spawnParticles(LevelAccessor level, BlockPos pos) {
+    public static void spawnParticles(LevelAccessor level, BlockPos pos, ParticleOptions options) {
         level.addParticle(
-            ParticleTypes.HAPPY_VILLAGER,
+            options,
             pos.getX() + 0.5D,
             pos.getY() + 0.5D,
             pos.getZ() + 0.5D,
@@ -63,6 +64,10 @@ public final class PlantopiaDebugHelper {
             0,
             0
         );
+    }
+
+    public static void spawnParticles(LevelAccessor level, BlockPos pos) {
+        spawnParticles(level, pos, ParticleTypes.HAPPY_VILLAGER);
     }
 
     public static void logInWorld(Level level, BlockPos pos, String message) {
