@@ -417,7 +417,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.SNOWDROP),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(86, 6, 3, PlacementUtils.filtered(
+                new RandomPatchConfiguration(86, 7, 3, PlacementUtils.filtered(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.SNOWDROP.get()),
                     BlockPredicate.matchesBlocks(Blocks.AIR, Blocks.GRASS)
@@ -429,7 +429,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.ORANGE_WILDFLOWERS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(32, 5, 2, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(48, 6, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.ORANGE_WILDFLOWERS.get())
                 ))
@@ -440,7 +440,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.WHITE_WILDFLOWERS),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(32, 5, 2, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.WHITE_WILDFLOWERS.get())
                 ))
@@ -451,7 +451,7 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(PlantopiaBlocks.VIOLET),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                new RandomPatchConfiguration(32, 5, 2, PlacementUtils.onlyWhenEmpty(
+                new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(PlantopiaBlocks.VIOLET.get())
                 ))
@@ -553,10 +553,10 @@ public interface PlantopiaVegetationFeatures {
         patchNameOf(Blocks.ALLIUM),
         PlantopiaFeatureDeclaration.builder()
             .feature(randomPatch(context ->
-                FeatureUtils.simplePatchConfiguration(
+                new RandomPatchConfiguration(96, 7, 3, PlacementUtils.onlyWhenEmpty(
                     PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
                     simpleConfig(Blocks.ALLIUM)
-                )
+                ))
             ))
     );
 

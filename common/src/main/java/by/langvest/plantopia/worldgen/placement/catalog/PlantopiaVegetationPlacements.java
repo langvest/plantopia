@@ -871,7 +871,7 @@ public interface PlantopiaVegetationPlacements {
         PlantopiaPlacementDeclaration.builder()
             .feature(PlantopiaFeatures.PATCH_VIOLET)
             .modifiers(context -> List.of(
-                PlantopiaRarityFilter.onAverageOnceEvery(8.24F),
+                PlantopiaRarityFilter.onAverageOnceEvery(8),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
                 BiomeFilter.biome()
