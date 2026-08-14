@@ -181,7 +181,8 @@ public class PlantopiaIceCrustBlock extends MultifaceBlock implements PlantopiaN
         var primaryDirection = context.getClickedFace().getOpposite();
 
         if (!(currentState.is(this) && hasFace(currentState, primaryDirection))) {
-            return getStateForPlacement(currentState, level, clickedPos, primaryDirection);
+            var newState = getStateForPlacement(currentState, level, clickedPos, primaryDirection);
+            if (newState != null) return newState;
         }
 
         return super.getStateForPlacement(context);
