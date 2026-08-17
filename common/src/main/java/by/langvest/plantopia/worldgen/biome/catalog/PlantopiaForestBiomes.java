@@ -332,7 +332,7 @@ public interface PlantopiaForestBiomes {
             .hasPrecipitation(true)
             .temperature(0.5F)
             .downfall(0.8F)
-            .grassColorOverride("#6da262")
+            .grassColorOverride("#6d9e64")
             .foliageColorOverride("#5a9340")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
