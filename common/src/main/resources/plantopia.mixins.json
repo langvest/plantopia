@@ -54,6 +54,7 @@
         "client.gui.PlantopiaGuiMixin",
         "client.particle.special.PlantopiaTerrainParticleMixin",
         "client.render.PlantopiaFogRendererMixin",
+        "client.render.PlantopiaRenderChunkRegionMixin",
         "client.render.block.PlantopiaLiquidBlockRendererMixin",
         "client.render.entity.PlantopiaAbstractZombieRendererMixin",
         "client.render.item.PlantopiaItemRendererMixin"

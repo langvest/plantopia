@@ -1,0 +1,6 @@
+{
+    "type": "neoforge:add_features",
+    "biomes": "#plantopia:has_feature/flower_pale_grove",
+    "features": "plantopia:flower_pale_grove",
+    "step": "vegetal_decoration"
+}

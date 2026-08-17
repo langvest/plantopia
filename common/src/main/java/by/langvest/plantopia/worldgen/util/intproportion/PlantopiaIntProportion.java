@@ -4,6 +4,7 @@ import by.langvest.plantopia.registry.PlantopiaRegistries;
 import by.langvest.plantopia.worldgen.util.PlantopiaIntProportionType;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -29,6 +30,10 @@ public abstract class PlantopiaIntProportion {
     @Contract(value = "_ -> new", pure = true)
     public static @NotNull PlantopiaRelativeIntProportion relative(FloatProvider ratio) {
         return new PlantopiaRelativeIntProportion(ratio, Optional.empty(), Optional.empty());
+    }
+
+    public static @NotNull PlantopiaRelativeIntProportion relative(float ratio, int min) {
+        return new PlantopiaRelativeIntProportion(ConstantFloat.of(ratio), Optional.of(ConstantInt.of(min)), Optional.empty());
     }
 
     public static @NotNull PlantopiaRelativeIntProportion relative(FloatProvider ratio, IntProvider min) {

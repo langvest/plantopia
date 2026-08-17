@@ -405,4 +405,15 @@ public interface PlantopiaTreeFeatures {
                     .build()
             ))
     );
+
+    ResourceKey<ConfiguredFeature<?, ?>> THIN_BIRCH = declareFeature(
+        "thin_birch",
+        PlantopiaFeatureDeclaration.builder()
+            .feature(deciduousTree(context ->
+                createThinBirchTree(PlantopiaKits.BIRCH.plant.balk.get(), Blocks.BIRCH_LEAVES)
+                    .ignoreVines()
+                    .decorators(List.of(BIRCH_BASE_BALK_DECORATOR.get(), THIN_BIRCH_BRANCH_DECORATOR_0075.get()))
+                    .build()
+            ))
+    );
 }

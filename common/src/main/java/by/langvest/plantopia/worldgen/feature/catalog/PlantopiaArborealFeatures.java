@@ -326,4 +326,20 @@ public interface PlantopiaArborealFeatures {
                 );
             }))
     );
+
+    ResourceKey<ConfiguredFeature<?, ?>> TREES_PALE_GROVE = declareFeature(
+        compileNameFrom(TREES, PlantopiaBiomes.PALE_GROVE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(randomSelector(context -> {
+                var placements = lookupPlacements(context);
+
+                return new RandomFeatureConfiguration(
+                    List.of(
+                        new WeightedPlacedFeature(placements.getOrThrow(PlantopiaPlacements.THIN_BIRCH_CHECKED), 0.4F),
+                        new WeightedPlacedFeature(placements.getOrThrow(TreePlacements.BIRCH_CHECKED), 0.2F)
+                    ),
+                    placements.getOrThrow(TreePlacements.SUPER_BIRCH_BEES_0002)
+                );
+            }))
+    );
 }

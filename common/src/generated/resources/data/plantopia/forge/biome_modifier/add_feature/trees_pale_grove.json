@@ -1,0 +1,6 @@
+{
+    "type": "forge:add_features",
+    "biomes": "#plantopia:has_feature/trees_pale_grove",
+    "features": "plantopia:trees_pale_grove",
+    "step": "vegetal_decoration"
+}

@@ -191,4 +191,12 @@ public interface PlantopiaArborealPlacements {
                 .add(PlantopiaBiomes.FEN)
             )
     );
+
+    ResourceKey<PlacedFeature> TREES_PALE_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.TREES_PALE_GROVE),
+        treesDeclaration(PlantopiaFeatures.TREES_PALE_GROVE, PlacementUtils.countExtra(14, 0.1F, 1))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.PALE_GROVE)
+            )
+    );
 }

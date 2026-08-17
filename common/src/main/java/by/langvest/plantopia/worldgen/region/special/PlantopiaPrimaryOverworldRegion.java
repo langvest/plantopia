@@ -147,7 +147,7 @@ public class PlantopiaPrimaryOverworldRegion extends PlantopiaRegion {
     protected final ResourceKey<Biome>[][] PLANTOPIA_PLATEAU_ALTERNATE_BIOMES = new ResourceKey[][]{
         { null, null, null, null, null },
         { null, null, PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.BLOOMING_GLADE, null },
-        { null, null, null, null, null },
+        { null, null, null, null, PlantopiaBiomes.PALE_GROVE },
         { null, null, null, null, null },
         { null, null, null, null, null }
     };

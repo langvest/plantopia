@@ -34,6 +34,7 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
     public static final PlantopiaTagSet<Biome> ALLOWS_FRAZIL = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_FRAZIL);
     public static final PlantopiaTagSet<Biome> ALLOWS_STONY_CLIFF = getOrCreateTagSet(PlantopiaBiomeTags.ALLOWS_STONY_CLIFF);
     public static final PlantopiaTagSet<Biome> IS_MARSH = getOrCreateTagSet(PlantopiaBiomeTags.IS_MARSH);
+    public static final PlantopiaTagSet<Biome> IS_PALE = getOrCreateTagSet(PlantopiaBiomeTags.IS_PALE);
     public static final PlantopiaTagSet<Biome> IS_QUICKSAND_PRECIPITABLE = getOrCreateTagSet(PlantopiaBiomeTags.IS_QUICKSAND_PRECIPITABLE);
 
     public PlantopiaBiomeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup, ExistingFileHelper existingFileHelper) {
@@ -55,7 +56,8 @@ public class PlantopiaBiomeTagProvider extends BiomeTagsProvider implements Plan
             .add(PlantopiaBiomes.ASPEN_CLEARING, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
             .add(PlantopiaBiomes.MAPLE_WOODS)
             .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE);
-        IS_MARSH.add(PlantopiaOverworldBiomes.MARSH, PlantopiaOverworldBiomes.DEAD_MARSH);
+        IS_MARSH.add(PlantopiaBiomes.MARSH, PlantopiaBiomes.DEAD_MARSH);
+        IS_PALE.add(PlantopiaBiomes.PALE_GROVE);
         IS_QUICKSAND_PRECIPITABLE.add(Biomes.DESERT);
         SPAWNS_SNOW_FOXES.add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING);
 

@@ -12,6 +12,7 @@ public class PlantopiaBiomeTags {
     public static final TagKey<Biome> ALLOWS_FRAZIL = createBiomeTag("allows_frazil");
     public static final TagKey<Biome> ALLOWS_STONY_CLIFF = createBiomeTag("allows_stony_cliff");
     public static final TagKey<Biome> IS_MARSH = createBiomeTag("is_marsh");
+    public static final TagKey<Biome> IS_PALE = createBiomeTag("is_pale");
     public static final TagKey<Biome> IS_QUICKSAND_PRECIPITABLE = createBiomeTag("is_quicksand_precipitable");
 
     public static @NotNull TagKey<Biome> createBiomeTag(String name) {

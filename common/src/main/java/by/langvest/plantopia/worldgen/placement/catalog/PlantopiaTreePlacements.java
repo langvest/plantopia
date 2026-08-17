@@ -110,4 +110,9 @@ public interface PlantopiaTreePlacements {
         compileNameFrom(PlantopiaFeatures.BIRCH_BEES_0002_CATKIN_055),
         checkedTreeDeclaration(PlantopiaFeatures.BIRCH_BEES_0002_CATKIN_055, Blocks.BIRCH_SAPLING)
     );
+
+    ResourceKey<PlacedFeature> THIN_BIRCH_CHECKED = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.THIN_BIRCH, CHECKED),
+        checkedTreeDeclaration(PlantopiaFeatures.THIN_BIRCH, Blocks.BIRCH_SAPLING)
+    );
 }

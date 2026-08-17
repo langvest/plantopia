@@ -483,6 +483,20 @@ public interface PlantopiaVegetationFeatures {
             ))
     );
 
+    ResourceKey<ConfiguredFeature<?, ?>> FLOWER_PALE_GROVE = declareFeature(
+        compileNameFrom(FLOWER, PlantopiaBiomes.PALE_GROVE),
+        PlantopiaFeatureDeclaration.builder()
+            .feature(flower(context ->
+                new RandomPatchConfiguration(72, 7, 3, PlacementUtils.onlyWhenEmpty(
+                    PlantopiaFeatureTypes.NATURAL_BLOCK.get(),
+                    weightedConfig(states -> states
+                        .add(Blocks.POPPY.defaultBlockState(), 6)
+                        .add(PlantopiaBlocks.RED_WILDFLOWERS.get().defaultBlockState(), 4)
+                    )
+                ))
+            ))
+    );
+
     ResourceKey<ConfiguredFeature<?, ?>> FLOWER_BLOOMING_GLADE = declareFeature(
         compileNameFrom(FLOWER, PlantopiaBiomes.BLOOMING_GLADE),
         PlantopiaFeatureDeclaration.builder()

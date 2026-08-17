@@ -244,6 +244,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
                 .add(PlantopiaBiomes.FEN)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 
@@ -512,6 +513,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.SEASONAL_DARK_FOREST, PlantopiaBiomes.SEASONAL_FOREST)
                 .add(PlantopiaBiomes.OAK_FOREST)
                 .add(PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 
@@ -555,6 +557,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 
@@ -723,6 +726,21 @@ public interface PlantopiaVegetationPlacements {
             ))
             .biomes(biomes -> biomes
                 .add(PlantopiaBiomes.BLOOMING_GLADE)
+            )
+    );
+
+    ResourceKey<PlacedFeature> FLOWER_PALE_GROVE = declarePlacement(
+        compileNameFrom(PlantopiaFeatures.FLOWER_PALE_GROVE),
+        PlantopiaPlacementDeclaration.builder()
+            .feature(PlantopiaFeatures.FLOWER_PALE_GROVE)
+            .modifiers(context -> List.of(
+                PlantopiaRarityFilter.onAverageOnceEvery(8),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome()
+            ))
+            .biomes(biomes -> biomes
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 
@@ -1027,6 +1045,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(PlantopiaBiomes.ASPEN_GROVE, PlantopiaBiomes.ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 
@@ -1039,6 +1058,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 
@@ -1051,6 +1071,7 @@ public interface PlantopiaVegetationPlacements {
                 .add(Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.WINDSWEPT_FOREST)
                 .add(PlantopiaBiomes.BOREAL_FOREST, PlantopiaBiomes.MAPLE_WOODS)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 

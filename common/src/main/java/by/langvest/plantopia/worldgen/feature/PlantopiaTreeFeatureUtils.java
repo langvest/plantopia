@@ -60,12 +60,28 @@ public final class PlantopiaTreeFeatureUtils {
         .add(PlantopiaIntProportion.fixed(4), simpleProvider(PlantopiaKits.BIRCH.plant.stub.get()))
         .build();
 
+    public static final Supplier<TreeDecorator> SUPER_BIRCH_BRANCH_DECORATOR_0075 = () -> PlantopiaBranchDecorator.builder(CHANCE_0075, 1)
+        .add(PlantopiaIntProportion.relative(0.6F, 5), weightedProvider(states -> states
+            .add(PlantopiaKits.BIRCH.plant.balk.get().defaultBlockState(), 3)
+            .add(PlantopiaKits.BIRCH.plant.stub.get().defaultBlockState(), 1)
+        ))
+        .add(PlantopiaIntProportion.relative(0.45F, 4), simpleProvider(PlantopiaKits.BIRCH.plant.stub.get()))
+        .build();
+
     public static final Supplier<TreeDecorator> THIN_BIRCH_BRANCH_DECORATOR_01 = () -> PlantopiaBranchDecorator.builder(CHANCE_01, 1)
         .add(PlantopiaIntProportion.fixed(5), weightedProvider(states -> states
             .add(PlantopiaKits.BIRCH.plant.stub.get().defaultBlockState(), 3)
             .add(Blocks.AIR.defaultBlockState(), 2)
         ))
         .add(PlantopiaIntProportion.fixed(4), simpleProvider(Blocks.AIR))
+        .build();
+
+    public static final Supplier<TreeDecorator> THIN_BIRCH_BRANCH_DECORATOR_0075 = () -> PlantopiaBranchDecorator.builder(CHANCE_0075, 1)
+        .add(PlantopiaIntProportion.relative(0.6F, 5), weightedProvider(states -> states
+            .add(PlantopiaKits.BIRCH.plant.stub.get().defaultBlockState(), 3)
+            .add(Blocks.AIR.defaultBlockState(), 1)
+        ))
+        .add(PlantopiaIntProportion.relative(0.45F, 4), simpleProvider(Blocks.AIR))
         .build();
 
     public static final Supplier<TreeDecorator> DARK_OAK_BRANCH_DECORATOR_008 = () -> PlantopiaBranchDecorator.builder(CHANCE_008, 2)
@@ -203,6 +219,31 @@ public final class PlantopiaTreeFeatureUtils {
         );
     }
 
+    @Contract("_, _ -> new")
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createThinBirchTree(@NotNull Block balkBlock, Block leavesBlock) {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+            simpleProvider(PlantopiaBalkBlock.getDirectedStraightState(
+                balkBlock.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true),
+                Direction.UP
+            )), // logBlock
+            new PlantopiaStraightTrunkPlacer(
+                weightedListInt(values -> values
+                    .add(UniformInt.of(7, 8), 3)
+                    .add(UniformInt.of(9, 10), 2)
+                ), // baseHeight
+                UniformInt.of(0, 2), // bonusHeight
+                false // convertDirt
+            ),
+            simpleProvider(leavesBlock), // leavesBlock
+            new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
+            new TwoLayersFeatureSize(
+                4, // startHeight
+                0, // lowerRadius
+                1 // upperRadius
+            )
+        );
+    }
+
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createCypressTree(Block logBlock, Block leavesBlock) {
         return new TreeConfiguration.TreeConfigurationBuilder(
             simpleProvider(logBlock), // logBlock
@@ -278,6 +319,10 @@ public final class PlantopiaTreeFeatureUtils {
 
     public static TreeConfiguration.@NotNull TreeConfigurationBuilder createBirchTree(Block logBlock, Block leavesBlock) {
         return createStraightBlobTree(logBlock, leavesBlock, 5, 2, 0, ConstantInt.of(2));
+    }
+
+    public static TreeConfiguration.@NotNull TreeConfigurationBuilder createSuperBirchTree(Block logBlock, Block leavesBlock) {
+        return createStraightBlobTree(logBlock, leavesBlock, 6, 2, 5, ConstantInt.of(2));
     }
 
     @Contract("_, _, _, _, _, _ -> new")

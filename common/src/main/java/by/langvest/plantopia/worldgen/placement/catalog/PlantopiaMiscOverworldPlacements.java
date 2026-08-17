@@ -172,6 +172,7 @@ public interface PlantopiaMiscOverworldPlacements {
                 .add(PlantopiaBiomes.SNOWY_ASPEN_GROVE, PlantopiaBiomes.SNOWY_ASPEN_CLEARING)
                 .add(PlantopiaBiomes.OAK_FOREST, PlantopiaBiomes.OLD_GROWTH_OAK_FOREST)
                 .add(PlantopiaBiomes.BLOOMING_GLADE, PlantopiaBiomes.TEMPERATE_GLADE)
+                .add(PlantopiaBiomes.PALE_GROVE)
             )
     );
 

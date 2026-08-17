@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import static by.langvest.plantopia.client.color.PlantopiaColors.PALE_FOLIAGE_COLOR;
 import static by.langvest.plantopia.worldgen.biome.PlantopiaBiomeUtils.createKey;
 
 /**
@@ -333,6 +334,30 @@ public interface PlantopiaForestBiomes {
             .downfall(0.8F)
             .grassColorOverride("#6da262")
             .foliageColorOverride("#5a9340")
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+    );
+
+    ResourceKey<Biome> PALE_GROVE = declareBiome(
+        "pale_grove",
+        PlantopiaBiomeDeclaration.builder()
+            .applySpawn(BiomeDefaultFeatures::commonSpawns)
+            .applyGeneration(PlantopiaOverworldBiomes::globalOverworldGeneration)
+            .applyGeneration(BiomeDefaultFeatures::addPlainGrass)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultOres)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultSoftDisks)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultFlowers)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST)
+            .applyGeneration(BiomeDefaultFeatures::addDefaultMushrooms)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE)
+            .hasPrecipitation(true)
+            .temperature(0.5F)
+            .downfall(0.8F)
+            .skyColor("#B9B9B9")
+            .fogColor("#817770")
+            .grassColorOverride("#7a8675")
+            .foliageColorOverride(PALE_FOLIAGE_COLOR)
+            .waterColor("#76889D")
+            .waterFogColor("#556980")
             .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
     );
 
