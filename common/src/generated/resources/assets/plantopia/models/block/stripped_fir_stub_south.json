@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_stub_south",
+    "textures": {
+        "texture": "plantopia:block/stripped_fir_balk"
+    }
+}

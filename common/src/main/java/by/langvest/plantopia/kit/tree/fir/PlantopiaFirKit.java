@@ -4,6 +4,7 @@ import by.langvest.plantopia.block.PlantopiaBlocks;
 import by.langvest.plantopia.event.PlantopiaDatagenBridgeEvent;
 import by.langvest.plantopia.kit.config.PlantopiaTreeKitConfiguration;
 import by.langvest.plantopia.kit.special.PlantopiaAbstractTreeKit;
+import by.langvest.plantopia.kit.special.PlantopiaTreePlantKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeTrunkKit;
 import by.langvest.plantopia.kit.special.PlantopiaTreeStuffKit;
 import by.langvest.plantopia.meta.object.PlantopiaBlockMeta.MetaType;
@@ -19,6 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class PlantopiaFirKit extends PlantopiaAbstractTreeKit {
     public final PlantopiaTreeStuffKit stuff;
     public final PlantopiaTreeTrunkKit trunk;
+    public final PlantopiaTreePlantKit plant;
 
     public final PlantopiaFirWorldgenKit worldgen;
 
@@ -36,6 +38,7 @@ public class PlantopiaFirKit extends PlantopiaAbstractTreeKit {
         this.leaves = PlantopiaBlocks.registerBlock(baseName + "_leaves", LeavesBlock::new, config.applyMeta(MetaType.LEAVES));
 
         this.trunk = new PlantopiaTreeTrunkKit(baseName, config);
+        this.plant = new PlantopiaTreePlantKit(baseName, trunk.wood, trunk.strippedWood, config);
         this.stuff = new PlantopiaTreeStuffKit(baseName, woodType, config);
     }
 
@@ -57,6 +60,9 @@ public class PlantopiaFirKit extends PlantopiaAbstractTreeKit {
         super.addRecipes(bridge);
 
         bridge.planksFromLogs(stuff.planks.get(), trunk.logsItemTag);
+        bridge.planksFromBalks(stuff.planks.get(), plant.balksItemTag);
         bridge.hangingSign(stuff.hangingSign.get(), trunk.strippedLog.get());
+        bridge.balksFromLogs(plant.balk.get(), trunk.log.get());
+        bridge.balksFromLogs(plant.strippedBalk.get(), trunk.strippedLog.get());
     }
 }

@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "balk",
+    "key": {
+        "#": {
+            "item": "plantopia:stripped_fir_log"
+        }
+    },
+    "pattern": [
+        "#",
+        "#"
+    ],
+    "result": {
+        "count": 6,
+        "item": "plantopia:stripped_fir_balk"
+    },
+    "show_notification": true
+}

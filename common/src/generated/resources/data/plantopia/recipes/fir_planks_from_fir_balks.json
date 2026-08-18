@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "building",
+    "group": "planks",
+    "ingredients": [
+        {
+            "tag": "plantopia:fir_balks"
+        }
+    ],
+    "result": {
+        "item": "plantopia:fir_planks"
+    }
+}
