@@ -49,7 +49,7 @@ public class PlantopiaColors {
     public static final int LILY_PAD_BLOCK_COLOR = hexToInt("#208030");
     public static final int LILY_PAD_ITEM_COLOR = hexToInt("#71C35C");
     public static final int WATERLILY_COLOR = hexToInt("#76B625");
-    public static final int DRY_FOLIAGE_COLOR = hexToInt("#9C8157");
+    public static final int DRY_FOLIAGE_COLOR = hexToInt("#a18962");
     public static final int PALE_DRY_FOLIAGE_COLOR = hexToInt("#A0A69C");
     public static final int PALE_FOLIAGE_COLOR = hexToInt("#8c927a");
 
