@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_east",
+    "textures": {
+        "texture": "plantopia:block/jacaranda_balk"
+    }
+}
