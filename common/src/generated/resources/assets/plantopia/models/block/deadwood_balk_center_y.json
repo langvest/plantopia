@@ -1,0 +1,6 @@
+{
+    "parent": "plantopia:block/balk_center_y",
+    "textures": {
+        "texture": "plantopia:block/deadwood_balk"
+    }
+}

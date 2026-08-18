@@ -1,0 +1,33 @@
+{
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+        "has_balks": {
+            "conditions": {
+                "items": [
+                    {
+                        "tag": "plantopia:deadwood_balks"
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        },
+        "has_the_recipe": {
+            "conditions": {
+                "recipe": "plantopia:deadwood_planks_from_deadwood_balks"
+            },
+            "trigger": "minecraft:recipe_unlocked"
+        }
+    },
+    "requirements": [
+        [
+            "has_the_recipe",
+            "has_balks"
+        ]
+    ],
+    "rewards": {
+        "recipes": [
+            "plantopia:deadwood_planks_from_deadwood_balks"
+        ]
+    },
+    "sends_telemetry_event": false
+}

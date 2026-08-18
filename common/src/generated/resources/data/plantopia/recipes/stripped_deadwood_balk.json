@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "balk",
+    "key": {
+        "#": {
+            "item": "plantopia:stripped_deadwood_log"
+        }
+    },
+    "pattern": [
+        "#",
+        "#"
+    ],
+    "result": {
+        "count": 6,
+        "item": "plantopia:stripped_deadwood_balk"
+    },
+    "show_notification": true
+}

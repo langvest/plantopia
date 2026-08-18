@@ -1,0 +1,40 @@
+{
+    "variants": {
+        "facing=down,persistent=false": {
+            "model": "plantopia:block/stripped_deadwood_stub_down"
+        },
+        "facing=down,persistent=true": {
+            "model": "plantopia:block/stripped_deadwood_stub_down"
+        },
+        "facing=east,persistent=false": {
+            "model": "plantopia:block/stripped_deadwood_stub_east"
+        },
+        "facing=east,persistent=true": {
+            "model": "plantopia:block/stripped_deadwood_stub_east"
+        },
+        "facing=north,persistent=false": {
+            "model": "plantopia:block/stripped_deadwood_stub_north"
+        },
+        "facing=north,persistent=true": {
+            "model": "plantopia:block/stripped_deadwood_stub_north"
+        },
+        "facing=south,persistent=false": {
+            "model": "plantopia:block/stripped_deadwood_stub_south"
+        },
+        "facing=south,persistent=true": {
+            "model": "plantopia:block/stripped_deadwood_stub_south"
+        },
+        "facing=up,persistent=false": {
+            "model": "plantopia:block/stripped_deadwood_stub_up"
+        },
+        "facing=up,persistent=true": {
+            "model": "plantopia:block/stripped_deadwood_stub_up"
+        },
+        "facing=west,persistent=false": {
+            "model": "plantopia:block/stripped_deadwood_stub_west"
+        },
+        "facing=west,persistent=true": {
+            "model": "plantopia:block/stripped_deadwood_stub_west"
+        }
+    }
+}
